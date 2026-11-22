@@ -120,6 +120,18 @@ msgstr "Deixe em branco quando o e-mail é hospedado (Microsoft 365, Google Work
 msgid "Add the domain"
 msgstr "Adicionar o domínio"
 
+msgid "DNS server used for DNSSEC (optional)"
+msgstr "Servidor DNS usado para DNSSEC (opcional)"
+
+msgid "By default, the DNS server of the GLPI server is asked. Some of them (inside Docker, for example) do not relay the DNSSEC records: DNSSEC then shows \"Unknown\". Enter the IP address of another DNS server of your organisation or of your provider to fix it."
+msgstr "Por padrão, o servidor DNS do servidor GLPI é consultado. Alguns (dentro do Docker, por exemplo) não repassam os registros DNSSEC: o DNSSEC mostra então \"Desconhecido\". Informe o endereço IP de outro servidor DNS da sua organização ou do seu provedor para corrigir."
+
+msgid "IP address of the DNS server"
+msgstr "Endereço IP do servidor DNS"
+
+msgid "DNS server of the GLPI server"
+msgstr "Servidor DNS do servidor GLPI"
+
 msgid "The protections in a few words"
 msgstr "As proteções em poucas palavras"
 
@@ -154,6 +166,12 @@ msgid "%d domain checked."
 msgid_plural "%d domains checked."
 msgstr[0] "%d domínio verificado."
 msgstr[1] "%d domínios verificados."
+
+msgid "Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or leave empty."
+msgstr "Não salvo: informe o endereço IP de um servidor DNS, por exemplo 192.0.2.53, ou deixe em branco."
+
+msgid "DNS server saved."
+msgstr "Servidor DNS salvo."
 
 msgid "Shows whether the e-mail domains of the organisation are protected against spoofing and phishing: who may send e-mails in their name (SPF), signature of the e-mails (DKIM), what receiving servers do with fake e-mails (DMARC), encryption between mail servers (MTA-STS, TLS-RPT), signature of the DNS (DNSSEC), and the expiry of the domains and of the certificate of the mail servers."
 msgstr "Mostra se os domínios de e-mail da organização estão protegidos contra falsificação e phishing: quem pode enviar e-mails em seu nome (SPF), assinatura dos e-mails (DKIM), o que os servidores destinatários fazem com e-mails falsos (DMARC), criptografia entre servidores de e-mail (MTA-STS, TLS-RPT), assinatura do DNS (DNSSEC) e o vencimento dos domínios e do certificado dos servidores de e-mail."
@@ -266,11 +284,11 @@ msgstr "O domínio não está assinado com DNSSEC: suas respostas DNS podem ser 
 msgid "Enable DNSSEC with your registrar or DNS host."
 msgstr "Ative o DNSSEC com seu registrador ou provedor DNS."
 
-msgid "DNSSEC could not be checked (no answer from the DNS server)."
-msgstr "Não foi possível verificar o DNSSEC (sem resposta do servidor DNS)."
+msgid "DNSSEC could not be checked: the DNS server did not answer or does not relay DNSSEC records."
+msgstr "Não foi possível verificar o DNSSEC: o servidor DNS não respondeu ou não repassa os registros DNSSEC."
 
-msgid "Check the domain again later."
-msgstr "Verifique o domínio novamente mais tarde."
+msgid "Check the domain again later, or choose another DNS server at the bottom of the page."
+msgstr "Verifique o domínio novamente mais tarde, ou escolha outro servidor DNS no fim da página."
 
 msgid "No MTA-STS: encryption between mail servers is not required."
 msgstr "Sem MTA-STS: a criptografia entre servidores de e-mail não é exigida."

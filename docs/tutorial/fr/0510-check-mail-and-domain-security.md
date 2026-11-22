@@ -22,3 +22,8 @@ serveur de messagerie. Tant qu'aucun domaine n'est saisi, il ne fait aucune requ
    modifie rien.
 4. Les fiches des mesures **A.5.14** et **A.8.21** reprennent la synthèse en preuve ; la source de
    KRI **Domaines de messagerie sans politique DMARC appliquée (%)** permet de suivre la progression.
+
+Si la colonne DNSSEC reste « Inconnu », le serveur DNS du serveur GLPI ne relaie pas les
+enregistrements DNSSEC (c'est le cas dans Docker) : saisissez l'adresse IP d'un autre serveur DNS de
+l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC**, puis vérifiez de
+nouveau.

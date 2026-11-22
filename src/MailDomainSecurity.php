@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use Config;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Install\MailDomainTables;
 use GlpiPlugin\Grcmanager\Services\MailDomain\DnsReader;
@@ -56,6 +57,9 @@ class MailDomainSecurity extends CommonGLPI
 
     /** Domaines listés au plus. */
     public const MAX_ROWS = 300;
+
+    /** Serveur DNS choisi pour la question DNSSEC (adresse IP), vide pour celui du système. */
+    public const DNS_SERVER_KEY = 'mail_domain_dns_server';
 
     public static function getTypeName($nb = 0)
     {
@@ -200,8 +204,14 @@ class MailDomainSecurity extends CommonGLPI
                 'advice' => __('Enable DNSSEC with your registrar or DNS host.', 'grcmanager'),
             ],
             'dnssec_unknown' => [
-                'label'  => __('DNSSEC could not be checked (no answer from the DNS server).', 'grcmanager'),
-                'advice' => __('Check the domain again later.', 'grcmanager'),
+                'label'  => __(
+                    'DNSSEC could not be checked: the DNS server did not answer or does not relay DNSSEC records.',
+                    'grcmanager'
+                ),
+                'advice' => __(
+                    'Check the domain again later, or choose another DNS server at the bottom of the page.',
+                    'grcmanager'
+                ),
             ],
             'mta_sts_missing' => [
                 'label'  => __('No MTA-STS: encryption between mail servers is not required.', 'grcmanager'),
@@ -280,6 +290,41 @@ class MailDomainSecurity extends CommonGLPI
             'not_found' => __('Domain not found.', 'grcmanager'),
             default     => __('You do not have the right to change the domains.', 'grcmanager'),
         };
+    }
+
+    // ------------------------------------------------------------------ Réglage.
+
+    /**
+     * Serveur DNS choisi pour la question DNSSEC, vide pour celui du système.
+     */
+    public static function dnsServer(): string
+    {
+        $values = Config::getConfigurationValues(AuditTeam::CONFIG_CONTEXT, [self::DNS_SERVER_KEY]);
+        $server = trim((string) ($values[self::DNS_SERVER_KEY] ?? ''));
+
+        return filter_var($server, FILTER_VALIDATE_IP) !== false ? $server : '';
+    }
+
+    /**
+     * Enregistre le serveur DNS (adresse IP, ou vide). Null si la saisie n'est pas une adresse IP.
+     */
+    public static function setDnsServer(string $server): ?string
+    {
+        if (!self::canManage()) {
+            return null;
+        }
+        $server = trim($server);
+        if ($server !== '' && filter_var($server, FILTER_VALIDATE_IP) === false) {
+            return null;
+        }
+        if ($server !== self::dnsServer()) {
+            Config::setConfigurationValues(AuditTeam::CONFIG_CONTEXT, [self::DNS_SERVER_KEY => $server]);
+            AuditLog::record('config_change', 'Config', 0, 0, 'success', [
+                'changes' => [self::DNS_SERVER_KEY => $server],
+            ]);
+        }
+
+        return $server;
     }
 
     // ------------------------------------------------------------------ Domaines.
@@ -496,7 +541,7 @@ class MailDomainSecurity extends CommonGLPI
      */
     public static function read(string $name, array $selectors, ?DnsReader $reader = null): array
     {
-        $reader ??= new SystemDnsReader();
+        $reader ??= new SystemDnsReader(self::dnsServer());
         if (!$reader->exists($name)) {
             return Rules::analyse([
                 'resolved' => false, 'mx' => [], 'txt' => [], 'dmarc' => [], 'mta_sts' => [], 'tls_rpt' => [],
@@ -726,6 +771,7 @@ class MailDomainSecurity extends CommonGLPI
             'severities' => self::severityInfos(),
             'alert_days' => Rules::ALERT_DAYS,
             'max_check'  => self::MAX_CHECK_ALL,
+            'dns_server' => self::dnsServer(),
         ];
     }
 

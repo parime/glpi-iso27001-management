@@ -20,3 +20,7 @@ no query.
    are made with your DNS host: the plugin changes nothing.
 4. The forms of controls **A.5.14** and **A.8.21** show the summary as evidence; the KRI source
    **Mail domains without an enforced DMARC policy (%)** lets you follow the progress.
+
+If the DNSSEC column stays "Unknown", the DNS server of the GLPI server does not relay the DNSSEC
+records (this is the case inside Docker): enter the IP address of another DNS server of the
+organisation or of the provider in the **DNS server used for DNSSEC** frame, then check again.

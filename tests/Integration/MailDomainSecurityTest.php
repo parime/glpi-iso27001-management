@@ -221,6 +221,16 @@ final class MailDomainSecurityTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testDnsServerSetting(): void
+    {
+        $this->assertNull(MailDomainSecurity::setDnsServer('dns.example.org'), 'adresse IP seulement');
+        $this->assertSame('192.0.2.53', MailDomainSecurity::setDnsServer(' 192.0.2.53 '));
+        $this->assertSame('192.0.2.53', MailDomainSecurity::dnsServer());
+        $this->assertSame('2001:db8::53', MailDomainSecurity::setDnsServer('2001:db8::53'));
+        $this->assertSame('', MailDomainSecurity::setDnsServer(''));
+        $this->assertSame('', MailDomainSecurity::dnsServer());
+    }
+
     public function testFeatureIsRegistered(): void
     {
         $this->assertArrayHasKey('maildomainsecurity', MailDomainSecurityFeature::pageHelp());

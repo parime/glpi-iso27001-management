@@ -21,16 +21,25 @@ namespace GlpiPlugin\Grcmanager\Services\MailDomain;
 
 /**
  * Issue #855 : lecture DNS par le résolveur du serveur GLPI (fonction dns_get_record de PHP), et
- * question DS envoyée au premier serveur DNS du système (/etc/resolv.conf) pour DNSSEC. Rien d'autre
- * que des serveurs DNS n'est interrogé.
+ * question DS envoyée pour DNSSEC au serveur DNS choisi dans le module, sinon au premier serveur DNS
+ * du système (/etc/resolv.conf). Rien d'autre que des serveurs DNS n'est interrogé.
+ *
+ * Certains résolveurs (celui de Docker, par exemple) répondent sans relayer les enregistrements DS :
+ * la zone de premier niveau du domaine est donc demandée d'abord, et sans DS pour elle, la réponse
+ * reste inconnue plutôt que « non signé ».
  */
 final class SystemDnsReader implements DnsReader
 {
     /** Délai d'attente de la question DS (secondes). */
     private const TIMEOUT = 3;
 
-    public function __construct(private readonly string $resolvConf = '/etc/resolv.conf')
-    {
+    /** @var array<string, ?bool> zones de premier niveau déjà demandées */
+    private array $tlds = [];
+
+    public function __construct(
+        private readonly string $server = '',
+        private readonly string $resolvConf = '/etc/resolv.conf'
+    ) {
     }
 
     public function txt(string $name): array
@@ -76,6 +85,21 @@ final class SystemDnsReader implements DnsReader
 
     public function hasDs(string $name): ?bool
     {
+        $tld = substr((string) strrchr('.' . trim($name, '.'), '.'), 1);
+        if ($tld !== '' && $tld !== trim($name, '.')) {
+            if (!array_key_exists($tld, $this->tlds)) {
+                $this->tlds[$tld] = $this->ds($tld);
+            }
+            if ($this->tlds[$tld] !== true) {
+                return null;
+            }
+        }
+
+        return $this->ds($name);
+    }
+
+    private function ds(string $name): ?bool
+    {
         $server = $this->resolver();
         if ($server === null) {
             return null;
@@ -115,10 +139,13 @@ final class SystemDnsReader implements DnsReader
     }
 
     /**
-     * Premier serveur DNS déclaré par le système.
+     * Serveur DNS choisi dans le module, sinon le premier déclaré par le système.
      */
     private function resolver(): ?string
     {
+        if (filter_var($this->server, FILTER_VALIDATE_IP) !== false) {
+            return str_contains($this->server, ':') ? '[' . $this->server . ']' : $this->server;
+        }
         if (!is_readable($this->resolvConf)) {
             return null;
         }
