@@ -1,0 +1,349 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #842 : services exposés lus dans Uptime Kuma (A.8.16, A.5.30, A.8.24), actifs des entités de la
+   personne. Lecture seule : rien n'est modifié dans Uptime Kuma ; la clé d'API n'est jamais réaffichée. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% macro stat_card(id, icon, color, value, title, help) %}
+   <div class="col-sm-6 col-lg"><div class="card card-sm h-100"><div class="card-body">
+      <div class="d-flex align-items-center">
+         <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis me-2 fs-3"><i class="{{ icon }}"></i></span>
+         <div>
+            <div class="fw-bold fs-3" id="{{ id }}">{{ value }}</div>
+            <div class="small">{{ title }}</div>
+         </div>
+      </div>
+      {% if help %}<div class="small text-muted mt-1">{{ help }}</div>{% endif %}
+   </div></div></div>
+{% endmacro %}
+{% macro status_badge(statuses, status) %}
+   {% set info = statuses[status] %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+{% endmacro %}
+{% macro cert_badge(cert_infos, monitor) %}
+   {% set info = cert_infos[monitor.cert_status] %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+{% endmacro %}
+
+<div id="grc-kuma">
+   {% set av = summary.availability %}
+   {% set av_color = av is null ? 'secondary' : (av >= 99.9 ? 'success' : (av >= 99 ? 'warning' : 'danger')) %}
+   <div class="row row-cards mb-3">
+      {{ _self.stat_card('grc-kuma-availability', 'ti ti-world-check', av_color, av is null ? '-' : av|number_format(2) ~ ' %', __('Availability of the exposed services', 'grcmanager'), __('%1$d monitor(s), over %2$d days', 'grcmanager')|format(summary.monitors, summary.period_days)) }}
+      {{ _self.stat_card('grc-kuma-down', 'ti ti-circle-x', summary.down_now > 0 ? 'danger' : 'success', summary.down_now, __('Services down now', 'grcmanager'), __('including %d critical', 'grcmanager')|format(summary.down_critical)) }}
+      {{ _self.stat_card('grc-kuma-certs', 'ti ti-certificate', summary.certs_action > 0 ? 'warning' : (summary.certs_total > 0 ? 'success' : 'secondary'), summary.certs_action, __('TLS certificates to renew', 'grcmanager'), __('Expired, not valid or expiring within %d days', 'grcmanager')|format(summary.cert_days)) }}
+      {{ _self.stat_card('grc-kuma-exposed', 'ti ti-world-off', summary.exposed_without > 0 ? 'danger' : 'success', summary.exposed_without, __('Exposed assets without a monitor', 'grcmanager'), __('Published on the Internet (network flow matrix)', 'grcmanager')) }}
+      {{ _self.stat_card('grc-kuma-rto', 'ti ti-clock-exclamation', summary.rto_gaps > 0 ? 'danger' : 'success', summary.rto_gaps, __('Outages longer than the RTO', 'grcmanager'), __('Recovery time objective of the business processes', 'grcmanager')) }}
+   </div>
+
+   {% if not readings %}
+      <div class="alert alert-info d-flex align-items-start gap-2 mb-3" id="grc-kuma-empty">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>{{ __('Nothing has been read from Uptime Kuma yet: enter the connection below, then click "Read now".', 'grcmanager') }}</div>
+      </div>
+   {% elseif last_read.error_label %}
+      <div class="alert alert-warning d-flex align-items-start gap-2 mb-3">
+         <i class="ti ti-alert-triangle fs-2"></i>
+         <div>{{ __('The last reading failed: the page shows the previous successful reading.', 'grcmanager') }} {{ last_read.error_label }}</div>
+      </div>
+   {% endif %}
+
+   {# Sondes : en panne d'abord, critiques en tête. #}
+   <div class="card mb-3" id="grc-kuma-monitors">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-heart-rate-monitor me-2"></i>{{ __('Monitored services', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_monitors }}</span></div>
+      </div>
+      <div class="card-body small pb-0 text-muted">{{ __('Each monitor of Uptime Kuma is matched with a GLPI asset (computer, network device or appliance) by the monitored host name or by its name. The availability is computed from the status readings of the last %1$d days (each reading of GLPI, and the history of the status pages). An outage of %2$d minutes or more can be turned into a security incident: it is only created when you click.', 'grcmanager')|format(summary.period_days, summary.outage_minutes) }}</div>
+      {% if monitors is empty %}
+         <div class="card-body text-muted">{{ __('No monitor read in your entities.', 'grcmanager') }}</div>
+      {% else %}
+         {% if total_monitors > monitors|length %}
+            <div class="card-body small pb-0">{{ __('%1$d monitors: the first %2$d are shown, services down first.', 'grcmanager')|format(total_monitors, monitors|length) }}</div>
+         {% endif %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Service', 'grcmanager') }}</th>
+                  <th>{{ __('Status', 'grcmanager') }}</th>
+                  <th>{{ __('Availability', 'grcmanager') }}</th>
+                  <th>{{ __('Response time', 'grcmanager') }}</th>
+                  <th>{{ __('GLPI asset', 'grcmanager') }}</th>
+                  <th>{{ __('Longest outage and RTO', 'grcmanager') }}</th>
+                  <th>{{ __('Follow-up', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for monitor in monitors %}
+                  <tr>
+                     <td>
+                        <span class="fw-bold">{{ monitor.name }}</span>
+                        <div class="small text-muted text-break">{{ monitor.url ?: monitor.host }}</div>
+                        {% if monitor.type %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ monitor.type }}</span>{% endif %}
+                        {% if monitor.critical %}<span class="badge bg-red-subtle text-red-emphasis me-1"><i class="ti ti-flame me-1"></i>{{ __('Critical', 'grcmanager') }}</span>{% endif %}
+                        {% if monitor.exposed %}<span class="badge bg-purple-subtle text-purple-emphasis me-1"><i class="ti ti-world me-1"></i>{{ __('Published on the Internet', 'grcmanager') }}</span>{% endif %}
+                     </td>
+                     <td>
+                        {{ _self.status_badge(statuses, monitor.status) }}
+                        {% if monitor.down_since_label %}<div class="small text-danger mt-1">{{ __('Down since %s', 'grcmanager')|format(monitor.down_since_label) }}</div>{% endif %}
+                     </td>
+                     <td>
+                        {% if monitor.availability is null %}
+                           <span class="text-muted">-</span>
+                        {% else %}
+                           {% set m_color = monitor.availability >= 99.9 ? 'success' : (monitor.availability >= 99 ? 'warning' : 'danger') %}
+                           <span class="badge bg-{{ m_color }}-subtle text-{{ m_color }}-emphasis">{{ monitor.availability|number_format(2) }} %</span>
+                        {% endif %}
+                        {% if monitor.uptime_24h is not null %}<div class="small text-muted mt-1">{{ __('24 hours (Uptime Kuma): %s %%', 'grcmanager')|format(monitor.uptime_24h|number_format(2)) }}</div>{% endif %}
+                     </td>
+                     <td class="small">
+                        {{ monitor.avg_response is null ? '-' : __('%d ms on average', 'grcmanager')|format(monitor.avg_response) }}
+                     </td>
+                     <td>
+                        {% if monitor.asset_url %}
+                           <a href="{{ monitor.asset_url }}">{{ monitor.asset_name }}</a>
+                           <div class="small text-muted">{{ monitor.asset_type }}{% if monitor.entity %} · {{ monitor.entity }}{% endif %}</div>
+                        {% else %}
+                           <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-help-hexagon me-1"></i>{{ __('No asset found', 'grcmanager') }}</span>
+                        {% endif %}
+                     </td>
+                     <td class="small">
+                        {{ monitor.longest_label ?: '-' }}
+                        {% for process in monitor.processes %}
+                           <div>
+                              <a href="{{ process.url }}">{{ process.name }}</a>
+                              {% if process.rto %}<span class="text-muted">· RTO {{ process.rto }}</span>{% endif %}
+                              {% if process.criticity %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ process.criticity }}</span>{% endif %}
+                              {% if process.exceeded %}<span class="badge bg-danger-subtle text-danger-emphasis ms-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Outage longer than the RTO', 'grcmanager') }}</span>{% endif %}
+                           </div>
+                        {% endfor %}
+                        {% if can_manage and process_choices is not empty %}
+                           <form method="post" action="{{ action }}" class="d-flex gap-1 mt-1">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="uptimekuma_monitor" value="{{ monitor.id }}">
+                              <select class="form-select form-select-sm" name="uptimekuma_process" aria-label="{{ __('Business process', 'grcmanager') }}" title="{{ __('Business process that depends on this service', 'grcmanager') }}">
+                                 <option value="0">-----</option>
+                                 {% for id, name in process_choices %}
+                                    <option value="{{ id }}" {{ id == monitor.process_id ? 'selected' }}>{{ name }}</option>
+                                 {% endfor %}
+                              </select>
+                              <button type="submit" class="btn btn-sm btn-outline-primary" name="link_uptimekuma_process" value="1" title="{{ __('Save', 'grcmanager') }}"><i class="ti ti-device-floppy"></i></button>
+                           </form>
+                        {% endif %}
+                     </td>
+                     <td>
+                        {% if monitor.incident_url %}
+                           <a class="badge bg-purple-subtle text-purple-emphasis me-1 mb-1" href="{{ monitor.incident_url }}"><i class="ti ti-shield-exclamation me-1"></i>{{ __('Security incident', 'grcmanager') }}</a>
+                           {% if monitor.crisis_url %}<a class="badge bg-blue-subtle text-blue-emphasis me-1 mb-1" href="{{ monitor.crisis_url }}"><i class="ti ti-speakerphone me-1"></i>{{ __('Announce to the users', 'grcmanager') }}</a>{% endif %}
+                        {% endif %}
+                        {% if monitor.can_propose and can_incident %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <button type="submit" class="btn btn-sm btn-outline-danger mb-1" name="uptimekuma_incident" value="{{ monitor.id }}"><i class="ti ti-shield-plus me-1"></i>{{ __('Propose as security incident', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                        {% if not monitor.incident_url and not (monitor.can_propose and can_incident) %}<span class="text-muted">-</span>{% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Certificats TLS : expirés et proches de l'échéance d'abord. #}
+   <div class="card mb-3" id="grc-kuma-certificates">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-certificate me-2"></i>{{ __('TLS certificates', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ certificates|length }}</span></div>
+      </div>
+      <div class="card-body small pb-0 text-muted">{{ __('Expiry dates read by Uptime Kuma on the HTTPS monitors. A certificate is flagged %d days before it expires; GLPI never renews a certificate. To be warned, create a risk indicator "TLS certificates to renew (Uptime Kuma)" with an alert threshold.', 'grcmanager')|format(summary.cert_days) }} <a href="{{ kri_url }}">{{ __('Risk indicators', 'grcmanager') }}</a></div>
+      {% if certificates is empty %}
+         <div class="card-body text-muted">{{ __('No certificate read: certificates are read on the HTTPS monitors, and on a status page only when "Show Certificate Expiry" is enabled on it.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr><th>{{ __('Service', 'grcmanager') }}</th><th>{{ __('Certificate', 'grcmanager') }}</th><th>{{ __('Days remaining', 'grcmanager') }}</th><th>{{ __('Expires around', 'grcmanager') }}</th><th>{{ __('GLPI asset', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+               {% for monitor in certificates %}
+                  <tr>
+                     <td>{{ monitor.name }}<div class="small text-muted text-break">{{ monitor.url ?: monitor.host }}</div></td>
+                     <td>{{ _self.cert_badge(cert_infos, monitor) }}</td>
+                     <td>{{ monitor.cert_days is null ? '-' : monitor.cert_days }}</td>
+                     <td class="small">{{ monitor.cert_expiry_label ?: '-' }}</td>
+                     <td>{% if monitor.asset_url %}<a href="{{ monitor.asset_url }}">{{ monitor.asset_name }}</a>{% else %}<span class="text-muted">-</span>{% endif %}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Actifs publiés sur Internet sans sonde. #}
+   <div class="card mb-3" id="grc-kuma-exposed">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-world-off me-2"></i>{{ __('Assets published on the Internet without a monitor', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_exposed }}</span></div>
+      </div>
+      <div class="card-body small pb-0 text-muted">{{ __('Assets that receive an "Internet publication" flow in the network flow matrix, but that no Uptime Kuma monitor watches: an outage would only be noticed by the users.', 'grcmanager') }} <a href="{{ flows_url }}">{{ __('Network flow matrix', 'grcmanager') }}</a></div>
+      {% if exposed is empty %}
+         <div class="card-body text-muted">{{ __('Every asset published on the Internet has a monitor.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr><th>{{ __('Asset', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Entity', 'grcmanager') }}</th></tr></thead>
+               <tbody>
+               {% for asset in exposed %}
+                  <tr>
+                     <td><a href="{{ asset.url }}">{{ asset.name }}</a> <span class="badge bg-danger-subtle text-danger-emphasis ms-1"><i class="ti ti-eye-off me-1"></i>{{ __('Not monitored', 'grcmanager') }}</span></td>
+                     <td class="small">{{ asset.type }}</td>
+                     <td class="small text-muted">{{ asset.entity }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Connexion au serveur Uptime Kuma (lecture seule). #}
+   <div class="card mb-3" id="grc-kuma-connection">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-plug-connected me-2"></i>{{ __('Connection to Uptime Kuma (read only)', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            {% if connection.configured %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Configured', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-plug-x me-1"></i>{{ __('Not configured', 'grcmanager') }}</span>
+            {% endif %}
+         </div>
+      </div>
+      <div class="card-body">
+         <p class="small mb-2">
+            {% if last_read.date_label %}
+               <span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-clock me-1"></i>{{ __('Last reading: %s', 'grcmanager')|format(last_read.date_label) }}</span>
+               {{ __('%1$d monitor(s), %2$d status page(s).', 'grcmanager')|format(last_read.monitors, last_read.pages) }}
+               {% if last_read.truncated %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ __('Only the first monitors were read', 'grcmanager') }}</span>{% endif %}
+            {% else %}
+               {{ __('No reading yet.', 'grcmanager') }}
+            {% endif %}
+            {% if last_read.error_label %}<span class="d-block text-danger mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ last_read.error_label }}</span>{% endif %}
+         </p>
+         <p class="small text-muted mb-1">{{ __('How to prepare Uptime Kuma (one of the two, or both):', 'grcmanager') }}</p>
+         <ol class="small text-muted">
+            <li>{{ __('Settings > API Keys: create a key (it only gives access to the /metrics page, in read only) and copy it here. All the monitors are then read, with their certificates.', 'grcmanager') }}</li>
+            <li>{{ __('Or list public status pages: their identifier is the end of their address (for example "customers" for https://status.example.test/status/customers). Only the monitors shown on these pages are read, with their recent history.', 'grcmanager') }}</li>
+         </ol>
+         {% if not connection.allow_private %}
+            <div class="alert alert-info small py-2">
+               <i class="ti ti-info-circle me-1"></i>{{ __('An Uptime Kuma server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration.', 'grcmanager') }}
+               <a href="{{ config_url }}">{{ __('Outgoing connections', 'grcmanager') }}</a>
+            </div>
+         {% endif %}
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-kuma-url">{{ __('Address of Uptime Kuma', 'grcmanager') }}</label>
+                  <input type="url" class="form-control" id="grc-kuma-url" name="uptimekuma_url" value="{{ connection.url }}" maxlength="255" placeholder="https://status.example.test" autocomplete="off">
+               </div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-kuma-key">{{ __('API key', 'grcmanager') }}</label>
+                  <input type="password" class="form-control" id="grc-kuma-key" name="uptimekuma_api_key" value="" autocomplete="new-password" placeholder="{{ connection.has_key ? __('Key saved (leave empty to keep it)', 'grcmanager') : '' }}">
+               </div>
+               <div class="col-12 form-hint">
+                  {% if connection.has_key %}<span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-lock me-1"></i>{{ __('Key saved', 'grcmanager') }}</span>{% endif %}
+                  {{ __('The key is encrypted with the GLPI key, never displayed again nor logged. Only the address of this server is called, and only to read.', 'grcmanager') }}
+                  {% if connection.has_key %}
+                     <span class="form-check form-check-inline ms-2">
+                        <input type="checkbox" class="form-check-input" id="grc-kuma-clear" name="uptimekuma_clear_key" value="1">
+                        <label class="form-check-label" for="grc-kuma-clear">{{ __('Delete the saved key', 'grcmanager') }}</label>
+                     </span>
+                  {% endif %}
+               </div>
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-kuma-pages">{{ __('Public status pages (optional)', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-kuma-pages" name="uptimekuma_status_pages" value="{{ connection.pages }}" maxlength="1000" placeholder="customers, intranet" autocomplete="off">
+                  <div class="form-hint">{{ __('Identifiers separated by commas.', 'grcmanager') }}</div>
+               </div>
+               <div class="col-md-6">
+                  {{ fields.dropdownField('Entity', 'uptimekuma_entities_id', connection.entity, __('Entity of the readings', 'grcmanager'), {
+                     'helper': __('The readings are visible in this entity and its sub-entities; monitors not matched with an asset are only listed in this entity.', 'grcmanager'),
+                     'full_width': true,
+                  }) }}
+               </div>
+               <div class="col-12">
+                  <div class="form-check form-switch">
+                     <input type="checkbox" class="form-check-input" role="switch" id="grc-kuma-enabled" name="uptimekuma_enabled" value="1" {{ connection.enabled ? 'checked' }}>
+                     <label class="form-check-label" for="grc-kuma-enabled">{{ __('Read automatically every hour (automatic action "uptimekuma"): the availability is more precise with regular readings', 'grcmanager') }}</label>
+                  </div>
+               </div>
+               <div class="col-12 d-flex flex-wrap gap-2">
+                  <button type="submit" class="btn btn-outline-primary" name="save_uptimekuma" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                  {% if connection.configured %}
+                     <button type="submit" class="btn btn-primary" name="read_uptimekuma" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now', 'grcmanager') }}</button>
+                  {% endif %}
+                  {% if readings %}
+                     <button type="submit" class="btn btn-outline-danger ms-auto" name="clear_uptimekuma" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the readings', 'grcmanager') }}</button>
+                  {% endif %}
+               </div>
+            </form>
+         {% else %}
+            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data can set up this reading.', 'grcmanager') }}</p>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Période, seuil des certificats, panne longue. #}
+   <div class="card mb-3" id="grc-kuma-settings">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-adjustments me-2"></i>{{ __('Thresholds', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-kuma-period">{{ __('Period of the availability (days)', 'grcmanager') }}</label>
+                  <input type="number" class="form-control" id="grc-kuma-period" name="uptimekuma_period_days" value="{{ settings.period_days }}" min="1" max="90">
+               </div>
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-kuma-cert">{{ __('Warn before a certificate expires (days)', 'grcmanager') }}</label>
+                  <input type="number" class="form-control" id="grc-kuma-cert" name="uptimekuma_cert_days" value="{{ settings.cert_days }}" min="1" max="180">
+               </div>
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-kuma-outage">{{ __('Long outage, from (minutes)', 'grcmanager') }}</label>
+                  <input type="number" class="form-control" id="grc-kuma-outage" name="uptimekuma_outage_minutes" value="{{ settings.outage_minutes }}" min="1" max="1440">
+               </div>
+               <div class="col-md-3">
+                  <button type="submit" class="btn btn-primary" name="save_uptimekuma_settings" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+               </div>
+            </form>
+         {% else %}
+            <p class="small mb-0">
+               <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ __('%d days', 'grcmanager')|format(settings.period_days) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-certificate me-1"></i>{{ __('%d days', 'grcmanager')|format(settings.cert_days) }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-clock me-1"></i>{{ __('%d minutes', 'grcmanager')|format(settings.outage_minutes) }}</span>
+            </p>
+         {% endif %}
+      </div>
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto"><i class="ti ti-lock me-1"></i>{{ __('Read only: nothing is ever changed in Uptime Kuma from GLPI, and no certificate is renewed.', 'grcmanager') }}</span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ processes_url }}"><i class="ti ti-building-factory-2 me-1"></i>{{ __('Business processes', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ audit_url }}"><i class="ti ti-shield-check me-1"></i>{{ __('Technical security', 'grcmanager') }}</a>
+   </div>
+</div>

@@ -173,6 +173,8 @@ class Menu extends CommonGLPI
                 LogCoverage::class,
                 // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
                 ZabbixMonitoring::class,
+                // Issue #842 : services exposés et certificats TLS lus dans Uptime Kuma (A.8.16, A.5.30, A.8.24).
+                UptimeKumaMonitoring::class,
                 // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
                 ServerManagement::class,
                 // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30).
