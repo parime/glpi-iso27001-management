@@ -16,13 +16,13 @@
  */
 
 use GlpiPlugin\Grcmanager\Compat\Http;
+use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Cve\NvdConfig;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
-use GlpiPlugin\Grcmanager\Services\GithubVersionChecker;
 use GlpiPlugin\Grcmanager\IncidentSecurityGroup;
 use GlpiPlugin\Grcmanager\Services\Incident\CraReportingConfig;
 use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
@@ -705,152 +705,34 @@ if (isset($_POST['send_vulnerability_digest'])) {
     Html::back();
 }
 
-Html::header(
-    __('Configuration', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'tools',
-    \GlpiPlugin\Grcmanager\Risk::class
-);
+// Issue #1036 : les blocs ajoutés ensuite traitent eux-mêmes leur formulaire (ConfigBlock::handle()).
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ConfigTabs::handlePost();
+}
 
-\Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/config_form.html.twig', [
-    'risk_matrix'        => RiskMatrixConfig::load(),
-    // Issue #703 : catégorie NIS2 italienne des entités (registre ACN).
-    'acn_enabled'        => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled(),
-    'acn_entities'       => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled()
-        ? \GlpiPlugin\Grcmanager\AcnRequirement::configRows() : [],
-    'acn_categories'     => \GlpiPlugin\Grcmanager\AcnRequirement::getCategories(),
-    'acn_register_url'   => \GlpiPlugin\Grcmanager\AcnRequirement::getSearchURL(),
-    // Issue #599 : catégorie NIS2 des entités pour le ReCyF (registre ReCyF).
-    'recyf_enabled'      => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled(),
-    'recyf_entities'     => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled()
-        ? \GlpiPlugin\Grcmanager\RecyfRequirement::configRows() : [],
-    'recyf_categories'   => \GlpiPlugin\Grcmanager\RecyfRequirement::getCategories(),
-    'recyf_register_url' => \GlpiPlugin\Grcmanager\RecyfRequirement::getSearchURL(),
-    'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
-    'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
-    'risk_levels'        => \GlpiPlugin\Grcmanager\Risk::getRiskLevels(),
-    // Issue #706 : taille de la matrice, changée par l'écran de correspondance.
-    'risk_scale_size'    => RiskMatrixConfig::size(),
-    'risk_scale_sizes'   => \GlpiPlugin\Grcmanager\RiskScaleChange::sizeLabels(),
-    'risk_scale_url'     => \GlpiPlugin\Grcmanager\RiskScaleChange::getPageURL(),
-    // Issue #706, lot 2 : libellés personnalisés (vides : libellé par défaut, traduit).
-    'risk_scale_labels'           => RiskMatrixConfig::labels(),
-    'risk_default_probabilities'  => \GlpiPlugin\Grcmanager\Risk::getDefaultProbabilityLabels(),
-    'risk_default_impacts'        => \GlpiPlugin\Grcmanager\Risk::getDefaultImpactLabels(),
-    'risk_label_max_length'       => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::LABEL_MAX_LENGTH,
-    'csrf_token'         => Session::getNewCSRFToken(),
-    'installed_version'     => PLUGIN_GRCMANAGER_VERSION,
-    'latest_github_version' => GithubVersionChecker::getLatestGithubVersion(),
-    'securityincident_modules' => SecurityIncidentModuleConfig::load(),
-    'cra_reporting_enabled'    => CraReportingConfig::isEnabled(),
-    'security_group_rand'      => $securityGroupRand = mt_rand(),
-    'security_group_dropdown'  => Group::dropdown([
-        'name'    => 'security_groups_id',
-        'value'   => IncidentSecurityGroup::groupId(),
-        'entity'  => 0,
-        'entity_sons' => true,
-        'rand'    => $securityGroupRand,
-        'display' => false,
-        'width'   => '100%',
-    ]),
-    // Issue #658 : adresses internes pour les appels sortants (administrateurs de GLPI seulement).
-    'http_allow_private'        => Http::allowsPrivateNetworks(),
-    'http_can_edit_private'     => Session::haveRight('config', UPDATE),
-    'http_glpi12_context_hint'  => Http::glpi12ContextHint(),
-    'nvd_config'                => NvdConfig::load(),
-    // Issue #704 : fin de vie (endoflife.date).
-    'endoflife'                 => \GlpiPlugin\Grcmanager\EndOfLife::configData(),
-    // Issue #865, lot 2 : lien sécurisé de réponse du fournisseur.
-    'supplier_portal'           => \GlpiPlugin\Grcmanager\SupplierEvaluationLink::configData(),
-    // Issue #618 : décisions délégables à un suppléant pendant une absence.
-    'delegation'                => \GlpiPlugin\Grcmanager\Delegation::configData(),
-    // Issue #782, lot 2 : fin de vie constructeur saisie par modèle de matériel.
-    'hardware_eol'              => \GlpiPlugin\Grcmanager\HardwareWarranty::modelConfigData(),
-    'park_thresholds'           => \GlpiPlugin\Grcmanager\ParkVulnerability::getTicketThresholds(),
-    'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
-    'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),
-    'remediation_levels'        => \GlpiPlugin\Grcmanager\ParkRemediation::getLevelLabels(),
-    // Issue #887 : niveau ajusté au contexte des machines.
-    'remediation_context'       => \GlpiPlugin\Grcmanager\VulnerabilityContext::isEnabled(),
-    'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
-    'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
-    // Issue #656 : groupe Direction de l'appétence au risque.
-    'direction_groups_id'       => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
-    'risk_appetite_title'       => \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
-    'risk_appetite_url'         => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
-    'controltest_ciso_mode'     => \GlpiPlugin\Grcmanager\ControlTestReminder::cisoMode(),
-    'controltest_review'        => \GlpiPlugin\Grcmanager\ControlTest::isReviewEnabled(),
-    'controltest_ciso_modes'    => \GlpiPlugin\Grcmanager\ControlTestReminder::getCisoModes(),
-    'controltest_brand_color'   => \GlpiPlugin\Grcmanager\ControlTestReminder::brandColor(),
-    'controltest_cga_branding'  => \GlpiPlugin\Grcmanager\ControlTestReminder::isCgaActive(),
-    'consistency_rows'          => \GlpiPlugin\Grcmanager\ConsistencyCheck::getConfigRows(),
-    'consistency_levels'        => array_slice(\GlpiPlugin\Grcmanager\Risk::getRiskLevels(), 1, null, true),
-    'consistency_url'           => \GlpiPlugin\Grcmanager\ConsistencyCheck::getSearchURL(),
-    'kri_alert_level'           => \GlpiPlugin\Grcmanager\KriAlert::level(),
-    'kri_alert_levels'          => \GlpiPlugin\Grcmanager\KriAlert::getLevels(),
-    // Issue #664 : durée de vie des liens d'abonnement au calendrier.
-    'calendar_token_lifetime'   => \GlpiPlugin\Grcmanager\CalendarToken::lifetimeDays(),
-    // Issue #546 : fiche de conformité sécurité d'un collaborateur.
-    'personnel_compliance'      => \GlpiPlugin\Grcmanager\PersonnelCompliance::configData(),
-    // Issue #604, lot 2 : conservation des résultats individuels d'hameçonnage.
-    'phishing_retention'        => \GlpiPlugin\Grcmanager\PhishingCampaign::configData(),
-    'calendar_token_bounds'     => [
-        \GlpiPlugin\Grcmanager\CalendarToken::MIN_LIFETIME_DAYS,
-        \GlpiPlugin\Grcmanager\CalendarToken::MAX_LIFETIME_DAYS,
-    ],
-    'notifications_minimal'     => SensitiveNotification::isMinimal(),
-    'can_edit_sensitive'        => Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
-    'breach_enabled'            => BreachMonitorConfig::isEnabled(),
-    'breach_has_key'            => BreachMonitorConfig::hasApiKey(),
-    'breach_domains'            => implode(', ', BreachMonitorConfig::domains()),
-    // Issue #707 : connecteur SentinelOne (le jeton n'est jamais transmis, seulement sa présence).
-    'sentinelone'               => SentinelOneAlert::configData(),
-    'frameworks'                => FrameworkConfig::frameworks(),
-    'custom_frameworks_url'     => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
-    'frameworks_help'           => FrameworkConfig::helpTexts(),
-    'frameworks_enabled'        => FrameworkConfig::enabled(),
-    'dpo_contact'               => \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact(),
-    'can_edit_config'           => Session::haveRight(Installer::RIGHT_NAME, UPDATE),
-    // Issue #603 : libellés de l'échelle de maturité par mesure (vides : libellé par défaut, traduit).
-    'maturity_scale_custom'     => \GlpiPlugin\Grcmanager\MaturityCampaign::customScaleLabels(),
-    'maturity_scale_defaults'   => \GlpiPlugin\Grcmanager\MaturityCampaign::defaultScaleLabels(),
-    'maturity_label_max_length' => \GlpiPlugin\Grcmanager\Services\Maturity\MaturityGapRules::LABEL_MAX_LENGTH,
-    'maturity_campaigns_url'    => \GlpiPlugin\Grcmanager\MaturityCampaign::getSearchURL(),
-    // Issue #611 : approbation des politiques.
-    'policy_approval'           => [
-        'enabled'        => PolicyApprovalConfig::isEnabled(),
-        'quorum'         => PolicyApprovalConfig::defaultQuorum(),
-        'quorum_choices' => PolicyApprovalConfig::quorumChoices(false),
-    ],
-    // Issue #775 : domaines attendus des procédures d'exploitation (A.5.37).
-    'operating_procedures'      => \GlpiPlugin\Grcmanager\OperatingProcedure::configForm(),
-    // Issue #733 : types des exercices de reprise.
-    'recovery_exercise_types'   => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::typesConfigForm(),
-    'policy_approval_user_dropdown' => User::dropdown([
-        'name'     => 'policy_approval_users[]',
-        'value'    => array_column(array_filter(
-            PolicyApprovalConfig::defaultApprovers(),
-            static fn (array $a): bool => $a['itemtype'] === User::class
-        ), 'items_id'),
-        'multiple' => true,
-        'right'    => 'all',
-        'width'    => '100%',
-        'display'  => false,
-        'rand'     => mt_rand(),
-    ]),
-    'policy_approval_group_dropdown' => Group::dropdown([
-        'name'        => 'policy_approval_groups[]',
-        'values'      => array_column(array_filter(
-            PolicyApprovalConfig::defaultApprovers(),
-            static fn (array $a): bool => $a['itemtype'] === Group::class
-        ), 'items_id'),
-        'multiple'    => true,
-        'entity'      => 0,
-        'entity_sons' => true,
-        'width'       => '100%',
-        'display'     => false,
-        'rand'        => mt_rand(),
-    ]),
-]);
+// Issue #1036 : page en onglets, rangée sous Configuration > Plugins. L'onglet ouvert est dans
+// l'adresse (?tab=<clé>) ; seuls les blocs de cet onglet sont calculés et affichés.
+$tab = ConfigTabs::current($_GET['tab'] ?? null);
+if ($tab === '') {
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
+}
+
+$page = ConfigTabs::pageData($tab);
+Html::header(
+    __('Configuration', 'grcmanager') . ' - ' . $page['current_label'],
+    $_SERVER['PHP_SELF'],
+    'config',
+    'plugin'
+);
+\GlpiPlugin\Grcmanager\PageHelp::show('config');
+
+\Glpi\Application\View\TemplateRenderer::getInstance()->display(
+    '@grcmanager/config_form.html.twig',
+    $page + [
+        'csrf_token'         => Session::getNewCSRFToken(),
+        'can_edit_config'    => (bool) Session::haveRight(Installer::RIGHT_NAME, UPDATE),
+        'can_edit_sensitive' => (bool) Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
+    ]
+);
 
 Html::footer();

@@ -90,9 +90,8 @@ class HardwareWarranty extends CommonGLPI
      */
     public static function getConfigURL(bool $full = true): string
     {
-        global $CFG_GLPI;
-
-        return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/config.php#grc-hardware-eol-config';
+        // Issue #1036 : onglet de la configuration qui porte ce bloc.
+        return \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-hardware-eol-config', $full);
     }
 
     /**

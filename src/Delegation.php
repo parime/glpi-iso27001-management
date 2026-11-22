@@ -272,9 +272,8 @@ class Delegation extends DelegationBase
 
     public static function configURL(): string
     {
-        global $CFG_GLPI;
-
-        return $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-delegation-config';
+        // Issue #1036 : onglet de la configuration qui porte ce bloc.
+        return \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-delegation-config');
     }
 
     /** Réglage global (toutes les entités) : droit de modifier le plugin et la configuration GLPI. */
@@ -285,7 +284,7 @@ class Delegation extends DelegationBase
     }
 
     /**
-     * Données de l'encadré de la configuration (templates/delegation_config.html.twig).
+     * Données de l'encadré de la configuration (templates/config/blocks/_delegation.html.twig).
      *
      * @return array<string, mixed>
      */

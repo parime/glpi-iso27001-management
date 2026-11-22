@@ -1,0 +1,71 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : interrupteurs
+   module/CVE/modèles/tableau de bord, un par fonctionnalité plutôt qu'un seul bouton global
+   (voir front/config.php, SecurityIncidentModuleConfig). Le sous-module technique
+   (registre parent : securityincident_enabled) désactive aussi ses sous-modules à l'affichage,
+   même si leur propre case reste cochée en base - évite de présenter des cases actives sans
+   effet visible. #}
+<div class="card mb-3" id="grc-securityincident-config">
+  <div class="card-body">
+    <h4>{{ __('Security incidents', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Enables or disables each part of the security incident management module (dedicated ITIL object, visible in the Assistance menu).', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="securityincident_enabled" name="securityincident_enabled" {{ securityincident_modules.securityincident_enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="securityincident_enabled">{{ __('Security incidents module (Assistance menu)', 'grcmanager') }}</label>
+      </div>
+
+      <div class="ms-4">
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_cve_enabled" name="securityincident_cve_enabled" {{ securityincident_modules.securityincident_cve_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_cve_enabled">{{ __('CVE tracking', 'grcmanager') }}</label>
+        </div>
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_templates_enabled" name="securityincident_templates_enabled" {{ securityincident_modules.securityincident_templates_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_templates_enabled">{{ __('Incident templates', 'grcmanager') }}</label>
+        </div>
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="securityincident_dashboard_enabled" name="securityincident_dashboard_enabled" {{ securityincident_modules.securityincident_dashboard_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="securityincident_dashboard_enabled">{{ __('Dashboard cards', 'grcmanager') }}</label>
+        </div>
+        {# Issue #600 : signalement CRA (fabricants), désactivé par défaut. Les délais DORA suivent le référentiel DORA. #}
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="cra_reporting_enabled" name="cra_reporting_enabled" {{ cra_reporting_enabled ? 'checked' : '' }}>
+          <label class="form-check-label" for="cra_reporting_enabled"><i class="ti ti-package me-1"></i>{{ __('CRA reporting (manufacturers of products with digital elements)', 'grcmanager') }}</label>
+          <div class="form-hint">{{ __('Adds to security incidents the reporting deadlines of the Cyber Resilience Act (Regulation (EU) 2024/2847, article 14): actively exploited vulnerability or severe incident affecting a product you place on the market. The DORA deadlines appear when the DORA framework is enabled.', 'grcmanager') }}</div>
+        </div>
+      </div>
+
+      {# Issue #371 : groupe sécurité optionnel. #}
+      <div class="mt-3" style="max-width: 32rem">
+        <label class="form-label" for="dropdown_security_groups_id{{ security_group_rand }}">{{ __('Security group (optional)', 'grcmanager') }}</label>
+        {{ security_group_dropdown|raw }}
+        <div class="form-hint">{{ __('If set, only the members of this group use the security incidents module, whatever the rights of their profile. A GLPI administrator is never blocked, but each of their consultations outside the group is flagged in the audit log.', 'grcmanager') }}</div>
+      </div>
+
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_securityincident_modules" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>

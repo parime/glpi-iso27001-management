@@ -1,0 +1,37 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Registres sensibles : contenu des e-mails des risques, risques fournisseurs et actions de traitement. #}
+<div class="card mb-3" id="grc-sensitive-config">
+  <div class="card-body">
+    <h4>{{ __('Sensitive registers', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The risk register, fleet vulnerabilities and network flow matrix describe the organisation\'s weak points. They have their own right (GRC Manager tab of profiles): give it only to the CISO and risk owners.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch">
+        <input type="hidden" name="notifications_minimal" value="0">
+        <input type="checkbox" class="form-check-input" id="grc-notifications-minimal" name="notifications_minimal" value="1" {{ notifications_minimal ? 'checked' }} {{ can_edit_sensitive ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-notifications-minimal">{{ __('E-mails without details: "Risk no. X" and the link to the record, without title, category, level or supplier', 'grcmanager') }}</label>
+      </div>
+      <p class="text-muted small mt-1 mb-0">{{ __('An e-mail travels in clear text and stays in mailboxes and archives. The recipient reads the details in GLPI, with their own rights.', 'grcmanager') }}</p>
+      {% if can_edit_sensitive %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_sensitive_config" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>

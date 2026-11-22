@@ -1,0 +1,52 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #546 : fiche de conformité sécurité de chaque collaborateur (délai et poids des composantes). #}
+<div class="card mb-3" id="grc-personnel-compliance-config">
+  <div class="card-body">
+    <h4><i class="ti ti-user-shield me-1"></i>{{ __('Personnel security compliance', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Each point of the security compliance record of a person (training, charter, policies, screening, confidentiality agreement) must be done within this number of days after their arrival, or after the request when it comes later. The weight sets the share of each component in the score of the person; weight 0 removes the component from the record.', 'grcmanager') }}
+      <a href="{{ personnel_compliance.url }}">{{ __('See the personnel list', 'grcmanager') }}</a>
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-label" for="grc-personnel-compliance-days">{{ __('Deadline for newcomers (days)', 'grcmanager') }}</label>
+      <input type="number" class="form-control" style="max-width: 10rem;" id="grc-personnel-compliance-days" name="personnel_compliance_days"
+             min="{{ personnel_compliance.min }}" max="{{ personnel_compliance.max }}" value="{{ personnel_compliance.days }}" {{ can_edit_config ? '' : 'disabled' }}>
+      <div class="form-hint">{{ __('Between %1$d and %2$d days. Default: 30 days.', 'grcmanager')|format(personnel_compliance.min, personnel_compliance.max) }}</div>
+      <table class="table table-sm mt-3" style="max-width: 40rem;">
+        <thead><tr><th>{{ __('Component', 'grcmanager') }}</th><th>{{ __('Reference', 'grcmanager') }}</th><th>{{ __('Weight', 'grcmanager') }}</th></tr></thead>
+        <tbody>
+          {% for w in personnel_compliance.weights %}
+            <tr>
+              <td><label for="grc-pc-weight-{{ w.key }}">{{ w.label }}</label></td>
+              <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ w.reference }}</span></td>
+              <td>
+                <select class="form-select form-select-sm" id="grc-pc-weight-{{ w.key }}" name="personnel_compliance_weights[{{ w.key }}]" {{ can_edit_config ? '' : 'disabled' }}>
+                  {% for choice in personnel_compliance.choices %}
+                    <option value="{{ choice }}" {{ choice == w.weight ? 'selected' }}>{{ choice == 0 ? __('0 (not tracked)', 'grcmanager') : choice }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if can_edit_config %}
+        <button type="submit" name="update_personnel_compliance" class="btn btn-primary">{{ __('Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>

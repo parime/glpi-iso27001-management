@@ -48,4 +48,4 @@ case $ROLE in
 esac
 see_config=oui; [ "$ROLE" = none ] && see_config=non
 contains "front/config.php : encadre de la delegation" 'id="grc-delegation-config"' $see_config \
-  "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+  "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=people")"

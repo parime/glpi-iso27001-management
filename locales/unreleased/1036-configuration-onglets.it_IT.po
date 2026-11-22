@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Connectors"
+msgstr "Connettori"
+
+msgid "Controls, audits and evidence"
+msgstr "Misure, audit e evidenze"
+
+msgid "Fleet"
+msgstr "Parco"
+
+msgid "Frameworks"
+msgstr "Framework"
+
+msgid "Gathers the settings of the plugin, by tab: frameworks, risk method, audits and evidence, people and policies, incidents, connectors and fleet. Daily work stays in the menus."
+msgstr "Raccoglie le impostazioni del plugin per scheda: framework, metodo dei rischi, audit ed evidenze, persone e politiche, incidenti, connettori e parco. Il lavoro quotidiano resta nei menu."
+
+msgid "Go through each tab once when you set up the plugin, then come back only to change a setting. A tab is shown when you have the right to at least one of its settings."
+msgstr "Scorrere ogni scheda una volta durante la configurazione del plugin, poi tornare solo per modificare un'impostazione. Una scheda è visibile se si ha il diritto su almeno una delle sue impostazioni."
+
+msgid "Incidents and continuity"
+msgstr "Incidenti e continuità"
+
+msgid "People and policies"
+msgstr "Persone e politiche"
