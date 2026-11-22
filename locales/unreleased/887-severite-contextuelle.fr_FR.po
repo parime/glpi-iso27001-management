@@ -46,7 +46,7 @@ msgid "Not specified (counted as production)"
 msgstr "Non renseigné (compte comme la production)"
 
 msgid "One step more urgent when an affected machine is reachable from the Internet (declared in its C/I/A classification tab, or targeted by an Internet publication flow of the network flow matrix); one step less urgent when all affected machines are in test or development. Actively exploited vulnerabilities (KEV) never move, and a deadline already known is never pushed back."
-msgstr "Un cran plus urgent quand une machine touchée est joignable depuis Internet (déclaré dans son onglet de classification C/I/D, ou visée par un flux de publication vers Internet de la matrice des flux) ; un cran moins urgent quand toutes les machines touchées sont en test ou en développement. Les vulnérabilités exploitées activement (KEV) ne bougent jamais, et une échéance déjà connue n'est jamais repoussée."
+msgstr "Un cran plus urgent quand une machine touchée est joignable depuis Internet (déclarée dans son onglet de classification C/I/D, ou visée par un flux de publication vers Internet de la matrice des flux) ; un cran moins urgent quand toutes les machines touchées sont en test ou en développement. Les vulnérabilités exploitées activement (KEV) ne bougent jamais, et une échéance déjà connue n'est jamais repoussée."
 
 msgid "Production"
 msgstr "Production"
