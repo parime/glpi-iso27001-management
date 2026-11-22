@@ -20,11 +20,9 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
-use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\MailDomainSecurity;
 use GlpiPlugin\Grcmanager\Services\MailDomain\SystemDnsReader;
-use Html;
 use Session;
 
 /**
@@ -92,7 +90,7 @@ final class MailDnsConnectorBlock extends ConfigBlock
         } else {
             self::test();
         }
-        Html::redirect(ConfigTabs::anchorUrl(self::ANCHOR));
+        MovedSettings::redirect(self::ANCHOR);
 
         return true;
     }

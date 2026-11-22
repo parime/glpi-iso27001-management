@@ -23,9 +23,7 @@ use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\BackupCoverage;
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
-use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
-use Html;
 use Session;
 
 /**
@@ -95,7 +93,7 @@ final class BackupSettingsBlock extends ConfigBlock
             ]);
         }
         Session::addMessageAfterRedirect(htmlescape(__('Backup settings saved.', 'grcmanager')));
-        Html::redirect(ConfigTabs::anchorUrl(self::ANCHOR));
+        MovedSettings::redirect(self::ANCHOR);
 
         return true;
     }

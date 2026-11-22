@@ -23,7 +23,6 @@ use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\BackupCoverage;
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
-use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\Services\Backup\VeeamClient;
 use GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig;
@@ -97,7 +96,7 @@ final class VeeamConnectorBlock extends ConfigBlock
         } else {
             self::test();
         }
-        Html::redirect(ConfigTabs::anchorUrl(self::ANCHOR));
+        MovedSettings::redirect(self::ANCHOR);
 
         return true;
     }

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config;
 
+use Html;
 use Session;
 
 /**
@@ -35,5 +36,14 @@ final class MovedSettings
             __('These settings are now in Setup > Plugins > GRC Manager, %s tab.', 'grcmanager'),
             $tabLabel
         )), false, INFO);
+    }
+
+    /**
+     * Retour au bloc de la configuration après un envoi (Html::redirect() termine la requête ; la
+     * méthode est séparée pour que handle() garde son « return true » sous GLPI 11 et 12).
+     */
+    public static function redirect(string $anchor): void
+    {
+        Html::redirect(ConfigTabs::anchorUrl($anchor));
     }
 }

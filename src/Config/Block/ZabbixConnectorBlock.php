@@ -23,7 +23,6 @@ use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\Compat\Http;
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
-use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\Services\Monitoring\ZabbixConfig;
 use GlpiPlugin\Grcmanager\ZabbixMonitoring;
@@ -106,7 +105,7 @@ final class ZabbixConnectorBlock extends ConfigBlock
         } else {
             self::test();
         }
-        Html::redirect(ConfigTabs::anchorUrl(self::ANCHOR));
+        MovedSettings::redirect(self::ANCHOR);
 
         return true;
     }
