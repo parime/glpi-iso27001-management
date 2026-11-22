@@ -150,7 +150,12 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
     public function testNoSectionHasTooManySubPages(): void
     {
         foreach ($this->sections() as $section) {
-            $count = count(Sections::pages($section::parent()));
+            // Issue #1039 : un groupe replié (option « tab_group ») ne prend qu'un onglet de la barre,
+            // et montre lui-même 7 pages au plus.
+            $count = Sections::tabCount($section::parent());
+            foreach (Sections::tabGroups($section::parent()) as $group => $keys) {
+                $this->assertLessThanOrEqual(Sections::MAX_PAGES, count($keys), "$section, $group : 7 pages au plus.");
+            }
             if ($section::overLimit() === '') {
                 $this->assertLessThanOrEqual(Sections::MAX_PAGES, $count, "$section : 7 sous-pages au plus.");
             } else {

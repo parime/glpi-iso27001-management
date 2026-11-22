@@ -13,7 +13,8 @@
  # -------------------------------------------------------------------------
  #}
 {# Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date). Source
-   désactivée par défaut ; correspondances manuelles entre un nom de GLPI et un produit. #}
+   désactivée par défaut. Réglages seulement : activation et seuil d'alerte (commun avec la fin de vie
+   constructeur des modèles et la fin de garantie du matériel). #}
 {% set eol = endoflife %}
 {% set action = config('root_doc') ~ '/plugins/grcmanager/front/config.php' %}
 <div class="card mb-3" id="grc-endoflife-config">
@@ -42,7 +43,7 @@
           <input type="number" class="form-control" id="grc-endoflife-days" name="endoflife_warning_days" min="{{ eol.min_days }}" max="{{ eol.max_days }}" step="1" value="{{ eol.warning_days }}" {{ can_edit_config ? '' : 'disabled' }}>
           <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
         </div>
-        <div class="form-hint">{{ __('Below this number of days, a version is shown as "End of support soon".', 'grcmanager') }} {{ __('The same threshold shows a hardware warranty as "Warranty ends soon", even when endoflife.date is not enabled.', 'grcmanager') }}</div>
+        <div class="form-hint">{{ __('Below this number of days, a version is shown as "End of support soon".', 'grcmanager') }} {{ __('The same threshold shows a hardware warranty as "Warranty ends soon", even when endoflife.date is not enabled.', 'grcmanager') }} {{ __('It also applies to the manufacturer end of life of hardware models.', 'grcmanager') }}</div>
       </div>
       <ul class="list-unstyled small mb-2">
         <li><i class="ti ti-refresh me-1"></i>{{ __('Last successful reading', 'grcmanager') }} : {{ eol.last_success ?: __('none yet', 'grcmanager') }}
@@ -52,102 +53,11 @@
         {% endfor %}
       </ul>
       {% if can_edit_config %}
-        <div class="d-flex flex-wrap gap-2">
-          <button type="submit" name="update_endoflife_config" class="btn btn-primary">{{ _x('button', 'Save') }}</button>
-          {% if eol.enabled %}
-            <button type="submit" name="refresh_endoflife" class="btn btn-outline-secondary" title="{{ __('Reads now the products whose data is more than one day old (the daily task does the rest).', 'grcmanager') }}"><i class="ti ti-refresh me-1"></i>{{ __('Update now', 'grcmanager') }}</button>
-          {% endif %}
-        </div>
+        <button type="submit" name="update_endoflife_config" class="btn btn-primary">{{ _x('button', 'Save') }}</button>
       {% endif %}
     </form>
 
-    <h5 class="mt-4"><i class="ti ti-link me-1"></i>{{ __('Links between GLPI names and endoflife.date products', 'grcmanager') }}</h5>
-    <p class="text-muted mb-2">
-      {{ __('Well-known names are linked automatically (for instance "Debian GNU/Linux" or "Mozilla Firefox"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance "fortios" for https://endoflife.date/fortios). Leave the product empty to stop following a name.', 'grcmanager') }}
-      <a href="https://endoflife.date/" target="_blank" rel="noopener noreferrer"><i class="ti ti-external-link me-1"></i>endoflife.date</a>
-    </p>
-
-    {% if can_edit_config %}
-    <form method="post" action="{{ action }}" class="row g-2 align-items-end mb-3">
-      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
-      <div class="col-sm-3">
-        <label class="form-label" for="grc-endoflife-kind">{{ __('Kind of item', 'grcmanager') }}</label>
-        <select class="form-select" id="grc-endoflife-kind" name="endoflife_kind">
-          {% for key, label in eol.kinds %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
-        </select>
-      </div>
-      <div class="col-sm-4">
-        <label class="form-label" for="grc-endoflife-name">{{ __('Name in GLPI', 'grcmanager') }}</label>
-        <input type="text" class="form-control" id="grc-endoflife-name" name="endoflife_name" maxlength="255" list="grc-endoflife-unlinked" required>
-        <datalist id="grc-endoflife-unlinked">
-          {% for row in eol.unlinked %}<option value="{{ row.name }}">{{ row.kind_label }}</option>{% endfor %}
-        </datalist>
-      </div>
-      <div class="col-sm-3">
-        <label class="form-label" for="grc-endoflife-product">{{ __('endoflife.date product', 'grcmanager') }}</label>
-        <input type="text" class="form-control" id="grc-endoflife-product" name="endoflife_product" maxlength="64" pattern="[a-z0-9][a-z0-9.+_\-]{0,63}" placeholder="debian">
-      </div>
-      <div class="col-sm-2">
-        <button type="submit" name="add_endoflife_mapping" class="btn btn-outline-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
-      </div>
-    </form>
-    {% endif %}
-
-    {% if eol.mappings is not empty %}
-    <div class="table-responsive mb-3">
-      <table class="table table-sm table-vcenter">
-        <thead><tr>
-          <th>{{ __('Kind of item', 'grcmanager') }}</th>
-          <th>{{ __('Name in GLPI', 'grcmanager') }}</th>
-          <th>{{ __('endoflife.date product', 'grcmanager') }}</th>
-          {% if can_edit_config %}<th></th>{% endif %}
-        </tr></thead>
-        <tbody>
-          {% for row in eol.mappings %}
-          <tr>
-            <td>{{ row.kind_label }}</td>
-            <td>{{ row.name }}</td>
-            <td>
-              {% if row.product == '' %}
-                <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-eye-off me-1"></i>{{ __('Not followed', 'grcmanager') }}</span>
-              {% else %}
-                {% if row.product_url %}<a href="{{ row.product_url }}" target="_blank" rel="noopener noreferrer"><code>{{ row.product }}</code></a>{% else %}<code>{{ row.product }}</code>{% endif %}
-                {% if row.not_found %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('Product unknown to the source', 'grcmanager') }}</span>{% endif %}
-              {% endif %}
-            </td>
-            {% if can_edit_config %}
-            <td class="text-end">
-              <form method="post" action="{{ action }}" class="d-inline">
-                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
-                <button type="submit" name="delete_endoflife_mapping" value="{{ row.id }}" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete this link', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
-              </form>
-            </td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    {% if eol.auto is not empty %}
-    <details class="mb-2">
-      <summary>{{ __('%d name(s) linked automatically', 'grcmanager')|format(eol.auto|length) }}</summary>
-      <ul class="small mt-2">
-        {% for row in eol.auto %}<li><span class="badge bg-info-subtle text-info-emphasis me-1">{{ row.kind_label }}</span>{{ row.name }} <i class="ti ti-arrow-right mx-1"></i><code>{{ row.product }}</code></li>{% endfor %}
-      </ul>
-    </details>
-    {% endif %}
-
-    {% if eol.unlinked_total > 0 %}
-    <details>
-      <summary>{{ __('%d name(s) of the inventory not linked to a product', 'grcmanager')|format(eol.unlinked_total) }}</summary>
-      <p class="small text-muted mt-2 mb-1">{{ __('These names are not followed: add a link above for those that matter (choose them from the list of the "Name in GLPI" field).', 'grcmanager') }}</p>
-      <ul class="small">
-        {% for row in eol.unlinked %}<li><span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ row.kind_label }}</span>{{ row.name }}</li>{% endfor %}
-      </ul>
-      {% if eol.unlinked_total > eol.unlinked|length %}<p class="small text-muted">{{ __('%d more not shown.', 'grcmanager')|format(eol.unlinked_total - eol.unlinked|length) }}</p>{% endif %}
-    </details>
-    {% endif %}
+    {# Issue #1039 : « Mettre à jour maintenant » et les correspondances avec les produits sont dans
+       Parc > Sécurité du parc > Logiciels à surveiller (exploitation, pas un réglage). #}
   </div>
 </div>

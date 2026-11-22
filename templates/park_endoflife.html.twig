@@ -20,7 +20,8 @@
       <h3 class="card-title"><i class="ti ti-calendar-x me-2"></i>{{ __('End of support (endoflife.date)', 'grcmanager') }}</h3>
       <div class="card-actions d-flex gap-2">
          {% if eol.enabled %}<a class="btn btn-sm btn-outline-secondary" href="{{ eol.export_url }}"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>{% endif %}
-         {% if can_config %}<a class="btn btn-sm btn-ghost-secondary" href="{{ eol.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Settings and links', 'grcmanager') }}</a>{% endif %}
+         {# Issue #1039 : les correspondances et la lecture manuelle sont sur « Logiciels à surveiller ». #}
+         <a class="btn btn-sm btn-ghost-secondary" href="{{ eol.links_url }}"><i class="ti ti-link me-1"></i>{{ __('Links and reading', 'grcmanager') }}</a>
       </div>
    </div>
    {% if not eol.enabled %}
@@ -52,7 +53,7 @@
             <span class="text-muted small">{{ __('"End of support soon": within %d days.', 'grcmanager')|format(eol.warning_days) }}</span>
          </div>
          {% if eol.never_read %}
-            <div class="alert alert-info py-2"><i class="ti ti-info-circle me-1"></i>{{ __('The end of support dates have not been read yet: they arrive with the next daily task, or with the button "Update now" of the configuration.', 'grcmanager') }}</div>
+            <div class="alert alert-info py-2"><i class="ti ti-info-circle me-1"></i>{{ __('The end of support dates have not been read yet: they arrive with the next daily task, or with the button "Update now" of the page "Software to watch".', 'grcmanager') }}</div>
          {% elseif eol.errors is not empty %}
             <div class="alert alert-warning py-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('Some products could not be read during the last update: their previous data is still used.', 'grcmanager') }}
                {% for error in eol.errors %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ error.product }} : {{ error.label }}</span>{% endfor %}

@@ -53,13 +53,14 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::setEnabled($framework, true);
         }
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();
-        $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager'];
+        $entries = array_merge(...array_values($PLUGIN_HOOKS['menu_toadd']['grcmanager']));
         $this->assertSame(count($entries), count(array_unique($entries)), 'Aucune entrée en double.');
         foreach (\GlpiPlugin\Grcmanager\Menu::sections() as $parent => $children) {
-            // Issue #1041 : une rubrique d'un secteur du cœur (Assistance...) a son entrée dans ce secteur.
+            // Issues #1039 et #1041 : une rubrique d'un secteur du cœur (Parc, Assistance...) a son entrée
+            // dans ce secteur ; aucune sous-page n'a d'entrée propre, quel que soit le secteur.
             $sector = \GlpiPlugin\Grcmanager\Navigation\Sections::locate($parent)['sector'] ?? 'grcmanager';
-            $entries = $PLUGIN_HOOKS['menu_toadd']['grcmanager'][$sector] ?? [];
-            $this->assertContains($parent, $entries, "$parent : la rubrique a son entrée.");
+            $sectorEntries = $PLUGIN_HOOKS['menu_toadd']['grcmanager'][$sector] ?? [];
+            $this->assertContains($parent, $sectorEntries, "$parent : la rubrique a son entrée.");
             $options = $parent::getMenuContent()['options'] ?? [];
             foreach ($children as $child) {
                 $this->assertNotContains($child, $entries, "$child : pas d'entrée propre.");
