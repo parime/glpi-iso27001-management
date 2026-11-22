@@ -44,11 +44,10 @@ if (isset($_POST['import'])) {
     Html::redirect(\GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Risk::class,
     \GlpiPlugin\Grcmanager\RiskCatalog::getTypeName(),
-    \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
+    \GlpiPlugin\Grcmanager\Risk::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskcatalog');

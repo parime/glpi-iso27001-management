@@ -44,12 +44,9 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        ResponsibilityActivity::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        ResponsibilityActivity::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        ResponsibilityActivity::class,
+        ResponsibilityActivity::getTypeName(1)
     );
 
     $item->display(['id' => $id]);

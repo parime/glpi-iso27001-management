@@ -62,18 +62,13 @@ if (isset($_POST['declare_key'])) {
     Html::redirect(DiskEncryption::getSearchURL() . '#grc-encryption-list');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    DiskEncryption::class,
     DiskEncryption::getTypeName(),
-    DiskEncryption::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    DiskEncryption::class
+    DiskEncryption::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    DiskEncryption::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(DiskEncryption::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('diskencryption');
 

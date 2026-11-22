@@ -53,7 +53,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\Policy::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => ['grcmanager', \GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Policy::class],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Policy::class),
             'helpdesk' => [],
         ],
         // Issue #775 : nouvelle procédure ouverte depuis le registre (valeurs validées par showForm()).

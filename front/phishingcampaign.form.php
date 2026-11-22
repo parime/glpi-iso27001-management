@@ -59,13 +59,7 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        PhishingCampaign::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\AccessReview::class,
-        PhishingCampaign::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(PhishingCampaign::class, PhishingCampaign::getTypeName(1));
 
     $item->display(['id' => $id]);
 

@@ -71,19 +71,13 @@ if ($enabled === []) {
 }
 $isEnabled = static fn (string $framework): bool => in_array($framework, $enabled, true);
 
-Html::header(
-    __('Reference frameworks', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Referentials::class,
+    __('Reference frameworks', 'grcmanager')
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Referentials::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('referentiels');
 
 $titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();

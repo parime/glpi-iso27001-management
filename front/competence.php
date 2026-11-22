@@ -20,18 +20,12 @@ use GlpiPlugin\Grcmanager\Competence;
 // Issue #774 : liste de la rubrique des compétences, avec les droits et les entités du cœur.
 Session::checkRight(Competence::$rightname, READ);
 
-Html::header(
-    Competence::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\IsmsFunction::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\IsmsFunction::class,
+    Competence::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\IsmsFunction::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\IsmsFunction::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('competence');
 

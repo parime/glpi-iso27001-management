@@ -145,18 +145,13 @@ if (isset($_POST['save_backup_settings'])) {
     Html::redirect(BackupCoverage::getSearchURL() . '#grc-backup-settings');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    BackupCoverage::class,
     BackupCoverage::getTypeName(),
-    BackupCoverage::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    BackupCoverage::class
+    BackupCoverage::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    BackupCoverage::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(BackupCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('backupcoverage');
 

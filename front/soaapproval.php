@@ -91,12 +91,7 @@ if (isset($_POST['answer'])) {
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
-Html::header(
-    __('SoA approval', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Control::class, __('SoA approval', 'grcmanager'));
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('soaapproval');
 

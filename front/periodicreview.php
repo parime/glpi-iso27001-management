@@ -51,18 +51,13 @@ if (isset($_POST['activate']) || isset($_POST['deactivate'])) {
     Html::redirect(\GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\PeriodicReview::class,
     \GlpiPlugin\Grcmanager\PeriodicReview::getTypeName(2),
-    \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\PeriodicReview::class
+    \GlpiPlugin\Grcmanager\PeriodicReview::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\PeriodicReview::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\PeriodicReview::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('periodicreview');
 

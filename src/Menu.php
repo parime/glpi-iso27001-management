@@ -150,18 +150,26 @@ class Menu extends CommonGLPI
         if ($url === '') {
             $url = (string) ($_SERVER['PHP_SELF'] ?? '');
         }
+        Html::header($title, $url, ...self::sectorPath($page));
+    }
+
+    /**
+     * Secteur, rubrique et, pour une sous-page, la page elle-même : les arguments de menu de
+     * Html::header() et de displayFullPageForItem() (clé « central »). Une page inconnue du registre
+     * reste dans le menu du plugin.
+     *
+     * @return list<string>
+     */
+    public static function sectorPath(string $page): array
+    {
         $place = Sections::locate($page);
         if ($place === null) {
-            Html::header($title, $url, Sections::GRC, $page);
-
-            return;
+            return [Sections::GRC, $page];
         }
-        if ($place['parent'] === $page) {
-            Html::header($title, $url, $place['sector'], $page);
 
-            return;
-        }
-        Html::header($title, $url, $place['sector'], $place['parent'], $page);
+        return $place['parent'] === $page
+            ? [$place['sector'], $page]
+            : [$place['sector'], $place['parent'], $page];
     }
 
     /**

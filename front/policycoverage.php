@@ -17,7 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\ConsistencyCheck;
-use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\PolicyCoverage;
 use GlpiPlugin\Grcmanager\Services\Policy\PolicyCoverageRules;
 
@@ -32,14 +31,12 @@ if (!PolicyCoverage::canView()) {
 $filter = PolicyCoverageRules::normalizeFilter($_GET['filter'] ?? null);
 $report = PolicyCoverage::report($filter);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    PolicyCoverage::class,
     PolicyCoverage::getTypeName(Session::getPluralNumber()),
-    PolicyCoverage::getSearchURL(),
-    'grcmanager',
-    Control::class,
-    PolicyCoverage::class
+    PolicyCoverage::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, PolicyCoverage::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PolicyCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('policycoverage');
 TemplateRenderer::getInstance()->display('@grcmanager/policy_coverage.html.twig', $report + [

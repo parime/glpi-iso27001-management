@@ -124,18 +124,13 @@ if ($reportId > 0 && ConfigurationCompliance::getReport($reportId) === null) {
     throw new \Glpi\Exception\Http\NotFoundHttpException();
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ConfigurationCompliance::class,
     ConfigurationCompliance::getTypeName(),
-    $page,
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    ConfigurationCompliance::class
+    $page
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    ConfigurationCompliance::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(ConfigurationCompliance::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('configcompliance');
 

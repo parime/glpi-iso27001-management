@@ -22,18 +22,14 @@ use Glpi\Dashboard\Grid;
 // Issue #247 : tableau de bord du menu GRC & Conformité (même rendu que Parc > Tableau de bord).
 Session::checkRight(\GlpiPlugin\Grcmanager\Dashboard::RIGHTNAME, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Dashboard::class,
     \GlpiPlugin\Grcmanager\Dashboard::getTypeName(),
-    \GlpiPlugin\Grcmanager\Dashboard::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Dashboard::class
+    \GlpiPlugin\Grcmanager\Dashboard::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    \GlpiPlugin\Grcmanager\Dashboard::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Dashboard::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('dashboard');
 
 // Issue #143 : vue « Incidents de sécurité », proposée seulement à qui peut voir ses cartes.

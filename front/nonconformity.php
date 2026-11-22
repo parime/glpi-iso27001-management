@@ -21,18 +21,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Nonconformity::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\Nonconformity::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Nonconformity::class,
+    \GlpiPlugin\Grcmanager\Nonconformity::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\Nonconformity::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Nonconformity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('nonconformity');
 

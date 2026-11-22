@@ -135,13 +135,7 @@ if (isset($_POST['add'])) {
     }
     $item->check($id, READ);
 
-    Html::header(
-        SupplierEvaluation::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Risk::class,
-        SupplierRisk::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(SupplierRisk::class, SupplierEvaluation::getTypeName(1));
 
     $item->display(['id' => $id]);
 

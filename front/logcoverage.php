@@ -102,18 +102,13 @@ if (isset($_POST['declare_log_platform'])) {
     Html::redirect(LogCoverage::getSearchURL() . '#grc-log-retention');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    LogCoverage::class,
     LogCoverage::getTypeName(),
-    LogCoverage::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    LogCoverage::class
+    LogCoverage::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    LogCoverage::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(LogCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('logcoverage');
 

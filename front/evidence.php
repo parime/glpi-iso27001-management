@@ -22,16 +22,13 @@ use Glpi\Application\View\TemplateRenderer;
 // l'élément porteur à la création).
 Session::checkRight(\GlpiPlugin\Grcmanager\Evidence::RIGHTNAME, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Evidence::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Evidence::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Evidence::class,
+    \GlpiPlugin\Grcmanager\Evidence::getTypeName(Session::getPluralNumber())
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Evidence::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Evidence::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('evidence');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', ['notice' => __(

@@ -137,18 +137,13 @@ if (isset($_POST['save_mfa_remote'])) {
     Html::redirect(MfaCoverage::getSearchURL() . '#grc-mfa-remote');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    MfaCoverage::class,
     MfaCoverage::getTypeName(),
-    MfaCoverage::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    MfaCoverage::class
+    MfaCoverage::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    MfaCoverage::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(MfaCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('mfacoverage');
 

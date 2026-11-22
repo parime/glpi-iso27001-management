@@ -173,13 +173,7 @@ if ($parsed['error'] !== null) {
     $forget();
 }
 
-Html::header(
-    SupplierEvaluationFile::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    SupplierRisk::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(SupplierRisk::class, SupplierEvaluationFile::getTypeName(1));
 \GlpiPlugin\Grcmanager\PageHelp::show('supplierevaluationfile');
 TemplateRenderer::getInstance()->display(
     '@grcmanager/supplier_evaluation_import.html.twig',

@@ -134,15 +134,13 @@ if (isset($_POST['link_uptimekuma_process'])) {
     $back('grc-kuma-monitors');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    UptimeKumaMonitoring::class,
     UptimeKumaMonitoring::getTypeName(),
-    UptimeKumaMonitoring::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    UptimeKumaMonitoring::class
+    UptimeKumaMonitoring::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, UptimeKumaMonitoring::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(UptimeKumaMonitoring::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('uptimekuma');
 

@@ -22,15 +22,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Control::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Control::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Control::class,
+    \GlpiPlugin\Grcmanager\Control::getTypeName(2)
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\Control::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('control');
 
 // Intro, exports et rappels d'approbation de la SoA (issue #112).

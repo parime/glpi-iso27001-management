@@ -69,15 +69,13 @@ if ($export === 'csv') {
     exit;
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    GapStockReport::class,
     GapStockReport::getTypeName(),
-    GapStockReport::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Audit::class,
-    GapStockReport::class
+    GapStockReport::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Audit::class, GapStockReport::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(GapStockReport::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('gapstock');
 

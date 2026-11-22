@@ -36,15 +36,13 @@ if (isset($_POST['archive'])) {
     Html::redirect(OperatingProcedure::getRegisterURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    OperatingProcedure::class,
     OperatingProcedure::getTypeName(Session::getPluralNumber()),
-    OperatingProcedure::getRegisterURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    OperatingProcedure::class
+    OperatingProcedure::getRegisterURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, OperatingProcedure::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(OperatingProcedure::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('operatingprocedure');
 OperatingProcedure::showRegister();

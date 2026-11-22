@@ -46,15 +46,13 @@ if (isset($_POST['generate'])) {
     Html::redirect(EvidencePack::getSearchURL() . '?entities_id=' . $entityId);
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    EvidencePack::class,
     EvidencePack::getTypeName(1),
-    EvidencePack::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    EvidencePack::class
+    EvidencePack::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, EvidencePack::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(EvidencePack::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('evidencepack');
 // Entité demandée : affichée seulement si elle est accessible, sinon l'entité active.

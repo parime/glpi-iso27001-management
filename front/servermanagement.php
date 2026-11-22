@@ -120,15 +120,13 @@ if (isset($_POST['import_bmc'])) {
     $back('grc-bmc-import');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ServerManagement::class,
     ServerManagement::getTypeName(),
-    ServerManagement::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    ServerManagement::class
+    ServerManagement::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, ServerManagement::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ServerManagement::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('servermanagement');
 

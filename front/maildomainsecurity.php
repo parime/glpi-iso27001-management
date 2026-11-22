@@ -15,7 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\ComplianceAudit;
 use GlpiPlugin\Grcmanager\MailDomainSecurity;
 
 // Issue #855 : sécurité de la messagerie et des domaines (A.5.14, A.8.21). Droit du plugin, domaines
@@ -91,15 +90,13 @@ if (isset($_POST['save_dns_server'])) {
     Html::redirect(MailDomainSecurity::getSearchURL() . '#grc-mail-dns-server');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    MailDomainSecurity::class,
     MailDomainSecurity::getTypeName(),
-    MailDomainSecurity::getSearchURL(),
-    'grcmanager',
-    ComplianceAudit::class,
-    MailDomainSecurity::class
+    MailDomainSecurity::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(ComplianceAudit::class, MailDomainSecurity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(MailDomainSecurity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('maildomainsecurity');
 

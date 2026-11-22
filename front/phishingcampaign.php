@@ -24,15 +24,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // le droit des registres sensibles).
 Session::checkRight(PhishingCampaign::$rightname, READ);
 
-Html::header(
-    PhishingCampaign::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    PhishingCampaign::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    PhishingCampaign::class,
+    PhishingCampaign::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class, PhishingCampaign::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PhishingCampaign::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('phishingcampaign');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/phishing_trend.html.twig', [

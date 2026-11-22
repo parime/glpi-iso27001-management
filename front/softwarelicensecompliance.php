@@ -54,18 +54,13 @@ if (isset($_POST['save_license_watch']) || isset($_POST['reset_license_watch']))
     Html::redirect(SoftwareLicenseCompliance::getSearchURL() . '#grc-license-watch');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    SoftwareLicenseCompliance::class,
     SoftwareLicenseCompliance::getTypeName(),
-    SoftwareLicenseCompliance::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    SoftwareLicenseCompliance::class
+    SoftwareLicenseCompliance::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    SoftwareLicenseCompliance::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(SoftwareLicenseCompliance::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('softwarelicensecompliance');
 

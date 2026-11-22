@@ -63,7 +63,7 @@ if (isset($_POST['send_personal_digest'])) {
     Html::back();
 }
 
-Html::header(MySpace::getTypeName(), MySpace::getSearchURL(), 'grcmanager', MySpace::class);
+\GlpiPlugin\Grcmanager\Menu::header(MySpace::class, MySpace::getTypeName(), MySpace::getSearchURL());
 \GlpiPlugin\Grcmanager\PageHelp::show('myspace');
 MySpace::show();
 PersonalDigest::showPreference($usersId);

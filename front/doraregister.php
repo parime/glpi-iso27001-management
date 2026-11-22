@@ -18,10 +18,8 @@
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use Glpi\Exception\Http\NotFoundHttpException;
 use GlpiPlugin\Grcmanager\AuditLog;
-use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\DoraArrangement;
 use GlpiPlugin\Grcmanager\DoraRegister;
-use GlpiPlugin\Grcmanager\Menu;
 use GlpiPlugin\Grcmanager\Services\Dora\RegisterTemplates;
 
 // Issue #540 : registre d'informations DORA. Lecture du plugin, et référentiel DORA activé : sinon
@@ -60,8 +58,8 @@ if (isset($_GET['export'])) {
     exit;
 }
 
-Html::header(DoraRegister::getTypeName(1), $_SERVER['PHP_SELF'], 'grcmanager', Control::class, DoraRegister::class);
-Menu::showSection(Control::class, DoraRegister::class);
+\GlpiPlugin\Grcmanager\Menu::header(DoraRegister::class, DoraRegister::getTypeName(1));
+\GlpiPlugin\Grcmanager\Menu::showSection(DoraRegister::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('doraregister');
 DoraRegister::showRegisterPage();
 Html::footer();

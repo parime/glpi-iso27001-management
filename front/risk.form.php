@@ -47,6 +47,6 @@ if (isset($_POST['add'])) {
     // pour un nouvel élément) sont vérifiés par $item->can().
     \GlpiPlugin\Grcmanager\Risk::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\Risk::class], 'helpdesk' => []]
+        ['central' => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Risk::class), 'helpdesk' => []]
     );
 }
