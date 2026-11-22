@@ -55,11 +55,8 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
         }
         // Issue #1053 : ReCyF est la déclinaison France de NIS2, cochée en plus de NIS2.
         $this->savedFrameworks = FrameworkConfig::storedEnabled();
-        FrameworkConfig::save(array_values(array_unique(array_merge(
-            $this->savedFrameworks,
-            [FrameworkSelection::NIS2, FrameworkSelection::RECYF]
-        )))
-        );
+        $frameworks = array_merge($this->savedFrameworks, [FrameworkSelection::NIS2, FrameworkSelection::RECYF]);
+        FrameworkConfig::save(array_values(array_unique($frameworks)));
 
         // Catégories de l'instance écartées (annulé avec la transaction) : registres de ce test seulement.
         global $DB;
