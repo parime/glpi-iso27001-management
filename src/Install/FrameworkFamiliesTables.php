@@ -28,8 +28,8 @@ use Migration;
  * Issue #1053 : référentiels regroupés par famille, NIS2 avec ses déclinaisons nationales. Aucune
  * table : une seule reprise du réglage des référentiels, faite une fois (clé frameworks_families),
  * pour que rien ne soit perdu :
- * - ReCyF suivait NIS2 sans réglage propre : s'il a déjà servi (entité classée ou registre créé),
- *   la déclinaison France est cochée ;
+ * - ReCyF suivait NIS2 sans réglage propre : sur une mise à jour où NIS2 était actif, ou dès que
+ *   des données ReCyF existent, la déclinaison France est cochée (voir toEnable()) ;
  * - « NIS2 Italia – ACN » pouvait être actif sans NIS2 : NIS2 est alors coché, avec sa déclinaison
  *   Italie.
  * Les données de chaque référentiel ne sont pas touchées. La désinstallation retire le réglage avec
@@ -62,16 +62,7 @@ final class FrameworkFamiliesTables implements FeatureTables
                 $recyfUsed = true;
             }
         }
-        $acnOn = in_array(FrameworkSelection::ACN_IT, $known, true)
-            && !in_array(FrameworkSelection::ACN_IT, $disabled, true);
-        $nis2On = !in_array(FrameworkSelection::NIS2, $disabled, true);
-        $enable = [];
-        if ($recyfUsed && $nis2On) {
-            $enable[] = FrameworkSelection::RECYF;
-        }
-        if ($acnOn && !$nis2On) {
-            $enable[] = FrameworkSelection::NIS2;
-        }
+        $enable = self::toEnable($disabled, $known, self::isUpdate(), $recyfUsed);
         $changes = [self::MIGRATED_KEY => '1'];
         if ($enable !== []) {
             $changes[FrameworkConfig::CONFIG_KEY] = (string) json_encode(array_values(array_diff($disabled, $enable)));
@@ -81,6 +72,41 @@ final class FrameworkFamiliesTables implements FeatureTables
         }
         Config::setConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, $changes);
         FrameworkConfig::reset();
+    }
+
+    /**
+     * Référentiels à cocher lors de la reprise (logique pure, testée seule) :
+     * - France (ReCyF) : sur une mise à jour où NIS2 était actif (le registre ReCyF suivait NIS2 et
+     *   restait donc visible), ou dès que des données ReCyF existent (entité classée, fiches) ;
+     * - NIS2 : si « NIS2 Italia – ACN » était actif sans NIS2 (la déclinaison Italie le suppose).
+     * Une nouvelle installation (pas de mise à jour, aucune donnée) ne coche aucune déclinaison.
+     *
+     * @param list<string> $disabled référentiels désactivés enregistrés
+     * @param list<string> $known référentiels connus au dernier enregistrement
+     * @return list<string>
+     */
+    public static function toEnable(array $disabled, array $known, bool $update, bool $recyfUsed): array
+    {
+        $nis2On = !in_array(FrameworkSelection::NIS2, $disabled, true);
+        $acnOn = in_array(FrameworkSelection::ACN_IT, $known, true)
+            && !in_array(FrameworkSelection::ACN_IT, $disabled, true);
+        $enable = [];
+        if (($update && $nis2On) || $recyfUsed) {
+            $enable[] = FrameworkSelection::RECYF;
+        }
+        if ($acnOn && !$nis2On) {
+            $enable[] = FrameworkSelection::NIS2;
+        }
+
+        return $enable;
+    }
+
+    /** Mise à jour d'une installation existante (le plugin était déjà installé dans GLPI). */
+    private static function isUpdate(): bool
+    {
+        $plugin = new \Plugin();
+
+        return $plugin->getFromDBbyDir('grcmanager') && (int) $plugin->fields['state'] !== \Plugin::NOTINSTALLED;
     }
 
     public static function uninstall(Migration $migration): void

@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use GlpiPlugin\Grcmanager\EntityPerimeter;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
+use GlpiPlugin\Grcmanager\Install\FrameworkFamiliesTables;
 use GlpiPlugin\Grcmanager\RecyfRequirement;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
@@ -202,6 +203,33 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(76, $card['important']);
         $this->assertSame(152, $card['essential']);
         $this->assertCount(20, $card['objectives']);
+    }
+
+    /**
+     * Issue #1053 : mise à jour d'une instance d'avant les déclinaisons, où le registre ReCyF suivait
+     * NIS2 : NIS2 actif, ReCyF jamais présenté comme réglage, une entité classée avec ses fiches. La
+     * reprise coche la déclinaison France et le registre reste visible.
+     */
+    public function testUpdateFromBeforeImplementationsKeepsTheReCyfRegister(): void
+    {
+        RecyfRequirement::setCategory($this->france, 'important');
+        $known = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), [FrameworkSelection::RECYF]));
+        \Config::setConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, [
+            FrameworkConfig::CONFIG_KEY => (string) json_encode([FrameworkSelection::DORA]),
+            FrameworkConfig::KNOWN_KEY  => (string) json_encode($known),
+        ]);
+        \Config::deleteConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, [FrameworkFamiliesTables::MIGRATED_KEY]);
+        FrameworkConfig::reset();
+        $this->assertFalse(FrameworkConfig::isEnabled(FrameworkSelection::RECYF), "état d'avant la reprise");
+
+        FrameworkFamiliesTables::migrate(new \Migration('0.0.0'));
+
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::NIS2));
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::RECYF));
+        $this->assertFalse(FrameworkConfig::isEnabled(FrameworkSelection::DORA), 'autres réglages inchangés');
+        $this->limitTo($this->france);
+        $this->assertTrue(RecyfRequirement::canView());
+        $this->assertNotSame([], RecyfRequirement::registerRows($this->france));
     }
 
     public function testDisabledNis2HidesTheRegister(): void
