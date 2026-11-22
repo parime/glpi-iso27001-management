@@ -50,8 +50,8 @@
     <div class="card-body">
       <h3 class="card-title">{{ __('Import a modified CSV', 'grcmanager') }}</h3>
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-      <input type="file" name="soa_file" accept=".csv" class="form-control mb-2" required>
-      <small class="form-hint d-block mb-2">
+      <input type="file" name="soa_file" accept=".csv" class="form-control mb-2" required aria-label="{{ __('CSV file', 'grcmanager') }}" aria-describedby="grc-soa-csv-hint">
+      <small class="form-hint d-block mb-2" id="grc-soa-csv-hint">
         {{ __('Expected file: the one downloaded above, possibly edited (semicolon-separated columns). Only the applicabilite, etat_mise_en_oeuvre and justification columns are applied, matched by the control\'s code. No row is ever created or deleted.', 'grcmanager') }}
       </small>
       <button type="submit" name="import" class="btn btn-primary">

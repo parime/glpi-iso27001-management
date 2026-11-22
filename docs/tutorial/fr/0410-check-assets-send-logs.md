@@ -10,7 +10,9 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    défaut les actifs critiques, les serveurs et les matériels réseau), le nombre de jours sans
    événement au-delà duquel les journaux sont dits interrompus (7 par défaut) et la conservation
    exigée par votre politique (180 jours par défaut). Un actif est critique quand un axe de sa
-   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet.
+   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet. Ces réglages se font
+   dans Configuration > Plugins > GRC Manager, onglet **Parc** (bouton **Modifier dans la
+   configuration** de la page).
 3. Dans **Sources de journaux**, importez la liste des hôtes de chaque plateforme : par exemple, dans
    Splunk, la recherche `| metadata type=hosts index=*` exportée en CSV (colonnes `host`,
    `lastTime`) ; dans Graylog, Elastic ou OpenSearch, un tableau des sources avec leur dernier

@@ -682,7 +682,10 @@ class ApprovedApplication extends ApprovedApplicationBase
             'glpi_items_softwareversions.is_template_item' => 0,
             'glpi_softwares.is_deleted'                    => 0,
             'glpi_softwares.is_template'                   => 0,
-        ] + getEntitiesRestrictCriteria('glpi_items_softwareversions', '', '', true);
+        // Issue #1057 : glpi_items_softwareversions n'a pas de colonne is_recursive (l'entité est celle de
+        // l'élément qui porte le logiciel) : restriction sur l'entité seule, sinon erreur SQL dès que la
+        // personne ne voit pas toutes les entités.
+        ] + getEntitiesRestrictCriteria('glpi_items_softwareversions', '', '', false);
         if ($categoryId > 0) {
             $where['glpi_softwares.softwarecategories_id'] = $categoryId;
         }

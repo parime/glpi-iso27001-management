@@ -23,4 +23,5 @@ no query.
 
 If the DNSSEC column stays "Unknown", the DNS server of the GLPI server does not relay the DNSSEC
 records (this is the case inside Docker): enter the IP address of another DNS server of the
-organisation or of the provider in the **DNS server used for DNSSEC** frame, then check again.
+organisation or of the provider in the **DNS server used for DNSSEC** frame (**Set up the connection** button: **Connectors** tab of
+the configuration), **Test the connection**, then check again.

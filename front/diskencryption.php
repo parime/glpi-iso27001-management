@@ -22,28 +22,10 @@ use GlpiPlugin\Grcmanager\DiskEncryption;
 Session::checkRight(DiskEncryption::RIGHTNAME, READ);
 Session::checkRight(Computer::$rightname, READ);
 
-// Règle « doit être chiffré » (jeton CSRF vérifié par GLPI).
+// Issue #1044 : ce réglage est dans l'onglet Parc de la configuration du plugin. L'ancien envoi
+// reste accepté pendant une version : enregistré, puis renvoi sur l'onglet avec un message.
 if (isset($_POST['save_encryption_rule'])) {
-    Session::checkRight(DiskEncryption::RIGHTNAME, UPDATE);
-    $before = \GlpiPlugin\Grcmanager\ComplianceAudit::getEncryptionRule();
-    $types = $_POST['encryption_types'] ?? [];
-    $after = \GlpiPlugin\Grcmanager\ComplianceAudit::setEncryptionRule([
-        'scope'           => (string) ($_POST['encryption_scope'] ?? ''),
-        'types'           => is_array($types) ? $types : [],
-        'confidentiality' => (string) ($_POST['encryption_confidentiality'] ?? ''),
-    ]);
-    if ($after !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => ['disk_encryption_rule' => $after]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Encryption rule saved.', 'grcmanager')));
-    Html::redirect(DiskEncryption::getSearchURL() . '#grc-encryption-rule');
+    \GlpiPlugin\Grcmanager\Config\Block\DiskEncryptionBlock::handle(true);
 }
 
 // Sauvegarde déclarée de la clé de récupération : une case et une date, jamais la clé.

@@ -22,24 +22,10 @@ use GlpiPlugin\Grcmanager\PatchCompliance;
 Session::checkRight(PatchCompliance::RIGHTNAME, READ);
 Session::checkRight(Computer::$rightname, READ);
 
-// Délais cibles par criticité (jeton CSRF vérifié par GLPI).
+// Issue #1044 : ce réglage est dans l'onglet Parc de la configuration du plugin. L'ancien envoi
+// reste accepté pendant une version : enregistré, puis renvoi sur l'onglet avec un message.
 if (isset($_POST['save_patch_targets'])) {
-    Session::checkRight(PatchCompliance::RIGHTNAME, UPDATE);
-    $before = PatchCompliance::getTargets();
-    $submitted = $_POST['patch_targets'] ?? [];
-    $after = PatchCompliance::setTargets(is_array($submitted) ? $submitted : []);
-    if ($after !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => [PatchCompliance::TARGETS_KEY => $after]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Target delays saved.', 'grcmanager')));
-    Html::redirect(PatchCompliance::getSearchURL() . '#grc-patch-targets');
+    \GlpiPlugin\Grcmanager\Config\Block\PatchTargetsBlock::handle(true);
 }
 
 \GlpiPlugin\Grcmanager\Menu::header(

@@ -111,7 +111,7 @@
       </form>
    {% endif %}
    <table class="table">
-      <thead><tr><th>{{ __('Measurement date', 'grcmanager') }}</th><th>{{ __('Value', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>{% if can_purge %}<th></th>{% endif %}</tr></thead>
+      <thead><tr><th>{{ __('Measurement date', 'grcmanager') }}</th><th>{{ __('Value', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Comment', 'grcmanager') }}</th>{% if can_purge %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}</tr></thead>
       <tbody>
          {% for v in values %}
             <tr>

@@ -211,6 +211,23 @@ final class ZabbixClient
     }
 
     /**
+     * Essai de la connexion (issue #1042, bouton « Tester la connexion » de la configuration) :
+     * version du serveur, puis un comptage des hôtes pour éprouver le jeton. Rien n'est enregistré.
+     *
+     * @return array{version: string, error: string}
+     */
+    public function test(): array
+    {
+        $version = $this->version();
+        if ($version['error'] !== '') {
+            return $version;
+        }
+        $answer = $this->call('host.get', ['countOutput' => true]);
+
+        return ['version' => $version['version'], 'error' => $answer['error']];
+    }
+
+    /**
      * Lecture complète : hôtes, problèmes de la période et problèmes encore ouverts, retours à la
      * normale, SLA (Zabbix 6.0 et suivants). complete = false en cas d'erreur : rien n'est alors
      * remplacé par l'appelant.

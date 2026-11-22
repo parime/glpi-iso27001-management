@@ -2,11 +2,13 @@
 # Tests de securite de bout en bout, communs aux jobs GLPI 11 et GLPI 12 (issue #980) : avant, la
 # matrice d'acces et le test XSS ne tournaient que sur GLPI 11.
 #
-# Usage : security-e2e.sh matrix|xss|js|edit|purge [url GLPI]
+# Usage : security-e2e.sh matrix|xss|js|edit|a11y|purge [url GLPI]
 #   matrix : matrice de controle d'acces (profils limites a une entite, puis super-admin)
 #   xss    : charge piegee dans chaque champ texte libre, aucune page ne la restitue sans echappement
 #   js     : erreurs JavaScript et boites de dialogue dans Chromium (tests/security/js-errors.py), dans
 #            l'image Playwright officielle : Playwright n'installe pas Chromium sur le runner Ubuntu 26.04
+#   a11y   : accessibilite (tests/security/a11y-check.py, axe-core) sur des pages cles, en theme clair
+#            puis sombre (palette darker) : aucune violation grave des regles deja corrigees (#663)
 #   edit   : scenarios d'edition dans Chromium (tests/security/edit-scenarios.py), sur le jeu de donnees
 #   purge  : purge du jeu de donnees (tests/security/purge.php), puis nouvelle creation
 # Variable : GLPI_CONTAINER (conteneur GLPI, par defaut « glpi »).
@@ -77,6 +79,17 @@ case $STEP in
     ;;
   js) browser tests/security/js-errors.py "$BROWSER_BASE" front ;;
   edit) browser tests/security/edit-scenarios.py "$BROWSER_BASE" "$(setup)" ;;
+  a11y)
+    # Issue #663 : la palette est lue a la connexion ; celle par defaut est rendue au compte a la fin.
+    palette() { docker exec -u www-data "$C" php /var/www/glpi/plugins/grcmanager/tests/security/a11y-palette.php glpi "$1"; }
+    st=0
+    for p in default darker; do
+      palette "$p"
+      browser tests/security/a11y-check.py "$BROWSER_BASE" "$p" || st=1
+    done
+    palette default
+    exit $st
+    ;;
   purge)
     # Issue #1002 : la purge retire le jeu de donnees (entites, comptes, profils), puis setup.php le
     # recree sans erreur.
@@ -87,5 +100,5 @@ case $STEP in
     setup > /dev/null || { echo "::error::setup.php echoue apres la purge"; exit 1; }
     echo "OK  jeu de donnees purge puis recree"
     ;;
-  *) echo "usage : $0 matrix|xss|js|edit|purge [url]" >&2; exit 2 ;;
+  *) echo "usage : $0 matrix|xss|js|edit|a11y|purge [url]" >&2; exit 2 ;;
 esac
