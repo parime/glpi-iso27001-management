@@ -240,11 +240,16 @@
                         {% if r %}
                            <span class="badge {{ r.badge.class }}" title="{{ __('Deadline %1$s (%2$s: %3$d days)', 'grcmanager')|format(r.sla_due|formatted_date, r.level_label, r.deadline) }}"><i class="{{ r.badge.icon }} me-1"></i>{{ r.badge.label }}</span>
                            {% if r.critical %}<span class="badge bg-purple-lt ms-1" title="{{ __('Installed on an asset with a high C/I/A classification: shorter deadline.', 'grcmanager') }}"><i class="ti ti-shield-lock"></i></span>{% endif %}
+                           {# Issue #887 : niveau relevé ou abaissé par l'environnement et l'exposition des machines. #}
+                           {% if r.context %}<div class="mt-1"><span class="badge {{ r.context.class }}" title="{{ r.context.title }}"><i class="{{ r.context.icon }} me-1"></i>{{ r.context.label }}</span></div>{% endif %}
                            <div class="small text-muted">{{ __('Detected on %s', 'grcmanager')|format(r.first_seen|formatted_date) }}</div>
                            {% if r.waiver and r.waiver.url %}
                               <div class="small"><a href="{{ r.waiver.url }}"><i class="ti ti-file-alert me-1"></i>{{ r.waiver.name }}</a></div>
                            {% elseif r.status == 'overdue' and waiver_new_url %}
                               <div class="small"><a href="{{ waiver_new_url }}?cve_ids={{ row.cve_id|url_encode }}" title="{{ __('If the vulnerability cannot be fixed in time, document the exception and its compensating controls.', 'grcmanager') }}"><i class="ti ti-file-plus me-1"></i>{{ __('Request a waiver', 'grcmanager') }}</a></div>
+                           {% elseif r.status in ['on_time', 'due_soon'] and waiver_new_url %}
+                              {# Issue #887 : écarter un résultat (non applicable, risque accepté) avec une justification tracée. #}
+                              <div class="small"><a class="text-muted" href="{{ waiver_new_url }}?cve_ids={{ row.cve_id|url_encode }}" title="{{ __('Not applicable or accepted risk: write the justification in a waiver. Once approved, the waiver replaces the deadline until its end date.', 'grcmanager') }}"><i class="ti ti-file-plus me-1"></i>{{ __('Set aside with a justification', 'grcmanager') }}</a></div>
                            {% endif %}
                         {% else %}
                            <span class="text-muted small">{{ __('Tracked from the next check', 'grcmanager') }}</span>

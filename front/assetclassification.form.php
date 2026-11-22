@@ -55,6 +55,9 @@ $levels = [
     // Issue #177, phase 2 : objectifs de reprise (filtrés par prepareInputFor*()).
     'rto_hours'       => $_POST['rto_hours'] ?? 0,
     'rpo_hours'       => $_POST['rpo_hours'] ?? 0,
+    // Issue #887 : environnement et exposition (filtrés par prepareInputFor*()).
+    'environment'     => $_POST['environment'] ?? '',
+    'exposure'        => $_POST['exposure'] ?? '',
 ];
 
 $classification = new \GlpiPlugin\Grcmanager\AssetClassification();

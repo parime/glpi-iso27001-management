@@ -768,6 +768,8 @@ Html::header(
     'digest'                    => \GlpiPlugin\Grcmanager\VulnerabilityDigest::configData(),
     'remediation_settings'      => \GlpiPlugin\Grcmanager\ParkRemediation::getSettings(),
     'remediation_levels'        => \GlpiPlugin\Grcmanager\ParkRemediation::getLevelLabels(),
+    // Issue #887 : niveau ajusté au contexte des machines.
+    'remediation_context'       => \GlpiPlugin\Grcmanager\VulnerabilityContext::isEnabled(),
     'max_tickets'               => \GlpiPlugin\Grcmanager\ParkVulnerability::MAX_TICKETS_PER_RUN,
     'ciso_groups_id'            => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
     // Issue #656 : groupe Direction de l'appétence au risque.

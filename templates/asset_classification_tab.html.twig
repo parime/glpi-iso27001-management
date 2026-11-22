@@ -33,6 +33,25 @@
       </p>
    {% endif %}
 
+   {# Issue #887 : environnement et exposition, qui ajustent le niveau des vulnérabilités de l'actif. #}
+   <p>
+      <i class="ti ti-server-2 me-1"></i>{{ __('Environment', 'grcmanager') }} :
+      {% if context.environment %}
+         <span class="badge {{ context.environment == 'production' ? 'bg-purple-subtle text-purple-emphasis' : 'bg-cyan-subtle text-cyan-emphasis' }} me-3"><i class="ti {{ context.environment == 'production' ? 'ti-building-factory-2' : 'ti-flask' }} me-1"></i>{{ environments[context.environment]|default(context.environment) }}</span>
+      {% else %}
+         <span class="text-muted me-3">{{ __('Not specified (counted as production)', 'grcmanager') }}</span>
+      {% endif %}
+      <i class="ti ti-world me-1"></i>{{ __('Exposure to the Internet', 'grcmanager') }} :
+      {% if context.exposed %}
+         <span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-world-up me-1"></i>{{ __('Reachable from the Internet', 'grcmanager') }}</span>
+      {% else %}
+         <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-shield-check me-1"></i>{{ __('Not reachable from the Internet', 'grcmanager') }}</span>
+      {% endif %}
+      {% if context.exposure == '' and context.flows > 0 %}
+         <span class="small text-muted ms-1">{{ _n('(%d Internet publication flow in the network flow matrix)', '(%d Internet publication flows in the network flow matrix)', context.flows, 'grcmanager')|format(context.flows) }}{% if flows_url %} <a href="{{ flows_url }}"><i class="ti ti-external-link"></i></a>{% endif %}</span>
+      {% endif %}
+   </p>
+
    {% if can_edit %}
       <form method="post" action="{{ action }}" class="row g-3">
          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
@@ -62,6 +81,21 @@
                {% for hours, name in recovery %}<option value="{{ hours }}" {{ classification.rpo_hours|default(0) == hours ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
             </select>
             <div class="form-hint">{{ __('Maximum acceptable age of restored data (backup frequency).', 'grcmanager') }}</div>
+         </div>
+         <div class="col-md-6">
+            <label class="form-label" for="grc-classif-environment">{{ __('Environment', 'grcmanager') }}</label>
+            <select name="environment" id="grc-classif-environment" class="form-select">
+               <option value="">{{ __('Not specified', 'grcmanager') }}</option>
+               {% for key, name in environments %}<option value="{{ key }}" {{ context.environment == key ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+            </select>
+            <div class="form-hint">{{ __('A vulnerability found only on test or development machines can be fixed one step later, if the option is enabled in the remediation deadlines.', 'grcmanager') }}</div>
+         </div>
+         <div class="col-md-6">
+            <label class="form-label" for="grc-classif-exposure">{{ __('Exposure to the Internet', 'grcmanager') }}</label>
+            <select name="exposure" id="grc-classif-exposure" class="form-select">
+               {% for key, name in exposures %}<option value="{{ key }}" {{ context.exposure == key ? 'selected' : '' }}>{{ name }}</option>{% endfor %}
+            </select>
+            <div class="form-hint">{{ __('By default, an asset targeted by an active Internet publication flow of the network flow matrix counts as reachable from the Internet: its vulnerabilities become one step more urgent.', 'grcmanager') }}</div>
          </div>
          <div class="col-12">
             <button type="submit" name="save" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
