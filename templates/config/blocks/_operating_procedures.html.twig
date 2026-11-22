@@ -1,0 +1,43 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #775 : domaines attendus des procédures d'exploitation (A.5.37), base de la couverture. #}
+<div class="card mb-3" id="grc-operating-procedures-config">
+  <div class="card-body">
+    <h4><i class="ti ti-list-check me-1"></i>{{ __('Expected domains of operating procedures', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The register of operating procedures shows, for each domain ticked here, whether an approved and up-to-date procedure exists. Untick a domain that does not apply to you, and add your own domains, one per line.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-2 mb-2">
+        {% for domain in operating_procedures.defaults %}
+          <div class="col-md-4">
+            <label class="form-check">
+              <input type="checkbox" class="form-check-input" name="operating_procedure_domains[]" value="{{ domain.key }}" {{ domain.checked ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+              <span class="form-check-label">{{ domain.label }}</span>
+            </label>
+          </div>
+        {% endfor %}
+      </div>
+      <label class="form-label" for="grc-operating-procedure-others">{{ __('Other domains (one per line)', 'grcmanager') }}</label>
+      <textarea class="form-control" id="grc-operating-procedure-others" name="operating_procedure_others" rows="3" {{ can_edit_config ? '' : 'disabled' }}>{{ operating_procedures.others }}</textarea>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-2">
+          <button type="submit" name="update_operating_procedures" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>

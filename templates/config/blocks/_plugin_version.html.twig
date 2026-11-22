@@ -1,0 +1,32 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Version installee vs derniere version publiee sur GitHub - meme mecanisme/gabarit que les
+   plugins jumeaux glpi-vulnerability-manager, assetsign-glpi et Configuration-glpi-auto. #}
+<div class="card card-sm mb-3" id="grc-plugin-version">
+  <div class="card-body d-flex align-items-center gap-3">
+    <i class="ti ti-brand-github fs-1 text-muted"></i>
+    <div>
+      <div class="fw-bold">{{ __('Plugin version', 'grcmanager') }}</div>
+      <div class="text-muted small">
+        {{ __('Installed version', 'grcmanager') }}
+        <span class="badge bg-blue-lt">v{{ installed_version }}</span>
+        {% if latest_github_version %}
+          {{ __('Latest version on GitHub', 'grcmanager') }}
+          <span class="badge {{ latest_github_version != installed_version ? 'bg-orange-lt' : 'bg-green-lt' }}">v{{ latest_github_version }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
