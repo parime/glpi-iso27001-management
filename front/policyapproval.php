@@ -80,6 +80,7 @@ if (isset($_GET['export'])) {
 }
 
 if (isset($_POST['answer'])) {
+    $versionId = (int) ($_POST['versions_id'] ?? 0);
     $approve = ($_POST['decision'] ?? '') === 'approve';
     $comment = trim((string) ($_POST['comment'] ?? ''));
     if (!$approve && $comment === '') {
@@ -87,8 +88,8 @@ if (isset($_POST['answer'])) {
         Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
     } elseif (
         (int) ($_POST['on_behalf_of'] ?? 0) > 0
-            ? PolicyVersion::answer((int) ($_POST['versions_id'] ?? 0), (int) $_POST['on_behalf_of'], $approve, $comment, $usersId)
-            : PolicyVersion::answer((int) ($_POST['versions_id'] ?? 0), $usersId, $approve, $comment)
+            ? PolicyVersion::answer($versionId, (int) $_POST['on_behalf_of'], $approve, $comment, $usersId)
+            : PolicyVersion::answer($versionId, $usersId, $approve, $comment)
     ) {
         Session::addMessageAfterRedirect(htmlescape($approve
             ? __('Approval recorded.', 'grcmanager')
@@ -99,7 +100,8 @@ if (isset($_POST['answer'])) {
     }
     // Un approbateur sans droit sur les politiques qui n'a plus rien à approuver retourne à son
     // espace, ouvert à toute session (cette page lui serait refusée).
-    Html::redirect($canRead || PolicyVersion::pendingForUser($usersId) !== [] || PolicyVersion::pendingOnBehalf($usersId) !== []
+    $stillPending = PolicyVersion::pendingForUser($usersId) !== [] || PolicyVersion::pendingOnBehalf($usersId) !== [];
+    Html::redirect($canRead || $stillPending
         ? $selfUrl
         : \GlpiPlugin\Grcmanager\MySpace::getSearchURL());
 }

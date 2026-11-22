@@ -226,6 +226,7 @@ class Delegation extends CommonDBTM
         global $DB;
 
         $infos = DelegationConfig::typeInfos();
+        $decisions = AccessReview::getDecisionLabels() + SoaVersion::getAnswerLabels();
         $rows = [];
         foreach (
             $DB->request([
@@ -241,7 +242,7 @@ class Delegation extends CommonDBTM
                 'type'       => $infos[$type]['label'] ?? $type,
                 'icon'       => $infos[$type]['icon'] ?? 'ti-point',
                 'item'       => (string) $row['item_label'],
-                'decision'   => (string) $row['decision'],
+                'decision'   => (string) ($decisions[$row['decision']] ?? $row['decision']),
                 'holder'     => getUserName((int) $row['users_id_holder']),
                 'substitute' => getUserName((int) $row['users_id_substitute']),
                 'period'     => $row['date_start'] !== null && $row['date_end'] !== null

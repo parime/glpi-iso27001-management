@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "%1$s on behalf of %2$s"
+msgstr "%1$s im Auftrag von %2$s"
+
+msgid "%1$s, absent until %2$s:"
+msgstr "%1$s, abwesend bis %2$s:"
+
+msgid "Check that each delegated decision fits the absence and the delegable decision types. The substitute gets no right: he only sees the decisions entrusted to the absent person, and only until the end of the declared absence."
+msgstr "Prüfen Sie, dass jede delegierte Entscheidung zur Abwesenheit und zu den delegierbaren Entscheidungsarten passt. Die Vertretung erhält kein Recht: Sie sieht nur die der abwesenden Person anvertrauten Entscheidungen, und nur bis zum Ende der angegebenen Abwesenheit."
+
+msgid "Decision delegated for the declared absence period: it will be recorded as yours, on behalf of the absent person."
+msgstr "Für die angegebene Abwesenheit delegierte Entscheidung: Sie wird als Ihre Entscheidung im Auftrag der abwesenden Person erfasst."
+
+msgid "Decision type"
+msgstr "Entscheidungsart"
+
+msgid "Declared absence"
+msgstr "Angegebene Abwesenheit"
+
+msgid "Delegable decisions"
+msgstr "Delegierbare Entscheidungen"
+
+msgid "Delegated decisions"
+msgstr "Delegierte Entscheidungen"
+
+msgid "Delegation during an absence"
+msgstr "Delegation während einer Abwesenheit"
+
+msgid "Lets the substitute declared in GLPI (user preferences, \"Substitutes\" tab, with a start and an end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person."
+msgstr "Erlaubt der in GLPI angegebenen Vertretung (Benutzereinstellungen, Registerkarte „Vertretungen“, mit Beginn- und Enddatum), die Entscheidungen einer abwesenden Person zu treffen, nur während des angegebenen Zeitraums. Ein Zeitraum ohne Enddatum delegiert nichts. Jede Entscheidung wird als von der Vertretung im Auftrag der abwesenden Person getroffen erfasst. Ausnahmen und Risikoakzeptanzen werden nie delegiert: Sie hängen von einem Recht ab, nicht von einer Person."
+
+msgid "Lists the decisions taken by a substitute on behalf of an absent person: who decided, for whom, when, on what, and the absence period declared in GLPI at that moment."
+msgstr "Listet die von einer Vertretung im Auftrag einer abwesenden Person getroffenen Entscheidungen auf: wer entschieden hat, für wen, wann, worüber, und den zu diesem Zeitpunkt in GLPI angegebenen Abwesenheitszeitraum."
+
+msgid "No decision has been taken by a substitute yet."
+msgstr "Bisher hat keine Vertretung eine Entscheidung getroffen."
+
+msgid "Not delegable"
+msgstr "Nicht delegierbar"
+
+msgid "On behalf of"
+msgstr "Im Auftrag von"
+
+msgid "On behalf of %1$s, absent until %2$s"
+msgstr "Im Auftrag von %1$s, abwesend bis %2$s"
+
+msgid "Taken by"
+msgstr "Getroffen von"
+
+msgid "The substitute answers for the absent approver, unless he is himself an approver of the same version."
+msgstr "Die Vertretung antwortet für die abwesende genehmigende Person, außer wenn sie selbst diese Version genehmigt."
+
+msgid "The substitute decides the accounts entrusted to the absent reviewer (never his own account)."
+msgstr "Die Vertretung entscheidet über die der abwesenden prüfenden Person anvertrauten Konten (nie über das eigene Konto)."
+
+msgid "You are standing in for"
+msgstr "Sie vertreten"
+
+msgid "Your decisions are recorded as yours, on behalf of the absent person, and stop being possible at the end of the declared absence."
+msgstr "Ihre Entscheidungen werden als Ihre eigenen im Auftrag der abwesenden Person erfasst und sind nach dem Ende der angegebenen Abwesenheit nicht mehr möglich."
+
+msgid "Delegated decision"
+msgid_plural "Delegated decisions"
+msgstr[0] "Delegierte Entscheidung"
+msgstr[1] "Delegierte Entscheidungen"

@@ -14,6 +14,7 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Delegation;
@@ -67,20 +68,28 @@ final class DelegationConfig
      */
     public static function typeInfos(): array
     {
+        $approvalHelp = __(
+            'The substitute answers for the absent approver, unless he is himself an approver of the same version.',
+            'grcmanager'
+        );
+
         return [
             DelegationRules::TYPE_ACCESS_REVIEW => [
                 'label' => __('Access review', 'grcmanager'),
-                'help'  => __('The substitute decides the accounts entrusted to the absent reviewer (never his own account).', 'grcmanager'),
+                'help'  => __(
+                    'The substitute decides the accounts entrusted to the absent reviewer (never his own account).',
+                    'grcmanager'
+                ),
                 'icon'  => 'ti-user-search',
             ],
             DelegationRules::TYPE_SOA_APPROVAL => [
                 'label' => __('SoA approval', 'grcmanager'),
-                'help'  => __('The substitute answers for the absent approver, unless he is himself an approver of the same version.', 'grcmanager'),
+                'help'  => $approvalHelp,
                 'icon'  => 'ti-signature',
             ],
             DelegationRules::TYPE_POLICY_APPROVAL => [
                 'label' => __('Policy approval', 'grcmanager'),
-                'help'  => __('The substitute answers for the absent approver, unless he is himself an approver of the same version.', 'grcmanager'),
+                'help'  => $approvalHelp,
                 'icon'  => 'ti-file-text',
             ],
         ];

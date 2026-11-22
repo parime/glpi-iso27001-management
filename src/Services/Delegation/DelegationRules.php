@@ -14,6 +14,7 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Delegation;
@@ -58,7 +59,10 @@ final class DelegationRules
         }
         $wanted = array_map(static fn (mixed $type): string => is_scalar($type) ? trim((string) $type) : '', $types);
 
-        return array_values(array_filter(self::TYPES, static fn (string $type): bool => in_array($type, $wanted, true)));
+        return array_values(array_filter(
+            self::TYPES,
+            static fn (string $type): bool => in_array($type, $wanted, true)
+        ));
     }
 
     /**

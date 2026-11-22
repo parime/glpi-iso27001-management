@@ -264,7 +264,10 @@ class SoaVersion extends SoaVersionBase
             return false;
         }
         $approvers = self::getApprovers($versionId);
-        $pending = array_filter($approvers, static fn (array $a): bool => $a['status'] === SoaApprovalLogic::ANSWER_PENDING);
+        $pending = array_filter(
+            $approvers,
+            static fn (array $approver): bool => $approver['status'] === SoaApprovalLogic::ANSWER_PENDING
+        );
 
         return DelegationRules::canAnswerApproval(
             $substituteId,

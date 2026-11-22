@@ -299,7 +299,10 @@ class PolicyVersion extends PolicyVersionBase
             return false;
         }
         $approvers = self::getApprovers($versionId);
-        $pending = array_filter($approvers, static fn (array $a): bool => $a['status'] === PolicyApprovalRules::ANSWER_PENDING);
+        $pending = array_filter(
+            $approvers,
+            static fn (array $approver): bool => $approver['status'] === PolicyApprovalRules::ANSWER_PENDING
+        );
 
         return DelegationRules::canAnswerApproval(
             $substituteId,

@@ -570,7 +570,8 @@ class AccessReview extends AccessReviewBase
         $lines = [];
         foreach (Delegation::holdersFor($substituteId, DelegationRules::TYPE_ACCESS_REVIEW) as $holderId => $period) {
             foreach (self::getLinesForReviewer($holderId) as $line) {
-                if (!DelegationRules::canDecideAccessLine($substituteId, $holderId, $line['reviewers_id'], $line['users_id'])) {
+                $lineReviewer = (int) $line['reviewers_id'];
+                if (!DelegationRules::canDecideAccessLine($substituteId, $holderId, $lineReviewer, (int) $line['users_id'])) {
                     continue;
                 }
                 $lines[] = $line + [

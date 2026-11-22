@@ -98,7 +98,8 @@ final class MySpaceProvider
             self::auditAccesses($usersId),
             self::objectives($usersId),
             self::events($usersId),
-            self::regulatoryNotifications($usersId)
+            self::regulatoryNotifications($usersId),
+            self::delegatedDecisions($usersId)
         ), $today);
     }
 
@@ -646,6 +647,71 @@ final class MySpaceProvider
                 null,
                 PolicyVersion::getPageURL(),
                 true
+            );
+        }
+
+        return $list;
+    }
+
+    /**
+     * Issue #618 : décisions qui attendent un titulaire absent que la personne remplace (période
+     * déclarée dans GLPI, types délégables de la configuration), avec le nom du titulaire.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private static function delegatedDecisions(int $usersId): array
+    {
+        global $CFG_GLPI;
+
+        $list = [];
+        $onBehalf = static fn (array $row): string => sprintf(
+            __('On behalf of %1$s, absent until %2$s', 'grcmanager'),
+            (string) $row['on_behalf_name'],
+            (string) $row['absent_until']
+        );
+        $campaigns = [];
+        foreach (AccessReview::getDelegatedLines($usersId) as $line) {
+            $key = (int) $line['plugin_grcmanager_accessreviews_id'] . '-' . (int) $line['on_behalf_of'];
+            $campaigns[$key] ??= ['line' => $line, 'pending' => 0];
+            if ($line['decision'] === \GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic::DECISION_PENDING) {
+                $campaigns[$key]['pending']++;
+            }
+        }
+        foreach ($campaigns as $campaign) {
+            if ($campaign['pending'] === 0) {
+                continue;
+            }
+            $line = $campaign['line'];
+            $list[] = self::candidate(
+                'access_review',
+                (int) $line['plugin_grcmanager_accessreviews_id'],
+                (string) $line['campaign_name'],
+                $line['campaign_due_date'],
+                AccessReview::getMineURL(),
+                true,
+                $onBehalf($line)
+            );
+        }
+        foreach (SoaVersion::pendingOnBehalf($usersId) as $row) {
+            $list[] = self::candidate(
+                'soa_approval',
+                (int) $row['id'],
+                sprintf(__('Statement of Applicability, version %d', 'grcmanager'), (int) $row['version']),
+                null,
+                $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php',
+                true,
+                $onBehalf($row)
+            );
+        }
+        foreach (PolicyVersion::pendingOnBehalf($usersId) as $row) {
+            $list[] = self::candidate(
+                'policy_approval',
+                (int) $row['id'],
+                sprintf(__('%1$s, version %2$s', 'grcmanager'), (string) $row['title'], (string) $row['version']),
+                null,
+                PolicyVersion::getPageURL(),
+                true,
+                $onBehalf($row)
             );
         }
 
