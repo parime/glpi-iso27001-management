@@ -106,7 +106,7 @@
           <th>{{ __('Category') }}</th>
           {% for scale, texts in scales %}<th title="{{ texts[1] }}">{{ texts[0] }}</th>{% endfor %}
           <th>{{ __('Threat', 'grcmanager') }}</th>
-          {% if can_edit %}<th></th>{% endif %}
+          {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
         </tr>
       </thead>
       <tbody>
@@ -210,7 +210,7 @@
         <th>{{ __('Attack path', 'grcmanager') }}</th>
         <th>{{ __('Feared event', 'grcmanager') }}</th>
         <th>{{ __('Measures planned on this path', 'grcmanager') }}</th>
-        {% if can_edit %}<th></th>{% endif %}
+        {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
       </tr>
     </thead>
     <tbody>

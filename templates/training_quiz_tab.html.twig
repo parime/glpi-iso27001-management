@@ -23,7 +23,7 @@
         <th>{{ __('Participant', 'grcmanager') }}</th>
         <th>{{ __('Score', 'grcmanager') }}</th>
         <th>{{ __('Quiz copy', 'grcmanager') }}</th>
-        {% if can_edit %}<th></th>{% endif %}
+        {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
       </tr>
     </thead>
     <tbody>
