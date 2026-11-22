@@ -129,4 +129,5 @@ foreach (array_reverse($entities) as $entityId) {
 }
 
 ksort($done);
-echo json_encode($done), "\n";
+// Objet JSON même vide ({} et non []).
+echo json_encode((object) $done), "\n";
