@@ -45,7 +45,7 @@ use User;
  *
  * Le statut du plan ne change que par ces actions explicites ; aucun droit n'est modifié.
  */
-final class ContinuityPlanVersion extends CommonGLPI
+class ContinuityPlanVersion extends CommonGLPI
 {
     public const RIGHTNAME = Installer::CONTINUITY_RIGHT;
 

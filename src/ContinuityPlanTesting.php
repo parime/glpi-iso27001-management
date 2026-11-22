@@ -41,7 +41,7 @@ use Session;
  * Enregistrer ou retirer un test exige de pouvoir modifier le plan ; un exercice n'est nommé que s'il
  * est lisible.
  */
-final class ContinuityPlanTesting extends CommonGLPI
+class ContinuityPlanTesting extends CommonGLPI
 {
     public const RIGHTNAME = Installer::CONTINUITY_RIGHT;
 
