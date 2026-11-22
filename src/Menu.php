@@ -195,7 +195,10 @@ class Menu extends CommonGLPI
             $menu['title'] = $section::title();
         }
         if ($section::hub()) {
-            $menu['section_page'] = $menu['page'];
+            if (empty($menu['parent_hidden'])) {
+                // Parent visible seulement : sinon l'entrée n'est que sa première sous-page, déjà listée.
+                $menu['section_page'] = $menu['page'];
+            }
             $menu['page'] = Sections::hubUrl($section);
         }
 
