@@ -714,7 +714,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // l'adresse (?tab=<clé>) ; seuls les blocs de cet onglet sont calculés et affichés.
 $tab = ConfigTabs::current($_GET['tab'] ?? null);
 if ($tab === '') {
-    Html::displayRightError();
+    throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
 $page = ConfigTabs::pageData($tab);
