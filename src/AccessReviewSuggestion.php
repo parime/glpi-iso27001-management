@@ -36,7 +36,8 @@ use Profile;
  *   création (comme l'hygiène des comptes) ;
  * - départ enregistré dans assetsign (fiche de départ non annulée), si ce plugin est actif ;
  * - changement de groupes sans revue des profils (historique GLPI, hygiène des comptes) ;
- * - profils à privilèges et couverture MFA (MfaCoverage, #852).
+ * - profils à privilèges et couverture MFA (MfaCoverage, #852) ;
+ * - écarts de la fiche de conformité du collaborateur (PersonnelCompliance, #546 ; issue #932).
  *
  * La suggestion et ses raisons sont figées sur la ligne au lancement, puis recalculables pour les
  * lignes encore à revoir. Rien n'est décidé ni modifié : le relecteur choisit.
@@ -110,10 +111,40 @@ final class AccessReviewSuggestion
                 __('Privileged profile without known MFA: %s', 'grcmanager'),
                 $profiles
             ),
+            Rules::R_COMPLIANCE_GAP    => self::complianceGapLabel(
+                (string) ($params['component'] ?? '') . '.' . (string) ($params['detail'] ?? ''),
+                implode(', ', array_map('strval', is_array($params['titles'] ?? null) ? $params['titles'] : []))
+            ),
             Rules::R_NO_SIGNAL         => $date !== ''
                 ? sprintf(__('No warning sign (last login on %s)', 'grcmanager'), $date)
                 : __('No warning sign', 'grcmanager'),
             default                    => $code,
+        };
+    }
+
+    /**
+     * Issue #932 : texte d'un écart de la fiche de conformité (signal « à examiner »).
+     */
+    private static function complianceGapLabel(string $signal, string $titles): string
+    {
+        return match ($signal) {
+            'training.pending'         => sprintf(
+                __('Staff compliance: mandatory training not completed in time (%s)', 'grcmanager'),
+                $titles
+            ),
+            'training.renewal_overdue' => sprintf(
+                __('Staff compliance: mandatory training expired (%s)', 'grcmanager'),
+                $titles
+            ),
+            'charter.pending'          => sprintf(
+                __('Staff compliance: IT charter sent but not signed (%s)', 'grcmanager'),
+                $titles
+            ),
+            'policies.pending'         => sprintf(
+                __('Staff compliance: security policies not acknowledged (%s)', 'grcmanager'),
+                $titles
+            ),
+            default                    => __('Staff compliance gap', 'grcmanager'),
         };
     }
 
@@ -156,6 +187,9 @@ final class AccessReviewSuggestion
             'suggestion_color'   => $info['color'] ?? 'secondary',
             'suggestion_icon'    => $info['icon'] ?? '',
             'suggestion_reasons_list' => $labels,
+            // Issue #932 : raisons en une ligne, proposées comme commentaire quand le relecteur
+            // reporte une suggestion « retirer » sur la décision.
+            'suggestion_reasons_text' => implode('; ', array_column($labels, 'label')),
             // Bouton de décision mis en avant : celui que la suggestion propose (aucun pour « à examiner »).
             'suggested_decision' => match ($suggestion) {
                 Rules::KEEP   => AccessReviewLogic::DECISION_KEEP,
@@ -171,7 +205,8 @@ final class AccessReviewSuggestion
      * Réglages d'une campagne (champ JSON), aux valeurs par défaut si absents.
      *
      * @param array<string, mixed> $fields
-     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool}
+     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool,
+     *     compliance: bool}
      */
     public static function settings(array $fields): array
     {
@@ -186,7 +221,7 @@ final class AccessReviewSuggestion
     public static function settingsFromInput(array $input): string
     {
         $posted = is_array($input['suggestion_rules'] ?? null) ? $input['suggestion_rules'] : [];
-        foreach (['privileged', 'mfa', 'group_change'] as $flag) {
+        foreach (['privileged', 'mfa', 'group_change', 'compliance'] as $flag) {
             $posted[$flag] = (int) ($posted[$flag] ?? 0);
         }
 
@@ -198,7 +233,8 @@ final class AccessReviewSuggestion
      *
      * @param list<int> $usersIds
      * @param list<int> $entities
-     * @param array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool} $settings
+     * @param array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool,
+     *     compliance: bool} $settings
      * @return array<int, array<string, mixed>>
      */
     public static function facts(array $usersIds, array $entities, array $settings, string $now): array
@@ -226,7 +262,18 @@ final class AccessReviewSuggestion
                 'group_changed'       => false,
                 'privileged_profiles' => [],
                 'mfa_level'           => null,
+                'compliance_gaps'     => [],
             ];
+        }
+
+        // Issue #932 : écarts de la fiche de conformité de chaque collaborateur (mêmes règles, délai et
+        // poids que la page « Conformité du personnel » ; une composante de poids nul n'y compte pas).
+        if ($settings['compliance']) {
+            foreach (PersonnelCompliance::evaluateUsers(['users_id' => array_keys($facts)], false) as $row) {
+                if (isset($facts[(int) $row['id']])) {
+                    $facts[(int) $row['id']]['compliance_gaps'] = Rules::complianceGaps($row['components']);
+                }
+            }
         }
 
         foreach (self::departures(array_keys($facts)) as $id => $date) {
