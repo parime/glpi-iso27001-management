@@ -717,12 +717,18 @@ if ($tab === '') {
     Html::displayRightError();
 }
 
-Html::header(__('Configuration', 'grcmanager'), $_SERVER['PHP_SELF'], 'config', 'plugin');
+$page = ConfigTabs::pageData($tab);
+Html::header(
+    __('Configuration', 'grcmanager') . ' - ' . $page['current_label'],
+    $_SERVER['PHP_SELF'],
+    'config',
+    'plugin'
+);
 \GlpiPlugin\Grcmanager\PageHelp::show('config');
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display(
     '@grcmanager/config_form.html.twig',
-    ConfigTabs::pageData($tab) + [
+    $page + [
         'csrf_token'         => Session::getNewCSRFToken(),
         'can_edit_config'    => (bool) Session::haveRight(Installer::RIGHT_NAME, UPDATE),
         'can_edit_sensitive' => (bool) Session::haveRight(Installer::SENSITIVE_RIGHT, UPDATE),
