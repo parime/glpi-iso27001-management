@@ -483,7 +483,8 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'acn'             => $isEnabled(FrameworkSelection::ACN_IT)
         ? \GlpiPlugin\Grcmanager\AcnRequirement::referentialCard() : null,
     // Issue #599 : ReCyF (NIS2 France), catalogue des mesures et lien vers le registre de l'entité.
-    'recyf'           => $isEnabled(FrameworkSelection::NIS2)
+    // Issue #1053 : déclinaison France de NIS2, cochée sous NIS2.
+    'recyf'           => $isEnabled(FrameworkSelection::RECYF)
         ? \GlpiPlugin\Grcmanager\RecyfRequirement::referentialCard() : null,
     'custom_frameworks'    => $customFrameworks,
     'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),

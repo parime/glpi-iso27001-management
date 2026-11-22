@@ -40,6 +40,11 @@ $detail = FrameworkAssessment::detail($assessments, $selected);
 \GlpiPlugin\Grcmanager\PageHelp::show('frameworkassessment');
 TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.twig', [
     'assessments'    => $assessments,
+    // Issue #1053 : mêmes familles et regroupements que la configuration (NIS2 et ses déclinaisons).
+    'families'       => \GlpiPlugin\Grcmanager\Services\Control\FrameworkFamilyRules::arrange(
+        \GlpiPlugin\Grcmanager\Config\FrameworkFamilies::describe(),
+        $assessments
+    ),
     'detail'         => $detail,
     'selected'       => $selected,
     'page_url'       => FrameworkAssessment::getSearchURL(),
@@ -53,8 +58,12 @@ TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.
     'nis2_key'       => FrameworkSelection::NIS2,
     // Issue #599 : NIS2 sans registre ReCyF, accès à la classification des entités.
     'recyf'          => [
-        'config_url'    => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grcmanager-recyf',
+        // Issue #1053 : sans la déclinaison France cochée sous NIS2, la classification n'est pas affichée.
+        'config_url'    => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+            \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled() ? 'grcmanager-recyf' : 'grc-frameworks-europe'
+        ),
         'register_url'  => \GlpiPlugin\Grcmanager\RecyfRequirement::getSearchURL(),
+        'enabled'       => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled(),
         'can_configure' => (bool) Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE),
     ],
     'iso_key'        => FrameworkSelection::ISO27001,

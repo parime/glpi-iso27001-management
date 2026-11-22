@@ -31,7 +31,7 @@ final class AcnBlock extends ConfigBlock
 
     public static function order(): int
     {
-        return 30;
+        return 90;
     }
 
     public static function template(): string
