@@ -86,8 +86,12 @@ final class SubtleColorClassesTest extends TestCase
     {
         $setup = (string) file_get_contents(self::ROOT . '/setup.php');
         // Issue #663 : la feuille d'accessibilité est chargée par le même crochet.
-        self::assertMatchesRegularExpression('/ADD_CSS\]\[.grcmanager.\] = \[[^\]]*.css\/grcmanager\.css./', $setup);
-        self::assertMatchesRegularExpression('/ADD_CSS\]\[.grcmanager.\] = \[[^\]]*.css\/grcmanager-a11y\.css./', $setup);
+        foreach (['grcmanager', 'grcmanager-a11y'] as $sheet) {
+            self::assertMatchesRegularExpression(
+                '/ADD_CSS\]\[.grcmanager.\] = \[[^\]]*.css\/' . preg_quote($sheet, '/') . '\.css./',
+                $setup
+            );
+        }
         self::assertFileExists(self::ROOT . '/public/css/grcmanager.css');
         self::assertFileExists(self::ROOT . '/public/css/grcmanager-a11y.css');
     }
