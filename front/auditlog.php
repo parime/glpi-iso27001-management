@@ -48,7 +48,8 @@ if (isset($_POST['verify'])) {
     $verification = AuditLog::verifyAll();
 }
 
-\GlpiPlugin\Grcmanager\Menu::header(PluginGrcmanagerSecurityIncident::class, AuditLog::getTypeName());
+\GlpiPlugin\Grcmanager\Menu::header(AuditLog::class, AuditLog::getTypeName());
+\GlpiPlugin\Grcmanager\Menu::showSection(AuditLog::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('auditlog');
 TemplateRenderer::getInstance()->display('@grcmanager/audit_log.html.twig', [
     'action'       => $action,

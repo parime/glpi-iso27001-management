@@ -279,21 +279,43 @@ final class Sections
      */
     public static function reorderMenu(array $menu): array
     {
-        foreach (self::all() as $section) {
-            $sector = $section::sector();
-            $after = $section::after();
-            if ($sector === self::GRC || $after === null || !is_array($menu[$sector]['content'] ?? null)) {
+        foreach (self::SECTORS as $sector) {
+            if ($sector === self::GRC || !is_array($menu[$sector]['content'] ?? null)) {
                 continue;
             }
-            if (in_array($after, self::ordered($sector, false), true)) {
-                // Après une autre rubrique du plugin : l'ordre de menu_toadd suffit.
-                continue;
+            // Issue #1041 : dans l'ordre du secteur, pour qu'une rubrique placée après une autre
+            // rubrique du plugin (Crise et continuité après Incidents de sécurité) la suive une fois
+            // celle-ci déplacée après l'entrée du cœur. Plusieurs rubriques en tête gardent leur ordre.
+            $lastFirst = self::FIRST;
+            foreach (self::ordered($sector, false) as $parent) {
+                $section = self::sectionOf($parent);
+                $after = $section !== null ? $section::after() : null;
+                if ($after === null) {
+                    continue;
+                }
+                // Rubrique visée absente du menu (droit manquant) : la place qu'elle aurait prise.
+                $seen = [];
+                while (
+                    $after !== null && $after !== self::FIRST && !in_array($after, $seen, true)
+                    && !array_key_exists(strtolower($after), $menu[$sector]['content'])
+                ) {
+                    $aimed = self::sectionOf($after);
+                    if ($aimed === null) {
+                        break;
+                    }
+                    $seen[] = $after;
+                    $after = $aimed::after();
+                }
+                if ($after === null) {
+                    continue;
+                }
+                $key = strtolower($parent);
+                $target = $after === self::FIRST ? $lastFirst : strtolower($after);
+                $menu[$sector]['content'] = self::moveAfter($menu[$sector]['content'], $key, $target);
+                if ($after === self::FIRST && array_key_exists($key, $menu[$sector]['content'])) {
+                    $lastFirst = $key;
+                }
             }
-            $menu[$sector]['content'] = self::moveAfter(
-                $menu[$sector]['content'],
-                strtolower($section::parent()),
-                $after === self::FIRST ? self::FIRST : strtolower($after)
-            );
         }
 
         return $menu;

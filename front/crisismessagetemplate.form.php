@@ -37,7 +37,7 @@ if (isset($_POST['add'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::$rightname, READ);
 
     \GlpiPlugin\Grcmanager\Menu::header(
-        PluginGrcmanagerSecurityIncident::class,
+        \GlpiPlugin\Grcmanager\CrisisMessageTemplate::class,
         \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getTypeName(1)
     );
 
