@@ -55,7 +55,8 @@ abstract class FrameworkFamilyBlock extends ConfigBlock
      * Textes des regroupements, par clé « group » : titre, aide, titre de la liste des déclinaisons
      * et nom court de chaque référentiel du regroupement.
      *
-     * @return array<string, array{title?: string, hint?: string, children_label?: string, labels?: array<string, string>}>
+     * @return array<string, array{title?: string, hint?: string, children_label?: string,
+     *     labels?: array<string, string>}>
      */
     public static function groupTexts(): array
     {
@@ -129,7 +130,17 @@ abstract class FrameworkFamilyBlock extends ConfigBlock
                 $editable[] = $key;
             }
         }
-        $item = static function (string $key, string $label) use ($names, $help, $stored, $effective, $parents, $editable): array {
+        $item = static function (
+            string $key,
+            string $label
+        ) use (
+            $names,
+            $help,
+            $stored,
+            $effective,
+            $parents,
+            $editable
+        ): array {
             $parent = $parents[$key] ?? null;
 
             return [

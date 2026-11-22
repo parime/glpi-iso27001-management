@@ -245,8 +245,8 @@ final class FrameworkConfig
             ),
             // Issue #1053 : déclinaison France de NIS2, avec son registre par entité.
             FrameworkSelection::RECYF        => __(
-                'French NIS2 framework of ANSSI (ReCyF): a register with one record per measure, per GLPI entity set as '
-                    . 'important or essential below; NIS2 is then assessed on these measures. Requires NIS2.',
+                'French NIS2 framework of ANSSI (ReCyF): a register with one record per measure, per GLPI entity set '
+                    . 'as important or essential below; NIS2 is then assessed on these measures. Requires NIS2.',
                 'grcmanager'
             ),
             FrameworkSelection::SCF          => __(

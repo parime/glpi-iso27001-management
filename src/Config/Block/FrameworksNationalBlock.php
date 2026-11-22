@@ -61,7 +61,8 @@ final class FrameworksNationalBlock extends FrameworkFamilyBlock
             'title'  => 'ANSSI',
             'hint'   => __(
                 'Complementary publications of the French cybersecurity agency, each with its own measures and score. '
-                    . 'ReCyF is also the French implementation of NIS2: ticking it here or under NIS2 is the same setting.',
+                    . 'ReCyF is also the French implementation of NIS2: ticking it here or under NIS2 is the same '
+                    . 'setting.',
                 'grcmanager'
             ),
             'labels' => [

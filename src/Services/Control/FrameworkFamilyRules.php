@@ -98,9 +98,11 @@ final class FrameworkFamilyRules
      * déclinaison suit son parent, marquée « nested ». Une évaluation d'aucune famille va dans la
      * dernière (jamais perdue) ; une famille sans évaluation n'est pas rendue.
      *
-     * @param list<array{key: string, label: string, icon: string, keys: list<string>, parents: array<string, string>}> $families
+     * @param list<array{key: string, label: string, icon: string, keys: list<string>,
+     *     parents: array<string, string>}> $families
      * @param array<string, array<string, mixed>> $assessments nom => évaluation (clé « key »)
-     * @return list<array{key: string, label: string, icon: string, rows: list<array{label: string, nested: bool, assessment: array<string, mixed>}>}>
+     * @return list<array{key: string, label: string, icon: string,
+     *     rows: list<array{label: string, nested: bool, assessment: array<string, mixed>}>}>
      */
     public static function arrange(array $families, array $assessments): array
     {
@@ -119,7 +121,12 @@ final class FrameworkFamilyRules
                 $placed[$key] = true;
                 $rows[] = $byKey[$key] + ['nested' => isset($family['parents'][$key])];
             }
-            $result[] = ['key' => $family['key'], 'label' => $family['label'], 'icon' => $family['icon'], 'rows' => $rows];
+            $result[] = [
+                'key'   => $family['key'],
+                'label' => $family['label'],
+                'icon'  => $family['icon'],
+                'rows'  => $rows,
+            ];
         }
         $orphans = [];
         foreach ($byKey as $key => $row) {

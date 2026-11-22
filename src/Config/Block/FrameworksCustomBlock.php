@@ -20,9 +20,14 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\FrameworkFamilyBlock;
+use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
+use GlpiPlugin\Grcmanager\Services\Control\FrameworkFamilyRules;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 
-/** Issue #1053 : référentiels importés depuis un fichier, et tout référentiel intégré qu'aucune autre famille ne déclare (jamais perdu). */
+/**
+ * Issue #1053 : référentiels importés depuis un fichier, et tout référentiel intégré qu'aucune autre
+ * famille ne déclare (jamais perdu).
+ */
 final class FrameworksCustomBlock extends FrameworkFamilyBlock
 {
     public static function order(): int
@@ -55,12 +60,12 @@ final class FrameworksCustomBlock extends FrameworkFamilyBlock
         $declared = [];
         foreach (\GlpiPlugin\Grcmanager\Config\FrameworkFamilies::classes() as $class) {
             if ($class !== self::class) {
-                $declared = array_merge($declared, \GlpiPlugin\Grcmanager\Services\Control\FrameworkFamilyRules::keys($class::members()));
+                $declared = array_merge($declared, FrameworkFamilyRules::keys($class::members()));
             }
         }
         $orphans = array_values(array_diff(array_keys(FrameworkSelection::FRAMEWORKS), $declared));
 
-        return array_merge($orphans, array_keys(\GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog::labels()));
+        return array_merge($orphans, array_keys(CustomFrameworkCatalog::labels()));
     }
 
     public static function footerLink(): ?array

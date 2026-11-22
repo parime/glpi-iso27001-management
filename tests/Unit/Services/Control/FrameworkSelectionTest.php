@@ -86,7 +86,10 @@ final class FrameworkSelectionTest extends TestCase
     public function testANationalImplementationIsActiveOnlyWithItsParent(): void
     {
         // Issue #1053 : ReCyF et ACN suivent NIS2 ; leur propre réglage est gardé.
-        $parents = [FrameworkSelection::RECYF => FrameworkSelection::NIS2, FrameworkSelection::ACN_IT => FrameworkSelection::NIS2];
+        $parents = [
+            FrameworkSelection::RECYF  => FrameworkSelection::NIS2,
+            FrameworkSelection::ACN_IT => FrameworkSelection::NIS2,
+        ];
 
         $this->assertSame(
             [FrameworkSelection::NIS2, FrameworkSelection::ACN_IT],
@@ -94,7 +97,10 @@ final class FrameworkSelectionTest extends TestCase
         );
         $this->assertSame(
             [FrameworkSelection::ANSSI],
-            FrameworkSelection::effective([FrameworkSelection::ACN_IT, FrameworkSelection::RECYF, FrameworkSelection::ANSSI], $parents)
+            FrameworkSelection::effective(
+                [FrameworkSelection::ACN_IT, FrameworkSelection::RECYF, FrameworkSelection::ANSSI],
+                $parents
+            )
         );
     }
 

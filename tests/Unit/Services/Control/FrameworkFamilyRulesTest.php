@@ -47,7 +47,10 @@ final class FrameworkFamilyRulesTest extends TestCase
     {
         $keys = FrameworkFamilyRules::keys(self::EUROPE);
 
-        $this->assertSame(['active' => 2, 'total' => 4], FrameworkFamilyRules::count($keys, ['nis2', 'acn_it', 'anssi']));
+        $this->assertSame(
+            ['active' => 2, 'total' => 4],
+            FrameworkFamilyRules::count($keys, ['nis2', 'acn_it', 'anssi'])
+        );
         $this->assertSame(['active' => 0, 'total' => 4], FrameworkFamilyRules::count($keys, []));
         // ReCyF compté dans les deux familles où il figure.
         $this->assertSame(

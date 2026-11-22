@@ -75,7 +75,9 @@ final class FrameworkFamiliesTables implements FeatureTables
         $changes = [self::MIGRATED_KEY => '1'];
         if ($enable !== []) {
             $changes[FrameworkConfig::CONFIG_KEY] = (string) json_encode(array_values(array_diff($disabled, $enable)));
-            $changes[FrameworkConfig::KNOWN_KEY] = (string) json_encode(array_values(array_unique(array_merge($known, $enable))));
+            $changes[FrameworkConfig::KNOWN_KEY] = (string) json_encode(
+                array_values(array_unique(array_merge($known, $enable)))
+            );
         }
         Config::setConfigurationValues(FrameworkConfig::CONFIG_CONTEXT, $changes);
         FrameworkConfig::reset();
