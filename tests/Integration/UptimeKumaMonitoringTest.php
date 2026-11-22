@@ -173,7 +173,15 @@ final class UptimeKumaMonitoringTest extends GrcmanagerIntegrationTestCase
         return new UptimeKumaClient(
             (string) Rules::normalizeBaseUrl(self::URL),
             self::KEY,
-            static function (string $method, string $url, array $headers, ?string $body) use ($answers, $status): array {
+            static function (
+                string $method,
+                string $url,
+                array $headers,
+                ?string $body
+            ) use (
+                $answers,
+                $status
+            ): array {
                 $path = (string) parse_url($url, PHP_URL_PATH);
                 if ($status !== 200 || !isset($answers[$path])) {
                     return ['status' => $status !== 200 ? $status : 404, 'body' => '', 'retry_after' => 0];
