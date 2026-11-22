@@ -34,7 +34,8 @@ final class FleetSettingsBlocksTest extends TestCase
         // la présence et l'ordre relatif des blocs de ce lot, après les blocs existants, pas la liste exacte.
         $mine = ['DiskEncryption', 'PatchTargets', 'LicenseWatch', 'LogCoverage'];
         $positions = [];
-        foreach (array_merge(['FleetVulnerabilities', 'HardwareEol'], $mine) as $key) {
+        // Issue #1039 : la fin de vie des modèles (HardwareEol) a quitté la configuration.
+        foreach (array_merge(['FleetVulnerabilities'], $mine) as $key) {
             $position = array_search($key, $keys, true);
             $this->assertNotFalse($position, $key . " absent de l'onglet Parc");
             $positions[] = $position;

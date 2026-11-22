@@ -399,6 +399,41 @@ final class Sections
         return (bool) Session::haveRight((string) $right[0], (int) ($right[1] ?? READ));
     }
 
+    /**
+     * Issue #1039 : onglets de la barre de la rubrique $parent, hors l'onglet de la page parente :
+     * une sous-page sans « tab_group » compte pour un onglet, un groupe replié pour un seul.
+     */
+    public static function tabCount(string $parent): int
+    {
+        $count = 0;
+        foreach (self::pages($parent) as $options) {
+            if ((string) ($options['tab_group'] ?? '') === '') {
+                $count++;
+            }
+        }
+
+        return $count + count(self::tabGroups($parent));
+    }
+
+    /**
+     * Issue #1039 : groupes repliés de la rubrique $parent (option « tab_group ») et leurs pages, dans
+     * l'ordre de déclaration.
+     *
+     * @return array<string, list<string>>
+     */
+    public static function tabGroups(string $parent): array
+    {
+        $groups = [];
+        foreach (self::pages($parent) as $key => $options) {
+            $group = (string) ($options['tab_group'] ?? '');
+            if ($group !== '') {
+                $groups[$group][] = $key;
+            }
+        }
+
+        return $groups;
+    }
+
     /** Vide les caches (tests). */
     public static function reset(): void
     {

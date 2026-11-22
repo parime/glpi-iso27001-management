@@ -82,10 +82,13 @@ final class ConfigTabsTest extends TestCase
             }
         }
         $this->assertSame('risks', ConfigTabs::tabOfAnchor('grc-risk-appetite-config'));
-        $this->assertStringEndsWith(
-            '/plugins/grcmanager/front/config.php?tab=assets#grc-hardware-eol-config',
+        // Issue #1039 : la fin de vie des modèles est sortie de la configuration (Parc > Sécurité du parc).
+        $this->assertSame(
+            '/plugins/grcmanager/front/hardwaremodeleol.php',
             ConfigTabs::anchorUrl('grc-hardware-eol-config', false)
         );
+        $this->assertArrayHasKey('grc-hardware-eol-config', $map);
+        $this->assertSame('', ConfigTabs::tabOfAnchor('grc-hardware-eol-config'));
         $this->assertSame('/plugins/grcmanager/front/config.php', ConfigTabs::anchorUrl('absent', false));
     }
 

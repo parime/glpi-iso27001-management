@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\AccessReview;
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use GlpiPlugin\Grcmanager\BreachExposure;
-use GlpiPlugin\Grcmanager\ComplianceAudit;
 use GlpiPlugin\Grcmanager\IsmsFunction;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
 use GlpiPlugin\Grcmanager\PersonnelCompliance;
@@ -77,7 +77,7 @@ final class PeopleSection extends AbstractSection
             PhishingCampaign::class,
             // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
             IsmsFunction::class,
-            BreachExposure::class => ['from' => ComplianceAudit::class],
+            BreachExposure::class => ['from' => AssetSecurity::class],
         ];
     }
 }

@@ -1,0 +1,67 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1039 : saisie groupée de la fin de vie déclarée par le constructeur des modèles de matériel
+   (issue #782, lot 2), sortie de la configuration : modèles en service dans les entités de la
+   personne, et ceux déjà datés. Chaque modèle a aussi un onglet « Fin de vie constructeur ». #}
+{% set heol = hardware_eol %}
+<div class="card mb-3" id="grc-hardware-eol">
+  <div class="card-header">
+    <h3 class="card-title"><i class="ti ti-calendar-x me-2" aria-hidden="true"></i>{{ __('Manufacturer end of life of hardware models', 'grcmanager') }}</h3>
+    <div class="card-actions">
+      <span class="badge bg-info-subtle text-info-emphasis" title="{{ __('Same threshold as the end of support of software, set in the plugin configuration.', 'grcmanager') }}"><i class="ti ti-bell me-1" aria-hidden="true"></i>{{ __('"End of life soon": within %d days.', 'grcmanager')|format(warning_days) }}</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <p class="text-muted">
+      {{ __('Enter the date announced by the manufacturer when you know it (optional, leave empty otherwise). You can also enter it on the form of each model, tab "Manufacturer end of life".', 'grcmanager') }}
+      <a href="{{ park_url }}"><i class="ti ti-tool me-1" aria-hidden="true"></i>{{ __('See the hardware concerned', 'grcmanager') }}</a>
+    </p>
+    {% if heol.models is empty %}
+      <p class="text-muted mb-0"><i class="ti ti-info-circle me-1" aria-hidden="true"></i>{{ __('No hardware model in your entities: give a model to the computers, monitors or network devices in GLPI first.', 'grcmanager') }}</p>
+    {% else %}
+      <form method="post" action="{{ action }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <div class="table-responsive mb-2">
+          <table class="table table-sm table-vcenter">
+            <thead><tr>
+              <th>{{ __('Hardware type', 'grcmanager') }}</th>
+              <th>{{ __('Manufacturer', 'grcmanager') }}</th>
+              <th>{{ __('Model', 'grcmanager') }}</th>
+              <th class="text-end">{{ __('Hardware in service', 'grcmanager') }}</th>
+              <th style="width: 200px;">{{ __('Manufacturer end of life date', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+              {% for model in heol.models %}
+              <tr>
+                <td><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ model.type }}</span></td>
+                <td>{{ model.manufacturer }}</td>
+                <td>{% if model.url is defined and model.url %}<a href="{{ model.url }}">{{ model.name }}</a>{% else %}{{ model.name }}{% endif %}</td>
+                <td class="text-end">{{ model.assets }}</td>
+                <td><input type="date" class="form-control form-control-sm" name="hardware_eol[{{ model.field }}]" value="{{ model.date }}" aria-label="{{ __('Manufacturer end of life date', 'grcmanager') }} {{ model.name }}" {{ can_edit ? '' : 'disabled' }}></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% if heol.total > heol.models|length %}
+          <p class="small text-muted">{{ __('%1$d models: the %2$d first ones are shown (dated models first, then the most common ones).', 'grcmanager')|format(heol.total, heol.models|length) }}</p>
+        {% endif %}
+        {% if can_edit %}
+          <button type="submit" name="update_hardware_eol" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1" aria-hidden="true"></i>{{ _x('button', 'Save') }}</button>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+</div>
