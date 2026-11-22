@@ -222,4 +222,10 @@
       </div>
    </div>
    {% endif %}
+
+   {# Issue #1047 : création et import des référentiels personnalisés dans la configuration du plugin,
+      lien montré seulement à qui peut les créer ou les modifier. #}
+   {% if settings_link %}
+      {% include '@grcmanager/config/_settings_link.html.twig' with {settings_title: __('Create or import a custom framework', 'grcmanager')} %}
+   {% endif %}
 </div>

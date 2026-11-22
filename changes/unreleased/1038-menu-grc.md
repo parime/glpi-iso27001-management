@@ -4,7 +4,7 @@
   rubriques fourre-tout (« Conformité » et ses 25 onglets, « Opérations », « Audits et
   amélioration ») sont découpées en rubriques de 7 écrans au plus, compréhensibles sans connaître la
   norme : Tableau de bord, Mon espace GRC, Risques, Analyses de risques, Mesures de sécurité (SoA),
-  Politiques et procédures, Audits et preuves, Amélioration continue, Réglementations, Vie privée
+  Politiques et procédures, Audits et preuves, Non-conformités et amélioration, Réglementations, Vie privée
   (RGPD), Accès et comptes, Personnel et sensibilisation, Organisation du SMSI. Les adresses des
   écrans et les droits ne changent pas ; le fil d'Ariane suit le nouvel emplacement.
   **Déconnectez-vous puis reconnectez-vous pour voir le nouveau menu** : GLPI garde le menu en

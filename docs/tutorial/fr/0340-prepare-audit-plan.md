@@ -1,7 +1,7 @@
 ### Préparer l'audit avec le plan d'audit de l'organisme
 
 L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
-sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
+sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et preuves >
 Plan d'audit de l'organisme** reprend ce programme : les processus en lignes, une colonne par audit
 de certification de chaque année du cycle (le cycle par défaut se règle dans le programme d'audit
 pluriannuel).

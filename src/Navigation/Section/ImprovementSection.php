@@ -27,8 +27,10 @@ use GlpiPlugin\Grcmanager\Nonconformity;
 use GlpiPlugin\Grcmanager\Objective;
 
 /**
- * Issue #1038 : amélioration continue (clauses 6.2, 9.3 et 10) : non-conformités, stock des écarts,
- * objectifs de sécurité et revues de direction, sortis de « Audits et amélioration ».
+ * Issue #1038 : non-conformités et amélioration (clauses 6.2, 9.3 et 10) : non-conformités, stock des
+ * écarts, objectifs de sécurité et revues de direction, sortis de « Audits et amélioration ».
+ * Issue #1047 : nommée « Non-conformités et amélioration » (et non plus « Amélioration continue ») pour
+ * qu'on sache, sans connaître la norme, qu'on y trouve les non-conformités.
  */
 final class ImprovementSection extends AbstractSection
 {
@@ -44,7 +46,7 @@ final class ImprovementSection extends AbstractSection
 
     public static function title(): string
     {
-        return __('Continual improvement', 'grcmanager');
+        return __('Nonconformities and improvement', 'grcmanager');
     }
 
     public static function hub(): bool

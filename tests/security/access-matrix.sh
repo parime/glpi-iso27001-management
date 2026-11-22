@@ -169,7 +169,7 @@ READABLE="front/accessreview.php front/audit.php front/canonicalproduct.php fron
   front/businessprocess.php front/businessprocess.php?export=csv front/businessprocess.report.php
   front/recoveryprogramme.php
   front/crisisscenario.php front/crisisscenario.export.php front/crisisscenario.form.php
-  front/customframework.php front/customframework.php?template=1
+  front/customframework.php?template=1
   front/riskimport.php front/riskimport.php?template=1 front/riskimport.php?export=1
   front/doraregister.php front/doraregister.php?export=B_02.01 front/doraregister.php?export=zip
   front/consistencycheck.php front/consistencycheck.export.php?format=csv front/consistencycheck.export.php?format=pdf

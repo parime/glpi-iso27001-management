@@ -21,7 +21,6 @@ namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\AcnRequirement;
 use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\CustomFramework;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
 use GlpiPlugin\Grcmanager\Nonconformity;
@@ -32,6 +31,8 @@ use GlpiPlugin\Grcmanager\Referentials;
  * Issue #1038 : les référentiels autres que l'ISO 27001 (correspondances, évaluation, référentiels
  * importés) et les registres des déclinaisons nationales de NIS2 (ReCyF, ACN), seulement si leur
  * référentiel est activé : ils n'étaient plus joignables que depuis l'évaluation (#1046).
+ * Issue #1047 : la création et l'import des référentiels personnalisés sont des réglages, dans la
+ * configuration du plugin (CustomFrameworkImportBlock) ; leur évaluation reste ici.
  */
 final class RegulationSection extends AbstractSection
 {
@@ -81,7 +82,6 @@ final class RegulationSection extends AbstractSection
     {
         return [
             FrameworkAssessment::class,
-            CustomFramework::class,
             self::RECYF => [
                 'title'     => RecyfRequirement::getTypeName(2),
                 'page'      => '/plugins/grcmanager/front/recyfrequirement.php',

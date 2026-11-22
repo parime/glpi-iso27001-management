@@ -16,12 +16,12 @@
    blocs (src/Config/Block/*Block.php, gabarits templates/config/blocks/) sont découverts par
    ConfigTabs : ajouter un réglage, c'est ajouter un fichier de bloc, sans toucher ce gabarit.
    Chaque bloc reçoit ses propres données, plus csrf_token, can_edit_config et can_edit_sensitive. #}
-{# Fil d'Ariane complet : Configuration > Plugins > GRC Manager > <onglet>. #}
+{# Fil d'Ariane : Configuration > Plugins > GRC Manager > <onglet>. Les deux premiers niveaux sont
+   ceux de l'en-tête de GLPI (Html::header(..., 'config', 'plugin')) ; les répéter ici les doublait
+   à l'écran (issue #1047). Ce fil ne porte donc que la suite : GRC Manager > <onglet>. #}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb mb-2" id="grc-config-breadcrumb">
-    <li class="breadcrumb-item"><i class="ti ti-settings me-1"></i>{{ __('Setup') }}</li>
-    <li class="breadcrumb-item"><a href="{{ config('root_doc') }}/front/plugin.php">{{ _n('Plugin', 'Plugins', 2) }}</a></li>
-    <li class="breadcrumb-item"><a href="{{ tabs[0].url|default('') }}">GRC Manager</a></li>
+    <li class="breadcrumb-item"><i class="ti ti-settings me-1"></i><a href="{{ tabs[0].url|default('') }}">GRC Manager</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{ current_label }}</li>
   </ol>
 </nav>

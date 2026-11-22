@@ -1,7 +1,7 @@
 ### Prepare the audit with the audit plan of the certification body
 
 The certification body does not audit every process each year: it samples them over its three-year
-cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
+cycle and announces them in its audit plan. The screen **Audits and evidence > Audit plan of the
 certification body** copies this programme: processes in rows, one column per certification audit
 of each year of the cycle (the default cycle is set in the multi-year audit programme).
 

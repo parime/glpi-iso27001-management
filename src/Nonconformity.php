@@ -88,7 +88,7 @@ class Nonconformity extends NonconformityBase
         return 'title';
     }
 
-    /** Issue #1038 : entrée de la rubrique « Amélioration continue » (src/Navigation/Section/). */
+    /** Issue #1038 : entrée de la rubrique « Non-conformités et amélioration » (src/Navigation/Section/). */
     public static function getMenuContent()
     {
         return Menu::withSubPages(self::class, parent::getMenuContent());

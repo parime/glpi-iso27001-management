@@ -1,6 +1,6 @@
 ### Create an audit and a non-conformity, through to CAPA closure
 
-From **GRC & Conformité > Audits et amélioration**, the list is empty until an audit exists.
+From **GRC & Compliance > Audits and evidence**, the list is empty until an audit exists.
 
 ![Empty internal audit list](screenshots/tutorial/17-audit-list-empty.png)
 
