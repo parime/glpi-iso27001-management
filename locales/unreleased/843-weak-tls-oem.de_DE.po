@@ -1,6 +1,0 @@
-msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-
-msgid "Read from the controller (Redfish) or the import: keep only TLS 1.2 and later."
-msgstr "Vom Controller (Redfish) oder aus dem Import gelesen: nur TLS 1.2 und neuer zulassen."
