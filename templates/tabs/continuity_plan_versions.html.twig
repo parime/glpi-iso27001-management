@@ -23,7 +23,7 @@
       {% elseif status == 'approved' %}
          <span>{{ __('Version %s is approved and in force.', 'grcmanager')|format(version) }}</span>
       {% elseif date_approved %}
-         <span>{{ __('Version %s is being prepared; the version approved on %s stays in force until then.', 'grcmanager')|format(version, date_approved|formatted_date) }}</span>
+         <span>{{ __('Version %1$s is being prepared; the version approved on %2$s stays in force until then.', 'grcmanager')|format(version, date_approved|formatted_date) }}</span>
       {% else %}
          <span>{{ __('Version %s is a draft: send it for approval once it is ready.', 'grcmanager')|format(version) }}</span>
       {% endif %}
