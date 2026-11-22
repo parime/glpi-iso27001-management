@@ -24,6 +24,9 @@ jobs:
       # Charte commune bloquante : licence, en-têtes, documentation et langues conformes (#655, #660).
       charter-mode: error
       seed-command: php plugins/grcmanager/tests/security/setup.php
+      # Passe des tests d'intégration en français : même commande que ci.yml, avec la mémoire que la
+      # génération des PDF (dompdf) demande ; l'image GLPI du workflow commun s'arrête à 256 Mo.
+      integration-command: php -d memory_limit=1G vendor/bin/phpunit -c phpunit-integration.xml.dist
       # Parcours de toutes les pages en avertissement, le temps de l'issue de navigation #1035.
       # (navigation-mode: warning sera à ajouter quand le workflow commun aura de nouveau son job
       # « navigation » : il manque depuis v1.10.0, parime/glpi-plugin-security#37.)
