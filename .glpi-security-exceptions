@@ -18,3 +18,4 @@ menus-secteur-metier : plugin GRC conséquent : environ 11 rubriques aux noms pa
 # hors du secteur GRC, gardée volontairement (identifiant reconnu depuis glpi-plugin-security v1.7.1).
 menus-entree-native helpdesk > PluginGrcmanagerSecurityIncident : objet ITIL des incidents de sécurité, rangé dans Assistance à côté des tickets, problèmes et changements
 menus-entree-native assets > GlpiPlugin\Grcmanager\AssetSecurity : sécurité du parc rangée dans Parc à côté des matériels, décision du mainteneur du 22/11 (#1035)
+menus-entree-native helpdesk > GlpiPlugin\Grcmanager\CrisisContinuity : crise et continuité (PCA/PRA) rangées dans Assistance avec les incidents de sécurité, décision du mainteneur du 22/11 (#1035)

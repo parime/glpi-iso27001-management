@@ -22,9 +22,10 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 Session::checkRight(\GlpiPlugin\Grcmanager\Playbook::$rightname, READ);
 
 \GlpiPlugin\Grcmanager\Menu::header(
-    PluginGrcmanagerSecurityIncident::class,
+    \GlpiPlugin\Grcmanager\Playbook::class,
     \GlpiPlugin\Grcmanager\Playbook::getTypeName(Session::getPluralNumber())
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Playbook::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('playbook');
 if (\GlpiPlugin\Grcmanager\Playbook::canCreate()) {
     \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/playbook_list_header.html.twig', [

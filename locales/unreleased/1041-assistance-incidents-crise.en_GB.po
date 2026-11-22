@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Communicate"
+msgstr "Communicate"
+
+msgid "Crisis and continuity"
+msgstr "Crisis and continuity"
+
+msgid "Crisis exercises and real crisis teams: timeline, decisions and lessons learned."
+msgstr "Crisis exercises and real crisis teams: timeline, decisions and lessons learned."
+
+msgid "Crisis scenarios of the continuity plan and how ready you are for each one."
+msgstr "Crisis scenarios of the continuity plan and how ready you are for each one."
+
+msgid "Critical activities, their business impact analysis (BIA) and recovery objectives."
+msgstr "Critical activities, their business impact analysis (BIA) and recovery objectives."
+
+msgid "EDR alerts import"
+msgstr "EDR alerts import"
+
+msgid "Everything needed to prepare for a crisis and keep the activity going: business processes and their impact analysis, crisis scenarios, crisis exercises, recovery tests and ready-to-use crisis messages."
+msgstr "Everything needed to prepare for a crisis and keep the activity going: business processes and their impact analysis, crisis scenarios, crisis exercises, recovery tests and ready-to-use crisis messages."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.5.29 and A.5.30"
+
+msgid "Last read"
+msgstr "Last read"
+
+msgid "No error"
+msgstr "No error"
+
+msgid "No screen of this section is available with your profile."
+msgstr "No screen of this section is available with your profile."
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Prepare"
+msgstr "Prepare"
+
+msgid "Reading SentinelOne now and reviewing its alerts is done in Assistance > Security incidents > EDR alerts import."
+msgstr "Reading SentinelOne now and reviewing its alerts is done in Assistance > Security incidents > EDR alerts import."
+
+msgid "Ready-to-use crisis messages and their distribution lists."
+msgstr "Ready-to-use crisis messages and their distribution lists."
+
+msgid "Start with the cards that show something to do (recovery tests overdue or failed), then keep each list up to date. Each card only appears if your profile can open its screen."
+msgstr "Start with the cards that show something to do (recovery tests overdue or failed), then keep each list up to date. Each card only appears if your profile can open its screen."
+
+msgid "The alerts read from SentinelOne are reviewed, and a reading can be started at any time, in Assistance > Security incidents > EDR alerts import."
+msgstr "The alerts read from SentinelOne are reviewed, and a reading can be started at any time, in Assistance > Security incidents > EDR alerts import."
+
+msgid "The automatic reading is disabled: enable it in the Connectors tab of the plugin configuration, or use the button \"Fetch now\"."
+msgstr "The automatic reading is disabled: enable it in the Connectors tab of the plugin configuration, or use the button \"Fetch now\"."
+
+msgid "Train"
+msgstr "Train"
+
+msgid "When each critical process was last tested and which tests are due."
+msgstr "When each critical process was last tested and which tests are due."
+
+msgid "%d last test failed"
+msgid_plural "%d last tests failed"
+msgstr[0] "%d last test failed"
+msgstr[1] "%d last tests failed"
+
+msgid "%d process not tested this year"
+msgid_plural "%d processes not tested this year"
+msgstr[0] "%d process not tested this year"
+msgstr[1] "%d processes not tested this year"
+
+msgid "%d test overdue"
+msgid_plural "%d tests overdue"
+msgstr[0] "%d test overdue"
+msgstr[1] "%d tests overdue"

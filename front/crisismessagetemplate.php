@@ -22,9 +22,10 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 Session::checkRight(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::$rightname, READ);
 
 \GlpiPlugin\Grcmanager\Menu::header(
-    PluginGrcmanagerSecurityIncident::class,
+    \GlpiPlugin\Grcmanager\CrisisMessageTemplate::class,
     \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getTypeName(Session::getPluralNumber())
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('crisismessagetemplate');
 if (\GlpiPlugin\Grcmanager\CrisisMessageTemplate::canCreate()) {
     \Glpi\Application\View\TemplateRenderer::getInstance()->display(

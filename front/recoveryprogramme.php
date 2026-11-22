@@ -17,15 +17,15 @@
 
 // Issue #733 : programme des tests de reprise des processus métier, en lecture seule (droit de la
 // continuité ; seuls les processus lisibles dans les entités de la session sont listés). Page ouverte
-// depuis le bouton de la liste des processus métier, sans entrée de menu.
+// depuis le bouton de la liste des processus métier et l'onglet de sa rubrique.
 Session::checkRight(\GlpiPlugin\Grcmanager\BusinessProcess::$rightname, READ);
 
+// Issue #1041 : onglet de la rubrique « Assistance > Crise et continuité ».
 \GlpiPlugin\Grcmanager\Menu::header(
-    \GlpiPlugin\Grcmanager\BusinessProcess::class,
-    __('Recovery test programme', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL()
+    \GlpiPlugin\Grcmanager\CrisisContinuity::RECOVERY_PROGRAMME,
+    __('Recovery test programme', 'grcmanager')
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\BusinessProcess::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CrisisContinuity::RECOVERY_PROGRAMME);
 \GlpiPlugin\Grcmanager\PageHelp::show('recoveryprogramme');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/business_process_programme.html.twig', [
     'programme'     => \GlpiPlugin\Grcmanager\BusinessProcessRecovery::programme(date('Y-m-d')),
