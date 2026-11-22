@@ -19,7 +19,6 @@
     <h4><i class="ti ti-stairs-up me-1"></i>{{ __('Maturity scale by control', 'grcmanager') }}</h4>
     <p class="text-muted">
       {{ __('Rename the levels of the scale used by the maturity campaigns to match your method. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes no recorded level.', 'grcmanager') }}
-      <a href="{{ maturity_campaigns_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Open the maturity campaigns', 'grcmanager') }}</a>
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">

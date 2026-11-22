@@ -18,7 +18,6 @@
     <h4><i class="ti ti-list-check me-1"></i>{{ __('ISMS consistency checks', 'grcmanager') }}</h4>
     <p class="text-muted">
       {{ __('Untick a rule that does not apply to your organisation: it is no longer checked nor counted in the score. The thresholds set how strict each rule is. Nothing is ever modified by these checks.', 'grcmanager') }}
-      <a href="{{ consistency_url }}"><i class="ti ti-external-link me-1"></i>{{ __('Open the consistency checks', 'grcmanager') }}</a>
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">

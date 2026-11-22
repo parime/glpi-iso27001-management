@@ -1,0 +1,63 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1046 : liste de démarrage de l'administrateur. Ouverte tant qu'une étape reste à faire,
+   repliée sur une ligne une fois tout fait. Lecture seule. #}
+{% set sc = start_checklist %}
+{% set step_help = {
+  'frameworks': __('Tick the frameworks your organisation follows and save the choice: the other ones disappear from the screens.', 'grcmanager'),
+  'risk_matrix': __('Check the probability x impact grid, its size and its labels, then save it, even unchanged.', 'grcmanager'),
+  'profiles': __('After installation, only the Super-Admin profile can use the plugin. Open a profile, then its GRC Manager tab, to give the rights to the people who work on the ISMS.', 'grcmanager'),
+  'ciso_group': __('The members of this group can see every audit and its documents.', 'grcmanager'),
+  'connector': __('Enter the address and the key of a tool you use (SentinelOne, Zabbix, Uptime Kuma, GitHub or GitLab, endoflife.date): the step is done after a first successful read.', 'grcmanager'),
+  'soa_scope': __('Answer every question of the "%s" screen, in the GRC menu: the answers suggest which controls apply.', 'grcmanager'),
+} %}
+<details class="card mb-3" id="grc-start-checklist" {{ sc.complete ? '' : 'open' }}>
+  <summary class="card-header d-flex flex-wrap align-items-center gap-2" style="cursor: pointer;">
+    <i class="ti ti-rocket me-1"></i>
+    <strong>{{ __('Getting started', 'grcmanager') }}</strong>
+    {% if sc.complete %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1"></i>{{ __('All steps done', 'grcmanager') }}</span>
+    {% else %}
+      <span class="badge bg-warning-subtle text-warning-emphasis">{{ __('%1$d of %2$d steps done', 'grcmanager')|format(sc.done, sc.total) }}</span>
+    {% endif %}
+    <span class="ms-auto text-muted">{{ sc.percent }} %</span>
+  </summary>
+  <div class="card-body">
+    <p class="text-muted mb-2">
+      {{ __('The main settings to make before using the plugin. Each step is checked from what is already set up; nothing is changed from here.', 'grcmanager') }}
+    </p>
+    <div class="progress mb-3" style="height: .5rem;" role="progressbar" aria-label="{{ __('Getting started', 'grcmanager') }}" aria-valuenow="{{ sc.percent }}" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar {{ sc.complete ? 'bg-success' : 'bg-primary' }}" style="width: {{ sc.percent }}%"></div>
+    </div>
+    <ol class="list-group list-group-numbered">
+      {% for step in sc.steps %}
+        <li class="list-group-item d-flex flex-wrap align-items-start gap-2" data-step="{{ step.key }}">
+          <div class="flex-grow-1">
+            <div class="fw-bold"><i class="ti {{ step.icon }} me-1"></i>{{ step.label }}</div>
+            <div class="form-hint">{{ step.menu is not empty ? step_help[step.key]|format(step.menu) : step_help[step.key] }}</div>
+          </div>
+          {% if step.done %}
+            <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('Done', 'grcmanager') }}</span>
+          {% else %}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-circle-dashed me-1"></i>{{ __('To do', 'grcmanager') }}</span>
+          {% endif %}
+          {% if step.url is not empty %}
+            <a class="btn btn-sm btn-outline-secondary" href="{{ step.url }}"><i class="ti ti-adjustments me-1"></i>{{ step.link }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</details>
