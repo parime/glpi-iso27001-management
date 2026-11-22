@@ -1,0 +1,9 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Linked suppliers"
+msgstr "Proveedores vinculados"
+
+msgid "The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead."
+msgstr "El riesgo también aparece en la pestaña Seguridad de cada proveedor vinculado. Para un riesgo evaluado mediante cuestionario, utilice en su lugar el registro de riesgos de proveedores."

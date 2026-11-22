@@ -36,6 +36,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
 use Session;
+use Supplier;
 use User;
 
 /**
@@ -85,6 +86,13 @@ class Risk extends RiskBase
      * toujours faible en pratique.
      */
     private const ITEMS_LINK_TABLE = 'glpi_plugin_grcmanager_risks_items';
+
+    /**
+     * Issue #1095 : un risque général peut aussi être lié à un fournisseur GLPI, par la même table
+     * de liaison que les actifs. Gardé hors de getLinkableItemtypes() (actifs de la CMDB), que
+     * réutilisent les dérogations, la classification, l'analyse d'impact et l'onglet « Risques ».
+     */
+    public const SUPPLIER_ITEMTYPES = [Supplier::class];
 
     public static function getTable($classname = null)
     {
@@ -578,52 +586,9 @@ class Risk extends RiskBase
         // ont des actifs visibles. Issue #26 : chaque option porte sa classification C/I/D (lecture
         // seule, l'édition reste sur l'onglet « Classification C/I/D » de l'actif).
         $linkedIdsByType = $isNew ? [] : self::getLinkedAssetIdsByType((int) $ID);
-        $assetGroups = [];
-        foreach (self::getLinkableItemtypes() as $itemtype) {
-            if (!is_a($itemtype, CommonDBTM::class, true) || !$itemtype::canView()) {
-                continue;
-            }
-            $classificationsByItemsId = AssetClassification::getByItemtype($itemtype);
-
-            // Le risque est global, les actifs non : seulement ceux que l'utilisateur voit (entités
-            // de la session), hors corbeille et gabarits.
-            $prototype = new $itemtype();
-            $table     = $itemtype::getTable();
-            $where     = getEntitiesRestrictCriteria($table, '', '', $prototype->maybeRecursive())
-                + $itemtype::getSystemSQLCriteria($table);
-            if ($prototype->isField('is_deleted')) {
-                $where["$table.is_deleted"] = 0;
-            }
-            if ($prototype->isField('is_template')) {
-                $where["$table.is_template"] = 0;
-            }
-
-            $assetOptions = [];
-            foreach ($DB->request(['FROM' => $table, 'WHERE' => $where, 'ORDER' => 'name']) as $row) {
-                $itemsId = (int) $row['id'];
-                $label   = $row['name'] !== '' ? $row['name'] : sprintf('#%d', $itemsId);
-
-                $classification = $classificationsByItemsId[$itemsId] ?? null;
-                if (ClassificationLevels::isClassified($classification)) {
-                    $label .= ' ' . sprintf(
-                        __('(C: %1$s, I: %2$s, A: %3$s)', 'grcmanager'),
-                        self::classificationLevelLabel($classification['confidentiality'] ?? null),
-                        self::classificationLevelLabel($classification['integrity'] ?? null),
-                        self::classificationLevelLabel($classification['availability'] ?? null)
-                    );
-                }
-                $assetOptions[$itemsId] = $label;
-            }
-            if ($assetOptions === []) {
-                continue;
-            }
-            $assetGroups[] = [
-                'field'   => self::linkedAssetFieldName($itemtype),
-                'label'   => $itemtype::getTypeName(2),
-                'options' => $assetOptions,
-                'values'  => $linkedIdsByType[$itemtype] ?? [],
-            ];
-        }
+        $assetGroups = self::linkGroups(self::getLinkableItemtypes(), $linkedIdsByType);
+        // Issue #1095 : fournisseurs liés au risque, même table de liaison et même sélection.
+        $supplierGroups = self::linkGroups(self::SUPPLIER_ITEMTYPES, $linkedIdsByType);
 
         // Issue #368 : alertes Wazuh récentes des ordinateurs liés (déjà filtrés sur les droits de
         // l'utilisateur par getLinkedAssets()), lecture seule ; rien si le plugin Wazuh est absent.
@@ -655,6 +620,7 @@ class Risk extends RiskBase
             'high_classification' => !$isNew && self::hasHighClassificationAmongLinkedAssets((int) $ID),
             'plan_relevant'       => $planRelevant,
             'asset_groups'        => $assetGroups,
+            'supplier_groups'     => $supplierGroups,
             // Issue #378 : position par rapport à l'appétence, acceptation formelle, KRI liés.
             'appetite_position'   => $isNew ? RiskAppetiteRules::UNDEFINED : RiskAppetite::positionFor(
                 (string) $this->fields['category'],
@@ -722,6 +688,70 @@ class Risk extends RiskBase
     }
 
     /**
+     * Une sélection multiple par type liable qui a des éléments visibles (issue #25), chaque option
+     * avec sa classification C/I/D (issue #26). Sert aux actifs de la CMDB et, depuis l'issue #1095,
+     * aux fournisseurs.
+     *
+     * @param array<int, string>              $itemtypes
+     * @param array<string, array<int, int>>  $linkedIdsByType
+     *
+     * @return list<array{field:string, label:string, options:array<int, string>, values:array<int, int>}>
+     */
+    private static function linkGroups(array $itemtypes, array $linkedIdsByType): array
+    {
+        global $DB;
+
+        $groups = [];
+        foreach ($itemtypes as $itemtype) {
+            if (!is_a($itemtype, CommonDBTM::class, true) || !$itemtype::canView()) {
+                continue;
+            }
+            $classificationsByItemsId = AssetClassification::getByItemtype($itemtype);
+
+            // Le risque est global, les actifs non : seulement ceux que l'utilisateur voit (entités
+            // de la session), hors corbeille et gabarits.
+            $prototype = new $itemtype();
+            $table     = $itemtype::getTable();
+            $where     = getEntitiesRestrictCriteria($table, '', '', $prototype->maybeRecursive())
+                + $itemtype::getSystemSQLCriteria($table);
+            if ($prototype->isField('is_deleted')) {
+                $where["$table.is_deleted"] = 0;
+            }
+            if ($prototype->isField('is_template')) {
+                $where["$table.is_template"] = 0;
+            }
+
+            $assetOptions = [];
+            foreach ($DB->request(['FROM' => $table, 'WHERE' => $where, 'ORDER' => 'name']) as $row) {
+                $itemsId = (int) $row['id'];
+                $label   = $row['name'] !== '' ? $row['name'] : sprintf('#%d', $itemsId);
+
+                $classification = $classificationsByItemsId[$itemsId] ?? null;
+                if (ClassificationLevels::isClassified($classification)) {
+                    $label .= ' ' . sprintf(
+                        __('(C: %1$s, I: %2$s, A: %3$s)', 'grcmanager'),
+                        self::classificationLevelLabel($classification['confidentiality'] ?? null),
+                        self::classificationLevelLabel($classification['integrity'] ?? null),
+                        self::classificationLevelLabel($classification['availability'] ?? null)
+                    );
+                }
+                $assetOptions[$itemsId] = $label;
+            }
+            if ($assetOptions === []) {
+                continue;
+            }
+            $groups[] = [
+                'field'   => self::linkedAssetFieldName($itemtype),
+                'label'   => $itemtype::getTypeName(2),
+                'options' => $assetOptions,
+                'values'  => $linkedIdsByType[$itemtype] ?? [],
+            ];
+        }
+
+        return $groups;
+    }
+
+    /**
      * @return array<int, string> itemtype class names a risk may be linked to. The fixed default
      *         list (LinkableItemtypes::DEFAULT_ITEMTYPES) plus any active GLPI custom asset
      *         definition, enumerated dynamically at each call so an asset type created or
@@ -742,6 +772,43 @@ class Risk extends RiskBase
         }
 
         return $itemtypes;
+    }
+
+    /**
+     * Issue #1095 : tout ce que le formulaire du risque peut lier (actifs de la CMDB et fournisseurs).
+     *
+     * @return array<int, string>
+     */
+    public static function getRiskLinkItemtypes(): array
+    {
+        return array_merge(self::getLinkableItemtypes(), self::SUPPLIER_ITEMTYPES);
+    }
+
+    /**
+     * Issue #1095 : un élément supprimé définitivement (fournisseur, actif) n'est plus lié à aucun
+     * risque (Hooks::ITEM_PURGE, voir hook.php).
+     */
+    public static function forgetLinkedItem(CommonDBTM $item): void
+    {
+        global $DB;
+
+        if ($DB->tableExists(self::ITEMS_LINK_TABLE) && in_array($item::class, self::getRiskLinkItemtypes(), true)) {
+            $DB->delete(self::ITEMS_LINK_TABLE, ['itemtype' => $item::class, 'items_id' => (int) $item->getID()]);
+        }
+    }
+
+    /**
+     * Issue #1095 : risques généraux liés à un fournisseur, dans les entités de la session.
+     *
+     * @return array<int, array{id:int, title:string, risk_level:?string}>
+     */
+    public static function getRisksLinkedToSupplier(int $suppliersId): array
+    {
+        if ($suppliersId <= 0 || !self::canView()) {
+            return [];
+        }
+
+        return self::getRisksLinkedToItem(Supplier::class, $suppliersId);
     }
 
     /**
@@ -772,8 +839,9 @@ class Risk extends RiskBase
             $item = new $itemtype();
             $exists = $item->getFromDB($itemsId);
             // Le risque est global à l'instance, ses actifs liés non : un actif d'une entité hors
-            // du périmètre de l'utilisateur n'est pas affiché (ni son nom, ni son lien).
-            if ($exists && !$item->canViewItem()) {
+            // du périmètre de l'utilisateur n'est pas affiché (ni son nom, ni son lien). Issue #1095 :
+            // ni un élément dont il n'a pas le droit de lecture (ex. fournisseurs sans contact_enterprise).
+            if (!$itemtype::canView() || ($exists && !$item->canViewItem())) {
                 continue;
             }
             $name = $exists
@@ -898,7 +966,7 @@ class Risk extends RiskBase
     {
         global $DB;
 
-        $allowed = self::getLinkableItemtypes();
+        $allowed = self::getRiskLinkItemtypes();
 
         // Le formulaire ne propose que les actifs visibles par l'utilisateur (ses entités) : il ne
         // remplace donc que ces liens-là. Les liens vers des actifs qu'il ne voit pas (posés par
@@ -911,7 +979,11 @@ class Risk extends RiskBase
         foreach ($links as $row) {
             $itemtype = (string) $row['itemtype'];
             $item = is_a($itemtype, CommonDBTM::class, true) ? new $itemtype() : null;
-            if ($item !== null && $item->getFromDB((int) $row['items_id']) && !$item->canViewItem()) {
+            // Issue #1095 : ni ceux d'un type qu'il ne peut pas lire (sa sélection n'est pas affichée).
+            if (
+                $item !== null && (!$itemtype::canView()
+                || ($item->getFromDB((int) $row['items_id']) && !$item->canViewItem()))
+            ) {
                 $kept[$itemtype . ':' . (int) $row['items_id']] = true;
                 continue;
             }
@@ -953,7 +1025,7 @@ class Risk extends RiskBase
      */
     private function syncLinkedAssetsFromInput(): void
     {
-        $itemtypes = self::getLinkableItemtypes();
+        $itemtypes = self::getRiskLinkItemtypes();
 
         $formWasSubmitted = false;
         foreach ($itemtypes as $itemtype) {

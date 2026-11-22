@@ -101,6 +101,19 @@
       }) }}
    {% endfor %}
 
+   {# Issue #1095 : fournisseurs GLPI concernés par ce risque (affiché seulement avec le droit de lecture des fournisseurs). #}
+   {% if supplier_groups is not empty %}
+      {{ fields.smallTitle(__('Linked suppliers', 'grcmanager'), 'ti ti-truck') }}
+      {% for group in supplier_groups %}
+         {{ fields.dropdownArrayField(group.field, null, group.options, group.label, {
+            'multiple': true,
+            'values': group.values,
+            'full_width': true,
+            'add_field_html': hints.hint(__('The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead.', 'grcmanager')),
+         }) }}
+      {% endfor %}
+   {% endif %}
+
    {# Issue #368 : alertes Wazuh récentes des ordinateurs liés, lues dans le plugin Wazuh (lecture seule). #}
    {% if wazuh_alerts is not null %}
       {% set alert_badges = {'high': 'bg-red text-white', 'medium': 'bg-orange-lt', 'low': 'bg-secondary-lt', 'unknown': 'bg-secondary-lt'} %}
