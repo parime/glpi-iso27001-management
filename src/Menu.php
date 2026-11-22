@@ -72,11 +72,14 @@ class Menu extends CommonGLPI
      */
     public static function sections(): array
     {
+        // Dans l'ordre du menu : secteur par secteur, puis la place demandée par chaque rubrique.
         $sections = [];
-        foreach (Sections::all() as $section) {
-            $pages = array_keys(Sections::pages($section::parent()));
-            if ($pages !== []) {
-                $sections[$section::parent()] = $pages;
+        foreach (Sections::SECTORS as $sector) {
+            foreach (Sections::ordered($sector, false) as $parent) {
+                $pages = array_keys(Sections::pages($parent));
+                if ($pages !== []) {
+                    $sections[$parent] = $pages;
+                }
             }
         }
 
@@ -90,7 +93,7 @@ class Menu extends CommonGLPI
      *
      * @return array<string, mixed>|null
      */
-    private static function subPageMenu(string $child): ?array
+    public static function pageMenu(string $child): ?array
     {
         $options = Sections::page($child) ?? [];
         if (isset($options['page'])) {
@@ -114,7 +117,7 @@ class Menu extends CommonGLPI
      * Ajoute les sous-pages de la rubrique $parent à son entrée de menu. Si l'utilisateur ne peut
      * pas voir le parent, sa première sous-page autorisée prend sa place : un droit propre à une
      * sous-page (RGPD pour un DPO, continuité) suffit à la trouver dans le menu, sans donner le droit
-     * général. Chaque sous-page déclare elle-même ses droits (subPageMenu()) : rien n'est élargi.
+     * général. Chaque sous-page déclare elle-même ses droits (pageMenu()) : rien n'est élargi.
      *
      * @param array<string, mixed>|false $menu
      * @return array<string, mixed>|false
@@ -123,7 +126,7 @@ class Menu extends CommonGLPI
     {
         $parentVisible = is_array($menu) && $menu !== [];
         foreach (array_keys(Sections::pages($parent)) as $child) {
-            $childMenu = self::subPageMenu($child);
+            $childMenu = self::pageMenu($child);
             if ($childMenu === null) {
                 continue;
             }
@@ -198,7 +201,7 @@ class Menu extends CommonGLPI
         // Parent invisible : son entrée de menu n'est que sa première sous-page, déjà listée.
         $pages = empty($parentMenu['parent_hidden']) ? [$parent => $parentMenu] : [];
         foreach (array_keys($declared) as $child) {
-            $childMenu = self::subPageMenu($child);
+            $childMenu = self::pageMenu($child);
             if ($childMenu !== null) {
                 $pages[$child] = $childMenu;
             }
