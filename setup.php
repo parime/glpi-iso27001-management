@@ -33,7 +33,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.82.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.83.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -239,6 +239,8 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ApplicationSecurity::class, ['addtabon' => [Appliance::class]]);
     // Issue #869 : onglet « SBOM et VEX » des applications (nomenclatures et déclarations VEX).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
+    // Issue #858 : onglet « Sécurité du code » des applications (alertes GitHub et GitLab, lecture seule).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\CodeSecurity::class, ['addtabon' => [Appliance::class]]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
@@ -275,7 +277,9 @@ function plugin_init_grcmanager(): void
         // Issue #838 : mot de passe du compte de lecture de Veeam Backup & Replication.
         \GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig::SECURED,
         // Issue #842 : clé d'API d'Uptime Kuma (lecture de /metrics).
-        \GlpiPlugin\Grcmanager\Services\Monitoring\UptimeKumaConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\Monitoring\UptimeKumaConfig::SECURED,
+        // Issue #858 : jetons de lecture des alertes de sécurité du code (GitHub, GitLab).
+        \GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig::SECURED
     );
     // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
     // processus métier (lecture seule).

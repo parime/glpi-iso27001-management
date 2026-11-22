@@ -1,0 +1,72 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #858 : onglet « Sécurité du code » d'une application (Appliance) : résumé des alertes lues dans GitHub
+   ou GitLab pour son dépôt, en lecture seule. #}
+{% import '@grcmanager/_code_security_macros.html.twig' as cs %}
+<div class="container-fluid" id="grc-code-security-tab">
+   <p class="text-muted">
+      <i class="ti ti-info-circle me-1"></i>{{ __('Security alerts of the code repository of this application, read from GitHub or GitLab in read only: vulnerable dependencies, exposed secrets and code analysis.', 'grcmanager') }}
+      <a href="{{ page_url }}">{{ __('Open the code security page', 'grcmanager') }}</a>
+   </p>
+
+   {% if repository is null %}
+      <div class="alert alert-info d-flex align-items-start gap-2">
+         <i class="ti ti-info-circle fs-2"></i>
+         <div>
+            {% if repository_url %}
+               {{ __('The repository of this application has not been read yet: click "Read now" on the code security page.', 'grcmanager') }}
+            {% else %}
+               {{ __('No code repository: enter it in the "Secure development" tab of this application, then read the alerts from the code security page.', 'grcmanager') }}
+            {% endif %}
+         </div>
+      </div>
+   {% else %}
+      <div class="mb-3" id="grc-code-security-summary">
+         {{ cs.repository(repository, providers) }}
+         {% if repository.date_read_label %}<span class="small text-muted ms-2"><i class="ti ti-clock me-1"></i>{{ __('Last reading: %s', 'grcmanager')|format(repository.date_read_label) }}</span>{% endif %}
+         {% if repository.error_label %}<div class="small text-danger mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ repository.error_label }}</div>{% endif %}
+      </div>
+      {% if repository.date_read %}
+         <div class="row g-2 mb-3">
+            {% for key, info in categories %}
+               <div class="col-md-4"><div class="card card-sm h-100"><div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between">
+                     <span><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+                     {{ cs.scan(repository, key, severities) }}
+                  </div>
+                  <div class="small text-muted mt-1">{{ info.help }}</div>
+               </div></div></div>
+            {% endfor %}
+         </div>
+         <div class="mb-2">
+            {% if summary.secrets_priority > 0 %}
+               <span class="badge bg-red text-white me-1"><i class="ti ti-urgent me-1"></i>{{ __('Exposed secrets not revoked: %d', 'grcmanager')|format(summary.secrets_priority) }}</span>
+            {% endif %}
+            <span class="badge {{ summary.overdue > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alarm me-1"></i>{{ __('Alerts past their deadline: %d', 'grcmanager')|format(summary.overdue) }}</span>
+            {% for key, info in severities %}
+               {% if summary.severities[key] > 0 %}<span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1">{{ __('%1$s: %2$d', 'grcmanager')|format(info.label, summary.severities[key]) }}</span>{% endif %}
+            {% endfor %}
+         </div>
+         {% if alerts is empty %}
+            <p class="text-muted"><i class="ti ti-circle-check me-1"></i>{{ __('No open alert on this repository.', 'grcmanager') }}</p>
+         {% else %}
+            {% if total_alerts > alerts|length %}
+               <p class="small">{{ __('%1$d alerts: the first %2$d are shown, priorities first.', 'grcmanager')|format(total_alerts, alerts|length) }}</p>
+            {% endif %}
+            {{ cs.alerts_table(alerts, categories, severities, false) }}
+         {% endif %}
+      {% endif %}
+   {% endif %}
+</div>

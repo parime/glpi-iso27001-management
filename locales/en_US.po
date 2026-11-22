@@ -321,8 +321,8 @@ msgstr "Verified breach"
 #: templates/policy_acknowledgement_tab.html.twig
 #: templates/supplier_risk_form.html.twig templates/evidence_tab.html.twig
 #: templates/objective_form.html.twig templates/my_evidence_requests.html.twig
-#: templates/processing_activity_form.html.twig templates/policy_form.html.twig
-#: templates/risk_indicator_form.html.twig
+#: templates/processing_activity_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -663,7 +663,8 @@ msgstr "No function linked yet."
 #: templates/my_evidence_requests.html.twig
 #: templates/tabs/playbook_steps.html.twig
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/action_log.html.twig templates/tabs/ebios_workshop4.html.twig
+#: templates/tabs/action_log.html.twig
+#: templates/tabs/ebios_workshop4.html.twig
 #: templates/tabs/business_process_items.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/ebios_workshop2.html.twig
@@ -970,14 +971,14 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 
 #: templates/dora/register.html.twig
 msgid "Template"
@@ -1556,7 +1557,8 @@ msgstr "Save decisions"
 msgid "Perimeter: %s"
 msgstr "Perimeter: %s"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Met"
 msgstr "Met"
 
@@ -1568,21 +1570,24 @@ msgstr "Met"
 msgid "Overdue"
 msgstr "Overdue"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
-#: src/DataBreach.php:131
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig src/DataBreach.php:131
 msgid "Not notified"
 msgstr "Not notified"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/DataBreach.php:161
 msgid "Not notified (decision recorded)"
 msgstr "Not notified (decision recorded)"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Waiting for the corrective measure"
 msgstr "Waiting for the corrective measure"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_regulatory_section.html.twig src/Control.php:125
 #: src/Control.php:833 src/CustomRequirement.php:66
 #: src/SecurityIncidentPlaybookTask.php:70
@@ -1634,7 +1639,8 @@ msgstr "Solved / closed on"
 msgid "Time to resolution"
 msgstr "Time to resolution"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Total cost"
 msgstr "Total cost"
 
@@ -1651,7 +1657,8 @@ msgstr "Total cost"
 msgid "Description"
 msgstr "Description"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Timeline"
 msgstr "Timeline"
 
@@ -1689,12 +1696,13 @@ msgstr "Detail"
 msgid "Scope"
 msgstr "Scope"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Affected items"
 msgstr "Affected items"
 
-#: templates/pdf/postmortem_report.html.twig inc/securityincident.class.php:234
-#: src/SecurityIncidentTicket.php:117
+#: templates/pdf/postmortem_report.html.twig
+#: inc/securityincident.class.php:234 src/SecurityIncidentTicket.php:117
 msgid "Linked tickets"
 msgstr "Linked tickets"
 
@@ -1742,7 +1750,8 @@ msgstr "Notified on"
 msgid "Outcome"
 msgstr "Outcome"
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/nonconformity_form.html.twig inc/securityincident.class.php:811
 #: src/Nonconformity.php:373
@@ -1766,7 +1775,8 @@ msgctxt "plural"
 msgid "Not filled in."
 msgstr "Not filled in."
 
-#: templates/pdf/postmortem_report.html.twig templates/postmortem_tab.html.twig
+#: templates/pdf/postmortem_report.html.twig
+#: templates/postmortem_tab.html.twig
 msgid "Decided actions"
 msgstr "Decided actions"
 
@@ -2169,7 +2179,8 @@ msgstr "No frozen version: approval date entered manually."
 
 #: templates/pdf/policy_approval_record.html.twig
 #: templates/pdf/policy_version.html.twig templates/soa_approval.html.twig
-#: templates/policy_approval_tab.html.twig src/Waiver.php:86 src/Waiver.php:114
+#: templates/policy_approval_tab.html.twig src/Waiver.php:86
+#: src/Waiver.php:114
 msgid "Requested"
 msgstr "Requested"
 
@@ -2188,7 +2199,8 @@ msgstr "Approval rule"
 #: templates/tabs/risk_business_processes.html.twig
 #: templates/tabs/business_process_recovery.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/tabs/mitre_attack.html.twig templates/access_review_form.html.twig
+#: templates/tabs/mitre_attack.html.twig
+#: templates/access_review_form.html.twig
 #: templates/custom_framework_form.html.twig
 #: templates/risk_indicator_values.html.twig src/IsmsRequirement.php:288
 #: src/NotificationTargetAccessReview.php:107
@@ -2230,7 +2242,8 @@ msgstr "Audits"
 #: templates/objective_form.html.twig templates/risk_import.html.twig
 #: templates/policy_form.html.twig templates/risk_asset_tab.html.twig
 #: templates/tabs/business_process_risks.html.twig
-#: templates/audit_form.html.twig templates/data_subject_request_form.html.twig
+#: templates/audit_form.html.twig
+#: templates/data_subject_request_form.html.twig
 #: templates/nonconformity_form.html.twig
 #: templates/audit_findings_tab.html.twig templates/risk_form.html.twig
 #: templates/supplier_security_watch.html.twig
@@ -2243,7 +2256,8 @@ msgstr "Audits"
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
-#: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
+#: src/NotificationTargetRisk.php:93
+#: src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:149
 #: src/Policy.php:135 src/Risk.php:345 src/RiskRegisterImport.php:588
 #: src/SupplierRisk.php:160 src/Training.php:528
@@ -2251,7 +2265,8 @@ msgid "Title"
 msgstr "Title"
 
 #: templates/pdf/audit_report.html.twig
-#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_form.html.twig
 #: templates/audit_evidence_requests_tab.html.twig src/Audit.php:209
 #: src/AuditTeam.php:54 src/AuditTeam.php:198
 msgid "Auditor"
@@ -2310,7 +2325,8 @@ msgstr "Severity"
 #: templates/business_process_form.html.twig
 #: templates/periodic_reviews.html.twig src/BusinessProcess.php:544
 #: src/BusinessProcess.php:616 src/ComplianceEvent.php:228
-#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279 src/Nonconformity.php:332
+#: src/EbiosStudy.php:594 src/IsmsRequirement.php:279
+#: src/Nonconformity.php:332
 msgid "Owner"
 msgstr "Owner"
 
@@ -2378,8 +2394,8 @@ msgstr "No finding for this audit."
 msgid "Corrective action"
 msgstr "Corrective action"
 
-#: templates/pdf/internal_audit_report.html.twig templates/audit_form.html.twig
-#: src/Audit.php:250
+#: templates/pdf/internal_audit_report.html.twig
+#: templates/audit_form.html.twig src/Audit.php:250
 msgid "Conclusion"
 msgstr "Conclusion"
 
@@ -2460,9 +2476,9 @@ msgstr "Control details"
 msgid "Theme"
 msgstr "Theme"
 
-#: templates/pdf/soa_report.html.twig templates/custom_framework_list.html.twig
-#: templates/referentiels.html.twig templates/control_form.html.twig
-#: front/customframework.php:157
+#: templates/pdf/soa_report.html.twig
+#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
+#: templates/control_form.html.twig front/customframework.php:157
 msgctxt "label"
 msgid "Title"
 msgstr "Title"
@@ -2497,7 +2513,8 @@ msgstr "ISMS requirements (clauses 4 to 10)"
 msgid "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 msgstr "ISMS completeness: %1$d %% (%2$d / %3$d requirements compliant)"
 
-#: templates/pdf/soa_report.html.twig templates/isms_requirement_form.html.twig
+#: templates/pdf/soa_report.html.twig
+#: templates/isms_requirement_form.html.twig
 #: templates/custom_framework_form.html.twig src/IsmsRequirement.php:254
 msgid "Requirement"
 msgstr "Requirement"
@@ -2648,7 +2665,8 @@ msgstr ""
 "Consistency checks: objectives of the process, plus items and processes it "
 "depends on that do not meet them."
 
-#: templates/pdf/business_continuity_report.html.twig src/BusinessImpact.php:44
+#: templates/pdf/business_continuity_report.html.twig
+#: src/BusinessImpact.php:44
 msgid "Business impact analysis"
 msgstr "Business impact analysis"
 
@@ -2818,8 +2836,9 @@ msgstr "No risk linked to this process."
 #: templates/tabs/ebios_workshop5.html.twig
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_form.html.twig templates/risk_appetite.html.twig
-#: src/NotificationTargetRisk.php:95 src/NotificationTargetSupplierRisk.php:118
-#: src/Risk.php:378 src/SupplierRisk.php:208
+#: src/NotificationTargetRisk.php:95
+#: src/NotificationTargetSupplierRisk.php:118 src/Risk.php:378
+#: src/SupplierRisk.php:208
 msgid "Risk level"
 msgstr "Risk level"
 
@@ -2910,9 +2929,10 @@ msgstr "Name"
 #: templates/risk_indicator_form.html.twig
 #: templates/itil_classification_section.html.twig
 #: templates/network_flow_import.html.twig
-#: templates/custom_framework_form.html.twig inc/securityincident.class.php:940
-#: src/NetworkFlow.php:255 src/NetworkFlow.php:400
-#: src/NotificationTargetRiskIndicator.php:155 src/RiskIndicator.php:733
+#: templates/custom_framework_form.html.twig
+#: inc/securityincident.class.php:940 src/NetworkFlow.php:255
+#: src/NetworkFlow.php:400 src/NotificationTargetRiskIndicator.php:155
+#: src/RiskIndicator.php:733
 msgid "Source"
 msgstr "Source"
 
@@ -2931,8 +2951,9 @@ msgstr "Protocol and ports"
 #: templates/pdf/policy_version.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
-#: templates/processing_activity_form.html.twig templates/policy_form.html.twig
-#: templates/risk_indicator_form.html.twig templates/risk_form.html.twig
+#: templates/processing_activity_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/risk_form.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
@@ -3016,8 +3037,9 @@ msgid "Risks in the register"
 msgstr "Risks in the register"
 
 #: templates/pdf/risk_register_report.html.twig
-#: templates/pdf/dpia_report.html.twig templates/park_vulnerabilities.html.twig
-#: templates/tabs/dpia.html.twig templates/risk_form.html.twig
+#: templates/pdf/dpia_report.html.twig
+#: templates/park_vulnerabilities.html.twig templates/tabs/dpia.html.twig
+#: templates/risk_form.html.twig
 msgid "Level"
 msgstr "Level"
 
@@ -3041,8 +3063,9 @@ msgstr "Category"
 #: templates/management_review_form.html.twig src/ComplianceObligation.php:222
 #: src/ManagementReview.php:304
 #: src/NotificationTargetComplianceObligation.php:94
-#: src/NotificationTargetRisk.php:96 src/NotificationTargetSupplierRisk.php:119
-#: src/Risk.php:411 src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
+#: src/NotificationTargetRisk.php:96
+#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:411
+#: src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
 msgid "Review date"
 msgstr "Review date"
 
@@ -3055,8 +3078,8 @@ msgstr "Approved"
 
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
-#: templates/policy_approval_tab.html.twig src/Policy.php:98 src/Policy.php:245
-#: src/ProcessingActivity.php:130
+#: templates/policy_approval_tab.html.twig src/Policy.php:98
+#: src/Policy.php:245 src/ProcessingActivity.php:130
 msgid "Draft"
 msgstr "Draft"
 
@@ -3485,9 +3508,10 @@ msgstr "ISO 27001 %s"
 msgid "How to fix"
 msgstr "How to fix"
 
-#: templates/pdf/consistency_report.html.twig templates/park_machines.html.twig
-#: templates/my_space.html.twig templates/network_flow_matrix.html.twig
-#: templates/tabs/ioc.html.twig templates/network_flow_import.html.twig
+#: templates/pdf/consistency_report.html.twig
+#: templates/park_machines.html.twig templates/my_space.html.twig
+#: templates/network_flow_matrix.html.twig templates/tabs/ioc.html.twig
+#: templates/network_flow_import.html.twig
 #: templates/compliance_event_form.html.twig
 #: templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig front/consistencycheck.export.php:51
@@ -3911,7 +3935,8 @@ msgstr "Nothing is waiting for you at the moment."
 msgid "Details"
 msgstr "Details"
 
-#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:138
 #, php-format
 msgid "%d day(s) late"
@@ -3923,7 +3948,8 @@ msgstr "%d day(s) late"
 msgid "Due soon"
 msgstr "Due soon"
 
-#: templates/my_space.html.twig templates/audit_evidence_requests_tab.html.twig
+#: templates/my_space.html.twig
+#: templates/audit_evidence_requests_tab.html.twig
 #: src/Services/Workspace/MySpaceProvider.php:136
 msgid "No due date"
 msgstr "No due date"
@@ -4079,7 +4105,8 @@ msgstr ""
 "once a week; nothing else happens to them."
 
 #: templates/policy_acknowledgement_tab.html.twig
-#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/account_hygiene.html.twig
 #, php-format
 msgid "%d days"
 msgstr "%d days"
@@ -4152,7 +4179,8 @@ msgstr "Read on %s"
 msgid "Latecomers (CSV)"
 msgstr "Latecomers (CSV)"
 
-#: templates/policy_acknowledgement_tab.html.twig templates/tabs/dpia.html.twig
+#: templates/policy_acknowledgement_tab.html.twig
+#: templates/tabs/dpia.html.twig
 msgid "Report (PDF)"
 msgstr "Report (PDF)"
 
@@ -4249,8 +4277,9 @@ msgstr "Versions to check manually"
 msgid "CISA KEV catalog updated"
 msgstr "CISA KEV catalog updated"
 
-#: templates/park_vulnerabilities.html.twig templates/account_hygiene.html.twig
-#: templates/periodic_reviews.html.twig src/ControlTestReminder.php:79
+#: templates/park_vulnerabilities.html.twig
+#: templates/account_hygiene.html.twig templates/periodic_reviews.html.twig
+#: src/ControlTestReminder.php:79
 msgid "Never"
 msgstr "Never"
 
@@ -4416,8 +4445,8 @@ msgstr "CVSS"
 msgid "EPSS"
 msgstr "EPSS"
 
-#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
-#: templates/park_item_tab.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/park_cve_ticket.html.twig templates/park_item_tab.html.twig
 msgid "Exploited"
 msgstr "Exploited"
 
@@ -4425,7 +4454,8 @@ msgstr "Exploited"
 msgid "Published"
 msgstr "Published"
 
-#: templates/park_vulnerabilities.html.twig templates/park_cve_ticket.html.twig
+#: templates/park_vulnerabilities.html.twig
+#: templates/park_cve_ticket.html.twig
 msgid "Remediation deadline"
 msgstr "Remediation deadline"
 
@@ -5327,7 +5357,8 @@ msgstr ""
 "Per category of data if needed (e.g. \"5 years after the employee leaves, "
 "then archived\")."
 
-#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1007
+#: templates/processing_activity_form.html.twig
+#: src/ProcessingActivity.php:1007
 msgid "Security measures"
 msgstr "Security measures"
 
@@ -5370,7 +5401,8 @@ msgstr "Last review"
 msgid "The register is reviewed at least once a year (Periodic reviews)."
 msgstr "The register is reviewed at least once a year (Periodic reviews)."
 
-#: templates/processing_activity_form.html.twig src/ProcessingActivity.php:1008
+#: templates/processing_activity_form.html.twig
+#: src/ProcessingActivity.php:1008
 msgid "Applications, assets and suppliers"
 msgstr "Applications, assets and suppliers"
 
@@ -5710,14 +5742,16 @@ msgstr "Back to the risk list"
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:92
 #: src/AssetClassification.php:183 src/ConsistencyCheck.php:142
 #: src/DoraRegister.php:236 src/DoraRegister.php:241
-#: src/Traits/RiskAssessmentTrait.php:84 src/Traits/RiskAssessmentTrait.php:223
+#: src/Traits/RiskAssessmentTrait.php:84
+#: src/Traits/RiskAssessmentTrait.php:223
 msgid "Low"
 msgstr "Low"
 
 #: templates/risk_heatmap.html.twig src/AssetClassification.php:93
 #: src/AssetClassification.php:184 src/ConsistencyCheck.php:137
 #: src/DoraRegister.php:237 src/DoraRegister.php:242
-#: src/Traits/RiskAssessmentTrait.php:85 src/Traits/RiskAssessmentTrait.php:224
+#: src/Traits/RiskAssessmentTrait.php:85
+#: src/Traits/RiskAssessmentTrait.php:224
 msgid "Medium"
 msgstr "Medium"
 
@@ -6379,8 +6413,9 @@ msgid "Record this breach in the register"
 msgstr "Record this breach in the register"
 
 #: templates/tabs/incident_playbook.html.twig
-#: templates/tabs/incident_data_breach.html.twig front/databreach.export.php:35
-#: front/databreach.php:27 src/DataBreach.php:88
+#: templates/tabs/incident_data_breach.html.twig
+#: front/databreach.export.php:35 front/databreach.php:27
+#: src/DataBreach.php:88
 msgid "Breach register"
 msgstr "Breach register"
 
@@ -7315,11 +7350,11 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 
 #: templates/tabs/_access_review_rows.html.twig
 msgid "Profiles and groups"
@@ -8844,8 +8879,8 @@ msgstr "Confidentiality"
 msgid "Integrity"
 msgstr "Integrity"
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:189
-#: src/Risk.php:837
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:189 src/Risk.php:837
 msgid "Not classified"
 msgstr "Not classified"
 
@@ -8857,7 +8892,8 @@ msgstr ""
 "This asset has not been classified yet (confidentiality/integrity/"
 "availability)."
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:143
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:143
 msgid "RTO (maximum downtime)"
 msgstr "RTO (maximum downtime)"
 
@@ -8865,7 +8901,8 @@ msgstr "RTO (maximum downtime)"
 msgid "Time beyond which an outage of this asset becomes unacceptable."
 msgstr "Time beyond which an outage of this asset becomes unacceptable."
 
-#: templates/asset_classification_tab.html.twig src/AssetClassification.php:151
+#: templates/asset_classification_tab.html.twig
+#: src/AssetClassification.php:151
 msgid "RPO (maximum data loss)"
 msgstr "RPO (maximum data loss)"
 
@@ -9327,7 +9364,8 @@ msgid_plural "%d days late"
 msgstr[0] "%d day late"
 msgstr[1] "%d days late"
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:360
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:360
 msgid "Right exercised"
 msgstr "Right exercised"
 
@@ -9343,8 +9381,8 @@ msgstr ""
 "Optional. Do not put the name of the person here: it stays in the field "
 "below."
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:385
-#: src/NotificationTargetPolicyVersion.php:139
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:385 src/NotificationTargetPolicyVersion.php:139
 #: src/NotificationTargetSoaVersion.php:104
 msgid "Requester"
 msgstr "Requester"
@@ -9353,7 +9391,8 @@ msgstr "Requester"
 msgid "Only what is needed to answer: this field stays on this request."
 msgstr "Only what is needed to answer: this field stays on this request."
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:369
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:369
 msgid "Date of receipt"
 msgstr "Date of receipt"
 
@@ -9393,7 +9432,8 @@ msgstr ""
 msgid "Reason for the extension"
 msgstr "Reason for the extension"
 
-#: templates/data_subject_request_form.html.twig src/DataSubjectRequest.php:378
+#: templates/data_subject_request_form.html.twig
+#: src/DataSubjectRequest.php:378
 msgid "Date of the answer"
 msgstr "Date of the answer"
 
@@ -9749,11 +9789,6 @@ msgstr "Image vulnerabilities (Harbor)"
 #: templates/control_form.html.twig
 msgid "no Harbor connection: the images are not analysed"
 msgstr "no Harbor connection: the images are not analysed"
-
-#: templates/control_form.html.twig
-#, php-format
-msgid "%d critical"
-msgstr "%d critical"
 
 #: templates/control_form.html.twig
 #, php-format
@@ -13958,13 +13993,13 @@ msgstr "CPE identifiers"
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 
 #: src/CanonicalProduct.php:196
 msgid "No CPE identifier yet."
@@ -14006,12 +14041,12 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 
 #: src/ComplianceAudit.php:100
 msgid "Technical security"
@@ -16851,7 +16886,8 @@ msgstr "From orange"
 msgid "Planned"
 msgstr "Planned"
 
-#: src/ManagementReview.php:81 src/ManagementReview.php:378 src/Training.php:96
+#: src/ManagementReview.php:81 src/ManagementReview.php:378
+#: src/Training.php:96
 msgctxt "feminine"
 msgid "Completed"
 msgstr "Completed"
@@ -22097,12 +22133,12 @@ msgstr "Settings and links"
 
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 
 msgid "Enable it in the configuration"
 msgstr "Enable it in the configuration"
@@ -22237,14 +22273,14 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 
 msgid "Kind of item"
 msgstr "Kind of item"
@@ -24636,13 +24672,13 @@ msgid "Justification of a different result"
 msgstr "Justification of a different result"
 
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 
 #, php-format
 msgid "Back to the tests of %s"
@@ -33859,11 +33895,11 @@ msgstr ""
 "%1$d machine(s) imported: %2$d matched with a GLPI asset, %3$d not matched."
 
 msgid ""
-"Not saved: the address must start with https:// (for example https://veeam."
-"example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://"
+"veeam.example.test:9419) and contain no user name or password."
 msgstr ""
-"Not saved: the address must start with https:// (for example https://veeam."
-"example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://"
+"veeam.example.test:9419) and contain no user name or password."
 
 msgid "Veeam settings saved."
 msgstr "Veeam settings saved."
@@ -35624,11 +35660,13 @@ msgid "Imports and changes over time"
 msgstr "Imports and changes over time"
 
 msgid ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
-"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
 msgstr ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
-"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
 
 msgid "New rights"
 msgstr "New rights"
@@ -35988,11 +36026,11 @@ msgstr ""
 "output folder."
 
 msgid ""
-"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
-"xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the "
+"ad_hc_[domain].xml file (not the HTML file)."
 msgstr ""
-"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
-"xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the "
+"ad_hc_[domain].xml file (not the HTML file)."
 
 msgid "The MFA coverage of each account is followed on its own page:"
 msgstr "The MFA coverage of each account is followed on its own page:"
@@ -36515,12 +36553,12 @@ msgstr ""
 
 msgid ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
-"getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
 msgstr ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
-"getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
 
 msgid ""
 "Users > Users: create a user with this role, in a user group with read "
@@ -37152,11 +37190,11 @@ msgstr ""
 
 #: templates/share_access.html.twig
 msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
 msgstr ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
 
 #: templates/share_access.html.twig
 msgid "Microsoft Graph connected"
@@ -38834,6 +38872,2382 @@ msgstr ""
 "They are checked again like any evidence when you save, then attached to "
 "their question."
 
+msgid "SoA scoping"
+msgstr "SoA scoping"
+
+msgid "Do staff work remotely (from home or while travelling)?"
+msgstr "Do staff work remotely (from home or while travelling)?"
+
+msgid ""
+"Telework, nomadic work, access to the information system from outside the "
+"premises."
+msgstr ""
+"Telework, nomadic work, access to the information system from outside the "
+"premises."
+
+msgid "staff work remotely"
+msgstr "staff work remotely"
+
+msgid "no staff member works remotely"
+msgstr "no staff member works remotely"
+
+msgid "Does the organisation develop or customise software in-house?"
+msgstr "Does the organisation develop or customise software in-house?"
+
+msgid ""
+"Applications, scripts, websites, integrations or significant configuration "
+"code."
+msgstr ""
+"Applications, scripts, websites, integrations or significant configuration "
+"code."
+
+msgid "the organisation develops or customises software in-house"
+msgstr "the organisation develops or customises software in-house"
+
+msgid "the organisation does not develop or customise software in-house"
+msgstr "the organisation does not develop or customise software in-house"
+
+msgid "Is software development outsourced to a provider?"
+msgstr "Is software development outsourced to a provider?"
+
+msgid "A developer, integrator or agency builds or changes software for you."
+msgstr "A developer, integrator or agency builds or changes software for you."
+
+msgid "software development is outsourced"
+msgstr "software development is outsourced"
+
+msgid "no software development is outsourced"
+msgstr "no software development is outsourced"
+
+msgid ""
+"Do suppliers or subcontractors access your information or provide ICT "
+"services?"
+msgstr ""
+"Do suppliers or subcontractors access your information or provide ICT "
+"services?"
+
+msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
+msgstr "Outsourcing, maintenance, hosting, managed services, telecoms."
+
+msgid "suppliers access information or provide ICT services"
+msgstr "suppliers access information or provide ICT services"
+
+msgid "no supplier accesses information or provides ICT services"
+msgstr "no supplier accesses information or provides ICT services"
+
+msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+msgstr "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+
+msgid "Online office suite, hosted applications, cloud storage or servers."
+msgstr "Online office suite, hosted applications, cloud storage or servers."
+
+msgid "the organisation uses cloud services"
+msgstr "the organisation uses cloud services"
+
+msgid "the organisation uses no cloud service"
+msgstr "the organisation uses no cloud service"
+
+msgid "Does the organisation occupy premises whose security it manages?"
+msgstr "Does the organisation occupy premises whose security it manages?"
+
+msgid ""
+"Offices, sites or shops: perimeter, entry, protection against physical "
+"threats."
+msgstr ""
+"Offices, sites or shops: perimeter, entry, protection against physical "
+"threats."
+
+msgid "the organisation manages the security of its own premises"
+msgstr "the organisation manages the security of its own premises"
+
+msgid ""
+"the organisation manages no premises (security handled by the landlord or "
+"host)"
+msgstr ""
+"the organisation manages no premises (security handled by the landlord or "
+"host)"
+
+msgid "Are servers or network equipment hosted in your own premises?"
+msgstr "Are servers or network equipment hosted in your own premises?"
+
+msgid ""
+"Server room, network cabinet, power supply and cabling under your "
+"responsibility."
+msgstr ""
+"Server room, network cabinet, power supply and cabling under your "
+"responsibility."
+
+msgid "servers or network equipment are hosted on the premises"
+msgstr "servers or network equipment are hosted on the premises"
+
+msgid "no server or network equipment is hosted on the premises"
+msgstr "no server or network equipment is hosted on the premises"
+
+msgid "Does the organisation process personal data?"
+msgstr "Does the organisation process personal data?"
+
+msgid "Staff, customers, prospects, patients, users: almost always yes."
+msgstr "Staff, customers, prospects, patients, users: almost always yes."
+
+msgid "the organisation processes personal data"
+msgstr "the organisation processes personal data"
+
+msgid "the organisation processes no personal data"
+msgstr "the organisation processes no personal data"
+
+msgid "Waiting for answers"
+msgstr "Waiting for answers"
+
+msgid "Matches the SoA"
+msgstr "Matches the SoA"
+
+msgid ""
+"Applicable: baseline control for any organisation within the ISMS scope; no "
+"scoping answer excludes it."
+msgstr ""
+"Applicable: baseline control for any organisation within the ISMS scope; no "
+"scoping answer excludes it."
+
+#, php-format
+msgid "Applicable: %s (SoA scoping questionnaire)."
+msgstr "Applicable: %s (SoA scoping questionnaire)."
+
+#, php-format
+msgid ""
+"Not applicable: %s (SoA scoping questionnaire). To be reviewed if this "
+"changes."
+msgstr ""
+"Not applicable: %s (SoA scoping questionnaire). To be reviewed if this "
+"changes."
+
+msgid "Baseline control"
+msgstr "Baseline control"
+
+msgid "Not answered"
+msgstr "Not answered"
+
+msgid "Proposed applicability"
+msgstr "Proposed applicability"
+
+msgid "Basis of the proposal"
+msgstr "Basis of the proposal"
+
+msgid "Proposed justification"
+msgstr "Proposed justification"
+
+msgid "Decided by"
+msgstr "Decided by"
+
+msgid "Decision date"
+msgstr "Decision date"
+
+msgid "Previous applicability"
+msgstr "Previous applicability"
+
+msgid ""
+"Answers saved. Review the proposals below: nothing is applied to the "
+"Statement of Applicability until you accept it."
+msgstr ""
+"Answers saved. Review the proposals below: nothing is applied to the "
+"Statement of Applicability until you accept it."
+
+#, php-format
+msgid "Proposals accepted: %d."
+msgstr "Proposals accepted: %d."
+
+#, php-format
+msgid "Proposals rejected: %d."
+msgstr "Proposals rejected: %d."
+
+#, php-format
+msgid "Statement of Applicability of: %s"
+msgstr "Statement of Applicability of: %s"
+
+msgid "Export CSV for the auditor"
+msgstr "Export CSV for the auditor"
+
+msgid "1. Describe your context"
+msgstr "1. Describe your context"
+
+msgid "Save the answers"
+msgstr "Save the answers"
+
+msgid "Preview: what accepting these proposals will change"
+msgstr "Preview: what accepting these proposals will change"
+
+msgid "Existing justification kept"
+msgstr "Existing justification kept"
+
+#, php-format
+msgid "Accept these %d proposals"
+msgstr "Accept these %d proposals"
+
+msgid "2. Review the proposals, control by control"
+msgstr "2. Review the proposals, control by control"
+
+msgid "Preview all proposals to review"
+msgstr "Preview all proposals to review"
+
+msgid "Preview the selected proposals"
+msgstr "Preview the selected proposals"
+
+msgid "Reject the selected proposals"
+msgstr "Reject the selected proposals"
+
+msgid "A written justification is never overwritten."
+msgstr "A written justification is never overwritten."
+
+msgid "In the SoA today"
+msgstr "In the SoA today"
+
+msgid "Proposal"
+msgstr "Proposal"
+
+msgid "Answer the questions above to get a proposal."
+msgstr "Answer the questions above to get a proposal."
+
+msgid "3. Decision log (who validated what, and when)"
+msgstr "3. Decision log (who validated what, and when)"
+
+msgid "No decision yet."
+msgstr "No decision yet."
+
+msgid ""
+"Helps you decide and justify the applicability of each Annex A control: a "
+"few questions about your context (remote work, software development, "
+"suppliers, cloud, premises, personal data) give a proposed applicability and "
+"justification for every control of the Statement of Applicability."
+msgstr ""
+"Helps you decide and justify the applicability of each Annex A control: a "
+"few questions about your context (remote work, software development, "
+"suppliers, cloud, premises, personal data) give a proposed applicability and "
+"justification for every control of the Statement of Applicability."
+
+msgid ""
+"Answer the questions, then accept or reject each proposal, one by one or in "
+"bulk after a preview. Nothing is applied without your decision, a written "
+"justification is never overwritten, and every decision is logged with its "
+"author and date. Export the CSV for the auditor."
+msgstr ""
+"Answer the questions, then accept or reject each proposal, one by one or in "
+"bulk after a preview. Nothing is applied without your decision, a written "
+"justification is never overwritten, and every decision is logged with its "
+"author and date. Export the CSV for the auditor."
+
+msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
+msgstr "ISO/IEC 27001, clause 6.1.3 c) and d)"
+
+msgid "Answer given"
+msgstr "Answer given"
+
+#, php-format
+msgid "%1$d alerts: the first %2$d are shown, priorities first."
+msgstr "%1$d alerts: the first %2$d are shown, priorities first."
+
+#, php-format
+msgid "%1$d repository(ies) read, %2$d alert(s), %3$d failure(s)."
+msgstr "%1$d repository(ies) read, %2$d alert(s), %3$d failure(s)."
+
+#, php-format
+msgid "%1$s: %2$d days"
+msgstr "%1$s: %2$d days"
+
+#, php-format
+msgid "%d application(s) of the register without a code repository"
+msgstr "%d application(s) of the register without a code repository"
+
+#, php-format
+msgid "%d repository(ies) read"
+msgstr "%d repository(ies) read"
+
+msgid "30 to 90 days"
+msgstr "30 to 90 days"
+
+msgid ""
+"A server on an internal address (private network) is refused by default: an "
+"administrator can allow internal addresses in the plugin configuration."
+msgstr ""
+"A server on an internal address (private network) is refused by default: an "
+"administrator can allow internal addresses in the plugin configuration."
+
+msgid "Alerts past their deadline"
+msgstr "Alerts past their deadline"
+
+#, php-format
+msgid "Alerts past their deadline: %d"
+msgstr "Alerts past their deadline: %d"
+
+msgid "Applications and their repositories"
+msgstr "Applications and their repositories"
+
+msgid ""
+"Applications of the secure development register whose code repository is on "
+"GitHub or GitLab. For each one: the open alerts by family, and the analyses "
+"that are not enabled (or not readable with the token), which is itself a gap "
+"for control A.8.29."
+msgstr ""
+"Applications of the secure development register whose code repository is on "
+"GitHub or GitLab. For each one: the open alerts by family, and the analyses "
+"that are not enabled (or not readable with the token), which is itself a gap "
+"for control A.8.29."
+
+msgid "By age:"
+msgstr "By age:"
+
+msgid "Code analysis"
+msgstr "Code analysis"
+
+#, php-format
+msgid "Code analysis alerts: %d"
+msgstr "Code analysis alerts: %d"
+
+msgid "Code security"
+msgstr "Code security"
+
+msgid "Code security (GitHub, GitLab)"
+msgstr "Code security (GitHub, GitLab)"
+
+msgid "Code security alerts past their deadline (GitHub, GitLab)"
+msgstr "Code security alerts past their deadline (GitHub, GitLab)"
+
+#, php-format
+msgid ""
+"Code security read: %1$d repository(ies), %2$d open alert(s), %3$d "
+"failure(s)."
+msgstr ""
+"Code security read: %1$d repository(ies), %2$d open alert(s), %3$d "
+"failure(s)."
+
+msgid "Code security readings deleted."
+msgstr "Code security readings deleted."
+
+msgid "Code security settings saved."
+msgstr "Code security settings saved."
+
+msgid ""
+"Code security: reads the security alerts of GitHub and GitLab (read only)"
+msgstr ""
+"Code security: reads the security alerts of GitHub and GitLab (read only)"
+
+msgid "Compared with the remediation deadlines of the policy"
+msgstr "Compared with the remediation deadlines of the policy"
+
+msgid "Connection to GitHub and GitLab (read only)"
+msgstr "Connection to GitHub and GitLab (read only)"
+
+msgid "Container image analysis"
+msgstr "Container image analysis"
+
+msgid "Enter a read-only token for GitHub or GitLab, then click \"Read now\"."
+msgstr "Enter a read-only token for GitHub or GitLab, then click \"Read now\"."
+
+msgid ""
+"Enter the code repository of each application in its \"Secure development\" "
+"tab, save a read-only token for GitHub or GitLab, then click \"Read now\". "
+"Then revoke the exposed secrets, follow up the alerts past their deadline "
+"and enable the missing analyses. Nothing is changed in GitHub or GitLab and "
+"nothing is created automatically."
+msgstr ""
+"Enter the code repository of each application in its \"Secure development\" "
+"tab, save a read-only token for GitHub or GitLab, then click \"Read now\". "
+"Then revoke the exposed secrets, follow up the alerts past their deadline "
+"and enable the missing analyses. Nothing is changed in GitHub or GitLab and "
+"nothing is created automatically."
+
+msgid "Exposed secret"
+msgstr "Exposed secret"
+
+#, php-format
+msgid "Exposed secret: %d days"
+msgstr "Exposed secret: %d days"
+
+msgid "Exposed secrets not revoked"
+msgstr "Exposed secrets not revoked"
+
+msgid "Exposed secrets not revoked in the code (GitHub, GitLab)"
+msgstr "Exposed secrets not revoked in the code (GitHub, GitLab)"
+
+#, php-format
+msgid "Exposed secrets not revoked: %d"
+msgstr "Exposed secrets not revoked: %d"
+
+msgid "GitHub Enterprise Server address (optional)"
+msgstr "GitHub Enterprise Server address (optional)"
+
+msgid ""
+"GitHub: create a fine-grained personal access token limited to the "
+"repositories concerned, with the read-only permissions \"Dependabot "
+"alerts\", \"Secret scanning alerts\" and \"Code scanning alerts\"."
+msgstr ""
+"GitHub: create a fine-grained personal access token limited to the "
+"repositories concerned, with the read-only permissions \"Dependabot "
+"alerts\", \"Secret scanning alerts\" and \"Code scanning alerts\"."
+
+msgid "GitLab server address (optional)"
+msgstr "GitLab server address (optional)"
+
+msgid ""
+"GitLab: create a project or group access token with the \"read_api\" scope "
+"and at least the Developer role (the vulnerability report requires GitLab "
+"Ultimate)."
+msgstr ""
+"GitLab: create a project or group access token with the \"read_api\" scope "
+"and at least the Developer role (the vulnerability report requires GitLab "
+"Ultimate)."
+
+msgid "How to prepare the tokens (one of the two, or both):"
+msgstr "How to prepare the tokens (one of the two, or both):"
+
+msgid "ISO/IEC 27001, controls A.8.28 and A.8.29"
+msgstr "ISO/IEC 27001, controls A.8.28 and A.8.29"
+
+msgid "Leave empty for github.com."
+msgstr "Leave empty for github.com."
+
+msgid "Leave empty for gitlab.com."
+msgstr "Leave empty for gitlab.com."
+
+msgid "Less than 30 days"
+msgstr "Less than 30 days"
+
+msgid "More than 90 days"
+msgstr "More than 90 days"
+
+msgid ""
+"No code repository: enter it in the \"Secure development\" tab of this "
+"application, then read the alerts from the code security page."
+msgstr ""
+"No code repository: enter it in the \"Secure development\" tab of this "
+"application, then read the alerts from the code security page."
+
+msgid "No open alert in your entities."
+msgstr "No open alert in your entities."
+
+msgid "No open alert on this repository."
+msgstr "No open alert on this repository."
+
+msgid "No repository read in your entities."
+msgstr "No repository read in your entities."
+
+msgid "No token for this service"
+msgstr "No token for this service"
+
+msgid "Not enabled"
+msgstr "Not enabled"
+
+msgid "Not enabled on the repository, or not readable with the token"
+msgstr "Not enabled on the repository, or not readable with the token"
+
+msgid "Not revoked: priority"
+msgstr "Not revoked: priority"
+
+msgid ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token below. 3. "
+"Click \"Read now\"."
+msgstr ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token below. 3. "
+"Click \"Read now\"."
+
+msgid ""
+"Nothing says that this secret has been revoked: revoke it at the provider, "
+"then remove it from the code and its history."
+msgstr ""
+"Nothing says that this secret has been revoked: revoke it at the provider, "
+"then remove it from the code and its history."
+
+msgid "Oldest open alert"
+msgstr "Oldest open alert"
+
+msgid ""
+"Only repositories hosted on GitHub or on the GitLab server of the connection "
+"are read."
+msgstr ""
+"Only repositories hosted on GitHub or on the GitLab server of the connection "
+"are read."
+
+msgid "Only the first 100 alerts of a family were read"
+msgstr "Only the first 100 alerts of a family were read"
+
+msgid "Open alerts"
+msgstr "Open alerts"
+
+#, php-format
+msgid "Open alerts: %d"
+msgstr "Open alerts: %d"
+
+msgid "Open since"
+msgstr "Open since"
+
+msgid "Open the alert at GitHub or GitLab"
+msgstr "Open the alert at GitHub or GitLab"
+
+msgid "Open the code security page"
+msgstr "Open the code security page"
+
+msgid "Password, key or token written in the code"
+msgstr "Password, key or token written in the code"
+
+msgid "Push protection was bypassed"
+msgstr "Push protection was bypassed"
+
+msgid "Read automatically every day (automatic action \"codesecurity\")"
+msgstr "Read automatically every day (automatic action \"codesecurity\")"
+
+#, php-format
+msgid "Read from GitHub and GitLab on %s"
+msgstr "Read from GitHub and GitLab on %s"
+
+msgid ""
+"Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no "
+"alert is closed."
+msgstr ""
+"Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no "
+"alert is closed."
+
+msgid "Read-only token"
+msgstr "Read-only token"
+
+msgid "Refused: the connector only reads the security alerts."
+msgstr "Refused: the connector only reads the security alerts."
+
+msgid "Register of applications"
+msgstr "Register of applications"
+
+#, php-format
+msgid "Repositories read: %d"
+msgstr "Repositories read: %d"
+
+msgid "Repositories with an analysis not enabled"
+msgstr "Repositories with an analysis not enabled"
+
+#, php-format
+msgid "Repositories with an analysis not enabled: %d"
+msgstr "Repositories with an analysis not enabled: %d"
+
+msgid "Repository"
+msgstr "Repository"
+
+msgid "Repository not recognised"
+msgstr "Repository not recognised"
+
+msgid "Revoked at the provider"
+msgstr "Revoked at the provider"
+
+msgid ""
+"Security alerts of the code repository of this application, read from GitHub "
+"or GitLab in read only: vulnerable dependencies, exposed secrets and code "
+"analysis."
+msgstr ""
+"Security alerts of the code repository of this application, read from GitHub "
+"or GitLab in read only: vulnerable dependencies, exposed secrets and code "
+"analysis."
+
+msgid ""
+"Shows the security alerts of the code of your applications, read from GitHub "
+"and GitLab in read only: vulnerable third-party libraries, passwords or keys "
+"written in the code, and weaknesses found by the code analysis. The open "
+"alerts are classed by severity and age and compared with the remediation "
+"deadlines of your policy; an exposed secret that has not been revoked comes "
+"first."
+msgstr ""
+"Shows the security alerts of the code of your applications, read from GitHub "
+"and GitLab in read only: vulnerable third-party libraries, passwords or keys "
+"written in the code, and weaknesses found by the code analysis. The open "
+"alerts are classed by severity and age and compared with the remediation "
+"deadlines of your policy; an exposed secret that has not been revoked comes "
+"first."
+
+msgid "Some repositories could not be read: their previous alerts are kept."
+msgstr "Some repositories could not be read: their previous alerts are kept."
+
+msgid ""
+"The deadlines are those of the vulnerability remediation policy of the "
+"plugin, counted from the day the alert was opened. An exposed secret must be "
+"revoked at once: it takes the shortest deadline (actively exploited "
+"vulnerabilities)."
+msgstr ""
+"The deadlines are those of the vulnerability remediation policy of the "
+"plugin, counted from the day the alert was opened. An exposed secret must be "
+"revoked at once: it takes the shortest deadline (actively exploited "
+"vulnerabilities)."
+
+msgid ""
+"The repository of this application has not been read yet: click \"Read now\" "
+"on the code security page."
+msgstr ""
+"The repository of this application has not been read yet: click \"Read now\" "
+"on the code security page."
+
+msgid ""
+"The server could not be reached: check the address, the network access or "
+"the GLPI proxy."
+msgstr ""
+"The server could not be reached: check the address, the network access or "
+"the GLPI proxy."
+
+msgid ""
+"The server has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"The server has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+
+msgid "The server returned an unexpected answer."
+msgstr "The server returned an unexpected answer."
+
+msgid ""
+"The token was refused: check that it is still valid and that it can read the "
+"security alerts of the repositories."
+msgstr ""
+"The token was refused: check that it is still valid and that it can read the "
+"security alerts of the repositories."
+
+msgid ""
+"The tokens are encrypted with the GLPI key, never displayed again nor "
+"logged. Only the security alerts are read; the value of an exposed secret is "
+"never requested."
+msgstr ""
+"The tokens are encrypted with the GLPI key, never displayed again nor "
+"logged. Only the security alerts are read; the value of an exposed secret is "
+"never requested."
+
+msgid "Third-party library with a known vulnerability"
+msgstr "Third-party library with a known vulnerability"
+
+msgid "To revoke first, then remove from the code"
+msgstr "To revoke first, then remove from the code"
+
+msgid "Too many requests: GitHub or GitLab asks to wait. Read again later."
+msgstr "Too many requests: GitHub or GitLab asks to wait. Read again later."
+
+#, php-format
+msgid "Vulnerable dependencies: %d"
+msgstr "Vulnerable dependencies: %d"
+
+msgid "Vulnerable dependency"
+msgstr "Vulnerable dependency"
+
+msgid "Weakness found in the code itself"
+msgstr "Weakness found in the code itself"
+
+#, php-format
+msgid "Worst severity: %s"
+msgstr "Worst severity: %s"
+
+#, php-format
+msgid "including %1$d critical and %2$d high"
+msgstr "including %1$d critical and %2$d high"
+
+msgid ""
+"MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation "
+"service, grouped by theme, their references on the controls and "
+"MonServiceSécurisé score. Disabled by default."
+msgstr ""
+"MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation "
+"service, grouped by theme, their references on the controls and "
+"MonServiceSécurisé score. Disabled by default."
+
+msgid ""
+"Trust service providers (ETSI EN 319 401): general policy requirements, "
+"their references on the controls and ETSI score. Disabled by default."
+msgstr ""
+"Trust service providers (ETSI EN 319 401): general policy requirements, "
+"their references on the controls and ETSI score. Disabled by default."
+
+msgid ""
+"Secure Controls Framework: the 34 SCF domains, their references on the "
+"controls and SCF score. Disabled by default."
+msgstr ""
+"Secure Controls Framework: the 34 SCF domains, their references on the "
+"controls and SCF score. Disabled by default."
+
+msgid "Measures: %s"
+msgstr "Measures: %s"
+
+msgid "MonServiceSécurisé (ANSSI): security accreditation measures"
+msgstr "MonServiceSécurisé (ANSSI): security accreditation measures"
+
+msgid ""
+"The %d measures of the measures framework of MonServiceSécurisé, the free "
+"service of the French cybersecurity agency to accredit a digital service, "
+"grouped by theme within its four categories. The last column links to the "
+"modules of this plugin that already help meet them."
+msgstr ""
+"The %d measures of the measures framework of MonServiceSécurisé, the free "
+"service of the French cybersecurity agency to accredit a digital service, "
+"grouped by theme within its four categories. The last column links to the "
+"modules of this plugin that already help meet them."
+
+msgid ""
+"Source: measures framework (version 2) published by ANSSI in the source code "
+"of MonServiceSécurisé (github.com/betagouv/mon-service-securise) under the "
+"Apache 2.0 licence; the GDPR measures come from the CNIL. Measure "
+"identifiers are the official ones; theme summaries and the mapping to ISO "
+"27001 Annex A are written by this project, which is not affiliated with "
+"ANSSI."
+msgstr ""
+"Source: measures framework (version 2) published by ANSSI in the source code "
+"of MonServiceSécurisé (github.com/betagouv/mon-service-securise) under the "
+"Apache 2.0 licence; the GDPR measures come from the CNIL. Measure "
+"identifiers are the official ones; theme summaries and the mapping to ISO "
+"27001 Annex A are written by this project, which is not affiliated with "
+"ANSSI."
+
+msgid ""
+"ETSI EN 319 401 V3.2.1: general policy requirements for trust service "
+"providers"
+msgstr ""
+"ETSI EN 319 401 V3.2.1: general policy requirements for trust service "
+"providers"
+
+msgid ""
+"Common base of the ETSI standards audited for qualified trust services under "
+"eIDAS (signature, seal, time-stamping, certificates). Clauses 5 to 7, "
+"summarised by this project. The last column links to the modules of this "
+"plugin that already help meet them."
+msgstr ""
+"Common base of the ETSI standards audited for qualified trust services under "
+"eIDAS (signature, seal, time-stamping, certificates). Clauses 5 to 7, "
+"summarised by this project. The last column links to the modules of this "
+"plugin that already help meet them."
+
+msgid ""
+"ETSI EN 319 401 is protected by copyright (ETSI, all rights reserved): only "
+"its clause numbers are used here; summaries and the mapping to ISO 27001 "
+"Annex A are written by this project, which is not affiliated with ETSI. The "
+"standard can be downloaded free of charge from etsi.org."
+msgstr ""
+"ETSI EN 319 401 is protected by copyright (ETSI, all rights reserved): only "
+"its clause numbers are used here; summaries and the mapping to ISO 27001 "
+"Annex A are written by this project, which is not affiliated with ETSI. The "
+"standard can be downloaded free of charge from etsi.org."
+
+msgid "Secure Controls Framework (SCF): domains"
+msgstr "Secure Controls Framework (SCF): domains"
+
+msgid ""
+"The 34 domains of the SCF metaframework, which maps more than two hundred "
+"laws, regulations and standards. Domain names are kept in English, as "
+"published. The last column links to the modules of this plugin that already "
+"help meet them."
+msgstr ""
+"The 34 domains of the SCF metaframework, which maps more than two hundred "
+"laws, regulations and standards. Domain names are kept in English, as "
+"published. The last column links to the modules of this plugin that already "
+"help meet them."
+
+msgid ""
+"Domain identifiers and names: Secure Controls Framework (SCF), © SCF "
+"Council, licensed under CC BY-ND 4.0, reproduced without modification. The "
+"mapping to ISO 27001 Annex A is indicative and written by this project (it "
+"does not reuse the SCF mappings); this project is not affiliated with or "
+"endorsed by the SCF Council."
+msgstr ""
+"Domain identifiers and names: Secure Controls Framework (SCF), © SCF "
+"Council, licensed under CC BY-ND 4.0, reproduced without modification. The "
+"mapping to ISO 27001 Annex A is indicative and written by this project (it "
+"does not reuse the SCF mappings); this project is not affiliated with or "
+"endorsed by the SCF Council."
+
+msgid "MonServiceSécurisé themes"
+msgstr "MonServiceSécurisé themes"
+
+msgid "ETSI EN 319 401 clauses"
+msgstr "ETSI EN 319 401 clauses"
+
+msgid "SCF domains"
+msgstr "SCF domains"
+
+msgid "%d control(s)"
+msgstr "%d control(s)"
+
+msgid "%d process(es)"
+msgstr "%d process(es)"
+
+msgid "%d person(s)"
+msgstr "%d person(s)"
+
+msgid ""
+"Audited controls, processes and risk categories. Objectives, criteria and "
+"the scope text are always copied."
+msgstr ""
+"Audited controls, processes and risk categories. Objectives, criteria and "
+"the scope text are always copied."
+
+msgid ""
+"Auditor, audit owner, team, people asked for evidence and auditees of the "
+"checklist. Someone who left (account disabled or without a profile in the "
+"entity) is not copied."
+msgstr ""
+"Auditor, audit owner, team, people asked for evidence and auditees of the "
+"checklist. Someone who left (account disabled or without a profile in the "
+"entity) is not copied."
+
+msgid "Audits prepared from this one"
+msgstr "Audits prepared from this one"
+
+msgid "Create the audit of the next cycle"
+msgstr "Create the audit of the next cycle"
+
+msgid "Give the new audit a title and a planned date."
+msgstr "Give the new audit a title and a planned date."
+
+msgid "Next cycle"
+msgstr "Next cycle"
+
+msgid "Only the audit team can copy the checklist."
+msgstr "Only the audit team can copy the checklist."
+
+msgid "Prepare the audit of the next cycle"
+msgstr "Prepare the audit of the next cycle"
+
+msgid ""
+"Prepares the audit of next year from this one, without typing everything "
+"again: objectives, criteria, scope, audited controls and processes, people, "
+"evidence requests and checklist questions are copied. Only the date, the "
+"title and, for an audit by the certification body, the type and the body "
+"change. The new audit starts from scratch: planned, with no result, finding, "
+"evidence file or conclusion."
+msgstr ""
+"Prepares the audit of next year from this one, without typing everything "
+"again: objectives, criteria, scope, audited controls and processes, people, "
+"evidence requests and checklist questions are copied. Only the date, the "
+"title and, for an audit by the certification body, the type and the body "
+"change. The new audit starts from scratch: planned, with no result, finding, "
+"evidence file or conclusion."
+
+msgid ""
+"Proposed one year after this audit. The due dates of the evidence requests "
+"move by the same number of days."
+msgstr ""
+"Proposed one year after this audit. The due dates of the evidence requests "
+"move by the same number of days."
+
+msgid "Proposed: the next step of the certification cycle (%s now)."
+msgstr "Proposed: the next step of the certification cycle (%s now)."
+
+msgid ""
+"Same references and descriptions, status \"Requested\", without the files "
+"sent last time. Nobody is notified: send the requests when you are ready."
+msgstr ""
+"Same references and descriptions, status \"Requested\", without the files "
+"sent last time. Nobody is notified: send the requests when you are ready."
+
+msgid "Same requirements and questions, every line back to \"Not audited\"."
+msgstr "Same requirements and questions, every line back to \"Not audited\"."
+
+msgid ""
+"The audit of the next cycle has been prepared: check its dates and people."
+msgstr ""
+"The audit of the next cycle has been prepared: check its dates and people."
+
+msgid "This audit is not changed."
+msgstr "This audit is not changed."
+
+msgid "This audit was prepared from a previous audit:"
+msgstr "This audit was prepared from a previous audit:"
+
+msgid "Title of the new audit"
+msgstr "Title of the new audit"
+
+msgid "What to copy"
+msgstr "What to copy"
+
+msgid ""
+"You need the right to create audits in the entity of this audit to prepare "
+"the next one."
+msgstr ""
+"You need the right to create audits in the entity of this audit to prepare "
+"the next one."
+
+msgid "planned on %s"
+msgstr "planned on %s"
+
+msgid "People involved"
+msgstr "People involved"
+
+msgid ""
+"%d person was not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgid_plural ""
+"%d people were not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgstr[0] ""
+"%d person was not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgstr[1] ""
+"%d people were not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+
+msgid ""
+"A vulnerability found only on test or development machines can be fixed one "
+"step later, if the option is enabled in the remediation deadlines."
+msgstr ""
+"A vulnerability found only on test or development machines can be fixed one "
+"step later, if the option is enabled in the remediation deadlines."
+
+msgid "Adjust the level to the context of the machines"
+msgstr "Adjust the level to the context of the machines"
+
+msgid ""
+"All affected machines are in test or development and none is reachable from "
+"the Internet: the level is one step less urgent."
+msgstr ""
+"All affected machines are in test or development and none is reachable from "
+"the Internet: the level is one step less urgent."
+
+msgid ""
+"At least one affected machine is reachable from the Internet: the level, and "
+"therefore the deadline, is one step more urgent."
+msgstr ""
+"At least one affected machine is reachable from the Internet: the level, and "
+"therefore the deadline, is one step more urgent."
+
+msgid ""
+"By default, an asset targeted by an active Internet publication flow of the "
+"network flow matrix counts as reachable from the Internet: its "
+"vulnerabilities become one step more urgent."
+msgstr ""
+"By default, an asset targeted by an active Internet publication flow of the "
+"network flow matrix counts as reachable from the Internet: its "
+"vulnerabilities become one step more urgent."
+
+msgid "Deduced from the network flow matrix"
+msgstr "Deduced from the network flow matrix"
+
+msgid "Development"
+msgstr "Development"
+
+msgid "Environment"
+msgstr "Environment"
+
+msgid "Exposure to the Internet"
+msgstr "Exposure to the Internet"
+
+msgid "Internal network only"
+msgstr "Internal network only"
+
+msgid "Lowered: test or development machines only"
+msgstr "Lowered: test or development machines only"
+
+msgid ""
+"Not applicable or accepted risk: write the justification in a waiver. Once "
+"approved, the waiver replaces the deadline until its end date."
+msgstr ""
+"Not applicable or accepted risk: write the justification in a waiver. Once "
+"approved, the waiver replaces the deadline until its end date."
+
+msgid "Not reachable from the Internet"
+msgstr "Not reachable from the Internet"
+
+msgid "Not specified (counted as production)"
+msgstr "Not specified (counted as production)"
+
+msgid ""
+"One step more urgent when an affected machine is reachable from the Internet "
+"(declared in its C/I/A classification tab, or targeted by an Internet "
+"publication flow of the network flow matrix); one step less urgent when all "
+"affected machines are in test or development. Actively exploited "
+"vulnerabilities (KEV) never move, and a deadline already known is never "
+"pushed back."
+msgstr ""
+"One step more urgent when an affected machine is reachable from the Internet "
+"(declared in its C/I/A classification tab, or targeted by an Internet "
+"publication flow of the network flow matrix); one step less urgent when all "
+"affected machines are in test or development. Actively exploited "
+"vulnerabilities (KEV) never move, and a deadline already known is never "
+"pushed back."
+
+msgid "Production"
+msgstr "Production"
+
+msgid "Raised: exposed to the Internet"
+msgstr "Raised: exposed to the Internet"
+
+msgid "Reachable from the Internet"
+msgstr "Reachable from the Internet"
+
+msgid "Set aside with a justification"
+msgstr "Set aside with a justification"
+
+msgid "Test or acceptance"
+msgstr "Test or acceptance"
+
+msgid "(%d Internet publication flow in the network flow matrix)"
+msgid_plural "(%d Internet publication flows in the network flow matrix)"
+msgstr[0] "(%d Internet publication flow in the network flow matrix)"
+msgstr[1] "(%d Internet publication flows in the network flow matrix)"
+
+msgid "Policy templates"
+msgstr "Policy templates"
+
+msgid ""
+"Gives a starting point to an organisation that has no security policy yet: "
+"ready-to-adapt templates written by the project, each with its sections and "
+"the Annex A controls it covers. The templates follow the requirements of the "
+"standard in our own words."
+msgstr ""
+"Gives a starting point to an organisation that has no security policy yet: "
+"ready-to-adapt templates written by the project, each with its sections and "
+"the Annex A controls it covers. The templates follow the requirements of the "
+"standard in our own words."
+
+msgid ""
+"Fill in the name of the organisation, the information security manager and "
+"the review period, tick the templates you need, then import them. Each one "
+"becomes a new draft policy, linked by section to the controls of the "
+"Statement of Applicability. Adapt the text to your practice, then have it "
+"approved: nothing is approved automatically and no existing policy is "
+"replaced."
+msgstr ""
+"Fill in the name of the organisation, the information security manager and "
+"the review period, tick the templates you need, then import them. Each one "
+"becomes a new draft policy, linked by section to the controls of the "
+"Statement of Applicability. Adapt the text to your practice, then have it "
+"approved: nothing is approved automatically and no existing policy is "
+"replaced."
+
+msgid "Tick at least one template."
+msgstr "Tick at least one template."
+
+msgid ""
+"Each template is written by the project in its own words, without copying "
+"the text of the standard, and is offered under the %s licence: you may adapt "
+"it freely. Importing a template creates a new draft policy; review it, adapt "
+"it to your practice and have it approved like any other policy."
+msgstr ""
+"Each template is written by the project in its own words, without copying "
+"the text of the standard, and is offered under the %s licence: you may adapt "
+"it freely. Importing a template creates a new draft policy; review it, adapt "
+"it to your practice and have it approved like any other policy."
+
+msgid "Language of the templates:"
+msgstr "Language of the templates:"
+
+msgid "Values inserted into the text"
+msgstr "Values inserted into the text"
+
+msgid "Organisation name"
+msgstr "Organisation name"
+
+msgid "Information security manager"
+msgstr "Information security manager"
+
+msgid "Review period (months)"
+msgstr "Review period (months)"
+
+msgid ""
+"A value left empty is replaced by a reminder in square brackets, to be "
+"completed in the policy. The information security manager becomes the owner "
+"of the policies created."
+msgstr ""
+"A value left empty is replaced by a reminder in square brackets, to be "
+"completed in the policy. The information security manager becomes the owner "
+"of the policies created."
+
+msgid "Sections"
+msgstr "Sections"
+
+msgid "Already imported"
+msgstr "Already imported"
+
+msgid "Create the ticked policies as drafts"
+msgstr "Create the ticked policies as drafts"
+
+msgid ""
+"%1$d draft policy created, with %2$d links to the Statement of "
+"Applicability. Adapt it, then have it approved."
+msgid_plural ""
+"%1$d draft policies created, with %2$d links to the Statement of "
+"Applicability. Adapt them, then have them approved."
+msgstr[0] ""
+"%1$d draft policy created, with %2$d links to the Statement of "
+"Applicability. Adapt it, then have it approved."
+msgstr[1] ""
+"%1$d draft policies created, with %2$d links to the Statement of "
+"Applicability. Adapt them, then have them approved."
+
+msgid "Asset classification"
+msgstr "Asset classification"
+
+msgid "Patch level"
+msgstr "Patch level"
+
+msgid "Software end of support"
+msgstr "Software end of support"
+
+msgid "Warranty and manufacturer end of life"
+msgstr "Warranty and manufacturer end of life"
+
+msgid "Endpoint protection (EDR)"
+msgstr "Endpoint protection (EDR)"
+
+msgid "Monitoring (Zabbix)"
+msgstr "Monitoring (Zabbix)"
+
+msgid "Log collection"
+msgstr "Log collection"
+
+msgid ""
+"Not classified yet: its criticality cannot set the backup, logging and patch "
+"targets."
+msgstr ""
+"Not classified yet: its criticality cannot set the backup, logging and patch "
+"targets."
+
+#, php-format
+msgid "RTO: %d h"
+msgstr "RTO: %d h"
+
+#, php-format
+msgid "RPO: %d h"
+msgstr "RPO: %d h"
+
+#, php-format
+msgid "Confidentiality %1$s, integrity %2$s, availability %3$s."
+msgstr "Confidentiality %1$s, integrity %2$s, availability %3$s."
+
+#, php-format
+msgid "Target delay: %d days"
+msgstr "Target delay: %d days"
+
+#, php-format
+msgid "Last known patch on %1$s, %2$d days past the target delay."
+msgstr "Last known patch on %1$s, %2$d days past the target delay."
+
+#, php-format
+msgid "Last known patch on %s, within the target delay."
+msgstr "Last known patch on %s, within the target delay."
+
+#, php-format
+msgid "%d tracked products, all still supported or with an unknown date."
+msgstr "%d tracked products, all still supported or with an unknown date."
+
+#, php-format
+msgid "%1$d products no longer supported, %2$d reaching end of support soon."
+msgstr "%1$d products no longer supported, %2$d reaching end of support soon."
+
+#, php-format
+msgid "Last seen by the console: %s"
+msgstr "Last seen by the console: %s"
+
+#, php-format
+msgid "%d SentinelOne alerts waiting to be reviewed for this computer."
+msgstr "%d SentinelOne alerts waiting to be reviewed for this computer."
+
+msgid "No SentinelOne agent matched this computer."
+msgstr "No SentinelOne agent matched this computer."
+
+msgid "SentinelOne agent active, no alert waiting."
+msgstr "SentinelOne agent active, no alert waiting."
+
+msgid "SentinelOne agent inactive: the computer is no longer protected."
+msgstr "SentinelOne agent inactive: the computer is no longer protected."
+
+#, php-format
+msgid "Availability over %1$d days: %2$s %%"
+msgstr "Availability over %1$d days: %2$s %%"
+
+msgid "An outage exceeded the RTO of a business process."
+msgstr "An outage exceeded the RTO of a business process."
+
+#, php-format
+msgid "%1$s: %2$d open high problems, %3$d other open problems."
+msgstr "%1$s: %2$d open high problems, %3$d other open problems."
+
+#, php-format
+msgid "Allowed age: %s"
+msgstr "Allowed age: %s"
+
+#, php-format
+msgid "%1$s: last success on %2$s."
+msgstr "%1$s: last success on %2$s."
+
+#, php-format
+msgid "%1$s: last event on %2$s."
+msgstr "%1$s: last event on %2$s."
+
+#, php-format
+msgid "Platforms: %s"
+msgstr "Platforms: %s"
+
+#, php-format
+msgid "%1$d monitor(s), %2$d down, %3$d certificate(s) to renew."
+msgstr "%1$d monitor(s), %2$d down, %3$d certificate(s) to renew."
+
+#, php-format
+msgid "%1$d monitor(s), %2$d status page(s)."
+msgstr "%1$d monitor(s), %2$d status page(s)."
+
+#, php-format
+msgid "%1$d monitor(s), over %2$d days"
+msgstr "%1$d monitor(s), over %2$d days"
+
+#, php-format
+msgid "%1$d monitors: the first %2$d are shown, services down first."
+msgstr "%1$d monitors: the first %2$d are shown, services down first."
+
+#, php-format
+msgid "%1$s: %2$s %% available"
+msgstr "%1$s: %2$s %% available"
+
+#, php-format
+msgid "%1$s: certificate expires in %2$d days"
+msgstr "%1$s: certificate expires in %2$d days"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minutes"
+
+#, php-format
+msgid "%d ms on average"
+msgstr "%d ms on average"
+
+#, php-format
+msgid "24 hours (Uptime Kuma): %s %%"
+msgstr "24 hours (Uptime Kuma): %s %%"
+
+msgid "API key"
+msgstr "API key"
+
+msgid "Address of Uptime Kuma"
+msgstr "Address of Uptime Kuma"
+
+msgid ""
+"An Uptime Kuma server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"An Uptime Kuma server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+
+msgid "Announce to the users"
+msgstr "Announce to the users"
+
+msgid "Assets published on the Internet without a monitor (Uptime Kuma)"
+msgstr "Assets published on the Internet without a monitor (Uptime Kuma)"
+
+msgid "Assets published on the Internet without a monitor"
+msgstr "Assets published on the Internet without a monitor"
+
+msgid ""
+"Assets that receive an \"Internet publication\" flow in the network flow "
+"matrix, but that no Uptime Kuma monitor watches: an outage would only be "
+"noticed by the users."
+msgstr ""
+"Assets that receive an \"Internet publication\" flow in the network flow "
+"matrix, but that no Uptime Kuma monitor watches: an outage would only be "
+"noticed by the users."
+
+#, php-format
+msgid "Availability of the exposed services (%) (Uptime Kuma)"
+msgstr "Availability of the exposed services (%) (Uptime Kuma)"
+
+msgid "Availability of the exposed services"
+msgstr "Availability of the exposed services"
+
+#, php-format
+msgid "Availability of the exposed services: %s %%"
+msgstr "Availability of the exposed services: %s %%"
+
+msgid "Availability: not measured"
+msgstr "Availability: not measured"
+
+#, php-format
+msgid "Business process concerned: %s"
+msgstr "Business process concerned: %s"
+
+msgid "Business process that depends on this service"
+msgstr "Business process that depends on this service"
+
+msgid "Connection to Uptime Kuma (read only)"
+msgstr "Connection to Uptime Kuma (read only)"
+
+msgid "Days remaining"
+msgstr "Days remaining"
+
+#, php-format
+msgid "Down since %s"
+msgstr "Down since %s"
+
+msgid "Down"
+msgstr "Down"
+
+#, php-format
+msgid ""
+"Each monitor of Uptime Kuma is matched with a GLPI asset (computer, network "
+"device or appliance) by the monitored host name or by its name. The "
+"availability is computed from the status readings of the last %1$d days "
+"(each reading of GLPI, and the history of the status pages). An outage of "
+"%2$d minutes or more can be turned into a security incident: it is only "
+"created when you click."
+msgstr ""
+"Each monitor of Uptime Kuma is matched with a GLPI asset (computer, network "
+"device or appliance) by the monitored host name or by its name. The "
+"availability is computed from the status readings of the last %1$d days "
+"(each reading of GLPI, and the history of the status pages). An outage of "
+"%2$d minutes or more can be turned into a security incident: it is only "
+"created when you click."
+
+msgid ""
+"Enter the address of Uptime Kuma with an API key (or the public status pages "
+"to read), read now, then follow up the services down, the certificates that "
+"expire soon and the exposed assets without a monitor. A long outage can be "
+"turned into a security incident with one click, then announced to the users "
+"with the crisis communication; nothing is created automatically and nothing "
+"is changed in Uptime Kuma."
+msgstr ""
+"Enter the address of Uptime Kuma with an API key (or the public status pages "
+"to read), read now, then follow up the services down, the certificates that "
+"expire soon and the exposed assets without a monitor. A long outage can be "
+"turned into a security incident with one click, then announced to the users "
+"with the crisis communication; nothing is created automatically and nothing "
+"is changed in Uptime Kuma."
+
+msgid ""
+"Enter the address of Uptime Kuma, then an API key or at least one status "
+"page."
+msgstr ""
+"Enter the address of Uptime Kuma, then an API key or at least one status "
+"page."
+
+msgid "Every asset published on the Internet has a monitor."
+msgstr "Every asset published on the Internet has a monitor."
+
+#, php-format
+msgid "Expired or not valid: %d"
+msgstr "Expired or not valid: %d"
+
+#, php-format
+msgid "Expired, not valid or expiring within %d days"
+msgstr "Expired, not valid or expiring within %d days"
+
+msgid "Expires around"
+msgstr "Expires around"
+
+#, php-format
+msgid "Expiring within %1$d days: %2$d"
+msgstr "Expiring within %1$d days: %2$d"
+
+#, php-format
+msgid ""
+"Expiry dates read by Uptime Kuma on the HTTPS monitors. A certificate is "
+"flagged %d days before it expires; GLPI never renews a certificate. To be "
+"warned, create a risk indicator \"TLS certificates to renew (Uptime Kuma)\" "
+"with an alert threshold."
+msgstr ""
+"Expiry dates read by Uptime Kuma on the HTTPS monitors. A certificate is "
+"flagged %d days before it expires; GLPI never renews a certificate. To be "
+"warned, create a risk indicator \"TLS certificates to renew (Uptime Kuma)\" "
+"with an alert threshold."
+
+msgid "Exposed assets without a monitor"
+msgstr "Exposed assets without a monitor"
+
+#, php-format
+msgid "Exposed assets without a monitor: %d"
+msgstr "Exposed assets without a monitor: %d"
+
+msgid "Exposed services (Uptime Kuma)"
+msgstr "Exposed services (Uptime Kuma)"
+
+msgid "GLPI asset"
+msgstr "GLPI asset"
+
+msgid "How to prepare Uptime Kuma (one of the two, or both):"
+msgstr "How to prepare Uptime Kuma (one of the two, or both):"
+
+msgid "ISO/IEC 27001, controls A.8.16, A.5.30 and A.8.24"
+msgstr "ISO/IEC 27001, controls A.8.16, A.5.30 and A.8.24"
+
+msgid "Identifiers separated by commas."
+msgstr "Identifiers separated by commas."
+
+msgid "Key saved"
+msgstr "Key saved"
+
+msgid "Long outage, from (minutes)"
+msgstr "Long outage, from (minutes)"
+
+#, php-format
+msgid "Long outages: %d"
+msgstr "Long outages: %d"
+
+#, php-format
+msgid "Longest outage over the period: %s"
+msgstr "Longest outage over the period: %s"
+
+#, php-format
+msgid "Monitored address: %s"
+msgstr "Monitored address: %s"
+
+msgid "Monitored services"
+msgstr "Monitored services"
+
+#, php-format
+msgid "Monitored services: %d"
+msgstr "Monitored services: %d"
+
+msgid "No asset found"
+msgstr "No asset found"
+
+msgid "No certificate read"
+msgstr "No certificate read"
+
+msgid ""
+"No certificate read: certificates are read on the HTTPS monitors, and on a "
+"status page only when \"Show Certificate Expiry\" is enabled on it."
+msgstr ""
+"No certificate read: certificates are read on the HTTPS monitors, and on a "
+"status page only when \"Show Certificate Expiry\" is enabled on it."
+
+msgid "No monitor read in your entities."
+msgstr "No monitor read in your entities."
+
+msgid "Not valid"
+msgstr "Not valid"
+
+msgid ""
+"Nothing has been read from Uptime Kuma yet: enter the connection below, then "
+"click \"Read now\"."
+msgstr ""
+"Nothing has been read from Uptime Kuma yet: enter the connection below, then "
+"click \"Read now\"."
+
+msgid "Only the first monitors were read"
+msgstr "Only the first monitors were read"
+
+msgid ""
+"Or list public status pages: their identifier is the end of their address "
+"(for example \"customers\" for https://status.example.test/status/"
+"customers). Only the monitors shown on these pages are read, with their "
+"recent history."
+msgstr ""
+"Or list public status pages: their identifier is the end of their address "
+"(for example \"customers\" for https://status.example.test/status/"
+"customers). Only the monitors shown on these pages are read, with their "
+"recent history."
+
+#, php-format
+msgid "Outage reported by Uptime Kuma: %s"
+msgstr "Outage reported by Uptime Kuma: %s"
+
+#, php-format
+msgid "Outage started on: %s"
+msgstr "Outage started on: %s"
+
+msgid "Outages longer than the RTO"
+msgstr "Outages longer than the RTO"
+
+#, php-format
+msgid "Over %1$d days, read from Uptime Kuma on %2$s"
+msgstr "Over %1$d days, read from Uptime Kuma on %2$s"
+
+msgid "Period of the availability (days)"
+msgstr "Period of the availability (days)"
+
+msgid "Public status pages (optional)"
+msgstr "Public status pages (optional)"
+
+msgid "Published on the Internet (network flow matrix)"
+msgstr "Published on the Internet (network flow matrix)"
+
+msgid ""
+"Read automatically every hour (automatic action \"uptimekuma\"): the "
+"availability is more precise with regular readings"
+msgstr ""
+"Read automatically every hour (automatic action \"uptimekuma\"): the "
+"availability is more precise with regular readings"
+
+msgid ""
+"Read only: nothing is ever changed in Uptime Kuma from GLPI, and no "
+"certificate is renewed."
+msgstr ""
+"Read only: nothing is ever changed in Uptime Kuma from GLPI, and no "
+"certificate is renewed."
+
+msgid ""
+"Reads your Uptime Kuma server, in read only: whether the websites and "
+"services seen by your users and customers answer, how long their outages "
+"last, and when their TLS certificates expire. Each monitor is matched with a "
+"GLPI asset, its outages are compared with the recovery time objectives of "
+"the business processes, and the assets published on the Internet without any "
+"monitor are listed."
+msgstr ""
+"Reads your Uptime Kuma server, in read only: whether the websites and "
+"services seen by your users and customers answer, how long their outages "
+"last, and when their TLS certificates expire. Each monitor is matched with a "
+"GLPI asset, its outages are compared with the recovery time objectives of "
+"the business processes, and the assets published on the Internet without any "
+"monitor are listed."
+
+msgid "Recovery time objective of the business processes"
+msgstr "Recovery time objective of the business processes"
+
+msgid "Refused: the connector only reads from Uptime Kuma."
+msgstr "Refused: the connector only reads from Uptime Kuma."
+
+msgid "Response time"
+msgstr "Response time"
+
+msgid "Risk indicators"
+msgstr "Risk indicators"
+
+msgid "Services down now"
+msgstr "Services down now"
+
+#, php-format
+msgid "Services down now: %d"
+msgstr "Services down now: %d"
+
+msgid ""
+"Settings > API Keys: create a key (it only gives access to the /metrics "
+"page, in read only) and copy it here. All the monitors are then read, with "
+"their certificates."
+msgstr ""
+"Settings > API Keys: create a key (it only gives access to the /metrics "
+"page, in read only) and copy it here. All the monitors are then read, with "
+"their certificates."
+
+#, php-format
+msgid "TLS certificates read: %d"
+msgstr "TLS certificates read: %d"
+
+msgid "TLS certificates to renew (Uptime Kuma)"
+msgstr "TLS certificates to renew (Uptime Kuma)"
+
+msgid "TLS certificates to renew"
+msgstr "TLS certificates to renew"
+
+msgid "TLS certificates"
+msgstr "TLS certificates"
+
+msgid ""
+"The key is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"The key is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; monitors not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"The readings are visible in this entity and its sub-entities; monitors not "
+"matched with an asset are only listed in this entity."
+
+#, php-format
+msgid ""
+"The status page \"%s\" does not exist in Uptime Kuma: check its identifier "
+"(end of its address)."
+msgstr ""
+"The status page \"%s\" does not exist in Uptime Kuma: check its identifier "
+"(end of its address)."
+
+msgid "Thresholds"
+msgstr "Thresholds"
+
+msgid "Under maintenance"
+msgstr "Under maintenance"
+
+msgid "Up"
+msgstr "Up"
+
+msgid ""
+"Uptime Kuma could not be reached: check the address, the network access or "
+"the GLPI proxy."
+msgstr ""
+"Uptime Kuma could not be reached: check the address, the network access or "
+"the GLPI proxy."
+
+msgid ""
+"Uptime Kuma has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Uptime Kuma has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+
+#, php-format
+msgid "Uptime Kuma read: %1$d monitor(s), %2$d new status reading(s)."
+msgstr "Uptime Kuma read: %1$d monitor(s), %2$d new status reading(s)."
+
+msgid "Uptime Kuma readings deleted."
+msgstr "Uptime Kuma readings deleted."
+
+msgid ""
+"Uptime Kuma refused the API key: check that it is active and not expired "
+"(Settings > API Keys)."
+msgstr ""
+"Uptime Kuma refused the API key: check that it is active and not expired "
+"(Settings > API Keys)."
+
+msgid "Uptime Kuma returned an unexpected answer."
+msgstr "Uptime Kuma returned an unexpected answer."
+
+msgid "Uptime Kuma settings saved."
+msgstr "Uptime Kuma settings saved."
+
+msgid ""
+"Uptime Kuma: reads monitors, availability and TLS certificates (read only)"
+msgstr ""
+"Uptime Kuma: reads monitors, availability and TLS certificates (read only)"
+
+msgid "Warn before a certificate expires (days)"
+msgstr "Warn before a certificate expires (days)"
+
+#, php-format
+msgid "including %d critical"
+msgstr "including %d critical"
+
+msgid "Power supplies"
+msgstr "Power supplies"
+
+msgid "Disks"
+msgstr "Disks"
+
+msgid "Fans"
+msgstr "Fans"
+
+msgid "Temperatures"
+msgstr "Temperatures"
+
+msgid "Server health"
+msgstr "Server health"
+
+msgid "%d critical"
+msgstr "%d critical"
+
+msgid "%d warning"
+msgstr "%d warning"
+
+msgid ""
+"No health detail read yet: click \"Read now\" on the controller page, or "
+"enable the scheduled reading. Controllers imported by CSV have no health "
+"detail."
+msgstr ""
+"No health detail read yet: click \"Read now\" on the controller page, or "
+"enable the scheduled reading. Controllers imported by CSV have no health "
+"detail."
+
+msgid "Recent events of the controller log"
+msgstr "Recent events of the controller log"
+
+msgid "No event in the log read on the controller."
+msgstr "No event in the log read on the controller."
+
+msgid ""
+"Server management controllers: reads inventory, gaps, accounts and health by "
+"Redfish (read only)"
+msgstr ""
+"Server management controllers: reads inventory, gaps, accounts and health by "
+"Redfish (read only)"
+
+msgid ""
+"Scheduled reading: the automatic action \"bmcread\" reads every Redfish "
+"controller once a day (same read-only requests as \"Read now\", health and "
+"event log included). It is disabled after installation."
+msgstr ""
+"Scheduled reading: the automatic action \"bmcread\" reads every Redfish "
+"controller once a day (same read-only requests as \"Read now\", health and "
+"event log included). It is disabled after installation."
+
+msgid "Set the automatic action"
+msgstr "Set the automatic action"
+
+msgid "%d component(s) in critical state"
+msgstr "%d component(s) in critical state"
+
+msgid "%d component(s) with a warning"
+msgstr "%d component(s) with a warning"
+
+msgid "%1$d alert(s) in the controller log over the last %2$d days"
+msgstr "%1$d alert(s) in the controller log over the last %2$d days"
+
+msgid "A component or a recent event of the server is critical."
+msgstr "A component or a recent event of the server is critical."
+
+msgid "A component or a recent event of the server needs attention."
+msgstr "A component or a recent event of the server needs attention."
+
+msgid "Power supplies, disks, fans and temperatures read as healthy."
+msgstr "Power supplies, disks, fans and temperatures read as healthy."
+
+msgid ""
+"Read from the controller (Redfish) or the import: keep only TLS 1.2 and "
+"later."
+msgstr ""
+"Read from the controller (Redfish) or the import: keep only TLS 1.2 and "
+"later."
+
+msgid "Domains followed"
+msgstr "Domains followed"
+
+msgid "%d domain checked"
+msgid_plural "%d domains checked"
+msgstr[0] "%d domain checked"
+msgstr[1] "%d domains checked"
+
+msgid "Domains protected by DMARC"
+msgstr "Domains protected by DMARC"
+
+msgid "Fake e-mails put in quarantine or rejected"
+msgstr "Fake e-mails put in quarantine or rejected"
+
+msgid "Domains with a gap to fix"
+msgstr "Domains with a gap to fix"
+
+msgid "Spoofing remains possible"
+msgstr "Spoofing remains possible"
+
+msgid "Expiring or expired"
+msgstr "Expiring or expired"
+
+msgid "Domain or certificate, alert %d day before"
+msgid_plural "Domain or certificate, alert %d days before"
+msgstr[0] "Domain or certificate, alert %d day before"
+msgstr[1] "Domain or certificate, alert %d days before"
+
+msgid "Domains of the organisation"
+msgstr "Domains of the organisation"
+
+msgid "At most %d domain per click"
+msgid_plural "At most %d domains per click"
+msgstr[0] "At most %d domain per click"
+msgstr[1] "At most %d domains per click"
+
+msgid "Check all domains"
+msgstr "Check all domains"
+
+msgid ""
+"The check only reads public DNS records, like any mail server does before "
+"delivering an e-mail. No e-mail is sent and no server is scanned."
+msgstr ""
+"The check only reads public DNS records, like any mail server does before "
+"delivering an e-mail. No e-mail is sent and no server is scanned."
+
+msgid ""
+"No domain entered yet: the module stays inactive and makes no DNS query. Add "
+"the domains your organisation uses to send or receive e-mail, and the ones "
+"it only owns."
+msgstr ""
+"No domain entered yet: the module stays inactive and makes no DNS query. Add "
+"the domains your organisation uses to send or receive e-mail, and the ones "
+"it only owns."
+
+msgid "Servers allowed to send e-mails for the domain"
+msgstr "Servers allowed to send e-mails for the domain"
+
+msgid "Signature of the e-mails sent"
+msgstr "Signature of the e-mails sent"
+
+msgid "What receiving servers do with fake e-mails"
+msgstr "What receiving servers do with fake e-mails"
+
+msgid "Encryption required between mail servers"
+msgstr "Encryption required between mail servers"
+
+msgid "Reports of encryption failures"
+msgstr "Reports of encryption failures"
+
+msgid "Signature of the DNS answers"
+msgstr "Signature of the DNS answers"
+
+msgid "Domain expiry"
+msgstr "Domain expiry"
+
+msgid "Mail certificate"
+msgstr "Mail certificate"
+
+msgid "Mail servers (MX)"
+msgstr "Mail servers (MX)"
+
+msgid "Remove this domain from the list? Nothing is changed in the DNS."
+msgstr "Remove this domain from the list? Nothing is changed in the DNS."
+
+msgid "What to do"
+msgstr "What to do"
+
+msgid "Advice"
+msgstr "Advice"
+
+msgid "Edit the domain %s"
+msgstr "Edit the domain %s"
+
+msgid "Add a domain"
+msgstr "Add a domain"
+
+msgid "Domain name"
+msgstr "Domain name"
+
+msgid "The part after the @ of the e-mail addresses."
+msgstr "The part after the @ of the e-mail addresses."
+
+msgid "DKIM selectors"
+msgstr "DKIM selectors"
+
+msgid ""
+"Given by your e-mail service, separated by commas (selector1 and selector2 "
+"for Microsoft 365, google for Google Workspace)."
+msgstr ""
+"Given by your e-mail service, separated by commas (selector1 and selector2 "
+"for Microsoft 365, google for Google Workspace)."
+
+msgid "For example: main domain, or domain kept for the brand only"
+msgstr "For example: main domain, or domain kept for the brand only"
+
+msgid "Domain expiry date"
+msgstr "Domain expiry date"
+
+msgid "Shown in the customer area of the registrar."
+msgstr "Shown in the customer area of the registrar."
+
+msgid "Expiry date of the mail server certificate"
+msgstr "Expiry date of the mail server certificate"
+
+msgid ""
+"Leave empty when the mail service is hosted (Microsoft 365, Google "
+"Workspace): the provider renews it."
+msgstr ""
+"Leave empty when the mail service is hosted (Microsoft 365, Google "
+"Workspace): the provider renews it."
+
+msgid "Add the domain"
+msgstr "Add the domain"
+
+msgid "DNS server used for DNSSEC (optional)"
+msgstr "DNS server used for DNSSEC (optional)"
+
+msgid ""
+"By default, the DNS server of the GLPI server is asked. Some of them (inside "
+"Docker, for example) do not relay the DNSSEC records: DNSSEC then shows "
+"\"Unknown\". Enter the IP address of another DNS server of your organisation "
+"or of your provider to fix it."
+msgstr ""
+"By default, the DNS server of the GLPI server is asked. Some of them (inside "
+"Docker, for example) do not relay the DNSSEC records: DNSSEC then shows "
+"\"Unknown\". Enter the IP address of another DNS server of your organisation "
+"or of your provider to fix it."
+
+msgid "IP address of the DNS server"
+msgstr "IP address of the DNS server"
+
+msgid "DNS server of the GLPI server"
+msgstr "DNS server of the GLPI server"
+
+msgid "The protections in a few words"
+msgstr "The protections in a few words"
+
+msgid ""
+"List of the servers allowed to send e-mails for the domain. \"-all\" refuses "
+"all the others."
+msgstr ""
+"List of the servers allowed to send e-mails for the domain. \"-all\" refuses "
+"all the others."
+
+msgid ""
+"Signature added to each e-mail sent, checked by the receiver with a key "
+"published in the DNS under a \"selector\"."
+msgstr ""
+"Signature added to each e-mail sent, checked by the receiver with a key "
+"published in the DNS under a \"selector\"."
+
+msgid ""
+"Tells receiving servers what to do with an e-mail that fails SPF and DKIM: "
+"observe (none), put in quarantine or reject. Only quarantine and reject stop "
+"the spoofing."
+msgstr ""
+"Tells receiving servers what to do with an e-mail that fails SPF and DKIM: "
+"observe (none), put in quarantine or reject. Only quarantine and reject stop "
+"the spoofing."
+
+msgid ""
+"Require encrypted connections between mail servers, and send a report when "
+"encryption fails."
+msgstr ""
+"Require encrypted connections between mail servers, and send a report when "
+"encryption fails."
+
+msgid "Signs the DNS answers of the domain so that nobody can forge them."
+msgstr "Signs the DNS answers of the domain so that nobody can forge them."
+
+msgid "Domain added. Click \"Check now\" to read its DNS records."
+msgstr "Domain added. Click \"Check now\" to read its DNS records."
+
+msgid "Domain saved."
+msgstr "Domain saved."
+
+msgid "Domain removed from the list."
+msgstr "Domain removed from the list."
+
+msgid "DNS records read."
+msgstr "DNS records read."
+
+msgid "%d domain checked."
+msgid_plural "%d domains checked."
+msgstr[0] "%d domain checked."
+msgstr[1] "%d domains checked."
+
+msgid ""
+"Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or "
+"leave empty."
+msgstr ""
+"Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or "
+"leave empty."
+
+msgid "DNS server saved."
+msgstr "DNS server saved."
+
+msgid ""
+"Shows whether the e-mail domains of the organisation are protected against "
+"spoofing and phishing: who may send e-mails in their name (SPF), signature "
+"of the e-mails (DKIM), what receiving servers do with fake e-mails (DMARC), "
+"encryption between mail servers (MTA-STS, TLS-RPT), signature of the DNS "
+"(DNSSEC), and the expiry of the domains and of the certificate of the mail "
+"servers."
+msgstr ""
+"Shows whether the e-mail domains of the organisation are protected against "
+"spoofing and phishing: who may send e-mails in their name (SPF), signature "
+"of the e-mails (DKIM), what receiving servers do with fake e-mails (DMARC), "
+"encryption between mail servers (MTA-STS, TLS-RPT), signature of the DNS "
+"(DNSSEC), and the expiry of the domains and of the certificate of the mail "
+"servers."
+
+msgid ""
+"Enter the domains of the organisation, with the DKIM selectors given by your "
+"e-mail service and the expiry dates shown by the registrar, then click "
+"\"Check now\". The plugin only reads public DNS records: it sends no e-mail, "
+"connects to no mail server and changes nothing. Fix the gaps with your DNS "
+"host, then check again and record the result as an effectiveness test of the "
+"control."
+msgstr ""
+"Enter the domains of the organisation, with the DKIM selectors given by your "
+"e-mail service and the expiry dates shown by the registrar, then click "
+"\"Check now\". The plugin only reads public DNS records: it sends no e-mail, "
+"connects to no mail server and changes nothing. Fix the gaps with your DNS "
+"host, then check again and record the result as an effectiveness test of the "
+"control."
+
+msgid "ISO/IEC 27001, controls A.5.14 and A.8.21"
+msgstr "ISO/IEC 27001, controls A.5.14 and A.8.21"
+
+msgid "Mail domains without an enforced DMARC policy (%)"
+msgstr "Mail domains without an enforced DMARC policy (%)"
+
+msgid "Mail and domain security"
+msgstr "Mail and domain security"
+
+msgid "The domain was not found in the DNS."
+msgstr "The domain was not found in the DNS."
+
+msgid "Check the spelling of the domain, or remove it if it is no longer used."
+msgstr ""
+"Check the spelling of the domain, or remove it if it is no longer used."
+
+msgid ""
+"No SPF record: anyone can send e-mails pretending to come from this domain."
+msgstr ""
+"No SPF record: anyone can send e-mails pretending to come from this domain."
+
+msgid ""
+"Publish on %s a TXT record \"v=spf1 ... -all\" listing the servers allowed "
+"to send its e-mails (for a domain that never sends e-mail: \"v=spf1 -all\")."
+msgstr ""
+"Publish on %s a TXT record \"v=spf1 ... -all\" listing the servers allowed "
+"to send its e-mails (for a domain that never sends e-mail: \"v=spf1 -all\")."
+
+msgid "Several SPF records: receiving servers ignore all of them."
+msgstr "Several SPF records: receiving servers ignore all of them."
+
+msgid "Merge them into a single TXT record starting with v=spf1."
+msgstr "Merge them into a single TXT record starting with v=spf1."
+
+msgid "SPF allows every server in the world to send for the domain (+all)."
+msgstr "SPF allows every server in the world to send for the domain (+all)."
+
+msgid "Replace +all with -all (or ~all while you check the list of servers)."
+msgstr "Replace +all with -all (or ~all while you check the list of servers)."
+
+msgid "SPF does not say what to do with the other servers (?all or no all)."
+msgstr "SPF does not say what to do with the other servers (?all or no all)."
+
+msgid "End the record with -all, or ~all while you check the list of servers."
+msgstr "End the record with -all, or ~all while you check the list of servers."
+
+msgid "SPF needs more than 10 DNS lookups: receiving servers may reject it."
+msgstr "SPF needs more than 10 DNS lookups: receiving servers may reject it."
+
+msgid "Reduce the number of include, a and mx mechanisms of the record."
+msgstr "Reduce the number of include, a and mx mechanisms of the record."
+
+msgid "SPF only marks the other servers as suspicious (~all)."
+msgstr "SPF only marks the other servers as suspicious (~all)."
+
+msgid "Move to -all once every service that sends e-mail for you is listed."
+msgstr "Move to -all once every service that sends e-mail for you is listed."
+
+msgid ""
+"No DMARC policy: receiving servers do not know what to do with fake e-mails."
+msgstr ""
+"No DMARC policy: receiving servers do not know what to do with fake e-mails."
+
+msgid ""
+"Publish a TXT record on _dmarc.%s starting with \"v=DMARC1; p=none; "
+"rua=mailto:...\", read the reports, then move to p=quarantine and p=reject."
+msgstr ""
+"Publish a TXT record on _dmarc.%s starting with \"v=DMARC1; p=none; "
+"rua=mailto:...\", read the reports, then move to p=quarantine and p=reject."
+
+msgid "The DMARC record is invalid or published several times."
+msgstr "The DMARC record is invalid or published several times."
+
+msgid "Keep a single record with p=none, p=quarantine or p=reject."
+msgstr "Keep a single record with p=none, p=quarantine or p=reject."
+
+msgid "DMARC only observes (p=none): fake e-mails are still delivered."
+msgstr "DMARC only observes (p=none): fake e-mails are still delivered."
+
+msgid "After reading the reports, move to p=quarantine, then p=reject."
+msgstr "After reading the reports, move to p=quarantine, then p=reject."
+
+msgid "DMARC applies to only part of the e-mails (pct below 100)."
+msgstr "DMARC applies to only part of the e-mails (pct below 100)."
+
+msgid "Raise pct to 100, or remove it."
+msgstr "Raise pct to 100, or remove it."
+
+msgid "DMARC sends no report (no rua address)."
+msgstr "DMARC sends no report (no rua address)."
+
+msgid "Add rua=mailto:... to receive the reports of the receiving servers."
+msgstr "Add rua=mailto:... to receive the reports of the receiving servers."
+
+msgid "A declared DKIM selector has no published key."
+msgstr "A declared DKIM selector has no published key."
+
+msgid ""
+"Check the selector name given by your e-mail service, or publish its key."
+msgstr ""
+"Check the selector name given by your e-mail service, or publish its key."
+
+msgid "A DKIM key is revoked (empty key)."
+msgstr "A DKIM key is revoked (empty key)."
+
+msgid "Remove the selector from the list if it is no longer used."
+msgstr "Remove the selector from the list if it is no longer used."
+
+msgid "No DKIM selector declared: the signature of the e-mails is not checked."
+msgstr ""
+"No DKIM selector declared: the signature of the e-mails is not checked."
+
+msgid ""
+"Enter the selectors given by your e-mail service (for example selector1 and "
+"selector2 for Microsoft 365, google for Google Workspace)."
+msgstr ""
+"Enter the selectors given by your e-mail service (for example selector1 and "
+"selector2 for Microsoft 365, google for Google Workspace)."
+
+msgid "The domain is not signed with DNSSEC: its DNS answers can be forged."
+msgstr "The domain is not signed with DNSSEC: its DNS answers can be forged."
+
+msgid "Enable DNSSEC with your registrar or DNS host."
+msgstr "Enable DNSSEC with your registrar or DNS host."
+
+msgid ""
+"DNSSEC could not be checked: the DNS server did not answer or does not relay "
+"DNSSEC records."
+msgstr ""
+"DNSSEC could not be checked: the DNS server did not answer or does not relay "
+"DNSSEC records."
+
+msgid ""
+"Check the domain again later, or choose another DNS server at the bottom of "
+"the page."
+msgstr ""
+"Check the domain again later, or choose another DNS server at the bottom of "
+"the page."
+
+msgid "No MTA-STS: encryption between mail servers is not required."
+msgstr "No MTA-STS: encryption between mail servers is not required."
+
+msgid ""
+"Publish an MTA-STS policy (record _mta-sts.%s and policy file) once your "
+"mail servers accept encrypted connections."
+msgstr ""
+"Publish an MTA-STS policy (record _mta-sts.%s and policy file) once your "
+"mail servers accept encrypted connections."
+
+msgid "No TLS-RPT: you receive no report of encryption failures."
+msgstr "No TLS-RPT: you receive no report of encryption failures."
+
+msgid "Publish a TXT record on _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+msgstr "Publish a TXT record on _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+
+msgid "The registration of the domain has expired."
+msgstr "The registration of the domain has expired."
+
+msgid ""
+"Renew it with the registrar at once: an expired domain can be bought by "
+"someone else."
+msgstr ""
+"Renew it with the registrar at once: an expired domain can be bought by "
+"someone else."
+
+msgid "The registration of the domain expires within 30 days."
+msgstr "The registration of the domain expires within 30 days."
+
+msgid "Renew it, or enable automatic renewal with the registrar."
+msgstr "Renew it, or enable automatic renewal with the registrar."
+
+msgid "Expiry date of the domain not entered."
+msgstr "Expiry date of the domain not entered."
+
+msgid "Enter the date shown by the registrar to be alerted before it expires."
+msgstr "Enter the date shown by the registrar to be alerted before it expires."
+
+msgid "The certificate of the mail servers has expired."
+msgstr "The certificate of the mail servers has expired."
+
+msgid "Renew it: other servers may refuse to deliver e-mail securely."
+msgstr "Renew it: other servers may refuse to deliver e-mail securely."
+
+msgid "The certificate of the mail servers expires within 30 days."
+msgstr "The certificate of the mail servers expires within 30 days."
+
+msgid "Plan its renewal."
+msgstr "Plan its renewal."
+
+msgid "To improve"
+msgstr "To improve"
+
+msgid "Not checked yet"
+msgstr "Not checked yet"
+
+msgid ""
+"Enter a domain name only, for example example.org (no e-mail address, no "
+"https://)."
+msgstr ""
+"Enter a domain name only, for example example.org (no e-mail address, no "
+"https://)."
+
+msgid "This domain is already followed in this entity."
+msgstr "This domain is already followed in this entity."
+
+msgid "Domain not found."
+msgstr "Domain not found."
+
+msgid "You do not have the right to change the domains."
+msgstr "You do not have the right to change the domains."
+
+msgid "Domain not found"
+msgstr "Domain not found"
+
+msgid "Several records"
+msgstr "Several records"
+
+msgid "Strict (-all)"
+msgstr "Strict (-all)"
+
+msgid "Lenient (~all)"
+msgstr "Lenient (~all)"
+
+msgid "Anyone (+all)"
+msgstr "Anyone (+all)"
+
+msgid "Redirected"
+msgstr "Redirected"
+
+msgid "Neutral"
+msgstr "Neutral"
+
+msgid "Invalid"
+msgstr "Invalid"
+
+msgid "Reject (reject)"
+msgstr "Reject (reject)"
+
+msgid "Quarantine (quarantine)"
+msgstr "Quarantine (quarantine)"
+
+msgid "Monitoring (none)"
+msgstr "Monitoring (none)"
+
+msgid "No selector declared"
+msgstr "No selector declared"
+
+msgid "%1$d of %2$d keys found"
+msgstr "%1$d of %2$d keys found"
+
+msgid "Not published"
+msgstr "Not published"
+
+msgid "Zone signed"
+msgstr "Zone signed"
+
+msgid "Zone not signed"
+msgstr "Zone not signed"
+
+msgid "Expired on %s"
+msgstr "Expired on %s"
+
+msgid "In %d day"
+msgid_plural "In %d days"
+msgstr[0] "In %d day"
+msgstr[1] "In %d days"
+
+msgid "Not entered"
+msgstr "Not entered"
+
+msgid "No domain entered yet"
+msgstr "No domain entered yet"
+
+msgid "Enter the domains"
+msgstr "Enter the domains"
+
+msgid "DMARC enforced on %1$d of %2$d domain(s)"
+msgstr "DMARC enforced on %1$d of %2$d domain(s)"
+
+msgid "%d domain(s) with a gap to fix"
+msgstr "%d domain(s) with a gap to fix"
+
+msgid "%d domain(s) or certificate(s) expiring or expired"
+msgstr "%d domain(s) or certificate(s) expiring or expired"
+
+msgid "%d domain(s) not checked yet"
+msgstr "%d domain(s) not checked yet"
+
+msgid "No recurring renewal"
+msgstr "No recurring renewal"
+
+msgid "weeks"
+msgstr "weeks"
+
+msgid "months"
+msgstr "months"
+
+msgid "years"
+msgstr "years"
+
+msgid "months, last business day"
+msgstr "months, last business day"
+
+msgid "quarters, last business day"
+msgstr "quarters, last business day"
+
+msgid "Not renewed in time"
+msgstr "Not renewed in time"
+
+msgid "Renewal due soon"
+msgstr "Renewal due soon"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Recurring evidence not renewed in time"
+
+msgid "Recurring renewal due on %s"
+msgstr "Recurring renewal due on %s"
+
+msgid "Next renewal due"
+msgstr "Next renewal due"
+
+msgid "Recurring renewal"
+msgstr "Recurring renewal"
+
+msgid "Interval"
+msgstr "Interval"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Interval: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Last collected on"
+
+msgid "Next due: %s"
+msgstr "Next due: %s"
+
+msgid "from the document date %s"
+msgstr "from the document date %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in "
+"GLPI. Evidence not renewed in time is flagged and its owner notified; "
+"nothing is changed automatically."
+msgstr ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in "
+"GLPI. Evidence not renewed in time is flagged and its owner notified; "
+"nothing is changed automatically."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Evidence rhythm"
+msgstr[1] "Evidence rhythms"
+
+msgid ""
+"%d decision(s) pre-filled: check each one, then click \"Save decisions\". "
+"Nothing is saved until then."
+msgstr ""
+"%d decision(s) pre-filled: check each one, then click \"Save decisions\". "
+"Nothing is saved until then."
+
+msgid "Suggested by the rules:"
+msgstr "Suggested by the rules:"
+
+msgid "Pre-fill with the suggestions"
+msgstr "Pre-fill with the suggestions"
+
+msgid ""
+"Ticks \"Access approved\" or \"To remove\" on the accounts still to review "
+"that have a suggestion. Accounts to examine are left for you to decide."
+msgstr ""
+"Ticks \"Access approved\" or \"To remove\" on the accounts still to review "
+"that have a suggestion. Accounts to examine are left for you to decide."
+
+msgid "Pre-filled from the suggestion, not saved yet"
+msgstr "Pre-filled from the suggestion, not saved yet"
+
+msgid "Examine staff compliance gaps"
+msgstr "Examine staff compliance gaps"
+
+msgid ""
+"From the staff compliance page: mandatory training overdue or expired, IT "
+"charter not signed, security policy not acknowledged, once the deadline has "
+"passed."
+msgstr ""
+"From the staff compliance page: mandatory training overdue or expired, IT "
+"charter not signed, security policy not acknowledged, once the deadline has "
+"passed."
+
+msgid "Staff compliance: mandatory training not completed in time (%s)"
+msgstr "Staff compliance: mandatory training not completed in time (%s)"
+
+msgid "Staff compliance: mandatory training expired (%s)"
+msgstr "Staff compliance: mandatory training expired (%s)"
+
+msgid "Staff compliance: IT charter sent but not signed (%s)"
+msgstr "Staff compliance: IT charter sent but not signed (%s)"
+
+msgid "Staff compliance: security policies not acknowledged (%s)"
+msgstr "Staff compliance: security policies not acknowledged (%s)"
+
+msgid "Staff compliance gap"
+msgstr "Staff compliance gap"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -39838,219 +42252,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "SoA scoping"
-msgstr "SoA scoping"
-
-msgid "Do staff work remotely (from home or while travelling)?"
-msgstr "Do staff work remotely (from home or while travelling)?"
-
-msgid "Telework, nomadic work, access to the information system from outside the premises."
-msgstr "Telework, nomadic work, access to the information system from outside the premises."
-
-msgid "staff work remotely"
-msgstr "staff work remotely"
-
-msgid "no staff member works remotely"
-msgstr "no staff member works remotely"
-
-msgid "Does the organisation develop or customise software in-house?"
-msgstr "Does the organisation develop or customise software in-house?"
-
-msgid "Applications, scripts, websites, integrations or significant configuration code."
-msgstr "Applications, scripts, websites, integrations or significant configuration code."
-
-msgid "the organisation develops or customises software in-house"
-msgstr "the organisation develops or customises software in-house"
-
-msgid "the organisation does not develop or customise software in-house"
-msgstr "the organisation does not develop or customise software in-house"
-
-msgid "Is software development outsourced to a provider?"
-msgstr "Is software development outsourced to a provider?"
-
-msgid "A developer, integrator or agency builds or changes software for you."
-msgstr "A developer, integrator or agency builds or changes software for you."
-
-msgid "software development is outsourced"
-msgstr "software development is outsourced"
-
-msgid "no software development is outsourced"
-msgstr "no software development is outsourced"
-
-msgid "Do suppliers or subcontractors access your information or provide ICT services?"
-msgstr "Do suppliers or subcontractors access your information or provide ICT services?"
-
-msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
-msgstr "Outsourcing, maintenance, hosting, managed services, telecoms."
-
-msgid "suppliers access information or provide ICT services"
-msgstr "suppliers access information or provide ICT services"
-
-msgid "no supplier accesses information or provides ICT services"
-msgstr "no supplier accesses information or provides ICT services"
-
-msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
-msgstr "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
-
-msgid "Online office suite, hosted applications, cloud storage or servers."
-msgstr "Online office suite, hosted applications, cloud storage or servers."
-
-msgid "the organisation uses cloud services"
-msgstr "the organisation uses cloud services"
-
-msgid "the organisation uses no cloud service"
-msgstr "the organisation uses no cloud service"
-
-msgid "Does the organisation occupy premises whose security it manages?"
-msgstr "Does the organisation occupy premises whose security it manages?"
-
-msgid "Offices, sites or shops: perimeter, entry, protection against physical threats."
-msgstr "Offices, sites or shops: perimeter, entry, protection against physical threats."
-
-msgid "the organisation manages the security of its own premises"
-msgstr "the organisation manages the security of its own premises"
-
-msgid "the organisation manages no premises (security handled by the landlord or host)"
-msgstr "the organisation manages no premises (security handled by the landlord or host)"
-
-msgid "Are servers or network equipment hosted in your own premises?"
-msgstr "Are servers or network equipment hosted in your own premises?"
-
-msgid "Server room, network cabinet, power supply and cabling under your responsibility."
-msgstr "Server room, network cabinet, power supply and cabling under your responsibility."
-
-msgid "servers or network equipment are hosted on the premises"
-msgstr "servers or network equipment are hosted on the premises"
-
-msgid "no server or network equipment is hosted on the premises"
-msgstr "no server or network equipment is hosted on the premises"
-
-msgid "Does the organisation process personal data?"
-msgstr "Does the organisation process personal data?"
-
-msgid "Staff, customers, prospects, patients, users: almost always yes."
-msgstr "Staff, customers, prospects, patients, users: almost always yes."
-
-msgid "the organisation processes personal data"
-msgstr "the organisation processes personal data"
-
-msgid "the organisation processes no personal data"
-msgstr "the organisation processes no personal data"
-
-msgid "Waiting for answers"
-msgstr "Waiting for answers"
-
-msgid "Matches the SoA"
-msgstr "Matches the SoA"
-
-msgid "Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it."
-msgstr "Applicable: baseline control for any organisation within the ISMS scope; no scoping answer excludes it."
-
-#, php-format
-msgid "Applicable: %s (SoA scoping questionnaire)."
-msgstr "Applicable: %s (SoA scoping questionnaire)."
-
-#, php-format
-msgid "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this changes."
-msgstr "Not applicable: %s (SoA scoping questionnaire). To be reviewed if this changes."
-
-msgid "Baseline control"
-msgstr "Baseline control"
-
-msgid "Not answered"
-msgstr "Not answered"
-
-msgid "Proposed applicability"
-msgstr "Proposed applicability"
-
-msgid "Basis of the proposal"
-msgstr "Basis of the proposal"
-
-msgid "Proposed justification"
-msgstr "Proposed justification"
-
-msgid "Decided by"
-msgstr "Decided by"
-
-msgid "Decision date"
-msgstr "Decision date"
-
-msgid "Previous applicability"
-msgstr "Previous applicability"
-
-msgid "Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it."
-msgstr "Answers saved. Review the proposals below: nothing is applied to the Statement of Applicability until you accept it."
-
-#, php-format
-msgid "Proposals accepted: %d."
-msgstr "Proposals accepted: %d."
-
-#, php-format
-msgid "Proposals rejected: %d."
-msgstr "Proposals rejected: %d."
-
-#, php-format
-msgid "Statement of Applicability of: %s"
-msgstr "Statement of Applicability of: %s"
-
-msgid "Export CSV for the auditor"
-msgstr "Export CSV for the auditor"
-
-msgid "1. Describe your context"
-msgstr "1. Describe your context"
-
-msgid "Save the answers"
-msgstr "Save the answers"
-
-msgid "Preview: what accepting these proposals will change"
-msgstr "Preview: what accepting these proposals will change"
-
-msgid "Existing justification kept"
-msgstr "Existing justification kept"
-
-#, php-format
-msgid "Accept these %d proposals"
-msgstr "Accept these %d proposals"
-
-msgid "2. Review the proposals, control by control"
-msgstr "2. Review the proposals, control by control"
-
-msgid "Preview all proposals to review"
-msgstr "Preview all proposals to review"
-
-msgid "Preview the selected proposals"
-msgstr "Preview the selected proposals"
-
-msgid "Reject the selected proposals"
-msgstr "Reject the selected proposals"
-
-msgid "A written justification is never overwritten."
-msgstr "A written justification is never overwritten."
-
-msgid "In the SoA today"
-msgstr "In the SoA today"
-
-msgid "Proposal"
-msgstr "Proposal"
-
-msgid "Answer the questions above to get a proposal."
-msgstr "Answer the questions above to get a proposal."
-
-msgid "3. Decision log (who validated what, and when)"
-msgstr "3. Decision log (who validated what, and when)"
-
-msgid "No decision yet."
-msgstr "No decision yet."
-
-msgid "Helps you decide and justify the applicability of each Annex A control: a few questions about your context (remote work, software development, suppliers, cloud, premises, personal data) give a proposed applicability and justification for every control of the Statement of Applicability."
-msgstr "Helps you decide and justify the applicability of each Annex A control: a few questions about your context (remote work, software development, suppliers, cloud, premises, personal data) give a proposed applicability and justification for every control of the Statement of Applicability."
-
-msgid "Answer the questions, then accept or reject each proposal, one by one or in bulk after a preview. Nothing is applied without your decision, a written justification is never overwritten, and every decision is logged with its author and date. Export the CSV for the auditor."
-msgstr "Answer the questions, then accept or reject each proposal, one by one or in bulk after a preview. Nothing is applied without your decision, a written justification is never overwritten, and every decision is logged with its author and date. Export the CSV for the auditor."
-
-msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
-msgstr "ISO/IEC 27001, clause 6.1.3 c) and d)"
-
-msgid "Answer given"
-msgstr "Answer given"

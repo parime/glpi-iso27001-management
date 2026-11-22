@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager;
 
 use Config;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
+use GlpiPlugin\Grcmanager\Services\Cve\ContextualSeverityRules as ContextRules;
 use GlpiPlugin\Grcmanager\Services\Cve\RemediationRules as Rules;
 use GlpiPlugin\Grcmanager\Services\Waiver\WaiverRules;
 use Html;
@@ -97,6 +98,7 @@ final class ParkRemediation
             $values['park_sla_days_' . $level] = $value;
         }
         Config::setConfigurationValues(self::CONFIG_CONTEXT, $values);
+        VulnerabilityContext::saveSetting($input);
     }
 
     /**
@@ -167,6 +169,15 @@ final class ParkRemediation
         $today ??= date('Y-m-d');
         $settings = self::getSettings();
         $context = self::versionContext();
+        // Issue #887 : environnement et exposition des machines, quand l'ajustement est activé.
+        $machines = [];
+        if (VulnerabilityContext::isEnabled()) {
+            $items = [];
+            foreach ($context as $info) {
+                $items += $info['items'];
+            }
+            $machines = VulnerabilityContext::machineContexts(array_map('strval', array_keys($items)), $today);
+        }
         $records = self::records();
         $now = date('Y-m-d H:i:s');
         $changed = 0;
@@ -176,19 +187,29 @@ final class ParkRemediation
             $seen[$key] = true;
             $critical = false;
             $entities = [];
+            $affected = [];
             foreach ($row['versions'] as $version) {
                 $info = $context[$row['canonical_id'] . "\0" . $version] ?? null;
                 if ($info !== null) {
                     $critical = $critical || $info['critical'];
                     $entities = array_merge($entities, $info['entities']);
+                    foreach (array_keys($info['items']) as $item) {
+                        if (isset($machines[$item])) {
+                            $affected[$item] = $machines[$item];
+                        }
+                    }
                 }
             }
+            $level = ContextRules::adjust(
+                Rules::level($row['cvss'], (bool) $row['is_kev']),
+                array_values($affected)
+            )['level'];
             $entities = array_values(array_unique($entities));
             sort($entities);
             $existing = $records[$key] ?? null;
             $next = Rules::observe(
                 $existing,
-                Rules::level($row['cvss'], (bool) $row['is_kev']),
+                $level,
                 $critical,
                 $today,
                 $settings
@@ -234,7 +255,8 @@ final class ParkRemediation
         $today ??= date('Y-m-d');
         $records = self::records(array_values(array_unique(array_column($rows, 'cve_id'))));
         $waivers = self::waiversByCve(array_values(array_unique(array_column($rows, 'cve_id'))));
-        $canReadWaivers = Session::haveRight(Waiver::RIGHTNAME, READ);
+        $canReadWaivers = (bool) Session::haveRight(Waiver::RIGHTNAME, READ);
+        $contextual = VulnerabilityContext::isEnabled();
         foreach ($rows as $i => $row) {
             $record = $records[$row['canonical_id'] . "\0" . $row['cve_id']] ?? null;
             if ($record === null) {
@@ -248,6 +270,11 @@ final class ParkRemediation
                 'first_seen' => $record['date_first_seen'],
                 'level_label' => self::getLevelLabels()[$state['level']] ?? '',
                 'critical'   => $record['is_critical'],
+                // Issue #887 : niveau relevé ou abaissé par le contexte des machines touchées.
+                'context'    => $contextual ? VulnerabilityContext::reasonBadge(ContextRules::reason(
+                    Rules::level($row['cvss'], (bool) $row['is_kev']),
+                    $state['level']
+                )) : null,
                 'waiver'     => $waiver === null ? null : [
                     'name' => $canReadWaivers ? $waiver['name'] : '',
                     'url'  => $canReadWaivers ? Waiver::getFormURLWithID($waiver['id']) : '',
@@ -512,7 +539,7 @@ final class ParkRemediation
      * Pour chaque version installée d'un produit surveillé : entités des machines qui la portent,
      * et présence sur au moins un actif de classification C/I/D élevée.
      *
-     * @return array<string, array{entities: list<int>, critical: bool}>
+     * @return array<string, array{entities: list<int>, critical: bool, items: array<string, true>}>
      */
     private static function versionContext(): array
     {
@@ -552,12 +579,16 @@ final class ParkRemediation
                     'glpi_softwares.name AS software',
                     'glpi_softwareversions.name AS version',
                     'glpi_items_softwareversions.entities_id',
+                    'glpi_items_softwareversions.itemtype',
+                    'glpi_items_softwareversions.items_id',
                 ],
             ] + $base) as $row
         ) {
             $key = $productByAlias[(string) $row['software']] . "\0" . $row['version'];
-            $context[$key] ??= ['entities' => [], 'critical' => false];
+            $context[$key] ??= ['entities' => [], 'critical' => false, 'items' => []];
             $context[$key]['entities'][] = (int) $row['entities_id'];
+            // Issue #887 : machines touchées, pour le niveau ajusté au contexte.
+            $context[$key]['items'][$row['itemtype'] . "\0" . $row['items_id']] = true;
         }
         $classifications = AssetClassification::getTable();
         $critical = $base;

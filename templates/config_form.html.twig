@@ -801,6 +801,12 @@
         <input type="number" class="form-control" id="park_sla_critical_percent" name="park_sla_critical_percent" min="10" max="100" step="5" value="{{ remediation_settings.critical_percent }}">
         <div class="form-hint">{{ __('50 = half the normal deadline when a vulnerable machine is classified high in confidentiality, integrity or availability. 100 = no shorter deadline.', 'grcmanager') }}</div>
       </div>
+      {# Issue #887 : niveau ajusté à l'environnement et à l'exposition des machines touchées. #}
+      <div class="form-check form-switch mb-1">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_sla_context" name="park_sla_context" value="1" {{ remediation_context ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_sla_context"><i class="ti ti-adjustments-alt me-1"></i>{{ __('Adjust the level to the context of the machines', 'grcmanager') }}</label>
+      </div>
+      <div class="form-hint mb-2">{{ __('One step more urgent when an affected machine is reachable from the Internet (declared in its C/I/A classification tab, or targeted by an Internet publication flow of the network flow matrix); one step less urgent when all affected machines are in test or development. Actively exploited vulnerabilities (KEV) never move, and a deadline already known is never pushed back.', 'grcmanager') }}</div>
       <div class="form-hint mb-2">{{ __('The deadline runs from the first detection of the vulnerability. A vulnerability covered by an approved waiver in progress follows the end date of the waiver, and becomes overdue again when it expires. Tickets show the due date, but their priority and status are never changed.', 'grcmanager') }}</div>
 
       {# Issue #485 : rapport des vulnérabilités du parc par e-mail. #}

@@ -7,6 +7,60 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.83.0] - 2026-11-22
+
+### Added
+
+- Sécurité du code lue dans GitHub et GitLab, en lecture seule (#858) : nouvelle page **Sécurité du
+  code** de la rubrique Mesures, à côté du développement sécurisé, et onglet du même nom sur les
+  applications. Pour chaque application du registre dont la fiche donne un dépôt GitHub (github.com
+  ou GitHub Enterprise Server) ou GitLab : alertes ouvertes des dépendances vulnérables (Dependabot,
+  analyse des dépendances et des conteneurs), des secrets exposés (secret scanning, détection de
+  secrets) et de l'analyse du code (code scanning, SAST, DAST), et analyses non activées. Lecture sur
+  clic, ou chaque jour par la tâche automatique `codesecurity` (désactivée à l'installation), avec un
+  jeton en lecture seule chiffré par GLPI et jamais réaffiché ; GitHub n'est appelé qu'en GET, GitLab
+  que par une requête GraphQL de lecture constante, et la valeur d'un secret n'est jamais demandée.
+  Alertes classées par gravité et ancienneté, échéance de la politique de correction des
+  vulnérabilités (un secret exposé prend le délai le plus court) ; un secret que rien ne dit révoqué
+  est signalé en priorité. Deux KRI (secrets exposés non révoqués, alertes hors délai) et preuves
+  A.8.28 et A.8.29. Rien n'est modifié dans GitHub ni GitLab.
+
+- **Référentiels MonServiceSécurisé, ETSI EN 319 401 et Secure Controls Framework** (#878) :
+  catalogues facultatifs, désactivés par défaut, reliés à l'Annexe A ISO 27001 et aux modules du
+  plugin, avec carte sur la page Référentiels, badges sur les mesures, taux dans les tableaux de
+  bord et dans l'évaluation par référentiel. MonServiceSécurisé (ANSSI) : les 135 mesures du
+  référentiel v2 en 29 thèmes et 4 catégories (licence Apache 2.0). ETSI EN 319 401 V3.2.1
+  (prestataires de services de confiance, eIDAS) : paragraphes 5 à 7, numéros seuls et résumés du
+  projet (norme protégée). SCF : les 34 domaines, noms publiés non traduits (CC BY-ND 4.0).
+  Correspondances indicatives établies par le projet ; source et licence sous chaque carte.
+
+- **Préparer l'audit du cycle suivant** (#881) : nouvel onglet **Cycle suivant** sur la fiche d'un
+  audit. Il crée l'audit de l'année suivante sans tout ressaisir : objectifs, critères, périmètre,
+  mesures et processus audités, auditeur, responsable et équipe, demandes de preuves (échéances
+  décalées d'autant que la date de l'audit) et questions de la grille. Seuls le titre, la date et,
+  pour un audit de l'organisme de certification, le type (étape suivante du cycle proposée),
+  l'organisme et son auditeur changent. Le nouvel audit repart de zéro (« Planifié », sans
+  résultat, constat, pièce ni conclusion), aucune notification n'est envoyée, et une personne
+  partie (compte désactivé ou sans profil dans l'entité) n'est pas reprise. Chaque audit indique
+  l'audit dont il est issu et ceux préparés à partir de lui.
+
+- **Niveau d'une vulnérabilité ajusté au contexte des machines** (#887, A.8.8) : l'onglet
+  « Classification C/I/D » d'un actif indique son environnement (production, test ou recette,
+  développement) et son exposition à Internet, déduite par défaut des flux actifs de publication
+  vers Internet de la matrice des flux. Une option des délais de correction (désactivée par
+  défaut) rend une vulnérabilité un cran plus urgente quand une machine touchée est joignable
+  depuis Internet, et un cran moins urgente quand toutes sont en test ou en développement ; les
+  vulnérabilités exploitées activement (KEV) ne bougent pas et une échéance connue n'est jamais
+  repoussée. La page « Vulnérabilités du parc » signale le niveau relevé ou abaissé et propose
+  d'écarter un résultat avec une justification tracée dans une dérogation.
+
+### Fixed
+
+- **Traductions des variantes régionales à jour** : en_US, es_MX, es_419, es_AR, es_CL, es_CO,
+  es_EC, es_VE, fr_CA, fr_BE et pt_PT reprenaient les traductions d'une version précédente, car la
+  publication recopiait les variantes avant de régénérer les langues de base. Elles sont
+  resynchronisées, et la publication les recopie désormais en dernier.
+
 ## [2.82.0] - 2026-11-22
 
 ### Added
