@@ -2020,6 +2020,82 @@ auditeur. Le pied de chaque carte donne la source et la licence (Apache 2.0 pour
 norme protégée dont seuls les numéros sont repris pour l'ETSI, CC BY-ND 4.0 pour le SCF, dont les
 noms de domaines restent en anglais).
 
+### Étape 70 : Suivre la sécurité du code des applications avec GitHub et GitLab (mesures A.8.28 et A.8.29)
+
+GitHub et GitLab analysent le code de vos applications : bibliothèques tierces vulnérables, mots de
+passe ou clés écrits dans le code, faiblesses du code lui-même. Le plugin lit ces alertes **en
+lecture seule** : rien n'est modifié dans GitHub ni GitLab, aucune alerte n'est fermée, et la valeur
+d'un secret exposé n'est jamais demandée.
+
+1. Pour chaque application développée en interne, ouvrez son onglet **Développement sécurisé** et
+   renseignez le **dépôt de code** (par exemple `https://github.com/exemple/portail` ou
+   `git@gitlab.example.test:equipe/portail.git`).
+2. Préparez un jeton en lecture seule :
+   - GitHub : un jeton d'accès personnel à granularité fine, limité aux dépôts concernés, avec les
+     permissions en lecture « Dependabot alerts », « Secret scanning alerts » et « Code scanning
+     alerts » ;
+   - GitLab : un jeton d'accès de projet ou de groupe avec la portée `read_api` (le rapport de
+     vulnérabilités nécessite GitLab Ultimate).
+3. Ouvrez **Mesures > Sécurité du code**, cadre **Connexion à GitHub et GitLab** : collez le jeton
+   (et, si besoin, l'adresse de votre serveur GitHub Enterprise ou GitLab), puis **Enregistrer** et
+   **Lire maintenant**.
+4. Le cadre **Applications et leurs dépôts** montre, pour chaque application, le nombre d'alertes par
+   famille (secrets exposés, dépendances vulnérables, analyse du code) et le badge **Non activée**
+   quand une analyse ne tourne pas sur le dépôt : c'est déjà un écart à la mesure A.8.29.
+5. Le cadre **Alertes ouvertes** classe les alertes : d'abord les secrets exposés **non révoqués**
+   (à révoquer chez le fournisseur, puis à retirer du code et de son historique), puis les alertes
+   **hors délai**, par gravité et ancienneté. Les délais sont ceux de la politique de correction des
+   vulnérabilités (configuration du plugin) ; un secret exposé prend le délai le plus court.
+6. L'onglet **Sécurité du code** de chaque application résume ses alertes ; la fiche des mesures
+   A.8.28 et A.8.29 affiche le bilan comme preuve. Pour être prévenu, créez un indicateur de risque
+   « Secrets exposés non révoqués dans le code » ou « Alertes de sécurité du code hors délai ».
+7. Pour une lecture chaque jour, cochez **Lire automatiquement chaque jour** : la tâche automatique
+   `codesecurity` est désactivée après l'installation.
+
+### Étape 71 : Ajuster le niveau des vulnérabilités à l'environnement et à l'exposition
+
+Une faille sur un serveur web publié sur Internet est plus urgente que la même faille sur une
+machine de test isolée. Le plugin peut en tenir compte dans les délais de correction
+(30).
+
+1. Sur la fiche d'un actif, onglet **Classification C/I/D**, choisissez son **Environnement**
+   (Production, Test ou recette, Développement) et, si besoin, son **Exposition à Internet**. Par
+   défaut, l'exposition est **déduite de la matrice des flux** : un actif visé par un flux actif de
+   publication vers Internet compte comme joignable depuis Internet. Un environnement non renseigné
+   compte comme la production.
+2. Dans la configuration du plugin, cadre **Délais de correction des vulnérabilités**, activez
+   **Ajuster le niveau au contexte des machines** puis cliquez sur **Sauvegarder**.
+3. Ouvrez **Vulnérabilités du parc** : sous l'échéance, un badge orange **Relevé : exposé à
+   Internet** ou bleu **Abaissé : machines de test ou de développement seulement** explique le
+   délai retenu. Il suffit d'une machine de production pour que le niveau ne baisse pas.
+4. Un résultat non applicable ou un risque accepté s'écarte avec le lien **Écarter avec une
+   justification** : il ouvre une dérogation pré-remplie avec la CVE. Une fois validée, elle
+   remplace l'échéance jusqu'à sa date de fin, ce qui laisse une trace datée pour l'auditeur.
+
+Les vulnérabilités exploitées activement (KEV) ne bougent jamais et une échéance déjà calculée
+n'est jamais repoussée. Aucun ticket, statut ni priorité n'est modifié.
+
+### Étape 72 : Préparer l'audit du cycle suivant à partir d'un audit passé
+
+Chaque année, l'audit interne (ou l'audit de surveillance de l'organisme) reprend en grande partie
+la préparation du précédent. Plutôt que de tout ressaisir :
+
+1. Ouvrez l'audit de l'an dernier, onglet **Cycle suivant**.
+2. Vérifiez le **titre** et la **date prévue** proposés (un an plus tard, l'année du titre est mise
+   à jour). Pour un audit de l'organisme de certification, l'étape suivante du cycle est proposée
+   (surveillance 1, surveillance 2, renouvellement) ; changez au besoin l'organisme et son auditeur.
+3. Cochez ce qu'il faut reprendre : **Périmètre** (mesures, processus, catégories de risque),
+   **Personnes** (auditeur, responsable, équipe, personnes sollicitées et audités), **Demandes de
+   preuves** et **Grille d'audit**. Le nombre d'éléments repris est affiché en badge.
+4. Cliquez sur **Créer l'audit du cycle suivant** : la fiche du nouvel audit s'ouvre.
+
+Le nouvel audit repart de zéro : statut « Planifié », aucun résultat de grille, constat, pièce ni
+conclusion. Les échéances des demandes de preuves sont décalées d'autant que la date de l'audit, et
+personne n'est prévenu tant que vous n'envoyez pas les demandes. Une personne partie (compte
+désactivé ou sans profil dans l'entité) n'est pas reprise : un message indique combien de personnes
+remplacer. L'onglet **Cycle suivant** de chaque audit rappelle l'audit dont il est issu, ce qui
+montre à l'auditeur la continuité du programme d'audit (article 9.2).
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3915,3 +3991,79 @@ The mapping to Annex A is indicative and made by the project: review it with you
 footer of each card gives the source and the licence (Apache 2.0 for MonServiceSécurisé, a protected
 standard of which only the numbers are used for ETSI, CC BY-ND 4.0 for the SCF, whose domain names
 stay in English).
+
+### Step 70: Follow the code security of the applications with GitHub and GitLab (controls A.8.28 and A.8.29)
+
+GitHub and GitLab analyse the code of your applications: vulnerable third-party libraries, passwords
+or keys written in the code, weaknesses of the code itself. The plugin reads these alerts **in read
+only**: nothing is changed in GitHub or GitLab, no alert is closed, and the value of an exposed
+secret is never requested.
+
+1. For each application developed in-house, open its **Secure development** tab and fill in the
+   **code repository** (for example `https://github.com/example/portal` or
+   `git@gitlab.example.test:team/portal.git`).
+2. Prepare a read-only token:
+   - GitHub: a fine-grained personal access token, limited to the repositories concerned, with the
+     read permissions "Dependabot alerts", "Secret scanning alerts" and "Code scanning alerts";
+   - GitLab: a project or group access token with the `read_api` scope (the vulnerability report
+     requires GitLab Ultimate).
+3. Open **Controls > Code security**, frame **Connection to GitHub and GitLab**: paste the token
+   (and, if needed, the address of your GitHub Enterprise or GitLab server), then **Save** and
+   **Read now**.
+4. The **Applications and their repositories** frame shows, for each application, the number of
+   alerts per family (exposed secrets, vulnerable dependencies, code analysis) and the **Not
+   enabled** badge when an analysis does not run on the repository: this is already a gap for
+   control A.8.29.
+5. The **Open alerts** frame ranks the alerts: first the exposed secrets **not revoked** (to revoke
+   at the provider, then to remove from the code and its history), then the alerts **past their
+   deadline**, by severity and age. The deadlines are those of the vulnerability remediation policy
+   (plugin configuration); an exposed secret takes the shortest deadline.
+6. The **Code security** tab of each application sums up its alerts; the sheet of controls A.8.28
+   and A.8.29 shows the summary as evidence. To be warned, create a risk indicator "Exposed secrets
+   not revoked in the code" or "Code security alerts past their deadline".
+7. For a daily reading, tick **Read automatically every day**: the automatic action
+   `codesecurity` is disabled after installation.
+
+### Step 71: Adjust the level of vulnerabilities to environment and exposure
+
+A flaw on a web server published on the Internet is more urgent than the same flaw on an isolated
+test machine. The plugin can take this into account in the remediation deadlines
+(30).
+
+1. On an asset, **C/I/A classification** tab, choose its **Environment** (Production, Test or
+   acceptance, Development) and, if needed, its **Exposure to the Internet**. By default, exposure
+   is **deduced from the network flow matrix**: an asset targeted by an active Internet publication
+   flow counts as reachable from the Internet. An environment left empty counts as production.
+2. In the plugin configuration, **Vulnerability remediation deadlines** frame, enable **Adjust the
+   level to the context of the machines** then click **Save**.
+3. Open **Fleet vulnerabilities**: under the due date, an orange **Raised: exposed to the
+   Internet** or blue **Lowered: test or development machines only** badge explains the deadline.
+   A single production machine is enough to keep the level from going down.
+4. A result that does not apply, or an accepted risk, is set aside with the **Set aside with a
+   justification** link: it opens a waiver pre-filled with the CVE. Once approved, it replaces the
+   deadline until its end date, which leaves a dated trace for the auditor.
+
+Actively exploited vulnerabilities (KEV) never move and a deadline already computed is never pushed
+back. No ticket, status or priority is changed.
+
+### Step 72: Prepare the audit of the next cycle from a past audit
+
+Every year, the internal audit (or the surveillance audit by the certification body) reuses most of
+the preparation of the previous one. Instead of typing everything again:
+
+1. Open last year's audit, **Next cycle** tab.
+2. Check the proposed **title** and **planned date** (one year later, the year in the title is
+   updated). For an audit by the certification body, the next step of the cycle is proposed
+   (surveillance 1, surveillance 2, recertification); change the body and its lead auditor if
+   needed.
+3. Tick what to copy: **Scope** (controls, processes, risk categories), **People** (auditor, audit
+   owner, team, people asked for evidence and auditees), **Evidence requests** and **Audit
+   checklist**. The number of copied items is shown in a badge.
+4. Click **Create the audit of the next cycle**: the form of the new audit opens.
+
+The new audit starts from scratch: status "Planned", no checklist result, finding, evidence file or
+conclusion. The due dates of the evidence requests move by the same number of days as the audit,
+and nobody is notified until you send the requests. Someone who left (account disabled or without a
+profile in the entity) is not copied: a message tells you how many people to replace. The **Next
+cycle** tab of each audit shows the audit it comes from, which shows the auditor the continuity of
+the audit programme (clause 9.2).

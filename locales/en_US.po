@@ -39140,6 +39140,746 @@ msgstr "ISO/IEC 27001, clause 6.1.3 c) and d)"
 msgid "Answer given"
 msgstr "Answer given"
 
+#, php-format
+msgid "%1$d alerts: the first %2$d are shown, priorities first."
+msgstr "%1$d alerts: the first %2$d are shown, priorities first."
+
+#, php-format
+msgid "%1$d repository(ies) read, %2$d alert(s), %3$d failure(s)."
+msgstr "%1$d repository(ies) read, %2$d alert(s), %3$d failure(s)."
+
+#, php-format
+msgid "%1$s: %2$d days"
+msgstr "%1$s: %2$d days"
+
+#, php-format
+msgid "%d application(s) of the register without a code repository"
+msgstr "%d application(s) of the register without a code repository"
+
+#, php-format
+msgid "%d repository(ies) read"
+msgstr "%d repository(ies) read"
+
+msgid "30 to 90 days"
+msgstr "30 to 90 days"
+
+msgid ""
+"A server on an internal address (private network) is refused by default: an "
+"administrator can allow internal addresses in the plugin configuration."
+msgstr ""
+"A server on an internal address (private network) is refused by default: an "
+"administrator can allow internal addresses in the plugin configuration."
+
+msgid "Alerts past their deadline"
+msgstr "Alerts past their deadline"
+
+#, php-format
+msgid "Alerts past their deadline: %d"
+msgstr "Alerts past their deadline: %d"
+
+msgid "Applications and their repositories"
+msgstr "Applications and their repositories"
+
+msgid ""
+"Applications of the secure development register whose code repository is on "
+"GitHub or GitLab. For each one: the open alerts by family, and the analyses "
+"that are not enabled (or not readable with the token), which is itself a gap "
+"for control A.8.29."
+msgstr ""
+"Applications of the secure development register whose code repository is on "
+"GitHub or GitLab. For each one: the open alerts by family, and the analyses "
+"that are not enabled (or not readable with the token), which is itself a gap "
+"for control A.8.29."
+
+msgid "By age:"
+msgstr "By age:"
+
+msgid "Code analysis"
+msgstr "Code analysis"
+
+#, php-format
+msgid "Code analysis alerts: %d"
+msgstr "Code analysis alerts: %d"
+
+msgid "Code security"
+msgstr "Code security"
+
+msgid "Code security (GitHub, GitLab)"
+msgstr "Code security (GitHub, GitLab)"
+
+msgid "Code security alerts past their deadline (GitHub, GitLab)"
+msgstr "Code security alerts past their deadline (GitHub, GitLab)"
+
+#, php-format
+msgid ""
+"Code security read: %1$d repository(ies), %2$d open alert(s), %3$d "
+"failure(s)."
+msgstr ""
+"Code security read: %1$d repository(ies), %2$d open alert(s), %3$d "
+"failure(s)."
+
+msgid "Code security readings deleted."
+msgstr "Code security readings deleted."
+
+msgid "Code security settings saved."
+msgstr "Code security settings saved."
+
+msgid ""
+"Code security: reads the security alerts of GitHub and GitLab (read only)"
+msgstr ""
+"Code security: reads the security alerts of GitHub and GitLab (read only)"
+
+msgid "Compared with the remediation deadlines of the policy"
+msgstr "Compared with the remediation deadlines of the policy"
+
+msgid "Connection to GitHub and GitLab (read only)"
+msgstr "Connection to GitHub and GitLab (read only)"
+
+msgid "Container image analysis"
+msgstr "Container image analysis"
+
+msgid "Enter a read-only token for GitHub or GitLab, then click \"Read now\"."
+msgstr "Enter a read-only token for GitHub or GitLab, then click \"Read now\"."
+
+msgid ""
+"Enter the code repository of each application in its \"Secure development\" "
+"tab, save a read-only token for GitHub or GitLab, then click \"Read now\". "
+"Then revoke the exposed secrets, follow up the alerts past their deadline "
+"and enable the missing analyses. Nothing is changed in GitHub or GitLab and "
+"nothing is created automatically."
+msgstr ""
+"Enter the code repository of each application in its \"Secure development\" "
+"tab, save a read-only token for GitHub or GitLab, then click \"Read now\". "
+"Then revoke the exposed secrets, follow up the alerts past their deadline "
+"and enable the missing analyses. Nothing is changed in GitHub or GitLab and "
+"nothing is created automatically."
+
+msgid "Exposed secret"
+msgstr "Exposed secret"
+
+#, php-format
+msgid "Exposed secret: %d days"
+msgstr "Exposed secret: %d days"
+
+msgid "Exposed secrets not revoked"
+msgstr "Exposed secrets not revoked"
+
+msgid "Exposed secrets not revoked in the code (GitHub, GitLab)"
+msgstr "Exposed secrets not revoked in the code (GitHub, GitLab)"
+
+#, php-format
+msgid "Exposed secrets not revoked: %d"
+msgstr "Exposed secrets not revoked: %d"
+
+msgid "GitHub Enterprise Server address (optional)"
+msgstr "GitHub Enterprise Server address (optional)"
+
+msgid ""
+"GitHub: create a fine-grained personal access token limited to the "
+"repositories concerned, with the read-only permissions \"Dependabot "
+"alerts\", \"Secret scanning alerts\" and \"Code scanning alerts\"."
+msgstr ""
+"GitHub: create a fine-grained personal access token limited to the "
+"repositories concerned, with the read-only permissions \"Dependabot "
+"alerts\", \"Secret scanning alerts\" and \"Code scanning alerts\"."
+
+msgid "GitLab server address (optional)"
+msgstr "GitLab server address (optional)"
+
+msgid ""
+"GitLab: create a project or group access token with the \"read_api\" scope "
+"and at least the Developer role (the vulnerability report requires GitLab "
+"Ultimate)."
+msgstr ""
+"GitLab: create a project or group access token with the \"read_api\" scope "
+"and at least the Developer role (the vulnerability report requires GitLab "
+"Ultimate)."
+
+msgid "How to prepare the tokens (one of the two, or both):"
+msgstr "How to prepare the tokens (one of the two, or both):"
+
+msgid "ISO/IEC 27001, controls A.8.28 and A.8.29"
+msgstr "ISO/IEC 27001, controls A.8.28 and A.8.29"
+
+msgid "Leave empty for github.com."
+msgstr "Leave empty for github.com."
+
+msgid "Leave empty for gitlab.com."
+msgstr "Leave empty for gitlab.com."
+
+msgid "Less than 30 days"
+msgstr "Less than 30 days"
+
+msgid "More than 90 days"
+msgstr "More than 90 days"
+
+msgid ""
+"No code repository: enter it in the \"Secure development\" tab of this "
+"application, then read the alerts from the code security page."
+msgstr ""
+"No code repository: enter it in the \"Secure development\" tab of this "
+"application, then read the alerts from the code security page."
+
+msgid "No open alert in your entities."
+msgstr "No open alert in your entities."
+
+msgid "No open alert on this repository."
+msgstr "No open alert on this repository."
+
+msgid "No repository read in your entities."
+msgstr "No repository read in your entities."
+
+msgid "No token for this service"
+msgstr "No token for this service"
+
+msgid "Not enabled"
+msgstr "Not enabled"
+
+msgid "Not enabled on the repository, or not readable with the token"
+msgstr "Not enabled on the repository, or not readable with the token"
+
+msgid "Not revoked: priority"
+msgstr "Not revoked: priority"
+
+msgid ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token below. 3. "
+"Click \"Read now\"."
+msgstr ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token below. 3. "
+"Click \"Read now\"."
+
+msgid ""
+"Nothing says that this secret has been revoked: revoke it at the provider, "
+"then remove it from the code and its history."
+msgstr ""
+"Nothing says that this secret has been revoked: revoke it at the provider, "
+"then remove it from the code and its history."
+
+msgid "Oldest open alert"
+msgstr "Oldest open alert"
+
+msgid ""
+"Only repositories hosted on GitHub or on the GitLab server of the connection "
+"are read."
+msgstr ""
+"Only repositories hosted on GitHub or on the GitLab server of the connection "
+"are read."
+
+msgid "Only the first 100 alerts of a family were read"
+msgstr "Only the first 100 alerts of a family were read"
+
+msgid "Open alerts"
+msgstr "Open alerts"
+
+#, php-format
+msgid "Open alerts: %d"
+msgstr "Open alerts: %d"
+
+msgid "Open since"
+msgstr "Open since"
+
+msgid "Open the alert at GitHub or GitLab"
+msgstr "Open the alert at GitHub or GitLab"
+
+msgid "Open the code security page"
+msgstr "Open the code security page"
+
+msgid "Password, key or token written in the code"
+msgstr "Password, key or token written in the code"
+
+msgid "Push protection was bypassed"
+msgstr "Push protection was bypassed"
+
+msgid "Read automatically every day (automatic action \"codesecurity\")"
+msgstr "Read automatically every day (automatic action \"codesecurity\")"
+
+#, php-format
+msgid "Read from GitHub and GitLab on %s"
+msgstr "Read from GitHub and GitLab on %s"
+
+msgid ""
+"Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no "
+"alert is closed."
+msgstr ""
+"Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no "
+"alert is closed."
+
+msgid "Read-only token"
+msgstr "Read-only token"
+
+msgid "Refused: the connector only reads the security alerts."
+msgstr "Refused: the connector only reads the security alerts."
+
+msgid "Register of applications"
+msgstr "Register of applications"
+
+#, php-format
+msgid "Repositories read: %d"
+msgstr "Repositories read: %d"
+
+msgid "Repositories with an analysis not enabled"
+msgstr "Repositories with an analysis not enabled"
+
+#, php-format
+msgid "Repositories with an analysis not enabled: %d"
+msgstr "Repositories with an analysis not enabled: %d"
+
+msgid "Repository"
+msgstr "Repository"
+
+msgid "Repository not recognised"
+msgstr "Repository not recognised"
+
+msgid "Revoked at the provider"
+msgstr "Revoked at the provider"
+
+msgid ""
+"Security alerts of the code repository of this application, read from GitHub "
+"or GitLab in read only: vulnerable dependencies, exposed secrets and code "
+"analysis."
+msgstr ""
+"Security alerts of the code repository of this application, read from GitHub "
+"or GitLab in read only: vulnerable dependencies, exposed secrets and code "
+"analysis."
+
+msgid ""
+"Shows the security alerts of the code of your applications, read from GitHub "
+"and GitLab in read only: vulnerable third-party libraries, passwords or keys "
+"written in the code, and weaknesses found by the code analysis. The open "
+"alerts are classed by severity and age and compared with the remediation "
+"deadlines of your policy; an exposed secret that has not been revoked comes "
+"first."
+msgstr ""
+"Shows the security alerts of the code of your applications, read from GitHub "
+"and GitLab in read only: vulnerable third-party libraries, passwords or keys "
+"written in the code, and weaknesses found by the code analysis. The open "
+"alerts are classed by severity and age and compared with the remediation "
+"deadlines of your policy; an exposed secret that has not been revoked comes "
+"first."
+
+msgid "Some repositories could not be read: their previous alerts are kept."
+msgstr "Some repositories could not be read: their previous alerts are kept."
+
+msgid ""
+"The deadlines are those of the vulnerability remediation policy of the "
+"plugin, counted from the day the alert was opened. An exposed secret must be "
+"revoked at once: it takes the shortest deadline (actively exploited "
+"vulnerabilities)."
+msgstr ""
+"The deadlines are those of the vulnerability remediation policy of the "
+"plugin, counted from the day the alert was opened. An exposed secret must be "
+"revoked at once: it takes the shortest deadline (actively exploited "
+"vulnerabilities)."
+
+msgid ""
+"The repository of this application has not been read yet: click \"Read now\" "
+"on the code security page."
+msgstr ""
+"The repository of this application has not been read yet: click \"Read now\" "
+"on the code security page."
+
+msgid ""
+"The server could not be reached: check the address, the network access or "
+"the GLPI proxy."
+msgstr ""
+"The server could not be reached: check the address, the network access or "
+"the GLPI proxy."
+
+msgid ""
+"The server has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"The server has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+
+msgid "The server returned an unexpected answer."
+msgstr "The server returned an unexpected answer."
+
+msgid ""
+"The token was refused: check that it is still valid and that it can read the "
+"security alerts of the repositories."
+msgstr ""
+"The token was refused: check that it is still valid and that it can read the "
+"security alerts of the repositories."
+
+msgid ""
+"The tokens are encrypted with the GLPI key, never displayed again nor "
+"logged. Only the security alerts are read; the value of an exposed secret is "
+"never requested."
+msgstr ""
+"The tokens are encrypted with the GLPI key, never displayed again nor "
+"logged. Only the security alerts are read; the value of an exposed secret is "
+"never requested."
+
+msgid "Third-party library with a known vulnerability"
+msgstr "Third-party library with a known vulnerability"
+
+msgid "To revoke first, then remove from the code"
+msgstr "To revoke first, then remove from the code"
+
+msgid "Too many requests: GitHub or GitLab asks to wait. Read again later."
+msgstr "Too many requests: GitHub or GitLab asks to wait. Read again later."
+
+#, php-format
+msgid "Vulnerable dependencies: %d"
+msgstr "Vulnerable dependencies: %d"
+
+msgid "Vulnerable dependency"
+msgstr "Vulnerable dependency"
+
+msgid "Weakness found in the code itself"
+msgstr "Weakness found in the code itself"
+
+#, php-format
+msgid "Worst severity: %s"
+msgstr "Worst severity: %s"
+
+#, php-format
+msgid "including %1$d critical and %2$d high"
+msgstr "including %1$d critical and %2$d high"
+
+msgid ""
+"MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation "
+"service, grouped by theme, their references on the controls and "
+"MonServiceSécurisé score. Disabled by default."
+msgstr ""
+"MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation "
+"service, grouped by theme, their references on the controls and "
+"MonServiceSécurisé score. Disabled by default."
+
+msgid ""
+"Trust service providers (ETSI EN 319 401): general policy requirements, "
+"their references on the controls and ETSI score. Disabled by default."
+msgstr ""
+"Trust service providers (ETSI EN 319 401): general policy requirements, "
+"their references on the controls and ETSI score. Disabled by default."
+
+msgid ""
+"Secure Controls Framework: the 34 SCF domains, their references on the "
+"controls and SCF score. Disabled by default."
+msgstr ""
+"Secure Controls Framework: the 34 SCF domains, their references on the "
+"controls and SCF score. Disabled by default."
+
+msgid "Measures: %s"
+msgstr "Measures: %s"
+
+msgid "MonServiceSécurisé (ANSSI): security accreditation measures"
+msgstr "MonServiceSécurisé (ANSSI): security accreditation measures"
+
+msgid ""
+"The %d measures of the measures framework of MonServiceSécurisé, the free "
+"service of the French cybersecurity agency to accredit a digital service, "
+"grouped by theme within its four categories. The last column links to the "
+"modules of this plugin that already help meet them."
+msgstr ""
+"The %d measures of the measures framework of MonServiceSécurisé, the free "
+"service of the French cybersecurity agency to accredit a digital service, "
+"grouped by theme within its four categories. The last column links to the "
+"modules of this plugin that already help meet them."
+
+msgid ""
+"Source: measures framework (version 2) published by ANSSI in the source code "
+"of MonServiceSécurisé (github.com/betagouv/mon-service-securise) under the "
+"Apache 2.0 licence; the GDPR measures come from the CNIL. Measure "
+"identifiers are the official ones; theme summaries and the mapping to ISO "
+"27001 Annex A are written by this project, which is not affiliated with "
+"ANSSI."
+msgstr ""
+"Source: measures framework (version 2) published by ANSSI in the source code "
+"of MonServiceSécurisé (github.com/betagouv/mon-service-securise) under the "
+"Apache 2.0 licence; the GDPR measures come from the CNIL. Measure "
+"identifiers are the official ones; theme summaries and the mapping to ISO "
+"27001 Annex A are written by this project, which is not affiliated with "
+"ANSSI."
+
+msgid ""
+"ETSI EN 319 401 V3.2.1: general policy requirements for trust service "
+"providers"
+msgstr ""
+"ETSI EN 319 401 V3.2.1: general policy requirements for trust service "
+"providers"
+
+msgid ""
+"Common base of the ETSI standards audited for qualified trust services under "
+"eIDAS (signature, seal, time-stamping, certificates). Clauses 5 to 7, "
+"summarised by this project. The last column links to the modules of this "
+"plugin that already help meet them."
+msgstr ""
+"Common base of the ETSI standards audited for qualified trust services under "
+"eIDAS (signature, seal, time-stamping, certificates). Clauses 5 to 7, "
+"summarised by this project. The last column links to the modules of this "
+"plugin that already help meet them."
+
+msgid ""
+"ETSI EN 319 401 is protected by copyright (ETSI, all rights reserved): only "
+"its clause numbers are used here; summaries and the mapping to ISO 27001 "
+"Annex A are written by this project, which is not affiliated with ETSI. The "
+"standard can be downloaded free of charge from etsi.org."
+msgstr ""
+"ETSI EN 319 401 is protected by copyright (ETSI, all rights reserved): only "
+"its clause numbers are used here; summaries and the mapping to ISO 27001 "
+"Annex A are written by this project, which is not affiliated with ETSI. The "
+"standard can be downloaded free of charge from etsi.org."
+
+msgid "Secure Controls Framework (SCF): domains"
+msgstr "Secure Controls Framework (SCF): domains"
+
+msgid ""
+"The 34 domains of the SCF metaframework, which maps more than two hundred "
+"laws, regulations and standards. Domain names are kept in English, as "
+"published. The last column links to the modules of this plugin that already "
+"help meet them."
+msgstr ""
+"The 34 domains of the SCF metaframework, which maps more than two hundred "
+"laws, regulations and standards. Domain names are kept in English, as "
+"published. The last column links to the modules of this plugin that already "
+"help meet them."
+
+msgid ""
+"Domain identifiers and names: Secure Controls Framework (SCF), © SCF "
+"Council, licensed under CC BY-ND 4.0, reproduced without modification. The "
+"mapping to ISO 27001 Annex A is indicative and written by this project (it "
+"does not reuse the SCF mappings); this project is not affiliated with or "
+"endorsed by the SCF Council."
+msgstr ""
+"Domain identifiers and names: Secure Controls Framework (SCF), © SCF "
+"Council, licensed under CC BY-ND 4.0, reproduced without modification. The "
+"mapping to ISO 27001 Annex A is indicative and written by this project (it "
+"does not reuse the SCF mappings); this project is not affiliated with or "
+"endorsed by the SCF Council."
+
+msgid "MonServiceSécurisé themes"
+msgstr "MonServiceSécurisé themes"
+
+msgid "ETSI EN 319 401 clauses"
+msgstr "ETSI EN 319 401 clauses"
+
+msgid "SCF domains"
+msgstr "SCF domains"
+
+msgid "%d control(s)"
+msgstr "%d control(s)"
+
+msgid "%d process(es)"
+msgstr "%d process(es)"
+
+msgid "%d person(s)"
+msgstr "%d person(s)"
+
+msgid ""
+"Audited controls, processes and risk categories. Objectives, criteria and "
+"the scope text are always copied."
+msgstr ""
+"Audited controls, processes and risk categories. Objectives, criteria and "
+"the scope text are always copied."
+
+msgid ""
+"Auditor, audit owner, team, people asked for evidence and auditees of the "
+"checklist. Someone who left (account disabled or without a profile in the "
+"entity) is not copied."
+msgstr ""
+"Auditor, audit owner, team, people asked for evidence and auditees of the "
+"checklist. Someone who left (account disabled or without a profile in the "
+"entity) is not copied."
+
+msgid "Audits prepared from this one"
+msgstr "Audits prepared from this one"
+
+msgid "Create the audit of the next cycle"
+msgstr "Create the audit of the next cycle"
+
+msgid "Give the new audit a title and a planned date."
+msgstr "Give the new audit a title and a planned date."
+
+msgid "Next cycle"
+msgstr "Next cycle"
+
+msgid "Only the audit team can copy the checklist."
+msgstr "Only the audit team can copy the checklist."
+
+msgid "Prepare the audit of the next cycle"
+msgstr "Prepare the audit of the next cycle"
+
+msgid ""
+"Prepares the audit of next year from this one, without typing everything "
+"again: objectives, criteria, scope, audited controls and processes, people, "
+"evidence requests and checklist questions are copied. Only the date, the "
+"title and, for an audit by the certification body, the type and the body "
+"change. The new audit starts from scratch: planned, with no result, finding, "
+"evidence file or conclusion."
+msgstr ""
+"Prepares the audit of next year from this one, without typing everything "
+"again: objectives, criteria, scope, audited controls and processes, people, "
+"evidence requests and checklist questions are copied. Only the date, the "
+"title and, for an audit by the certification body, the type and the body "
+"change. The new audit starts from scratch: planned, with no result, finding, "
+"evidence file or conclusion."
+
+msgid ""
+"Proposed one year after this audit. The due dates of the evidence requests "
+"move by the same number of days."
+msgstr ""
+"Proposed one year after this audit. The due dates of the evidence requests "
+"move by the same number of days."
+
+msgid "Proposed: the next step of the certification cycle (%s now)."
+msgstr "Proposed: the next step of the certification cycle (%s now)."
+
+msgid ""
+"Same references and descriptions, status \"Requested\", without the files "
+"sent last time. Nobody is notified: send the requests when you are ready."
+msgstr ""
+"Same references and descriptions, status \"Requested\", without the files "
+"sent last time. Nobody is notified: send the requests when you are ready."
+
+msgid "Same requirements and questions, every line back to \"Not audited\"."
+msgstr "Same requirements and questions, every line back to \"Not audited\"."
+
+msgid ""
+"The audit of the next cycle has been prepared: check its dates and people."
+msgstr ""
+"The audit of the next cycle has been prepared: check its dates and people."
+
+msgid "This audit is not changed."
+msgstr "This audit is not changed."
+
+msgid "This audit was prepared from a previous audit:"
+msgstr "This audit was prepared from a previous audit:"
+
+msgid "Title of the new audit"
+msgstr "Title of the new audit"
+
+msgid "What to copy"
+msgstr "What to copy"
+
+msgid ""
+"You need the right to create audits in the entity of this audit to prepare "
+"the next one."
+msgstr ""
+"You need the right to create audits in the entity of this audit to prepare "
+"the next one."
+
+msgid "planned on %s"
+msgstr "planned on %s"
+
+msgid "People involved"
+msgstr "People involved"
+
+msgid ""
+"%d person was not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgid_plural ""
+"%d people were not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgstr[0] ""
+"%d person was not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+msgstr[1] ""
+"%d people were not copied (account disabled or without a profile in the "
+"entity of the audit): choose someone else."
+
+msgid ""
+"A vulnerability found only on test or development machines can be fixed one "
+"step later, if the option is enabled in the remediation deadlines."
+msgstr ""
+"A vulnerability found only on test or development machines can be fixed one "
+"step later, if the option is enabled in the remediation deadlines."
+
+msgid "Adjust the level to the context of the machines"
+msgstr "Adjust the level to the context of the machines"
+
+msgid ""
+"All affected machines are in test or development and none is reachable from "
+"the Internet: the level is one step less urgent."
+msgstr ""
+"All affected machines are in test or development and none is reachable from "
+"the Internet: the level is one step less urgent."
+
+msgid ""
+"At least one affected machine is reachable from the Internet: the level, and "
+"therefore the deadline, is one step more urgent."
+msgstr ""
+"At least one affected machine is reachable from the Internet: the level, and "
+"therefore the deadline, is one step more urgent."
+
+msgid ""
+"By default, an asset targeted by an active Internet publication flow of the "
+"network flow matrix counts as reachable from the Internet: its "
+"vulnerabilities become one step more urgent."
+msgstr ""
+"By default, an asset targeted by an active Internet publication flow of the "
+"network flow matrix counts as reachable from the Internet: its "
+"vulnerabilities become one step more urgent."
+
+msgid "Deduced from the network flow matrix"
+msgstr "Deduced from the network flow matrix"
+
+msgid "Development"
+msgstr "Development"
+
+msgid "Environment"
+msgstr "Environment"
+
+msgid "Exposure to the Internet"
+msgstr "Exposure to the Internet"
+
+msgid "Internal network only"
+msgstr "Internal network only"
+
+msgid "Lowered: test or development machines only"
+msgstr "Lowered: test or development machines only"
+
+msgid ""
+"Not applicable or accepted risk: write the justification in a waiver. Once "
+"approved, the waiver replaces the deadline until its end date."
+msgstr ""
+"Not applicable or accepted risk: write the justification in a waiver. Once "
+"approved, the waiver replaces the deadline until its end date."
+
+msgid "Not reachable from the Internet"
+msgstr "Not reachable from the Internet"
+
+msgid "Not specified (counted as production)"
+msgstr "Not specified (counted as production)"
+
+msgid ""
+"One step more urgent when an affected machine is reachable from the Internet "
+"(declared in its C/I/A classification tab, or targeted by an Internet "
+"publication flow of the network flow matrix); one step less urgent when all "
+"affected machines are in test or development. Actively exploited "
+"vulnerabilities (KEV) never move, and a deadline already known is never "
+"pushed back."
+msgstr ""
+"One step more urgent when an affected machine is reachable from the Internet "
+"(declared in its C/I/A classification tab, or targeted by an Internet "
+"publication flow of the network flow matrix); one step less urgent when all "
+"affected machines are in test or development. Actively exploited "
+"vulnerabilities (KEV) never move, and a deadline already known is never "
+"pushed back."
+
+msgid "Production"
+msgstr "Production"
+
+msgid "Raised: exposed to the Internet"
+msgstr "Raised: exposed to the Internet"
+
+msgid "Reachable from the Internet"
+msgstr "Reachable from the Internet"
+
+msgid "Set aside with a justification"
+msgstr "Set aside with a justification"
+
+msgid "Test or acceptance"
+msgstr "Test or acceptance"
+
+msgid "(%d Internet publication flow in the network flow matrix)"
+msgid_plural "(%d Internet publication flows in the network flow matrix)"
+msgstr[0] "(%d Internet publication flow in the network flow matrix)"
+msgstr[1] "(%d Internet publication flows in the network flow matrix)"
+
 msgid "Policy templates"
 msgstr "Policy templates"
 
@@ -39776,6 +40516,9 @@ msgstr "Temperatures"
 
 msgid "Server health"
 msgstr "Server health"
+
+msgid "%d critical"
+msgstr "%d critical"
 
 msgid "%d warning"
 msgstr "%d warning"
@@ -40504,9 +41247,6 @@ msgstr "Staff compliance: security policies not acknowledged (%s)"
 
 msgid "Staff compliance gap"
 msgstr "Staff compliance gap"
-
-msgid "%d critical"
-msgstr "%d critical"
 
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
