@@ -145,7 +145,17 @@ final class SupplierSecuritySection extends AbstractSection
   ses options : `group` (libellé du groupe d'onglets), `from` (rubrique d'origine d'une page
   déplacée : elle en est retirée sans modifier son fichier), et pour une page sans classe `title`,
   `page`, `icon`, `rights_of`.
-- `enabled()` : faux pour retirer l'entrée (module désactivé) ; ses pages gardent leur secteur.
+- `enabled()` (« actif si » de la rubrique) : faux pour retirer l'entrée (module désactivé) ; ses
+  pages gardent leur secteur.
+- Options d'une sous-page `active` (« actif si » : faux pour un module ou un référentiel désactivé)
+  et `right` (droit requis, `'plugin_grcmanager_gdpr'` ou `[droit, niveau]`) : une page inactive ou
+  interdite au profil n'apparaît ni dans le menu ni dans la barre d'onglets.
+- **7 sous-pages au plus** par rubrique (`Sections::MAX_PAGES`) : au-delà, découper la rubrique.
+  `overLimit()` donne l'issue qui découpera une rubrique existante trop longue ; vide pour une
+  nouvelle rubrique (le test refuse aussi une exemption devenue inutile). Le nombre de rubriques
+  n'est pas limité : des noms parlants, compréhensibles sans connaître la norme.
+- La barre d'onglets (`templates/_section_nav.html.twig`) est accessible au clavier : rôle
+  `tablist`, onglet courant annoncé (`aria-selected`, `aria-current`), focus visible.
 - Une fonctionnalité ajoute son écran à une rubrique existante dans son descripteur
   `src/Feature/<X>Feature.php` : `MenuPagesProvider::menuPages()`, `[Rubrique::class => [Page::class
   => ['after' => Autre::class]]]`.
@@ -270,7 +280,10 @@ integration tests) are new and bother nobody.
   `parent()` (menu entry class), `after()` (`Sections::FIRST`, another section's parent in the same
   sector, or a core entry such as `\Change::class`, moved by the `redefine_menus` hook), `right()`,
   `pages()` (a class, or a key with `group`, `from` to move a page out of its former section, and
-  `title`/`page`/`icon`/`rights_of` for a page without a class), `enabled()`. A feature adds a tab to an
+  `title`/`page`/`icon`/`rights_of` for a page without a class; `active` ("enabled if") and `right` hide a
+  page from the menu and the tab bar), `enabled()` ("enabled if" of the section), `overLimit()` (issue that
+  will split a section still above `Sections::MAX_PAGES` = 7 sub-pages; empty for a new section). No limit
+  on the number of sections; the tab bar is keyboard accessible (`tablist`, visible focus). A feature adds a tab to an
   existing section with `MenuPagesProvider::menuPages()` in its descriptor. `front/` pages call
   `Menu::header(Page::class, $title)` and `Menu::showSection(Page::class)`, forms use
   `Menu::sectorPath()`: moving a screen only changes declarations. The menu is kept in session (new

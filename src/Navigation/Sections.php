@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager\Navigation;
 use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Feature\MenuPagesProvider;
 use GlpiPlugin\Grcmanager\Menu;
+use Session;
 
 /**
  * Issue #1037 : registre des rubriques de menu. Chaque fichier src/Navigation/Section/<X>Section.php
@@ -41,6 +42,9 @@ final class Sections
 
     /** Valeur de after() : en tête du secteur. */
     public const FIRST = '@first';
+
+    /** Sous-pages au plus par rubrique : au-delà, découper la rubrique (règle de navigation, #1035). */
+    public const MAX_PAGES = 7;
 
     /** Secteurs acceptés, dans l'ordre du tableau menu_toadd. */
     public const SECTORS = [self::GRC, 'helpdesk', 'assets', 'management', 'tools'];
@@ -316,6 +320,25 @@ final class Sections
 
         return array_slice($content, 0, $position + 1, true) + [$key => $entry]
             + array_slice($content, $position + 1, null, true);
+    }
+
+    /**
+     * Options « actif si » et « droit requis » d'une sous-page : faux si elle ne doit pas être
+     * affichée (module désactivé, droit manquant).
+     *
+     * @param array<string, mixed> $options
+     */
+    public static function allowed(array $options): bool
+    {
+        if (array_key_exists('active', $options) && !(bool) $options['active']) {
+            return false;
+        }
+        if (!isset($options['right'])) {
+            return true;
+        }
+        $right = (array) $options['right'];
+
+        return (bool) Session::haveRight((string) $right[0], (int) ($right[1] ?? READ));
     }
 
     /** Vide les caches (tests). */

@@ -147,6 +147,48 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testNoSectionHasTooManySubPages(): void
+    {
+        foreach ($this->sections() as $section) {
+            $count = count(Sections::pages($section::parent()));
+            if ($section::overLimit() === '') {
+                $this->assertLessThanOrEqual(Sections::MAX_PAGES, $count, "$section : 7 sous-pages au plus.");
+            } else {
+                $this->assertGreaterThan(Sections::MAX_PAGES, $count, "$section : exemption devenue inutile.");
+            }
+        }
+    }
+
+    public function testInactiveOrForbiddenSubPagesAreNeverShown(): void
+    {
+        $this->assertTrue(Sections::allowed([]));
+        $this->assertFalse(Sections::allowed(['active' => false]), 'Module ou référentiel désactivé.');
+        $this->assertTrue(Sections::allowed(['active' => true]));
+        $saved = $_SESSION['glpiactiveprofile'];
+        try {
+            $_SESSION['glpiactiveprofile']['plugin_grcmanager_gdpr'] = READ;
+            $this->assertTrue(Sections::allowed(['right' => 'plugin_grcmanager_gdpr']));
+            $this->assertFalse(Sections::allowed(['right' => ['plugin_grcmanager_gdpr', UPDATE]]));
+            $_SESSION['glpiactiveprofile']['plugin_grcmanager_gdpr'] = 0;
+            $this->assertFalse(Sections::allowed(['right' => 'plugin_grcmanager_gdpr']), 'Droit manquant.');
+        } finally {
+            $_SESSION['glpiactiveprofile'] = $saved;
+        }
+        // Chaque option « actif si » et « droit requis » déclarée porte sur un droit existant.
+        $rights = \ProfileRight::getAllPossibleRights();
+        foreach ($this->sections() as $section) {
+            foreach (Sections::pages($section::parent()) as $key => $options) {
+                if (isset($options['right'])) {
+                    $right = (string) ((array) $options['right'])[0];
+                    $this->assertArrayHasKey($right, $rights, "$key : droit existant.");
+                }
+                if (array_key_exists('active', $options)) {
+                    $this->assertIsBool($options['active'], "$key : « actif si » booléen.");
+                }
+            }
+        }
+    }
+
     public function testHeaderAndBreadcrumbFollowTheDeclaration(): void
     {
         global $PLUGIN_HOOKS;

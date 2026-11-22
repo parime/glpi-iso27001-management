@@ -13,15 +13,17 @@
  # -------------------------------------------------------------------------
  #}
 {# Rubrique du menu qui regroupe plusieurs écrans (GlpiPlugin\\Grcmanager\\Menu::showSection()). #}
-<ul class="nav nav-tabs mb-3">
+{# Issue #1037 : barre accessible au clavier (rôle tablist, focus visible, onglet courant annoncé). #}
+<ul class="nav nav-tabs mb-3 grcmanager-section-nav" role="tablist">
    {% for tab in tabs %}
-      {# Issue #1037 : libellé du groupe d'onglets (option « group » de la rubrique), au premier onglet du groupe. #}
+      {# Libellé du groupe d'onglets (option « group » de la rubrique), au premier onglet du groupe. #}
       {% if tab.group is defined and tab.group != '' and (loop.first or tabs[loop.index0 - 1].group != tab.group) %}
-         <li class="nav-item d-flex align-items-center ms-2 me-1 text-secondary small">{{ tab.group }}</li>
+         <li class="nav-item d-flex align-items-center ms-2 me-1 text-secondary small" role="presentation">{{ tab.group }}</li>
       {% endif %}
-      <li class="nav-item">
-         <a class="nav-link{{ tab.active ? ' active' : '' }}" href="{{ tab.url }}"{% if tab.active %} aria-current="page"{% endif %}>
-            {% if tab.icon %}<i class="{{ tab.icon }} me-1"></i>{% endif %}{{ tab.label }}
+      <li class="nav-item" role="presentation">
+         <a class="nav-link{{ tab.active ? ' active' : '' }}" href="{{ tab.url }}" role="tab"
+            aria-selected="{{ tab.active ? 'true' : 'false' }}"{% if tab.active %} aria-current="page"{% endif %}>
+            {% if tab.icon %}<i class="{{ tab.icon }} me-1" aria-hidden="true"></i>{% endif %}{{ tab.label }}
          </a>
       </li>
    {% endfor %}

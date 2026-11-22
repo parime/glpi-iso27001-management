@@ -64,7 +64,12 @@ interface MenuSection
      * - une classe dont getMenuContent() donne l'entrée (droits compris) : `Waiver::class` ;
      * - ou une clé avec ses options : `Waiver::class => ['group' => __('...'), 'from' => Risk::class]`.
      *
+     * Au plus Sections::MAX_PAGES sous-pages (voir overLimit()).
+     *
      * Options :
+     * - `active` : « actif si », faux pour masquer la page partout (module ou référentiel désactivé) ;
+     * - `right` : droit requis en plus de celui de l'écran, `'plugin_grcmanager_gdpr'` (lecture) ou
+     *   `['plugin_grcmanager_gdpr', UPDATE]` ; sans ce droit, l'onglet n'est pas affiché ;
      * - `group` : libellé du groupe d'onglets de la sous-page (facultatif) ;
      * - `from` : rubrique d'origine d'une sous-page déplacée ; elle y est retirée, sans modifier le
      *   fichier de la rubrique d'origine ;
@@ -75,6 +80,15 @@ interface MenuSection
      */
     public static function pages(): array;
 
-    /** Faux pour retirer la rubrique du menu (module désactivé) ; ses pages gardent leur secteur. */
+    /**
+     * « Actif si » de la rubrique : faux pour la retirer du menu (module désactivé) ; ses pages gardent
+     * leur secteur et leur fil d'Ariane.
+     */
     public static function enabled(): bool;
+
+    /**
+     * Rubrique qui dépasse encore Sections::MAX_PAGES sous-pages : l'issue qui la découpera. Vide pour
+     * toute nouvelle rubrique ; le test refuse une exemption inutile.
+     */
+    public static function overLimit(): string;
 }

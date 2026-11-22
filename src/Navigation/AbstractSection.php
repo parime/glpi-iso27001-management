@@ -54,4 +54,9 @@ abstract class AbstractSection implements MenuSection
     {
         return true;
     }
+
+    public static function overLimit(): string
+    {
+        return '';
+    }
 }

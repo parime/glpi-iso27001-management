@@ -49,6 +49,12 @@ final class AccessReviewSection extends AbstractSection
         return Audit::class;
     }
 
+    /** Plus de 7 sous-pages en attendant son découpage (lot 1 : menu GRC en rubriques parlantes). */
+    public static function overLimit(): string
+    {
+        return '#1038';
+    }
+
     public static function pages(): array
     {
         return [

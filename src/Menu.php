@@ -96,6 +96,9 @@ class Menu extends CommonGLPI
     public static function pageMenu(string $child): ?array
     {
         $options = Sections::page($child) ?? [];
+        if (!Sections::allowed($options)) {
+            return null;
+        }
         if (isset($options['page'])) {
             $rightsOf = (string) ($options['rights_of'] ?? '');
             if ($rightsOf === '' || !class_exists($rightsOf) || !(bool) $rightsOf::canView()) {

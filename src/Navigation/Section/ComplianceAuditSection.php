@@ -55,6 +55,12 @@ final class ComplianceAuditSection extends AbstractSection
         return AccessReview::class;
     }
 
+    /** Plus de 7 sous-pages en attendant son découpage (lot 2 : Parc > Sécurité du parc, onglets groupés). */
+    public static function overLimit(): string
+    {
+        return '#1039';
+    }
+
     public static function pages(): array
     {
         return [
