@@ -19,6 +19,8 @@ namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Navigation\Sections;
+use Html;
 
 /**
  * Simple ancre sans table ni CommonDBTM : ne sert qu'à porter le titre et l'icône du menu de
@@ -54,7 +56,7 @@ class Menu extends CommonGLPI
         ];
     }
 
-    /** Pseudo-éléments de « Vulnérabilités du parc » : pages sans classe propre. */
+    /** Pseudo-éléments de « Vulnérabilités du parc » : pages sans classe propre (ComplianceAuditSection). */
     public const SOFTWARE_WATCH = 'softwarewatch';
     public const MACHINE_RANKING = 'parkmachines';
 
@@ -63,154 +65,45 @@ class Menu extends CommonGLPI
      * menu (le parent), les autres écrans en sous-pages (options GLPI : fil d'Ariane « Parent >
      * Sous-page ») et une barre d'onglets commune en tête de chaque page (showSection()).
      *
-     * @return array<class-string, list<string>>
+     * Issue #1037 : chaque rubrique est déclarée dans son fichier src/Navigation/Section/<X>Section.php
+     * (voir Navigation\Sections) ; cette liste n'est plus écrite à la main.
+     *
+     * @return array<string, list<string>>
      */
     public static function sections(): array
     {
-        return [
-            // Pilotage.
-            Dashboard::class => [
-                Maturity::class,
-                // Issue #603 : maturité par mesure (niveau actuel, niveau cible et écarts).
-                MaturityCampaign::class,
-                FrameworkAssessment::class, ComplianceEvent::class,
-                // Issue #614 : contrôles de cohérence du SMSI avant un audit.
-                ConsistencyCheck::class,
-                // Issue #619 : préparation à la certification ISO 27001.
-                CertificationReadiness::class,
-            ],
-            // Appréciation et traitement des risques.
-            Risk::class => [
-                SupplierRisk::class, ImpactAnalysis::class,
-                CausalLink::class, Waiver::class,
-                RiskAppetite::class, RiskIndicator::class,
-                // Issue #376 : études EBIOS Risk Manager.
-                EbiosStudy::class,
-                // Issue #872 : risques signalés par les collaborateurs, à trier.
-                ReportedRisk::class,
-            ],
-            // Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
-            Control::class => [
-                // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
-                ControlBlocker::class,
-                // Issue #873 : cadrage guidé de la SoA par questions (applicabilité et justifications).
-                SoaScoping::class,
-                Referentials::class, CustomFramework::class, IsmsRequirement::class,
-                // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
-                ContextItem::class,
-                // Issue #771 : registre des contacts officiels (A.5.5, A.5.6).
-                OfficialContact::class,
-                // Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3).
-                ResponsibilityActivity::class,
-                ComplianceObligation::class, ProcessingActivity::class, DataSubjectRequest::class,
-                // Issue #620 : registre des violations de données personnelles.
-                DataBreach::class, Policy::class,
-                // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
-                PolicyCoverage::class,
-                // Issue #545 : modèles de politiques prêts à adapter, importés en brouillon.
-                PolicyTemplate::class,
-                // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
-                OperatingProcedure::class,
-                // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.
-                PhysicalSecurity::class,
-                // Issue #777 : développement sécurisé (registre des applications, mises en production).
-                SecureDevelopment::class,
-                // Issue #858 : sécurité du code lue dans GitHub et GitLab (A.8.28, A.8.29).
-                CodeSecurity::class,
-                Evidence::class,
-                // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
-                EvidencePack::class,
-                CoverageRule::class, ControlTest::class,
-                // Issue #540 : registre d'informations DORA (référentiel DORA activé).
-                DoraRegister::class,
-            ],
-            // Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
-            Audit::class => [
-                // Issue #773 : programme d'audit pluriannuel (ISO 19011).
-                AuditProgramme::class,
-                Nonconformity::class,
-                // Issue #870 : rapport du stock d'écarts (clauses 10.1 et 10.2).
-                GapStockReport::class,
-                // Issue #772 : constats des audits de certification et état de leur levée.
-                CertificationFinding::class,
-                // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).
-                CertificationSampling::class,
-                Objective::class,
-                ManagementReview::class,
-            ],
-            // Opérations récurrentes : accès, revues, personnes, continuité.
-            AccessReview::class => [
-                AccountHygiene::class,
-                // Issue #546 : fiche de conformité sécurité de chaque collaborateur.
-                PersonnelCompliance::class,
-                // Issue #852 : couverture de l'authentification multifacteur par compte (A.8.5).
-                MfaCoverage::class,
-                // Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3).
-                ShareAccess::class,
-                PeriodicReview::class,
-                Training::class,
-                // Issue #604 : simulations d'hameçonnage (preuve de sensibilisation, 7.3 et A.6.3).
-                PhishingCampaign::class,
-                // Issue #774 : compétences requises par fonction, acquises et écarts (article 7.2).
-                IsmsFunction::class,
-                CrisisExercise::class,
-                // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
-                BusinessProcess::class,
-                // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
-                CrisisScenario::class,
-            ],
-            // Sécurité technique. Le parent ne demande que le droit du plugin : les vulnérabilités
-            // (qui exigent aussi la lecture des logiciels) restent une sous-page parmi d'autres.
-            ComplianceAudit::class => [
-                ParkVulnerability::class, self::MACHINE_RANKING, self::SOFTWARE_WATCH,
-                // Issue #779 : conformité des licences logicielles (A.5.32).
-                SoftwareLicenseCompliance::class,
-                // Issue #847 : chiffrement des disques du parc (A.8.24, A.8.1).
-                DiskEncryption::class,
-                // Issue #854 : retard des correctifs de sécurité (A.8.8, A.8.19).
-                PatchCompliance::class,
-                // Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle).
-                AdSecurityAudit::class,
-                // Issue #781 : conformité de configuration, résultats OpenSCAP importés (A.8.9).
-                ConfigurationCompliance::class,
-                // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
-                LogCoverage::class,
-                // Issue #836 : supervision lue dans Zabbix (A.8.16, A.8.6, A.5.30).
-                ZabbixMonitoring::class,
-                // Issue #842 : services exposés et certificats TLS lus dans Uptime Kuma (A.8.16, A.5.30, A.8.24).
-                UptimeKumaMonitoring::class,
-                // Issue #843 : contrôleurs de gestion des serveurs (A.8.2, A.8.9, A.8.22).
-                ServerManagement::class,
-                // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30).
-                BackupCoverage::class,
-                // Issue #855 : sécurité de la messagerie et des domaines (A.5.14, A.8.21).
-                MailDomainSecurity::class,
-                CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
-            ],
-        ];
+        $sections = [];
+        foreach (Sections::all() as $section) {
+            $pages = array_keys(Sections::pages($section::parent()));
+            if ($pages !== []) {
+                $sections[$section::parent()] = $pages;
+            }
+        }
+
+        return $sections;
     }
 
     /**
      * Entrée de menu d'une sous-page, telle que l'écran la déclare (droits compris), ou null si
-     * l'utilisateur ne peut pas la voir.
+     * l'utilisateur ne peut pas la voir. Une page sans classe propre décrit son entrée dans sa
+     * rubrique (title, page, icon) et emprunte les droits d'une classe (rights_of).
      *
      * @return array<string, mixed>|null
      */
     private static function subPageMenu(string $child): ?array
     {
-        if ($child === self::SOFTWARE_WATCH) {
-            return ParkVulnerability::canView() ? [
-                'title' => __('Software to watch', 'grcmanager'),
-                'page'  => '/plugins/grcmanager/front/softwarewatch.php',
-                'icon'  => 'ti ti-radar',
-            ] : null;
-        }
-        if ($child === self::MACHINE_RANKING) {
-            return ParkVulnerability::canView() ? [
-                'title' => __('Most exposed machines', 'grcmanager'),
-                'page'  => ParkVulnerability::getRankingURL(false),
-                'icon'  => 'ti ti-device-desktop-exclamation',
-            ] : null;
+        $options = Sections::page($child) ?? [];
+        if (isset($options['page'])) {
+            $rightsOf = (string) ($options['rights_of'] ?? '');
+            if ($rightsOf === '' || !class_exists($rightsOf) || !(bool) $rightsOf::canView()) {
+                return null;
+            }
+
+            return [
+                'title' => (string) ($options['title'] ?? ''),
+                'page'  => (string) $options['page'],
+                'icon'  => (string) ($options['icon'] ?? ''),
+            ];
         }
         $menu = $child::getMenuContent();
 
@@ -229,7 +122,7 @@ class Menu extends CommonGLPI
     public static function withSubPages(string $parent, $menu)
     {
         $parentVisible = is_array($menu) && $menu !== [];
-        foreach (self::sections()[$parent] ?? [] as $child) {
+        foreach (array_keys(Sections::pages($parent)) as $child) {
             $childMenu = self::subPageMenu($child);
             if ($childMenu === null) {
                 continue;
@@ -247,20 +140,56 @@ class Menu extends CommonGLPI
     }
 
     /**
-     * Barre d'onglets de la rubrique de $parent, $active étant la page affichée (le parent
-     * lui-même ou l'une de ses sous-pages). Rien si l'utilisateur ne voit qu'une seule page.
+     * En-tête GLPI d'une page du plugin : le secteur et la rubrique viennent de la déclaration de la
+     * rubrique (src/Navigation/Section/), le fil d'Ariane est « Rubrique > Sous-page ». $page est
+     * l'entrée de menu d'une rubrique (en-tête sans sous-page) ou l'une de ses sous-pages. Déplacer
+     * un écran ne touche ainsi que la déclaration de sa rubrique, pas sa page front/.
      */
-    public static function showSection(string $parent, string $active): void
+    public static function header(string $page, string $title, string $url = ''): void
+    {
+        if ($url === '') {
+            $url = (string) ($_SERVER['PHP_SELF'] ?? '');
+        }
+        $place = Sections::locate($page);
+        if ($place === null) {
+            Html::header($title, $url, Sections::GRC, $page);
+
+            return;
+        }
+        if ($place['parent'] === $page) {
+            Html::header($title, $url, $place['sector'], $page);
+
+            return;
+        }
+        Html::header($title, $url, $place['sector'], $place['parent'], $page);
+    }
+
+    /**
+     * Barre d'onglets de la rubrique de la page $active (l'entrée de menu de la rubrique ou l'une de
+     * ses sous-pages). Rien si l'utilisateur ne voit qu'une seule page. L'ancienne forme
+     * showSection($parent, $active) reste acceptée : la rubrique déclarée de $active l'emporte.
+     */
+    public static function showSection(string $active, ?string $legacyActive = null): void
     {
         global $CFG_GLPI;
+
+        $fallback = $active;
+        if ($legacyActive !== null) {
+            $active = $legacyActive;
+        }
+        $parent = Sections::locate($active)['parent'] ?? $fallback;
+        if (!class_exists($parent)) {
+            return;
+        }
 
         $parentMenu = $parent::getMenuContent();
         if (!is_array($parentMenu) || $parentMenu === []) {
             return;
         }
+        $declared = Sections::pages($parent);
         // Parent invisible : son entrée de menu n'est que sa première sous-page, déjà listée.
         $pages = empty($parentMenu['parent_hidden']) ? [$parent => $parentMenu] : [];
-        foreach (self::sections()[$parent] ?? [] as $child) {
+        foreach (array_keys($declared) as $child) {
             $childMenu = self::subPageMenu($child);
             if ($childMenu !== null) {
                 $pages[$child] = $childMenu;
@@ -277,6 +206,8 @@ class Menu extends CommonGLPI
                 'icon'   => (string) ($page['icon'] ?? ''),
                 'url'    => $CFG_GLPI['root_doc'] . $page['page'],
                 'active' => $key === $active,
+                // Groupe d'onglets facultatif de la sous-page (option « group » de sa rubrique).
+                'group'  => (string) ($declared[$key]['group'] ?? ''),
             ];
         }
         TemplateRenderer::getInstance()->display(

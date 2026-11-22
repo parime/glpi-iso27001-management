@@ -17,7 +17,6 @@
 
 use Glpi\Plugin\Hooks;
 use GlpiPlugin\Grcmanager\Compat\RequirementChecker;
-use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 
 // GLPI does NOT autoload plugin src/ classes on its own (confirmed against a real GLPI 11
 // instance by the sibling plugins of this same author, see docs/design/DEVELOPMENT_PLAN.md
@@ -95,45 +94,16 @@ function plugin_init_grcmanager(): void
 
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
-    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
-    // placée EN TÊTE du tableau pour que le titre et l'icône du secteur soient les siens et non ceux
-    // du premier écran fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
+    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu, ancre sans table, est placée EN TÊTE
+    // du secteur pour que son titre et son icône soient les siens et non ceux du premier écran
+    // fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
     //
-    // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
-    // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
-    // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
-    // (\GlpiPlugin\Grcmanager\Menu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
-    // (mesures d'un objectif, actions de traitement d'un risque…) n'ont pas d'entrée : ils se gèrent
-    // depuis la fiche de leur parent.
-    $menuToAdd = [
-        'grcmanager' => [
-            \GlpiPlugin\Grcmanager\Menu::class,
-            // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
-            \GlpiPlugin\Grcmanager\Dashboard::class,
-            // Issue #539 : tout ce qui attend l'utilisateur connecté, avec leur nombre dans le menu.
-            \GlpiPlugin\Grcmanager\MySpace::class,
-            \GlpiPlugin\Grcmanager\Risk::class,
-            \GlpiPlugin\Grcmanager\Control::class,
-            \GlpiPlugin\Grcmanager\Audit::class,
-            \GlpiPlugin\Grcmanager\AccessReview::class,
-            \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        ],
-    ];
-
-    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste de
-    // ce plugin (registres CommonDBTM dans le secteur "GRC & Conformité" ci-dessus), l'objet ITIL
-    // fusionné vit dans le secteur natif "helpdesk" ("Assistance"), aux côtés de Ticket/Problem/
-    // Change - un incident géré au quotidien (acteurs, workflow, tâches) appartient à ce secteur,
-    // pas au menu de conformité. Un même plugin peut parfaitement enregistrer des classes dans
-    // plusieurs secteurs à la fois (confirmé par lecture de Html::generateMenuSession()) : rien
-    // n'empêche cet objet de vivre physiquement dans ce plugin tout en apparaissant ailleurs dans
-    // le menu. Conditionné par SecurityIncidentModuleConfig : un administrateur qui désactive le
-    // module ne voit plus l'entrée de menu, mais les données/droits/tables restent intacts.
-    if (SecurityIncidentModuleConfig::load()['securityincident_enabled']) {
-        $menuToAdd['helpdesk'] = [PluginGrcmanagerSecurityIncident::class];
-    }
-
-    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
+    // Issue #1037 : chaque rubrique (une entrée de menu, ses autres écrans en sous-pages avec une
+    // barre d'onglets commune et le fil d'Ariane « Rubrique > Page ») est déclarée dans son fichier
+    // src/Navigation/Section/<X>Section.php : son secteur GLPI (menu du plugin, Assistance, Parc,
+    // Gestion, Outils), sa place, son droit et ses sous-pages. Ce tableau n'est plus écrit à la main.
+    // Les incidents de sécurité vivent ainsi dans le secteur Assistance, aux côtés des tickets.
+    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = \GlpiPlugin\Grcmanager\Navigation\Sections::menuToAdd();
     // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
     // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
     $CFG_GLPI['javascript']['grcmanager'][strtolower(\GlpiPlugin\Grcmanager\Dashboard::class)] = ['dashboard'];
@@ -525,7 +495,9 @@ function plugin_grcmanager_redefine_menus(array $menu): array
         $menu['grcmanager']['content'][$mySpace]['title'] = \GlpiPlugin\Grcmanager\MySpace::menuTitle();
     }
 
-    return $menu;
+    // Issue #1037 : GLPI ajoute les entrées des plugins à la fin d'un secteur ; une rubrique peut
+    // demander à suivre une entrée du cœur (after(), par exemple Change::class dans Assistance).
+    return \GlpiPlugin\Grcmanager\Navigation\Sections::reorderMenu($menu);
 }
 
 /**
