@@ -77,8 +77,6 @@ final class DoraRegisterBlock extends ConfigBlock
         }
         DoraRegister::saveSettings($_POST);
         Session::addMessageAfterRedirect(__('The DORA register has been updated.', 'grcmanager'));
-        Html::back();
-
-        return true;
+        Html::back(); // never : redirige vers l'onglet
     }
 }

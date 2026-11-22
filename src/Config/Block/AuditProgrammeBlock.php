@@ -83,8 +83,6 @@ final class AuditProgrammeBlock extends ConfigBlock
         Session::checkRight(Audit::$rightname, UPDATE);
         AuditProgramme::saveSettings($_POST);
         Session::addMessageAfterRedirect(__('Audit programme settings saved.', 'grcmanager'));
-        Html::back();
-
-        return true;
+        Html::back(); // never : redirige vers l'onglet
     }
 }

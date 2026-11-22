@@ -74,8 +74,6 @@ final class CertificationReadinessBlock extends ConfigBlock
         Session::checkRight(CertificationReadiness::RIGHTNAME, UPDATE);
         CertificationReadiness::saveSettings($_POST);
         Session::addMessageAfterRedirect(__('Certification readiness settings saved.', 'grcmanager'));
-        Html::back();
-
-        return true;
+        Html::back(); // never : redirige vers l'onglet
     }
 }

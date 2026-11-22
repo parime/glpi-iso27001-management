@@ -78,8 +78,6 @@ final class EvidencePackBlock extends ConfigBlock
         Session::checkRight(EvidencePack::RIGHTNAME, UPDATE);
         EvidencePack::saveMaxMb($_POST['max_mb'] ?? null);
         Session::addMessageAfterRedirect(__('Evidence pack settings saved.', 'grcmanager'));
-        Html::back();
-
-        return true;
+        Html::back(); // never : redirige vers l'onglet
     }
 }
