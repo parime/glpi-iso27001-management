@@ -100,7 +100,16 @@ class ContextItem extends ContextItemBase
         return 'ti ti-building-community';
     }
 
+    /** Issue #1038 : entrée de la rubrique « Organisation du SMSI » (src/Navigation/Section/). */
     public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, self::ownMenuContent());
+    }
+
+    /**
+     * @return array<string, mixed>|false
+     */
+    private static function ownMenuContent()
     {
         if (!self::canView()) {
             return false;

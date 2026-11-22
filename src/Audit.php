@@ -80,13 +80,8 @@ class Audit extends AuditBase
      */
     public static function getMenuContent()
     {
-        $menu = parent::getMenuContent();
-        if (is_array($menu) && $menu !== []) {
-            $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Audits and improvement', 'grcmanager');
-        }
-
-        return Menu::withSubPages(self::class, $menu);
+        // Issue #1038 : nom de la rubrique et page d'accueil déclarés dans src/Navigation/Section/.
+        return Menu::withSubPages(self::class, parent::getMenuContent());
     }
     /**
      * @return array<string, string>

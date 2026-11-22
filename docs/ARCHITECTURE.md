@@ -154,6 +154,14 @@ final class SupplierSecuritySection extends AbstractSection
   `overLimit()` donne l'issue qui découpera une rubrique existante trop longue ; vide pour une
   nouvelle rubrique (le test refuse aussi une exemption devenue inutile). Le nombre de rubriques
   n'est pas limité : des noms parlants, compréhensibles sans connaître la norme.
+- Issue #1038 : `title()` donne le nom de la rubrique dans le menu (vide : le titre de la classe
+  parente, qui reste alors le nom de l'onglet de la page parente). `hub()` (faux par défaut) lui
+  donne une **page d'accueil** `front/section.php?section=<clé>` (clé : nom court du fichier sans
+  « Section », en minuscules) : l'entrée de menu et le fil d'Ariane y mènent, l'onglet de la page
+  parente garde son adresse (`section_page`). La page montre `description()` dans l'encadré « À quoi
+  sert cette page ? », les éléments de « Mon espace » des sortes `todoSources()` (clés de
+  `MySpace::getSources()`), puis les écrans en cartes rangées par `group`
+  (`Navigation\SectionHome`). Une page déplacée vers une autre rubrique ne change pas d'adresse.
 - La barre d'onglets (`templates/_section_nav.html.twig`) est accessible au clavier : rôle
   `tablist`, onglet courant annoncé (`aria-selected`, `aria-current`), focus visible.
 - Une fonctionnalité ajoute son écran à une rubrique existante dans son descripteur

@@ -23,15 +23,15 @@ use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\AuditProgramme;
 use GlpiPlugin\Grcmanager\CertificationFinding;
 use GlpiPlugin\Grcmanager\CertificationSampling;
-use GlpiPlugin\Grcmanager\Control;
-use GlpiPlugin\Grcmanager\GapStockReport;
-use GlpiPlugin\Grcmanager\ManagementReview;
+use GlpiPlugin\Grcmanager\CoverageRule;
+use GlpiPlugin\Grcmanager\Evidence;
+use GlpiPlugin\Grcmanager\EvidencePack;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
-use GlpiPlugin\Grcmanager\Nonconformity;
-use GlpiPlugin\Grcmanager\Objective;
+use GlpiPlugin\Grcmanager\Policy;
 
 /**
- * Contrôle et amélioration continue (ISO 27001 chapitres 9 et 10).
+ * Issue #1038 : les audits et les preuves. Non-conformités, écarts, objectifs et revues de direction
+ * sont dans « Amélioration continue » (ImprovementSection).
  */
 final class AuditSection extends AbstractSection
 {
@@ -42,23 +42,48 @@ final class AuditSection extends AbstractSection
 
     public static function after(): string
     {
-        return Control::class;
+        return Policy::class;
+    }
+
+    public static function title(): string
+    {
+        return __('Audits and evidence', 'grcmanager');
+    }
+
+    public static function hub(): bool
+    {
+        return true;
+    }
+
+    public static function description(): string
+    {
+        return __(
+            'Prepare and follow the audits, and keep the evidence that the security measures are applied.',
+            'grcmanager'
+        );
+    }
+
+    public static function todoSources(): array
+    {
+        return ['audit', 'audit_access', 'evidence', 'evidence_request', 'evidence_review'];
     }
 
     public static function pages(): array
     {
+        $audits = __('Audits', 'grcmanager');
+        $evidence = __('Evidence', 'grcmanager');
+
         return [
             // Issue #773 : programme d'audit pluriannuel (ISO 19011).
-            AuditProgramme::class,
-            Nonconformity::class,
-            // Issue #870 : rapport du stock d'écarts (clauses 10.1 et 10.2).
-            GapStockReport::class,
+            AuditProgramme::class => ['group' => $audits],
             // Issue #772 : constats des audits de certification et état de leur levée.
-            CertificationFinding::class,
+            CertificationFinding::class => ['group' => $audits],
             // Issue #772, lot 2 : plan d'audit de l'organisme (échantillonnage sur le cycle).
-            CertificationSampling::class,
-            Objective::class,
-            ManagementReview::class,
+            CertificationSampling::class => ['group' => $audits],
+            Evidence::class => ['group' => $evidence],
+            // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
+            EvidencePack::class => ['group' => $evidence],
+            CoverageRule::class => ['group' => $evidence],
         ];
     }
 }

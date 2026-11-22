@@ -20,35 +20,22 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\CodeSecurity;
-use GlpiPlugin\Grcmanager\ComplianceObligation;
-use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\ControlBlocker;
 use GlpiPlugin\Grcmanager\ControlTest;
-use GlpiPlugin\Grcmanager\CoverageRule;
-use GlpiPlugin\Grcmanager\CustomFramework;
-use GlpiPlugin\Grcmanager\DataBreach;
-use GlpiPlugin\Grcmanager\DataSubjectRequest;
 use GlpiPlugin\Grcmanager\DoraRegister;
-use GlpiPlugin\Grcmanager\Evidence;
-use GlpiPlugin\Grcmanager\EvidencePack;
-use GlpiPlugin\Grcmanager\IsmsRequirement;
+use GlpiPlugin\Grcmanager\ImpactAnalysis;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
-use GlpiPlugin\Grcmanager\OfficialContact;
-use GlpiPlugin\Grcmanager\OperatingProcedure;
 use GlpiPlugin\Grcmanager\PhysicalSecurity;
-use GlpiPlugin\Grcmanager\Policy;
-use GlpiPlugin\Grcmanager\PolicyCoverage;
-use GlpiPlugin\Grcmanager\PolicyTemplate;
-use GlpiPlugin\Grcmanager\ProcessingActivity;
-use GlpiPlugin\Grcmanager\Referentials;
-use GlpiPlugin\Grcmanager\ResponsibilityActivity;
-use GlpiPlugin\Grcmanager\Risk;
 use GlpiPlugin\Grcmanager\SecureDevelopment;
 use GlpiPlugin\Grcmanager\SoaScoping;
 
 /**
- * Conformité : SoA, référentiels, exigences du SMSI, obligations, politiques, preuves.
+ * Issue #1038 : les mesures de l'Annexe A et la déclaration d'applicabilité (SoA). Les autres écrans
+ * de l'ancienne rubrique « Conformité » sont rangés dans Politiques et procédures, Audits et preuves,
+ * Réglementations, Vie privée et Organisation du SMSI. Sécurité physique, développement et code
+ * partent dans Parc (lot 2, #1039), le registre DORA dans Gestion (lot 3, #1040) : ils restent
+ * déclarés ici pour que ces lots les déplacent avec l'option « from ».
  */
 final class ControlSection extends AbstractSection
 {
@@ -59,54 +46,47 @@ final class ControlSection extends AbstractSection
 
     public static function after(): string
     {
-        return Risk::class;
+        return ImpactAnalysis::class;
     }
 
-    /** Plus de 7 sous-pages en attendant son découpage (lot 1 : menu GRC en rubriques parlantes). */
-    public static function overLimit(): string
+    public static function title(): string
     {
-        return '#1038';
+        return __('Security controls (SoA)', 'grcmanager');
+    }
+
+    public static function hub(): bool
+    {
+        return true;
+    }
+
+    public static function description(): string
+    {
+        return __(
+            'The security measures of Annex A and the Statement of Applicability: which measures apply, what '
+                . 'blocks them and whether they work.',
+            'grcmanager'
+        );
+    }
+
+    public static function todoSources(): array
+    {
+        return ['control_test', 'soa_approval'];
     }
 
     public static function pages(): array
     {
         return [
-            // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
-            ControlBlocker::class,
             // Issue #873 : cadrage guidé de la SoA par questions (applicabilité et justifications).
             SoaScoping::class,
-            Referentials::class,
-            CustomFramework::class,
-            IsmsRequirement::class,
-            // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
-            ContextItem::class,
-            // Issue #771 : registre des contacts officiels (A.5.5, A.5.6).
-            OfficialContact::class,
-            // Issue #612 : matrice des responsabilités du SMSI (article 5.3, mesure A.5.3).
-            ResponsibilityActivity::class,
-            ComplianceObligation::class,
-            ProcessingActivity::class,
-            DataSubjectRequest::class,
-            // Issue #620 : registre des violations de données personnelles.
-            DataBreach::class,
-            Policy::class,
-            // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
-            PolicyCoverage::class,
-            // Issue #545 : modèles de politiques prêts à adapter, importés en brouillon.
-            PolicyTemplate::class,
-            // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
-            OperatingProcedure::class,
+            // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
+            ControlBlocker::class,
+            ControlTest::class,
             // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.
             PhysicalSecurity::class,
             // Issue #777 : développement sécurisé (registre des applications, mises en production).
             SecureDevelopment::class,
             // Issue #858 : sécurité du code lue dans GitHub et GitLab (A.8.28, A.8.29).
             CodeSecurity::class,
-            Evidence::class,
-            // Issue #868 : dossier de preuves exportable pour l'auditeur (archive ZIP par périmètre).
-            EvidencePack::class,
-            CoverageRule::class,
-            ControlTest::class,
             // Issue #540 : registre d'informations DORA (référentiel DORA activé).
             DoraRegister::class,
         ];

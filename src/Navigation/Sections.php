@@ -49,6 +49,9 @@ final class Sections
     /** Secteurs acceptés, dans l'ordre du tableau menu_toadd. */
     public const SECTORS = [self::GRC, 'helpdesk', 'assets', 'management', 'tools'];
 
+    /** Issue #1038 : page d'accueil des rubriques, front/section.php?section=<clé>. */
+    public const HUB_PAGE = '/plugins/grcmanager/front/section.php';
+
     /** @var list<class-string<MenuSection>>|null */
     private static ?array $all = null;
 
@@ -92,6 +95,39 @@ final class Sections
         }
 
         return null;
+    }
+
+    /**
+     * Issue #1038 : clé d'une rubrique dans l'adresse de sa page d'accueil, le nom court de sa
+     * classe sans « Section », en minuscules (RiskSection : « risk »).
+     */
+    public static function key(string $section): string
+    {
+        $short = substr($section, (int) strrpos($section, '\\') + 1);
+
+        return strtolower((string) preg_replace('/Section$/', '', $short));
+    }
+
+    /**
+     * Rubrique de la clé $key (adresse de la page d'accueil), ou null.
+     *
+     * @return class-string<MenuSection>|null
+     */
+    public static function byKey(string $key): ?string
+    {
+        foreach (self::all() as $section) {
+            if (self::key($section) === $key) {
+                return $section;
+            }
+        }
+
+        return null;
+    }
+
+    /** Adresse (depuis la racine de GLPI) de la page d'accueil de la rubrique $section. */
+    public static function hubUrl(string $section): string
+    {
+        return self::HUB_PAGE . '?section=' . self::key($section);
     }
 
     /**

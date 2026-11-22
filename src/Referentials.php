@@ -39,7 +39,16 @@ class Referentials extends CommonGLPI
         return 'ti ti-books';
     }
 
+    /** Issue #1038 : entrée de la rubrique « Réglementations » (src/Navigation/Section/). */
     public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, self::ownMenuContent());
+    }
+
+    /**
+     * @return array<string, mixed>|false
+     */
+    private static function ownMenuContent()
     {
         // Issue #403 : sans aucun référentiel actif, la page n'a plus rien à montrer.
         if (!Session::haveRight(Control::$rightname, READ) || FrameworkConfig::enabled() === []) {
