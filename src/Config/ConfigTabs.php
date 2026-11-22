@@ -193,7 +193,13 @@ final class ConfigTabs
     /**
      * Données de la page : barre d'onglets et blocs visibles de l'onglet ouvert.
      *
-     * @return array{tabs: list<array{key: string, label: string, icon: string, url: string}>, current: string, current_label: string, blocks: list<array{key: string, template: string, data: array<string, mixed>}>, anchors: array<string, string>}
+     * @return array{
+     *     tabs: list<array{key: string, label: string, icon: string, url: string}>,
+     *     current: string,
+     *     current_label: string,
+     *     blocks: list<array{key: string, template: string, data: array<string, mixed>}>,
+     *     anchors: array<string, string>
+     * }
      */
     public static function pageData(string $current): array
     {
