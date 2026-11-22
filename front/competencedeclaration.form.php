@@ -47,12 +47,9 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        CompetenceDeclaration::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\AccessReview::class,
-        \GlpiPlugin\Grcmanager\IsmsFunction::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\IsmsFunction::class,
+        CompetenceDeclaration::getTypeName(1)
     );
 
     $item->display(['id' => $id]);

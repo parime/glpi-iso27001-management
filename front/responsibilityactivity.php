@@ -44,15 +44,13 @@ if (isset($_POST['archive'])) {
     Html::redirect(ResponsibilityActivity::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ResponsibilityActivity::class,
     __('Responsibility matrix', 'grcmanager'),
-    ResponsibilityActivity::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    ResponsibilityActivity::class
+    ResponsibilityActivity::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, ResponsibilityActivity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ResponsibilityActivity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('responsibilityactivity');
 ResponsibilityActivity::showMatrix();

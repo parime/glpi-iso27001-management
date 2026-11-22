@@ -38,12 +38,6 @@ if (isset($_POST['add'])) {
 }
 
 Session::checkRight(EbiosStudy::$rightname, READ);
-Html::header(
-    EbiosStudy::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    GlpiPlugin\Grcmanager\Risk::class,
-    EbiosStudy::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(EbiosStudy::class, EbiosStudy::getTypeName(1));
 $item->display(['id' => (int) ($_GET['id'] ?? 0)]);
 Html::footer();

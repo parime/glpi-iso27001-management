@@ -41,14 +41,12 @@ if (($_GET['format'] ?? '') === 'pdf') {
     exit;
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CertificationFinding::class,
     CertificationFinding::getTypeName(),
-    CertificationFinding::getSearchURL(),
-    'grcmanager',
-    Audit::class,
-    CertificationFinding::class
+    CertificationFinding::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Audit::class, CertificationFinding::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(CertificationFinding::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('certificationfinding');
 

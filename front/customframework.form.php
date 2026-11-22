@@ -147,14 +147,12 @@ $active = array_sum($counts);
 $assessed = $active - $counts[CustomRequirement::STATUS_NONE];
 $applicable = $active - $counts[CustomRequirement::STATUS_NOT_APPLICABLE] - $counts[CustomRequirement::STATUS_NONE];
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CustomFramework::class,
     CustomFramework::getTypeName(1),
-    CustomFramework::getSearchURL(),
-    'grcmanager',
-    Control::class,
-    CustomFramework::class
+    CustomFramework::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, CustomFramework::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(CustomFramework::class);
 TemplateRenderer::getInstance()->display('@grcmanager/custom_framework_form.html.twig', [
     'framework'       => $framework->fields,
     'enabled'         => FrameworkConfig::isEnabled($key),

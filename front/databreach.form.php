@@ -52,13 +52,7 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        DataBreach::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        DataBreach::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(DataBreach::class, DataBreach::getTypeName(1));
 
     // Création depuis un incident : proposition préremplie (incident lisible seulement, voir showForm()).
     $item->display([

@@ -32,15 +32,13 @@ if (isset($_POST['add_defaults'])) {
     Html::redirect(CrisisScenario::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CrisisScenario::class,
     CrisisScenario::getTypeName(Session::getPluralNumber()),
-    CrisisScenario::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    CrisisScenario::class
+    CrisisScenario::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class, CrisisScenario::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(CrisisScenario::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('crisisscenario');
 CrisisScenario::showRegister();

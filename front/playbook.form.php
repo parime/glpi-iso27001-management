@@ -36,11 +36,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\Playbook::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\Playbook::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'helpdesk',
-        PluginGrcmanagerSecurityIncident::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        PluginGrcmanagerSecurityIncident::class,
+        \GlpiPlugin\Grcmanager\Playbook::getTypeName(1)
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

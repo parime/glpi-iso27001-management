@@ -22,18 +22,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #142 : liste des événements de conformité saisis.
 Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceEvent::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\ComplianceEvent::class,
     \GlpiPlugin\Grcmanager\ComplianceEvent::getTypeName(2),
-    \GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    \GlpiPlugin\Grcmanager\ComplianceEvent::class
+    \GlpiPlugin\Grcmanager\ComplianceEvent::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    \GlpiPlugin\Grcmanager\ComplianceEvent::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceEvent::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('complianceevent');
 

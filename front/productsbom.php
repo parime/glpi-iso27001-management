@@ -26,12 +26,10 @@ if (!ProductSbom::canView()) {
     throw new \Glpi\Exception\Http\AccessDeniedHttpException();
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    SecureDevelopment::class,
     ProductSbom::getTypeName(Session::getPluralNumber()),
-    ProductSbom::getPageURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    SecureDevelopment::class
+    ProductSbom::getPageURL()
 );
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('productsbom');

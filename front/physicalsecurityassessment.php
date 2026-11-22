@@ -22,15 +22,12 @@ use GlpiPlugin\Grcmanager\PhysicalSecurityAssessment;
 // avec les droits et les entités du cœur.
 Session::checkRight(PhysicalSecurityAssessment::$rightname, READ);
 
-Html::header(
-    PhysicalSecurityAssessment::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    PhysicalSecurity::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    PhysicalSecurity::class,
+    PhysicalSecurityAssessment::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, PhysicalSecurity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PhysicalSecurity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('physicalsecurity');
 

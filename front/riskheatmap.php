@@ -19,12 +19,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskHeatmapService;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
-Html::header(
-    __('Risk heatmap', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Risk::class, __('Risk heatmap', 'grcmanager'));
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskheatmap');
 

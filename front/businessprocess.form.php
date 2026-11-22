@@ -37,12 +37,10 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\BusinessProcess::$rightname, READ);
 
-    Html::header(
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\BusinessProcess::class,
         \GlpiPlugin\Grcmanager\BusinessProcess::getTypeName(1),
-        \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL(),
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\AccessReview::class,
-        \GlpiPlugin\Grcmanager\BusinessProcess::class
+        \GlpiPlugin\Grcmanager\BusinessProcess::getSearchURL()
     );
 
     // display() vérifie la lecture de ce processus (droit et entité) avant de l'afficher.

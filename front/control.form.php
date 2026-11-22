@@ -59,6 +59,6 @@ if (isset($_POST['add'])) {
     // d'onglets (revues des accès, documents) ; showForm() seul ne la rend pas.
     \GlpiPlugin\Grcmanager\Control::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\Control::class], 'helpdesk' => []]
+        ['central' => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Control::class), 'helpdesk' => []]
     );
 }

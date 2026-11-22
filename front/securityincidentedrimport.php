@@ -155,11 +155,9 @@ if (isset($_POST['import']) && $valid) {
     ];
 }
 
-Html::header(
-    SecurityIncidentEdrImport::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'helpdesk',
-    PluginGrcmanagerSecurityIncident::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    PluginGrcmanagerSecurityIncident::class,
+    SecurityIncidentEdrImport::getTypeName(1)
 );
 \GlpiPlugin\Grcmanager\PageHelp::show('securityincidentedrimport');
 TemplateRenderer::getInstance()->display('@grcmanager/edr_import.html.twig', $params + [
