@@ -72,7 +72,8 @@ final class FrameworksCustomBlock extends FrameworkFamilyBlock
     {
         return [
             'label' => __('Import a custom framework', 'grcmanager'),
-            'url'   => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
+            // Issue #1047 : le bloc de création et d'import, juste après cette famille.
+            'url'   => CustomFrameworkImportBlock::url(),
             'icon'  => 'ti-file-spreadsheet',
         ];
     }

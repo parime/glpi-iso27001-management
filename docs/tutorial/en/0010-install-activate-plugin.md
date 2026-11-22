@@ -6,8 +6,9 @@ Manager" row shows an "Activé" status once installation and activation are comp
 
 ![Plugin list with GLPI GRC Manager activated](screenshots/tutorial/01-plugin-list.png)
 
-The plugin adds its own **GRC & Conformité** menu, with six sections (Dashboard, Risks, Compliance,
-Audits and improvement, Operations, Technical security); the screens of a section share a tab bar.
+The plugin adds its own **GRC & Compliance** menu, in sections with plain names (Dashboard, My GRC
+space, Risks, Security controls (SoA), Policies and procedures, Audits and evidence, Nonconformities
+and improvement, Regulations, Privacy (GDPR), etc.); the screens of a section share a tab bar.
 Security incidents are in the **Assistance** menu.
 
 ![The plugin's menu](screenshots/tutorial/02-menu-outils.png)

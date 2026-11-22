@@ -487,7 +487,7 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'recyf'           => $isEnabled(FrameworkSelection::RECYF)
         ? \GlpiPlugin\Grcmanager\RecyfRequirement::referentialCard() : null,
     'custom_frameworks'    => $customFrameworks,
-    'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
+    'custom_frameworks_url' => \GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock::url(),
     'can_import_framework' => Session::haveRight(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, CREATE),
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,
