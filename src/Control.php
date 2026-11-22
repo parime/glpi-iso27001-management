@@ -1578,6 +1578,7 @@ class Control extends ControlBase
                 : [];
             if ($customCodes !== []) {
                 $customFrameworks[] = [
+                    'key'   => $customKey,
                     'label' => $customFramework['label'],
                     'codes' => $customCodes,
                     'url'   => CustomFramework::getFormURL() . '?id=' . $customFramework['id'],
@@ -1740,6 +1741,8 @@ class Control extends ControlBase
             // A.8.2 et A.8.5.
             'ad_security_audit'       => AdSecurityAudit::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
+            // Issue #1053 : correspondances rangées par famille, comme dans la configuration.
+            'framework_families'      => \GlpiPlugin\Grcmanager\Config\FrameworkFamilies::describe(),
         ]);
 
         return true;

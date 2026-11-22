@@ -31,7 +31,7 @@ final class RecyfBlock extends ConfigBlock
 
     public static function order(): int
     {
-        return 20;
+        return 80;
     }
 
     public static function template(): string
