@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-22 06:09+0000\n"
+"POT-Creation-Date: 2026-11-22 07:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,6 +256,7 @@ msgstr ""
 
 #: front/auditevidencerequest.mine.php:78
 #: templates/my_evidence_requests.html.twig
+#: templates/reported_risk_mine.html.twig
 msgid "My evidence requests"
 msgstr ""
 
@@ -626,6 +627,7 @@ msgstr ""
 #: templates/policy_coverage_control_tab.html.twig
 #: templates/policy_coverage_policy_tab.html.twig
 #: templates/processing_activity_tab.html.twig
+#: templates/reported_risk_queue.html.twig
 msgid "Link"
 msgstr ""
 
@@ -1101,7 +1103,7 @@ msgstr ""
 msgid "The register has been archived as evidence on control A.5.37."
 msgstr ""
 
-#: front/parkmachines.php:26 src/Menu.php:208
+#: front/parkmachines.php:26 src/Menu.php:210
 msgid "Most exposed machines"
 msgstr ""
 
@@ -1456,6 +1458,27 @@ msgstr ""
 msgid "Decision reopened."
 msgstr ""
 
+#: front/reportedrisk.mine.php:35
+msgid ""
+"Thank you, your report has been sent to the person in charge of risks. You "
+"will be told what is decided."
+msgstr ""
+
+#: front/reportedrisk.mine.php:46 templates/my_evidence_requests.html.twig
+#: templates/my_space.html.twig templates/reported_risk_mine.html.twig
+#: templates/reported_risk_queue.html.twig
+msgid "Report a risk"
+msgstr ""
+
+#: front/reportedrisk.php:49
+msgid ""
+"Risk created from the report. Complete its owner, likelihood and impact."
+msgstr ""
+
+#: front/reportedrisk.php:54
+msgid "Decision recorded. The author has been informed."
+msgstr ""
+
 #: front/responsibilityactivity.php:29
 #, php-format
 msgid "%d default activity added."
@@ -1745,7 +1768,7 @@ msgid ""
 "check the others."
 msgstr ""
 
-#: front/softwarewatch.php:69 src/Menu.php:201
+#: front/softwarewatch.php:69 src/Menu.php:203
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
@@ -2897,7 +2920,8 @@ msgid "This line is assigned to another reviewer."
 msgstr ""
 
 #: src/AccessReview.php:695 src/AccessReviewBmcAccount.php:212
-#: src/ReleaseValidation.php:353 src/ShareAccess.php:1268
+#: src/ReleaseValidation.php:353 src/ReportedRisk.php:183
+#: src/ShareAccess.php:1268
 msgid "Unknown decision."
 msgstr ""
 
@@ -3785,7 +3809,8 @@ msgstr ""
 #: src/NotificationTargetNonconformity.php:91
 #: src/NotificationTargetPolicy.php:130
 #: src/NotificationTargetPolicyVersion.php:137
-#: src/NotificationTargetRisk.php:93 src/NotificationTargetSupplierRisk.php:115
+#: src/NotificationTargetReportedRisk.php:111 src/NotificationTargetRisk.php:93
+#: src/NotificationTargetSupplierRisk.php:115
 #: src/NotificationTargetTraining.php:125 src/Objective.php:159
 #: src/Policy.php:161 src/PolicyCoverage.php:683 src/Risk.php:344
 #: src/RiskRegisterImport.php:602 src/SupplierRisk.php:170 src/Training.php:546
@@ -4164,16 +4189,16 @@ msgstr ""
 msgid "Line %d: no reference and no description."
 msgstr ""
 
-#: src/AuditEvidenceRequest.php:1209 src/Evidence.php:337
+#: src/AuditEvidenceRequest.php:1211 src/Evidence.php:337
 #: src/UptimeKumaMonitoring.php:170
 msgid "Valid"
 msgstr ""
 
-#: src/AuditEvidenceRequest.php:1210 src/Evidence.php:336
+#: src/AuditEvidenceRequest.php:1212 src/Evidence.php:336
 msgid "To renew"
 msgstr ""
 
-#: src/AuditEvidenceRequest.php:1211 src/Evidence.php:335
+#: src/AuditEvidenceRequest.php:1213 src/Evidence.php:335
 msgctxt "feminine"
 msgid "Expired"
 msgstr ""
@@ -7393,8 +7418,8 @@ msgstr ""
 #: templates/ad_security_audit.html.twig templates/context_item_form.html.twig
 #: templates/pdf/context_report.html.twig
 #: templates/pdf/risk_register_report.html.twig templates/policy_form.html.twig
-#: templates/risk_appetite.html.twig templates/risk_form.html.twig
-#: templates/supplier_risk_form.html.twig
+#: templates/reported_risk_queue.html.twig templates/risk_appetite.html.twig
+#: templates/risk_form.html.twig templates/supplier_risk_form.html.twig
 msgid "Category"
 msgstr ""
 
@@ -7420,7 +7445,9 @@ msgstr ""
 
 #: src/ContextItem.php:852 src/ContextItem.php:923
 #: src/NotificationTargetContextItem.php:140
-#: src/NotificationTargetPolicyVersion.php:142 src/SoaScoping.php:464
+#: src/NotificationTargetPolicyVersion.php:142
+#: src/NotificationTargetReportedRisk.php:112 src/SoaScoping.php:464
+#: templates/_reported_risk_risk_tab.html.twig
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
 #: templates/data_breach_form.html.twig
 #: templates/official_contact_history_tab.html.twig
@@ -11170,6 +11197,38 @@ msgstr ""
 msgid "Software bills of materials and VEX"
 msgstr ""
 
+#: src/Feature/ReportedRiskFeature.php:33
+msgid ""
+"Lets anyone in the organisation point out a risk or a dangerous situation "
+"they noticed, without needing access to the risk register."
+msgstr ""
+
+#: src/Feature/ReportedRiskFeature.php:38
+msgid ""
+"Give a short title and describe the situation, then send. You only see your "
+"own reports here, with the answer of the person in charge of risks once it "
+"is examined."
+msgstr ""
+
+#: src/Feature/ReportedRiskFeature.php:42
+#: src/Feature/ReportedRiskFeature.php:56
+msgid "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+msgstr ""
+
+#: src/Feature/ReportedRiskFeature.php:46
+msgid ""
+"Triage of the risks reported by staff: each report is examined by a person "
+"before anything reaches the risk register."
+msgstr ""
+
+#: src/Feature/ReportedRiskFeature.php:51
+msgid ""
+"For each new report, add it to the register (a risk is created, to be "
+"completed), link it to an existing risk, or reject it with a reason. The "
+"author is informed of the decision; the report stays visible on the risk as "
+"a trace for the auditor."
+msgstr ""
+
 #: src/Feature/Security360CoreSourcesFeature.php:56
 msgid "Known vulnerabilities"
 msgstr ""
@@ -13101,7 +13160,7 @@ msgstr ""
 #: src/ParkVulnerability.php:135 templates/audit_log.html.twig
 #: templates/gap_stock.html.twig templates/maturity_campaign_gaps_tab.html.twig
 #: templates/personnel_compliance_list.html.twig
-#: templates/tabs/action_log.html.twig
+#: templates/reported_risk_queue.html.twig templates/tabs/action_log.html.twig
 msgid "All"
 msgstr ""
 
@@ -13773,6 +13832,22 @@ msgstr ""
 
 #: src/NotificationTargetReadinessAlert.php:94
 msgid "Number of steps"
+msgstr ""
+
+#: src/NotificationTargetReportedRisk.php:41
+msgid "Your risk report has been examined"
+msgstr ""
+
+#: src/NotificationTargetReportedRisk.php:48
+msgid "Person who reported the risk"
+msgstr ""
+
+#: src/NotificationTargetReportedRisk.php:113
+msgid "Answer from the person in charge of risks"
+msgstr ""
+
+#: src/NotificationTargetReportedRisk.php:114
+msgid "My risk reports page URL"
 msgstr ""
 
 #: src/NotificationTargetRisk.php:40
@@ -17512,6 +17587,106 @@ msgstr ""
 msgid "Application not visible to you"
 msgstr ""
 
+#: src/ReportedRisk.php:59 templates/_reported_risk_risk_tab.html.twig
+#: templates/reported_risk_queue.html.twig
+msgid "Reported risk"
+msgid_plural "Reported risks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/ReportedRisk.php:125
+msgid "To triage"
+msgstr ""
+
+#: src/ReportedRisk.php:128
+msgid "Received, waiting to be examined"
+msgstr ""
+
+#: src/ReportedRisk.php:131
+msgid "Added to the risk register"
+msgstr ""
+
+#: src/ReportedRisk.php:134
+msgid "Taken into account: added to the risk register"
+msgstr ""
+
+#: src/ReportedRisk.php:137
+msgid "Linked to an existing risk"
+msgstr ""
+
+#: src/ReportedRisk.php:140
+msgid "Taken into account: this risk was already known and is being followed"
+msgstr ""
+
+#: src/ReportedRisk.php:143
+msgid "Rejected with a reason"
+msgstr ""
+
+#: src/ReportedRisk.php:146
+msgid "Not kept"
+msgstr ""
+
+#: src/ReportedRisk.php:158
+msgid "I don't know"
+msgstr ""
+
+#: src/ReportedRisk.php:162
+msgid "Minor: an annoyance"
+msgstr ""
+
+#: src/ReportedRisk.php:166
+msgid "Significant: could disrupt work or expose information"
+msgstr ""
+
+#: src/ReportedRisk.php:170
+msgid "Serious: could cause major damage"
+msgstr ""
+
+#: src/ReportedRisk.php:179
+msgid "Give your report a short title."
+msgstr ""
+
+#: src/ReportedRisk.php:180
+msgid "The title is too long (255 characters at most)."
+msgstr ""
+
+#: src/ReportedRisk.php:181
+msgid "Describe what you noticed."
+msgstr ""
+
+#: src/ReportedRisk.php:182
+msgid "The description is too long."
+msgstr ""
+
+#: src/ReportedRisk.php:184
+msgid "This report has already been triaged."
+msgstr ""
+
+#: src/ReportedRisk.php:186
+msgid "Give the reason for the rejection: the author will read it."
+msgstr ""
+
+#: src/ReportedRisk.php:189
+msgid "The message is too long."
+msgstr ""
+
+#: src/ReportedRisk.php:190
+msgid "Choose the existing risk to link this report to."
+msgstr ""
+
+#: src/ReportedRisk.php:191
+msgid "You cannot do this on this report."
+msgstr ""
+
+#: src/ReportedRisk.php:460
+#, php-format
+msgid "Reported by %1$s on %2$s (staff report #%3$d)."
+msgstr ""
+
+#: src/ReportedRisk.php:540 templates/reported_risk_mine.html.twig
+msgid "My risk reports"
+msgstr ""
+
 #: src/ResponsibilityActivity.php:61
 msgid "ISMS activity"
 msgid_plural "ISMS activities"
@@ -21062,7 +21237,7 @@ msgstr ""
 
 #: src/Traits/RiskAssessmentTrait.php:150
 #: templates/audit_evidence_requests_tab.html.twig
-#: templates/soa_scoping.html.twig
+#: templates/reported_risk_queue.html.twig templates/soa_scoping.html.twig
 msgid "Accept"
 msgstr ""
 
@@ -22485,6 +22660,22 @@ msgstr ""
 #: templates/product_sbom_tab.html.twig
 #, php-format
 msgid "%d without VEX statement"
+msgstr ""
+
+#: templates/_reported_risk_risk_tab.html.twig
+msgid "No report is linked to this risk."
+msgstr ""
+
+#: templates/_reported_risk_risk_tab.html.twig
+msgid "Open the reported risks"
+msgstr ""
+
+#: templates/_reported_risk_risk_tab.html.twig
+msgid "Reported by"
+msgstr ""
+
+#: templates/_reported_risk_risk_tab.html.twig
+msgid "Reports from staff that created this risk or were linked to it."
 msgstr ""
 
 #: templates/_responsibility_summary.html.twig
@@ -25574,6 +25765,7 @@ msgstr ""
 
 #: templates/certification_response_tab.html.twig
 #: templates/pdf/certification_response_report.html.twig
+#: templates/reported_risk_mine.html.twig
 #, php-format
 msgid "Sent on %s"
 msgstr ""
@@ -36811,8 +37003,8 @@ msgstr ""
 msgid "Read the frozen version (PDF)"
 msgstr ""
 
-#: templates/policy_approval.html.twig templates/soa_approval.html.twig
-#: templates/soa_scoping.html.twig
+#: templates/policy_approval.html.twig templates/reported_risk_queue.html.twig
+#: templates/soa_approval.html.twig templates/soa_scoping.html.twig
 msgid "Reject"
 msgstr ""
 
@@ -38110,6 +38302,134 @@ msgstr ""
 
 #: templates/release_validation_tab.html.twig
 msgid "This change is in production."
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+#, php-format
+msgid "%d report"
+msgid_plural "%d reports"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/reported_risk_mine.html.twig
+msgid ""
+"An incident is happening right now (virus, intrusion, data leak)? Do not "
+"wait: contact the help desk immediately."
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "Answer from the person in charge of risks:"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "Describe the situation"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+#, php-format
+msgid "Examined on %s"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "Example: the server room door does not lock"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "How serious does it seem to you?"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "Send my report"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "Thank you for your report: every report helps protect the organisation."
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "What did you notice? (short title)"
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid ""
+"Where, since when, what could happen, who is concerned. Do not write any "
+"password."
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid "You have not reported any risk yet."
+msgstr ""
+
+#: templates/reported_risk_mine.html.twig
+msgid ""
+"You noticed something that could harm the organisation or its information: a "
+"door left open, a suspicious email, a password written down, a fragile "
+"process, a supplier at risk? Describe it below. The person in charge of "
+"risks examines every report and tells you what is decided."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+#: templates/tabs/ebios_workshop5.html.twig
+msgid "Add to the risk register"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Choose a risk"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid ""
+"Creates a new risk with this title and description, to be completed (owner, "
+"likelihood, impact)."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+#, php-format
+msgid "Decided by %1$s on %2$s"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Existing risk"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Link to an existing risk"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Message to the author (optional)"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "No open risk in this entity."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "No report in this list."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid ""
+"Not a risk for the organisation, or out of scope. The author reads your "
+"reason."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Read only: triaging requires the right to create and update risks."
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Reason for the rejection"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid "Seriousness as felt by the author"
+msgstr ""
+
+#: templates/reported_risk_queue.html.twig
+msgid ""
+"The risk is already in the register: the report is kept as a trace on it, "
+"the risk is not changed."
 msgstr ""
 
 #: templates/responsibility_activity_form.html.twig
@@ -41162,10 +41482,6 @@ msgstr ""
 
 #: templates/tabs/ebios_workshop4.html.twig
 msgid "e.g. Phishing of an administrator, then encryption of the servers"
-msgstr ""
-
-#: templates/tabs/ebios_workshop5.html.twig
-msgid "Add to the risk register"
 msgstr ""
 
 #: templates/tabs/ebios_workshop5.html.twig
