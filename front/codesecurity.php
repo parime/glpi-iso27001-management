@@ -15,9 +15,7 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\CodeSecurity;
-use GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig;
 
 // Issue #858 : sécurité du code lue dans GitHub et GitLab (A.8.28, A.8.29). Droit du plugin et lecture
 // native des applications ; applications des entités de la session seulement. Rien n'est jamais
@@ -29,34 +27,12 @@ $back = static function (string $anchor): void {
     Html::redirect(CodeSecurity::getSearchURL() . '#' . $anchor);
 };
 
-// Connexion : jetons (chiffrés, jamais réaffichés), serveurs, tâche automatique.
-if (isset($_POST['save_codesecurity'])) {
-    Session::checkRight(CodeSecurity::RIGHTNAME, UPDATE);
-    $saved = CodeSecurityConfig::save(
-        (string) ($_POST['codesecurity_github_url'] ?? ''),
-        (string) ($_POST['codesecurity_github_token'] ?? ''),
-        !empty($_POST['codesecurity_github_clear']),
-        (string) ($_POST['codesecurity_gitlab_url'] ?? ''),
-        (string) ($_POST['codesecurity_gitlab_token'] ?? ''),
-        !empty($_POST['codesecurity_gitlab_clear']),
-        !empty($_POST['codesecurity_enabled'])
-    );
-    if (!$saved['saved']) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'Not saved: the address must start with https:// (or http:// when internal addresses are allowed), '
-                . 'without user name, password or parameters.',
-            'grcmanager'
-        )), false, ERROR);
-    } else {
-        if ($saved['changes'] !== []) {
-            AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $saved['changes']]);
-        }
-        CodeSecurity::syncCronState(CodeSecurityConfig::isEnabled());
-        Session::addMessageAfterRedirect(htmlescape(__('Code security settings saved.', 'grcmanager')));
-    }
-    $back('grc-cs-connection');
-}
+// Issue #1043 : la connexion à GitHub et GitLab (jetons, serveurs, lecture automatique) se règle dans
+// la configuration, onglet Connecteurs. L'ancien envoi de cette page reste accepté pendant une version
+// et y mène.
+\GlpiPlugin\Grcmanager\Config\Block\CodeHostingConnectorBlock::handleLegacyPost();
 
+// Lecture sur clic, droit de modifier.
 if (isset($_POST['read_codesecurity'])) {
     Session::checkRight(CodeSecurity::RIGHTNAME, UPDATE);
     $result = CodeSecurity::read();

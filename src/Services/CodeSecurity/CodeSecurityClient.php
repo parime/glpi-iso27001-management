@@ -29,9 +29,11 @@ use GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityRules as Rules;
  * - GitHub (github.com ou GitHub Enterprise Server) : requêtes GET seulement, vers les trois listes
  *   d'alertes ouvertes d'un dépôt (« dependabot/alerts », « secret-scanning/alerts » avec
  *   hide_secret=true, « code-scanning/alerts »). Tout autre chemin ou méthode est refusé avant l'envoi.
+ *   « Tester la connexion » (#1043) lit seulement « /rate_limit », qui ne renvoie aucune donnée.
  * - GitLab : une seule requête, la lecture GraphQL constante GITLAB_QUERY (vulnérabilités détectées
  *   ou confirmées d'un projet, et analyseurs activés), envoyée en POST comme l'exige GraphQL ; aucune
- *   autre requête ni mutation ne peut partir.
+ *   autre requête ni mutation ne peut partir. « Tester la connexion » (#1043) lit seulement
+ *   « /api/v4/version » (GET), qui exige un jeton valide et ne renvoie que la version du serveur.
  * - La valeur d'un secret exposé n'est jamais demandée, lue ni gardée : seuls son type, sa date et sa
  *   validité le sont.
  * - Jeton jamais dans l'adresse, un message d'erreur ni un journal. Appels par Http::send() (#658 :
@@ -111,6 +113,44 @@ final class CodeSecurityClient
             Rules::PROVIDER_GITLAB => $this->gitlabUrl !== '' && $this->gitlabToken !== '',
             default                => false,
         };
+    }
+
+    /**
+     * Issue #1043 : essai des jetons enregistrés, sans rien lire des dépôts. Fournisseur configuré
+     * => code d'erreur (vide si la connexion répond). Rien n'est enregistré.
+     *
+     * @return array<string, string>
+     */
+    public function test(): array
+    {
+        $out = [];
+        $calls = [
+            Rules::PROVIDER_GITHUB => [$this->githubApi . '/rate_limit', [
+                'Accept'               => 'application/vnd.github+json',
+                'Authorization'        => 'Bearer ' . $this->githubToken,
+                'X-GitHub-Api-Version' => '2022-11-28',
+            ]],
+            Rules::PROVIDER_GITLAB => [$this->gitlabUrl . '/api/v4/version', [
+                'Accept'        => 'application/json',
+                'Authorization' => 'Bearer ' . $this->gitlabToken,
+            ]],
+        ];
+        foreach ($calls as $provider => [$url, $headers]) {
+            if (!$this->hasProvider($provider)) {
+                continue;
+            }
+            $response = $this->send('GET', $url, $headers, null);
+            $status = $response['status'];
+            $out[$provider] = match (true) {
+                $response['error'] !== ''           => $response['error'],
+                $status === 401 || $status === 403  => self::ERROR_UNAUTHORIZED,
+                $status === 429                     => self::ERROR_RATE_LIMIT,
+                $status < 200 || $status >= 300     => self::ERROR_STATUS,
+                default                             => '',
+            };
+        }
+
+        return $out;
     }
 
     public static function isGithubReadPath(string $path): bool

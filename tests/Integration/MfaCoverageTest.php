@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
+use GlpiPlugin\Grcmanager\Config\Block\EntraGraphConnectorBlock;
 use GlpiPlugin\Grcmanager\Install\MfaCoverageTables;
 use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\RiskIndicator;
@@ -235,14 +236,23 @@ final class MfaCoverageTest extends GrcmanagerIntegrationTestCase
         $this->assertTrue($saved['saved']);
         $this->assertSame('changed', $saved['changes'][EntraGraphConfig::SECRET_KEY]);
         $this->assertTrue(EntraGraphConfig::isConfigured());
-        $graph = MfaCoverage::pageData()['graph'];
+        // Issue #1043 : la connexion se règle dans le bloc de l'onglet Connecteurs de la configuration.
+        $graph = EntraGraphConnectorBlock::data()['entra_graph'];
         $this->assertTrue($graph['has_secret']);
         $this->assertArrayNotHasKey('secret', $graph);
-        $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
-            '@grcmanager/mfa_coverage.html.twig',
-            MfaCoverage::pageData()
-        );
+        $renderer = \Glpi\Application\View\TemplateRenderer::getInstance();
+        $block = $renderer->render(EntraGraphConnectorBlock::template(), EntraGraphConnectorBlock::data() + [
+            'csrf_token'         => 'fictif-csrf',
+            'can_edit_config'    => true,
+            'can_edit_sensitive' => false,
+        ]);
+        $this->assertStringContainsString('name="save_mfa_graph"', $block);
+        $this->assertStringContainsString('name="test_mfa_graph"', $block);
+        $this->assertStringNotContainsString('value="fictif"', $block);
+        $html = $renderer->render('@grcmanager/mfa_coverage.html.twig', MfaCoverage::pageData());
         $this->assertStringContainsString('name="fetch_mfa_graph"', $html);
+        $this->assertStringContainsString('config.php?tab=connectors', $html);
+        $this->assertStringNotContainsString('name="mfa_graph_secret"', $html);
         $this->assertStringNotContainsString('value="fictif"', $html);
         EntraGraphConfig::save('', '', '', true);
         $this->assertFalse(EntraGraphConfig::isConfigured());
