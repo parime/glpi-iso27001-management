@@ -60,9 +60,11 @@ final class AssetSecurityTest extends GrcmanagerIntegrationTestCase
         $this->assertContains(AssetSecurity::class, $PLUGIN_HOOKS['menu_toadd']['grcmanager']['assets'] ?? []);
         $this->assertNotContains(ComplianceAudit::class, $PLUGIN_HOOKS['menu_toadd']['grcmanager']['grcmanager']);
         $pages = Sections::pages(AssetSecurity::class);
-        foreach ([ComplianceAudit::class, ParkVulnerability::class, PhysicalSecurity::class, HardwareModelEol::class] as $page) {
+        $moved = [ComplianceAudit::class, ParkVulnerability::class, PhysicalSecurity::class, HardwareModelEol::class];
+        foreach ($moved as $page) {
             $this->assertArrayHasKey($page, $pages, $page);
-            $this->assertSame(['assets', AssetSecurity::class, $page], Menu::sectorPath($page), "$page : fil d'Ariane.");
+            $path = Menu::sectorPath($page);
+            $this->assertSame(['assets', AssetSecurity::class, $page], $path, "$page : fil d'Ariane.");
         }
         // Sécurité physique, développement et code ont quitté la rubrique des mesures.
         $this->assertArrayNotHasKey(PhysicalSecurity::class, Sections::pages(Control::class));

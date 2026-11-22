@@ -160,7 +160,6 @@ final class ConfigTabs
         }
         $tab = self::tabOfAnchor($anchor);
         if ($tab === '') {
-
             return ($full ? (string) ($CFG_GLPI['root_doc'] ?? '') : '') . '/plugins/grcmanager/front/config.php';
         }
 

@@ -36,9 +36,6 @@ class AssetSecurity extends CommonGLPI
 {
     public const RIGHTNAME = Installer::RIGHT_NAME;
 
-    /** @var string */
-    public static $rightname = Installer::RIGHT_NAME;
-
     public static function getTypeName($nb = 0)
     {
         return __('Asset security', 'grcmanager');

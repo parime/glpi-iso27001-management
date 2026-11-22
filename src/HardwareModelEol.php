@@ -47,9 +47,6 @@ class HardwareModelEol extends CommonGLPI
 {
     public const RIGHTNAME = Installer::RIGHT_NAME;
 
-    /** @var string */
-    public static $rightname = Installer::RIGHT_NAME;
-
     /** Ancien identifiant du bloc de la configuration, redirigé vers la saisie groupée. */
     public const OLD_ANCHOR = 'grc-hardware-eol-config';
 
@@ -124,7 +121,9 @@ class HardwareModelEol extends CommonGLPI
         }
         $dated = HardwareModelEolStore::dateFor($item::class, (int) $item->getID()) !== null ? 1 : 0;
 
-        return self::createTabEntry(__('Manufacturer end of life', 'grcmanager'), $dated, $item::class, self::getIcon());
+        $label = __('Manufacturer end of life', 'grcmanager');
+
+        return self::createTabEntry($label, $dated, $item::class, self::getIcon());
     }
 
     /**
@@ -195,7 +194,8 @@ class HardwareModelEol extends CommonGLPI
      */
     public static function handleSave(array $post): void
     {
-        $refused = HardwareWarranty::saveModelDates(is_array($post['hardware_eol'] ?? null) ? $post['hardware_eol'] : []);
+        $dates = is_array($post['hardware_eol'] ?? null) ? $post['hardware_eol'] : [];
+        $refused = HardwareWarranty::saveModelDates($dates);
         if ($refused > 0) {
             Session::addMessageAfterRedirect(htmlescape(sprintf(
                 _n(

@@ -19,8 +19,6 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Feature;
 
-use GlpiPlugin\Grcmanager\HardwareModelEol;
-
 /**
  * Issue #1039 : Parc > Sécurité du parc. Aide de la page d'accueil et de la saisie groupée de la fin
  * de vie constructeur, ancien lien du bloc de la configuration redirigé vers cette saisie.
@@ -63,6 +61,8 @@ final class AssetSecurityFeature implements PageHelpProvider, MovedConfigAnchors
 
     public static function movedConfigAnchors(): array
     {
-        return [HardwareModelEol::OLD_ANCHOR => HardwareModelEol::getSearchURL(false)];
+        // Adresse écrite telle quelle : ConfigTabs la lit aussi dans les tests sans GLPI (HardwareModelEol
+        // étend CommonGLPI). Même valeur que HardwareModelEol::OLD_ANCHOR et getSearchURL(false).
+        return ['grc-hardware-eol-config' => '/plugins/grcmanager/front/hardwaremodeleol.php'];
     }
 }
