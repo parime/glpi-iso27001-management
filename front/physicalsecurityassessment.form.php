@@ -79,13 +79,7 @@ if (isset($_POST['add'])) {
         throw new AccessDeniedHttpException();
     }
 
-    Html::header(
-        PhysicalSecurityAssessment::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        PhysicalSecurity::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(PhysicalSecurity::class, PhysicalSecurityAssessment::getTypeName(1));
 
     $item->display(['id' => $id, 'locations_id' => (int) ($_GET['locations_id'] ?? 0)]);
 

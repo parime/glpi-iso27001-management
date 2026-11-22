@@ -44,7 +44,7 @@ class PluginGrcmanagerSecurityIncidentTemplate extends ITILTemplate
 
     public static function getSectorizedDetails(): array
     {
-        return ['helpdesk', PluginGrcmanagerSecurityIncident::class, self::class];
+        return [...\GlpiPlugin\Grcmanager\Menu::sectorPath(PluginGrcmanagerSecurityIncident::class), self::class];
     }
 
     public function cleanDBonPurge()

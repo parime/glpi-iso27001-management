@@ -136,11 +136,9 @@ if (isset($_POST['import'])) {
     }
 }
 
-Html::header(
-    __('CSV import/export: Annex A', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Control::class,
+    __('CSV import/export: Annex A', 'grcmanager')
 );
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/control_csv.html.twig', [

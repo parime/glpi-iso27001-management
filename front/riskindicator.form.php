@@ -61,12 +61,9 @@ if (isset($_POST['add'])) {
 } else {
     $id = (int) ($_GET['id'] ?? 0);
     $item->check($id > 0 ? $id : -1, $id > 0 ? READ : CREATE);
-    Html::header(
-        \GlpiPlugin\Grcmanager\RiskIndicator::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Risk::class,
-        \GlpiPlugin\Grcmanager\RiskIndicator::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\RiskIndicator::class,
+        \GlpiPlugin\Grcmanager\RiskIndicator::getTypeName(1)
     );
     $item->display(['id' => $id]);
     Html::footer();

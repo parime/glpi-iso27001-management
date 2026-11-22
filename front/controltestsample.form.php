@@ -79,13 +79,7 @@ if (isset($_POST['save_results']) || isset($_POST['record']) || isset($_POST['pu
     Html::redirect(ControlTestSample::getPageURL($sampleId));
 }
 
-Html::header(
-    ControlTestSample::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    Control::class,
-    ControlTest::class
-);
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, ControlTest::class);
+\GlpiPlugin\Grcmanager\Menu::header(ControlTest::class, ControlTestSample::getTypeName(1));
+\GlpiPlugin\Grcmanager\Menu::showSection(ControlTest::class);
 ControlTestSample::showPage($sample, $control);
 Html::footer();

@@ -29,19 +29,14 @@ foreach ($current['themes'] as $theme => $value) {
     }
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Maturity::class,
     \GlpiPlugin\Grcmanager\Maturity::getTypeName(),
-    \GlpiPlugin\Grcmanager\Maturity::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    \GlpiPlugin\Grcmanager\Maturity::class
+    \GlpiPlugin\Grcmanager\Maturity::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    \GlpiPlugin\Grcmanager\Maturity::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Maturity::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('maturity');
 TemplateRenderer::getInstance()->display('@grcmanager/maturity.html.twig', [
     'score'            => $current['score'],

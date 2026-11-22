@@ -71,11 +71,10 @@ if (isset($_POST['save_decisions'])) {
     Html::back();
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
     __('My access reviews', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\AccessReview::getMineURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::getMineURL()
 );
 
 $campaigns = [];

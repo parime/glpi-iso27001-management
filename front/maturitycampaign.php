@@ -15,22 +15,18 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\Dashboard;
 use GlpiPlugin\Grcmanager\MaturityCampaign;
 
 // Issue #603 : campagnes de maturité par mesure (niveau actuel, niveau cible et écarts), avec les
 // droits et les entités du cœur.
 Session::checkRight(MaturityCampaign::$rightname, READ);
 
-Html::header(
-    MaturityCampaign::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    Dashboard::class,
-    MaturityCampaign::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    MaturityCampaign::class,
+    MaturityCampaign::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(Dashboard::class, MaturityCampaign::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(MaturityCampaign::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('maturitycampaign');
 

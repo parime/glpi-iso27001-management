@@ -38,18 +38,13 @@ foreach (ConsistencyRules::RULES as $key => $rule) {
     }
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ConsistencyCheck::class,
     ConsistencyCheck::getTypeName(),
-    ConsistencyCheck::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    ConsistencyCheck::class
+    ConsistencyCheck::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Dashboard::class,
-    ConsistencyCheck::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(ConsistencyCheck::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('consistencycheck');
 TemplateRenderer::getInstance()->display('@grcmanager/consistency_check.html.twig', $report + [

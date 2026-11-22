@@ -21,18 +21,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #144 : matrice des flux réseau.
 Session::checkRight(\GlpiPlugin\Grcmanager\NetworkFlow::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\NetworkFlow::class,
     \GlpiPlugin\Grcmanager\NetworkFlow::getTypeName(2),
-    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\NetworkFlow::class
+    \GlpiPlugin\Grcmanager\NetworkFlow::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\NetworkFlow::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\NetworkFlow::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('networkflow');
 

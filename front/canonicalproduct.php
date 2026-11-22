@@ -20,19 +20,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\CanonicalProduct::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\CanonicalProduct::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\CanonicalProduct::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\CanonicalProduct::class,
+    \GlpiPlugin\Grcmanager\CanonicalProduct::getTypeName(2)
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\CanonicalProduct::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CanonicalProduct::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('canonicalproduct');
 
 // Same URL-driven search fix as front/risk.php/front/objective.php, see front/risk.php's own

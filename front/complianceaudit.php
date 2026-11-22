@@ -80,17 +80,13 @@ foreach (
     $scores[] = $score + ['label' => $frameworks[$framework]];
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
     \GlpiPlugin\Grcmanager\ComplianceAudit::getTypeName(),
-    \GlpiPlugin\Grcmanager\ComplianceAudit::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class
+    \GlpiPlugin\Grcmanager\ComplianceAudit::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('complianceaudit');
 TemplateRenderer::getInstance()->display('@grcmanager/compliance_audit.html.twig', [

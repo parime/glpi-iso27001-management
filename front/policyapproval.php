@@ -158,13 +158,7 @@ if (!$canRead && $myPending === []) {
     Session::checkRight(Policy::$rightname, READ);
 }
 
-Html::header(
-    __('Policy approval', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    Policy::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(Policy::class, __('Policy approval', 'grcmanager'));
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('policyapproval');
 

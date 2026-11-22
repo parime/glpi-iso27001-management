@@ -55,14 +55,12 @@ if (isset($_POST['decide'])) {
     Html::redirect(ReportedRisk::getSearchURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ReportedRisk::class,
     ReportedRisk::getTypeName(Session::getPluralNumber()),
-    ReportedRisk::getSearchURL(),
-    'grcmanager',
-    Risk::class,
-    ReportedRisk::class
+    ReportedRisk::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Risk::class, ReportedRisk::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ReportedRisk::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('reportedrisk');
 $filter = (string) ($_GET['status'] ?? '');

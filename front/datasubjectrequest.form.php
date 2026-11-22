@@ -56,13 +56,7 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
-        DataSubjectRequest::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        DataSubjectRequest::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(DataSubjectRequest::class, DataSubjectRequest::getTypeName(1));
 
     $item->display(['id' => $id]);
 

@@ -221,18 +221,13 @@ if (isset($_POST['attack_path_risk'])) {
     Html::redirect(AdSecurityAudit::getSearchURL() . '?path=' . $pathId . '#grc-ad-paths');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    AdSecurityAudit::class,
     AdSecurityAudit::getTypeName(),
-    AdSecurityAudit::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    AdSecurityAudit::class
+    AdSecurityAudit::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    AdSecurityAudit::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(AdSecurityAudit::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('adsecurityaudit');
 

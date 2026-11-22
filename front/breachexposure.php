@@ -21,17 +21,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #183 : expositions à des fuites de données (registre sensible).
 Session::checkRight(\GlpiPlugin\Grcmanager\BreachExposure::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\BreachExposure::class,
     \GlpiPlugin\Grcmanager\BreachExposure::getTypeName(2),
-    \GlpiPlugin\Grcmanager\BreachExposure::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\BreachExposure::class
+    \GlpiPlugin\Grcmanager\BreachExposure::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    \GlpiPlugin\Grcmanager\BreachExposure::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\BreachExposure::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('breachexposure');
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BreachExposure::class, $_GET);

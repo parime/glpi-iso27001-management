@@ -25,11 +25,9 @@ Session::checkRightsOr(PluginGrcmanagerSecurityIncident::$rightname, [
     PluginGrcmanagerSecurityIncident::READMY,
 ]);
 
-Html::header(
-    PluginGrcmanagerSecurityIncident::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'helpdesk',
-    PluginGrcmanagerSecurityIncident::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    PluginGrcmanagerSecurityIncident::class,
+    PluginGrcmanagerSecurityIncident::getTypeName(2)
 );
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('securityincident');

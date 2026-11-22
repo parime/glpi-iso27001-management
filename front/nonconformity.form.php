@@ -48,11 +48,7 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\Nonconformity::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\Audit::class,
-                \GlpiPlugin\Grcmanager\Nonconformity::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Nonconformity::class),
             'helpdesk' => [],
         ],
         [

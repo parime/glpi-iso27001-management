@@ -44,12 +44,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        \GlpiPlugin\Grcmanager\ComplianceObligation::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\ComplianceObligation::class,
+        \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(1)
     );
 
     $id = (int) ($_GET['id'] ?? 0);

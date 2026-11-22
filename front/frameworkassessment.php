@@ -17,7 +17,6 @@
 
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\CustomFramework;
-use GlpiPlugin\Grcmanager\Dashboard;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
 use GlpiPlugin\Grcmanager\Services\Control\FrameworkSelection;
 
@@ -32,14 +31,12 @@ $assessments = FrameworkAssessment::assessAll(FrameworkAssessment::controls($tod
 $selected = FrameworkAssessment::selectedFramework($assessments, $_GET['framework'] ?? null);
 $detail = FrameworkAssessment::detail($assessments, $selected);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    FrameworkAssessment::class,
     FrameworkAssessment::getTypeName(),
-    FrameworkAssessment::getSearchURL(),
-    'grcmanager',
-    Dashboard::class,
-    FrameworkAssessment::class
+    FrameworkAssessment::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Dashboard::class, FrameworkAssessment::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(FrameworkAssessment::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('frameworkassessment');
 TemplateRenderer::getInstance()->display('@grcmanager/framework_assessment.html.twig', [
     'assessments'    => $assessments,

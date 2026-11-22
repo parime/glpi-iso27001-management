@@ -23,16 +23,14 @@ Session::checkRight(\GlpiPlugin\Grcmanager\CausalLink::$rightname, READ);
 $edges = \GlpiPlugin\Grcmanager\CausalLink::allEdges();
 $nodes = array_values(array_unique(array_merge(array_column($edges, 0), array_column($edges, 1))));
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\CausalLink::class,
     \GlpiPlugin\Grcmanager\CausalLink::getTypeName(2),
-    \GlpiPlugin\Grcmanager\CausalLink::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\CausalLink::class
+    \GlpiPlugin\Grcmanager\CausalLink::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\CausalLink::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CausalLink::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('causalgraph');
 TemplateRenderer::getInstance()->display('@grcmanager/causal_graph_page.html.twig', [
     'elements' => \GlpiPlugin\Grcmanager\CausalLink::cytoscapeElements(['nodes' => $nodes, 'edges' => $edges]),

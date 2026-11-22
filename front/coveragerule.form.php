@@ -39,12 +39,9 @@ if (isset($_POST['add'])) {
 } else {
     Session::checkRight(\GlpiPlugin\Grcmanager\CoverageRule::$rightname, READ);
 
-    Html::header(
-        \GlpiPlugin\Grcmanager\CoverageRule::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Control::class,
-        \GlpiPlugin\Grcmanager\CoverageRule::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        \GlpiPlugin\Grcmanager\CoverageRule::class,
+        \GlpiPlugin\Grcmanager\CoverageRule::getTypeName(1)
     );
 
     $item->display(['id' => (int) ($_GET['id'] ?? 0)]);

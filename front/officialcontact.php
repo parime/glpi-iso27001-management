@@ -37,15 +37,13 @@ if (isset($_POST['archive'])) {
     Html::redirect(OfficialContact::getRegisterURL());
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    OfficialContact::class,
     OfficialContact::getTypeName(Session::getPluralNumber()),
-    OfficialContact::getRegisterURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    OfficialContact::class
+    OfficialContact::getRegisterURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, OfficialContact::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(OfficialContact::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('officialcontact');
 OfficialContact::showRegister();

@@ -23,12 +23,9 @@ use GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate;
 // risques fournisseurs (pas d'entrée de menu propre). Droit et entités du registre.
 Session::checkRight(SupplierQuestionnaireTemplate::$rightname, READ);
 
-Html::header(
-    SupplierQuestionnaireTemplate::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\SupplierRisk::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\SupplierRisk::class,
+    SupplierQuestionnaireTemplate::getTypeName(Session::getPluralNumber())
 );
 \GlpiPlugin\Grcmanager\PageHelp::show('supplierquestionnairetemplate');
 $buttons = [[

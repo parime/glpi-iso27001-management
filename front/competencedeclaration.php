@@ -22,18 +22,12 @@ use GlpiPlugin\Grcmanager\CompetenceDeclaration;
 Session::checkRight(CompetenceDeclaration::$rightname, READ);
 Session::checkRight(User::$rightname, READ);
 
-Html::header(
-    CompetenceDeclaration::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\IsmsFunction::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\IsmsFunction::class,
+    CompetenceDeclaration::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\IsmsFunction::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\IsmsFunction::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('competencedeclaration');
 

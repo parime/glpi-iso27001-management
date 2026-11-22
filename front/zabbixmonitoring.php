@@ -93,15 +93,13 @@ if (isset($_POST['link_zabbix_service'])) {
     $back('grc-zabbix-services');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ZabbixMonitoring::class,
     ZabbixMonitoring::getTypeName(),
-    ZabbixMonitoring::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    ZabbixMonitoring::class
+    ZabbixMonitoring::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceAudit::class, ZabbixMonitoring::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ZabbixMonitoring::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('zabbixmonitoring');
 

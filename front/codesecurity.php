@@ -80,15 +80,13 @@ if (isset($_POST['clear_codesecurity'])) {
     $back('grc-cs-connection');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    CodeSecurity::class,
     CodeSecurity::getTypeName(),
-    CodeSecurity::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    CodeSecurity::class
+    CodeSecurity::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, CodeSecurity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(CodeSecurity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('codesecurity');
 

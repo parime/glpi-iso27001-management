@@ -20,17 +20,12 @@
 Session::checkRight(\GlpiPlugin\Grcmanager\PersonnelCompliance::RIGHTNAME, READ);
 Session::checkRight(User::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\PersonnelCompliance::class,
     \GlpiPlugin\Grcmanager\PersonnelCompliance::getTypeName(),
-    \GlpiPlugin\Grcmanager\PersonnelCompliance::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\PersonnelCompliance::class
+    \GlpiPlugin\Grcmanager\PersonnelCompliance::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\PersonnelCompliance::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\PersonnelCompliance::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('personnelcompliance');
 
 \GlpiPlugin\Grcmanager\PersonnelCompliance::showList(\GlpiPlugin\Grcmanager\PersonnelCompliance::filters($_GET));
