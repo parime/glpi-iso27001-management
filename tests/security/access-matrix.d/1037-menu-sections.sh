@@ -26,8 +26,8 @@ menu_page_check() { # adresse, adresse de la rubrique, sous-page (true|false), v
         expect "$url : montree sans droit, donc ouverte" 200 "$status"
       else
         expect "$url : sans droit" 403 "$status"
-        local blank=non
-        [ -z "${html// /}" ] && blank=oui
+        local blank=oui
+        grep -q '[^[:space:]]' <<< "$html" && blank=non
         expect "$url : refus avec une page (pas une page blanche)" non "$blank"
       fi
       ;;
