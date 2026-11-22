@@ -1,0 +1,102 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1040 : onglet « Sécurité » de la fiche Fournisseur (GlpiPlugin\Grcmanager\SupplierSecurityTab) :
+   risques fournisseurs visibles, niveau, dernière évaluation, prochaine réévaluation. Lecture seule. #}
+<div class="card" id="grc-supplier-security-tab">
+  <div class="card-body">
+    <div class="alert alert-info d-flex gap-2">
+      <i class="ti ti-info-circle fs-2" aria-hidden="true"></i>
+      <div>
+        <strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+        <div>{{ __('The security assessment of this supplier: its supplier risks, their level, the last questionnaire it answered and the next reassessment. The full register is in Management > Supplier security.', 'grcmanager') }}</div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      {% if next_review %}
+        <span class="badge {{ review_overdue ? 'bg-red-subtle text-red-emphasis' : 'bg-blue-subtle text-blue-emphasis' }}">
+          <i class="ti {{ review_overdue ? 'ti-clock-exclamation' : 'ti-calendar-event' }} me-1" aria-hidden="true"></i>
+          {{ review_overdue ? __('Reassessment overdue since %s', 'grcmanager')|format(next_review|formatted_date) : __('Next reassessment: %s', 'grcmanager')|format(next_review|formatted_date) }}
+        </span>
+      {% elseif risks is not empty %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-calendar-question me-1" aria-hidden="true"></i>{{ __('No reassessment date planned', 'grcmanager') }}</span>
+      {% endif %}
+      <span class="ms-auto"></span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ register_url }}"><i class="ti ti-truck me-1" aria-hidden="true"></i>{{ __('Supplier risk register', 'grcmanager') }}</a>
+      {% if create_url %}
+        <a class="btn btn-sm btn-primary" href="{{ create_url }}" id="grc-supplier-security-create"><i class="ti ti-plus me-1" aria-hidden="true"></i>{{ __('Assess this supplier', 'grcmanager') }}</a>
+      {% endif %}
+    </div>
+
+    {% if risks is empty %}
+      <p class="text-muted mb-0"><i class="ti ti-shield-off me-1" aria-hidden="true"></i>{{ __('This supplier has not been assessed yet: no supplier risk is recorded for it in your entities.', 'grcmanager') }}</p>
+    {% else %}
+      <div class="table-responsive">
+        <table class="table table-sm table-vcenter mb-0">
+          <thead>
+            <tr>
+              <th>{{ __('Supplier risk', 'grcmanager') }}</th>
+              <th>{{ __('Risk level', 'grcmanager') }}</th>
+              <th>{{ __('Status', 'grcmanager') }}</th>
+              <th>{{ __('Last evaluation', 'grcmanager') }}</th>
+              <th>{{ __('Review date', 'grcmanager') }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for risk in risks %}
+              {% set level = levels[risk.risk_level] ?? [risk.risk_level, 'bg-secondary-subtle text-secondary-emphasis'] %}
+              <tr>
+                <td><a href="{{ risk.url }}"><i class="ti ti-truck me-1" aria-hidden="true"></i>{{ risk.title }}</a></td>
+                <td>
+                  <span class="badge {{ level[1] }}">
+                    {% if risk.risk_level in ['high', 'critical'] %}<i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{% endif %}{{ level[0] }}
+                  </span>
+                </td>
+                <td>{{ statuses[risk.status] ?? risk.status }}</td>
+                <td>
+                  {% set last = risk.last_evaluation %}
+                  {% if last is null %}
+                    <span class="text-muted">{{ __('No evaluation yet', 'grcmanager') }}</span>
+                  {% else %}
+                    <a href="{{ last.url }}">{{ last.name ?: __('Evaluation', 'grcmanager') }}</a>
+                    {% if last.date %}<span class="text-muted small ms-1">{{ last.date|formatted_date }}</span>{% endif %}
+                    {% if last.level and eval_levels[last.level] is defined %}
+                      <span class="badge {{ eval_levels[last.level][1] }} ms-1">{{ last.score }} % · {{ eval_levels[last.level][0] }}</span>
+                    {% endif %}
+                    {% if eval_statuses[last.status] is defined %}
+                      <span class="badge {{ eval_statuses[last.status][1] }} ms-1"><i class="ti {{ eval_statuses[last.status][2] }} me-1" aria-hidden="true"></i>{{ eval_statuses[last.status][0] }}</span>
+                    {% endif %}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if risk.review_date %}
+                    {{ risk.review_date|formatted_date }}
+                    {% if risk.review_overdue %}<span class="badge bg-red-subtle text-red-emphasis ms-1"><i class="ti ti-clock-exclamation me-1" aria-hidden="true"></i>{{ __('Overdue', 'grcmanager') }}</span>{% endif %}
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </td>
+                <td class="text-end">
+                  <a class="btn btn-sm btn-outline-primary" href="{{ risk.questionnaires }}"><i class="ti ti-checklist me-1" aria-hidden="true"></i>{{ _n('%d questionnaire', '%d questionnaires', risk.evaluations, 'grcmanager')|format(risk.evaluations) }}</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</div>

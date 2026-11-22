@@ -34,7 +34,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\Policy::$rightname, READ);
 // front/risk.php's own docblock for the full explanation.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Policy::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Policy::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Policy::class]

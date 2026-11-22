@@ -78,7 +78,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twi
 // first place, see DefaultSearchColumns.php), while restoring URL-driven search behaviour.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Risk::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Risk::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Risk::class]
