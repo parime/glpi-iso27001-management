@@ -204,3 +204,6 @@ msgid "Reported risk"
 msgid_plural "Reported risks"
 msgstr[0] "Riesgo señalado"
 msgstr[1] "Riesgos señalados"
+
+msgid "Rejected with a reason"
+msgstr "Rechazado con un motivo"

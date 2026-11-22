@@ -140,7 +140,7 @@ class ReportedRisk extends ReportedRiskBase
                 'mine'  => __('Taken into account: this risk was already known and is being followed', 'grcmanager'),
             ],
             Rules::STATUS_REJECTED => [
-                'label' => __('Rejected', 'grcmanager'),
+                'label' => __('Rejected with a reason', 'grcmanager'),
                 'class' => 'bg-danger-subtle text-danger-emphasis',
                 'icon'  => 'ti-circle-x',
                 'mine'  => __('Not kept', 'grcmanager'),
