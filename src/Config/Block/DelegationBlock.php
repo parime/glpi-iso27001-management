@@ -20,6 +20,11 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
+use GlpiPlugin\Grcmanager\Delegation;
+use GlpiPlugin\Grcmanager\Install\Installer;
+use GlpiPlugin\Grcmanager\Services\Delegation\DelegationConfig;
+use Html;
+use Session;
 
 /** Issue #618 : décisions délégables à un suppléant pendant une absence. */
 final class DelegationBlock extends ConfigBlock
@@ -47,7 +52,26 @@ final class DelegationBlock extends ConfigBlock
     public static function data(): array
     {
         return [
-            'delegation' => \GlpiPlugin\Grcmanager\Delegation::configData(),
+            'delegation' => Delegation::configData(),
         ];
+    }
+
+    /**
+     * Issue #1047 : types délégables enregistrés par la page de configuration (front/config.php),
+     * plus par la page d'exploitation front/delegation.php. Réglage global : droit de modifier le
+     * plugin ET la configuration de GLPI.
+     */
+    public static function handle(): bool
+    {
+        if (!isset($_POST['update_delegation_config'])) {
+            return false;
+        }
+        Session::checkRight(Installer::RIGHT_NAME, UPDATE);
+        Session::checkRight('config', UPDATE);
+        DelegationConfig::save((array) ($_POST['delegation_types'] ?? []));
+        Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
+        Html::redirect(Delegation::configURL());
+
+        return true;
     }
 }

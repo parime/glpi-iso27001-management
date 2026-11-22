@@ -17,17 +17,14 @@
 
 use GlpiPlugin\Grcmanager\Delegation;
 use GlpiPlugin\Grcmanager\Install\Installer;
-use GlpiPlugin\Grcmanager\Services\Delegation\DelegationConfig;
 
 // Issue #618 : décisions prises par un suppléant pendant l'absence du titulaire. Journal en lecture
-// seule pour les lecteurs du plugin (entités de la session) ; le choix des types délégables est un
-// réglage global : droit de modifier le plugin ET la configuration de GLPI.
+// seule pour les lecteurs du plugin (entités de la session). Issue #1047 : le choix des types
+// délégables est enregistré par la configuration (DelegationBlock) ; l'ancien envoi vers cette page
+// reste accepté pendant une version.
 if (isset($_POST['update_delegation_config'])) {
-    Session::checkRight(Installer::RIGHT_NAME, UPDATE);
-    Session::checkRight('config', UPDATE);
-    DelegationConfig::save((array) ($_POST['delegation_types'] ?? []));
-    Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-    Html::redirect(Delegation::configURL());
+    \GlpiPlugin\Grcmanager\Config\MovedSettings::notice(\GlpiPlugin\Grcmanager\Config\Tab\PeopleTab::label());
+    \GlpiPlugin\Grcmanager\Config\Block\DelegationBlock::handle();
 }
 
 Session::checkRight(Installer::RIGHT_NAME, READ);
