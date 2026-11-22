@@ -38,6 +38,9 @@ abstract class AbstractSection implements MenuSection
     public static function right(): string
     {
         $parent = static::parent();
+        if (defined($parent . '::RIGHTNAME')) {
+            return (string) constant($parent . '::RIGHTNAME');
+        }
 
         return (string) $parent::$rightname;
     }

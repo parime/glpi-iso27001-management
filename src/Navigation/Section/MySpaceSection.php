@@ -38,4 +38,10 @@ final class MySpaceSection extends AbstractSection
     {
         return Dashboard::class;
     }
+
+    /** Ouvert à tout utilisateur connecté ; dans le menu avec un droit de lecture du plugin. */
+    public static function right(): string
+    {
+        return Dashboard::RIGHTNAME;
+    }
 }

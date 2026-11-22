@@ -15,10 +15,20 @@ use GlpiPlugin\Grcmanager\Navigation\Sections;
 
 $menuPages = [];
 $profile = $_SESSION['glpiactiveprofile'];
-$withoutPluginRights = $profile;
-foreach (array_keys($withoutPluginRights) as $right) {
-    if (str_starts_with((string) $right, 'plugin_grcmanager')) {
-        $withoutPluginRights[$right] = 0;
+// Droits du profil « sans droit » de la matrice (iso-sans-droit), tels quels ; à défaut, ceux du
+// super-admin sans aucun droit du plugin.
+$noRightProfile = new \Profile();
+if ($noRightProfile->getFromDBByCrit(['name' => 'Securite ISO - sans droit'])) {
+    $withoutPluginRights = [
+        'id'        => $noRightProfile->getID(),
+        'interface' => $noRightProfile->fields['interface'],
+    ] + \ProfileRight::getProfileRights($noRightProfile->getID());
+} else {
+    $withoutPluginRights = $profile;
+    foreach (array_keys($withoutPluginRights) as $right) {
+        if (str_starts_with((string) $right, 'plugin_grcmanager')) {
+            $withoutPluginRights[$right] = 0;
+        }
     }
 }
 $visibleWithoutRights = static function (string $key, bool $isParent) use ($withoutPluginRights, $profile): bool {
