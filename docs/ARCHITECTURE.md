@@ -122,7 +122,7 @@ final class SupplierSecuritySection extends AbstractSection
 {
     public static function sector(): string { return 'management'; }       // défaut : Sections::GRC
     public static function parent(): string { return SupplierSecurity::class; }
-    public static function after(): ?string { return \Contract::class; }     // défaut : null (à la fin)
+    public static function after(): string { return \Contract::class; }     // défaut : null (à la fin)
     public static function pages(): array
     {
         return [

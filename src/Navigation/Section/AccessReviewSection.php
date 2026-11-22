@@ -44,7 +44,7 @@ final class AccessReviewSection extends AbstractSection
         return AccessReview::class;
     }
 
-    public static function after(): ?string
+    public static function after(): string
     {
         return Audit::class;
     }

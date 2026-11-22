@@ -111,6 +111,11 @@ class Menu extends CommonGLPI
                 'icon'  => (string) ($options['icon'] ?? ''),
             ];
         }
+        // Issue #1037 : une page que le profil ne peut pas ouvrir n'est jamais affichée, même si son
+        // entrée de menu ne vérifie pas elle-même le droit.
+        if (method_exists($child, 'canView') && !(bool) $child::canView()) {
+            return null;
+        }
         $menu = $child::getMenuContent();
 
         return is_array($menu) && $menu !== [] ? $menu : null;
@@ -127,6 +132,10 @@ class Menu extends CommonGLPI
      */
     public static function withSubPages(string $parent, $menu)
     {
+        // Issue #1037 : parent interdit au profil (droit vérifié ici, l'entrée ne le fait pas toujours).
+        if (method_exists($parent, 'canView') && !(bool) $parent::canView()) {
+            $menu = false;
+        }
         $parentVisible = is_array($menu) && $menu !== [];
         foreach (array_keys(Sections::pages($parent)) as $child) {
             $childMenu = self::pageMenu($child);

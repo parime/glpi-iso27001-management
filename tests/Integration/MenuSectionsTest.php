@@ -189,6 +189,32 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
         }
     }
 
+    public function testPagesTheProfileCannotOpenAreNotInTheMenu(): void
+    {
+        $saved = $_SESSION['glpiactiveprofile'];
+        try {
+            foreach (array_keys($_SESSION['glpiactiveprofile']) as $right) {
+                if (str_starts_with((string) $right, 'plugin_grcmanager')) {
+                    $_SESSION['glpiactiveprofile'][$right] = 0;
+                }
+            }
+            foreach ($this->sections() as $section) {
+                $parent = $section::parent();
+                $menu = $parent::getMenuContent();
+                if (!(bool) $parent::canView() && is_array($menu)) {
+                    $this->assertNotEmpty($menu['parent_hidden'] ?? null, "$parent : rubrique interdite cachée.");
+                }
+                foreach (array_keys(Sections::pages($parent)) as $key) {
+                    if (class_exists($key) && !(bool) $key::canView()) {
+                        $this->assertNull(Menu::pageMenu($key), "$key : page interdite absente du menu.");
+                    }
+                }
+            }
+        } finally {
+            $_SESSION['glpiactiveprofile'] = $saved;
+        }
+    }
+
     public function testHeaderAndBreadcrumbFollowTheDeclaration(): void
     {
         global $PLUGIN_HOOKS;

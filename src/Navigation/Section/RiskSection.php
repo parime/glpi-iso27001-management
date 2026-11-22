@@ -42,7 +42,7 @@ final class RiskSection extends AbstractSection
         return Risk::class;
     }
 
-    public static function after(): ?string
+    public static function after(): string
     {
         return MySpace::class;
     }
