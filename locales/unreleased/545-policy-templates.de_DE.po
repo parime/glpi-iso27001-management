@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Policy templates"
+msgstr "Richtlinienvorlagen"
+
+msgid "Gives a starting point to an organisation that has no security policy yet: ready-to-adapt templates written by the project, each with its sections and the Annex A controls it covers. The templates follow the requirements of the standard in our own words."
+msgstr "Bietet einer Organisation ohne Sicherheitsrichtlinie einen Ausgangspunkt: anpassbare, vom Projekt verfasste Vorlagen, jeweils mit ihren Abschnitten und den abgedeckten Maßnahmen aus Anhang A. Die Vorlagen folgen den Anforderungen der Norm in eigenen Worten."
+
+msgid "Fill in the name of the organisation, the information security manager and the review period, tick the templates you need, then import them. Each one becomes a new draft policy, linked by section to the controls of the Statement of Applicability. Adapt the text to your practice, then have it approved: nothing is approved automatically and no existing policy is replaced."
+msgstr "Geben Sie den Namen der Organisation, den Informationssicherheitsbeauftragten und den Überprüfungszeitraum an, markieren Sie die benötigten Vorlagen und importieren Sie sie. Jede wird zu einer neuen Richtlinie im Entwurf, abschnittsweise mit den Maßnahmen der Erklärung zur Anwendbarkeit verknüpft. Passen Sie den Text an Ihre Praxis an und lassen Sie ihn genehmigen: Nichts wird automatisch genehmigt und keine bestehende Richtlinie wird ersetzt."
+
+msgid "Tick at least one template."
+msgstr "Markieren Sie mindestens eine Vorlage."
+
+msgid "Each template is written by the project in its own words, without copying the text of the standard, and is offered under the %s licence: you may adapt it freely. Importing a template creates a new draft policy; review it, adapt it to your practice and have it approved like any other policy."
+msgstr "Jede Vorlage wird vom Projekt in eigenen Worten verfasst, ohne den Normtext zu kopieren, und steht unter der Lizenz %s: Sie können sie frei anpassen. Der Import einer Vorlage erstellt eine neue Richtlinie im Entwurf; prüfen Sie sie, passen Sie sie an Ihre Praxis an und lassen Sie sie wie jede andere Richtlinie genehmigen."
+
+msgid "Language of the templates:"
+msgstr "Sprache der Vorlagen:"
+
+msgid "Values inserted into the text"
+msgstr "In den Text eingefügte Werte"
+
+msgid "Organisation name"
+msgstr "Name der Organisation"
+
+msgid "Information security manager"
+msgstr "Informationssicherheitsbeauftragter"
+
+msgid "Review period (months)"
+msgstr "Überprüfungszeitraum (Monate)"
+
+msgid "A value left empty is replaced by a reminder in square brackets, to be completed in the policy. The information security manager becomes the owner of the policies created."
+msgstr "Ein leer gelassener Wert wird durch einen Hinweis in eckigen Klammern ersetzt, der in der Richtlinie zu ergänzen ist. Der Informationssicherheitsbeauftragte wird Eigentümer der erstellten Richtlinien."
+
+msgid "Sections"
+msgstr "Abschnitte"
+
+msgid "Already imported"
+msgstr "Bereits importiert"
+
+msgid "Create the ticked policies as drafts"
+msgstr "Markierte Richtlinien als Entwurf erstellen"
+
+msgid "%1$d draft policy created, with %2$d links to the Statement of Applicability. Adapt it, then have it approved."
+msgid_plural "%1$d draft policies created, with %2$d links to the Statement of Applicability. Adapt them, then have them approved."
+msgstr[0] "%1$d Richtlinie im Entwurf erstellt, mit %2$d Verknüpfungen zur Erklärung zur Anwendbarkeit. Passen Sie sie an und lassen Sie sie genehmigen."
+msgstr[1] "%1$d Richtlinien im Entwurf erstellt, mit %2$d Verknüpfungen zur Erklärung zur Anwendbarkeit. Passen Sie sie an und lassen Sie sie genehmigen."
