@@ -1995,6 +1995,31 @@ Uptime Kuma et aucun certificat n'est renouvelé.
 7. Pour des relevés réguliers (la disponibilité en est plus précise), cochez **Lire automatiquement
    toutes les heures** : la tâche automatique `uptimekuma` est désactivée après l'installation.
 
+### Étape 69 : Suivre MonServiceSécurisé, ETSI EN 319 401 ou le Secure Controls Framework
+
+Trois référentiels complémentaires sont proposés, désactivés par défaut, et reliés à l'Annexe A :
+
+- **MonServiceSécurisé (ANSSI)**, pour une administration ou un prestataire qui homologue un service
+  numérique avec le service de l'ANSSI : ses 135 mesures, rangées en 29 thèmes ;
+- **ETSI EN 319 401**, pour un prestataire de services de confiance (signature, cachet, horodatage,
+  certificats) audité au titre d'eIDAS : les paragraphes 5 à 7 de la norme ;
+- **Secure Controls Framework (SCF)**, pour une organisation qui se sert du SCF comme cadre commun :
+  ses 34 domaines.
+
+1. Dans la configuration du plugin, cadre **Référentiels de conformité**, cochez le référentiel
+   voulu puis cliquez sur **Sauvegarder**.
+2. Ouvrez la page **Référentiels** : une nouvelle carte liste les thèmes, paragraphes ou domaines,
+   avec les mesures de l'Annexe A reliées (cliquables) et les modules du plugin qui produisent déjà
+   des preuves. Le champ **Filtrer** retrouve vite un identifiant (`AUTH`, `7.14.3`, `VPM`...).
+3. Sur la fiche d'une mesure de l'Annexe A, un badge (« MSS AUTH », « EN 319 401 7.4.5 »,
+   « SCF IAC ») indique ce qu'elle couvre ; le taux du référentiel apparaît dans le tableau de bord
+   et dans l'évaluation par référentiel.
+
+La correspondance avec l'Annexe A est indicative, établie par le projet : relisez-la avec votre
+auditeur. Le pied de chaque carte donne la source et la licence (Apache 2.0 pour MonServiceSécurisé,
+norme protégée dont seuls les numéros sont repris pour l'ETSI, CC BY-ND 4.0 pour le SCF, dont les
+noms de domaines restent en anglais).
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3866,3 +3891,27 @@ certificate is renewed.
    matrix that nobody watches.
 7. For regular readings (the availability is then more precise), tick **Read automatically every
    hour**: the automatic action `uptimekuma` is disabled after the installation.
+
+### Step 69: Follow MonServiceSécurisé, ETSI EN 319 401 or the Secure Controls Framework
+
+Three additional frameworks are offered, disabled by default, and linked to Annex A:
+
+- **MonServiceSécurisé (ANSSI)**, for a public body or a provider that accredits a digital service
+  with the French cybersecurity agency's service: its 135 measures, in 29 themes;
+- **ETSI EN 319 401**, for a trust service provider (signature, seal, time-stamping, certificates)
+  audited under eIDAS: clauses 5 to 7 of the standard;
+- **Secure Controls Framework (SCF)**, for an organisation that uses the SCF as its common
+  framework: its 34 domains.
+
+1. In the plugin configuration, **Compliance frameworks** box, tick the framework you need, then
+   click **Save**.
+2. Open the **Reference frameworks** page: a new card lists the themes, clauses or domains, with the linked
+   Annex A controls (clickable) and the plugin modules that already produce evidence. The **Filter**
+   field quickly finds an identifier (`AUTH`, `7.14.3`, `VPM`...).
+3. On an Annex A control, a badge ("MSS AUTH", "EN 319 401 7.4.5", "SCF IAC") shows what it covers;
+   the framework rate appears in the dashboard and in the per-framework assessment.
+
+The mapping to Annex A is indicative and made by the project: review it with your auditor. The
+footer of each card gives the source and the licence (Apache 2.0 for MonServiceSécurisé, a protected
+standard of which only the numbers are used for ETSI, CC BY-ND 4.0 for the SCF, whose domain names
+stay in English).
