@@ -17,6 +17,7 @@ work, and the breadcrumb at the top of each page shows the new location.
 | Single points of failure (impact analyses), domino effect, EBIOS RM studies, risk indicators (KRI) | GRC > Risks | GRC > Risk analyses |
 | Supplier risks | GRC > Risks | Management > Supplier security (and the **Security** tab of the supplier form) |
 | Supplier questionnaire templates | link of the supplier risks page | Management > Supplier security |
+| DORA register of information | GRC > Compliance | Management > Supplier security, when DORA is enabled |
 | Risk heatmap, catalog of typical risks | outside the menu (links of the risk list) | GRC > Risks, tabs |
 | Risk import and export | Tools | GRC > Risks, **Import and export** tab |
 | Approved applications | GRC > Risks | GRC > Policies and procedures |

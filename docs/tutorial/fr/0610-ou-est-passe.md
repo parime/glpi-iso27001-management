@@ -19,6 +19,7 @@ session.
 | Points de défaillance uniques (analyses d'impact), effet domino, études EBIOS RM, indicateurs de risque (KRI) | GRC > Risques | GRC > Analyses de risques |
 | Risques fournisseurs | GRC > Risques | Gestion > Sécurité des fournisseurs (et onglet **Sécurité** de la fiche du fournisseur) |
 | Modèles de questionnaire fournisseur | lien de la page des risques fournisseurs | Gestion > Sécurité des fournisseurs |
+| Registre d'informations DORA | GRC > Conformité | Gestion > Sécurité des fournisseurs, si DORA est activé |
 | Cartographie des risques, catalogue de risques types | hors menu (liens de la liste des risques) | GRC > Risques, onglets |
 | Import et export des risques | Outils | GRC > Risques, onglet **Import et export** |
 | Applications approuvées | GRC > Risques | GRC > Politiques et procédures |
