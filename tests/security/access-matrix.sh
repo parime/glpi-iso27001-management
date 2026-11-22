@@ -725,7 +725,7 @@ if [ "$ROLE" = admin ]; then
   expect "front/riskscale.php : appliquer sans jeton CSRF" 403 \
     "$(code -d "apply=1&size=5&confirm=1" "$P/riskscale.php")"
   contains "front/config.php : matrice toujours en 4 x 4" 'name="matrix_very_rare_negligible"' non \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=risks")"
   for p in $READABLE; do expect "$p : super-admin" 200 "$(code "$BASE/plugins/grcmanager/$p")"; done
   # Issue #779 : les editeurs surveilles ne se modifient pas sans jeton CSRF.
   expect "front/softwarelicensecompliance.php : editeurs sans jeton CSRF" 403 \
@@ -746,29 +746,29 @@ if [ "$ROLE" = admin ]; then
   expect "front/config.php : rappel des tests, sans jeton CSRF" 403 \
     "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always" "$P/config.php")"
   contains "front/config.php : rappel des tests inchange sans jeton" 'value="always" selected' non \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=controls")"
   expect "front/config.php : rappel des tests au groupe RSSI" 302 \
-    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=always&_glpi_csrf_token=$(csrf)" "$P/config.php?tab=controls")"
   contains "front/config.php : rappel des tests enregistre" 'value="always" selected' oui \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=controls")"
   expect "front/config.php : rappel des tests, valeur inconnue" 302 \
-    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+    "$(code -d "update_controltest_reminder=1&controltest_reminder_ciso=x&_glpi_csrf_token=$(csrf)" "$P/config.php?tab=controls")"
   contains "front/config.php : rappel des tests par defaut" 'value="overdue" selected' oui \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=controls")"
   # Issue #378 : niveau d'alerte des KRI. Sans jeton CSRF, refuse et inchange ; avec, enregistre ;
   # une valeur inconnue revient au rouge.
   expect "front/config.php : alerte des KRI, sans jeton CSRF" 403 \
     "$(code -d "update_kri_alert=1&kri_alert_level=orange" "$P/config.php")"
   contains "front/config.php : alerte des KRI inchangee sans jeton" 'value="orange" selected' non \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=risks")"
   expect "front/config.php : alerte des KRI des l'orange" 302 \
-    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+    "$(code -d "update_kri_alert=1&kri_alert_level=orange&_glpi_csrf_token=$(csrf)" "$P/config.php?tab=risks")"
   contains "front/config.php : alerte des KRI enregistree" 'value="orange" selected' oui \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=risks")"
   expect "front/config.php : alerte des KRI, valeur inconnue" 302 \
-    "$(code -d "update_kri_alert=1&kri_alert_level=x&_glpi_csrf_token=$(csrf)" "$P/config.php")"
+    "$(code -d "update_kri_alert=1&kri_alert_level=x&_glpi_csrf_token=$(csrf)" "$P/config.php?tab=risks")"
   contains "front/config.php : alerte des KRI par defaut" 'value="red" selected' oui \
-    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php")"
+    "$(curl -s -c "$JAR" -b "$JAR" "$P/config.php?tab=risks")"
 fi
 
 expect "incident, entite A"            200    "$(code "$P/securityincident.form.php?id=$(id incident_A)")"
