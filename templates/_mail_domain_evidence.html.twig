@@ -1,0 +1,20 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #855 : cadre de preuve de la sécurité de la messagerie et des domaines (mesures A.5.14 et
+   A.8.21), dans les entités de la personne. Reçoit « evidence » (MailDomainSecurity::evidence()) :
+   une liste de sources affichée par le gabarit partagé de la conformité de configuration (#781). #}
+<div id="grc-mail-domain-evidence">
+   {% include '@grcmanager/_configuration_evidence.html.twig' with {'sources': evidence.sources} only %}
+</div>

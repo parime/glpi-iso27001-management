@@ -177,6 +177,8 @@ class Menu extends CommonGLPI
                 ServerManagement::class,
                 // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30).
                 BackupCoverage::class,
+                // Issue #855 : sécurité de la messagerie et des domaines (A.5.14, A.8.21).
+                MailDomainSecurity::class,
                 CanonicalProduct::class, NetworkFlow::class, BreachExposure::class,
             ],
         ];

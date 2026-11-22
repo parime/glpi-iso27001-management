@@ -1,0 +1,234 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #855 : sécurité de la messagerie et des domaines (A.5.14, A.8.21), domaines des entités de la
+   personne. Lecture DNS publique sur clic seulement : aucun e-mail envoyé, rien n'est modifié. #}
+{% macro badge(b) %}<span class="badge bg-{{ b.color }}-subtle text-{{ b.color }}-emphasis"{% if b.title %} title="{{ b.title }}"{% endif %}><i class="{{ b.icon }} me-1"></i>{{ b.text }}</span>{% endmacro %}
+{% macro severity(code, severities) %}{% set s = severities[code] %}<span class="badge bg-{{ code }}-subtle text-{{ code }}-emphasis text-nowrap"><i class="{{ s.icon }} me-1"></i>{{ s.label }}</span>{% endmacro %}
+
+<div id="grc-mail-domain-security">
+   {# Synthèse. #}
+   <div class="row row-cards mb-3">
+      {% set cards = [
+         {'value': summary.total, 'label': __('Domains followed', 'grcmanager'), 'help': _n('%d domain checked', '%d domains checked', summary.checked, 'grcmanager')|format(summary.checked), 'icon': 'ti ti-world', 'color': summary.total == 0 ? 'secondary' : 'primary'},
+         {'value': summary.dmarc_enforced, 'label': __('Domains protected by DMARC', 'grcmanager'), 'help': __('Fake e-mails put in quarantine or rejected', 'grcmanager'), 'icon': 'ti ti-shield-check', 'color': summary.checked == 0 ? 'secondary' : (summary.dmarc_enforced == summary.total ? 'success' : 'warning')},
+         {'value': summary.to_fix, 'label': __('Domains with a gap to fix', 'grcmanager'), 'help': __('Spoofing remains possible', 'grcmanager'), 'icon': 'ti ti-alert-octagon', 'color': summary.total == 0 ? 'secondary' : (summary.to_fix > 0 ? 'danger' : 'success')},
+         {'value': summary.expiring, 'label': __('Expiring or expired', 'grcmanager'), 'help': _n('Domain or certificate, alert %d day before', 'Domain or certificate, alert %d days before', alert_days, 'grcmanager')|format(alert_days), 'icon': 'ti ti-calendar-due', 'color': summary.total == 0 ? 'secondary' : (summary.expiring > 0 ? 'warning' : 'success')},
+      ] %}
+      {% for card in cards %}
+         <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+            <div class="d-flex align-items-center">
+               <span class="badge bg-{{ card.color }}-subtle text-{{ card.color }}-emphasis me-2 fs-3"><i class="{{ card.icon }}"></i></span>
+               <div>
+                  <div class="fw-bold fs-3">{{ card.value }}</div>
+                  <div class="small">{{ card.label }}</div>
+               </div>
+            </div>
+            <div class="small text-muted mt-1">{{ card.help }}</div>
+         </div></div></div>
+      {% endfor %}
+   </div>
+
+   {# Domaines suivis. #}
+   <div class="card mb-3" id="grc-mail-domains">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-world me-2"></i>{{ __('Domains of the organisation', 'grcmanager') }}</h3>
+         {% if can_manage and domains is not empty %}
+            <div class="card-actions">
+               <form method="post" action="{{ action }}" class="d-inline">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-sm btn-primary" name="check_all_domains" value="1" title="{{ _n('At most %d domain per click', 'At most %d domains per click', max_check, 'grcmanager')|format(max_check) }}"><i class="ti ti-refresh me-1"></i>{{ __('Check all domains', 'grcmanager') }}</button>
+               </form>
+            </div>
+         {% endif %}
+      </div>
+      <div class="card-body">
+         <p class="text-muted small mb-2"><i class="ti ti-lock-access me-1"></i>{{ __('The check only reads public DNS records, like any mail server does before delivering an e-mail. No e-mail is sent and no server is scanned.', 'grcmanager') }}</p>
+         {% if domains is empty %}
+            <div class="alert alert-info mb-0" id="grc-mail-domains-empty"><i class="ti ti-info-circle me-1"></i>{{ __('No domain entered yet: the module stays inactive and makes no DNS query. Add the domains your organisation uses to send or receive e-mail, and the ones it only owns.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="table-responsive">
+               <table class="table table-sm table-hover align-middle mb-0">
+                  <thead><tr>
+                     <th>{{ __('Domain', 'grcmanager') }}</th>
+                     <th title="{{ __('Servers allowed to send e-mails for the domain', 'grcmanager') }}">SPF</th>
+                     <th title="{{ __('Signature of the e-mails sent', 'grcmanager') }}">DKIM</th>
+                     <th title="{{ __('What receiving servers do with fake e-mails', 'grcmanager') }}">DMARC</th>
+                     <th title="{{ __('Encryption required between mail servers', 'grcmanager') }}">MTA-STS</th>
+                     <th title="{{ __('Reports of encryption failures', 'grcmanager') }}">TLS-RPT</th>
+                     <th title="{{ __('Signature of the DNS answers', 'grcmanager') }}">DNSSEC</th>
+                     <th>{{ __('Domain expiry', 'grcmanager') }}</th>
+                     <th>{{ __('Mail certificate', 'grcmanager') }}</th>
+                     <th>{{ __('Last check', 'grcmanager') }}</th>
+                     {% if can_manage %}<th></th>{% endif %}
+                  </tr></thead>
+                  <tbody>
+                  {% for d in domains %}
+                     <tr data-domain="{{ d.name }}">
+                        <td>
+                           <div class="fw-bold">{{ _self.severity(d.worst, severities) }} {{ d.name }}</div>
+                           {% if d.mx is not empty %}<div class="small text-muted" title="{{ __('Mail servers (MX)', 'grcmanager') }}"><i class="ti ti-server me-1"></i>{{ d.mx|join(', ') }}</div>{% endif %}
+                           {% if d.comment %}<div class="small text-muted">{{ d.comment }}</div>{% endif %}
+                        </td>
+                        {% for key in ['spf', 'dkim', 'dmarc', 'mta_sts', 'tls_rpt', 'dnssec', 'domain_expiry', 'certificate_expiry'] %}
+                           <td>{{ _self.badge(d.badges[key]) }}</td>
+                        {% endfor %}
+                        <td class="small">{{ d.last_check_label is empty ? __('Never', 'grcmanager') : d.last_check_label }}</td>
+                        {% if can_manage %}
+                           <td class="text-end text-nowrap">
+                              <form method="post" action="{{ action }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="id" value="{{ d.id }}">
+                                 <button type="submit" class="btn btn-sm btn-outline-primary" name="check_domain" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Check now', 'grcmanager') }}</button>
+                              </form>
+                              <a class="btn btn-sm btn-ghost-secondary" href="{{ action }}?edit={{ d.id }}#grc-mail-domain-form" title="{{ __('Edit', 'grcmanager') }}"><i class="ti ti-pencil"></i></a>
+                              <form method="post" action="{{ action }}" class="d-inline">
+                                 <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                                 <input type="hidden" name="id" value="{{ d.id }}">
+                                 <button type="submit" class="btn btn-sm btn-ghost-danger" name="delete_domain" value="1" title="{{ __('Remove', 'grcmanager') }}" onclick="return confirm('{{ __('Remove this domain from the list? Nothing is changed in the DNS.', 'grcmanager')|e('js') }}');"><i class="ti ti-trash"></i></button>
+                              </form>
+                           </td>
+                        {% endif %}
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Écarts à traiter, les plus graves d'abord. #}
+   {% if gaps is not empty %}
+      <div class="card mb-3" id="grc-mail-gaps">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-list-check me-2"></i>{{ __('What to do', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ gaps|length }}</span></div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-sm card-table align-middle mb-0">
+               <thead><tr>
+                  <th>{{ __('Level', 'grcmanager') }}</th>
+                  <th>{{ __('Domain', 'grcmanager') }}</th>
+                  <th>{{ __('Gap', 'grcmanager') }}</th>
+                  <th>{{ __('Advice', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for g in gaps %}
+                  <tr data-finding="{{ g.code }}">
+                     <td>{{ _self.severity(g.severity, severities) }}</td>
+                     <td class="text-nowrap">{{ g.domain }}</td>
+                     <td>{{ g.label }}</td>
+                     <td class="small">{{ g.advice }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Saisie d'un domaine (ajout ou modification). #}
+   {% if can_manage %}
+      {% set e = editing %}
+      <div class="card mb-3" id="grc-mail-domain-form">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti {{ e ? 'ti-pencil' : 'ti-plus' }} me-2"></i>{{ e ? __('Edit the domain %s', 'grcmanager')|format(e.name) : __('Add a domain', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            <form method="post" action="{{ action }}">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               {% if e %}<input type="hidden" name="id" value="{{ e.id }}">{% endif %}
+               <div class="row g-3">
+                  <div class="col-md-4">
+                     <label class="form-label required" for="grc-mail-name">{{ __('Domain name', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" id="grc-mail-name" name="name" maxlength="253" required placeholder="example.org" value="{{ e ? e.name : '' }}">
+                     <div class="form-hint">{{ __('The part after the @ of the e-mail addresses.', 'grcmanager') }}</div>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-mail-selectors">{{ __('DKIM selectors', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" id="grc-mail-selectors" name="dkim_selectors" maxlength="700" placeholder="selector1, selector2" value="{{ e ? e.dkim_selectors : '' }}">
+                     <div class="form-hint">{{ __('Given by your e-mail service, separated by commas (selector1 and selector2 for Microsoft 365, google for Google Workspace).', 'grcmanager') }}</div>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-mail-comment">{{ __('Comment', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" id="grc-mail-comment" name="comment" maxlength="255" placeholder="{{ __('For example: main domain, or domain kept for the brand only', 'grcmanager') }}" value="{{ e ? e.comment : '' }}">
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-mail-domain-expiry">{{ __('Domain expiry date', 'grcmanager') }}</label>
+                     <input type="date" class="form-control" id="grc-mail-domain-expiry" name="domain_expiry" value="{{ e ? e.domain_expiry : '' }}">
+                     <div class="form-hint">{{ __('Shown in the customer area of the registrar.', 'grcmanager') }}</div>
+                  </div>
+                  <div class="col-md-4">
+                     <label class="form-label" for="grc-mail-cert-expiry">{{ __('Expiry date of the mail server certificate', 'grcmanager') }}</label>
+                     <input type="date" class="form-control" id="grc-mail-cert-expiry" name="certificate_expiry" value="{{ e ? e.certificate_expiry : '' }}">
+                     <div class="form-hint">{{ __('Leave empty when the mail service is hosted (Microsoft 365, Google Workspace): the provider renews it.', 'grcmanager') }}</div>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-end gap-2">
+                     {% if e %}
+                        <button type="submit" class="btn btn-primary" name="update_domain" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+                        <a class="btn btn-outline-secondary" href="{{ action }}">{{ __('Cancel', 'grcmanager') }}</a>
+                     {% else %}
+                        <button type="submit" class="btn btn-primary" name="add_domain" value="1"><i class="ti ti-plus me-1"></i>{{ __('Add the domain', 'grcmanager') }}</button>
+                     {% endif %}
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Serveur DNS de la question DNSSEC, facultatif. #}
+   {% if can_manage %}
+      <div class="card mb-3" id="grc-mail-dns-server">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-server-cog me-2"></i>{{ __('DNS server used for DNSSEC (optional)', 'grcmanager') }}</h3>
+         </div>
+         <div class="card-body">
+            <p class="text-muted small">{{ __('By default, the DNS server of the GLPI server is asked. Some of them (inside Docker, for example) do not relay the DNSSEC records: DNSSEC then shows "Unknown". Enter the IP address of another DNS server of your organisation or of your provider to fix it.', 'grcmanager') }}</p>
+            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-mail-dns">{{ __('IP address of the DNS server', 'grcmanager') }}</label>
+                  <input type="text" class="form-control" id="grc-mail-dns" name="dns_server" maxlength="45" placeholder="{{ __('DNS server of the GLPI server', 'grcmanager') }}" value="{{ dns_server }}">
+               </div>
+               <div class="col-md-3">
+                  <button type="submit" class="btn btn-outline-primary" name="save_dns_server" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Les protections en quelques mots. #}
+   <div class="card mb-3" id="grc-mail-glossary">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-book me-2"></i>{{ __('The protections in a few words', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <dl class="row mb-0 small">
+            <dt class="col-sm-2"><i class="ti ti-send me-1"></i>SPF</dt>
+            <dd class="col-sm-10">{{ __('List of the servers allowed to send e-mails for the domain. "-all" refuses all the others.', 'grcmanager') }}</dd>
+            <dt class="col-sm-2"><i class="ti ti-signature me-1"></i>DKIM</dt>
+            <dd class="col-sm-10">{{ __('Signature added to each e-mail sent, checked by the receiver with a key published in the DNS under a "selector".', 'grcmanager') }}</dd>
+            <dt class="col-sm-2"><i class="ti ti-shield-check me-1"></i>DMARC</dt>
+            <dd class="col-sm-10">{{ __('Tells receiving servers what to do with an e-mail that fails SPF and DKIM: observe (none), put in quarantine or reject. Only quarantine and reject stop the spoofing.', 'grcmanager') }}</dd>
+            <dt class="col-sm-2"><i class="ti ti-lock me-1"></i>MTA-STS, TLS-RPT</dt>
+            <dd class="col-sm-10">{{ __('Require encrypted connections between mail servers, and send a report when encryption fails.', 'grcmanager') }}</dd>
+            <dt class="col-sm-2"><i class="ti ti-shield-lock me-1"></i>DNSSEC</dt>
+            <dd class="col-sm-10">{{ __('Signs the DNS answers of the domain so that nobody can forge them.', 'grcmanager') }}</dd>
+         </dl>
+      </div>
+   </div>
+</div>
