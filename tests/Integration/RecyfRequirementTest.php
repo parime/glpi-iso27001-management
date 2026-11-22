@@ -53,9 +53,12 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
         foreach ($keys as $key) {
             $this->savedSession[$key] = $_SESSION[$key] ?? null;
         }
-        $this->savedFrameworks = FrameworkConfig::enabled();
-        FrameworkConfig::save(
-            array_values(array_unique(array_merge($this->savedFrameworks, [FrameworkSelection::NIS2])))
+        // Issue #1053 : ReCyF est la déclinaison France de NIS2, cochée en plus de NIS2.
+        $this->savedFrameworks = FrameworkConfig::storedEnabled();
+        FrameworkConfig::save(array_values(array_unique(array_merge(
+            $this->savedFrameworks,
+            [FrameworkSelection::NIS2, FrameworkSelection::RECYF]
+        )))
         );
 
         // Catégories de l'instance écartées (annulé avec la transaction) : registres de ce test seulement.
@@ -206,9 +209,17 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
 
     public function testDisabledNis2HidesTheRegister(): void
     {
-        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::enabled(), [FrameworkSelection::NIS2])));
+        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::storedEnabled(), [FrameworkSelection::NIS2])));
         $this->assertFalse(RecyfRequirement::canView());
         $this->assertFalse(RecyfRequirement::canUpdate());
+    }
+
+    /** Issue #1053 : NIS2 actif sans la déclinaison France, le registre ReCyF reste masqué. */
+    public function testNis2WithoutTheFrenchImplementationHidesTheRegister(): void
+    {
+        FrameworkConfig::save(array_values(array_diff(FrameworkConfig::storedEnabled(), [FrameworkSelection::RECYF])));
+        $this->assertTrue(FrameworkConfig::isEnabled(FrameworkSelection::NIS2));
+        $this->assertFalse(RecyfRequirement::canView());
     }
 
     /**
@@ -218,7 +229,7 @@ final class RecyfRequirementTest extends GrcmanagerIntegrationTestCase
      */
     public function testNis2IsAssessedOnTheReCyfRegisterWithoutAnnexA(): void
     {
-        FrameworkConfig::save([FrameworkSelection::NIS2]);
+        FrameworkConfig::save([FrameworkSelection::NIS2, FrameworkSelection::RECYF]);
         RecyfRequirement::setCategory($this->france, 'important');
         $done = $this->measureId($this->france, '4.1');
         $this->assertTrue((new RecyfRequirement())->update(['id' => $done, 'implementation_status' => 'implemented']));
