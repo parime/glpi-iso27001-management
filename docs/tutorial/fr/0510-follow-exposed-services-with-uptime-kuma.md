@@ -6,10 +6,11 @@ Uptime Kuma et aucun certificat n'est renouvelé.
 
 1. Dans Uptime Kuma, menu **Settings > API Keys**, créez une clé (elle ne donne accès qu'à la page
    `/metrics`, en lecture). Vous pouvez aussi, ou à la place, lister des pages de statut publiques.
-2. Dans GLPI, ouvrez **Sécurité technique > Services exposés (Uptime Kuma)**, cadre **Connexion à
-   Uptime Kuma** : saisissez l'adresse (par exemple `https://status.example.test`), la clé d'API et,
+2. Dans GLPI, ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton
+   **Régler la connexion** de **Sécurité technique > Services exposés (Uptime Kuma)**), cadre
+   **Connexion à Uptime Kuma** : saisissez l'adresse (par exemple `https://status.example.test`), la clé d'API et,
    si besoin, les pages de statut (fin de leur adresse, par exemple `clients`), puis **Enregistrer** et
-   **Lire maintenant**. Un serveur sur une adresse interne doit être autorisé dans la configuration du
+   **Tester la connexion** ; de retour sur la page Services exposés, cliquez sur **Lire maintenant**. Un serveur sur une adresse interne doit être autorisé dans la configuration du
    plugin (**Connexions sortantes**).
 3. Le tableau **Services surveillés** montre chaque sonde : son état, sa disponibilité sur la période,
    l'actif GLPI reconnu (ordinateur, matériel réseau ou application, par le nom d'hôte surveillé) et la

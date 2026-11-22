@@ -759,7 +759,9 @@ class DoraRegister extends CommonGLPI
                 'object_name' => $issue['scope'] === 'entity'
                     ? (string) ($data['register']['entity']['name'] ?? '') : (string) ($object['name'] ?? ''),
                 'url'         => $issue['scope'] === 'entity'
-                    ? self::getRegisterURL() . '#grc-dora-settings' : (string) ($object['url'] ?? ''),
+                    ? \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                        \GlpiPlugin\Grcmanager\Config\Block\DoraRegisterBlock::ANCHOR
+                    ) : (string) ($object['url'] ?? ''),
             ];
         }
 
@@ -1204,6 +1206,29 @@ class DoraRegister extends CommonGLPI
         ]);
     }
 
+    /**
+     * Bloc de la configuration du plugin (issue #1045) : entité qui tient le registre, listes
+     * fermées et champs manquants ou mal saisis de l'entité.
+     *
+     * @return array<string, mixed>
+     */
+    public static function settingsData(): array
+    {
+        $settings = self::getSettings();
+
+        return [
+            'dora_settings'      => $settings,
+            'dora_entity_types'  => self::options('entity_type'),
+            'dora_hierarchies'   => self::options('hierarchy'),
+            'dora_entity_issues' => array_values(array_filter(
+                self::completeness(self::collect())['issues'],
+                static fn (array $i): bool => $i['scope'] === 'entity'
+            )),
+            'dora_lei_valid'     => $settings['lei'] === '' || RegisterRules::isLei($settings['lei']),
+            'dora_can_edit'      => self::canEdit(),
+        ];
+    }
+
     // ------------------------------------------------------------------ Page du registre
 
     public static function showRegisterPage(): void
@@ -1275,6 +1300,9 @@ class DoraRegister extends CommonGLPI
             'zip_available'  => class_exists(\ZipArchive::class),
             'dora_url'       => RegisterTemplates::DORA_URL,
             'lei_valid'      => $settings['lei'] === '' || RegisterRules::isLei($settings['lei']),
+            'settings_link'  => \GlpiPlugin\Grcmanager\Config\SettingsLink::data(
+                \GlpiPlugin\Grcmanager\Config\Block\DoraRegisterBlock::ANCHOR
+            ),
             'can_view_processes' => BusinessProcess::canView(),
             'can_view_contracts' => Contract::canView() && Supplier::canView(),
             'contract_url'   => Contract::getSearchURL(),

@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Change in the configuration"
+msgstr "In der Konfiguration ändern"
+
+msgid "Current rule"
+msgstr "Geltende Regel"
+
+msgid "This setting is now in the plugin configuration, tab %s."
+msgstr "Diese Einstellung befindet sich jetzt in der Plugin-Konfiguration, Registerkarte %s."
