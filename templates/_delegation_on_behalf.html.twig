@@ -1,0 +1,18 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+{# Issue #618 : décision attendue d'un titulaire absent que l'utilisateur remplace. Variables :
+   name (titulaire), until (fin de l'absence déclarée). #}
+<span class="badge bg-purple-subtle text-purple-emphasis" title="{{ __('Decision delegated for the declared absence period: it will be recorded as yours, on behalf of the absent person.', 'grcmanager') }}">
+   <i class="ti ti-user-share me-1"></i>{{ __('On behalf of %1$s, absent until %2$s', 'grcmanager')|format(name, until) }}
+</span>

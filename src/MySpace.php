@@ -180,6 +180,8 @@ class MySpace extends CommonGLPI
             'horizon_days' => MySpaceRules::HORIZON_DAYS,
             // Issue #872 : signaler un risque, ouvert à toute personne.
             'report_url'   => ReportedRisk::getMineURL(),
+            // Issue #618 : absences en cours où la personne décide pour le compte d'un titulaire.
+            'delegations'  => Delegation::activeFor($usersId),
         ]);
     }
 }

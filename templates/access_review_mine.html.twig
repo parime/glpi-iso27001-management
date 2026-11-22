@@ -25,6 +25,7 @@
       <div class="card mb-3">
          <div class="card-header d-flex flex-wrap align-items-center gap-2">
             <h3 class="card-title mb-0"><i class="ti ti-user-check me-1"></i>{{ c.name }}</h3>
+            {% if c.on_behalf_name %}{{ include('@grcmanager/_delegation_on_behalf.html.twig', {name: c.on_behalf_name, until: c.absent_until}) }}{% endif %}
             <span class="badge {{ c.late ? 'bg-red-lt' : 'bg-blue-lt' }}">{{ __('Due: %s', 'grcmanager')|format(c.due_date|formatted_date) }}</span>
             <span class="text-muted small ms-auto">{{ __('%1$d of %2$d account(s) reviewed', 'grcmanager')|format(c.progress.done, c.progress.total) }}</span>
          </div>
