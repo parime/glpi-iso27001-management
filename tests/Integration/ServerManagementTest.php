@@ -225,6 +225,35 @@ final class ServerManagementTest extends GrcmanagerIntegrationTestCase
         $this->assertNull(ServerManagement::riskyControllers([$this->hiddenEntity]));
     }
 
+    /** Lot 4 : protocoles TLS anciens lus dans les attributs Oem d'un faux iDRAC. */
+    public function testWeakTlsReadFromTheControllerOem(): void
+    {
+        global $DB;
+
+        $id = $this->declare();
+        $path = '/redfish/v1/Managers/1/Oem/Dell/DellAttributes/iDRAC.Embedded.1';
+        $resources = RedfishClientTest::fakeIlo();
+        $resources['/redfish/v1/Managers/1']['Links'] = ['Oem' => ['Dell' => ['DellAttributes' => [
+            ['@odata.id' => $path],
+        ]]]];
+        $gaps = function (string $tls) use ($id, $path, $resources, $DB): array {
+            $resources[$path] = ['Attributes' => ['WebServer.1.TLSProtocol' => $tls]];
+            $this->assertSame('', ServerManagement::read($id, self::fake($resources))['error']);
+            $row = $DB->request(['FROM' => Tables::CONTROLLERS, 'WHERE' => ['id' => $id]])->current();
+            ServerManagement::reset();
+
+            return ['weak_tls' => (int) $row['weak_tls'], 'gaps' => ServerManagement::pageData()['rows'][0]['gaps']];
+        };
+
+        $old = $gaps('TLS 1.1 and Higher');
+        $this->assertSame(1, $old['weak_tls']);
+        $this->assertContains(Rules::GAP_WEAK_TLS, $old['gaps']);
+
+        $modern = $gaps('TLS 1.2 Only');
+        $this->assertSame(0, $modern['weak_tls']);
+        $this->assertNotContains(Rules::GAP_WEAK_TLS, $modern['gaps']);
+    }
+
     public function testFailedReadKeepsThePreviousOne(): void
     {
         global $DB;
