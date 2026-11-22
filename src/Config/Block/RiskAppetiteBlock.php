@@ -49,7 +49,6 @@ final class RiskAppetiteBlock extends ConfigBlock
         return [
             'direction_groups_id' => \GlpiPlugin\Grcmanager\RiskAppetite::getDirectionGroupId(),
             'risk_appetite_title' => \GlpiPlugin\Grcmanager\RiskAppetite::getTypeName(),
-            'risk_appetite_url'   => \GlpiPlugin\Grcmanager\RiskAppetite::getSearchURL(),
         ];
     }
 }

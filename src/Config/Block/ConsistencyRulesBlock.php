@@ -49,7 +49,6 @@ final class ConsistencyRulesBlock extends ConfigBlock
         return [
             'consistency_rows'   => \GlpiPlugin\Grcmanager\ConsistencyCheck::getConfigRows(),
             'consistency_levels' => array_slice(\GlpiPlugin\Grcmanager\Risk::getRiskLevels(), 1, null, true),
-            'consistency_url'    => \GlpiPlugin\Grcmanager\ConsistencyCheck::getSearchURL(),
         ];
     }
 }

@@ -50,7 +50,6 @@ final class MaturityScaleBlock extends ConfigBlock
             'maturity_scale_custom'     => \GlpiPlugin\Grcmanager\MaturityCampaign::customScaleLabels(),
             'maturity_scale_defaults'   => \GlpiPlugin\Grcmanager\MaturityCampaign::defaultScaleLabels(),
             'maturity_label_max_length' => \GlpiPlugin\Grcmanager\Services\Maturity\MaturityGapRules::LABEL_MAX_LENGTH,
-            'maturity_campaigns_url'    => \GlpiPlugin\Grcmanager\MaturityCampaign::getSearchURL(),
         ];
     }
 }

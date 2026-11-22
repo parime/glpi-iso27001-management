@@ -18,7 +18,6 @@
     <h4><i class="ti ti-fish-hook me-1"></i>{{ __('Phishing simulations: retention of the results per person', 'grcmanager') }}</h4>
     <p class="text-muted">
       {{ __('The results per person of a phishing simulation are personal data. After this number of months from the date of the campaign, a daily automatic action deletes them: only the anonymous rates remain (by campaign and by group). 0 keeps them until they are deleted by hand from the campaign. Write this period in your record of processing activities and in the information given to employees.', 'grcmanager') }}
-      <a href="{{ phishing_retention.url }}">{{ __('See the phishing simulations', 'grcmanager') }}</a>
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
