@@ -800,6 +800,9 @@ class EvidencePack extends CommonGLPI
             'stale'        => $stale,
             'states'       => self::getStates(),
             'can_generate' => self::canGenerate(),
+            'settings_link' => \GlpiPlugin\Grcmanager\Config\SettingsLink::data(
+                \GlpiPlugin\Grcmanager\Config\Block\EvidencePackBlock::ANCHOR
+            ),
             'packs'        => self::history(),
         ]);
     }
