@@ -21,9 +21,8 @@ namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AccountHygiene;
-use GlpiPlugin\Grcmanager\BusinessProcess;
-use GlpiPlugin\Grcmanager\CrisisExercise;
-use GlpiPlugin\Grcmanager\CrisisScenario;
+use GlpiPlugin\Grcmanager\AdSecurityAudit;
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use GlpiPlugin\Grcmanager\MfaCoverage;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
 use GlpiPlugin\Grcmanager\PeriodicReview;
@@ -32,9 +31,9 @@ use GlpiPlugin\Grcmanager\ShareAccess;
 
 /**
  * Issue #1038 : qui a accès à quoi (revues des accès, hygiène des comptes, MFA, partages). Le
- * personnel et la sensibilisation sont dans PeopleSection. Les écrans de crise et de continuité
- * partent dans Assistance (lot 4, #1041) : ils restent déclarés ici pour que ce lot les déplace avec
- * l'option « from ».
+ * personnel et la sensibilisation sont dans PeopleSection ; la crise et la continuité dans Assistance
+ * (CrisisContinuitySection, lot 4, #1041). Issue #1047 : l'audit de l'Active Directory et d'Entra ID
+ * (comptes à privilèges, chemins d'attaque) quitte Parc > Sécurité du parc pour cette rubrique.
  */
 final class AccessReviewSection extends AbstractSection
 {
@@ -62,7 +61,7 @@ final class AccessReviewSection extends AbstractSection
     {
         return __(
             'Who has access to what: access reviews, periodic reviews, account hygiene, multi-factor '
-                . 'authentication and file share permissions.',
+                . 'authentication, file share permissions and the Active Directory audit.',
             'grcmanager'
         );
     }
@@ -81,11 +80,9 @@ final class AccessReviewSection extends AbstractSection
             MfaCoverage::class,
             // Issue #846 : droits d'accès aux partages de fichiers Windows (A.5.15, A.5.18, A.8.3).
             ShareAccess::class,
-            CrisisExercise::class,
-            // Issue #377 : processus métier et analyses d'impact sur l'activité (BIA).
-            BusinessProcess::class,
-            // Issue #776 : scénarios de crise sécurité de l'information du PCA (A.5.29).
-            CrisisScenario::class,
+            // Issue #835, rangé ici par #1047 : audit de sécurité de l'Active Directory et d'Entra ID
+            // (rapports PingCastle, chemins d'attaque), qui porte sur les comptes et leurs droits.
+            AdSecurityAudit::class => ['from' => AssetSecurity::class],
         ];
     }
 }

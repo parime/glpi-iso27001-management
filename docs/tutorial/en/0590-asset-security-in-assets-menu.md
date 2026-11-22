@@ -7,8 +7,8 @@ devices.
    - **Vulnerabilities**: fleet vulnerabilities, most exposed machines, watched products;
    - **End of life and patches**: software to watch (end of support read on endoflife.date), hardware
      end of life, late patches, licences;
-   - **Hardening**: automated technical checks, configuration compliance, disk encryption, Active
-     Directory audit;
+   - **Hardening**: automated technical checks, configuration compliance, disk encryption (the Active
+     Directory audit is in **GRC & Compliance > Access and accounts**);
    - **Monitoring**: logging, Zabbix, Uptime Kuma, server management controllers;
    - **Backups and network**: backups, mail and domains, network flow matrix;
    - **Sites and development**: physical security, secure development, code security.

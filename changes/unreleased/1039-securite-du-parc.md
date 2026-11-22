@@ -2,7 +2,7 @@
 
 - **Parc > Sécurité du parc** (#1039, navigation simplifiée #1035) : les écrans de sécurité technique
   quittent le menu GRC pour le menu Parc, là où l'on cherche la sécurité d'un actif. Une page
-  d'accueil range en cartes les 21 écrans, en six groupes : Vulnérabilités, Fin de vie et correctifs,
+  d'accueil range en cartes les 20 écrans, en six groupes : Vulnérabilités, Fin de vie et correctifs,
   Durcissement, Supervision, Sauvegardes et réseau, Sites et développement (sécurité physique,
   développement sécurisé et sécurité du code, venus de la rubrique des mesures). La barre d'onglets
   montre l'accueil et un onglet par groupe ; une seconde barre montre les pages du groupe ouvert. Le

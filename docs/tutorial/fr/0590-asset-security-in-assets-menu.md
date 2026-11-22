@@ -8,7 +8,7 @@ ordinateurs et des matériels réseau.
    - **Fin de vie et correctifs** : logiciels à surveiller (fin de support lue sur endoflife.date),
      fin de vie des matériels, retard des correctifs, licences ;
    - **Durcissement** : contrôles techniques automatiques, conformité de configuration, chiffrement
-     des disques, audit de l'Active Directory ;
+     des disques (l'audit de l'Active Directory est dans **GRC & Conformité > Accès et comptes**) ;
    - **Supervision** : journalisation, Zabbix, Uptime Kuma, contrôleurs de serveurs ;
    - **Sauvegardes et réseau** : sauvegardes, messagerie et domaines, matrice des flux ;
    - **Sites et développement** : sécurité physique, développement sécurisé, sécurité du code.
