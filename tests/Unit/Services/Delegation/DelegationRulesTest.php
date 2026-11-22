@@ -49,7 +49,8 @@ final class DelegationRulesTest extends TestCase
         $this->assertFalse($ended, 'terminée');
         $notStarted = Rules::isWithinPeriod('2026-08-07 10:00:01', '2026-08-15 00:00:00', self::NOW);
         $this->assertFalse($notStarted, 'pas commencée');
-        $this->assertTrue(Rules::isWithinPeriod('2026-08-01', '2026-08-07', self::NOW), 'une date seule couvre la journée');
+        $wholeDay = Rules::isWithinPeriod('2026-08-01', '2026-08-07', self::NOW);
+        $this->assertTrue($wholeDay, 'une date seule couvre la journée');
         $this->assertFalse(Rules::isWithinPeriod('2026-08-01', '2026-08-06', self::NOW));
     }
 

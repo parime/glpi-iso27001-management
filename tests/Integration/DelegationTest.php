@@ -176,8 +176,11 @@ final class DelegationTest extends GrcmanagerIntegrationTestCase
 
         $onBehalf = array_map('intval', array_column(SoaVersion::pendingOnBehalf($this->substitute), 'id'));
         $this->assertContains($versionId, $onBehalf);
-        $this->assertFalse(SoaVersion::answer($versionId, $other, true, '', $this->substitute), 'pas suppléant d\'Olivier');
-        $this->assertTrue(SoaVersion::answer($versionId, $this->holder, true, 'Validé en son absence', $this->substitute));
+        $this->assertFalse(
+            SoaVersion::answer($versionId, $other, true, '', $this->substitute),
+            'pas suppléant d\'Olivier'
+        );
+        $this->assertTrue(SoaVersion::answer($versionId, $this->holder, true, 'En son absence', $this->substitute));
         $this->assertFalse(SoaVersion::answer($versionId, $this->holder, true, '', $this->substitute), 'déjà répondu');
 
         $approvers = array_column(SoaVersion::getApprovers($versionId), null, 'users_id');
