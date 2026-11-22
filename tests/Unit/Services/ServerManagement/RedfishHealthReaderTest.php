@@ -154,7 +154,7 @@ final class RedfishHealthReaderTest extends TestCase
         $this->assertSame('MZ7LH960 · 960 GB · SSD', $byName['Bay 1']['reading']);
         // Panne annoncée : au moins un avertissement.
         $this->assertSame(Rules::HEALTH_WARNING, $byName['Bay 2']['health']);
-        $this->assertCount(5, $health['components']);
+        $this->assertCount(6, $health['components']);
 
         $this->assertCount(3, $health['events']);
         $this->assertSame('2026-01-12 09:30:00', $health['events'][0]['date']);

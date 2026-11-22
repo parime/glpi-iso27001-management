@@ -119,7 +119,7 @@ final class ServerHealthTest extends GrcmanagerIntegrationTestCase
         $id = $this->declare();
         $read = ServerManagement::read($id, self::fake(RedfishHealthReaderTest::fakeIloWithHealth()));
         $this->assertSame('', $read['error']);
-        $this->assertSame(5, $this->rowsOf(Tables::COMPONENTS, $id));
+        $this->assertSame(6, $this->rowsOf(Tables::COMPONENTS, $id));
         $this->assertSame(3, $this->rowsOf(Tables::EVENTS, $id));
 
         $computer = new Computer();
@@ -147,7 +147,7 @@ final class ServerHealthTest extends GrcmanagerIntegrationTestCase
 
         // Lecture suivante sans santé lisible : la précédente est gardée.
         $this->assertSame('', ServerManagement::read($id, self::fake(RedfishClientTest::fakeIlo()))['error']);
-        $this->assertSame(5, $this->rowsOf(Tables::COMPONENTS, $id));
+        $this->assertSame(6, $this->rowsOf(Tables::COMPONENTS, $id));
 
         // Suppression du contrôleur : sa santé part avec lui.
         $this->assertTrue(ServerManagement::deleteController($id));
