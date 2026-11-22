@@ -233,7 +233,6 @@ class PersonnelCompliance extends PersonnelComplianceBase
             'max'     => Rules::MAX_DAYS,
             'weights' => $rows,
             'choices' => Rules::WEIGHTS,
-            'url'     => self::getSearchURL(),
         ];
     }
 

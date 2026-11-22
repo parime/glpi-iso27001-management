@@ -51,7 +51,6 @@ final class RecyfBlock extends ConfigBlock
             'recyf_entities'     => \GlpiPlugin\Grcmanager\RecyfRequirement::isFrameworkEnabled()
                 ? \GlpiPlugin\Grcmanager\RecyfRequirement::configRows() : [],
             'recyf_categories'   => \GlpiPlugin\Grcmanager\RecyfRequirement::getCategories(),
-            'recyf_register_url' => \GlpiPlugin\Grcmanager\RecyfRequirement::getSearchURL(),
         ];
     }
 }

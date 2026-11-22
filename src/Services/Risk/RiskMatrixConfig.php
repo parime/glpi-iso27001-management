@@ -42,6 +42,11 @@ final class RiskMatrixConfig
 {
     private const TABLE = 'glpi_plugin_grcmanager_riskmatrixconfig';
 
+    /** Issue #1046 : date du dernier enregistrement par l'administrateur (liste de démarrage). */
+    public const VALIDATED_KEY = 'risk_matrix_validated_at';
+
+    private const CONFIG_CONTEXT = 'plugin:grcmanager';
+
     /** @var array{size: int, matrix: array<mixed>, labels: ScaleLabels}|null */
     private static ?array $cache = null;
 
@@ -87,6 +92,7 @@ final class RiskMatrixConfig
             'scale_labels' => json_encode(RiskScale::sanitizeLabels($labels)),
             'date_mod'     => date('Y-m-d H:i:s'),
         ], ['id' => 1]);
+        self::markValidated();
         self::reset();
     }
 
@@ -109,6 +115,7 @@ final class RiskMatrixConfig
             'matrix'   => json_encode(RiskScale::normalizeMatrix($matrix, self::size())),
             'date_mod' => date('Y-m-d H:i:s'),
         ], ['id' => 1]);
+        self::markValidated();
         self::reset();
     }
 
@@ -127,7 +134,26 @@ final class RiskMatrixConfig
             'matrix'     => json_encode(RiskScale::normalizeMatrix($matrix, $size)),
             'date_mod'   => date('Y-m-d H:i:s'),
         ], ['id' => 1]);
+        self::markValidated();
         self::reset();
+    }
+
+    /**
+     * Issue #1046 : date du dernier enregistrement de la matrice, de sa taille ou de ses libellés
+     * ('' si jamais enregistrée depuis ce repère).
+     */
+    public static function validatedAt(): string
+    {
+        $values = \Config::getConfigurationValues(self::CONFIG_CONTEXT, [self::VALIDATED_KEY]);
+
+        return (string) ($values[self::VALIDATED_KEY] ?? '');
+    }
+
+    private static function markValidated(): void
+    {
+        \Config::setConfigurationValues(self::CONFIG_CONTEXT, [
+            self::VALIDATED_KEY => $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s'),
+        ]);
     }
 
     /**

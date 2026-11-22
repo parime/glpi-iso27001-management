@@ -51,7 +51,6 @@ final class AcnBlock extends ConfigBlock
             'acn_entities'     => \GlpiPlugin\Grcmanager\AcnRequirement::isFrameworkEnabled()
                 ? \GlpiPlugin\Grcmanager\AcnRequirement::configRows() : [],
             'acn_categories'   => \GlpiPlugin\Grcmanager\AcnRequirement::getCategories(),
-            'acn_register_url' => \GlpiPlugin\Grcmanager\AcnRequirement::getSearchURL(),
         ];
     }
 }
