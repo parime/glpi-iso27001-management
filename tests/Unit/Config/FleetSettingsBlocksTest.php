@@ -29,11 +29,12 @@ final class FleetSettingsBlocksTest extends TestCase
 
     public function testTheFourBlocksAreInTheFleetTabAfterTheExistingOnes(): void
     {
+        $expected = [
+            'FleetVulnerabilities', 'HardwareEol', 'DiskEncryption', 'PatchTargets', 'LicenseWatch', 'LogCoverage',
+        ];
         $keys = array_map(static fn (string $block): string => $block::key(), ConfigTabs::blocksOf('assets'));
-        $this->assertSame(
-            ['FleetVulnerabilities', 'HardwareEol', 'DiskEncryption', 'PatchTargets', 'LicenseWatch', 'LogCoverage'],
-            $keys
-        );
+        // Ordre relatif seulement : d'autres lots ajoutent leurs blocs au même onglet (sauvegardes, #1042).
+        $this->assertSame($expected, array_values(array_intersect($keys, $expected)));
     }
 
     public function testOldAnchorsOpenTheFleetTab(): void
