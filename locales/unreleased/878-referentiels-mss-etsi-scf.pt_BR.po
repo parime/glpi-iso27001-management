@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "MonServiceSécurisé (ANSSI): the 135 measures of the security accreditation service, grouped by theme, their references on the controls and MonServiceSécurisé score. Disabled by default."
+msgstr "MonServiceSécurisé (ANSSI): as 135 medidas do serviço de homologação de segurança, agrupadas por tema, suas referências nos controles e a taxa MonServiceSécurisé. Desativado por padrão."
+
+msgid "Trust service providers (ETSI EN 319 401): general policy requirements, their references on the controls and ETSI score. Disabled by default."
+msgstr "Prestadores de serviços de confiança (ETSI EN 319 401): requisitos gerais de política, suas referências nos controles e a taxa ETSI. Desativado por padrão."
+
+msgid "Secure Controls Framework: the 34 SCF domains, their references on the controls and SCF score. Disabled by default."
+msgstr "Secure Controls Framework: os 34 domínios do SCF, suas referências nos controles e a taxa SCF. Desativado por padrão."
+
+msgid "Measures: %s"
+msgstr "Medidas: %s"
+
+msgid "MonServiceSécurisé (ANSSI): security accreditation measures"
+msgstr "MonServiceSécurisé (ANSSI): medidas para a homologação de segurança"
+
+msgid "The %d measures of the measures framework of MonServiceSécurisé, the free service of the French cybersecurity agency to accredit a digital service, grouped by theme within its four categories. The last column links to the modules of this plugin that already help meet them."
+msgstr "As %d medidas do referencial de medidas do MonServiceSécurisé, o serviço gratuito da agência francesa de cibersegurança para homologar um serviço digital, agrupadas por tema em suas quatro categorias. A última coluna leva aos módulos deste plugin que já ajudam a atendê-las."
+
+msgid "Source: measures framework (version 2) published by ANSSI in the source code of MonServiceSécurisé (github.com/betagouv/mon-service-securise) under the Apache 2.0 licence; the GDPR measures come from the CNIL. Measure identifiers are the official ones; theme summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ANSSI."
+msgstr "Fonte: referencial de medidas (versão 2) publicado pela ANSSI no código-fonte do MonServiceSécurisé (github.com/betagouv/mon-service-securise) sob a licença Apache 2.0; as medidas RGPD vêm da CNIL. Os identificadores das medidas são os oficiais; os resumos dos temas e a correspondência com o Anexo A da ISO 27001 são redigidos por este projeto, que não é afiliado à ANSSI."
+
+msgid "ETSI EN 319 401 V3.2.1: general policy requirements for trust service providers"
+msgstr "ETSI EN 319 401 V3.2.1: requisitos gerais de política para prestadores de serviços de confiança"
+
+msgid "Common base of the ETSI standards audited for qualified trust services under eIDAS (signature, seal, time-stamping, certificates). Clauses 5 to 7, summarised by this project. The last column links to the modules of this plugin that already help meet them."
+msgstr "Base comum das normas ETSI auditadas para os serviços de confiança qualificados nos termos do eIDAS (assinatura, selo, carimbo do tempo, certificados). Cláusulas 5 a 7, resumidas por este projeto. A última coluna leva aos módulos deste plugin que já ajudam a atendê-las."
+
+msgid "ETSI EN 319 401 is protected by copyright (ETSI, all rights reserved): only its clause numbers are used here; summaries and the mapping to ISO 27001 Annex A are written by this project, which is not affiliated with ETSI. The standard can be downloaded free of charge from etsi.org."
+msgstr "A ETSI EN 319 401 é protegida por direitos autorais (ETSI, todos os direitos reservados): aqui são usados apenas os números de suas cláusulas; os resumos e a correspondência com o Anexo A da ISO 27001 são redigidos por este projeto, que não é afiliado ao ETSI. A norma pode ser baixada gratuitamente em etsi.org."
+
+msgid "Secure Controls Framework (SCF): domains"
+msgstr "Secure Controls Framework (SCF): domínios"
+
+msgid "The 34 domains of the SCF metaframework, which maps more than two hundred laws, regulations and standards. Domain names are kept in English, as published. The last column links to the modules of this plugin that already help meet them."
+msgstr "Os 34 domínios do metaframework SCF, que relaciona mais de duzentas leis, regulamentos e normas. Os nomes dos domínios ficam em inglês, como publicados. A última coluna leva aos módulos deste plugin que já ajudam a atendê-los."
+
+msgid "Domain identifiers and names: Secure Controls Framework (SCF), © SCF Council, licensed under CC BY-ND 4.0, reproduced without modification. The mapping to ISO 27001 Annex A is indicative and written by this project (it does not reuse the SCF mappings); this project is not affiliated with or endorsed by the SCF Council."
+msgstr "Identificadores e nomes dos domínios: Secure Controls Framework (SCF), © SCF Council, sob a licença CC BY-ND 4.0, reproduzidos sem modificação. A correspondência com o Anexo A da ISO 27001 é indicativa e redigida por este projeto (não reutiliza as correspondências do SCF); este projeto não é afiliado ao SCF Council nem endossado por ele."
+
+msgid "MonServiceSécurisé themes"
+msgstr "Temas do MonServiceSécurisé"
+
+msgid "ETSI EN 319 401 clauses"
+msgstr "Cláusulas da ETSI EN 319 401"
+
+msgid "SCF domains"
+msgstr "Domínios SCF"

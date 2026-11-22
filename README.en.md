@@ -95,6 +95,10 @@ classification fields merged directly onto it.
 - **HDS v2.0 (French health data hosting)**, optional and disabled by default: the 31 requirements
   of the certification framework (ISMS, customer contract clauses, data sovereignty), mapped to ISO
   27001 Annex A and to the plugin modules, "HDS EXI n" badges on the controls and HDS rate.
+- **MonServiceSécurisé (ANSSI), ETSI EN 319 401 and Secure Controls Framework**, optional and
+  disabled by default: the 135 measures of the MonServiceSécurisé v2 framework in 29 themes, clauses
+  5 to 7 of ETSI EN 319 401 V3.2.1 (trust service providers) and the 34 SCF domains, linked to ISO
+  27001 Annex A and to the plugin modules, badges on the controls and rate per framework.
 - **Custom frameworks**: a framework that is not built in (group requirements, a customer security
   assurance plan) is imported from a spreadsheet saved as CSV, from a downloadable template, with a
   report of the rejected lines. It can be enabled like the others, is measured through the Annex A
@@ -172,7 +176,7 @@ classification fields merged directly onto it.
 
 **Steering**
 - Default ISMS dashboard and KPIs to add to GLPI dashboards, including compliance by framework
-  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
+  (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, and DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS, MonServiceSécurisé, ETSI EN 319 401, SCF when enabled), deadlines within 90 days, access review progress and NIS2 / GDPR
   deadlines at risk; GRC & Compliance > Dashboard menu, ISMS and Management views, monthly trend.
 - **Scored trainings**, in one or several sessions (trainer, location, score, pass threshold, retake,
   PDF report with attendance sheet, each participant's quiz copy restricted to the participant, the
@@ -454,6 +458,20 @@ and documentation only identifies the framework the plugin helps you track.
   approved by the order of 26 April 2024, public document. Requirement numbers are the official
   ones; requirements are summarised by this project and the mapping to ISO 27001 Annex A is
   indicative. Only the framework published by the ANS is authentic.
+- **MonServiceSécurisé**: measures framework (version 2) published by ANSSI in the source code of the
+  service ([github.com/betagouv/mon-service-securise](https://github.com/betagouv/mon-service-securise)),
+  under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) licence; GDPR measures from the
+  CNIL. Measure identifiers are reused, themes are summarised by this project and the mapping to ISO
+  27001 Annex A is indicative. This project is not affiliated with ANSSI.
+- **ETSI EN 319 401 V3.2.1 (2026-01)**: standard protected by copyright (© ETSI, all rights
+  reserved), free download from [etsi.org](https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/).
+  Only clause numbers are used; summaries and the mapping to ISO 27001 Annex A are written by this
+  project, which is not affiliated with ETSI.
+- **Secure Controls Framework (SCF)**: identifiers and names of the 34 domains, © SCF Council,
+  licensed under [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/), reproduced without
+  modification and untranslated ([securecontrolsframework.com](https://securecontrolsframework.com/)).
+  The mapping to ISO 27001 Annex A is indicative and written by this project (it does not reuse the
+  SCF one); this project is not affiliated with or endorsed by the SCF Council.
 - **SOC 2 / Trust Services Criteria**: criteria protected by copyright (© AICPA). Only their
   identifiers are used; summaries are written by this project and the mapping to ISO 27001 Annex A
   is indicative (it does not reuse the AICPA one). This project is not affiliated with the AICPA:
