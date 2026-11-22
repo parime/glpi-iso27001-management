@@ -1,0 +1,15 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Adjust"
+msgstr "Ajustar"
+
+msgid "Certification cycle shown by default in the internal audit programme, and the trainings that make an auditor qualified."
+msgstr "Ciclo de certificação exibido por padrão no programa de auditoria interna e os treinamentos que qualificam um auditor."
+
+msgid "Settings saved. They are now in %s."
+msgstr "Configurações salvas. Agora elas ficam em %s."
+
+msgid "These settings are in %s."
+msgstr "Essas configurações ficam em %s."

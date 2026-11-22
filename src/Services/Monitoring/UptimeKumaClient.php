@@ -139,6 +139,35 @@ final class UptimeKumaClient
     }
 
     /**
+     * Essai de la connexion (issue #1042, bouton « Tester la connexion » de la configuration) :
+     * l'endpoint « /metrics » avec la clé d'API si elle est enregistrée, puis chaque page de statut
+     * choisie. Rien n'est enregistré. « page » : page de statut en cause.
+     *
+     * @param list<string> $slugs pages de statut, déjà normalisées
+     * @return array{error: string, page: string}
+     */
+    public function test(array $slugs): array
+    {
+        if ($this->apiKey === '' && $slugs === []) {
+            return ['error' => self::ERROR_CONFIG, 'page' => ''];
+        }
+        if ($this->apiKey !== '') {
+            $metrics = $this->get('/metrics', true);
+            if ($metrics['error'] !== '') {
+                return ['error' => $metrics['error'], 'page' => ''];
+            }
+        }
+        foreach ($slugs as $slug) {
+            $page = $this->get('/api/status-page/' . $slug);
+            if ($page['error'] !== '') {
+                return ['error' => $page['error'], 'page' => $slug];
+            }
+        }
+
+        return ['error' => '', 'page' => ''];
+    }
+
+    /**
      * Lecture complète : sondes de l'endpoint « /metrics » (si une clé d'API est enregistrée) et des
      * pages de statut choisies, avec leurs relevés. complete = false en cas d'erreur : rien n'est
      * alors remplacé par l'appelant. « page » : page de statut en cause (pas un secret).

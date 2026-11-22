@@ -6,15 +6,18 @@ GLPI. You need the plugin right and the native right to read computers.
 
 1. Open Technical security > **Backup coverage**. The "What is this page for?" box recalls what is
    expected.
-2. In **Which assets must be backed up, and how often?**, choose the assets concerned (by default
+2. With the **Change the settings** button (Setup > Plugins > GRC Manager, **Fleet** tab), frame
+   **Which assets must be backed up, and how often?**, choose the assets concerned (by default
    critical assets and servers), the default maximum age of the last successful backup (48 hours)
    and how often restores must be tested (12 months). The maximum age of an asset is the smallest
    RPO among the asset (C/I/A classification tab) and the business processes that use it; without
    any RPO, the default value applies.
 3. For **Veeam Backup & Replication**, create a dedicated account with the "Veeam Backup Viewer"
-   role (read only) in the Veeam console, then enter the address of the server (for example
+   role (read only) in the Veeam console, then, with the **Set up the connection** button (**Connectors** tab of the
+   configuration), enter the address of the server (for example
    `https://veeam.example.test:9419`), the account, its password and the REST API revision. The
-   password is encrypted with the GLPI key and never displayed again. **Read now from Veeam** reads,
+   password is encrypted with the GLPI key and never displayed again; **Test the connection** checks the account without reading anything. On
+   the backups page, **Read now from Veeam** reads,
    on your click only, the restore points of the last 31 days and the last result of each job. A
    refused or incomplete reading replaces nothing. A server with an internal address requires an
    administrator to allow internal addresses in the configuration page of the plugin, and its

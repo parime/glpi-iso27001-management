@@ -216,6 +216,75 @@ final class ApprovedApplicationTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(Rules::STATUS_REFUSED, $sheet['status'], 'Aucune modification automatique.');
     }
 
+    /**
+     * Issue #1057 : profil en lecture limité à une entité (la restriction d'entité n'est plus vide) :
+     * la page, le rapprochement avec l'inventaire, la liste des préférences et la tâche de revue
+     * répondent sans erreur SQL, et rien d'une autre entité n'apparaît.
+     */
+    public function testReadOnlyProfileLimitedToOneEntityGetsPageInventoryAndPreferences(): void
+    {
+        $entity = $this->createTestEntity(0, 'PHPUnit entité lecteur applications');
+        $mine = $this->appliance('PHPUnitLecteurNuage', $entity);
+        $root = $this->appliance('PHPUnit application racine lecteur fictive');
+        $this->assertNull(ApprovedApplication::saveFor((int) $mine->getID(), ['status' => 'refused']));
+        $this->assertNull(ApprovedApplication::saveFor((int) $root->getID(), [
+            'status' => 'approved', 'allowed_uses' => 'Racine seulement',
+        ]));
+        $softwareId = (int) (new Software())->add(['name' => 'PHPUnitLecteurNuage 2.0', 'entities_id' => $entity]);
+        $versionId = (int) (new SoftwareVersion())->add([
+            'softwares_id' => $softwareId, 'name' => '2.0', 'entities_id' => $entity,
+        ]);
+        $computerId = (int) (new Computer())->add(['name' => 'PHPUnit poste lecteur', 'entities_id' => $entity]);
+        $this->assertGreaterThan(0, (int) (new Item_SoftwareVersion())->add([
+            'itemtype' => Computer::class, 'items_id' => $computerId,
+            'softwareversions_id' => $versionId, 'entities_id' => $entity,
+        ]));
+
+        $savedProfile = $_SESSION['glpiactiveprofile'];
+        $savedEntities = $_SESSION['glpiactiveentities'];
+        $savedActive = $_SESSION['glpiactive_entity'];
+        $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] = READ;
+        $_SESSION['glpiactiveprofile'][Appliance::$rightname] = READ;
+        $_SESSION['glpiactiveprofile'][Software::$rightname] = READ;
+        $_SESSION['glpiactiveentities'] = [$entity];
+        $_SESSION['glpiactive_entity'] = $entity;
+        $_SESSION['glpiactiveentities_string'] = self::entitiesString([$entity]);
+        try {
+            $sheets = ApprovedApplication::sheets();
+            $names = array_column($sheets, 'appliance_name');
+            $this->assertContains('PHPUnitLecteurNuage', $names);
+            $this->assertNotContains('PHPUnit application racine lecteur fictive', $names);
+
+            $inventory = ApprovedApplication::inventory($sheets);
+            $this->assertTrue($inventory['available']);
+            $flagged = array_column($inventory['not_approved'], null, 'name');
+            $this->assertArrayHasKey('PHPUnitLecteurNuage 2.0', $flagged, 'Logiciel refusé de son entité.');
+
+            ob_start();
+            ApprovedApplication::showPage();
+            $html = (string) ob_get_clean();
+            $this->assertStringContainsString('grc-aa-inventory', $html);
+            $this->assertStringContainsString('PHPUnitLecteurNuage 2.0', $html);
+
+            $published = ApprovedApplication::published(date('Y-m-d'));
+            $this->assertContains('PHPUnitLecteurNuage', array_column($published['refused'], 'name'));
+            $this->assertNotContains(
+                'PHPUnit application racine lecteur fictive',
+                array_column($published['allowed'], 'name')
+            );
+            $this->assertNotNull(ApprovedApplication::evidence('A.5.23'));
+        } finally {
+            $_SESSION['glpiactiveprofile'] = $savedProfile;
+            $_SESSION['glpiactiveentities'] = $savedEntities;
+            $_SESSION['glpiactive_entity'] = $savedActive;
+            $_SESSION['glpiactiveentities_string'] = self::entitiesString($savedEntities);
+        }
+
+        // Tâche automatique : sans restriction d'entité, aucune erreur.
+        $result = ApprovedApplication::openReviewTickets(date('Y-m-d'));
+        $this->assertGreaterThanOrEqual(0, $result['due']);
+    }
+
     public function testOverdueReviewOpensOneTicketForTheOwner(): void
     {
         $owner = $this->createTestUser('Paula', 'Responsable');

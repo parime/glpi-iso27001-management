@@ -1322,8 +1322,6 @@ class ZabbixMonitoring extends CommonGLPI
      */
     public static function pageData(): array
     {
-        global $CFG_GLPI;
-
         $data = self::data();
         $summary = self::summary($data);
         $statusRank = array_flip(Rules::STATUSES);
@@ -1402,7 +1400,10 @@ class ZabbixMonitoring extends CommonGLPI
             'can_incident'    => (bool) PluginGrcmanagerSecurityIncident::canCreate(),
             'can_ticket'      => (bool) Ticket::canCreate(),
             'action'          => self::getSearchURL(),
-            'config_url'      => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-outgoing-http',
+            // Issue #1042 : la connexion se règle dans l'onglet Connecteurs de la configuration.
+            'connector_url'   => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\ZabbixConnectorBlock::ANCHOR
+            ),
             'processes_url'   => BusinessProcess::getSearchURL(),
             'audit_url'       => ComplianceAudit::getSearchURL(),
         ];

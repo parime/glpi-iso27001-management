@@ -19,9 +19,9 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Audit;
 use GlpiPlugin\Grcmanager\AuditChecklist;
 use GlpiPlugin\Grcmanager\AuditProgramme;
+use GlpiPlugin\Grcmanager\Config\Block\AuditProgrammeBlock;
+use GlpiPlugin\Grcmanager\Config\SettingsLink;
 use GlpiPlugin\Grcmanager\ResponsibilityActivity;
-use GlpiPlugin\Grcmanager\Services\Audit\ProgrammeRules;
-use GlpiPlugin\Grcmanager\Training;
 
 /**
  * Issue #773 : programme d'audit interne pluriannuel (ISO 27001 9.2, ISO 19011). Matrice des
@@ -31,12 +31,12 @@ use GlpiPlugin\Grcmanager\Training;
  */
 Session::checkRight(Audit::$rightname, READ);
 
+// Issue #1045 : les réglages sont dans la configuration du plugin (onglet « Mesures, audits et
+// preuves »). L'ancien envoi reste accepté pendant une version et mène à ce bloc.
 if (isset($_POST['save_settings'])) {
     Session::checkRight(Audit::$rightname, UPDATE);
-    AuditProgramme::setCycleStart($_POST['cycle_start'] ?? null);
-    AuditProgramme::setQualifyingTrainingIds((array) ($_POST['training_ids'] ?? []));
-    Session::addMessageAfterRedirect(__('Audit programme settings saved.', 'grcmanager'));
-    Html::redirect(AuditProgramme::getSearchURL());
+    AuditProgramme::saveSettings($_POST);
+    SettingsLink::redirectMoved(AuditProgrammeBlock::ANCHOR);
 }
 
 // Issue #773, lot 3 : planifier un audit interne depuis une case du programme (processus, année).
@@ -75,21 +75,11 @@ $start = AuditProgramme::cycleStart($_GET['start'] ?? null);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('auditprogramme');
 
-$currentYear = (int) date('Y');
-$startChoices = [];
-$lastYear = $currentYear + ProgrammeRules::MAX_FUTURE_YEARS;
-for ($year = $currentYear - ProgrammeRules::MAX_PAST_YEARS; $year <= $lastYear; $year++) {
-    $startChoices[$year] = sprintf('%d - %d', $year, $year + ProgrammeRules::CYCLE_LENGTH - 1);
-}
-$trainings = Training::getMainTrainings();
-unset($trainings[0]);
-
 TemplateRenderer::getInstance()->display('@grcmanager/audit_programme.html.twig', [
     'programme'     => AuditProgramme::programme($start),
-    'start_choices' => $startChoices,
+    'start_choices' => AuditProgramme::startChoices(),
     'can_edit'      => Audit::canUpdate(),
-    'trainings'     => $trainings,
-    'qualifying'    => AuditProgramme::qualifyingTrainingIds(),
+    'settings_link' => SettingsLink::data(AuditProgrammeBlock::ANCHOR),
     'audits_url'    => Audit::getSearchURL(),
     'new_audit_url' => Audit::canCreate() ? Audit::getFormURL() : '',
     'coverage_url'  => AuditChecklist::getCoverageURL(),

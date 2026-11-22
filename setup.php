@@ -175,7 +175,7 @@ function plugin_init_grcmanager(): void
     // Issue #1026 : classes bg-X-subtle / text-X-emphasis des couleurs nommées de Tabler (orange,
     // blue, green...), absentes de GLPI et de Tabler. Chargée sur toutes les pages, car les badges
     // GRC apparaissent aussi dans les onglets des fiches du cœur (tickets, actifs...).
-    $PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];
+    $PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css', 'css/grcmanager-a11y.css'];
 
     // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : onglet "Risques" en lecture
     // seule sur la fiche de chaque actif potentiellement lié (voir

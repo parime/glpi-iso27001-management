@@ -72,42 +72,36 @@
       </div>
       <div class="card-body">
          <p class="text-muted small">{{ __('The criticality of a computer comes from its C/I/A classification (tab of the computer form): the highest of the three levels counts. A computer that a network flow publishes on the Internet is critical. A computer is late when its last known patch is older than the delay of its criticality.', 'grcmanager') }}</p>
-         <form method="post" action="{{ action }}">
-            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-            <div class="table-responsive">
-               <table class="table table-sm table-vcenter">
-                  <thead><tr>
-                     <th>{{ __('Criticality', 'grcmanager') }}</th>
-                     <th>{{ __('Target delay (days)', 'grcmanager') }}</th>
-                     <th class="text-end">{{ __('Computers', 'grcmanager') }}</th>
-                     <th class="text-end">{{ __('Patches overdue', 'grcmanager') }}</th>
-                     <th class="text-end">{{ __('Rate', 'grcmanager') }}</th>
-                  </tr></thead>
-                  <tbody>
-                  {% for tier, info in tiers %}
-                     {% set group = by_tier[tier] %}
-                     {% set color = _self.rate_color(group.rate) %}
-                     <tr>
-                        <td><span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ info.help }}">{{ info.label }}</span> <span class="small text-muted">{{ info.help }}</span></td>
-                        <td>
-                           {% if can_manage %}
-                              <input type="number" class="form-control form-control-sm w-auto" name="patch_targets[{{ tier }}]" min="{{ min_target }}" max="{{ max_target }}" value="{{ targets[tier] }}" aria-label="{{ __('Target delay (days)', 'grcmanager') }}">
-                           {% else %}
-                              {{ targets[tier] }}
-                           {% endif %}
-                        </td>
-                        <td class="text-end">{{ group.total }}</td>
-                        <td class="text-end">{{ group.late }}</td>
-                        <td class="text-end"><span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis">{{ group.rate is null ? '-' : group.rate ~ ' %' }}</span></td>
-                     </tr>
-                  {% endfor %}
-                  </tbody>
-               </table>
-            </div>
-            {% if can_manage %}
-               <button type="submit" class="btn btn-primary" name="save_patch_targets" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
-            {% endif %}
-         </form>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter">
+               <thead><tr>
+                  <th>{{ __('Criticality', 'grcmanager') }}</th>
+                  <th>{{ __('Target delay (days)', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Computers', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Patches overdue', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Rate', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for tier, info in tiers %}
+                  {% set group = by_tier[tier] %}
+                  {% set color = _self.rate_color(group.rate) %}
+                  <tr>
+                     <td><span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis" title="{{ info.help }}">{{ info.label }}</span> <span class="small text-muted">{{ info.help }}</span></td>
+                     <td>
+                        {{ targets[tier] }}
+                     </td>
+                     <td class="text-end">{{ group.total }}</td>
+                     <td class="text-end">{{ group.late }}</td>
+                     <td class="text-end"><span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis">{{ group.rate is null ? '-' : group.rate ~ ' %' }}</span></td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         {# Issue #1044 : délais réglés dans l'onglet Parc de la configuration du plugin. #}
+         {% if can_manage %}
+            <a class="btn btn-sm btn-outline-secondary" href="{{ settings_url }}"><i class="ti ti-settings me-1"></i>{{ __('Change in the configuration', 'grcmanager') }}</a>
+         {% endif %}
       </div>
    </div>
 

@@ -1228,8 +1228,6 @@ class UptimeKumaMonitoring extends CommonGLPI
      */
     public static function pageData(): array
     {
-        global $CFG_GLPI;
-
         $data = self::data();
         $summary = self::summary($data);
         $monitors = $data['monitors'];
@@ -1281,7 +1279,10 @@ class UptimeKumaMonitoring extends CommonGLPI
             'can_manage'      => self::canManage(),
             'can_incident'    => (bool) PluginGrcmanagerSecurityIncident::canCreate(),
             'action'          => self::getSearchURL(),
-            'config_url'      => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-outgoing-http',
+            // Issue #1042 : la connexion se règle dans l'onglet Connecteurs de la configuration.
+            'connector_url'   => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\UptimeKumaConnectorBlock::ANCHOR
+            ),
             'processes_url'   => BusinessProcess::getSearchURL(),
             'flows_url'       => NetworkFlow::getSearchURL(),
             'kri_url'         => RiskIndicator::getSearchURL(),
