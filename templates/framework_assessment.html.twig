@@ -45,12 +45,19 @@
 {# Issue #599 : NIS2 sans registre ReCyF, comment l'évaluer sur les mesures de l'ANSSI. #}
 {% macro recyf_hint(recyf) %}
    <div class="alert alert-info small mt-3" role="note">
+      {# Issue #1053 : ReCyF est la déclinaison France de NIS2, cochée dans la configuration. #}
+      {% if recyf.enabled %}
       <i class="ti ti-bulb me-1"></i>{{ __('In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: classify your entity as important or essential, and NIS2 is then assessed on its ReCyF register instead of the ISO 27001 Annex A.', 'grcmanager') }}
+      {% else %}
+      <i class="ti ti-bulb me-1"></i>{{ __('In France, NIS2 can be assessed on the measures of ReCyF, the framework of ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify your entity as important or essential.', 'grcmanager') }}
+      {% endif %}
       <div class="mt-2 d-flex flex-wrap gap-2">
          {% if recyf.can_configure %}
-            <a class="btn btn-sm btn-primary" href="{{ recyf.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Classify the entities', 'grcmanager') }}</a>
+            <a class="btn btn-sm btn-primary" href="{{ recyf.config_url }}"><i class="ti ti-settings me-1"></i>{{ recyf.enabled ? __('Classify the entities', 'grcmanager') : __('Configure the frameworks', 'grcmanager') }}</a>
          {% endif %}
+         {% if recyf.enabled %}
          <a class="btn btn-sm btn-outline-secondary" href="{{ recyf.register_url }}"><i class="ti ti-shield-check me-1"></i>{{ __('Open the ReCyF register', 'grcmanager') }}</a>
+         {% endif %}
       </div>
    </div>
 {% endmacro %}
@@ -76,8 +83,13 @@
                <label class="form-label" for="grc-assessment-framework">{{ __('Framework to detail', 'grcmanager') }}</label>
                <select class="form-select" id="grc-assessment-framework" name="framework">
                   <option value=""{% if selected is null %} selected{% endif %}>{{ __('Summary only', 'grcmanager') }}</option>
-                  {% for label, a in assessments %}
-                     <option value="{{ a.key }}"{% if selected == a.key %} selected{% endif %}>{{ label }}</option>
+                  {# Issue #1053 : référentiels rangés par famille. #}
+                  {% for family in families %}
+                     <optgroup label="{{ family.label }}">
+                     {% for row in family.rows %}
+                        <option value="{{ row.assessment.key }}"{% if selected == row.assessment.key %} selected{% endif %}>{{ row.nested ? '- ' : '' }}{{ row.label }}</option>
+                     {% endfor %}
+                     </optgroup>
                   {% endfor %}
                </select>
             </div>
@@ -97,10 +109,16 @@
                </tr>
             </thead>
             <tbody>
-            {% for label, a in assessments %}
+            {% for family in families %}
+               <tr class="table-light">
+                  <th colspan="7" scope="colgroup"><i class="ti {{ family.icon }} me-1" aria-hidden="true"></i>{{ family.label }}</th>
+               </tr>
+            {% for row in family.rows %}
+               {% set label = row.label %}
+               {% set a = row.assessment %}
                {% set score_color = a.score is null ? 'secondary' : (a.score >= 80 ? 'green' : (a.score >= 50 ? 'yellow' : 'red')) %}
                <tr{% if detail and detail.key == a.key %} class="table-active"{% endif %}>
-                  <td class="fw-bold">{{ label }}</td>
+                  <td class="fw-bold{{ row.nested ? ' ps-4' : '' }}">{% if row.nested %}<i class="ti ti-corner-down-right me-1 text-muted" aria-hidden="true"></i><span class="visually-hidden">{{ __('National implementation', 'grcmanager') }}: </span>{% endif %}{{ label }}</td>
                   <td>{{ _self.basis_badge(a.basis, bases, a.catalog ?? '') }}</td>
                   {% if a.basis == bases.none %}
                      <td colspan="5" class="text-muted small">
@@ -122,6 +140,7 @@
                   </td>
                   {% endif %}
                </tr>
+            {% endfor %}
             {% endfor %}
             </tbody>
          </table>

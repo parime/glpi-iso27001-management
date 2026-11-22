@@ -46,7 +46,7 @@ final class FrameworkSelectionTest extends TestCase
                 FrameworkSelection::ISO42001, FrameworkSelection::PCI_DSS,
                 FrameworkSelection::SOC2, FrameworkSelection::AI_ACT, FrameworkSelection::HDS,
                 FrameworkSelection::ACN_IT, FrameworkSelection::MSS, FrameworkSelection::ETSI_319401,
-                FrameworkSelection::SCF],
+                FrameworkSelection::SCF, FrameworkSelection::RECYF],
             FrameworkSelection::decode($stored)
         );
         $this->assertSame(
@@ -81,5 +81,26 @@ final class FrameworkSelectionTest extends TestCase
         $this->assertContains('custom_3', $enabled);
         $this->assertSame([], FrameworkSelection::decode('["custom_3"]'));
         $this->assertSame(['custom_3'], FrameworkSelection::decode('["custom_3", "custom_4"]', $keys));
+    }
+
+    public function testANationalImplementationIsActiveOnlyWithItsParent(): void
+    {
+        // Issue #1053 : ReCyF et ACN suivent NIS2 ; leur propre réglage est gardé.
+        $parents = [FrameworkSelection::RECYF => FrameworkSelection::NIS2, FrameworkSelection::ACN_IT => FrameworkSelection::NIS2];
+
+        $this->assertSame(
+            [FrameworkSelection::NIS2, FrameworkSelection::ACN_IT],
+            FrameworkSelection::effective([FrameworkSelection::NIS2, FrameworkSelection::ACN_IT], $parents)
+        );
+        $this->assertSame(
+            [FrameworkSelection::ANSSI],
+            FrameworkSelection::effective([FrameworkSelection::ACN_IT, FrameworkSelection::RECYF, FrameworkSelection::ANSSI], $parents)
+        );
+    }
+
+    public function testReCyfIsOptional(): void
+    {
+        $this->assertContains(FrameworkSelection::RECYF, FrameworkSelection::OPTIONAL);
+        $this->assertArrayHasKey(FrameworkSelection::RECYF, FrameworkSelection::FRAMEWORKS);
     }
 }
