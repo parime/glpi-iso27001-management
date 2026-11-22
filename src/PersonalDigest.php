@@ -108,7 +108,7 @@ class PersonalDigest extends CommonDBTM
         $row = self::rowFor($usersId);
         $digest = new self();
         if ($row === null) {
-            $digest->add(['users_id' => $usersId, 'entities_id' => 0] + $fields);
+            $digest->add($fields + ['users_id' => $usersId, 'entities_id' => 0]);
         } else {
             $digest->update(['id' => (int) $row['id']] + $fields);
         }
@@ -149,9 +149,9 @@ class PersonalDigest extends CommonDBTM
         if ($items === []) {
             return self::NOTHING_WAITING;
         }
-        if (self::rowFor($usersId) === null) {
-            self::store($usersId, ['frequency' => '']);
-        }
+        // GLPI n'envoie une notification qu'à une personne qui a un profil dans l'entité de l'objet :
+        // la ligne prend l'entité d'un profil de la personne (la notification, à la racine, est récursive).
+        self::store($usersId, ['entities_id' => self::userEntity($usersId)]);
         $digest = new self();
         if (!$digest->getFromDB((int) (self::rowFor($usersId)['id'] ?? 0))) {
             return self::NOT_SENT;
@@ -169,6 +169,28 @@ class PersonalDigest extends CommonDBTM
         ]);
 
         return self::SENT;
+    }
+
+    /**
+     * Entité du premier profil attribué à la personne (0 si elle n'en a aucun).
+     */
+    public static function userEntity(int $usersId): int
+    {
+        global $DB;
+
+        foreach (
+            $DB->request([
+                'SELECT' => ['entities_id'],
+                'FROM'   => 'glpi_profiles_users',
+                'WHERE'  => ['users_id' => $usersId],
+                'ORDER'  => ['id ASC'],
+                'LIMIT'  => 1,
+            ]) as $row
+        ) {
+            return (int) $row['entities_id'];
+        }
+
+        return 0;
     }
 
     /**
