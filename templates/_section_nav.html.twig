@@ -28,3 +28,16 @@
       </li>
    {% endfor %}
 </ul>
+{# Issue #1039 : pages de l'onglet replié ouvert (option « tab_group » de la rubrique). #}
+{% if sub_tabs is defined and sub_tabs is not empty %}
+<ul class="nav nav-pills mb-3 grcmanager-section-subnav" role="tablist" aria-label="{{ (tabs|filter(t => t.active)|first).label|default('') }}">
+   {% for tab in sub_tabs %}
+      <li class="nav-item" role="presentation">
+         <a class="nav-link py-1{{ tab.active ? ' active' : '' }}" href="{{ tab.url }}" role="tab"
+            aria-selected="{{ tab.active ? 'true' : 'false' }}"{% if tab.active %} aria-current="page"{% endif %}>
+            {% if tab.icon %}<i class="{{ tab.icon }} me-1" aria-hidden="true"></i>{% endif %}{{ tab.label }}
+         </a>
+      </li>
+   {% endfor %}
+</ul>
+{% endif %}

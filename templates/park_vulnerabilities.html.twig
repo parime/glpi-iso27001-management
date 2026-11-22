@@ -31,16 +31,21 @@
       </div>
    {% endif %}
 
-   {# Issue #485 : rapport des vulnérabilités par e-mail. #}
-   <p class="text-muted small mb-2">
-      <i class="ti ti-mail-bolt me-1"></i>
+   {# Issue #485 : rapport des vulnérabilités par e-mail. Issue #1039 : envoi immédiat ici (sorti de la
+      configuration, qui garde la fréquence, le seuil et les destinataires). #}
+   <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2 text-muted small mb-2" id="grc-vulnerability-digest">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+      <i class="ti ti-mail-bolt" aria-hidden="true"></i>
       {% if digest.frequency %}
-         {{ __('Report by email: %1$s, next one on %2$s.', 'grcmanager')|format(digest.frequency|lower, digest.next) }}
+         <span>{{ __('Report by email: %1$s, next one on %2$s.', 'grcmanager')|format(digest.frequency|lower, digest.next) }}</span>
       {% else %}
-         {{ __('No report by email.', 'grcmanager') }}
+         <span>{{ __('No report by email.', 'grcmanager') }}</span>
       {% endif %}
-      {% if can_update %}<a href="{{ config_url }}">{{ __('Set it up', 'grcmanager') }}</a>{% endif %}
-   </p>
+      {% if can_config %}
+         <a href="{{ config_url }}">{{ __('Set it up', 'grcmanager') }}</a>
+         <button type="submit" name="send_vulnerability_digest" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Sends the report now to its recipients, whatever the frequency.', 'grcmanager') }}"><i class="ti ti-send me-1" aria-hidden="true"></i>{{ __('Send the report now', 'grcmanager') }}</button>
+      {% endif %}
+   </form>
 
    <div class="row row-cards mb-3">
       <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">

@@ -104,17 +104,16 @@ class ComplianceAudit extends CommonGLPI
     }
 
     /**
-     * Rubrique « Sécurité technique » : contrôles automatiques, vulnérabilités du parc et matrice
-     * des flux (Menu::sections()).
+     * Issue #1039 : sous-page de Parc > Sécurité du parc ; elle portait la rubrique « Sécurité
+     * technique » du menu GRC.
      */
     public static function getMenuContent()
     {
-        return Menu::withSubPages(self::class, [
-            'title'         => __('Technical security', 'grcmanager'),
-            'section_label' => self::getTypeName(),
-            'page'          => self::getSearchURL(false),
-            'icon'          => self::getIcon(),
-        ]);
+        return [
+            'title' => self::getTypeName(),
+            'page'  => self::getSearchURL(false),
+            'icon'  => self::getIcon(),
+        ];
     }
 
     /**

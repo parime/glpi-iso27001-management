@@ -1,0 +1,135 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1039 : fin de support (endoflife.date) côté exploitation, sortie de la configuration :
+   état de la dernière lecture, lecture manuelle (« Mettre à jour maintenant ») et correspondances entre
+   un nom de GLPI et un produit. L'activation et le seuil restent dans la configuration. Modifier
+   demande le droit de modifier la configuration du plugin (comme avant). #}
+{% set eol = endoflife %}
+{% set can_edit_config = can_edit_eol %}
+<div class="card mt-3" id="grc-endoflife-links">
+  <div class="card-header">
+    <h3 class="card-title"><i class="ti ti-calendar-x me-2" aria-hidden="true"></i>{{ __('End of support (endoflife.date)', 'grcmanager') }}</h3>
+    <div class="card-actions d-flex flex-wrap gap-2">
+      {% if eol.enabled %}
+        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1" aria-hidden="true"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-plug-off me-1" aria-hidden="true"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+      {% if can_edit_config %}<a class="btn btn-sm btn-ghost-secondary" href="{{ eol_config_url }}"><i class="ti ti-settings me-1" aria-hidden="true"></i>{{ __('Settings', 'grcmanager') }}</a>{% endif %}
+    </div>
+  </div>
+  <div class="card-body">
+    <form method="post" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <span class="small"><i class="ti ti-refresh me-1" aria-hidden="true"></i>{{ __('Last successful reading', 'grcmanager') }} : {{ eol.last_success ?: __('none yet', 'grcmanager') }}
+        {% if eol.cached_products %}<span class="text-muted">({{ __('%d product(s) in cache', 'grcmanager')|format(eol.cached_products) }})</span>{% endif %}</span>
+      {% if can_edit_config and eol.enabled %}
+        <button type="submit" name="refresh_endoflife" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Reads now the products whose data is more than one day old (the daily task does the rest).', 'grcmanager') }}"><i class="ti ti-refresh me-1" aria-hidden="true"></i>{{ __('Update now', 'grcmanager') }}</button>
+      {% endif %}
+    </form>
+    {% for error in eol.errors %}
+      <div class="small text-warning-emphasis"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ error.product }} : {{ error.label }}</div>
+    {% endfor %}
+
+    <h4 class="mt-3"><i class="ti ti-link me-1" aria-hidden="true"></i>{{ __('Links between GLPI names and endoflife.date products', 'grcmanager') }}</h4>
+    <p class="text-muted mb-2">
+      {{ __('Well-known names are linked automatically (for instance "Debian GNU/Linux" or "Mozilla Firefox"). For any other name, add a link: type the name exactly as GLPI shows it, and the product identifier found in the address of its page on endoflife.date (for instance "fortios" for https://endoflife.date/fortios). Leave the product empty to stop following a name.', 'grcmanager') }}
+      <a href="https://endoflife.date/" target="_blank" rel="noopener noreferrer"><i class="ti ti-external-link me-1"></i>endoflife.date</a>
+    </p>
+
+    {% if can_edit_config %}
+    <form method="post" action="{{ action }}" class="row g-2 align-items-end mb-3">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="col-sm-3">
+        <label class="form-label" for="grc-endoflife-kind">{{ __('Kind of item', 'grcmanager') }}</label>
+        <select class="form-select" id="grc-endoflife-kind" name="endoflife_kind">
+          {% for key, label in eol.kinds %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label" for="grc-endoflife-name">{{ __('Name in GLPI', 'grcmanager') }}</label>
+        <input type="text" class="form-control" id="grc-endoflife-name" name="endoflife_name" maxlength="255" list="grc-endoflife-unlinked" required>
+        <datalist id="grc-endoflife-unlinked">
+          {% for row in eol.unlinked %}<option value="{{ row.name }}">{{ row.kind_label }}</option>{% endfor %}
+        </datalist>
+      </div>
+      <div class="col-sm-3">
+        <label class="form-label" for="grc-endoflife-product">{{ __('endoflife.date product', 'grcmanager') }}</label>
+        <input type="text" class="form-control" id="grc-endoflife-product" name="endoflife_product" maxlength="64" pattern="[a-z0-9][a-z0-9.+_\-]{0,63}" placeholder="debian">
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" name="add_endoflife_mapping" class="btn btn-outline-primary w-100"><i class="ti ti-plus me-1"></i>{{ __('Add', 'grcmanager') }}</button>
+      </div>
+    </form>
+    {% endif %}
+
+    {% if eol.mappings is not empty %}
+    <div class="table-responsive mb-3">
+      <table class="table table-sm table-vcenter">
+        <thead><tr>
+          <th>{{ __('Kind of item', 'grcmanager') }}</th>
+          <th>{{ __('Name in GLPI', 'grcmanager') }}</th>
+          <th>{{ __('endoflife.date product', 'grcmanager') }}</th>
+          {% if can_edit_config %}<th></th>{% endif %}
+        </tr></thead>
+        <tbody>
+          {% for row in eol.mappings %}
+          <tr>
+            <td>{{ row.kind_label }}</td>
+            <td>{{ row.name }}</td>
+            <td>
+              {% if row.product == '' %}
+                <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-eye-off me-1"></i>{{ __('Not followed', 'grcmanager') }}</span>
+              {% else %}
+                {% if row.product_url %}<a href="{{ row.product_url }}" target="_blank" rel="noopener noreferrer"><code>{{ row.product }}</code></a>{% else %}<code>{{ row.product }}</code>{% endif %}
+                {% if row.not_found %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('Product unknown to the source', 'grcmanager') }}</span>{% endif %}
+              {% endif %}
+            </td>
+            {% if can_edit_config %}
+            <td class="text-end">
+              <form method="post" action="{{ action }}" class="d-inline">
+                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                <button type="submit" name="delete_endoflife_mapping" value="{{ row.id }}" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete this link', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+              </form>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    {% if eol.auto is not empty %}
+    <details class="mb-2">
+      <summary>{{ __('%d name(s) linked automatically', 'grcmanager')|format(eol.auto|length) }}</summary>
+      <ul class="small mt-2">
+        {% for row in eol.auto %}<li><span class="badge bg-info-subtle text-info-emphasis me-1">{{ row.kind_label }}</span>{{ row.name }} <i class="ti ti-arrow-right mx-1"></i><code>{{ row.product }}</code></li>{% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+
+    {% if eol.unlinked_total > 0 %}
+    <details>
+      <summary>{{ __('%d name(s) of the inventory not linked to a product', 'grcmanager')|format(eol.unlinked_total) }}</summary>
+      <p class="small text-muted mt-2 mb-1">{{ __('These names are not followed: add a link above for those that matter (choose them from the list of the "Name in GLPI" field).', 'grcmanager') }}</p>
+      <ul class="small">
+        {% for row in eol.unlinked %}<li><span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ row.kind_label }}</span>{{ row.name }}</li>{% endfor %}
+      </ul>
+      {% if eol.unlinked_total > eol.unlinked|length %}<p class="small text-muted">{{ __('%d more not shown.', 'grcmanager')|format(eol.unlinked_total - eol.unlinked|length) }}</p>{% endif %}
+    </details>
+    {% endif %}
+  </div>
+</div>

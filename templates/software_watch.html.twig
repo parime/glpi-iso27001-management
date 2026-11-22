@@ -157,3 +157,8 @@
       {% endif %}
    </div>
 </div>
+
+{# Issue #1039 : fin de support (endoflife.date), lecture manuelle et correspondances, sorties de la configuration. #}
+{% if endoflife is defined and endoflife is not null %}
+   {% include '@grcmanager/_endoflife_links.html.twig' %}
+{% endif %}
