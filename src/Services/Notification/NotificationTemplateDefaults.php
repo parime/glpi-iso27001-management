@@ -64,6 +64,8 @@ use GlpiPlugin\Grcmanager\RiskTreatmentAction;
 use GlpiPlugin\Grcmanager\SoaVersion;
 use GlpiPlugin\Grcmanager\SupplierRisk;
 use GlpiPlugin\Grcmanager\NotificationTargetReportedRisk;
+use GlpiPlugin\Grcmanager\NotificationTargetPersonalDigest;
+use GlpiPlugin\Grcmanager\PersonalDigest;
 use GlpiPlugin\Grcmanager\ReportedRisk;
 use GlpiPlugin\Grcmanager\Training;
 use GlpiPlugin\Grcmanager\VulnerabilityDigest;
@@ -536,6 +538,14 @@ final class NotificationTemplateDefaults
                 ReportedRisk::class, ReportedRisk::DECIDED_EVENT, 'Your risk report has been examined', '',
                 [NotificationTargetReportedRisk::TARGET_AUTHOR],
                 'Votre signalement de risque a été examiné', '',
+            ],
+            // Issue #877 : récapitulatif de ce qui attend la personne (« Mon espace GRC »), adressé à elle seule.
+            'personal_digest' => [
+                PersonalDigest::class, PersonalDigest::EVENT, 'Your GRC summary',
+                'Sent by the "personaldigest" automatic task to each person, at the frequency they chose in My GRC '
+                    . 'space.',
+                [NotificationTargetPersonalDigest::TARGET_PERSON],
+                'Votre récapitulatif GRC', '',
             ],
         ];
 
@@ -1100,6 +1110,18 @@ final class NotificationTemplateDefaults
                     . $line('Answer from the person in charge of risks', '##reportedrisk.comment##') . "\n\n"
                     . $t('Thank you for your report: every report helps protect the organisation.') . "\n\n"
                     . $line('My risk reports', '##reportedrisk.mineurl##'));
+
+            case 'personal_digest':
+                return self::plain('##personaldigest.subject##', "##personaldigest.title##\n\n"
+                    . "##personaldigest.headline##\n\n"
+                    . "##FOREACHdigestitems##- ##digestitem.due## ##digestitem.late##\n"
+                    . $head('##digestitem.type##', '##digestitem.name##') . " ##digestitem.detail##\n"
+                    . "##digestitem.url##\n\n##ENDFOREACHdigestitems##"
+                    . "##personaldigest.more##\n\n"
+                    . $t('This summary lists what is waiting for you in GRC Manager, the most urgent first. It only '
+                        . 'shows what you are allowed to see. Nothing is changed automatically.') . "\n\n"
+                    . $t('To receive it every day, every week or not at all, open My GRC space.') . "\n"
+                    . $line('My GRC space', '##personaldigest.url##'));
         }
 
         throw new \InvalidArgumentException('Unknown notification template: ' . $key);
