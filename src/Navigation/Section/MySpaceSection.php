@@ -34,7 +34,7 @@ final class MySpaceSection extends AbstractSection
         return MySpace::class;
     }
 
-    public static function after(): ?string
+    public static function after(): string
     {
         return Dashboard::class;
     }

@@ -57,7 +57,7 @@ final class ControlSection extends AbstractSection
         return Control::class;
     }
 
-    public static function after(): ?string
+    public static function after(): string
     {
         return Risk::class;
     }
