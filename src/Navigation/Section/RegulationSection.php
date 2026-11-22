@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
 use GlpiPlugin\Grcmanager\AcnRequirement;
+use GlpiPlugin\Grcmanager\Control;
 use GlpiPlugin\Grcmanager\CustomFramework;
 use GlpiPlugin\Grcmanager\FrameworkAssessment;
 use GlpiPlugin\Grcmanager\Navigation\AbstractSection;
@@ -49,6 +50,12 @@ final class RegulationSection extends AbstractSection
     public static function after(): string
     {
         return Nonconformity::class;
+    }
+
+    /** La page des référentiels n'a pas de droit propre : celui de la SoA, qu'elle vérifie. */
+    public static function right(): string
+    {
+        return Control::RIGHTNAME;
     }
 
     public static function title(): string
