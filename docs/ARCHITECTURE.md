@@ -138,6 +138,9 @@ final class SupplierSecuritySection extends AbstractSection
 - `after()` : `Sections::FIRST` (en tête), la classe parente d'une autre rubrique du même secteur,
   ou une entrée du cœur (`\Change::class` dans Assistance) : GLPI ajoute les entrées des plugins à la
   fin du secteur, le hook `redefine_menus` les replace (`Sections::reorderMenu()`).
+  Une rubrique placée après une autre rubrique du plugin la suit dans le secteur du cœur
+  (« Crise et continuité » après « Incidents de sécurité », #1041), et prend sa place si
+  celle-ci n'est pas au menu (droit manquant).
 - `right()` : droit principal (celui de la classe parente par défaut), vérifié par le test.
   La visibilité reste décidée par `getMenuContent()` et `canView()` de chaque écran : la première
   sous-page autorisée prend la place d'un parent invisible.
