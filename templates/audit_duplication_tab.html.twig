@@ -1,0 +1,132 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #881 : préparer l'audit du cycle suivant à partir de cet audit. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<div id="grc-audit-duplication-tab">
+
+<div class="alert alert-info">
+   <i class="ti ti-help-circle me-1"></i><strong>{{ __('What is this tab for?', 'grcmanager') }}</strong>
+   {{ __('Prepares the audit of next year from this one, without typing everything again: objectives, criteria, scope, audited controls and processes, people, evidence requests and checklist questions are copied. Only the date, the title and, for an audit by the certification body, the type and the body change. The new audit starts from scratch: planned, with no result, finding, evidence file or conclusion.', 'grcmanager') }}
+</div>
+
+{% if source %}
+   <div class="alert alert-secondary" id="grc-audit-duplication-source">
+      <i class="ti ti-history me-1"></i>{{ __('This audit was prepared from a previous audit:', 'grcmanager') }}
+      <a href="{{ source.url }}">{{ source.title }}</a>{% if source.date %} ({{ source.date }}){% endif %}
+   </div>
+{% endif %}
+
+{% if copies is not empty %}
+   <div class="card mb-3" id="grc-audit-duplication-copies">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-arrow-forward-up me-2"></i>{{ __('Audits prepared from this one', 'grcmanager') }}</h3>
+         <div class="card-actions">
+            <span class="badge bg-info-subtle text-info-emphasis">{{ copies|length }}</span>
+         </div>
+      </div>
+      <ul class="list-group list-group-flush">
+         {% for copy in copies %}
+            <li class="list-group-item">
+               <i class="ti ti-clipboard-check me-1 text-muted"></i><a href="{{ copy.url }}">{{ copy.title }}</a>
+               {% if copy.date %}<span class="text-muted small ms-1">{{ __('planned on %s', 'grcmanager')|format(copy.date) }}</span>{% endif %}
+            </li>
+         {% endfor %}
+      </ul>
+   </div>
+{% endif %}
+
+<div class="card" id="grc-audit-duplication-form">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-copy me-2"></i>{{ __('Prepare the audit of the next cycle', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      {% if not can_duplicate %}
+         <div class="alert alert-warning mb-0" id="grc-audit-duplication-denied">
+            <i class="ti ti-lock me-1"></i>{{ __('You need the right to create audits in the entity of this audit to prepare the next one.', 'grcmanager') }}
+         </div>
+      {% else %}
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="plugin_grcmanager_audits_id" value="{{ audit.getID() }}">
+            <div class="row">
+               {{ fields.textField('title', title, __('Title of the new audit', 'grcmanager'), {'required': true}) }}
+               {{ fields.dateField('planned_date', planned_date, __('Planned date', 'grcmanager'), {
+                  'required': true,
+                  'helper': __('Proposed one year after this audit. The due dates of the evidence requests move by the same number of days.', 'grcmanager')
+               }) }}
+               {% if external %}
+                  {{ fields.dropdownArrayField('audit_type', next_type, external_types, __('Audit type', 'grcmanager'), {
+                     'helper': __('Proposed: the next step of the certification cycle (%s now).', 'grcmanager')|format(type_label)
+                  }) }}
+                  {{ fields.dropdownField('Supplier', 'suppliers_id', suppliers_id, __('Certification body', 'grcmanager')) }}
+                  {{ fields.textField('lead_auditor', lead_auditor, __('Lead auditor', 'grcmanager')) }}
+               {% endif %}
+            </div>
+
+            <h4 class="mt-3 mb-2"><i class="ti ti-checklist me-1"></i>{{ __('What to copy', 'grcmanager') }}</h4>
+            <div class="row g-2">
+               <div class="col-md-6">
+                  <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
+                     <input class="form-check-input" type="checkbox" name="parts[]" value="scope" checked>
+                     <span class="fw-bold"><i class="ti ti-target me-1"></i>{{ __('Scope', 'grcmanager') }}</span>
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-controls">{{ __('%d control(s)', 'grcmanager')|format(counts.controls) }}</span>
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-processes">{{ __('%d process(es)', 'grcmanager')|format(counts.processes) }}</span>
+                     <div class="small text-muted">{{ __('Audited controls, processes and risk categories. Objectives, criteria and the scope text are always copied.', 'grcmanager') }}</div>
+                  </label>
+               </div>
+               <div class="col-md-6">
+                  <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
+                     <input class="form-check-input" type="checkbox" name="parts[]" value="people" checked>
+                     <span class="fw-bold"><i class="ti ti-users-group me-1"></i>{{ __('People', 'grcmanager') }}</span>
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-people">{{ __('%d person(s)', 'grcmanager')|format(counts.people) }}</span>
+                     <div class="small text-muted">{{ __('Auditor, audit owner, team, people asked for evidence and auditees of the checklist. Someone who left (account disabled or without a profile in the entity) is not copied.', 'grcmanager') }}</div>
+                  </label>
+               </div>
+               <div class="col-md-6">
+                  <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
+                     <input class="form-check-input" type="checkbox" name="parts[]" value="evidence" checked>
+                     <span class="fw-bold"><i class="ti ti-file-search me-1"></i>{{ __('Evidence requests', 'grcmanager') }}</span>
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-evidence">{{ counts.evidence }}</span>
+                     <div class="small text-muted">{{ __('Same references and descriptions, status "Requested", without the files sent last time. Nobody is notified: send the requests when you are ready.', 'grcmanager') }}</div>
+                  </label>
+               </div>
+               <div class="col-md-6">
+                  <label class="form-check border rounded p-2 ps-5 h-100 mb-0">
+                     <input class="form-check-input" type="checkbox" name="parts[]" value="checklist" {{ can_checklist ? 'checked' : 'disabled' }}>
+                     <span class="fw-bold"><i class="ti ti-list-check me-1"></i>{{ __('Audit checklist', 'grcmanager') }}</span>
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis ms-1 grc-dup-count-checklist">{{ counts.checklist }}</span>
+                     <div class="small text-muted">
+                        {% if can_checklist %}
+                           {{ __('Same requirements and questions, every line back to "Not audited".', 'grcmanager') }}
+                        {% else %}
+                           {{ __('Only the audit team can copy the checklist.', 'grcmanager') }}
+                        {% endif %}
+                     </div>
+                  </label>
+               </div>
+            </div>
+
+            <div class="mt-3">
+               <button type="submit" name="duplicate" value="1" class="btn btn-primary">
+                  <i class="ti ti-copy me-1"></i>{{ __('Create the audit of the next cycle', 'grcmanager') }}
+               </button>
+               <span class="text-muted small ms-2">{{ __('This audit is not changed.', 'grcmanager') }}</span>
+            </div>
+         </form>
+      {% endif %}
+   </div>
+</div>
+
+</div>

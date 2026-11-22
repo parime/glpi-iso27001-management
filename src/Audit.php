@@ -596,6 +596,8 @@ class Audit extends AuditBase
             // Issue #772, lot 3 : réponse aux constats de l'organisme (délais, plan d'actions, preuves).
             ->addStandardTab(CertificationResponse::class, $tabs, $options)
             ->addStandardTab(AuditTeam::class, $tabs, $options)
+            // Issue #881 : préparer l'audit du cycle suivant à partir de celui-ci.
+            ->addStandardTab(AuditDuplication::class, $tabs, $options)
             ->addStandardTab(Document_Item::class, $tabs, $options)
             ->addStandardTab(DocumentAccess::class, $tabs, $options)
             ->addStandardTab(Notepad::class, $tabs, $options)
