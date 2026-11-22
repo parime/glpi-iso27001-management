@@ -6,10 +6,11 @@ certificate is renewed.
 
 1. In Uptime Kuma, menu **Settings > API Keys**, create a key (it only gives access to the `/metrics`
    page, to read). You can also, or instead, list public status pages.
-2. In GLPI, open **Technical security > Exposed services (Uptime Kuma)**, frame **Connection to Uptime
+2. In GLPI, open Setup > Plugins > GRC Manager, **Connectors** tab (or the **Set up the connection**
+   button of **Technical security > Exposed services (Uptime Kuma)**), frame **Connection to Uptime
    Kuma (read only)**: enter the address (for example `https://status.example.test`), the API key and,
    if needed, the status pages (end of their address, for example `customers`), then **Save** and
-   **Read now**. A server on an internal address must be allowed in the plugin configuration
+   **Test the connection**; back on the Exposed services page, click **Read now**. A server on an internal address must be allowed in the plugin configuration
    (**Outgoing connections**).
 3. The **Monitored services** table shows each monitor: its status, its availability over the period,
    the GLPI asset recognised (computer, network device or appliance, by the monitored host name) and the

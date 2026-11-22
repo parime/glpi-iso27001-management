@@ -15,8 +15,6 @@
  * -------------------------------------------------------------------------
  */
 
-use GlpiPlugin\Grcmanager\AuditLog;
-use GlpiPlugin\Grcmanager\Services\Monitoring\UptimeKumaConfig;
 use GlpiPlugin\Grcmanager\UptimeKumaMonitoring;
 
 // Issue #842 : services exposés lus dans Uptime Kuma (A.8.16, A.5.30, A.8.24). Droit du plugin et
@@ -29,53 +27,9 @@ $back = static function (string $anchor): void {
     Html::redirect(UptimeKumaMonitoring::getSearchURL() . '#' . $anchor);
 };
 
-// Connexion : adresse, clé d'API (chiffrée, jamais réaffichée), pages de statut, entité, tâche.
-if (isset($_POST['save_uptimekuma'])) {
-    Session::checkRight(UptimeKumaMonitoring::RIGHTNAME, UPDATE);
-    $entity = (int) ($_POST['uptimekuma_entities_id'] ?? UptimeKumaConfig::entity());
-    if (!Session::haveAccessToEntity($entity)) {
-        $entity = (int) Session::getActiveEntity();
-    }
-    $saved = UptimeKumaConfig::save(
-        (string) ($_POST['uptimekuma_url'] ?? ''),
-        (string) ($_POST['uptimekuma_api_key'] ?? ''),
-        !empty($_POST['uptimekuma_clear_key']),
-        (string) ($_POST['uptimekuma_status_pages'] ?? ''),
-        $entity,
-        !empty($_POST['uptimekuma_enabled'])
-    );
-    if (!$saved['saved']) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'Not saved: the address must start with https:// (or http:// when internal addresses are allowed), '
-                . 'without user name, password or parameters.',
-            'grcmanager'
-        )), false, ERROR);
-    } else {
-        if ($saved['changes'] !== []) {
-            AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => $saved['changes']]);
-        }
-        UptimeKumaMonitoring::syncCronState(UptimeKumaConfig::isEnabled());
-        Session::addMessageAfterRedirect(htmlescape(__('Uptime Kuma settings saved.', 'grcmanager')));
-    }
-    $back('grc-kuma-connection');
-}
-
-// Période, seuil des certificats, durée d'une panne longue.
-if (isset($_POST['save_uptimekuma_settings'])) {
-    Session::checkRight(UptimeKumaMonitoring::RIGHTNAME, UPDATE);
-    $before = UptimeKumaConfig::settings();
-    $after = UptimeKumaConfig::saveSettings([
-        'period_days'    => $_POST['uptimekuma_period_days'] ?? '',
-        'cert_days'      => $_POST['uptimekuma_cert_days'] ?? '',
-        'outage_minutes' => $_POST['uptimekuma_outage_minutes'] ?? '',
-    ]);
-    if ($after !== $before) {
-        AuditLog::record('config_change', 'Config', 0, 0, 'success', ['changes' => ['uptimekuma_settings' => $after]]);
-    }
-    UptimeKumaMonitoring::reset();
-    Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-    $back('grc-kuma-settings');
-}
+// Issue #1042 : la connexion et les seuils se règlent dans la configuration (onglet Connecteurs).
+// L'ancien envoi de cette page reste accepté pendant une version et y mène.
+\GlpiPlugin\Grcmanager\Config\Block\UptimeKumaConnectorBlock::handleLegacyPost();
 
 if (isset($_POST['read_uptimekuma'])) {
     Session::checkRight(UptimeKumaMonitoring::RIGHTNAME, UPDATE);
