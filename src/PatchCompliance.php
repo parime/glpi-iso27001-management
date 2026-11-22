@@ -613,6 +613,10 @@ class PatchCompliance extends CommonGLPI
             'rows'             => $shown,
             'total_rows'       => count($rows),
             'can_manage'       => self::canManage(),
+            // Issue #1044 : les délais se modifient dans l'onglet Parc de la configuration du plugin.
+            'settings_url'     => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\PatchTargetsBlock::ANCHOR
+            ),
             'show_cves'        => ParkVulnerability::canView(),
             'action'           => self::getSearchURL(),
             'vulnerabilities_url' => ParkVulnerability::canView() ? ParkVulnerability::getSearchURL() : '',

@@ -10,7 +10,9 @@ faut le droit du plugin et le droit natif de lecture des ordinateurs.
 2. Dans **Délais cibles par criticité**, réglez le nombre de jours admis depuis le dernier correctif
    pour les ordinateurs critiques, importants et standard (15, 30 et 60 jours par défaut). La
    criticité vient de la classification C/I/D de l'ordinateur ; un ordinateur publié sur Internet par
-   un flux réseau déclaré est critique. Il faut le droit de modifier le plugin.
+   un flux réseau déclaré est critique. Ces délais se règlent dans Configuration > Plugins > GRC
+   Manager, onglet **Parc** (bouton **Modifier dans la configuration**) ; il faut le droit de modifier
+   le plugin.
 3. Les compteurs donnent le taux d'ordinateurs dans les délais, le nombre en retard et d'état
    inconnu (aucune mise à jour datée : pas d'agent, ou un système dont l'agent ne remonte pas les
    mises à jour), les serveurs critiques et les ordinateurs publiés sur Internet en retard.

@@ -1170,6 +1170,25 @@ class CertificationReadiness extends CommonGLPI
     }
 
     /**
+     * Réglages et lignes des délais conseillés, pour le bloc de la configuration du plugin
+     * (issue #1045), sans calculer l'état des étapes.
+     *
+     * @return array{settings: array<string, mixed>, lead_rows: list<array<string, mixed>>}
+     */
+    public static function settingsData(): array
+    {
+        $settings = self::getSettings();
+        $texts = self::getStepTexts();
+        $steps = [];
+        $number = 0;
+        foreach (array_keys(Rules::STEPS) as $key) {
+            $steps[] = ['key' => $key, 'number' => ++$number, 'title' => $texts[$key]['title']];
+        }
+
+        return ['settings' => $settings, 'lead_rows' => self::leadRows($steps, $settings['lead_days'])];
+    }
+
+    /**
      * Lignes du tableau des délais conseillés (réglages) : étape, délai par défaut et délai retenu.
      *
      * @param list<array<string, mixed>> $steps étapes du rapport
