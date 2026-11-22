@@ -686,7 +686,10 @@ $existing = static function (string $table, array $input) use ($DB, &$reused): i
         if (!is_scalar($value) || str_starts_with((string) $field, '_') || !$DB->fieldExists($table, $field)) {
             continue;
         }
-        if (in_array($field, ['name', 'title', 'code', 'reference', 'kind', 'itemtype', 'entities_id'], true) || str_ends_with($field, '_id') || str_contains($field, '_id_')) {
+        if (
+            in_array($field, ['name', 'title', 'code', 'reference', 'kind', 'itemtype', 'entities_id'], true)
+            || str_ends_with($field, '_id') || str_contains($field, '_id_')
+        ) {
             $criteria[$field] = $value;
         }
     }
@@ -1237,7 +1240,10 @@ $ids['evidence_upload'] = (int) ($DB->request([
 ])->current()['id'] ?? 0);
 if ($ids['evidence_upload'] === 0) {
     $evidenceFile = tempnam(sys_get_temp_dir(), 'grc');
-    file_put_contents($evidenceFile, "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n");
+    file_put_contents(
+        $evidenceFile,
+        "%PDF-1.4\n1 0 obj << /Type /Catalog >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n"
+    );
     $evidenceControl = new \GlpiPlugin\Grcmanager\Control();
     $evidenceControl->getFromDB($controlId);
     $ids['evidence_upload'] = \GlpiPlugin\Grcmanager\ControlTest::storeEvidenceFile(
@@ -1338,7 +1344,8 @@ foreach (['submitted' => 'REQ securite soumise', 'draft' => 'REQ securite brouil
 $submittedRequest = new \GlpiPlugin\Grcmanager\AuditEvidenceRequest();
 $submittedRequest->getFromDB($ids['evreq_submitted']);
 if (
-    ($submittedRequest->fields['status'] ?? '') !== \GlpiPlugin\Grcmanager\Services\Audit\EvidenceRequestRules::STATUS_SUBMITTED
+    ($submittedRequest->fields['status'] ?? '')
+        !== \GlpiPlugin\Grcmanager\Services\Audit\EvidenceRequestRules::STATUS_SUBMITTED
     && \GlpiPlugin\Grcmanager\AuditEvidenceRequest::submit($ids['evreq_submitted'], 2) !== ''
 ) {
     fwrite(STDERR, "Soumission de la demande de preuve impossible\n");

@@ -66,10 +66,14 @@ foreach (['Securite ISO A', 'Securite ISO B'] as $name) {
 $entities = array_values(array_unique(array_map('intval', $entities)));
 
 // Comptes et profils de test (leurs habilitations partent avec eux).
-foreach ($DB->request(['SELECT' => ['id', 'name'], 'FROM' => 'glpi_users', 'WHERE' => ['name' => ['LIKE', 'iso-%']]]) as $row) {
+$testUsers = ['SELECT' => ['id'], 'FROM' => 'glpi_users', 'WHERE' => ['name' => ['LIKE', 'iso-%']]];
+foreach ($DB->request($testUsers) as $row) {
     $purge('glpi_users', (int) $row['id']);
 }
-foreach ($DB->request(['SELECT' => ['id', 'name'], 'FROM' => 'glpi_profiles', 'WHERE' => ['name' => ['LIKE', 'Securite ISO - %']]]) as $row) {
+$testProfiles = [
+    'SELECT' => ['id', 'name'], 'FROM' => 'glpi_profiles', 'WHERE' => ['name' => ['LIKE', 'Securite ISO - %']],
+];
+foreach ($DB->request($testProfiles) as $row) {
     if (str_starts_with((string) $row['name'], 'Securite ISO - ')) {
         $purge('glpi_profiles', (int) $row['id']);
     }
@@ -83,7 +87,8 @@ foreach ($DB->listTables('glpi_%') as $tableRow) {
     $hasEntity = $DB->fieldExists($table, 'entities_id');
     // Contenu des entités du jeu de données.
     if ($hasEntity && $entities !== []) {
-        foreach ($DB->request(['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => ['entities_id' => $entities]]) as $row) {
+        $inEntities = ['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => ['entities_id' => $entities]];
+        foreach ($DB->request($inEntities) as $row) {
             $purge($table, (int) $row['id']);
         }
     }

@@ -44,6 +44,8 @@ case $STEP in
     [ "$counts_first" = "$counts_again" ] \
       || { echo "::error::setup.php relance a cree des doublons"; diff <(jq -S . <<< "$counts_first") <(jq -S . <<< "$counts_again") || true; exit 1; }
     echo "OK  jeu de donnees relance sans erreur ni doublon"
+    # La deuxieme execution recree les liens du portail fournisseur : ce sont eux qui sont valides.
+    ids=$ids_again
     matrix limited iso-gestionnaire 'Secrev#2026' "$ids"
     links=$(setup risk-links "$(jq -r .risk <<< "$ids")")
     jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" 'index($b) != null' <<< "$links" > /dev/null \
