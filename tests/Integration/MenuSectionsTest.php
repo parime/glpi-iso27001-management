@@ -209,8 +209,9 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
                     $this->assertNotEmpty($menu['parent_hidden'] ?? null, "$parent : rubrique interdite cachée.");
                 }
                 foreach (array_keys(Sections::pages($parent)) as $key) {
-                    if (class_exists($key) && property_exists($key, 'rightname') && (string) $key::$rightname !== ''
-                        && !(bool) $key::canView()) {
+                    $declaresRight = class_exists($key) && property_exists($key, 'rightname')
+                        && (string) $key::$rightname !== '';
+                    if ($declaresRight && !(bool) $key::canView()) {
                         $this->assertNull(Menu::pageMenu($key), "$key : page interdite absente du menu.");
                     }
                 }
