@@ -182,7 +182,10 @@ class ReportedRisk extends ReportedRiskBase
             Rules::ERROR_DESCRIPTION_TOO_LONG => __('The description is too long.', 'grcmanager'),
             Rules::ERROR_UNKNOWN_DECISION     => __('Unknown decision.', 'grcmanager'),
             Rules::ERROR_ALREADY_DECIDED      => __('This report has already been triaged.', 'grcmanager'),
-            Rules::ERROR_REASON_REQUIRED      => __('Give the reason for the rejection: the author will read it.', 'grcmanager'),
+            Rules::ERROR_REASON_REQUIRED      => __(
+                'Give the reason for the rejection: the author will read it.',
+                'grcmanager'
+            ),
             Rules::ERROR_REASON_TOO_LONG      => __('The message is too long.', 'grcmanager'),
             Rules::ERROR_RISK_REQUIRED        => __('Choose the existing risk to link this report to.', 'grcmanager'),
             default                           => __('You cannot do this on this report.', 'grcmanager'),
@@ -260,7 +263,7 @@ class ReportedRisk extends ReportedRiskBase
                 'name'          => (string) $row['name'],
                 'description'   => (string) $row['description'],
                 'date_text'     => (string) Html::convDateTime($row['date_creation']),
-                'decision_text' => $row['date_decision'] !== null ? (string) Html::convDate($row['date_decision']) : '',
+                'decision_text' => self::decisionDate($row, false),
                 'comment'       => (string) ($row['decision_comment'] ?? ''),
                 'status'        => (string) $row['status'],
                 'status_label'  => $style['mine'],
@@ -274,7 +277,9 @@ class ReportedRisk extends ReportedRiskBase
             'action'     => self::getMineURL(),
             'severities' => self::severityStyles(),
             'name_max'   => Rules::NAME_MAX,
-            'evidence_url' => AuditEvidenceRequest::countWaiting($usersId) > 0 ? AuditEvidenceRequest::getMineURL() : '',
+            'evidence_url' => AuditEvidenceRequest::countWaiting($usersId) > 0
+                ? AuditEvidenceRequest::getMineURL()
+                : '',
         ]);
     }
 
@@ -388,8 +393,8 @@ class ReportedRisk extends ReportedRiskBase
                 'severity_label' => $severity['label'],
                 'severity_class' => $severity['class'],
                 'comment'        => (string) ($row['decision_comment'] ?? ''),
-                'decider'        => (int) $row['users_id_decision'] > 0 ? (string) getUserName((int) $row['users_id_decision']) : '',
-                'decision_text'  => $row['date_decision'] !== null ? (string) Html::convDateTime($row['date_decision']) : '',
+                'decider'        => self::deciderName($row),
+                'decision_text'  => self::decisionDate($row, true),
                 'risk'           => $riskLink,
                 'targets'        => $targetsByEntity[$entityId] ?? [],
             ];
@@ -422,7 +427,13 @@ class ReportedRisk extends ReportedRiskBase
      *
      * @return array{error: ?string, risks_id: int}
      */
-    public static function decide(int $id, string $decision, string $reason, int $riskId = 0, string $category = ''): array
+    public static function decide(
+        int $id,
+        string $decision,
+        string $reason,
+        int $riskId = 0,
+        string $category = ''
+    ): array
     {
         $denied = ['error' => 'denied', 'risks_id' => 0];
         $report = new self();
@@ -483,6 +494,24 @@ class ReportedRisk extends ReportedRiskBase
         return ['error' => null, 'risks_id' => $riskId];
     }
 
+    /** @param array<string, mixed> $row */
+    private static function deciderName(array $row): string
+    {
+        $usersId = (int) ($row['users_id_decision'] ?? 0);
+
+        return $usersId > 0 ? (string) getUserName($usersId) : '';
+    }
+
+    /** @param array<string, mixed> $row */
+    private static function decisionDate(array $row, bool $withTime): string
+    {
+        if (($row['date_decision'] ?? null) === null) {
+            return '';
+        }
+
+        return (string) ($withTime ? Html::convDateTime($row['date_decision']) : Html::convDate($row['date_decision']));
+    }
+
     /**
      * Signalements rattachés au risque $riskId (onglet du risque) : la trace de son origine.
      *
@@ -527,7 +556,10 @@ class ReportedRisk extends ReportedRiskBase
 
             return true;
         }
-        if (!$item instanceof Risk || $item->isNewItem() || !self::canViewQueue() || !$item->can($item->getID(), READ)) {
+        if (
+            !$item instanceof Risk || $item->isNewItem() || !self::canViewQueue()
+            || !$item->can($item->getID(), READ)
+        ) {
             return false;
         }
         $styles = self::statusStyles();
@@ -542,8 +574,8 @@ class ReportedRisk extends ReportedRiskBase
                 'status_label' => $style['label'],
                 'status_class' => $style['class'],
                 'status_icon'  => $style['icon'],
-                'decider'      => (int) $row['users_id_decision'] > 0 ? (string) getUserName((int) $row['users_id_decision']) : '',
-                'decision_text' => $row['date_decision'] !== null ? (string) Html::convDate($row['date_decision']) : '',
+                'decider'       => self::deciderName($row),
+                'decision_text' => self::decisionDate($row, false),
             ];
         }
         TemplateRenderer::getInstance()->display('@grcmanager/_reported_risk_risk_tab.html.twig', [

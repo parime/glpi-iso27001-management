@@ -531,9 +531,9 @@ final class NotificationTemplateDefaults
             ],
             // Issue #872 : décision du tri d'un risque signalé, adressée à la personne qui l'a signalé.
             'reported_risk_decided' => [
-                ReportedRisk::class, ReportedRisk::DECIDED_EVENT, 'Your risk report has been examined',
-                'Sent to the person who reported a risk when the person in charge of risks accepts, links or '
-                    . 'rejects the report.',
+                // Textes repris du code (NotificationTargetReportedRisk, page « Mes signalements ») : chaque
+                // chaîne d'un fragment de traduction doit exister dans le code.
+                ReportedRisk::class, ReportedRisk::DECIDED_EVENT, 'Your risk report has been examined', '',
                 [NotificationTargetReportedRisk::TARGET_AUTHOR],
                 'Votre signalement de risque a été examiné', '',
             ],
@@ -1099,7 +1099,7 @@ final class NotificationTemplateDefaults
                     . $line('Decision', '##reportedrisk.status##') . "\n"
                     . $line('Answer from the person in charge of risks', '##reportedrisk.comment##') . "\n\n"
                     . $t('Thank you for your report: every report helps protect the organisation.') . "\n\n"
-                    . $line('View my risk reports', '##reportedrisk.mineurl##'));
+                    . $line('My risk reports', '##reportedrisk.mineurl##'));
         }
 
         throw new \InvalidArgumentException('Unknown notification template: ' . $key);

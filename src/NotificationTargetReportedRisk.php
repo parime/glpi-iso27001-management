@@ -71,7 +71,12 @@ class NotificationTargetReportedRisk extends NotificationTarget
         }
         $this->addToRecipientsList([
             'language' => $user->fields['language'] ?: ($GLOBALS['CFG_GLPI']['language'] ?? 'en_GB'),
-            'name'     => formatUserName(0, $user->fields['name'], $user->fields['realname'], $user->fields['firstname']),
+            'name'     => formatUserName(
+                0,
+                $user->fields['name'],
+                $user->fields['realname'],
+                $user->fields['firstname']
+            ),
             'email'    => $email,
             'users_id' => $usersId,
         ]);
