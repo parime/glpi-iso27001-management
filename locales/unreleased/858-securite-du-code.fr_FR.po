@@ -1,0 +1,294 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#, php-format
+msgid "%1$d alerts: the first %2$d are shown, priorities first."
+msgstr "%1$d alertes : les %2$d premières sont affichées, priorités d'abord."
+
+#, php-format
+msgid "%1$d repository(ies) read, %2$d alert(s), %3$d failure(s)."
+msgstr "%1$d dépôt(s) lu(s), %2$d alerte(s), %3$d échec(s)."
+
+#, php-format
+msgid "%1$s: %2$d days"
+msgstr "%1$s : %2$d jours"
+
+#, php-format
+msgid "%d application(s) of the register without a code repository"
+msgstr "%d application(s) du registre sans dépôt de code"
+
+#, php-format
+msgid "%d repository(ies) read"
+msgstr "%d dépôt(s) lu(s)"
+
+msgid "30 to 90 days"
+msgstr "30 à 90 jours"
+
+msgid "A server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
+msgstr "Un serveur sur une adresse interne (réseau privé) est refusé par défaut : un administrateur peut autoriser les adresses internes dans la configuration du plugin."
+
+msgid "Alerts past their deadline"
+msgstr "Alertes hors délai"
+
+#, php-format
+msgid "Alerts past their deadline: %d"
+msgstr "Alertes hors délai : %d"
+
+msgid "Applications and their repositories"
+msgstr "Applications et leurs dépôts"
+
+msgid "Applications of the secure development register whose code repository is on GitHub or GitLab. For each one: the open alerts by family, and the analyses that are not enabled (or not readable with the token), which is itself a gap for control A.8.29."
+msgstr "Applications du registre du développement sécurisé dont le dépôt de code est sur GitHub ou GitLab. Pour chacune : les alertes ouvertes par famille, et les analyses non activées (ou illisibles avec le jeton), ce qui est en soi un écart à la mesure A.8.29."
+
+msgid "By age:"
+msgstr "Par ancienneté :"
+
+msgid "Code analysis"
+msgstr "Analyse du code"
+
+#, php-format
+msgid "Code analysis alerts: %d"
+msgstr "Alertes de l'analyse du code : %d"
+
+msgid "Code security"
+msgstr "Sécurité du code"
+
+msgid "Code security (GitHub, GitLab)"
+msgstr "Sécurité du code (GitHub, GitLab)"
+
+msgid "Code security alerts past their deadline (GitHub, GitLab)"
+msgstr "Alertes de sécurité du code hors délai (GitHub, GitLab)"
+
+#, php-format
+msgid "Code security read: %1$d repository(ies), %2$d open alert(s), %3$d failure(s)."
+msgstr "Sécurité du code lue : %1$d dépôt(s), %2$d alerte(s) ouverte(s), %3$d échec(s)."
+
+msgid "Code security readings deleted."
+msgstr "Lectures de la sécurité du code supprimées."
+
+msgid "Code security settings saved."
+msgstr "Réglages de la sécurité du code enregistrés."
+
+msgid "Code security: reads the security alerts of GitHub and GitLab (read only)"
+msgstr "Sécurité du code : lit les alertes de sécurité de GitHub et GitLab (lecture seule)"
+
+msgid "Compared with the remediation deadlines of the policy"
+msgstr "Comparées aux délais de correction de la politique"
+
+msgid "Connection to GitHub and GitLab (read only)"
+msgstr "Connexion à GitHub et GitLab (lecture seule)"
+
+msgid "Container image analysis"
+msgstr "Analyse des images de conteneurs"
+
+msgid "Enter a read-only token for GitHub or GitLab, then click \"Read now\"."
+msgstr "Saisissez un jeton en lecture seule pour GitHub ou GitLab, puis cliquez sur « Lire maintenant »."
+
+msgid "Enter the code repository of each application in its \"Secure development\" tab, save a read-only token for GitHub or GitLab, then click \"Read now\". Then revoke the exposed secrets, follow up the alerts past their deadline and enable the missing analyses. Nothing is changed in GitHub or GitLab and nothing is created automatically."
+msgstr "Renseignez le dépôt de code de chaque application dans son onglet « Développement sécurisé », enregistrez un jeton en lecture seule pour GitHub ou GitLab, puis cliquez sur « Lire maintenant ». Révoquez ensuite les secrets exposés, suivez les alertes hors délai et activez les analyses manquantes. Rien n'est modifié dans GitHub ni GitLab et rien n'est créé automatiquement."
+
+msgid "Exposed secret"
+msgstr "Secret exposé"
+
+#, php-format
+msgid "Exposed secret: %d days"
+msgstr "Secret exposé : %d jours"
+
+msgid "Exposed secrets not revoked"
+msgstr "Secrets exposés non révoqués"
+
+msgid "Exposed secrets not revoked in the code (GitHub, GitLab)"
+msgstr "Secrets exposés non révoqués dans le code (GitHub, GitLab)"
+
+#, php-format
+msgid "Exposed secrets not revoked: %d"
+msgstr "Secrets exposés non révoqués : %d"
+
+msgid "GitHub Enterprise Server address (optional)"
+msgstr "Adresse de GitHub Enterprise Server (facultatif)"
+
+msgid "GitHub: create a fine-grained personal access token limited to the repositories concerned, with the read-only permissions \"Dependabot alerts\", \"Secret scanning alerts\" and \"Code scanning alerts\"."
+msgstr "GitHub : créez un jeton d'accès personnel à granularité fine (« fine-grained ») limité aux dépôts concernés, avec les permissions en lecture seule « Dependabot alerts », « Secret scanning alerts » et « Code scanning alerts »."
+
+msgid "GitLab server address (optional)"
+msgstr "Adresse du serveur GitLab (facultatif)"
+
+msgid "GitLab: create a project or group access token with the \"read_api\" scope and at least the Developer role (the vulnerability report requires GitLab Ultimate)."
+msgstr "GitLab : créez un jeton d'accès de projet ou de groupe avec la portée « read_api » et au moins le rôle Developer (le rapport de vulnérabilités nécessite GitLab Ultimate)."
+
+msgid "How to prepare the tokens (one of the two, or both):"
+msgstr "Comment préparer les jetons (l'un des deux, ou les deux) :"
+
+msgid "ISO/IEC 27001, controls A.8.28 and A.8.29"
+msgstr "ISO/IEC 27001, mesures A.8.28 et A.8.29"
+
+msgid "Leave empty for github.com."
+msgstr "Laisser vide pour github.com."
+
+msgid "Leave empty for gitlab.com."
+msgstr "Laisser vide pour gitlab.com."
+
+msgid "Less than 30 days"
+msgstr "Moins de 30 jours"
+
+msgid "More than 90 days"
+msgstr "Plus de 90 jours"
+
+msgid "No code repository: enter it in the \"Secure development\" tab of this application, then read the alerts from the code security page."
+msgstr "Aucun dépôt de code : renseignez-le dans l'onglet « Développement sécurisé » de cette application, puis lisez les alertes depuis la page de la sécurité du code."
+
+msgid "No open alert in your entities."
+msgstr "Aucune alerte ouverte dans vos entités."
+
+msgid "No open alert on this repository."
+msgstr "Aucune alerte ouverte sur ce dépôt."
+
+msgid "No repository read in your entities."
+msgstr "Aucun dépôt lu dans vos entités."
+
+msgid "No token for this service"
+msgstr "Aucun jeton pour ce service"
+
+msgid "Not enabled"
+msgstr "Non activée"
+
+msgid "Not enabled on the repository, or not readable with the token"
+msgstr "Non activée sur le dépôt, ou illisible avec le jeton"
+
+msgid "Not revoked: priority"
+msgstr "Non révoqué : prioritaire"
+
+msgid "Nothing has been read yet. 1. Enter the code repository of each application in its \"Secure development\" tab. 2. Enter a read-only token below. 3. Click \"Read now\"."
+msgstr "Rien n'a encore été lu. 1. Renseignez le dépôt de code de chaque application dans son onglet « Développement sécurisé ». 2. Saisissez un jeton en lecture seule ci-dessous. 3. Cliquez sur « Lire maintenant »."
+
+msgid "Nothing says that this secret has been revoked: revoke it at the provider, then remove it from the code and its history."
+msgstr "Rien n'indique que ce secret a été révoqué : révoquez-le chez le fournisseur, puis retirez-le du code et de son historique."
+
+msgid "Oldest open alert"
+msgstr "Plus ancienne alerte ouverte"
+
+msgid "Only repositories hosted on GitHub or on the GitLab server of the connection are read."
+msgstr "Seuls les dépôts hébergés sur GitHub ou sur le serveur GitLab de la connexion sont lus."
+
+msgid "Only the first 100 alerts of a family were read"
+msgstr "Seules les 100 premières alertes d'une famille ont été lues"
+
+msgid "Open alerts"
+msgstr "Alertes ouvertes"
+
+#, php-format
+msgid "Open alerts: %d"
+msgstr "Alertes ouvertes : %d"
+
+msgid "Open since"
+msgstr "Ouverte depuis"
+
+msgid "Open the alert at GitHub or GitLab"
+msgstr "Ouvrir l'alerte dans GitHub ou GitLab"
+
+msgid "Open the code security page"
+msgstr "Ouvrir la page de la sécurité du code"
+
+msgid "Password, key or token written in the code"
+msgstr "Mot de passe, clé ou jeton écrit dans le code"
+
+msgid "Push protection was bypassed"
+msgstr "La protection à l'envoi a été contournée"
+
+msgid "Read automatically every day (automatic action \"codesecurity\")"
+msgstr "Lire automatiquement chaque jour (action automatique « codesecurity »)"
+
+#, php-format
+msgid "Read from GitHub and GitLab on %s"
+msgstr "Lu dans GitHub et GitLab le %s"
+
+msgid "Read only: nothing is ever changed in GitHub or GitLab from GLPI, and no alert is closed."
+msgstr "Lecture seule : rien n'est jamais modifié dans GitHub ni GitLab depuis GLPI, et aucune alerte n'est fermée."
+
+msgid "Read-only token"
+msgstr "Jeton en lecture seule"
+
+msgid "Refused: the connector only reads the security alerts."
+msgstr "Refusé : le connecteur ne fait que lire les alertes de sécurité."
+
+msgid "Register of applications"
+msgstr "Registre des applications"
+
+#, php-format
+msgid "Repositories read: %d"
+msgstr "Dépôts lus : %d"
+
+msgid "Repositories with an analysis not enabled"
+msgstr "Dépôts avec une analyse non activée"
+
+#, php-format
+msgid "Repositories with an analysis not enabled: %d"
+msgstr "Dépôts avec une analyse non activée : %d"
+
+msgid "Repository"
+msgstr "Dépôt"
+
+msgid "Repository not recognised"
+msgstr "Dépôt non reconnu"
+
+msgid "Revoked at the provider"
+msgstr "Révoqué chez le fournisseur"
+
+msgid "Security alerts of the code repository of this application, read from GitHub or GitLab in read only: vulnerable dependencies, exposed secrets and code analysis."
+msgstr "Alertes de sécurité du dépôt de code de cette application, lues dans GitHub ou GitLab en lecture seule : dépendances vulnérables, secrets exposés et analyse du code."
+
+msgid "Shows the security alerts of the code of your applications, read from GitHub and GitLab in read only: vulnerable third-party libraries, passwords or keys written in the code, and weaknesses found by the code analysis. The open alerts are classed by severity and age and compared with the remediation deadlines of your policy; an exposed secret that has not been revoked comes first."
+msgstr "Montre les alertes de sécurité du code de vos applications, lues dans GitHub et GitLab en lecture seule : bibliothèques tierces vulnérables, mots de passe ou clés écrits dans le code, et faiblesses trouvées par l'analyse du code. Les alertes ouvertes sont classées par gravité et ancienneté et comparées aux délais de correction de votre politique ; un secret exposé non révoqué passe en premier."
+
+msgid "Some repositories could not be read: their previous alerts are kept."
+msgstr "Certains dépôts n'ont pas pu être lus : leurs alertes précédentes sont gardées."
+
+msgid "The deadlines are those of the vulnerability remediation policy of the plugin, counted from the day the alert was opened. An exposed secret must be revoked at once: it takes the shortest deadline (actively exploited vulnerabilities)."
+msgstr "Les délais sont ceux de la politique de correction des vulnérabilités du plugin, comptés depuis le jour d'ouverture de l'alerte. Un secret exposé doit être révoqué sans attendre : il prend le délai le plus court (vulnérabilités activement exploitées)."
+
+msgid "The repository of this application has not been read yet: click \"Read now\" on the code security page."
+msgstr "Le dépôt de cette application n'a pas encore été lu : cliquez sur « Lire maintenant » dans la page de la sécurité du code."
+
+msgid "The server could not be reached: check the address, the network access or the GLPI proxy."
+msgstr "Le serveur n'a pas pu être joint : vérifiez l'adresse, l'accès réseau ou le proxy de GLPI."
+
+msgid "The server has an internal address, refused by default: allow internal addresses in the plugin configuration page (Outgoing connections)."
+msgstr "Le serveur a une adresse interne, refusée par défaut : autorisez les adresses internes dans la page de configuration du plugin (Connexions sortantes)."
+
+msgid "The server returned an unexpected answer."
+msgstr "Le serveur a renvoyé une réponse inattendue."
+
+msgid "The token was refused: check that it is still valid and that it can read the security alerts of the repositories."
+msgstr "Le jeton a été refusé : vérifiez qu'il est toujours valide et qu'il peut lire les alertes de sécurité des dépôts."
+
+msgid "The tokens are encrypted with the GLPI key, never displayed again nor logged. Only the security alerts are read; the value of an exposed secret is never requested."
+msgstr "Les jetons sont chiffrés avec la clé de GLPI, jamais réaffichés ni journalisés. Seules les alertes de sécurité sont lues ; la valeur d'un secret exposé n'est jamais demandée."
+
+msgid "Third-party library with a known vulnerability"
+msgstr "Bibliothèque tierce avec une vulnérabilité connue"
+
+msgid "To revoke first, then remove from the code"
+msgstr "À révoquer d'abord, puis à retirer du code"
+
+msgid "Too many requests: GitHub or GitLab asks to wait. Read again later."
+msgstr "Trop de requêtes : GitHub ou GitLab demande d'attendre. Relisez plus tard."
+
+#, php-format
+msgid "Vulnerable dependencies: %d"
+msgstr "Dépendances vulnérables : %d"
+
+msgid "Vulnerable dependency"
+msgstr "Dépendance vulnérable"
+
+msgid "Weakness found in the code itself"
+msgstr "Faiblesse trouvée dans le code lui-même"
+
+#, php-format
+msgid "Worst severity: %s"
+msgstr "Gravité la plus haute : %s"
+
+#, php-format
+msgid "including %1$d critical and %2$d high"
+msgstr "dont %1$d critiques et %2$d élevées"

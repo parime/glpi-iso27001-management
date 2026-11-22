@@ -1,0 +1,31 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #858 : cadre de preuve de la sécurité du code lue dans GitHub et GitLab (mesures A.8.28 et A.8.29), dans
+   les entités de la personne. Reçoit « evidence » (CodeSecurity::evidence()), affiché par control_form.html.twig. #}
+{% set s = evidence.summary %}
+<div id="grc-code-security-evidence">
+   <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-git-branch me-1"></i>{{ __('Repositories read: %d', 'grcmanager')|format(s.repositories_read) }}</span>
+   {% if evidence.code == 'A.8.28' %}
+      <span class="badge {{ s.secrets_priority > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-key me-1"></i>{{ __('Exposed secrets not revoked: %d', 'grcmanager')|format(s.secrets_priority) }}</span>
+      <span class="badge {{ s.categories.dependency > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-packages me-1"></i>{{ __('Vulnerable dependencies: %d', 'grcmanager')|format(s.categories.dependency) }}</span>
+      <span class="badge {{ s.categories.code > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-code me-1"></i>{{ __('Code analysis alerts: %d', 'grcmanager')|format(s.categories.code) }}</span>
+   {% else %}
+      <span class="badge {{ s.missing_any > 0 ? 'bg-warning-subtle text-warning-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-scan me-1"></i>{{ __('Repositories with an analysis not enabled: %d', 'grcmanager')|format(s.missing_any) }}</span>
+      <span class="badge {{ s.overdue > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-alarm me-1"></i>{{ __('Alerts past their deadline: %d', 'grcmanager')|format(s.overdue) }}</span>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-bug me-1"></i>{{ __('Open alerts: %d', 'grcmanager')|format(s.open) }}</span>
+   {% endif %}
+   <span class="small text-muted me-2">{{ __('Read from GitHub and GitLab on %s', 'grcmanager')|format(evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>
