@@ -14,9 +14,11 @@ d'un secret exposé n'est jamais demandée.
      alerts » ;
    - GitLab : un jeton d'accès de projet ou de groupe avec la portée `read_api` (le rapport de
      vulnérabilités nécessite GitLab Ultimate).
-3. Ouvrez **Mesures > Sécurité du code**, cadre **Connexion à GitHub et GitLab** : collez le jeton
-   (et, si besoin, l'adresse de votre serveur GitHub Enterprise ou GitLab), puis **Enregistrer** et
-   **Lire maintenant**.
+3. Ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la
+   connexion** de **Sécurité du code**), cadre **Connexion à GitHub et GitLab** : collez le jeton
+   (et, si besoin, l'adresse de votre serveur GitHub Enterprise ou GitLab), puis **Enregistrer** ;
+   **Tester la connexion** vérifie le jeton sans lire aucune alerte. Cliquez ensuite sur **Lire
+   maintenant** sur la page **Sécurité du code**.
 4. Le cadre **Applications et leurs dépôts** montre, pour chaque application, le nombre d'alertes par
    famille (secrets exposés, dépendances vulnérables, analyse du code) et le badge **Non activée**
    quand une analyse ne tourne pas sur le dépôt : c'est déjà un écart à la mesure A.8.29.
@@ -27,5 +29,6 @@ d'un secret exposé n'est jamais demandée.
 6. L'onglet **Sécurité du code** de chaque application résume ses alertes ; la fiche des mesures
    A.8.28 et A.8.29 affiche le bilan comme preuve. Pour être prévenu, créez un indicateur de risque
    « Secrets exposés non révoqués dans le code » ou « Alertes de sécurité du code hors délai ».
-7. Pour une lecture chaque jour, cochez **Lire automatiquement chaque jour** : la tâche automatique
+7. Pour une lecture chaque jour, cochez **Lire automatiquement chaque jour** dans le même cadre de
+   la configuration : la tâche automatique
    `codesecurity` est désactivée après l'installation.
