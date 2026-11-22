@@ -26,12 +26,19 @@
       <span class="badge bg-blue-subtle text-blue-emphasis">{{ __('%d pending', 'grcmanager')|format(sentinelone.total) }}</span>
       {% if sentinelone.last_run %}<span class="text-muted small">{{ __('Last read: %s', 'grcmanager')|format(sentinelone.last_run) }}</span>{% endif %}
       {% if sentinelone.config_url %}<a href="{{ sentinelone.config_url }}" class="small"><i class="ti ti-settings me-1"></i>{{ __('Settings', 'grcmanager') }}</a>{% endif %}
+      {# Issue #1041 : lecture à la demande, auparavant dans la configuration. #}
+      {% if sentinelone.can_fetch %}
+        <form method="post" action="{{ action }}" class="d-inline">
+          <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" name="s1_fetch_now" class="btn btn-sm btn-outline-secondary"><i class="ti ti-refresh me-1"></i>{{ __('Fetch now', 'grcmanager') }}</button>
+        </form>
+      {% endif %}
     </div>
   </div>
   {% if sentinelone.rows is empty %}
     <div class="card-body text-muted">
       <i class="ti ti-circle-check me-1 text-green"></i>{{ __('No SentinelOne alert waiting for review.', 'grcmanager') }}
-      {% if not sentinelone.enabled %}<div class="small mt-1">{{ __('The automatic reading is disabled: enable it in the plugin configuration, or use the button "Fetch now" there.', 'grcmanager') }}</div>{% endif %}
+      {% if not sentinelone.enabled %}<div class="small mt-1">{{ __('The automatic reading is disabled: enable it in the Connectors tab of the plugin configuration, or use the button "Fetch now".', 'grcmanager') }}</div>{% endif %}
     </div>
   {% else %}
     <form method="post" action="{{ action }}">
@@ -89,6 +96,52 @@
         </div>
       {% endif %}
     </form>
+  {% endif %}
+  {# Issue #1041 : résultat de la dernière lecture et agents sans ordinateur GLPI (sortis de la configuration). #}
+  {% if sentinelone.steps is not empty or sentinelone.agents.agents > 0 %}
+    <div class="card-body border-top">
+      {% if sentinelone.steps is not empty %}
+        <h4 class="mb-2"><i class="ti ti-history me-1"></i>{{ __('Last read', 'grcmanager') }}</h4>
+        <ul class="list-unstyled mb-2">
+          {% for key, step in sentinelone.steps %}
+            <li class="mb-1">
+              <strong>{{ sentinelone.step_labels[key] ?? key }}</strong> :
+              {% if step.error is empty %}
+                <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('%d read', 'grcmanager')|format(step.items) }}</span>
+                {% if step.new is defined and step.new > 0 %}<span class="badge bg-blue-subtle text-blue-emphasis">{{ __('%d new', 'grcmanager')|format(step.new) }}</span>{% endif %}
+                {% if not step.complete %}<span class="badge bg-warning-subtle text-warning-emphasis">{{ __('continued at the next run', 'grcmanager') }}</span>{% endif %}
+              {% else %}
+                <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ sentinelone.error_labels[step.error] ?? step.error }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% if sentinelone.agents.agents > 0 %}
+        <h4 class="mt-3 mb-2"><i class="ti ti-device-desktop me-1"></i>{{ __('Agents', 'grcmanager') }}</h4>
+        <p class="mb-1">
+          <span class="badge bg-blue-subtle text-blue-emphasis">{{ __('%d agent(s) in the console', 'grcmanager')|format(sentinelone.agents.agents) }}</span>
+          {% if sentinelone.agents.total > 0 %}
+            <span class="badge bg-warning-subtle text-warning-emphasis">{{ __('%d without a matching GLPI computer', 'grcmanager')|format(sentinelone.agents.total) }}</span>
+          {% else %}
+            <span class="badge bg-success-subtle text-success-emphasis">{{ __('all matched with a GLPI computer', 'grcmanager') }}</span>
+          {% endif %}
+        </p>
+        {% if sentinelone.agents.rows is not empty %}
+          <p class="text-muted small mb-1">{{ __('These agents are never matched by a similar name: create or rename the computer in the inventory, or fill in its serial number.', 'grcmanager') }}</p>
+          <div class="table-responsive">
+            <table class="table table-sm table-vcenter small mb-0">
+              <thead><tr><th>{{ __('Computer name in SentinelOne', 'grcmanager') }}</th><th>{{ __('Serial number') }}</th><th>{{ __('Operating system') }}</th></tr></thead>
+              <tbody>
+                {% for agent in sentinelone.agents.rows %}
+                  <tr><td>{{ agent.computer_name }}</td><td>{{ agent.serial ?: '-' }}</td><td>{{ agent.os ?: '-' }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
   {% endif %}
 </div>
 {% endif %}

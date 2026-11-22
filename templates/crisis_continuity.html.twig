@@ -1,0 +1,43 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1041 : page d'accueil de « Assistance > Crise et continuité » (front/crisiscontinuity.php),
+   cartes groupées par thème vers les écrans que le profil peut ouvrir (CrisisContinuity::hubData()). #}
+{% if groups is empty %}
+  <div class="alert alert-info">{{ __('No screen of this section is available with your profile.', 'grcmanager') }}</div>
+{% endif %}
+{% for group in groups %}
+  <h3 class="mt-3 mb-2">{{ group.label }}</h3>
+  <div class="row row-cards mb-2">
+    {% for card in group.cards %}
+      <div class="col-sm-6 col-lg-4">
+        <a class="card card-link h-100 text-reset text-decoration-none" href="{{ card.url }}">
+          <div class="card-body">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="avatar bg-blue-subtle text-blue-emphasis"><i class="{{ card.icon }}" aria-hidden="true"></i></span>
+              <h4 class="card-title mb-0">{{ card.title }}</h4>
+              {% if card.count is not null %}
+                <span class="badge bg-secondary-subtle text-secondary-emphasis ms-auto">{{ card.count }}</span>
+              {% endif %}
+            </div>
+            <p class="text-muted small mb-2">{{ card.description }}</p>
+            {% for todo in card.todo %}
+              <span class="badge {{ todo.class }} me-1"><i class="{{ todo.icon }} me-1" aria-hidden="true"></i>{{ todo.label }}</span>
+            {% endfor %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}

@@ -483,7 +483,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
      */
     public static function reviewData(): ?array
     {
-        global $DB, $CFG_GLPI;
+        global $DB;
 
         if (!$DB->tableExists(self::getTable())) {
             return null;
@@ -513,6 +513,10 @@ class SentinelOneAlert extends SentinelOneAlertBase
             ];
         }
         $run = SentinelOneConfig::lastRun();
+        $canEditConfig = (bool) Session::haveRight(
+            \GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME,
+            UPDATE
+        );
 
         return [
             'rows'       => $rows,
@@ -522,9 +526,60 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'kinds'      => self::getKindLabels(),
             'severities' => \PluginGrcmanagerSecurityIncident::getSeverities(),
             'can_import' => SecurityIncidentEdrImport::canImport(),
-            'config_url' => Session::haveRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE)
-                ? $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-sentinelone' : '',
+            'config_url' => $canEditConfig
+                ? \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-sentinelone') : '',
+            // Issue #1041 : lecture à la demande et résultat de la dernière lecture, sortis de la
+            // configuration (même droit qu'avant : modifier la configuration du plugin).
+            'can_fetch'    => $canEditConfig && SentinelOneConfig::isConfigured(),
+            'steps'        => is_array($run['steps'] ?? null) ? $run['steps'] : [],
+            'step_labels'  => self::getStepLabels(),
+            'error_labels' => self::errorLabels(),
+            'agents'       => $DB->tableExists(self::AGENTS_TABLE)
+                ? self::unmatchedAgents() : ['rows' => [], 'total' => 0, 'agents' => 0],
         ];
+    }
+
+    /**
+     * Issue #1041 : lecture de SentinelOne demandée depuis « Assistance > Incidents de sécurité >
+     * Import des alertes EDR » (auparavant depuis la configuration). Même passage que la tâche
+     * automatique ; le résultat est donné en messages. Droit vérifié par l'appelant.
+     */
+    public static function fetchNow(): void
+    {
+        if (!SentinelOneConfig::isConfigured()) {
+            Session::addMessageAfterRedirect(htmlescape(__(
+                'Enter the console address and the API token first.',
+                'grcmanager'
+            )), false, ERROR);
+
+            return;
+        }
+        $steps = self::synchronize(SentinelOneConfig::client());
+        $errors = array_filter(
+            array_column($steps, 'error'),
+            static fn (string $error): bool => $error !== '' && $error !== self::SKIPPED
+        );
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __(
+                'SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d '
+                    . 'application vulnerabilities.',
+                'grcmanager'
+            ),
+            $steps['threats']['new'] + $steps['alerts']['new'],
+            $steps['agents']['items'],
+            $steps['vulnerabilities']['items']
+        )), false, $errors === [] ? INFO : WARNING);
+        foreach (array_unique($errors) as $error) {
+            Session::addMessageAfterRedirect(htmlescape(self::errorLabel($error)), false, WARNING);
+        }
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private static function errorLabels(): array
+    {
+        return array_combine(self::ERROR_CODES, array_map([self::class, 'errorLabel'], self::ERROR_CODES));
     }
 
     /**
@@ -732,12 +787,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
      */
     public static function configData(): array
     {
-        global $DB;
-
         $task = new CronTask();
         $hasTask = $task->getFromDBbyName(self::class, 'sentinelone');
-        $tablesReady = $DB->tableExists(self::AGENTS_TABLE);
-        $pending = $tablesReady ? countElementsInTable(self::getTable(), ['status' => self::STATUS_PENDING]) : 0;
 
         return [
             'enabled'      => SentinelOneConfig::isEnabled(),
@@ -748,13 +799,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'last_run'     => SentinelOneConfig::lastRun(),
             'cron_url'     => $hasTask ? CronTask::getFormURLWithID($task->getID()) : '',
             'cron_active'  => $hasTask && (int) $task->fields['state'] !== CronTask::STATE_DISABLE,
-            'review_url'   => $pending > 0 ? SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review' : '',
-            'agents'       => $tablesReady ? self::unmatchedAgents() : ['rows' => [], 'total' => 0, 'agents' => 0],
             'step_labels'  => self::getStepLabels(),
-            'error_labels' => array_combine(
-                self::ERROR_CODES,
-                array_map([self::class, 'errorLabel'], self::ERROR_CODES)
-            ),
+            'error_labels' => self::errorLabels(),
         ];
     }
 

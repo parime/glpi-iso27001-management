@@ -1,6 +1,6 @@
 ### Prepare crisis communication (control A.5.26, clause 7.4)
 
-1. In the header of the security incident list, click **Crisis message templates**. Five templates
+1. Menu **Assistance > Crisis and continuity**, **Crisis message templates** tab. Five templates
    are provided: major incident (first internal message and end of crisis), data breach
    (information of the people concerned), unavailability (message to users and customers) and
    ransomware (instructions to staff). Adapt them to your organization: subject, text, situation,
