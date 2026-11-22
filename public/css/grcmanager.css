@@ -24,6 +24,11 @@
  * 8:1 en sombre (WCAG 1.4.3 demande 4,5:1). L'orange reprend les valeurs de Docker Inventory
  * (public/css/dockerinventory.css) pour que les deux plugins affichent la même teinte.
  *
+ * Variante sombre sous [data-bs-theme="dark"], le même sélecteur que Tabler pour bg-warning-subtle
+ * et ses voisines. Les palettes sombres de GLPI (darker, midnight...) posent data-glpi-theme-dark
+ * sans data-bs-theme : les badges de thème y gardent leur fond clair, et ceux-ci aussi, pour que les
+ * badges orange et rouges d'une même ligne restent assortis (texte foncé sur fond clair, lisible).
+ *
  * Une valeur fournie un jour par Tabler (--tblr-X-bg-subtle...) l'emporte. Liste vérifiée par
  * tests/Unit/SubtleColorClassesTest.php : toute nouvelle couleur utilisée doit être ajoutée ici.
  */
