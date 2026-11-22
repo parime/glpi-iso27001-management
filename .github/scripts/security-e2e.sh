@@ -68,6 +68,11 @@ case $STEP in
     # Registres sensibles : droit general du SMSI sans le droit dedie.
     matrix general iso-general 'Secrev#2026' "$ids"
     counts_after=$(setup counts)
+    # Issue #1079 : le fragment 877 tourne desormais pour ces profils ; chacun y regle son propre
+    # recapitulatif par e-mail (une ligne par utilisateur dans personaldigests), ouvert a toute
+    # session par conception (#877). Ce n'est pas une donnee du SMSI : la table est hors comparaison.
+    own='del(.glpi_plugin_grcmanager_personaldigests)'
+    counts_before=$(jq -cS "$own" <<< "$counts_before"); counts_after=$(jq -cS "$own" <<< "$counts_after")
     [ "$counts_before" = "$counts_after" ] || { echo "::error::un profil sans droit ou en lecture seule a cree ou supprime des donnees"; echo "avant : $counts_before"; echo "apres : $counts_after"; exit 1; }
     echo "OK  aucune ligne creee ni supprimee par les profils sans droit et lecteur"
     matrix admin glpi glpi "$ids"

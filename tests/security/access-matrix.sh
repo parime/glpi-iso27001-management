@@ -24,7 +24,9 @@ site() { case "$*" in *_glpi_csrf_token*) echo same-origin ;; *) echo cross-site
 code() { curl -s -o /dev/null -w '%{http_code}' -c "$JAR" -b "$JAR" -H "Sec-Fetch-Site: $(site "$@")" "$@"; }
 body() { curl -s -c "$JAR" -b "$JAR" -H 'X-Requested-With: XMLHttpRequest' -H "Sec-Fetch-Site: $(site "$@")" "$@"; }
 csrf() { curl -s -c "$JAR" -b "$JAR" "$BASE/front/central.php" | grep -o 'glpi:csrf_token" content="[^"]*"' | sed 's/.*content="//;s/"//'; }
+CASES=0
 expect() { # libelle, attendu, obtenu
+  CASES=$((CASES + 1))
   if [ "$2" = "$3" ]; then echo "OK  $1 ($3)"; else echo "::error::$ROLE - $1 : attendu $2, obtenu $3"; FAIL=1; fi
 }
 contains() { # libelle, texte, attendu (oui|non), contenu
@@ -76,6 +78,7 @@ esac
 
 P=$BASE/plugins/grcmanager/front
 if [ "$ROLE" = admin ]; then SEE_B=oui; DENY=200; else SEE_B=non; DENY=403; fi
+IS_ADMIN=non; [ "$ROLE" = admin ] && IS_ADMIN=oui
 
 # Issue #706 : le changement de taille de la matrice des risques exige de modifier la configuration
 # du plugin ET les registres sensibles. Ecran, apercu et application refuses sans ces droits.
@@ -469,6 +472,36 @@ for c in grcmanager_business_processes_bia_due grcmanager_business_processes_rec
   contains "carte $c : lien vers les processus" "businessprocess.php" $SEE_CONTINUITY "$(isms_card $c)"
 done
 
+# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
+# tests/security/access-matrix.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
+# sans conflit ») au lieu d'allonger ce script. Charges dans l'ordre des noms, avec les memes fonctions et
+# variables (ROLE, P, id, code, body, csrf, expect, contains, tab, readable, SEE_B, DENY, IS_ADMIN).
+# Issue #1079 : ils sont charges par finish() pour TOUS les profils, y compris ceux dont la partie
+# commune s'arrete plus tot (sans droit, lecteur, sans registres sensibles) : avant, leurs cas n'etaient
+# jamais executes. Un fragment qui nomme le profil courant (« reader) », « limited|admin) »,
+# « "$ROLE" = none ») doit y executer au moins un cas, sinon la matrice echoue.
+fragment_names_role() { # fichier : le fragment declare-t-il des cas pour $ROLE ?
+  grep -E '^[[:space:]]*[a-z|*]+\)' "$1" | grep -qE "(^|[[:space:]|])$ROLE([|)])" \
+    || grep -qE '"\$ROLE" = '"$ROLE"'([^a-z]|$)' "$1"
+}
+finish() {
+  local fragment before ran frag_cases=0
+  for fragment in "$(dirname "${BASH_SOURCE[0]}")"/access-matrix.d/*.sh; do
+    [ -e "$fragment" ] || continue
+    before=$CASES
+    # shellcheck source=/dev/null
+    . "$fragment"
+    ran=$((CASES - before)); frag_cases=$((frag_cases + ran))
+    if [ "$ran" -eq 0 ] && fragment_names_role "$fragment"; then
+      echo "::error::$ROLE - $(basename "$fragment") declare des cas pour ce profil, aucun n'a ete execute"
+      FAIL=1
+    fi
+  done
+  echo "INFO profil $ROLE : $CASES cas executes, dont $frag_cases dans les fragments"
+  rm -f "$JAR"
+  exit $FAIL
+}
+
 if [ "$ROLE" = none ]; then
   for p in $READABLE; do expect "$p : sans droit" 403 "$(code "$BASE/plugins/grcmanager/$p")"; done
   for p in "risk.form.php?id=$(id risk)" "control.form.php?id=$(id control)" "securityincident.form.php?id=$(id incident_A)" \
@@ -531,7 +564,7 @@ if [ "$ROLE" = none ]; then
   phishing_matrix
   scale_denied
   create_attempts 403 403
-  rm -f "$JAR"; exit $FAIL
+  finish
 fi
 
 # Registres sensibles : tout le SMSI, mais pas le droit dedie. Risques, vulnerabilites du parc,
@@ -621,7 +654,7 @@ if [ "$ROLE" = general ]; then
   # Issue #706 : configuration du plugin en modification, mais pas les registres sensibles.
   phishing_matrix
   scale_denied
-  rm -f "$JAR"; exit $FAIL
+  finish
 fi
 
 if [ "$ROLE" = reader ]; then
@@ -713,7 +746,7 @@ if [ "$ROLE" = reader ]; then
   phishing_matrix
   scale_denied
   create_attempts 403 403
-  rm -f "$JAR"; exit $FAIL
+  finish
 fi
 
 if [ "$ROLE" = admin ]; then
@@ -1275,7 +1308,6 @@ expect "evaluation de A : modifier une ligne sans jeton CSRF" 403 \
 # politique : les autres ne la voient ni dans leurs preferences ni dans leur espace, ne lisent pas
 # ses documents et ne peuvent pas confirmer a sa place (sa ligne reste a confirmer, verifie par
 # l'admin, dernier passage de la CI). Les exports exigent la lecture des politiques.
-IS_ADMIN=non; [ "$ROLE" = admin ] && IS_ADMIN=oui
 READ_POLICY=200; [ "$ROLE" = none ] && READ_POLICY=403
 mine_tab=$(tab Preference 'GlpiPlugin%5CGrcmanager%5CPolicyAcknowledgement$1' 2)
 contains "onglet Politiques a lire : politique du public" "Politique lecture securite" $IS_ADMIN "$mine_tab"
@@ -1617,15 +1649,4 @@ if [ "$ROLE" != admin ]; then
     "$(code -d "add=1&title=Formation%20creee%20securite&entities_id=$(id b)&_glpi_csrf_token=$(csrf)" "$P/training.form.php")"
 fi
 
-# Fragments : une fonctionnalite ajoute ses controles dans un NOUVEAU fichier
-# tests/security/access-matrix.d/<issue>-<sujet>.sh (voir docs/ARCHITECTURE.md, « Ajouter une fonctionnalite
-# sans conflit ») au lieu d'allonger ce script. Charges ici dans l'ordre des noms, avec les memes
-# fonctions et variables (ROLE, P, id, code, body, csrf, expect, contains, tab, readable, SEE_B, DENY).
-for fragment in "$(dirname "${BASH_SOURCE[0]}")"/access-matrix.d/*.sh; do
-  [ -e "$fragment" ] || continue
-  # shellcheck source=/dev/null
-  . "$fragment"
-done
-
-rm -f "$JAR"
-exit $FAIL
+finish

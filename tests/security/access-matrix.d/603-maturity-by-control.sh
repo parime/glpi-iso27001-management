@@ -3,10 +3,13 @@
 # fonctions et variables). La liste des campagnes, la fiche, les onglets et le rapport suivent le droit
 # du plugin et l'entite de la campagne ; enregistrer la grille exige de modifier la campagne ; le
 # brouillon d'action d'un ecart de B n'est pre-rempli que pour qui peut modifier la campagne de B.
-contains "front/maturitycampaign.php : campagne de A" "Campagne maturite securite A" oui   "$(curl -s -c "$JAR" -b "$JAR" "$P/maturitycampaign.php")"
+# Issue #1079 : le profil sans droit, qui ne lisait jamais ce fragment, est refuse sur la campagne de A.
+SEE_MATURITY_A=oui; READ_MATURITY_A=200
+[ "$ROLE" = none ] && { SEE_MATURITY_A=non; READ_MATURITY_A=403; }
+contains "front/maturitycampaign.php : campagne de A" "Campagne maturite securite A" $SEE_MATURITY_A   "$(curl -s -c "$JAR" -b "$JAR" "$P/maturitycampaign.php")"
 expect "fiche de la campagne de maturite de B" "$DENY" "$(code "$P/maturitycampaign.form.php?id=$(id maturity_B)")"
-expect "fiche de la campagne de maturite de A" 200 "$(code "$P/maturitycampaign.form.php?id=$(id maturity_A)")"
-expect "front/maturitycampaign.pdf.php : rapport de A" 200 "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_A)")"
+expect "fiche de la campagne de maturite de A" $READ_MATURITY_A "$(code "$P/maturitycampaign.form.php?id=$(id maturity_A)")"
+expect "front/maturitycampaign.pdf.php : rapport de A" $READ_MATURITY_A "$(code "$P/maturitycampaign.pdf.php?id=$(id maturity_A)")"
 contains "onglet niveaux de la campagne de B" "grc-maturity-grid" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$1' "$(id maturity_B)")"
 contains "onglet ecarts de la campagne de B" "Ecart maturite securite B" $SEE_B   "$(tab GlpiPlugin%5CGrcmanager%5CMaturityCampaign 'GlpiPlugin%5CGrcmanager%5CMaturityCampaign$2' "$(id maturity_B)")"
 contains "brouillon d'action depuis l'ecart de B" "Ecart maturite securite B" $SEE_B   "$(tab 'GlpiPlugin%5CGrcmanager%5CNonconformity' 'GlpiPlugin%5CGrcmanager%5CNonconformity$main' "0&maturityassessment=$(id maturity_line_B)")"
