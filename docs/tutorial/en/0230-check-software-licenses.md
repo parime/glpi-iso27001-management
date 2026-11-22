@@ -9,7 +9,8 @@ rights to read software and licenses.
 2. At the bottom of the page, check the list of **watched commercial publishers** (Microsoft, Adobe,
    Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
    leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
-   person who can change the plugin configuration can edit these lists.
+   person who can change the plugin configuration can edit these lists, with the **Change in the
+   configuration** button (Setup > Plugins > GRC Manager, **Fleet** tab).
 3. The counters give the number of findings, then grouped by entity:
    - **Commercial software without a license**: software from a watched publisher is installed, and
      no license counts for this entity. A license counts for an entity when it belongs to it, or when
@@ -23,8 +24,8 @@ rights to read software and licenses.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
    - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
-     days and no renewal is recorded. Change this delay at the bottom of the page ("Warn before a
-     license expires", 0 to turn off).
+     days and no renewal is recorded. Change this delay in the Fleet tab of the configuration ("Warn
+     before a license expires", 0 to turn off).
 
    The **Over-quota allowed** badge marks an over-deployment on a license that allows it: it still
    has to be settled with the publisher. Above the findings, the **license coverage** gives the share

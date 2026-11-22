@@ -219,7 +219,7 @@ REQ-01;A.5.15;Access review of the last quarter;30/11/2026;jdupont</pre>
                      <th>{{ __('Until', 'grcmanager') }}</th>
                      <th>{{ __('State', 'grcmanager') }}</th>
                      <th>{{ __('Last visit', 'grcmanager') }}</th>
-                     {% if can_update %}<th></th>{% endif %}
+                     {% if can_update %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
                   </tr>
                </thead>
                <tbody>

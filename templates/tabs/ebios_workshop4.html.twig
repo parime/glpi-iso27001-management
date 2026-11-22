@@ -104,7 +104,7 @@
             <th>{{ __('Severity (G1 to G4)', 'grcmanager') }}</th>
             <th>{{ __('Likelihood', 'grcmanager') }}</th>
             <th>{{ __('Risk level', 'grcmanager') }}</th>
-            {% if can_edit %}<th></th>{% endif %}
+            {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
           </tr>
         </thead>
         <tbody>

@@ -385,6 +385,11 @@ jobs:
       - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
         run: bash .github/scripts/security-e2e.sh js
 
+      # Issue #663 : accessibilite (axe-core) de pages cles en theme clair et sombre ; echoue sur toute
+      # violation grave d'une regle deja corrigee.
+      - name: Accessibilite dans le navigateur (pages cles, themes clair et sombre)
+        run: bash .github/scripts/security-e2e.sh a11y
+
       # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
       - name: Purge du jeu de donnees de test
         run: bash .github/scripts/security-e2e.sh purge
@@ -522,6 +527,9 @@ jobs:
 
       - name: Erreurs JavaScript dans le navigateur sur GLPI 12
         run: bash .github/scripts/security-e2e.sh js
+
+      - name: Accessibilite dans le navigateur sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh a11y
 
       - name: Purge du jeu de donnees de test sur GLPI 12
         run: bash .github/scripts/security-e2e.sh purge

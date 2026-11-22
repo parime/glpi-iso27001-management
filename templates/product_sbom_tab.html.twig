@@ -229,7 +229,7 @@
                   <thead><tr>
                      <th>{{ __('Vulnerability', 'grcmanager') }}</th><th>{{ __('Component', 'grcmanager') }}</th><th>{{ __('Version') }}</th>
                      <th>{{ __('VEX status', 'grcmanager') }}</th><th>{{ __('Source') }}</th><th>{{ __('Last update') }}</th>
-                     {% if can_edit %}<th></th>{% endif %}
+                     {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
                   </tr></thead>
                   <tbody>
                   {% for s in statements %}

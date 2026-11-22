@@ -136,31 +136,9 @@
       <div class="card-body">
          <p class="mb-2"><i class="ti ti-info-circle me-1"></i>{{ scopes[settings.scope] }} · {{ __('No event for more than %d days: logs stopped', 'grcmanager')|format(settings.stale_days) }} · {{ __('Retention required by the policy: %d days', 'grcmanager')|format(settings.policy_days) }}</p>
          <p class="text-muted small">{{ __('An asset is critical when one axis of its C/I/A classification is high (tab of the asset form), or when a network flow publishes it on the Internet. Servers are recognized from the computer type or the operating system name.', 'grcmanager') }}</p>
+         {# Issue #1044 : réglage dans l'onglet Parc de la configuration du plugin. #}
          {% if can_manage %}
-            <form method="post" action="{{ action }}">
-               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-               <div class="row g-3 align-items-end">
-                  <div class="col-md-4">
-                     <label class="form-label" for="grc-log-scope">{{ __('Assets concerned', 'grcmanager') }}</label>
-                     <select class="form-select" id="grc-log-scope" name="log_scope">
-                        {% for value, label in scopes %}
-                           <option value="{{ value }}" {{ settings.scope == value ? 'selected' }}>{{ label }}</option>
-                        {% endfor %}
-                     </select>
-                  </div>
-                  <div class="col-md-3">
-                     <label class="form-label" for="grc-log-stale">{{ __('Logs stopped after (days without event)', 'grcmanager') }}</label>
-                     <input type="number" class="form-control" id="grc-log-stale" name="log_stale_days" min="1" max="365" value="{{ settings.stale_days }}">
-                  </div>
-                  <div class="col-md-3">
-                     <label class="form-label" for="grc-log-policy">{{ __('Retention required by the policy (days)', 'grcmanager') }}</label>
-                     <input type="number" class="form-control" id="grc-log-policy" name="log_policy_days" min="1" max="3650" value="{{ settings.policy_days }}">
-                  </div>
-                  <div class="col-md-2">
-                     <button type="submit" class="btn btn-primary" name="save_log_settings" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
-                  </div>
-               </div>
-            </form>
+            <a class="btn btn-sm btn-outline-secondary" href="{{ settings_url }}"><i class="ti ti-settings me-1"></i>{{ __('Change in the configuration', 'grcmanager') }}</a>
          {% endif %}
       </div>
    </div>
@@ -190,7 +168,7 @@
                      <th class="text-end">{{ __('Matched', 'grcmanager') }}</th>
                      <th>{{ __('Last event received', 'grcmanager') }}</th>
                      <th>{{ __('Last import', 'grcmanager') }}</th>
-                     {% if can_manage %}<th></th>{% endif %}
+                     {% if can_manage %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
                   </tr></thead>
                   <tbody>
                   {% for p in platforms %}

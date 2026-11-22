@@ -10,7 +10,8 @@ plugin right and the native right to read computers.
 2. In **Target delays by criticality**, set the number of days allowed since the last patch for
    critical, important and standard computers (15, 30 and 60 days by default). The criticality comes
    from the C/I/A classification of the computer; a computer that a declared network flow publishes
-   on the Internet is critical. This requires the right to update the plugin.
+   on the Internet is critical. These delays are set in Setup > Plugins > GRC Manager, **Fleet** tab
+   (**Change in the configuration** button); it requires the right to update the plugin.
 3. The counters give the rate of computers on time, the number late and of unknown state (no dated
    update: no agent, or a system whose agent does not report updates), and the critical servers and
    computers published on the Internet that are late.

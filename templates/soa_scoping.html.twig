@@ -105,12 +105,12 @@
             <table class="table table-vcenter card-table mb-0">
                <thead>
                   <tr>
-                     {% if can_decide %}<th></th>{% endif %}
+                     {% if can_decide %}<th><span class="visually-hidden">{{ __('Selection', 'grcmanager') }}</span></th>{% endif %}
                      <th>{{ __('Control', 'grcmanager') }}</th>
                      <th>{{ __('In the SoA today', 'grcmanager') }}</th>
                      <th>{{ __('Proposal', 'grcmanager') }}</th>
                      <th>{{ __('Status') }}</th>
-                     {% if can_decide %}<th></th>{% endif %}
+                     {% if can_decide %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
                   </tr>
                </thead>
                <tbody>

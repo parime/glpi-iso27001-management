@@ -6,17 +6,19 @@ dans l'outil ni dans GLPI. Il faut le droit du plugin et le droit natif de lectu
 
 1. Ouvrez Sécurité technique > **Couverture des sauvegardes**. L'encadré « À quoi sert cette page ? »
    rappelle ce qui est attendu.
-2. Dans **Quels actifs doivent être sauvegardés, et à quelle fréquence ?**, choisissez les actifs
+2. Avec le bouton **Modifier les réglages** (Configuration > Plugins > GRC Manager, onglet **Parc**),
+   cadre **Quels actifs doivent être sauvegardés, et à quelle fréquence ?**, choisissez les actifs
    concernés (par défaut les actifs critiques et les serveurs), l'ancienneté maximale par défaut de
    la dernière sauvegarde réussie (48 heures) et la fréquence attendue des tests de restauration
    (12 mois). L'ancienneté admise d'un actif est le plus petit RPO entre celui de l'actif (onglet de
    classification C/I/D) et ceux des processus métier qui l'utilisent ; sans RPO, la valeur par
    défaut s'applique.
 3. Pour **Veeam Backup & Replication**, créez dans la console Veeam un compte dédié avec le rôle
-   « Veeam Backup Viewer » (lecture seule), puis saisissez l'adresse du serveur (par exemple
+   « Veeam Backup Viewer » (lecture seule), puis, avec le bouton **Régler la connexion** (onglet **Connecteurs** de la
+   configuration), saisissez l'adresse du serveur (par exemple
    `https://veeam.exemple.test:9419`), le compte, son mot de passe et la révision de l'API REST.
-   Le mot de passe est chiffré avec la clé de GLPI et n'est jamais réaffiché. **Lire maintenant
-   depuis Veeam** lit, sur votre clic seulement, les points de restauration des 31 derniers jours et
+   Le mot de passe est chiffré avec la clé de GLPI et n'est jamais réaffiché ; **Tester la connexion**
+   vérifie le compte sans rien lire. Sur la page des sauvegardes, **Lire maintenant depuis Veeam** lit, sur votre clic seulement, les points de restauration des 31 derniers jours et
    le dernier résultat de chaque travail. Une lecture refusée ou incomplète ne remplace rien. Un
    serveur à adresse interne demande à un administrateur d'autoriser les adresses internes dans la
    page de configuration du plugin, et son certificat doit être reconnu par le serveur GLPI.
