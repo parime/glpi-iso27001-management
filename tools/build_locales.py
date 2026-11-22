@@ -239,6 +239,10 @@ def release(tmp):
         print('build_locales : .pot régénéré')
     else:
         print('build_locales : vendor/bin/extract-locales ou xgettext absent, .pot non régénéré')
+    # extract-locales réécrit les langues de base après merge_into_po : les variantes régionales sont
+    # recopiées ensuite, sinon elles gardent les traductions de la version précédente (es_MX, fr_CA…).
+    if os.path.exists(SYNC):
+        run('sh', SYNC)
     compile_mo(tmp)
     print('build_locales : %d langue(s) complétée(s) par des fragments' % len(frags))
 

@@ -17330,10 +17330,6 @@ msgid "View Harbor images"
 msgstr "Ver las imágenes Harbor"
 
 #, php-format
-msgid "%d critical"
-msgstr "%d crítica(s)"
-
-#, php-format
 msgid "%d high"
 msgstr "%d alta(s)"
 
@@ -35671,3 +35667,1409 @@ msgstr "ISO/IEC 27001, cláusula 6.1.3 c) y d)"
 
 msgid "Answer given"
 msgstr "Respuesta"
+
+msgid "Policy templates"
+msgstr "Plantillas de políticas"
+
+msgid ""
+"Gives a starting point to an organisation that has no security policy yet: "
+"ready-to-adapt templates written by the project, each with its sections and "
+"the Annex A controls it covers. The templates follow the requirements of the "
+"standard in our own words."
+msgstr ""
+"Ofrece un punto de partida a una organización que aún no tiene ninguna "
+"política de seguridad: plantillas listas para adaptar, redactadas por el "
+"proyecto, cada una con sus secciones y los controles del Anexo A que cubre. "
+"Las plantillas siguen los requisitos de la norma con nuestras propias "
+"palabras."
+
+msgid ""
+"Fill in the name of the organisation, the information security manager and "
+"the review period, tick the templates you need, then import them. Each one "
+"becomes a new draft policy, linked by section to the controls of the "
+"Statement of Applicability. Adapt the text to your practice, then have it "
+"approved: nothing is approved automatically and no existing policy is "
+"replaced."
+msgstr ""
+"Indique el nombre de la organización, el responsable de seguridad de la "
+"información y la periodicidad de revisión, marque las plantillas necesarias "
+"y luego impórtelas. Cada una se convierte en una nueva política en borrador, "
+"vinculada por sección a los controles de la declaración de aplicabilidad. "
+"Adapte el texto a su práctica y hágalo aprobar: nada se aprueba "
+"automáticamente y no se reemplaza ninguna política existente."
+
+msgid "Tick at least one template."
+msgstr "Marque al menos una plantilla."
+
+msgid ""
+"Each template is written by the project in its own words, without copying "
+"the text of the standard, and is offered under the %s licence: you may adapt "
+"it freely. Importing a template creates a new draft policy; review it, adapt "
+"it to your practice and have it approved like any other policy."
+msgstr ""
+"Cada plantilla está redactada por el proyecto con sus propias palabras, sin "
+"copiar el texto de la norma, y se ofrece bajo la licencia %s: puede "
+"adaptarla libremente. Importar una plantilla crea una nueva política en "
+"borrador; revísela, adáptela a su práctica y hágala aprobar como cualquier "
+"otra política."
+
+msgid "Language of the templates:"
+msgstr "Idioma de las plantillas:"
+
+msgid "Values inserted into the text"
+msgstr "Valores insertados en el texto"
+
+msgid "Organisation name"
+msgstr "Nombre de la organización"
+
+msgid "Information security manager"
+msgstr "Responsable de seguridad de la información"
+
+msgid "Review period (months)"
+msgstr "Periodicidad de revisión (meses)"
+
+msgid ""
+"A value left empty is replaced by a reminder in square brackets, to be "
+"completed in the policy. The information security manager becomes the owner "
+"of the policies created."
+msgstr ""
+"Un valor dejado vacío se sustituye por un recordatorio entre corchetes, que "
+"debe completarse en la política. El responsable de seguridad de la "
+"información pasa a ser propietario de las políticas creadas."
+
+msgid "Sections"
+msgstr "Secciones"
+
+msgid "Already imported"
+msgstr "Ya importada"
+
+msgid "Create the ticked policies as drafts"
+msgstr "Crear las políticas marcadas como borrador"
+
+msgid ""
+"%1$d draft policy created, with %2$d links to the Statement of "
+"Applicability. Adapt it, then have it approved."
+msgid_plural ""
+"%1$d draft policies created, with %2$d links to the Statement of "
+"Applicability. Adapt them, then have them approved."
+msgstr[0] ""
+"%1$d política en borrador creada, con %2$d vínculos a la declaración de "
+"aplicabilidad. Adáptela y hágala aprobar."
+msgstr[1] ""
+"%1$d políticas en borrador creadas, con %2$d vínculos a la declaración de "
+"aplicabilidad. Adáptelas y hágalas aprobar."
+
+msgid "Asset classification"
+msgstr "Clasificación del activo"
+
+msgid "Patch level"
+msgstr "Nivel de parches"
+
+msgid "Software end of support"
+msgstr "Fin de soporte del software"
+
+msgid "Warranty and manufacturer end of life"
+msgstr "Garantía y fin de vida del fabricante"
+
+msgid "Endpoint protection (EDR)"
+msgstr "Protección de endpoints (EDR)"
+
+msgid "Monitoring (Zabbix)"
+msgstr "Supervisión (Zabbix)"
+
+msgid "Log collection"
+msgstr "Recopilación de registros"
+
+msgid ""
+"Not classified yet: its criticality cannot set the backup, logging and patch "
+"targets."
+msgstr ""
+"Aún sin clasificar: su criticidad no puede fijar los objetivos de copia de "
+"seguridad, registros y parches."
+
+#, php-format
+msgid "RTO: %d h"
+msgstr "RTO: %d h"
+
+#, php-format
+msgid "RPO: %d h"
+msgstr "RPO: %d h"
+
+#, php-format
+msgid "Confidentiality %1$s, integrity %2$s, availability %3$s."
+msgstr "Confidencialidad %1$s, integridad %2$s, disponibilidad %3$s."
+
+#, php-format
+msgid "Target delay: %d days"
+msgstr "Plazo objetivo: %d días"
+
+#, php-format
+msgid "Last known patch on %1$s, %2$d days past the target delay."
+msgstr "Último parche conocido el %1$s, %2$d días después del plazo objetivo."
+
+#, php-format
+msgid "Last known patch on %s, within the target delay."
+msgstr "Último parche conocido el %s, dentro del plazo objetivo."
+
+#, php-format
+msgid "%d tracked products, all still supported or with an unknown date."
+msgstr "%d productos seguidos, todos aún con soporte o con fecha desconocida."
+
+#, php-format
+msgid "%1$d products no longer supported, %2$d reaching end of support soon."
+msgstr "%1$d productos sin soporte, %2$d llegan pronto al fin de soporte."
+
+#, php-format
+msgid "Last seen by the console: %s"
+msgstr "Visto por última vez por la consola: %s"
+
+#, php-format
+msgid "%d SentinelOne alerts waiting to be reviewed for this computer."
+msgstr "%d alertas de SentinelOne pendientes de revisión para este equipo."
+
+msgid "No SentinelOne agent matched this computer."
+msgstr "Ningún agente de SentinelOne coincide con este equipo."
+
+msgid "SentinelOne agent active, no alert waiting."
+msgstr "Agente de SentinelOne activo, ninguna alerta pendiente."
+
+msgid "SentinelOne agent inactive: the computer is no longer protected."
+msgstr "Agente de SentinelOne inactivo: el equipo ya no está protegido."
+
+#, php-format
+msgid "Availability over %1$d days: %2$s %%"
+msgstr "Disponibilidad en %1$d días: %2$s %%"
+
+msgid "An outage exceeded the RTO of a business process."
+msgstr "Una interrupción superó el RTO de un proceso de negocio."
+
+#, php-format
+msgid "%1$s: %2$d open high problems, %3$d other open problems."
+msgstr "%1$s: %2$d problemas altos abiertos, %3$d otros problemas abiertos."
+
+#, php-format
+msgid "Allowed age: %s"
+msgstr "Antigüedad permitida: %s"
+
+#, php-format
+msgid "%1$s: last success on %2$s."
+msgstr "%1$s: último éxito el %2$s."
+
+#, php-format
+msgid "%1$s: last event on %2$s."
+msgstr "%1$s: último evento el %2$s."
+
+#, php-format
+msgid "Platforms: %s"
+msgstr "Plataformas: %s"
+
+#, php-format
+msgid "%1$d monitor(s), %2$d down, %3$d certificate(s) to renew."
+msgstr "%1$d monitor(es), %2$d caído(s), %3$d certificado(s) por renovar."
+
+#, php-format
+msgid "%1$d monitor(s), %2$d status page(s)."
+msgstr "%1$d monitor(es), %2$d página(s) de estado."
+
+#, php-format
+msgid "%1$d monitor(s), over %2$d days"
+msgstr "%1$d monitor(es), en %2$d días"
+
+#, php-format
+msgid "%1$d monitors: the first %2$d are shown, services down first."
+msgstr ""
+"%1$d monitores: se muestran los %2$d primeros, primero los servicios caídos."
+
+#, php-format
+msgid "%1$s: %2$s %% available"
+msgstr "%1$s: %2$s %% disponible"
+
+#, php-format
+msgid "%1$s: certificate expires in %2$d days"
+msgstr "%1$s: el certificado caduca en %2$d días"
+
+#, php-format
+msgid "%d minutes"
+msgstr "%d minutos"
+
+#, php-format
+msgid "%d ms on average"
+msgstr "%d ms de media"
+
+#, php-format
+msgid "24 hours (Uptime Kuma): %s %%"
+msgstr "24 horas (Uptime Kuma): %s %%"
+
+msgid "API key"
+msgstr "Clave de API"
+
+msgid "Address of Uptime Kuma"
+msgstr "Dirección de Uptime Kuma"
+
+msgid ""
+"An Uptime Kuma server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"Un servidor Uptime Kuma con una dirección interna (red privada) se rechaza "
+"por defecto: un administrador puede autorizar las direcciones internas en la "
+"configuración del plugin."
+
+msgid "Announce to the users"
+msgstr "Anunciar a los usuarios"
+
+msgid "Assets published on the Internet without a monitor (Uptime Kuma)"
+msgstr "Activos publicados en Internet sin monitor (Uptime Kuma)"
+
+msgid "Assets published on the Internet without a monitor"
+msgstr "Activos publicados en Internet sin monitor"
+
+msgid ""
+"Assets that receive an \"Internet publication\" flow in the network flow "
+"matrix, but that no Uptime Kuma monitor watches: an outage would only be "
+"noticed by the users."
+msgstr ""
+"Activos que reciben un flujo «Publicación en Internet» en la matriz de "
+"flujos, pero que ningún monitor de Uptime Kuma vigila: una caída solo la "
+"notarían los usuarios."
+
+#, php-format
+msgid "Availability of the exposed services (%) (Uptime Kuma)"
+msgstr "Disponibilidad de los servicios expuestos (%) (Uptime Kuma)"
+
+msgid "Availability of the exposed services"
+msgstr "Disponibilidad de los servicios expuestos"
+
+#, php-format
+msgid "Availability of the exposed services: %s %%"
+msgstr "Disponibilidad de los servicios expuestos: %s %%"
+
+msgid "Availability: not measured"
+msgstr "Disponibilidad: no medida"
+
+#, php-format
+msgid "Business process concerned: %s"
+msgstr "Proceso de negocio afectado: %s"
+
+msgid "Business process that depends on this service"
+msgstr "Proceso de negocio que depende de este servicio"
+
+msgid "Connection to Uptime Kuma (read only)"
+msgstr "Conexión a Uptime Kuma (solo lectura)"
+
+msgid "Days remaining"
+msgstr "Días restantes"
+
+#, php-format
+msgid "Down since %s"
+msgstr "Caído desde %s"
+
+msgid "Down"
+msgstr "Caído"
+
+#, php-format
+msgid ""
+"Each monitor of Uptime Kuma is matched with a GLPI asset (computer, network "
+"device or appliance) by the monitored host name or by its name. The "
+"availability is computed from the status readings of the last %1$d days "
+"(each reading of GLPI, and the history of the status pages). An outage of "
+"%2$d minutes or more can be turned into a security incident: it is only "
+"created when you click."
+msgstr ""
+"Cada monitor de Uptime Kuma se vincula a un activo de GLPI (ordenador, "
+"dispositivo de red o aplicación) por el nombre de host vigilado o por su "
+"nombre. La disponibilidad se calcula con las lecturas de estado de los "
+"últimos %1$d días (cada lectura de GLPI y el historial de las páginas de "
+"estado). Una caída de %2$d minutos o más puede convertirse en un incidente "
+"de seguridad: solo se crea cuando usted hace clic."
+
+msgid ""
+"Enter the address of Uptime Kuma with an API key (or the public status pages "
+"to read), read now, then follow up the services down, the certificates that "
+"expire soon and the exposed assets without a monitor. A long outage can be "
+"turned into a security incident with one click, then announced to the users "
+"with the crisis communication; nothing is created automatically and nothing "
+"is changed in Uptime Kuma."
+msgstr ""
+"Introduzca la dirección de Uptime Kuma con una clave de API (o las páginas "
+"de estado públicas que leer), lea ahora y luego siga los servicios caídos, "
+"los certificados que caducan pronto y los activos expuestos sin monitor. Una "
+"caída larga puede convertirse en un incidente de seguridad con un clic y "
+"luego anunciarse a los usuarios con la comunicación de crisis; nada se crea "
+"automáticamente y nada se modifica en Uptime Kuma."
+
+msgid ""
+"Enter the address of Uptime Kuma, then an API key or at least one status "
+"page."
+msgstr ""
+"Introduzca la dirección de Uptime Kuma y luego una clave de API o al menos "
+"una página de estado."
+
+msgid "Every asset published on the Internet has a monitor."
+msgstr "Cada activo publicado en Internet tiene un monitor."
+
+#, php-format
+msgid "Expired or not valid: %d"
+msgstr "Caducados o no válidos: %d"
+
+#, php-format
+msgid "Expired, not valid or expiring within %d days"
+msgstr "Caducados, no válidos o que caducan en %d días"
+
+msgid "Expires around"
+msgstr "Caduca hacia el"
+
+#, php-format
+msgid "Expiring within %1$d days: %2$d"
+msgstr "Caducan en %1$d días: %2$d"
+
+#, php-format
+msgid ""
+"Expiry dates read by Uptime Kuma on the HTTPS monitors. A certificate is "
+"flagged %d days before it expires; GLPI never renews a certificate. To be "
+"warned, create a risk indicator \"TLS certificates to renew (Uptime Kuma)\" "
+"with an alert threshold."
+msgstr ""
+"Fechas de caducidad leídas por Uptime Kuma en los monitores HTTPS. Un "
+"certificado se señala %d días antes de caducar; GLPI nunca renueva un "
+"certificado. Para recibir un aviso, cree un indicador de riesgo "
+"«Certificados TLS por renovar (Uptime Kuma)» con un umbral de alerta."
+
+msgid "Exposed assets without a monitor"
+msgstr "Activos expuestos sin monitor"
+
+#, php-format
+msgid "Exposed assets without a monitor: %d"
+msgstr "Activos expuestos sin monitor: %d"
+
+msgid "Exposed services (Uptime Kuma)"
+msgstr "Servicios expuestos (Uptime Kuma)"
+
+msgid "GLPI asset"
+msgstr "Activo de GLPI"
+
+msgid "How to prepare Uptime Kuma (one of the two, or both):"
+msgstr "Cómo preparar Uptime Kuma (una de las dos opciones, o ambas):"
+
+msgid "ISO/IEC 27001, controls A.8.16, A.5.30 and A.8.24"
+msgstr "ISO/IEC 27001, controles A.8.16, A.5.30 y A.8.24"
+
+msgid "Identifiers separated by commas."
+msgstr "Identificadores separados por comas."
+
+msgid "Key saved"
+msgstr "Clave guardada"
+
+msgid "Long outage, from (minutes)"
+msgstr "Caída larga, a partir de (minutos)"
+
+#, php-format
+msgid "Long outages: %d"
+msgstr "Caídas largas: %d"
+
+#, php-format
+msgid "Longest outage over the period: %s"
+msgstr "Caída más larga del periodo: %s"
+
+#, php-format
+msgid "Monitored address: %s"
+msgstr "Dirección vigilada: %s"
+
+msgid "Monitored services"
+msgstr "Servicios vigilados"
+
+#, php-format
+msgid "Monitored services: %d"
+msgstr "Servicios vigilados: %d"
+
+msgid "No asset found"
+msgstr "Ningún activo encontrado"
+
+msgid "No certificate read"
+msgstr "Ningún certificado leído"
+
+msgid ""
+"No certificate read: certificates are read on the HTTPS monitors, and on a "
+"status page only when \"Show Certificate Expiry\" is enabled on it."
+msgstr ""
+"Ningún certificado leído: los certificados se leen en los monitores HTTPS, y "
+"en una página de estado solo si «Show Certificate Expiry» está activado en "
+"ella."
+
+msgid "No monitor read in your entities."
+msgstr "Ningún monitor leído en sus entidades."
+
+msgid "Not valid"
+msgstr "No válido"
+
+msgid ""
+"Nothing has been read from Uptime Kuma yet: enter the connection below, then "
+"click \"Read now\"."
+msgstr ""
+"Todavía no se ha leído nada de Uptime Kuma: introduzca la conexión a "
+"continuación y haga clic en «Leer ahora»."
+
+msgid "Only the first monitors were read"
+msgstr "Solo se leyeron los primeros monitores"
+
+msgid ""
+"Or list public status pages: their identifier is the end of their address "
+"(for example \"customers\" for https://status.example.test/status/"
+"customers). Only the monitors shown on these pages are read, with their "
+"recent history."
+msgstr ""
+"O indique páginas de estado públicas: su identificador es el final de su "
+"dirección (por ejemplo «customers» para https://status.example.test/status/"
+"customers). Solo se leen los monitores mostrados en esas páginas, con su "
+"historial reciente."
+
+#, php-format
+msgid "Outage reported by Uptime Kuma: %s"
+msgstr "Caída señalada por Uptime Kuma: %s"
+
+#, php-format
+msgid "Outage started on: %s"
+msgstr "Inicio de la caída: %s"
+
+msgid "Outages longer than the RTO"
+msgstr "Caídas más largas que el RTO"
+
+#, php-format
+msgid "Over %1$d days, read from Uptime Kuma on %2$s"
+msgstr "En %1$d días, leído de Uptime Kuma el %2$s"
+
+msgid "Period of the availability (days)"
+msgstr "Periodo de la disponibilidad (días)"
+
+msgid "Public status pages (optional)"
+msgstr "Páginas de estado públicas (opcional)"
+
+msgid "Published on the Internet (network flow matrix)"
+msgstr "Publicados en Internet (matriz de flujos)"
+
+msgid ""
+"Read automatically every hour (automatic action \"uptimekuma\"): the "
+"availability is more precise with regular readings"
+msgstr ""
+"Leer automáticamente cada hora (acción automática «uptimekuma»): la "
+"disponibilidad es más precisa con lecturas regulares"
+
+msgid ""
+"Read only: nothing is ever changed in Uptime Kuma from GLPI, and no "
+"certificate is renewed."
+msgstr ""
+"Solo lectura: nunca se modifica nada en Uptime Kuma desde GLPI y no se "
+"renueva ningún certificado."
+
+msgid ""
+"Reads your Uptime Kuma server, in read only: whether the websites and "
+"services seen by your users and customers answer, how long their outages "
+"last, and when their TLS certificates expire. Each monitor is matched with a "
+"GLPI asset, its outages are compared with the recovery time objectives of "
+"the business processes, and the assets published on the Internet without any "
+"monitor are listed."
+msgstr ""
+"Lee su servidor Uptime Kuma, en solo lectura: si los sitios y servicios que "
+"ven sus usuarios y clientes responden, cuánto duran sus caídas y cuándo "
+"caducan sus certificados TLS. Cada monitor se vincula a un activo de GLPI, "
+"sus caídas se comparan con los objetivos de tiempo de recuperación (RTO) de "
+"los procesos de negocio, y se listan los activos publicados en Internet sin "
+"ningún monitor."
+
+msgid "Recovery time objective of the business processes"
+msgstr "Objetivo de tiempo de recuperación (RTO) de los procesos de negocio"
+
+msgid "Refused: the connector only reads from Uptime Kuma."
+msgstr "Rechazado: el conector solo lee de Uptime Kuma."
+
+msgid "Response time"
+msgstr "Tiempo de respuesta"
+
+msgid "Risk indicators"
+msgstr "Indicadores de riesgo"
+
+msgid "Services down now"
+msgstr "Servicios caídos ahora"
+
+#, php-format
+msgid "Services down now: %d"
+msgstr "Servicios caídos ahora: %d"
+
+msgid ""
+"Settings > API Keys: create a key (it only gives access to the /metrics "
+"page, in read only) and copy it here. All the monitors are then read, with "
+"their certificates."
+msgstr ""
+"Settings > API Keys: cree una clave (solo da acceso a la página /metrics, en "
+"solo lectura) y cópiela aquí. Se leen entonces todos los monitores, con sus "
+"certificados."
+
+#, php-format
+msgid "TLS certificates read: %d"
+msgstr "Certificados TLS leídos: %d"
+
+msgid "TLS certificates to renew (Uptime Kuma)"
+msgstr "Certificados TLS por renovar (Uptime Kuma)"
+
+msgid "TLS certificates to renew"
+msgstr "Certificados TLS por renovar"
+
+msgid "TLS certificates"
+msgstr "Certificados TLS"
+
+msgid ""
+"The key is encrypted with the GLPI key, never displayed again nor logged. "
+"Only the address of this server is called, and only to read."
+msgstr ""
+"La clave se cifra con la clave de GLPI, nunca se vuelve a mostrar ni se "
+"registra. Solo se llama a la dirección de este servidor, y solo para leer."
+
+msgid ""
+"The readings are visible in this entity and its sub-entities; monitors not "
+"matched with an asset are only listed in this entity."
+msgstr ""
+"Las lecturas son visibles en esta entidad y sus subentidades; los monitores "
+"no vinculados a un activo solo se listan en esta entidad."
+
+#, php-format
+msgid ""
+"The status page \"%s\" does not exist in Uptime Kuma: check its identifier "
+"(end of its address)."
+msgstr ""
+"La página de estado «%s» no existe en Uptime Kuma: compruebe su "
+"identificador (final de su dirección)."
+
+msgid "Thresholds"
+msgstr "Umbrales"
+
+msgid "Under maintenance"
+msgstr "En mantenimiento"
+
+msgid "Up"
+msgstr "En servicio"
+
+msgid ""
+"Uptime Kuma could not be reached: check the address, the network access or "
+"the GLPI proxy."
+msgstr ""
+"No se pudo contactar con Uptime Kuma: compruebe la dirección, el acceso de "
+"red o el proxy de GLPI."
+
+msgid ""
+"Uptime Kuma has an internal address, refused by default: allow internal "
+"addresses in the plugin configuration page (Outgoing connections)."
+msgstr ""
+"Uptime Kuma tiene una dirección interna, rechazada por defecto: autorice las "
+"direcciones internas en la página de configuración del plugin (Conexiones "
+"salientes)."
+
+#, php-format
+msgid "Uptime Kuma read: %1$d monitor(s), %2$d new status reading(s)."
+msgstr ""
+"Uptime Kuma leído: %1$d monitor(es), %2$d nueva(s) lectura(s) de estado."
+
+msgid "Uptime Kuma readings deleted."
+msgstr "Lecturas de Uptime Kuma eliminadas."
+
+msgid ""
+"Uptime Kuma refused the API key: check that it is active and not expired "
+"(Settings > API Keys)."
+msgstr ""
+"Uptime Kuma rechazó la clave de API: compruebe que esté activa y no caducada "
+"(Settings > API Keys)."
+
+msgid "Uptime Kuma returned an unexpected answer."
+msgstr "Uptime Kuma devolvió una respuesta inesperada."
+
+msgid "Uptime Kuma settings saved."
+msgstr "Ajustes de Uptime Kuma guardados."
+
+msgid ""
+"Uptime Kuma: reads monitors, availability and TLS certificates (read only)"
+msgstr ""
+"Uptime Kuma: lee los monitores, la disponibilidad y los certificados TLS "
+"(solo lectura)"
+
+msgid "Warn before a certificate expires (days)"
+msgstr "Avisar antes de que caduque un certificado (días)"
+
+#, php-format
+msgid "including %d critical"
+msgstr "de ellos %d críticos"
+
+msgid "Power supplies"
+msgstr "Fuentes de alimentación"
+
+msgid "Disks"
+msgstr "Discos"
+
+msgid "Fans"
+msgstr "Ventiladores"
+
+msgid "Temperatures"
+msgstr "Temperaturas"
+
+msgid "Server health"
+msgstr "Estado del servidor"
+
+msgid "%d warning"
+msgstr "%d advertencia(s)"
+
+msgid ""
+"No health detail read yet: click \"Read now\" on the controller page, or "
+"enable the scheduled reading. Controllers imported by CSV have no health "
+"detail."
+msgstr ""
+"Aún no se ha leído ningún detalle de estado: haga clic en «Leer ahora» en la "
+"página de los controladores o active la lectura programada. Los "
+"controladores importados por CSV no tienen detalle de estado."
+
+msgid "Recent events of the controller log"
+msgstr "Eventos recientes del registro del controlador"
+
+msgid "No event in the log read on the controller."
+msgstr "Ningún evento en el registro leído en el controlador."
+
+msgid ""
+"Server management controllers: reads inventory, gaps, accounts and health by "
+"Redfish (read only)"
+msgstr ""
+"Controladores de gestión de servidores: lee el inventario, las desviaciones, "
+"las cuentas y el estado por Redfish (solo lectura)"
+
+msgid ""
+"Scheduled reading: the automatic action \"bmcread\" reads every Redfish "
+"controller once a day (same read-only requests as \"Read now\", health and "
+"event log included). It is disabled after installation."
+msgstr ""
+"Lectura programada: la acción automática «bmcread» lee cada controlador "
+"Redfish una vez al día (las mismas solicitudes de solo lectura que «Leer "
+"ahora», estado y registro de eventos incluidos). Está desactivada tras la "
+"instalación."
+
+msgid "Set the automatic action"
+msgstr "Configurar la acción automática"
+
+msgid "%d component(s) in critical state"
+msgstr "%d componente(s) en estado crítico"
+
+msgid "%d component(s) with a warning"
+msgstr "%d componente(s) con advertencia"
+
+msgid "%1$d alert(s) in the controller log over the last %2$d days"
+msgstr "%1$d alerta(s) en el registro del controlador en los últimos %2$d días"
+
+msgid "A component or a recent event of the server is critical."
+msgstr "Un componente o un evento reciente del servidor es crítico."
+
+msgid "A component or a recent event of the server needs attention."
+msgstr "Un componente o un evento reciente del servidor requiere atención."
+
+msgid "Power supplies, disks, fans and temperatures read as healthy."
+msgstr ""
+"Fuentes de alimentación, discos, ventiladores y temperaturas leídos en buen "
+"estado."
+
+msgid ""
+"Read from the controller (Redfish) or the import: keep only TLS 1.2 and "
+"later."
+msgstr ""
+"Leído en el controlador (Redfish) o indicado por la importación: mantenga "
+"solo TLS 1.2 y posteriores."
+
+msgid "Domains followed"
+msgstr "Dominios supervisados"
+
+msgid "%d domain checked"
+msgid_plural "%d domains checked"
+msgstr[0] "%d dominio comprobado"
+msgstr[1] "%d dominios comprobados"
+
+msgid "Domains protected by DMARC"
+msgstr "Dominios protegidos por DMARC"
+
+msgid "Fake e-mails put in quarantine or rejected"
+msgstr "Correos falsos en cuarentena o rechazados"
+
+msgid "Domains with a gap to fix"
+msgstr "Dominios con una desviación que corregir"
+
+msgid "Spoofing remains possible"
+msgstr "La suplantación sigue siendo posible"
+
+msgid "Expiring or expired"
+msgstr "Próximo a vencer o vencido"
+
+msgid "Domain or certificate, alert %d day before"
+msgid_plural "Domain or certificate, alert %d days before"
+msgstr[0] "Dominio o certificado, aviso %d día antes"
+msgstr[1] "Dominio o certificado, aviso %d días antes"
+
+msgid "Domains of the organisation"
+msgstr "Dominios de la organización"
+
+msgid "At most %d domain per click"
+msgid_plural "At most %d domains per click"
+msgstr[0] "Como máximo %d dominio por clic"
+msgstr[1] "Como máximo %d dominios por clic"
+
+msgid "Check all domains"
+msgstr "Comprobar todos los dominios"
+
+msgid ""
+"The check only reads public DNS records, like any mail server does before "
+"delivering an e-mail. No e-mail is sent and no server is scanned."
+msgstr ""
+"La comprobación solo lee registros DNS públicos, como hace cualquier "
+"servidor de correo antes de entregar un mensaje. No se envía ningún correo y "
+"no se escanea ningún servidor."
+
+msgid ""
+"No domain entered yet: the module stays inactive and makes no DNS query. Add "
+"the domains your organisation uses to send or receive e-mail, and the ones "
+"it only owns."
+msgstr ""
+"Ningún dominio introducido: el módulo permanece inactivo y no hace ninguna "
+"consulta DNS. Añada los dominios que su organización usa para enviar o "
+"recibir correo, y los que solo posee."
+
+msgid "Servers allowed to send e-mails for the domain"
+msgstr "Servidores autorizados a enviar correo en nombre del dominio"
+
+msgid "Signature of the e-mails sent"
+msgstr "Firma de los correos enviados"
+
+msgid "What receiving servers do with fake e-mails"
+msgstr "Qué hacen los servidores receptores con los correos falsos"
+
+msgid "Encryption required between mail servers"
+msgstr "Cifrado obligatorio entre servidores de correo"
+
+msgid "Reports of encryption failures"
+msgstr "Informes de fallos de cifrado"
+
+msgid "Signature of the DNS answers"
+msgstr "Firma de las respuestas DNS"
+
+msgid "Domain expiry"
+msgstr "Vencimiento del dominio"
+
+msgid "Mail certificate"
+msgstr "Certificado de correo"
+
+msgid "Mail servers (MX)"
+msgstr "Servidores de correo (MX)"
+
+msgid "Remove this domain from the list? Nothing is changed in the DNS."
+msgstr "¿Quitar este dominio de la lista? No se modifica nada en el DNS."
+
+msgid "What to do"
+msgstr "Qué hacer"
+
+msgid "Advice"
+msgstr "Consejo"
+
+msgid "Edit the domain %s"
+msgstr "Modificar el dominio %s"
+
+msgid "Add a domain"
+msgstr "Añadir un dominio"
+
+msgid "Domain name"
+msgstr "Nombre de dominio"
+
+msgid "The part after the @ of the e-mail addresses."
+msgstr "La parte que sigue a la @ de las direcciones de correo."
+
+msgid "DKIM selectors"
+msgstr "Selectores DKIM"
+
+msgid ""
+"Given by your e-mail service, separated by commas (selector1 and selector2 "
+"for Microsoft 365, google for Google Workspace)."
+msgstr ""
+"Indicados por su servicio de correo, separados por comas (selector1 y "
+"selector2 para Microsoft 365, google para Google Workspace)."
+
+msgid "For example: main domain, or domain kept for the brand only"
+msgstr "Por ejemplo: dominio principal, o dominio conservado solo por la marca"
+
+msgid "Domain expiry date"
+msgstr "Fecha de vencimiento del dominio"
+
+msgid "Shown in the customer area of the registrar."
+msgstr "Indicada en el área de cliente del registrador."
+
+msgid "Expiry date of the mail server certificate"
+msgstr "Fecha de vencimiento del certificado de los servidores de correo"
+
+msgid ""
+"Leave empty when the mail service is hosted (Microsoft 365, Google "
+"Workspace): the provider renews it."
+msgstr ""
+"Dejar vacío si el correo está alojado (Microsoft 365, Google Workspace): el "
+"proveedor lo renueva."
+
+msgid "Add the domain"
+msgstr "Añadir el dominio"
+
+msgid "DNS server used for DNSSEC (optional)"
+msgstr "Servidor DNS usado para DNSSEC (opcional)"
+
+msgid ""
+"By default, the DNS server of the GLPI server is asked. Some of them (inside "
+"Docker, for example) do not relay the DNSSEC records: DNSSEC then shows "
+"\"Unknown\". Enter the IP address of another DNS server of your organisation "
+"or of your provider to fix it."
+msgstr ""
+"Por defecto se consulta el servidor DNS del servidor GLPI. Algunos (dentro "
+"de Docker, por ejemplo) no transmiten los registros DNSSEC: DNSSEC muestra "
+"entonces \"Desconocido\". Introduzca la dirección IP de otro servidor DNS de "
+"su organización o de su proveedor para corregirlo."
+
+msgid "IP address of the DNS server"
+msgstr "Dirección IP del servidor DNS"
+
+msgid "DNS server of the GLPI server"
+msgstr "Servidor DNS del servidor GLPI"
+
+msgid "The protections in a few words"
+msgstr "Las protecciones en pocas palabras"
+
+msgid ""
+"List of the servers allowed to send e-mails for the domain. \"-all\" refuses "
+"all the others."
+msgstr ""
+"Lista de los servidores autorizados a enviar correo en nombre del dominio. "
+"\"-all\" rechaza todos los demás."
+
+msgid ""
+"Signature added to each e-mail sent, checked by the receiver with a key "
+"published in the DNS under a \"selector\"."
+msgstr ""
+"Firma añadida a cada correo enviado, comprobada por el receptor con una "
+"clave publicada en el DNS bajo un \"selector\"."
+
+msgid ""
+"Tells receiving servers what to do with an e-mail that fails SPF and DKIM: "
+"observe (none), put in quarantine or reject. Only quarantine and reject stop "
+"the spoofing."
+msgstr ""
+"Indica a los servidores receptores qué hacer con un correo que no supera SPF "
+"y DKIM: observar (none), poner en cuarentena o rechazar. Solo la cuarentena "
+"y el rechazo detienen la suplantación."
+
+msgid ""
+"Require encrypted connections between mail servers, and send a report when "
+"encryption fails."
+msgstr ""
+"Exigen conexiones cifradas entre servidores de correo y envían un informe "
+"cuando falla el cifrado."
+
+msgid "Signs the DNS answers of the domain so that nobody can forge them."
+msgstr ""
+"Firma las respuestas DNS del dominio para que nadie pueda falsificarlas."
+
+msgid "Domain added. Click \"Check now\" to read its DNS records."
+msgstr ""
+"Dominio añadido. Haga clic en \"Comprobar ahora\" para leer sus registros "
+"DNS."
+
+msgid "Domain saved."
+msgstr "Dominio guardado."
+
+msgid "Domain removed from the list."
+msgstr "Dominio quitado de la lista."
+
+msgid "DNS records read."
+msgstr "Registros DNS leídos."
+
+msgid "%d domain checked."
+msgid_plural "%d domains checked."
+msgstr[0] "%d dominio comprobado."
+msgstr[1] "%d dominios comprobados."
+
+msgid ""
+"Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or "
+"leave empty."
+msgstr ""
+"No guardado: introduzca la dirección IP de un servidor DNS, por ejemplo "
+"192.0.2.53, o déjelo vacío."
+
+msgid "DNS server saved."
+msgstr "Servidor DNS guardado."
+
+msgid ""
+"Shows whether the e-mail domains of the organisation are protected against "
+"spoofing and phishing: who may send e-mails in their name (SPF), signature "
+"of the e-mails (DKIM), what receiving servers do with fake e-mails (DMARC), "
+"encryption between mail servers (MTA-STS, TLS-RPT), signature of the DNS "
+"(DNSSEC), and the expiry of the domains and of the certificate of the mail "
+"servers."
+msgstr ""
+"Muestra si los dominios de correo de la organización están protegidos contra "
+"la suplantación y el phishing: quién puede enviar correos en su nombre "
+"(SPF), firma de los correos (DKIM), qué hacen los servidores receptores con "
+"los correos falsos (DMARC), cifrado entre servidores de correo (MTA-STS, TLS-"
+"RPT), firma del DNS (DNSSEC) y el vencimiento de los dominios y del "
+"certificado de los servidores de correo."
+
+msgid ""
+"Enter the domains of the organisation, with the DKIM selectors given by your "
+"e-mail service and the expiry dates shown by the registrar, then click "
+"\"Check now\". The plugin only reads public DNS records: it sends no e-mail, "
+"connects to no mail server and changes nothing. Fix the gaps with your DNS "
+"host, then check again and record the result as an effectiveness test of the "
+"control."
+msgstr ""
+"Introduzca los dominios de la organización, con los selectores DKIM "
+"indicados por su servicio de correo y las fechas de vencimiento que muestra "
+"el registrador, y haga clic en \"Comprobar ahora\". El plugin solo lee "
+"registros DNS públicos: no envía ningún correo, no se conecta a ningún "
+"servidor de correo y no modifica nada. Corrija las desviaciones con su "
+"proveedor DNS, vuelva a comprobar y registre el resultado como prueba de "
+"eficacia del control."
+
+msgid "ISO/IEC 27001, controls A.5.14 and A.8.21"
+msgstr "ISO/IEC 27001, controles A.5.14 y A.8.21"
+
+msgid "Mail domains without an enforced DMARC policy (%)"
+msgstr "Dominios de correo sin política DMARC aplicada (%)"
+
+msgid "Mail and domain security"
+msgstr "Seguridad del correo y de los dominios"
+
+msgid "The domain was not found in the DNS."
+msgstr "El dominio no se encontró en el DNS."
+
+msgid "Check the spelling of the domain, or remove it if it is no longer used."
+msgstr "Compruebe la ortografía del dominio, o quítelo si ya no se usa."
+
+msgid ""
+"No SPF record: anyone can send e-mails pretending to come from this domain."
+msgstr ""
+"Ningún registro SPF: cualquiera puede enviar correos que parecen venir de "
+"este dominio."
+
+msgid ""
+"Publish on %s a TXT record \"v=spf1 ... -all\" listing the servers allowed "
+"to send its e-mails (for a domain that never sends e-mail: \"v=spf1 -all\")."
+msgstr ""
+"Publique en %s un registro TXT \"v=spf1 ... -all\" que liste los servidores "
+"autorizados a enviar sus correos (para un dominio que nunca envía correo: "
+"\"v=spf1 -all\")."
+
+msgid "Several SPF records: receiving servers ignore all of them."
+msgstr "Varios registros SPF: los servidores receptores los ignoran todos."
+
+msgid "Merge them into a single TXT record starting with v=spf1."
+msgstr "Únalos en un único registro TXT que empiece por v=spf1."
+
+msgid "SPF allows every server in the world to send for the domain (+all)."
+msgstr ""
+"SPF permite a cualquier servidor del mundo enviar en nombre del dominio "
+"(+all)."
+
+msgid "Replace +all with -all (or ~all while you check the list of servers)."
+msgstr ""
+"Sustituya +all por -all (o ~all mientras comprueba la lista de servidores)."
+
+msgid "SPF does not say what to do with the other servers (?all or no all)."
+msgstr "SPF no indica qué hacer con los demás servidores (?all o sin all)."
+
+msgid "End the record with -all, or ~all while you check the list of servers."
+msgstr ""
+"Termine el registro con -all, o ~all mientras comprueba la lista de "
+"servidores."
+
+msgid "SPF needs more than 10 DNS lookups: receiving servers may reject it."
+msgstr ""
+"SPF necesita más de 10 consultas DNS: los servidores receptores pueden "
+"rechazarlo."
+
+msgid "Reduce the number of include, a and mx mechanisms of the record."
+msgstr "Reduzca el número de mecanismos include, a y mx del registro."
+
+msgid "SPF only marks the other servers as suspicious (~all)."
+msgstr "SPF solo marca los demás servidores como sospechosos (~all)."
+
+msgid "Move to -all once every service that sends e-mail for you is listed."
+msgstr ""
+"Pase a -all cuando estén listados todos los servicios que envían correo por "
+"usted."
+
+msgid ""
+"No DMARC policy: receiving servers do not know what to do with fake e-mails."
+msgstr ""
+"Ninguna política DMARC: los servidores receptores no saben qué hacer con los "
+"correos falsos."
+
+msgid ""
+"Publish a TXT record on _dmarc.%s starting with \"v=DMARC1; p=none; "
+"rua=mailto:...\", read the reports, then move to p=quarantine and p=reject."
+msgstr ""
+"Publique un registro TXT en _dmarc.%s que empiece por \"v=DMARC1; p=none; "
+"rua=mailto:...\", lea los informes y pase después a p=quarantine y p=reject."
+
+msgid "The DMARC record is invalid or published several times."
+msgstr "El registro DMARC no es válido o está publicado varias veces."
+
+msgid "Keep a single record with p=none, p=quarantine or p=reject."
+msgstr "Conserve un único registro con p=none, p=quarantine o p=reject."
+
+msgid "DMARC only observes (p=none): fake e-mails are still delivered."
+msgstr "DMARC solo observa (p=none): los correos falsos se siguen entregando."
+
+msgid "After reading the reports, move to p=quarantine, then p=reject."
+msgstr "Tras leer los informes, pase a p=quarantine y luego a p=reject."
+
+msgid "DMARC applies to only part of the e-mails (pct below 100)."
+msgstr "DMARC solo se aplica a una parte de los correos (pct inferior a 100)."
+
+msgid "Raise pct to 100, or remove it."
+msgstr "Suba pct a 100, o elimínelo."
+
+msgid "DMARC sends no report (no rua address)."
+msgstr "DMARC no envía ningún informe (sin dirección rua)."
+
+msgid "Add rua=mailto:... to receive the reports of the receiving servers."
+msgstr ""
+"Añada rua=mailto:... para recibir los informes de los servidores receptores."
+
+msgid "A declared DKIM selector has no published key."
+msgstr "Un selector DKIM declarado no tiene clave publicada."
+
+msgid ""
+"Check the selector name given by your e-mail service, or publish its key."
+msgstr ""
+"Compruebe el nombre del selector indicado por su servicio de correo, o "
+"publique su clave."
+
+msgid "A DKIM key is revoked (empty key)."
+msgstr "Una clave DKIM está revocada (clave vacía)."
+
+msgid "Remove the selector from the list if it is no longer used."
+msgstr "Quite el selector de la lista si ya no se usa."
+
+msgid "No DKIM selector declared: the signature of the e-mails is not checked."
+msgstr ""
+"Ningún selector DKIM declarado: la firma de los correos no se comprueba."
+
+msgid ""
+"Enter the selectors given by your e-mail service (for example selector1 and "
+"selector2 for Microsoft 365, google for Google Workspace)."
+msgstr ""
+"Introduzca los selectores indicados por su servicio de correo (por ejemplo "
+"selector1 y selector2 para Microsoft 365, google para Google Workspace)."
+
+msgid "The domain is not signed with DNSSEC: its DNS answers can be forged."
+msgstr ""
+"El dominio no está firmado con DNSSEC: sus respuestas DNS pueden "
+"falsificarse."
+
+msgid "Enable DNSSEC with your registrar or DNS host."
+msgstr "Active DNSSEC con su registrador o proveedor DNS."
+
+msgid ""
+"DNSSEC could not be checked: the DNS server did not answer or does not relay "
+"DNSSEC records."
+msgstr ""
+"No se pudo comprobar DNSSEC: el servidor DNS no respondió o no transmite los "
+"registros DNSSEC."
+
+msgid ""
+"Check the domain again later, or choose another DNS server at the bottom of "
+"the page."
+msgstr ""
+"Vuelva a comprobar el dominio más tarde, o elija otro servidor DNS al final "
+"de la página."
+
+msgid "No MTA-STS: encryption between mail servers is not required."
+msgstr "Sin MTA-STS: el cifrado entre servidores de correo no es obligatorio."
+
+msgid ""
+"Publish an MTA-STS policy (record _mta-sts.%s and policy file) once your "
+"mail servers accept encrypted connections."
+msgstr ""
+"Publique una política MTA-STS (registro _mta-sts.%s y archivo de política) "
+"cuando sus servidores de correo acepten conexiones cifradas."
+
+msgid "No TLS-RPT: you receive no report of encryption failures."
+msgstr "Sin TLS-RPT: no recibe ningún informe de los fallos de cifrado."
+
+msgid "Publish a TXT record on _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+msgstr ""
+"Publique un registro TXT en _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+
+msgid "The registration of the domain has expired."
+msgstr "El registro del dominio ha vencido."
+
+msgid ""
+"Renew it with the registrar at once: an expired domain can be bought by "
+"someone else."
+msgstr ""
+"Renuévelo de inmediato con el registrador: un dominio vencido puede "
+"comprarlo otra persona."
+
+msgid "The registration of the domain expires within 30 days."
+msgstr "El registro del dominio vence en menos de 30 días."
+
+msgid "Renew it, or enable automatic renewal with the registrar."
+msgstr "Renuévelo, o active la renovación automática con el registrador."
+
+msgid "Expiry date of the domain not entered."
+msgstr "Fecha de vencimiento del dominio no introducida."
+
+msgid "Enter the date shown by the registrar to be alerted before it expires."
+msgstr ""
+"Introduzca la fecha que muestra el registrador para recibir un aviso antes "
+"del vencimiento."
+
+msgid "The certificate of the mail servers has expired."
+msgstr "El certificado de los servidores de correo ha vencido."
+
+msgid "Renew it: other servers may refuse to deliver e-mail securely."
+msgstr ""
+"Renuévelo: otros servidores pueden negarse a entregar el correo de forma "
+"segura."
+
+msgid "The certificate of the mail servers expires within 30 days."
+msgstr "El certificado de los servidores de correo vence en menos de 30 días."
+
+msgid "Plan its renewal."
+msgstr "Planifique su renovación."
+
+msgid "To improve"
+msgstr "A mejorar"
+
+msgid "Not checked yet"
+msgstr "Aún no comprobado"
+
+msgid ""
+"Enter a domain name only, for example example.org (no e-mail address, no "
+"https://)."
+msgstr ""
+"Introduzca solo un nombre de dominio, por ejemplo example.org (sin dirección "
+"de correo ni https://)."
+
+msgid "This domain is already followed in this entity."
+msgstr "Este dominio ya se supervisa en esta entidad."
+
+msgid "Domain not found."
+msgstr "Dominio no encontrado."
+
+msgid "You do not have the right to change the domains."
+msgstr "No tiene derecho a modificar los dominios."
+
+msgid "Domain not found"
+msgstr "Dominio no encontrado"
+
+msgid "Several records"
+msgstr "Varios registros"
+
+msgid "Strict (-all)"
+msgstr "Estricto (-all)"
+
+msgid "Lenient (~all)"
+msgstr "Flexible (~all)"
+
+msgid "Anyone (+all)"
+msgstr "Cualquiera (+all)"
+
+msgid "Redirected"
+msgstr "Redirigido"
+
+msgid "Neutral"
+msgstr "Neutro"
+
+msgid "Invalid"
+msgstr "No válido"
+
+msgid "Reject (reject)"
+msgstr "Rechazo (reject)"
+
+msgid "Quarantine (quarantine)"
+msgstr "Cuarentena (quarantine)"
+
+msgid "Monitoring (none)"
+msgstr "Observación (none)"
+
+msgid "No selector declared"
+msgstr "Ningún selector declarado"
+
+msgid "%1$d of %2$d keys found"
+msgstr "%1$d de %2$d claves encontradas"
+
+msgid "Not published"
+msgstr "No publicado"
+
+msgid "Zone signed"
+msgstr "Zona firmada"
+
+msgid "Zone not signed"
+msgstr "Zona no firmada"
+
+msgid "Expired on %s"
+msgstr "Vencido el %s"
+
+msgid "In %d day"
+msgid_plural "In %d days"
+msgstr[0] "En %d día"
+msgstr[1] "En %d días"
+
+msgid "Not entered"
+msgstr "No introducido"
+
+msgid "No domain entered yet"
+msgstr "Ningún dominio introducido"
+
+msgid "Enter the domains"
+msgstr "Introducir los dominios"
+
+msgid "DMARC enforced on %1$d of %2$d domain(s)"
+msgstr "DMARC aplicado en %1$d de %2$d dominio(s)"
+
+msgid "%d domain(s) with a gap to fix"
+msgstr "%d dominio(s) con una desviación que corregir"
+
+msgid "%d domain(s) or certificate(s) expiring or expired"
+msgstr "%d dominio(s) o certificado(s) próximos a vencer o vencidos"
+
+msgid "%d domain(s) not checked yet"
+msgstr "%d dominio(s) aún no comprobado(s)"
+
+msgid "No recurring renewal"
+msgstr "Sin renovación periódica"
+
+msgid "weeks"
+msgstr "semanas"
+
+msgid "months"
+msgstr "meses"
+
+msgid "years"
+msgstr "años"
+
+msgid "months, last business day"
+msgstr "meses, último día hábil"
+
+msgid "quarters, last business day"
+msgstr "trimestres, último día hábil"
+
+msgid "Not renewed in time"
+msgstr "No renovada a tiempo"
+
+msgid "Renewal due soon"
+msgstr "Renovación próxima"
+
+msgid "Recurring evidence not renewed in time"
+msgstr "Evidencias periódicas no renovadas a tiempo"
+
+msgid "Recurring renewal due on %s"
+msgstr "Renovación periódica prevista el %s"
+
+msgid "Next renewal due"
+msgstr "Próxima renovación prevista"
+
+msgid "Recurring renewal"
+msgstr "Renovación periódica"
+
+msgid "Interval"
+msgstr "Intervalo"
+
+msgid "Interval: %1$d %2$s"
+msgstr "Intervalo: %1$d %2$s"
+
+msgid "Last collected on"
+msgstr "Última recogida el"
+
+msgid "Next due: %s"
+msgstr "Próximo vencimiento: %s"
+
+msgid "from the document date %s"
+msgstr "desde la fecha del documento, %s"
+
+msgid ""
+"For evidence produced on a regular rhythm (weekly log review, monthly backup "
+"report...), set a recurring renewal: the next due date is computed from the "
+"last collection, or from the last change of the document when no date is "
+"entered. Business days exclude weekends and the close times declared in "
+"GLPI. Evidence not renewed in time is flagged and its owner notified; "
+"nothing is changed automatically."
+msgstr ""
+"Para una evidencia producida a ritmo regular (revisión semanal de registros, "
+"informe mensual de copias de seguridad...), defina una renovación periódica: "
+"el próximo vencimiento se calcula desde la última recogida, o desde la "
+"última modificación del documento si no se indica fecha. Los días hábiles "
+"excluyen los fines de semana y los periodos de cierre declarados en GLPI. "
+"Una evidencia no renovada a tiempo se señala y se avisa a su responsable; "
+"nada se modifica automáticamente."
+
+msgid ""
+"Recurring evidence not renewed in time: included, and flagged in the index. "
+"Add the latest one, then update its last collection date in the \"Evidence "
+"validity\" tab of the control."
+msgstr ""
+"Evidencias periódicas no renovadas a tiempo: incluidas y señaladas en el "
+"índice. Añada la más reciente y actualice su fecha de última recogida en la "
+"pestaña «Validez de las evidencias» del control."
+
+msgid "Evidence rhythm"
+msgid_plural "Evidence rhythms"
+msgstr[0] "Ritmo de evidencia"
+msgstr[1] "Ritmos de evidencia"
+
+msgid ""
+"%d decision(s) pre-filled: check each one, then click \"Save decisions\". "
+"Nothing is saved until then."
+msgstr ""
+"%d decisión(es) prerrellenada(s): revise cada una y luego haga clic en "
+"«Guardar las decisiones». No se guarda nada antes."
+
+msgid "Suggested by the rules:"
+msgstr "Propuesto por las reglas:"
+
+msgid "Pre-fill with the suggestions"
+msgstr "Trasladar las sugerencias"
+
+msgid ""
+"Ticks \"Access approved\" or \"To remove\" on the accounts still to review "
+"that have a suggestion. Accounts to examine are left for you to decide."
+msgstr ""
+"Marca «Accesos aprobados» o «Por retirar» en las cuentas aún por revisar que "
+"tienen una sugerencia. Las cuentas por examinar las decide usted."
+
+msgid "Pre-filled from the suggestion, not saved yet"
+msgstr "Prerrellenado según la sugerencia, aún no guardado"
+
+msgid "Examine staff compliance gaps"
+msgstr "Examinar las brechas de cumplimiento del personal"
+
+msgid ""
+"From the staff compliance page: mandatory training overdue or expired, IT "
+"charter not signed, security policy not acknowledged, once the deadline has "
+"passed."
+msgstr ""
+"Desde la página de cumplimiento del personal: formación obligatoria atrasada "
+"o caducada, carta informática no firmada, política de seguridad no leída, "
+"una vez vencido el plazo."
+
+msgid "Staff compliance: mandatory training not completed in time (%s)"
+msgstr ""
+"Cumplimiento del personal: formación obligatoria no realizada a tiempo (%s)"
+
+msgid "Staff compliance: mandatory training expired (%s)"
+msgstr "Cumplimiento del personal: formación obligatoria caducada (%s)"
+
+msgid "Staff compliance: IT charter sent but not signed (%s)"
+msgstr ""
+"Cumplimiento del personal: carta informática enviada pero no firmada (%s)"
+
+msgid "Staff compliance: security policies not acknowledged (%s)"
+msgstr "Cumplimiento del personal: políticas de seguridad no leídas (%s)"
+
+msgid "Staff compliance gap"
+msgstr "Brecha de cumplimiento del personal"
+
+msgid "%d critical"
+msgstr "%d crítico(s)"
