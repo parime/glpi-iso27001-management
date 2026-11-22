@@ -1,0 +1,145 @@
+/*
+ * -------------------------------------------------------------------------
+ * GRC Manager plugin for GLPI
+ * Copyright (C) 2026 Vincent GUILLOTTE
+ * https://github.com/parime/glpi-iso27001-management
+ * -------------------------------------------------------------------------
+ * LICENSE
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version. See LICENSE for the full text.
+ * -------------------------------------------------------------------------
+ */
+
+/*
+ * Accessibilité, niveau AA du RGAA 4.1 et des WCAG 2.2 (issue #663) : règles communes à toutes les
+ * pages du plugin. Feuille à part de grcmanager.css pour que les lots d'accessibilité et ceux de la
+ * navigation travaillent en parallèle sans conflit.
+ *
+ * 1. Badges bg-X-lt de Tabler (133 gabarits) : texte de la couleur vive sur fond pâle, environ 3:1,
+ *    sous les 4,5:1 demandés (WCAG 1.4.3, RGAA 3.2). Ils reprennent les teintes des badges
+ *    bg-X-subtle text-X-emphasis de grcmanager.css (au moins 7,5:1), en clair comme en sombre.
+ */
+:root {
+    --grcmanager-gray-bg-subtle: #dfe3e8;
+    --grcmanager-gray-text-emphasis: #2c343e;
+}
+
+[data-bs-theme="dark"] {
+    --grcmanager-gray-bg-subtle: #2b3138;
+    --grcmanager-gray-text-emphasis: #d3d9e0;
+}
+
+.badge.bg-blue-lt {
+    color: var(--grcmanager-blue-text-emphasis) !important;
+    background-color: var(--grcmanager-blue-bg-subtle) !important;
+}
+
+.badge.bg-azure-lt {
+    color: var(--grcmanager-azure-text-emphasis) !important;
+    background-color: var(--grcmanager-azure-bg-subtle) !important;
+}
+
+.badge.bg-indigo-lt {
+    color: var(--grcmanager-indigo-text-emphasis) !important;
+    background-color: var(--grcmanager-indigo-bg-subtle) !important;
+}
+
+.badge.bg-purple-lt {
+    color: var(--grcmanager-purple-text-emphasis) !important;
+    background-color: var(--grcmanager-purple-bg-subtle) !important;
+}
+
+.badge.bg-pink-lt {
+    color: var(--grcmanager-pink-text-emphasis) !important;
+    background-color: var(--grcmanager-pink-bg-subtle) !important;
+}
+
+.badge.bg-red-lt {
+    color: var(--grcmanager-red-text-emphasis) !important;
+    background-color: var(--grcmanager-red-bg-subtle) !important;
+}
+
+.badge.bg-orange-lt {
+    color: var(--grcmanager-orange-text-emphasis) !important;
+    background-color: var(--grcmanager-orange-bg-subtle) !important;
+}
+
+.badge.bg-yellow-lt {
+    color: var(--grcmanager-yellow-text-emphasis) !important;
+    background-color: var(--grcmanager-yellow-bg-subtle) !important;
+}
+
+.badge.bg-lime-lt {
+    color: var(--grcmanager-lime-text-emphasis) !important;
+    background-color: var(--grcmanager-lime-bg-subtle) !important;
+}
+
+.badge.bg-green-lt {
+    color: var(--grcmanager-green-text-emphasis) !important;
+    background-color: var(--grcmanager-green-bg-subtle) !important;
+}
+
+.badge.bg-teal-lt {
+    color: var(--grcmanager-teal-text-emphasis) !important;
+    background-color: var(--grcmanager-teal-bg-subtle) !important;
+}
+
+.badge.bg-cyan-lt {
+    color: var(--grcmanager-cyan-text-emphasis) !important;
+    background-color: var(--grcmanager-cyan-bg-subtle) !important;
+}
+
+.badge.bg-primary-lt {
+    color: var(--grcmanager-blue-text-emphasis) !important;
+    background-color: var(--grcmanager-blue-bg-subtle) !important;
+}
+
+.badge.bg-info-lt {
+    color: var(--grcmanager-azure-text-emphasis) !important;
+    background-color: var(--grcmanager-azure-bg-subtle) !important;
+}
+
+.badge.bg-success-lt {
+    color: var(--grcmanager-green-text-emphasis) !important;
+    background-color: var(--grcmanager-green-bg-subtle) !important;
+}
+
+.badge.bg-danger-lt {
+    color: var(--grcmanager-red-text-emphasis) !important;
+    background-color: var(--grcmanager-red-bg-subtle) !important;
+}
+
+.badge.bg-warning-lt {
+    color: var(--grcmanager-yellow-text-emphasis) !important;
+    background-color: var(--grcmanager-yellow-bg-subtle) !important;
+}
+
+.badge.bg-secondary-lt,
+.badge.bg-muted-lt,
+.badge.bg-dark-lt {
+    color: var(--grcmanager-gray-text-emphasis) !important;
+    background-color: var(--grcmanager-gray-bg-subtle) !important;
+}
+
+/*
+ * 2. Titre de l'encadré « À quoi sert cette page ? » : couleur du texte et non celle des liens, trop
+ *    pâle dans les palettes sombres de GLPI.
+ */
+.grcmanager-page-help-toggle,
+.grcmanager-page-help-toggle:hover {
+    color: inherit;
+}
+
+/*
+ * 3. Focus visible au clavier (WCAG 2.4.7, RGAA 10.7) dans les barres d'onglets, les boutons et les
+ *    liens du plugin : contour net en plus de l'ombre légère de Tabler, invisible sur certains fonds.
+ */
+[role="tablist"] .nav-link:focus-visible,
+.grcmanager-page-help-toggle:focus-visible,
+.badge[href]:focus-visible {
+    outline: 2px solid var(--tblr-primary, #206bc4);
+    outline-offset: 2px;
+}

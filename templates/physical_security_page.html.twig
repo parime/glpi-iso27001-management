@@ -76,7 +76,7 @@
                {% for code in codes %}
                   {% set state = states[site.states[code]|default('not_assessed')] %}
                   <td class="text-center">
-                     <span class="badge {{ state[1] }}" title="{{ __('%1$s: %2$s', 'grcmanager')|format(code ~ ' ' ~ titles[code], state[0]) }}" aria-label="{{ code }} {{ state[0] }}"><i class="ti {{ state[2] }}"></i></span>
+                     <span class="badge {{ state[1] }}" role="img" title="{{ __('%1$s: %2$s', 'grcmanager')|format(code ~ ' ' ~ titles[code], state[0]) }}" aria-label="{{ code }} {{ state[0] }}"><i class="ti {{ state[2] }}" aria-hidden="true"></i></span>
                   </td>
                {% endfor %}
                <td class="text-nowrap">

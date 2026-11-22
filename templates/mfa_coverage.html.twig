@@ -166,7 +166,7 @@
          </ul>
          {% if imports is not empty %}
             <table class="table table-sm mb-3">
-               <thead><tr><th>{{ __('Identity provider', 'grcmanager') }}</th><th class="text-end">{{ __('Imported accounts', 'grcmanager') }}</th><th class="text-end">{{ __('Matched', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th>{% if can_manage %}<th></th>{% endif %}</tr></thead>
+               <thead><tr><th>{{ __('Identity provider', 'grcmanager') }}</th><th class="text-end">{{ __('Imported accounts', 'grcmanager') }}</th><th class="text-end">{{ __('Matched', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th>{% if can_manage %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}</tr></thead>
                <tbody>
                {% for import in imports %}
                   <tr>

@@ -44,7 +44,7 @@
          </form>
       {% endif %}
       <table class="table">
-         <thead><tr><th>{{ __('Action description', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Completion date', 'grcmanager') }}</th>{% if can_edit %}<th></th>{% endif %}</tr></thead>
+         <thead><tr><th>{{ __('Action description', 'grcmanager') }}</th><th>{{ __('Owner', 'grcmanager') }}</th><th>{{ __('Due date', 'grcmanager') }}</th><th>{{ __('Status', 'grcmanager') }}</th><th>{{ __('Completion date', 'grcmanager') }}</th>{% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}</tr></thead>
          <tbody>
             {% for a in actions %}
                {% set status_html = a.status_html %}

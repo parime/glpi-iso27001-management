@@ -23,7 +23,7 @@
     </div>
     <div class="progress progress-sm">
       <div class="progress-bar {{ progress.mandatory_pending > 0 ? 'bg-orange' : 'bg-green' }}" style="width: {{ progress.percent }}%"
-           role="progressbar" aria-valuenow="{{ progress.percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+           role="progressbar" aria-label="{{ __('Progress', 'grcmanager') }}" aria-valuenow="{{ progress.percent }}" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
   </div>
   {% if progress.mandatory_pending > 0 %}

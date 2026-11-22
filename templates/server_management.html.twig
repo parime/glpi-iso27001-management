@@ -114,7 +114,7 @@
                   <th>{{ __('Health', 'grcmanager') }}</th>
                   <th>{{ __('Gaps', 'grcmanager') }}</th>
                   <th>{{ __('Last reading', 'grcmanager') }}</th>
-                  {% if can_manage %}<th></th>{% endif %}
+                  {% if can_manage %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
                </tr></thead>
                <tbody>
                {% for row in rows %}

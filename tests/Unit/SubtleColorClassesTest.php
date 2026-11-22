@@ -85,11 +85,11 @@ final class SubtleColorClassesTest extends TestCase
     public function testStylesheetIsLoadedByTheAddCssHook(): void
     {
         $setup = (string) file_get_contents(self::ROOT . '/setup.php');
-        self::assertStringContainsString(
-            "\$PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];",
-            $setup
-        );
+        // Issue #663 : la feuille d'accessibilité est chargée par le même crochet.
+        self::assertMatchesRegularExpression('/ADD_CSS\]\[.grcmanager.\] = \[[^\]]*.css\/grcmanager\.css./', $setup);
+        self::assertMatchesRegularExpression('/ADD_CSS\]\[.grcmanager.\] = \[[^\]]*.css\/grcmanager-a11y\.css./', $setup);
         self::assertFileExists(self::ROOT . '/public/css/grcmanager.css');
+        self::assertFileExists(self::ROOT . '/public/css/grcmanager-a11y.css');
     }
 
     public function testStylesheetCoversEveryNamedTablerColorInLightAndDarkThemes(): void
