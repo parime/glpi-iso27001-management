@@ -36,7 +36,10 @@
                   name: data.planned_label, type: 'line', step: 'end', symbolSize: 6,
                   lineStyle: {type: 'dashed', width: 2}, itemStyle: {color: '#206bc4'}, data: data.planned,
                   markLine: {symbol: 'none', silent: true, lineStyle: {color: '#667382'},
-                     label: {formatter: data.today_label}, data: [{xAxis: data.today}]}
+                     data: [{xAxis: data.today, label: {formatter: data.today_label}}].concat(data.target === null ? [] : [
+                        {yAxis: data.target, lineStyle: {color: '#2fb344', type: 'dotted'},
+                           label: {formatter: data.target_label, position: 'insideEndTop'}}
+                     ])}
                },
                {
                   name: data.actual_label, type: 'line', step: 'end', symbolSize: 6,

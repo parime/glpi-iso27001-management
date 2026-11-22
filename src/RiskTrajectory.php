@@ -108,7 +108,7 @@ class RiskTrajectory extends CommonGLPI
             'target_level' => self::levelBadge((string) ($item->fields['residual_level'] ?? '')),
             'planned_end'  => $trajectory['planned_end'] !== null ? Html::convDate($trajectory['planned_end']) : '',
             'milestones'   => $milestones,
-            'chart'        => self::chartData($trajectory['planned'], $trajectory['actual']),
+            'chart'        => self::chartData($trajectory['planned'], $trajectory['actual'], $trajectory['target']),
             'heatmap_url'  => self::heatmapUrl(),
         ]);
 
@@ -228,7 +228,11 @@ class RiskTrajectory extends CommonGLPI
         return [
             'rows'   => $rows,
             'counts' => $counts,
-            'chart'  => $charted === [] ? null : self::chartData($register['planned'], $register['actual']),
+            'chart'  => $charted === [] ? null : self::chartData(
+                $register['planned'],
+                $register['actual'],
+                round(array_sum(array_map(static fn(array $t): float => (float) $t['target'], $charted)), 2)
+            ),
         ];
     }
 
@@ -237,14 +241,17 @@ class RiskTrajectory extends CommonGLPI
      *
      * @param list<array{0: string, 1: float}> $planned
      * @param list<array{0: string, 1: float}> $actual
+     * @param float|null $target score visé après traitement (ligne horizontale)
      *
      * @return array<string, mixed>
      */
-    private static function chartData(array $planned, array $actual): array
+    private static function chartData(array $planned, array $actual, ?float $target): array
     {
         return [
             'planned'       => $planned,
             'actual'        => $actual,
+            'target'        => $target,
+            'target_label'  => __('Target level after treatment', 'grcmanager'),
             'today'         => date('Y-m-d'),
             'planned_label' => __('Planned (treatment plan due dates)', 'grcmanager'),
             'actual_label'  => __('Actual (actions completed)', 'grcmanager'),
