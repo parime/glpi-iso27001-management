@@ -7,7 +7,7 @@ l'issue #663, pour qu'elles ne reviennent pas :
 - barres de progression sans nom, attributs ARIA interdits ou invalides, champs sans libellé,
   onglets et panneaux mal reliés, boutons et images sans nom, en-têtes de tableau vides.
 Les éléments propres à GLPI (en-tête, menu latéral, pagination des listes, listes déroulantes
-select2, champs de date) sont exclus : ils ne se corrigent pas dans le plugin.
+select2, champs de date, barre d'outils des tableaux de bord) sont exclus : ils ne se corrigent pas dans le plugin.
 
 Un lot qui corrige une nouvelle règle l'ajoute à RULES ; une nouvelle page clé, à PAGES.
 
@@ -42,10 +42,10 @@ RULES = [
     'image-alt', 'label', 'duplicate-id-aria', 'nested-interactive',
 ]
 
-# Éléments de GLPI exclus de l'analyse.
+# Éléments de GLPI exclus de l'analyse (barre d'outils des tableaux de bord comprise).
 CORE = [
     'header', 'aside', '.navbar', '.search-pager', '.select2-container', '.flatpickr-calendar',
-    '.flatpickr-input', '.debug-card', '[id^="comment_link_"]',
+    '.flatpickr-input', '.debug-card', '[id^="comment_link_"]', '.dashboard .toolbar',
 ]
 # Contraste : badges du plugin et encadré d'aide, où qu'ils soient dans la page.
 CONTRAST_SCOPE = ['.badge', '.grcmanager-page-help-toggle']
