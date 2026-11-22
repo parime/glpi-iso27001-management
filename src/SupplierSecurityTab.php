@@ -53,7 +53,10 @@ class SupplierSecurityTab extends CommonGLPI
         if (!$item instanceof Supplier || $item->isNewItem() || !self::canView()) {
             return '';
         }
-        $count = (bool) ($_SESSION['glpishow_count_on_tabs'] ?? false) ? count(self::risks($item->getID())) + count(Risk::getRisksLinkedToSupplier($item->getID())) : 0;
+        // Issue #1095 : les risques généraux liés comptent aussi.
+        $count = (bool) ($_SESSION['glpishow_count_on_tabs'] ?? false)
+            ? count(self::risks($item->getID())) + count(Risk::getRisksLinkedToSupplier($item->getID()))
+            : 0;
 
         return self::createTabEntry(self::getTypeName(), $count, $item::class, self::getIcon());
     }
