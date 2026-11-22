@@ -30,6 +30,8 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * (le plan n'atteint alors pas le niveau visé, ce qui est signalé).
  *
  * Aucune base ni fonction GLPI : testé seul (tests/Unit/Services/Risk/RiskTrajectoryRulesTest.php).
+ *
+ * @phpstan-type Curve list<array{0: string, 1: float}>
  */
 final class RiskTrajectoryRules
 {
@@ -198,8 +200,7 @@ final class RiskTrajectoryRules
      * Trajectoire du registre : somme, à chaque date, des scores des risques dont la trajectoire est
      * tracée. La courbe réelle s'arrête aujourd'hui.
      *
-     * @param list<array{planned: list<array{0: string, 1: float}>, actual: list<array{0: string, 1: float}>}>
-     *        $trajectories
+     * @param list<array{planned: Curve, actual: Curve}> $trajectories
      *
      * @return array{planned: list<array{0: string, 1: float}>, actual: list<array{0: string, 1: float}>}
      */
