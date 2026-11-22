@@ -105,7 +105,5 @@ final class DiskEncryptionBlock extends ConfigBlock
             MovedSetting::notice(AssetsTab::label());
         }
         Html::redirect(ConfigTabs::url('assets', self::ANCHOR));
-
-        return true;
     }
 }
