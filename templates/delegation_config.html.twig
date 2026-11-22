@@ -25,7 +25,7 @@
       {% endif %}
     </h4>
     <p class="text-muted">
-      {{ __('Lets the substitute declared in GLPI (user preferences, "Substitutes" tab, with a start and an end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person.', 'grcmanager') }}
+      {{ __('Lets the substitute declared in GLPI (user preferences, "Authorized substitutes" tab, with a substitution start date and end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person.', 'grcmanager') }}
     </p>
     <form method="post" action="{{ d.action }}">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
