@@ -1,0 +1,55 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1042 : actifs à sauvegarder et fréquences attendues (déplacés de front/backupcoverage.php). #}
+{% set b = backup %}
+{% set disabled = can_edit_config ? '' : 'disabled' %}
+<div class="card mb-3" id="grc-backup-settings-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center flex-wrap gap-2">
+      <i class="ti ti-database-cog"></i>{{ __('Which assets must be backed up, and how often?', 'grcmanager') }}
+    </h4>
+    <p class="mb-2 small">
+      <i class="ti ti-info-circle me-1"></i>{{ b.scopes[b.settings.scope] }} · {{ __('Maximum age without RPO: %s', 'grcmanager')|format(b.max_age_label) }} · {{ _n('Restore test expected every %d month', 'Restore test expected every %d months', b.settings.restore_months, 'grcmanager')|format(b.settings.restore_months) }}
+      <a href="{{ b.page_url }}" class="ms-1"><i class="ti ti-arrow-right me-1"></i>{{ __('See the results', 'grcmanager') }}</a>
+    </p>
+    <p class="text-muted small">{{ __('The maximum age of the last successful backup is the smallest RPO among the asset (C/I/A classification tab) and the business processes that use it. Without any RPO, the default maximum age applies. An asset is critical when one axis of its classification is high, or when a network flow publishes it on the Internet.', 'grcmanager') }}</p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label" for="grc-backup-scope">{{ __('Assets concerned', 'grcmanager') }}</label>
+          <select class="form-select" id="grc-backup-scope" name="backup_scope" {{ disabled }}>
+            {% for value, label in b.scopes %}
+              <option value="{{ value }}" {{ b.settings.scope == value ? 'selected' }}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="grc-backup-age">{{ __('Default maximum age (hours)', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="grc-backup-age" name="backup_max_age_hours" min="1" max="8784" value="{{ b.settings.max_age_hours }}" {{ disabled }}>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="grc-backup-restore">{{ __('Restore test expected every (months)', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="grc-backup-restore" name="backup_restore_months" min="1" max="60" value="{{ b.settings.restore_months }}" {{ disabled }}>
+        </div>
+        {% if can_edit_config %}
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary" name="save_backup_settings" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+          </div>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>

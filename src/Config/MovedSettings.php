@@ -28,11 +28,12 @@ use Session;
  */
 final class MovedSettings
 {
-    public static function notice(): void
+    /** @param string $tabLabel libellé traduit de l'onglet de destination */
+    public static function notice(string $tabLabel): void
     {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'These settings are now in Setup > Plugins > GRC Manager, Connectors tab.',
-            'grcmanager'
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('These settings are now in Setup > Plugins > GRC Manager, %s tab.', 'grcmanager'),
+            $tabLabel
         )), false, INFO);
     }
 }

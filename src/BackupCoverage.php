@@ -899,15 +899,16 @@ class BackupCoverage extends CommonGLPI
             'can_manage'      => self::canManage(),
             'action'          => self::getSearchURL(),
             'veeam'           => [
-                // Le mot de passe n'est jamais renvoyé, seulement sa présence.
-                'url'          => VeeamConfig::rawUrl(),
-                'username'     => VeeamConfig::username(),
-                'api_version'  => VeeamConfig::apiVersion(),
-                'api_versions' => VeeamClient::API_VERSIONS,
-                'has_password' => VeeamConfig::hasPassword(),
                 'configured'   => VeeamConfig::isConfigured(),
                 'lookback'     => VeeamClient::LOOKBACK_DAYS,
             ],
+            // Issue #1042 : connexion (onglet Connecteurs) et réglages (onglet Parc) dans la configuration.
+            'connector_url'   => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\VeeamConnectorBlock::ANCHOR
+            ),
+            'settings_url'    => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\BackupSettingsBlock::ANCHOR
+            ),
             'processes_url'   => $canProcess ? BusinessProcess::getSearchURL() : '',
             'log_url'         => LogCoverage::getSearchURL(),
         ];

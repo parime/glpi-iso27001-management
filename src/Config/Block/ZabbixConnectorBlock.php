@@ -116,7 +116,7 @@ final class ZabbixConnectorBlock extends ConfigBlock
     {
         if (isset($_POST['save_zabbix']) || isset($_POST['save_zabbix_settings'])) {
             Session::checkRight(ZabbixMonitoring::RIGHTNAME, UPDATE);
-            MovedSettings::notice();
+            MovedSettings::notice(\GlpiPlugin\Grcmanager\Config\Tab\ConnectorsTab::label());
             self::handle();
         }
     }

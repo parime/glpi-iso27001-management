@@ -119,7 +119,7 @@ final class UptimeKumaConnectorBlock extends ConfigBlock
     {
         if (isset($_POST['save_uptimekuma']) || isset($_POST['save_uptimekuma_settings'])) {
             Session::checkRight(UptimeKumaMonitoring::RIGHTNAME, UPDATE);
-            MovedSettings::notice();
+            MovedSettings::notice(\GlpiPlugin\Grcmanager\Config\Tab\ConnectorsTab::label());
             self::handle();
         }
     }
