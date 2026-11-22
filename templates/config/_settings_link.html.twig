@@ -1,0 +1,27 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1045 : les réglages de la page sont dans la configuration du plugin ; lien « Régler ».
+   L'identifiant est celui de l'ancien formulaire : un ancien lien <page>#<identifiant> y mène.
+   Variables : settings_link (SettingsLink::data()), settings_title (titre du cadre). #}
+<div class="card mb-3 grc-settings-link" id="{{ settings_link.anchor }}">
+  <div class="card-body d-flex flex-wrap align-items-center gap-3">
+    <span class="avatar bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-adjustments"></i></span>
+    <div class="flex-fill">
+      <div class="fw-bold">{{ settings_title }}</div>
+      <div class="text-muted small">{{ __('These settings are in %s.', 'grcmanager')|format(settings_link.path) }}</div>
+    </div>
+    <a class="btn btn-outline-secondary" href="{{ settings_link.url }}"><i class="ti ti-settings me-1"></i>{{ __('Adjust', 'grcmanager') }}</a>
+  </div>
+</div>
