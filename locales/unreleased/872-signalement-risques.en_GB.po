@@ -1,0 +1,209 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Added to the risk register"
+msgstr "Added to the risk register"
+
+msgid "An incident is happening right now (virus, intrusion, data leak)? Do not wait: contact the help desk immediately."
+msgstr "An incident is happening right now (virus, intrusion, data leak)? Do not wait: contact the help desk immediately."
+
+msgid "Answer from the person in charge of risks"
+msgstr "Answer from the person in charge of risks"
+
+msgid "Answer from the person in charge of risks:"
+msgstr "Answer from the person in charge of risks:"
+
+msgid "Choose a risk"
+msgstr "Choose a risk"
+
+msgid "Choose the existing risk to link this report to."
+msgstr "Choose the existing risk to link this report to."
+
+msgid "Creates a new risk with this title and description, to be completed (owner, likelihood, impact)."
+msgstr "Creates a new risk with this title and description, to be completed (owner, likelihood, impact)."
+
+msgid "Decided by %1$s on %2$s"
+msgstr "Decided by %1$s on %2$s"
+
+msgid "Decision recorded. The author has been informed."
+msgstr "Decision recorded. The author has been informed."
+
+msgid "Describe the situation"
+msgstr "Describe the situation"
+
+msgid "Describe what you noticed."
+msgstr "Describe what you noticed."
+
+msgid "Examined on %s"
+msgstr "Examined on %s"
+
+msgid "Example: the server room door does not lock"
+msgstr "Example: the server room door does not lock"
+
+msgid "Existing risk"
+msgstr "Existing risk"
+
+msgid "For each new report, add it to the register (a risk is created, to be completed), link it to an existing risk, or reject it with a reason. The author is informed of the decision; the report stays visible on the risk as a trace for the auditor."
+msgstr "For each new report, add it to the register (a risk is created, to be completed), link it to an existing risk, or reject it with a reason. The author is informed of the decision; the report stays visible on the risk as a trace for the auditor."
+
+msgid "Give a short title and describe the situation, then send. You only see your own reports here, with the answer of the person in charge of risks once it is examined."
+msgstr "Give a short title and describe the situation, then send. You only see your own reports here, with the answer of the person in charge of risks once it is examined."
+
+msgid "Give the reason for the rejection: the author will read it."
+msgstr "Give the reason for the rejection: the author will read it."
+
+msgid "Give your report a short title."
+msgstr "Give your report a short title."
+
+msgid "How serious does it seem to you?"
+msgstr "How serious does it seem to you?"
+
+msgid "I don't know"
+msgstr "I don't know"
+
+msgid "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+msgstr "ISO/IEC 27001, clause 6.1.2 and control A.6.8"
+
+msgid "Lets anyone in the organisation point out a risk or a dangerous situation they noticed, without needing access to the risk register."
+msgstr "Lets anyone in the organisation point out a risk or a dangerous situation they noticed, without needing access to the risk register."
+
+msgid "Link to an existing risk"
+msgstr "Link to an existing risk"
+
+msgid "Linked to an existing risk"
+msgstr "Linked to an existing risk"
+
+msgid "Message to the author (optional)"
+msgstr "Message to the author (optional)"
+
+msgid "Minor: an annoyance"
+msgstr "Minor: an annoyance"
+
+msgid "My risk reports"
+msgstr "My risk reports"
+
+msgid "My risk reports page URL"
+msgstr "My risk reports page URL"
+
+msgid "No open risk in this entity."
+msgstr "No open risk in this entity."
+
+msgid "No report in this list."
+msgstr "No report in this list."
+
+msgid "No report is linked to this risk."
+msgstr "No report is linked to this risk."
+
+msgid "Not a risk for the organisation, or out of scope. The author reads your reason."
+msgstr "Not a risk for the organisation, or out of scope. The author reads your reason."
+
+msgid "Not kept"
+msgstr "Not kept"
+
+msgid "Open the reported risks"
+msgstr "Open the reported risks"
+
+msgid "Person who reported the risk"
+msgstr "Person who reported the risk"
+
+msgid "Read only: triaging requires the right to create and update risks."
+msgstr "Read only: triaging requires the right to create and update risks."
+
+msgid "Reason for the rejection"
+msgstr "Reason for the rejection"
+
+msgid "Received, waiting to be examined"
+msgstr "Received, waiting to be examined"
+
+msgid "Report a risk"
+msgstr "Report a risk"
+
+msgid "Reported by"
+msgstr "Reported by"
+
+msgid "Reported by %1$s on %2$s (staff report #%3$d)."
+msgstr "Reported by %1$s on %2$s (staff report #%3$d)."
+
+msgid "Reports from staff that created this risk or were linked to it."
+msgstr "Reports from staff that created this risk or were linked to it."
+
+msgid "Risk created from the report. Complete its owner, likelihood and impact."
+msgstr "Risk created from the report. Complete its owner, likelihood and impact."
+
+msgid "Send my report"
+msgstr "Send my report"
+
+msgid "Serious: could cause major damage"
+msgstr "Serious: could cause major damage"
+
+msgid "Seriousness as felt by the author"
+msgstr "Seriousness as felt by the author"
+
+msgid "Significant: could disrupt work or expose information"
+msgstr "Significant: could disrupt work or expose information"
+
+msgid "Taken into account: added to the risk register"
+msgstr "Taken into account: added to the risk register"
+
+msgid "Taken into account: this risk was already known and is being followed"
+msgstr "Taken into account: this risk was already known and is being followed"
+
+msgid "Thank you for your report: every report helps protect the organisation."
+msgstr "Thank you for your report: every report helps protect the organisation."
+
+msgid "Thank you, your report has been sent to the person in charge of risks. You will be told what is decided."
+msgstr "Thank you, your report has been sent to the person in charge of risks. You will be told what is decided."
+
+msgid "The description is too long."
+msgstr "The description is too long."
+
+msgid "The message is too long."
+msgstr "The message is too long."
+
+msgid "The risk is already in the register: the report is kept as a trace on it, the risk is not changed."
+msgstr "The risk is already in the register: the report is kept as a trace on it, the risk is not changed."
+
+msgid "The title is too long (255 characters at most)."
+msgstr "The title is too long (255 characters at most)."
+
+msgid "This report has already been triaged."
+msgstr "This report has already been triaged."
+
+msgid "To triage"
+msgstr "To triage"
+
+msgid "Triage of the risks reported by staff: each report is examined by a person before anything reaches the risk register."
+msgstr "Triage of the risks reported by staff: each report is examined by a person before anything reaches the risk register."
+
+msgid "What did you notice? (short title)"
+msgstr "What did you notice? (short title)"
+
+msgid "Where, since when, what could happen, who is concerned. Do not write any password."
+msgstr "Where, since when, what could happen, who is concerned. Do not write any password."
+
+msgid "You cannot do this on this report."
+msgstr "You cannot do this on this report."
+
+msgid "You have not reported any risk yet."
+msgstr "You have not reported any risk yet."
+
+msgid "You noticed something that could harm the organisation or its information: a door left open, a suspicious email, a password written down, a fragile process, a supplier at risk? Describe it below. The person in charge of risks examines every report and tells you what is decided."
+msgstr "You noticed something that could harm the organisation or its information: a door left open, a suspicious email, a password written down, a fragile process, a supplier at risk? Describe it below. The person in charge of risks examines every report and tells you what is decided."
+
+msgid "Your risk report has been examined"
+msgstr "Your risk report has been examined"
+
+msgid "%d report"
+msgid_plural "%d reports"
+msgstr[0] "%d report"
+msgstr[1] "%d reports"
+
+msgid "Reported risk"
+msgid_plural "Reported risks"
+msgstr[0] "Reported risk"
+msgstr[1] "Reported risks"
+
+msgid "Rejected with a reason"
+msgstr "Rejected with a reason"

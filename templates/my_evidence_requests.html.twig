@@ -19,7 +19,8 @@
    <div class="card mb-3">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-file-upload me-2"></i>{{ __('My evidence requests', 'grcmanager') }}</h3>
-         <div class="card-actions">
+         <div class="card-actions d-flex flex-wrap gap-2">
+            {% if report_url is defined and report_url %}<a class="btn btn-sm btn-outline-secondary" href="{{ report_url }}"><i class="ti ti-message-report me-1"></i>{{ __('Report a risk', 'grcmanager') }}</a>{% endif %}
             <span class="badge {{ waiting is empty ? 'bg-green-lt' : 'bg-orange-lt' }}" id="grc-evreq-mine-count"><i class="ti ti-hourglass me-1"></i>{{ __('%d waiting for you', 'grcmanager')|format(waiting|length) }}</span>
          </div>
       </div>

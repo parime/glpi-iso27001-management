@@ -1205,6 +1205,8 @@ class AuditEvidenceRequest extends AuditEvidenceRequestBase
             'waiting'        => $waiting,
             'done'           => $done,
             'action'         => self::getMineURL(),
+            // Issue #872 : depuis l'interface simplifiée, signaler aussi un risque.
+            'report_url'     => ReportedRisk::getMineURL(),
             'validity'       => [
                 EvidenceValidity::STATUS_VALID    => ['bg-green-lt', __('Valid', 'grcmanager')],
                 EvidenceValidity::STATUS_EXPIRING => ['bg-orange-lt', __('To renew', 'grcmanager')],
