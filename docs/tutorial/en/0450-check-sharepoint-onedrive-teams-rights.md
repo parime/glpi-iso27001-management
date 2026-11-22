@@ -5,8 +5,9 @@ guests of Microsoft 365. The plugin reads the rights through Microsoft Graph, re
 changes anything in Microsoft 365. You need the plugin right and the right on the sensitive
 registers (with modification to read or import).
 
-1. Set up the Microsoft Graph application once on the **MFA coverage** page (tenant, application ID,
-   secret) (see step {{step:0400-measure-multi-factor-authentication-coverage}}). Also grant it, with
+1. Set up the Microsoft Graph application once in Setup > Plugins > GRC Manager, tab
+   **Connectors**, box **Microsoft Entra ID and Microsoft Graph** (tenant, application ID, secret)
+   (see step {{step:0400-measure-multi-factor-authentication-coverage}}). Also grant it, with
    admin consent, the `Sites.Read.All`, `Files.Read.All`, `User.Read.All` and `GroupMember.Read.All`
    application permissions.
 2. Open Access review > **File share access rights**, box **Read SharePoint, OneDrive and Teams
