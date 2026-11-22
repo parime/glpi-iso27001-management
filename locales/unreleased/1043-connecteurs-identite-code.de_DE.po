@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Connection to Microsoft Graph succeeded."
+msgstr "Verbindung zu Microsoft Graph erfolgreich."
+
+msgid "Connection to %s succeeded."
+msgstr "Verbindung zu %s erfolgreich."
+
+msgid "Microsoft Entra ID and Microsoft Graph"
+msgstr "Microsoft Entra ID und Microsoft Graph"
+
+msgid "The same application reads the MFA methods of the accounts and the sharing rights of SharePoint, OneDrive and Teams, when you click the button on these pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs automatically."
+msgstr "Dieselbe Anwendung liest die MFA-Methoden der Konten und die Freigaberechte von SharePoint, OneDrive und Teams, wenn Sie auf die Schaltfläche dieser Seiten klicken. In Entra ID oder Microsoft 365 wird nie etwas geschrieben, und nichts läuft automatisch."
+
+msgid "For the sharing rights, also grant Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+msgstr "Für die Freigaberechte erteilen Sie zusätzlich Sites.Read.All, Files.Read.All, User.Read.All und GroupMember.Read.All."
+
+msgid "The tenant, the application ID and the client secret are entered in the plugin configuration, Connectors tab."
+msgstr "Mandant, Anwendungs-ID und geheimer Clientschlüssel werden in der Plugin-Konfiguration auf der Registerkarte Konnektoren eingegeben."
+
+msgid "The GitHub and GitLab tokens are entered in the plugin configuration, Connectors tab."
+msgstr "Die GitHub- und GitLab-Token werden in der Plugin-Konfiguration auf der Registerkarte Konnektoren eingegeben."
+
+msgid "Microsoft Graph is not set up yet. Enter the tenant, the application ID and the client secret in the plugin configuration (Connectors tab), or import a CSV export below."
+msgstr "Microsoft Graph ist noch nicht eingerichtet. Geben Sie Mandant, Anwendungs-ID und geheimen Clientschlüssel in der Plugin-Konfiguration (Registerkarte Konnektoren) ein oder importieren Sie unten einen CSV-Export."
+
+msgid "Nothing has been read yet. 1. Enter the code repository of each application in its \"Secure development\" tab. 2. Enter a read-only token in the plugin configuration, Connectors tab. 3. Click \"Read now\"."
+msgstr "Noch nichts gelesen. 1. Tragen Sie das Code-Repository jeder Anwendung in ihrer Registerkarte „Sichere Entwicklung“ ein. 2. Geben Sie in der Plugin-Konfiguration auf der Registerkarte Konnektoren ein Token mit Lesezugriff ein. 3. Klicken Sie auf „Jetzt lesen“."
