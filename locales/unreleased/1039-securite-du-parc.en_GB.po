@@ -29,8 +29,8 @@ msgstr "Software and hardware that no longer receive fixes, late patches and lic
 msgid "Hardening"
 msgstr "Hardening"
 
-msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
-msgstr "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
+msgid "Automated checks of the inventory, secure configuration and disk encryption."
+msgstr "Automated checks of the inventory, secure configuration and disk encryption."
 
 msgid "Logs, supervision, exposed services and server management controllers."
 msgstr "Logs, supervision, exposed services and server management controllers."

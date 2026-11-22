@@ -29,8 +29,8 @@ msgstr "Logiciels et matériels qui ne reçoivent plus de correctifs, correctifs
 msgid "Hardening"
 msgstr "Durcissement"
 
-msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
-msgstr "Contrôles automatiques de l'inventaire, configuration sécurisée, chiffrement des disques et Active Directory."
+msgid "Automated checks of the inventory, secure configuration and disk encryption."
+msgstr "Contrôles automatiques de l'inventaire, configuration sécurisée et chiffrement des disques."
 
 msgid "Logs, supervision, exposed services and server management controllers."
 msgstr "Journaux, supervision, services exposés et contrôleurs de gestion des serveurs."
