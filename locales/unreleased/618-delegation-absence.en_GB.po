@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "%1$s on behalf of %2$s"
+msgstr "%1$s on behalf of %2$s"
+
+msgid "%1$s, absent until %2$s:"
+msgstr "%1$s, absent until %2$s:"
+
+msgid "Check that each delegated decision fits the absence and the delegable decision types. The substitute gets no right: he only sees the decisions entrusted to the absent person, and only until the end of the declared absence."
+msgstr "Check that each delegated decision fits the absence and the delegable decision types. The substitute gets no right: he only sees the decisions entrusted to the absent person, and only until the end of the declared absence."
+
+msgid "Decision delegated for the declared absence period: it will be recorded as yours, on behalf of the absent person."
+msgstr "Decision delegated for the declared absence period: it will be recorded as yours, on behalf of the absent person."
+
+msgid "Decision type"
+msgstr "Decision type"
+
+msgid "Declared absence"
+msgstr "Declared absence"
+
+msgid "Delegable decisions"
+msgstr "Delegable decisions"
+
+msgid "Delegated decisions"
+msgstr "Delegated decisions"
+
+msgid "Delegation during an absence"
+msgstr "Delegation during an absence"
+
+msgid "Lets the substitute declared in GLPI (user preferences, \"Authorized substitutes\" tab, with a substitution start date and end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person."
+msgstr "Lets the substitute declared in GLPI (user preferences, \"Authorized substitutes\" tab, with a substitution start date and end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person."
+
+msgid "Lists the decisions taken by a substitute on behalf of an absent person: who decided, for whom, when, on what, and the absence period declared in GLPI at that moment."
+msgstr "Lists the decisions taken by a substitute on behalf of an absent person: who decided, for whom, when, on what, and the absence period declared in GLPI at that moment."
+
+msgid "No decision has been taken by a substitute yet."
+msgstr "No decision has been taken by a substitute yet."
+
+msgid "Not delegable"
+msgstr "Not delegable"
+
+msgid "On behalf of"
+msgstr "On behalf of"
+
+msgid "On behalf of %1$s, absent until %2$s"
+msgstr "On behalf of %1$s, absent until %2$s"
+
+msgid "Taken by"
+msgstr "Taken by"
+
+msgid "The substitute answers for the absent approver, unless he is himself an approver of the same version."
+msgstr "The substitute answers for the absent approver, unless he is himself an approver of the same version."
+
+msgid "The substitute decides the accounts entrusted to the absent reviewer (never his own account)."
+msgstr "The substitute decides the accounts entrusted to the absent reviewer (never his own account)."
+
+msgid "You are standing in for"
+msgstr "You are standing in for"
+
+msgid "Your decisions are recorded as yours, on behalf of the absent person, and stop being possible at the end of the declared absence."
+msgstr "Your decisions are recorded as yours, on behalf of the absent person, and stop being possible at the end of the declared absence."
+
+msgid "Delegated decision"
+msgid_plural "Delegated decisions"
+msgstr[0] "Delegated decision"
+msgstr[1] "Delegated decisions"

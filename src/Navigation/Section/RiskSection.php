@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Navigation\Section;
 
+use GlpiPlugin\Grcmanager\ApprovedApplication;
 use GlpiPlugin\Grcmanager\CausalLink;
 use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\ImpactAnalysis;
@@ -59,6 +60,8 @@ final class RiskSection extends AbstractSection
             EbiosStudy::class,
             // Issue #872 : risques signalés par les collaborateurs, à trier.
             ReportedRisk::class,
+            // Issue #622 : applications et services en ligne approuvés (A.5.23).
+            ApprovedApplication::class,
         ];
     }
 }

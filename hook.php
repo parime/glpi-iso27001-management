@@ -928,6 +928,8 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     \GlpiPlugin\Grcmanager\DoraRegister::forgetItem($item);
     // Issue #777 : et la fiche « développement sécurisé » d'une application.
     \GlpiPlugin\Grcmanager\ApplicationSecurity::forgetItem($item);
+    // Issue #622 : et sa fiche « usage autorisé ».
+    \GlpiPlugin\Grcmanager\ApprovedApplication::forgetItem($item);
 }
 
 /**

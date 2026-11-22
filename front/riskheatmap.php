@@ -48,5 +48,9 @@ unset($impacts, $cell);
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'risk_list_url'      => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
 ]);
+// Issue #871 : trajectoire projetée du registre, d'après les échéances des plans de traitement.
+\Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/_risk_trajectory_register.html.twig', [
+    'trajectory' => \GlpiPlugin\Grcmanager\RiskTrajectory::registerData(),
+]);
 
 Html::footer();
