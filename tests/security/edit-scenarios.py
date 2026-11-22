@@ -147,8 +147,8 @@ class Run:
                 return
             if not self.set(label, 'num', num):
                 continue
-            # Le cœur charge la liste des valeurs (champ nommé comme le champ du gabarit) dans
-            # #show_massiveaction_field (ajax/dropdownMassiveActionField.php).
+            # Le cœur charge la liste des valeurs (champ nommé comme le champ du gabarit) et son bouton
+            # Ajouter (name="massiveaction") dans #show_massiveaction_field (ajax/dropdownMassiveActionField.php).
             selector = '#show_massiveaction_field select[name="%s"]' % field
             try:
                 self.page.wait_for_function(
@@ -163,7 +163,7 @@ class Run:
                 "(s) => { const v = document.querySelector(s);"
                 " const o = Array.from(v.options).filter(o => o.value !== '' && o.value !== '0').pop();"
                 " v.value = o.value; window.jQuery(v).trigger('change'); }", selector)
-            if not self.submit(label, 'add', 'form:has(#show_massiveaction_field)') or not self.open(label, url):
+            if not self.submit(label, 'massiveaction', '#show_massiveaction_field') or not self.open(label, url):
                 continue
             # Un champ déjà prédéfini disparaît de la liste des champs proposés.
             got = self.field('num')
