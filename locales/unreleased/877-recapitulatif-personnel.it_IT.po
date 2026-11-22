@@ -1,0 +1,99 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "%d more items in My GRC space."
+msgstr "Altri %d elementi in Il mio spazio GRC."
+
+msgid "(%s)"
+msgstr "(%s)"
+
+msgid "Choose how often you want to receive your summary."
+msgstr "Scegli con quale frequenza ricevere il riepilogo."
+
+msgid "Delay"
+msgstr "Ritardo"
+
+msgid "GRC summary by email"
+msgstr "Riepilogo GRC via e-mail"
+
+msgid "How to change the frequency"
+msgstr "Come cambiare la frequenza"
+
+msgid "Instead of waiting for separate notifications, you can receive one email that lists everything shown on this page. It is only sent when something is waiting for you, it only lists what you are allowed to see, and it is written in your language."
+msgstr "Invece di notifiche separate, puoi ricevere un'unica e-mail che elenca tutto ciò che mostra questa pagina. Viene inviata solo quando qualcosa ti aspetta, mostra solo ciò che puoi vedere ed è scritta nella tua lingua."
+
+msgid "Items not listed"
+msgstr "Elementi non elencati"
+
+msgid "Last summary sent: %s"
+msgstr "Ultimo riepilogo inviato: %s"
+
+msgid "My GRC space page URL"
+msgstr "Indirizzo della pagina Il mio spazio GRC"
+
+msgid "No summary"
+msgstr "Nessun riepilogo"
+
+msgid "No summary (only the usual notifications, as they happen)"
+msgstr "Nessun riepilogo (solo le notifiche abituali, man mano)"
+
+msgid "No summary has been sent to you yet."
+msgstr "Non ti è ancora stato inviato alcun riepilogo."
+
+msgid "Nothing is waiting for you: no email has been sent."
+msgstr "Nulla ti aspetta: nessuna e-mail è stata inviata."
+
+msgid "Overdue items"
+msgstr "Elementi in ritardo"
+
+msgid "Person to whom the summary is addressed"
+msgstr "Persona a cui è destinato il riepilogo"
+
+msgid "Receive my summary"
+msgstr "Ricevere il mio riepilogo"
+
+msgid "Send me my summary now"
+msgstr "Inviami ora il mio riepilogo"
+
+msgid "Summaries are not sent on this GLPI yet: ask your GLPI administrator to enable the \"personaldigest\" automatic task and email notifications. Your choice is kept in the meantime."
+msgstr "I riepiloghi non vengono ancora inviati su questo GLPI: chiedi al tuo amministratore GLPI di attivare l'azione automatica «personaldigest» e le notifiche e-mail. La tua scelta viene conservata nel frattempo."
+
+msgid "Summary by email"
+msgstr "Riepilogo via e-mail"
+
+msgid "Summary by email of what is waiting for each person"
+msgstr "Riepilogo via e-mail di ciò che attende ogni persona"
+
+msgid "This summary lists what is waiting for you in GRC Manager, the most urgent first. It only shows what you are allowed to see. Nothing is changed automatically."
+msgstr "Questo riepilogo elenca ciò che ti aspetta in GRC Manager, il più urgente per primo. Mostra solo ciò che puoi vedere. Nulla viene modificato automaticamente."
+
+msgid "To receive it every day, every week or not at all, open My GRC space."
+msgstr "Per riceverlo ogni giorno, ogni settimana o non riceverlo più, apri Il mio spazio GRC."
+
+msgid "What this summary contains"
+msgstr "Cosa contiene questo riepilogo"
+
+msgid "Your GRC summary"
+msgstr "Il tuo riepilogo GRC"
+
+msgid "Your choice has been saved."
+msgstr "La tua scelta è stata salvata."
+
+msgid "Your daily GRC summary"
+msgstr "Il tuo riepilogo GRC giornaliero"
+
+msgid "Your summary could not be sent: check that you have an email address, or ask your GLPI administrator."
+msgstr "Non è stato possibile inviare il riepilogo: verifica di avere un indirizzo e-mail o chiedi al tuo amministratore GLPI."
+
+msgid "Your summary has been sent to your email address."
+msgstr "Il riepilogo è stato inviato al tuo indirizzo e-mail."
+
+msgid "Your weekly GRC summary"
+msgstr "Il tuo riepilogo GRC settimanale"
+
+msgid "%d item is waiting for you"
+msgid_plural "%d items are waiting for you"
+msgstr[0] "%d elemento ti aspetta"
+msgstr[1] "%d elementi ti aspettano"
