@@ -1,0 +1,110 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : liste des plans de continuité et de reprise (front/continuityplan.php) : indicateurs,
+   processus critiques sans plan, plans avec leur statut, leur revue, leur dernier test et leurs manques.
+   Voir GlpiPlugin\Grcmanager\ContinuityPlan::showRegister(). #}
+{% set summary = coverage.summary %}
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="grc-continuity-plan-summary">
+   <span class="badge bg-blue-subtle text-blue-emphasis"><i class="ti ti-file-shield me-1" aria-hidden="true"></i>{{ _n('%d plan', '%d plans', summary.plans, 'grcmanager')|format(summary.plans) }}</span>
+   <span class="badge {{ summary.not_approved > 0 ? 'bg-orange-subtle text-orange-emphasis' : 'bg-green-subtle text-green-emphasis' }}"><i class="ti ti-signature me-1" aria-hidden="true"></i>{{ _n('%d plan not approved', '%d plans not approved', summary.not_approved, 'grcmanager')|format(summary.not_approved) }}</span>
+   <span class="badge {{ summary.review_overdue > 0 ? 'bg-red-subtle text-red-emphasis' : 'bg-green-subtle text-green-emphasis' }}"><i class="ti ti-calendar-exclamation me-1" aria-hidden="true"></i>{{ _n('%d review overdue', '%d reviews overdue', summary.review_overdue, 'grcmanager')|format(summary.review_overdue) }}</span>
+   <span class="badge {{ summary.untested > 0 ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-green-subtle text-green-emphasis' }}"><i class="ti ti-test-pipe me-1" aria-hidden="true"></i>{{ _n('%d plan not tested within a year', '%d plans not tested within a year', summary.untested, 'grcmanager')|format(summary.untested) }}</span>
+   <span class="badge {{ summary.critical_uncovered > 0 ? 'bg-red-subtle text-red-emphasis' : 'bg-green-subtle text-green-emphasis' }}"><i class="ti ti-building-factory-2 me-1" aria-hidden="true"></i>{{ _n('%d critical process without plan', '%d critical processes without plan', summary.critical_uncovered, 'grcmanager')|format(summary.critical_uncovered) }}</span>
+   <span class="text-muted small ms-2">{{ controls|join(' - ') }}</span>
+</div>
+
+{% if can_create %}
+   <div class="d-flex flex-wrap gap-2 mb-3">
+      {% for type, label in types %}
+         <a class="btn btn-outline-primary btn-sm" href="{{ add_url }}?plan_type={{ type|url_encode }}"><i class="ti ti-plus me-1" aria-hidden="true"></i>{{ label }}</a>
+      {% endfor %}
+   </div>
+{% endif %}
+
+{% for plan in plans|filter(plan => plan.awaiting_me) %}
+   {% if loop.first %}
+      <div class="alert alert-primary">
+         <div class="fw-bold mb-1"><i class="ti ti-signature me-1" aria-hidden="true"></i>{{ __('Plans awaiting your approval', 'grcmanager') }}</div>
+         <ul class="mb-0">
+   {% endif %}
+            <li><a href="{{ plan.url }}">{{ plan.name }}</a> ({{ plan.type_short }}, {{ __('version %s', 'grcmanager')|format(plan.version) }})</li>
+   {% if loop.last %}
+         </ul>
+      </div>
+   {% endif %}
+{% endfor %}
+
+{% if coverage.uncovered is not empty %}
+   <div class="alert alert-warning" id="grc-continuity-plan-uncovered">
+      <div class="fw-bold mb-1"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ __('Critical processes not covered by any plan', 'grcmanager') }}</div>
+      <ul class="mb-0">
+         {% for process in coverage.uncovered %}
+            <li><a href="{{ process.url }}">{{ process.name }}</a>{% if process.rto %} (RTO {{ process.rto }}){% endif %}</li>
+         {% endfor %}
+      </ul>
+   </div>
+{% endif %}
+
+<div class="card">
+   <div class="card-body p-0">
+      {% if plans is empty %}
+         <p class="text-muted p-3 mb-0">{{ __('No plan yet. Start with the continuity plan of your most critical activity, then the IT recovery plan it relies on.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table mb-0" id="grc-continuity-plan-list">
+               <thead>
+                  <tr>
+                     <th>{{ __('Plan', 'grcmanager') }}</th>
+                     <th>{{ __('Type') }}</th>
+                     <th>{{ __('Status') }}</th>
+                     <th>{{ __('Next review', 'grcmanager') }}</th>
+                     <th>{{ __('Last test', 'grcmanager') }}</th>
+                     <th>{{ __('To complete', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for plan in plans %}
+                     <tr>
+                        <td>
+                           <a href="{{ plan.url }}">{{ plan.name }}</a>
+                           <div class="text-muted small">{{ __('version %s', 'grcmanager')|format(plan.version) }}{% if plan.owner %} - {{ plan.owner }}{% endif %} - {{ plan.entity }}</div>
+                        </td>
+                        <td><span class="badge {{ plan.is_it ? 'bg-purple-subtle text-purple-emphasis' : 'bg-blue-subtle text-blue-emphasis' }}" title="{{ plan.type_label }}">{{ plan.type_short }}</span></td>
+                        <td><span class="badge {{ plan.status_class }}"><i class="ti {{ plan.status_icon }} me-1" aria-hidden="true"></i>{{ plan.status_label }}</span></td>
+                        <td>
+                           {% if plan.next_review %}
+                              {% set review_class = plan.review_status == 'overdue' ? 'bg-red-subtle text-red-emphasis' : (plan.review_status == 'soon' ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-secondary-subtle text-secondary-emphasis') %}
+                              <span class="badge {{ review_class }}">{{ plan.next_review|formatted_date }}</span>
+                           {% else %}-{% endif %}
+                        </td>
+                        <td>
+                           {% if plan.last_test %}
+                              {{ plan.last_test|formatted_date }}
+                              {% if plan.result_label is not null %}<span class="badge {{ plan.result_label[0] }}"><i class="ti {{ plan.result_label[1] }} me-1" aria-hidden="true"></i>{{ plan.result_label[2] }}</span>{% endif %}
+                           {% else %}
+                              <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Never tested', 'grcmanager') }}</span>
+                           {% endif %}
+                        </td>
+                        <td>
+                           {% for label in plan.gap_labels %}<span class="badge bg-warning-subtle text-warning-emphasis me-1 mb-1">{{ label }}</span>{% else %}<span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-circle-check me-1" aria-hidden="true"></i>{{ __('Complete', 'grcmanager') }}</span>{% endfor %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

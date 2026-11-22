@@ -1,0 +1,34 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : cadre de preuve des plans de continuité et de reprise sur les mesures A.5.29 et A.5.30,
+   dans les entités de la personne. Reçoit « evidence » (ContinuityPlan::evidence()), affiché par
+   control_form.html.twig. #}
+<div id="grc-continuity-plan-evidence">
+   <div class="mb-2">
+      {% for type in evidence.by_type %}
+         <span class="badge {{ type.count > 0 ? 'bg-blue-subtle text-blue-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }} me-1">{{ type.label }} : {{ type.count }}</span>
+      {% endfor %}
+      <span class="badge {{ evidence.not_approved > 0 ? 'bg-orange-subtle text-orange-emphasis' : 'bg-green-subtle text-green-emphasis' }} me-1"><i class="ti ti-signature me-1" aria-hidden="true"></i>{{ __('Approved: %1$d / %2$d', 'grcmanager')|format(evidence.approved, evidence.plans) }}</span>
+      <span class="badge {{ evidence.untested > 0 ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-green-subtle text-green-emphasis' }} me-1"><i class="ti ti-test-pipe me-1" aria-hidden="true"></i>{{ __('Tested within a year: %1$d / %2$d', 'grcmanager')|format(evidence.tested, evidence.plans) }}</span>
+      <span class="badge {{ evidence.review_overdue > 0 ? 'bg-red-subtle text-red-emphasis' : 'bg-green-subtle text-green-emphasis' }} me-1"><i class="ti ti-calendar-exclamation me-1" aria-hidden="true"></i>{{ _n('%d review overdue', '%d reviews overdue', evidence.review_overdue, 'grcmanager')|format(evidence.review_overdue) }}</span>
+      <span class="badge {{ evidence.critical_uncovered > 0 ? 'bg-red-subtle text-red-emphasis' : 'bg-green-subtle text-green-emphasis' }} me-1"><i class="ti ti-building-factory-2 me-1" aria-hidden="true"></i>{{ _n('%d critical process without plan', '%d critical processes without plan', evidence.critical_uncovered, 'grcmanager')|format(evidence.critical_uncovered) }}</span>
+   </div>
+   <ul class="list-unstyled small mb-2">
+      {% for plan in evidence.plan_list %}
+         <li><a href="{{ plan.url }}">{{ plan.type_short }} - {{ plan.name }}</a> <span class="badge {{ plan.status_class }}">{{ plan.status_label }}</span>{% if plan.last_test %} <span class="text-muted">{{ __('Last test: %s', 'grcmanager')|format(plan.last_test|formatted_date) }}</span>{% endif %}</li>
+      {% endfor %}
+   </ul>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>

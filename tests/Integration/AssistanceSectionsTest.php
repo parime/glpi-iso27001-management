@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 use GlpiPlugin\Grcmanager\AccessReview;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\BusinessProcess;
+use GlpiPlugin\Grcmanager\ContinuityPlan;
 use GlpiPlugin\Grcmanager\CrisisContinuity;
 use GlpiPlugin\Grcmanager\CrisisExercise;
 use GlpiPlugin\Grcmanager\CrisisMessageTemplate;
@@ -81,12 +82,14 @@ final class AssistanceSectionsTest extends GrcmanagerIntegrationTestCase
         $this->assertSame([
             BusinessProcess::class,
             CrisisScenario::class,
+            // Issue #1083 : plans de continuité et de reprise, groupe « Se préparer ».
+            ContinuityPlan::class,
             CrisisExercise::class,
             CrisisContinuity::RECOVERY_PROGRAMME,
             CrisisMessageTemplate::class,
         ], $pages);
-        // Moins de 7 onglets : il reste de la place pour les plans de continuité et de reprise.
-        $this->assertLessThan(Sections::MAX_PAGES, count($pages));
+        // Issue #1083 : 6 onglets sur 7 au plus.
+        $this->assertLessThanOrEqual(Sections::MAX_PAGES, count($pages));
         foreach ($pages as $page) {
             $this->assertSame(['helpdesk', CrisisContinuity::class, $page], Menu::sectorPath($page), "$page");
         }
@@ -142,7 +145,7 @@ final class AssistanceSectionsTest extends GrcmanagerIntegrationTestCase
                 $urls[] = (string) $card['url'];
             }
         }
-        $this->assertCount(5, $urls);
+        $this->assertCount(6, $urls);
 
         // Sans aucun droit du plugin : ni page, ni carte.
         $saved = $_SESSION['glpiactiveprofile'];

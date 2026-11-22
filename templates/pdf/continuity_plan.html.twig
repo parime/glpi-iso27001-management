@@ -1,0 +1,113 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : plan de continuité ou de reprise en PDF, à imprimer pour le consulter quand GLPI est
+   indisponible : identification et approbation, éléments couverts et objectifs du BIA, contenu,
+   contacts officiels, tests, historique des versions. « plan » est le contenu actuel ou le contenu figé
+   d'une version (ContinuityPlan::snapshot()). #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<p>{{ controls|join(' - ') }}</p>
+{% if frozen is not null %}
+  <p><strong>{{ __('Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: %3$s', 'grcmanager')|format(frozen.version, frozen.date_creation, frozen.fingerprint) }}</strong></p>
+{% endif %}
+
+<h2>{{ __('Identification', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <tbody>
+    <tr><th style="width: 28%;">{{ __('Type') }}</th><td>{{ plan.type_label }}</td></tr>
+    <tr><th>{{ __('Version', 'grcmanager') }}</th><td>{{ plan.version }}</td></tr>
+    {% if frozen is null %}
+      <tr><th>{{ __('Status') }}</th><td>{{ status_label }}{% if date_approved %} - {{ __('Approved on %s', 'grcmanager')|format(date_approved|formatted_date) }}{% endif %}</td></tr>
+      <tr><th>{{ __('Next review', 'grcmanager') }}</th><td>{{ next_review ? next_review|formatted_date : '-' }}</td></tr>
+    {% endif %}
+    <tr><th>{{ __('Entity') }}</th><td>{{ plan.entity }}</td></tr>
+    <tr><th>{{ __('Owner', 'grcmanager') }}</th><td>{{ plan.owner ?: '-' }}</td></tr>
+    <tr><th>{{ __('Crisis team', 'grcmanager') }}</th><td>{{ plan.crisis_team ?: '-' }}</td></tr>
+    <tr><th>{{ __('On-call team', 'grcmanager') }}</th><td>{{ plan.oncall ?: '-' }}{% if plan.oncall_members is defined and plan.oncall_members is not empty %} : {{ plan.oncall_members|join(', ') }}{% endif %}</td></tr>
+  </tbody>
+</table>
+
+<h2>{{ __('Covered processes and recovery objectives', 'grcmanager') }}</h2>
+{% if plan.processes is empty %}
+  <p>{{ __('No item recorded.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr><th>{{ __('Process', 'grcmanager') }}</th><th>{{ __('MTPD', 'grcmanager') }}</th><th>RTO</th><th>RPO</th></tr>
+    </thead>
+    <tbody>
+      {% for process in plan.processes %}
+        <tr><td>{{ process.name }}{% if process.critical %} ({{ __('Critical', 'grcmanager') }}){% endif %}</td><td>{{ process.mtpd ?: '-' }}</td><td>{{ process.rto ?: '-' }}</td><td>{{ process.rpo ?: '-' }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% if plan.scenarios is not empty %}
+  <p><strong>{{ __('Crisis scenarios', 'grcmanager') }} :</strong> {{ plan.scenarios|join(', ') }}</p>
+{% endif %}
+{% if plan.suppliers is not empty %}
+  <p><strong>{{ __('Suppliers', 'grcmanager') }} :</strong> {{ plan.suppliers|join(', ') }}</p>
+{% endif %}
+
+<h2>{{ __('Content of the plan', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <tbody>
+    {% for field, text in text_fields %}
+      <tr><th style="width: 28%;">{{ text.label }}</th><td>{{ (attribute(plan, field)|default(''))|nl2br }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if show_contacts %}
+  <h2>{{ __('Official contacts to inform during a crisis', 'grcmanager') }} (A.5.5, A.5.6)</h2>
+  {% include '@grcmanager/pdf/_official_contacts_table.html.twig' with {'contacts': contacts, 'perimeter': perimeter} only %}
+{% endif %}
+
+<h2>{{ _n('Plan test', 'Plan tests', 2, 'grcmanager') }}</h2>
+{% if tests is empty %}
+  <p>{{ __('No test recorded yet.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr><th>{{ __('Date') }}</th><th>{{ __('Type') }}</th><th>{{ __('Result', 'grcmanager') }}</th><th>{{ __('Gaps found', 'grcmanager') }}</th></tr>
+    </thead>
+    <tbody>
+      {% for test in tests %}
+        <tr><td>{{ test.date }}</td><td>{{ test.type ?: '-' }}</td><td>{{ test.result_label }}</td><td>{{ test.gaps|nl2br }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<h2>{{ __('History of versions', 'grcmanager') }}</h2>
+{% if history is empty %}
+  <p>{{ __('No version submitted yet.', 'grcmanager') }}</p>
+{% else %}
+  <table class="grcmanager-pdf-table">
+    <thead>
+      <tr><th>{{ __('Version', 'grcmanager') }}</th><th>{{ __('Status') }}</th><th>{{ __('Requested', 'grcmanager') }}</th><th>{{ __('Decisions', 'grcmanager') }}</th></tr>
+    </thead>
+    <tbody>
+      {% for row in history %}
+        <tr>
+          <td>{{ row.version }}</td>
+          <td>{{ row.status_label }}{% if row.answered_at %} ({{ row.answered_at }}){% endif %}</td>
+          <td>{{ row.requested_at }} - {{ row.requested_by }}</td>
+          <td>{% for approver in row.approvers %}<div>{{ approver.name }} : {{ approver.status_label }}{% if approver.answered_text %} ({{ approver.answered_text }}){% endif %}</div>{% endfor %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

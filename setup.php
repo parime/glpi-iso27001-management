@@ -122,6 +122,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
+    // Issue #1083 : annexes des plans de continuité et de reprise.
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ContinuityPlan::class;
     // Issue #775, lot 2 : le texte d'une procédure d'exploitation peut être un article de la base de
     // connaissances, lié par l'onglet natif « Base de connaissances » (KnowbaseItem_Item), dans les
     // deux sens (depuis la procédure ou depuis l'article).
@@ -305,6 +307,10 @@ function plugin_init_grcmanager(): void
     ]);
     // Issue #776 : onglet « Scénarios de crise » des processus métier.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisScenario::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
+    // Issue #1083 : onglet « Plans de continuité et de reprise » des processus métier.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ContinuityPlan::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
     ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
