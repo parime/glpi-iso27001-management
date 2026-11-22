@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Supplier security"
+msgstr "Sicurezza dei fornitori"
+
+msgid "Assess the security of your suppliers and service providers: the supplier risks, the security questionnaires they answer and, when DORA applies, the register of information."
+msgstr "Valuti la sicurezza dei suoi fornitori e prestatori di servizi: i rischi dei fornitori, i questionari di sicurezza a cui rispondono e, se si applica DORA, il registro delle informazioni."
+
+msgid "Assess this supplier"
+msgstr "Valuta questo fornitore"
+
+msgid "Last evaluation"
+msgstr "Ultima valutazione"
+
+msgid "Next reassessment: %s"
+msgstr "Prossima rivalutazione: %s"
+
+msgid "No evaluation yet"
+msgstr "Nessuna valutazione ancora"
+
+msgid "No reassessment date planned"
+msgstr "Nessuna data di rivalutazione prevista"
+
+msgid "Reassessment overdue since %s"
+msgstr "Rivalutazione in ritardo dal %s"
+
+msgid "Supplier risk register"
+msgstr "Registro dei rischi dei fornitori"
+
+msgid "The security assessment of this supplier: its supplier risks, their level, the last questionnaire it answered and the next reassessment. The full register is in Management > Supplier security."
+msgstr "La valutazione di sicurezza di questo fornitore: i suoi rischi fornitore, il loro livello, l'ultimo questionario a cui ha risposto e la prossima rivalutazione. Il registro completo è in Gestione > Sicurezza dei fornitori."
+
+msgid "This supplier has not been assessed yet: no supplier risk is recorded for it in your entities."
+msgstr "Questo fornitore non è ancora stato valutato: nessun rischio fornitore è registrato per lui nelle sue entità."
+
+msgid "%d questionnaire"
+msgid_plural "%d questionnaires"
+msgstr[0] "%d questionario"
+msgstr[1] "%d questionari"
