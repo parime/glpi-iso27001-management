@@ -245,7 +245,10 @@ class CodeSecurity extends CommonGLPI
                 'LIMIT'      => self::MAX_APPLICATIONS,
             ]) as $row
         ) {
-            $out[] = ['appliances_id' => (int) $row['appliances_id'], 'repository_url' => (string) $row['repository_url']];
+            $out[] = [
+                'appliances_id'  => (int) $row['appliances_id'],
+                'repository_url' => (string) $row['repository_url'],
+            ];
         }
 
         return $out;
@@ -306,12 +309,28 @@ class CodeSecurity extends CommonGLPI
                 ) {
                     $blocked[$repo['provider']] = $error;
                 }
-                self::saveRepository($app['appliances_id'], $repo['provider'], $repo['path'], Rules::REPO_ERROR, $error, null, $now);
+                self::saveRepository(
+                    $app['appliances_id'],
+                    $repo['provider'],
+                    $repo['path'],
+                    Rules::REPO_ERROR,
+                    $error,
+                    null,
+                    $now
+                );
                 $result['failed']++;
                 $lastError = $error;
                 continue;
             }
-            self::saveRepository($app['appliances_id'], $repo['provider'], $repo['path'], Rules::REPO_OK, '', $fetch, $now);
+            self::saveRepository(
+                $app['appliances_id'],
+                $repo['provider'],
+                $repo['path'],
+                Rules::REPO_OK,
+                '',
+                $fetch,
+                $now
+            );
             $result['repositories']++;
             $result['alerts'] += count($fetch['alerts']);
         }
@@ -445,7 +464,8 @@ class CodeSecurity extends CommonGLPI
             $where['entities_id'] = $entities === [] ? -1 : $entities;
         }
         $out = [];
-        foreach ($DB->request(['SELECT' => ['id', 'name', 'entities_id'], 'FROM' => 'glpi_appliances', 'WHERE' => $where]) as $row) {
+        $criteria = ['SELECT' => ['id', 'name', 'entities_id'], 'FROM' => 'glpi_appliances', 'WHERE' => $where];
+        foreach ($DB->request($criteria) as $row) {
             $out[(int) $row['id']] = ['name' => (string) $row['name'], 'entities_id' => (int) $row['entities_id']];
         }
 
@@ -469,7 +489,8 @@ class CodeSecurity extends CommonGLPI
             return $out;
         }
         $ids = array_keys($applications);
-        foreach ($DB->request(['FROM' => CodeSecurityTables::REPOSITORIES, 'WHERE' => ['appliances_id' => $ids]]) as $row) {
+        $repositories = ['FROM' => CodeSecurityTables::REPOSITORIES, 'WHERE' => ['appliances_id' => $ids]];
+        foreach ($DB->request($repositories) as $row) {
             $id = (int) $row['appliances_id'];
             $out['repositories'][$id] = $row + [
                 'name'   => $applications[$id]['name'],
@@ -672,13 +693,16 @@ class CodeSecurity extends CommonGLPI
         $rows = [];
         foreach ($repositories as $id => $repo) {
             $repo['application_url'] = Appliance::getFormURLWithID((int) $id);
-            $repo['date_read_label'] = $repo['date_read'] !== null ? (string) Html::convDateTime((string) $repo['date_read']) : '';
+            $repo['date_read_label'] = $repo['date_read'] !== null
+                ? (string) Html::convDateTime((string) $repo['date_read']) : '';
             $repo['error_label'] = (string) $repo['error'] !== '' ? self::errorMessage((string) $repo['error']) : '';
             $rows[] = $repo;
         }
         // Secrets prioritaires, alertes en retard, puis nom.
-        usort($rows, static fn (array $a, array $b): int => [-$a['priority'], -$a['overdue'], mb_strtolower((string) $a['name'])]
-            <=> [-$b['priority'], -$b['overdue'], mb_strtolower((string) $b['name'])]);
+        $rank = static fn (array $row): array => [
+            -$row['priority'], -$row['overdue'], mb_strtolower((string) $row['name']),
+        ];
+        usort($rows, static fn (array $a, array $b): int => $rank($a) <=> $rank($b));
 
         return $rows;
     }

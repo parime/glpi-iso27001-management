@@ -312,8 +312,9 @@ final class CodeSecurityClient
         }
         $enabled = is_array($project['securityScanners']['enabled'] ?? null)
             ? array_map('strval', $project['securityScanners']['enabled']) : [];
+        $dependencyScanners = ['DEPENDENCY_SCANNING', 'CONTAINER_SCANNING'];
         $out['scans'] = [
-            Rules::CATEGORY_DEPENDENCY => array_intersect($enabled, ['DEPENDENCY_SCANNING', 'CONTAINER_SCANNING']) !== []
+            Rules::CATEGORY_DEPENDENCY => array_intersect($enabled, $dependencyScanners) !== []
                 ? Rules::SCAN_OK : Rules::SCAN_UNAVAILABLE,
             Rules::CATEGORY_SECRET     => in_array('SECRET_DETECTION', $enabled, true)
                 ? Rules::SCAN_OK : Rules::SCAN_UNAVAILABLE,

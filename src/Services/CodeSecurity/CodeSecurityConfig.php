@@ -85,7 +85,9 @@ final class CodeSecurityConfig
     {
         $raw = self::rawGitlabUrl();
 
-        return Rules::normalizeServerUrl($raw === '' ? self::DEFAULT_GITLAB : $raw, Http::allowsPrivateNetworks()) ?? '';
+        $url = $raw === '' ? self::DEFAULT_GITLAB : $raw;
+
+        return Rules::normalizeServerUrl($url, Http::allowsPrivateNetworks()) ?? '';
     }
 
     public static function gitlabHost(): string

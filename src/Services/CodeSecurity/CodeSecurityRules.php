@@ -144,7 +144,8 @@ final class CodeSecurityRules
             $path = $m[2];
         } else {
             $parts = parse_url($url);
-            if (!is_array($parts) || !in_array(strtolower((string) ($parts['scheme'] ?? '')), ['https', 'http', 'ssh'], true)) {
+            $scheme = is_array($parts) ? strtolower((string) ($parts['scheme'] ?? '')) : '';
+            if (!in_array($scheme, ['https', 'http', 'ssh'], true)) {
                 return null;
             }
             $host = strtolower((string) ($parts['host'] ?? ''));
