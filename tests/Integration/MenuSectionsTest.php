@@ -123,7 +123,8 @@ final class MenuSectionsTest extends GrcmanagerIntegrationTestCase
                 }
                 if (isset($options['page'])) {
                     $this->assertNotSame('', (string) ($options['title'] ?? ''), "$key : titre.");
-                    $this->assertTrue(class_exists((string) ($options['rights_of'] ?? '')), "$key : droits empruntés.");
+                    $rightsOf = (string) ($options['rights_of'] ?? '');
+                    $this->assertTrue(class_exists($rightsOf), "$key : droits empruntés.");
                     $this->assertPageFileExists((string) $options['page'], $key);
                     continue;
                 }

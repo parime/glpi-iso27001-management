@@ -75,6 +75,9 @@ if (isset($_POST['add'])) {
     // droits (READ, ou CREATE pour un nouvel élément) sont vérifiés par $item->can().
     \GlpiPlugin\Grcmanager\AccessReview::displayFullPageForItem(
         $_GET['id'] ?? 0,
-        ['central' => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\AccessReview::class), 'helpdesk' => []]
+        [
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\AccessReview::class),
+            'helpdesk' => [],
+        ]
     );
 }

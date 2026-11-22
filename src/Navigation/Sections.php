@@ -106,7 +106,7 @@ final class Sections
         $parents = array_keys($pending);
         $order = [];
         $firsts = 0;
-        // Dernière entrée placée après chaque entrée : deux rubriques après la même gardent l'ordre des fichiers.
+        // Dernière entrée placée après chaque entrée : deux rubriques après la même gardent leur ordre.
         $tail = [];
         do {
             $progress = false;
