@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Asset security"
+msgstr "Sicurezza del parco"
+
+msgid "Overview"
+msgstr "Panoramica"
+
+msgid "Other screens"
+msgstr "Altre schermate"
+
+msgid "This is now done in Assets > Asset security > %s."
+msgstr "Ora si fa in Parco > Sicurezza del parco > %s."
+
+msgid "No screen of this section is available with your profile."
+msgstr "Nessuna schermata di questa sezione è disponibile con il tuo profilo."
+
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr "Falle note del software installato e le macchine più esposte."
+
+msgid "End of life and patches"
+msgstr "Fine vita e patch"
+
+msgid "Software and hardware that no longer receive fixes, late patches and licences."
+msgstr "Software e hardware che non ricevono più correzioni, patch in ritardo e licenze."
+
+msgid "Hardening"
+msgstr "Hardening"
+
+msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
+msgstr "Controlli automatici dell'inventario, configurazione sicura, cifratura dei dischi e Active Directory."
+
+msgid "Logs, supervision, exposed services and server management controllers."
+msgstr "Log, supervisione, servizi esposti e controller di gestione dei server."
+
+msgid "Backups and network"
+msgstr "Backup e rete"
+
+msgid "Backup coverage, mail and domain security, network flows."
+msgstr "Copertura dei backup, sicurezza della posta e dei domini, flussi di rete."
+
+msgid "Sites and development"
+msgstr "Sedi e sviluppo"
+
+msgid "Physical security of the sites, secure development and code security."
+msgstr "Sicurezza fisica delle sedi, sviluppo sicuro e sicurezza del codice."
+
+msgid "Hardware end of life"
+msgstr "Fine vita dell'hardware"
+
+msgid "End of life dates saved."
+msgstr "Date di fine vita salvate."
+
+msgid "Same threshold as the end of support of software, set in the plugin configuration."
+msgstr "Stessa soglia della fine del supporto del software, impostata nella configurazione del plugin."
+
+msgid "\"End of life soon\": within %d days."
+msgstr "«Fine vita vicina»: entro %d giorni."
+
+msgid "Enter the date announced by the manufacturer when you know it (optional, leave empty otherwise). You can also enter it on the form of each model, tab \"Manufacturer end of life\"."
+msgstr "Inserisci la data annunciata dal produttore quando la conosci (facoltativo, altrimenti lascia vuoto). Puoi anche inserirla nella scheda di ogni modello, scheda «Fine vita del produttore»."
+
+msgid "See the hardware concerned"
+msgstr "Vedi l'hardware interessato"
+
+msgid "The date after which the manufacturer no longer provides repairs, spare parts or firmware updates for this model (optional). The hardware of this model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset security (ISO 27001 A.7.13 and A.8.9)."
+msgstr "La data dopo la quale il produttore non fornisce più riparazioni, ricambi o aggiornamenti firmware per questo modello (facoltativo). L'hardware di questo modello appare allora come «fine vita raggiunta» o «vicina» in Parco > Sicurezza del parco (ISO 27001 A.7.13 e A.8.9)."
+
+msgid "Hardware of this model in your entities"
+msgstr "Hardware di questo modello nelle tue entità"
+
+msgid "All the models"
+msgstr "Tutti i modelli"
+
+msgid "No manufacturer end of life date entered for this model (optional, on the form of the model)."
+msgstr "Nessuna data di fine vita del produttore inserita per questo modello (facoltativo, nella scheda del modello)."
+
+msgid "Links and reading"
+msgstr "Corrispondenze e lettura"
+
+msgid "The end of support dates have not been read yet: they arrive with the next daily task, or with the button \"Update now\" of the page \"Software to watch\"."
+msgstr "Le date di fine supporto non sono ancora state lette: arrivano con il prossimo compito giornaliero, o con il pulsante «Aggiorna ora» della pagina «Software da sorvegliare»."
+
+msgid "It also applies to the manufacturer end of life of hardware models."
+msgstr "Si applica anche alla fine vita del produttore dei modelli hardware."
+
+msgid "Everything about the security of your assets in one place: vulnerabilities, end of life, patches, hardening, monitoring, backups, sites and development. Each card opens a screen; only the screens your profile can open are shown."
+msgstr "Tutto sulla sicurezza dei tuoi asset in un unico posto: vulnerabilità, fine vita, patch, hardening, supervisione, backup, sedi e sviluppo. Ogni scheda apre una schermata; sono mostrate solo le schermate che il tuo profilo può aprire."
+
+msgid "Start with the vulnerabilities and the end of life of software and hardware, then check that the expected protections (encryption, patches, logs, backups) cover the whole fleet."
+msgstr "Inizia dalle vulnerabilità e dalla fine vita di software e hardware, poi verifica che le protezioni previste (cifratura, patch, log, backup) coprano tutto il parco."
+
+msgid "Some manufacturers announce the date after which a model no longer receives repairs, spare parts or firmware updates. Enter it here for all the models in service, or on the form of each model (tab \"Manufacturer end of life\")."
+msgstr "Alcuni produttori annunciano la data dopo la quale un modello non riceve più riparazioni, ricambi o aggiornamenti firmware. Inseriscila qui per tutti i modelli in servizio, o nella scheda di ogni modello (scheda «Fine vita del produttore»)."
+
+msgid "Enter the known dates, then follow the hardware whose end of life is reached or near in the \"Hardware warranty\" card of the fleet vulnerabilities. Nothing is changed in the GLPI models."
+msgstr "Inserisci le date note, poi segui l'hardware la cui fine vita è raggiunta o vicina nella scheda «Garanzia dell'hardware» delle vulnerabilità del parco. Nei modelli di GLPI non viene modificato nulla."
+
+msgid "ISO/IEC 27001, controls A.7.13 and A.8.9"
+msgstr "ISO/IEC 27001, controlli A.7.13 e A.8.9"

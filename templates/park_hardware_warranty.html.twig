@@ -44,7 +44,7 @@
          {% endfor %}
          <span class="text-muted small">
             {{ __('Optional date entered by hand for each hardware model.', 'grcmanager') }}
-            {% if hw.can_config %}<a href="{{ hw.config_url }}"><i class="ti ti-settings me-1"></i>{{ __('Enter the end of life dates', 'grcmanager') }}</a>{% endif %}
+            {% if hw.can_config %}<a href="{{ hw.config_url }}"><i class="ti ti-calendar-x me-1"></i>{{ __('Enter the end of life dates', 'grcmanager') }}</a>{% endif %}
          </span>
       </div>
    </div>
