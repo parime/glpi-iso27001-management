@@ -182,7 +182,7 @@ class ServerManagement extends CommonGLPI
             ],
             Rules::GAP_WEAK_TLS => [
                 __('Old protocols (SSLv3, TLS 1.0 or 1.1)', 'grcmanager'),
-                __('Reported by the import: keep only TLS 1.2 and later.', 'grcmanager'),
+                __('Read from the controller (Redfish) or the import: keep only TLS 1.2 and later.', 'grcmanager'),
                 'ti ti-lock-open',
             ],
             Rules::GAP_CERT_EXPIRED => [

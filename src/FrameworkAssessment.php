@@ -474,6 +474,8 @@ class FrameworkAssessment extends CommonGLPI
             FrameworkSelection::ISO22301 => 'iso22301', FrameworkSelection::ISO42001 => 'iso42001',
             FrameworkSelection::PCI_DSS => 'pci-dss', FrameworkSelection::SOC2 => 'soc2',
             FrameworkSelection::AI_ACT => 'ai-act', FrameworkSelection::HDS => 'hds',
+            FrameworkSelection::MSS => 'mss', FrameworkSelection::ETSI_319401 => 'etsi-319401',
+            FrameworkSelection::SCF => 'scf',
         ];
         if (!isset($cards[$key])) {
             return '';

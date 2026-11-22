@@ -7,6 +7,79 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.82.0] - 2026-11-22
+
+### Added
+
+- **Vue Sécurité 360° : toutes les sources de l'actif** (issue #837). L'onglet **Sécurité 360°**
+  des ordinateurs et matériels réseau résume aussi la classification de l'actif, le niveau de
+  correctifs (#854), la fin de support du système et des logiciels, la garantie et la fin de vie
+  constructeur (#704, #782), la protection EDR SentinelOne (agent et alertes en attente), la
+  supervision Zabbix (#836), les sauvegardes (#838) et la collecte des journaux (#853). Chaque
+  source donne un badge, un résumé et un lien vers le détail, reste absente si le module n'a pas de
+  données pour l'actif, et ne lit que les données déjà importées (aucun appel extérieur).
+
+- Services exposés lus dans Uptime Kuma, en lecture seule (#842) : nouvelle page **Services exposés
+  (Uptime Kuma)** de la rubrique Sécurité technique. Lecture sur clic, ou toutes les heures par la
+  tâche automatique `uptimekuma` (désactivée à l'installation), de l'endpoint Prometheus `/metrics`
+  (clé d'API d'Uptime Kuma, chiffrée par GLPI et jamais réaffichée) et des pages de statut publiques
+  choisies ; uniquement des requêtes GET, rien n'est modifié dans Uptime Kuma. Les sondes sont
+  rapprochées des ordinateurs, matériels réseau et applications par le nom d'hôte surveillé ; les
+  sondes sans actif et les actifs publiés sur Internet (matrice des flux) sans sonde sont signalés.
+  Disponibilité et plus longue panne de la période calculées sur les relevés successifs, comparées au
+  RTO et à la criticité des processus métier qui dépendent de l'actif (ou choisis pour la sonde).
+  Certificats TLS : jours restants, seuil d'alerte réglable, aucun renouvellement automatique. Une
+  panne longue peut être proposée comme incident de sécurité, sur clic, puis annoncée aux utilisateurs
+  par la communication de crise. Trois KRI (disponibilité des services exposés, certificats à
+  renouveler, actifs exposés sans sonde), preuves A.8.16, A.5.30 et A.8.24, source « Services exposés
+  (Uptime Kuma) » de la vue Sécurité 360°.
+
+- Contrôleurs de gestion des serveurs, lot 3 (#843) : santé détaillée du serveur lue par Redfish en
+  lecture seule (alimentations, disques, ventilateurs, températures, panne de disque annoncée) et
+  événements récents du journal du contrôleur (LogServices), affichés dans l'onglet « Contrôleur de
+  gestion » de l'ordinateur ; source « Santé du serveur » dans la vue Sécurité 360° ; lecture
+  planifiée de tous les contrôleurs Redfish par la tâche automatique `bmcread`, désactivée à
+  l'installation. Uniquement des requêtes GET vers l'adresse configurée, aucune action sur le serveur.
+
+- Contrôleurs de gestion des serveurs, lot 4 (#843) : les protocoles anciens (SSLv3, TLS 1.0,
+  TLS 1.1) acceptés par l'interface HTTPS du contrôleur sont lus par Redfish, en lecture seule, dans
+  la politique de sécurité standard (SecurityPolicy) ou les extensions Oem des constructeurs :
+  service de sécurité HPE iLO (versions TLS, mode de sécurité), attributs Dell iDRAC
+  (`WebServer.1.TLSProtocol`), réglages TLS des rubriques Oem Lenovo XClarity, Supermicro et autres.
+  L'écart « Protocoles anciens » n'a plus besoin de l'import CSV ; sans réglage lisible, il reste
+  inconnu et l'import CSV le renseigne comme avant.
+
+- **Sécurité de la messagerie et des domaines** (#855, mesures A.5.14 et A.8.21) : nouvel onglet de la
+  rubrique Sécurité technique. Les domaines de l'organisation sont saisis dans le plugin (sélecteurs
+  DKIM, échéance du domaine et du certificat des serveurs de messagerie) ; sur clic, le plugin lit
+  seulement les enregistrements DNS publics : SPF, clés DKIM des sélecteurs déclarés, politique DMARC
+  (none, quarantine, reject), MTA-STS, TLS-RPT et DNSSEC (délégation signée). Aucun e-mail envoyé,
+  aucune connexion aux serveurs de messagerie, aucun service tiers ; sans domaine saisi, aucune
+  requête. Écarts signalés avec un conseil (DMARC absent ou en « none », SPF « +all » ou neutre,
+  domaine non signé, clé DKIM absente, échéance à moins de 30 jours ou dépassée...), preuve sur les
+  fiches des mesures A.5.14 et A.8.21 et source de KRI « domaines sans politique DMARC appliquée ».
+
+- **Revue des accès : reporter les suggestions sur les décisions et signaux de la conformité du
+  personnel** (issue #932, suite de #866, mesures A.5.18 et A.6.3). Un bouton **Reporter les
+  suggestions**, dans l'onglet **Comptes à revoir** et dans **Mes revues d'accès**, coche « Accès
+  validés » ou « À retirer » sur les comptes encore à revoir qui ont une suggestion ; un retrait
+  reçoit les raisons en commentaire, modifiable. Rien n'est enregistré avant **Enregistrer les
+  décisions** : chaque ligne pré-remplie porte un badge « pas encore enregistré », les comptes à
+  examiner restent au relecteur. Nouveau signal « à examiner », réglable sur la campagne : écart de
+  la fiche de conformité du collaborateur (formation obligatoire non suivie dans le délai ou
+  expirée, charte informatique envoyée mais non signée, politique de sécurité non lue), avec les
+  mêmes délais et poids que la page de conformité du personnel. Un tel écart ne propose jamais de
+  retirer un compte.
+
+### Fixed
+
+- **Jeu de données des tests de sécurité relançable sur une instance déjà utilisée** (issue #1002).
+  `tests/security/setup.php` et ses fragments retrouvent les objets et lignes existants avant de
+  les créer : plus d'arrêt « Creation impossible » ni de doublon quand le script est relancé. La CI
+  le lance deux fois de suite et exige les mêmes identifiants et le même nombre de lignes. Nouveau
+  script `tests/security/purge.php` (`--dry-run` pour compter) qui retire le jeu de données d'une
+  instance de test partagée, testé par la CI (purge puis nouvelle création).
+
 ## [2.81.0] - 2026-11-22
 
 ### Added

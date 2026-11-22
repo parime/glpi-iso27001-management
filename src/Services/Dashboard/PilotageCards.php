@@ -36,6 +36,9 @@ use GlpiPlugin\Grcmanager\Services\Control\Iso42001CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\PciDssCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\AiActCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\HdsCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\Etsi319401CatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\MonServiceSecuriseCatalogDefaults;
+use GlpiPlugin\Grcmanager\Services\Control\ScfCatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\CustomFrameworkCatalog;
 use GlpiPlugin\Grcmanager\Services\Control\Soc2CatalogDefaults;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
@@ -124,6 +127,13 @@ final class PilotageCards
                 => AiActCatalogDefaults::articlesForControl($code) !== []],
             'HDS'          => [FrameworkSelection::HDS, static fn (string $code): bool
                 => HdsCatalogDefaults::requirementsForControl($code) !== []],
+            // Issue #878 : correspondances indicatives établies par ce projet.
+            'MonServiceSécurisé' => [FrameworkSelection::MSS, static fn (string $code): bool
+                => MonServiceSecuriseCatalogDefaults::themesForControl($code) !== []],
+            'ETSI EN 319 401' => [FrameworkSelection::ETSI_319401, static fn (string $code): bool
+                => Etsi319401CatalogDefaults::requirementsForControl($code) !== []],
+            'SCF'          => [FrameworkSelection::SCF, static fn (string $code): bool
+                => ScfCatalogDefaults::domainsForControl($code) !== []],
         ];
     }
 

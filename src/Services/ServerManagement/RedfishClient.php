@@ -182,8 +182,8 @@ final class RedfishClient
     }
 
     /**
-     * Lecture complète : contrôleur (modèle, firmware, protocoles, certificat), serveur (série,
-     * modèle, BIOS, santé, démarrage sécurisé), comptes locaux. complete = false en cas d'erreur
+     * Lecture complète : contrôleur (modèle, firmware, protocoles, TLS anciens, certificat), serveur
+     * (série, modèle, BIOS, santé, démarrage sécurisé), comptes locaux. complete = false en cas d'erreur
      * sur la racine, le contrôleur ou le serveur : l'appelant ne remplace alors rien. Une rubrique
      * facultative illisible (comptes, certificat, démarrage sécurisé) reste « inconnue ».
      *
@@ -253,6 +253,7 @@ final class RedfishClient
         $snapshot['health'] = BmcRules::normalizeHealth($manager['Status']['Health'] ?? null);
 
         // Protocoles réseau du contrôleur et certificat HTTPS (facultatifs).
+        $protocolData = [];
         $protocolPath = self::link($manager, 'NetworkProtocol');
         if ($protocolPath !== null) {
             $protocol = $this->get($protocolPath);
@@ -260,6 +261,7 @@ final class RedfishClient
                 return ['error' => $protocol['error']] + $out;
             }
             $p = (array) $protocol['data'];
+            $protocolData = $p;
             if ($p !== []) {
                 $snapshot['ipmi_lan'] = BmcRules::tristate($p['IPMI']['ProtocolEnabled'] ?? null);
                 $snapshot['telnet'] = BmcRules::tristate($p['Telnet']['ProtocolEnabled'] ?? null);
@@ -286,6 +288,9 @@ final class RedfishClient
                 }
             }
         }
+
+        // Lot 4 : protocoles TLS anciens, d'après la politique de sécurité ou les extensions Oem.
+        $snapshot['weak_tls'] = (new RedfishTlsReader($this))->read($manager, $protocolData);
 
         // Serveur géré : premier système.
         $systems = $this->members(self::link($rootData, 'Systems') ?? '/redfish/v1/Systems', 1);

@@ -14,8 +14,24 @@
  #}
 {# Issue #126 : lignes de revue (onglet de la campagne et « Mes revues d'accès »).
    Paramètres : lines, decisions, sources, can_decide, show_reviewer.
-   Issue #866 : suggestion des règles et sa raison (AccessReviewSuggestion::decorate()). #}
+   Issue #866 : suggestion des règles et sa raison (AccessReviewSuggestion::decorate()).
+   Issue #932 : bouton « Reporter les suggestions » : coche dans le formulaire la décision proposée
+   (garder ou retirer) des comptes encore à revoir ; rien n'est enregistré avant « Enregistrer les
+   décisions », chaque décision reste celle du relecteur. #}
 {% set decision_class = {'pending': 'bg-secondary-lt', 'keep': 'bg-green-lt', 'modify': 'bg-orange-lt', 'remove': 'bg-red-lt'} %}
+{% set prefillable = can_decide ? lines|filter(l => l.decision == 'pending' and l.suggested_decision != '' and l.tickets_id == 0)|length : 0 %}
+{% if prefillable > 0 %}
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+      <button type="button" class="btn btn-sm btn-outline-warning" data-grc-ar-prefill
+         data-done="{{ __('%d decision(s) pre-filled: check each one, then click "Save decisions". Nothing is saved until then.', 'grcmanager')|e('html_attr') }}"
+         data-comment-prefix="{{ __('Suggested by the rules:', 'grcmanager')|e('html_attr') }}">
+         <i class="ti ti-bulb me-1"></i>{{ __('Pre-fill with the suggestions', 'grcmanager') }}
+         <span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ prefillable }}</span>
+      </button>
+      <span class="text-muted small">{{ __('Ticks "Access approved" or "To remove" on the accounts still to review that have a suggestion. Accounts to examine are left for you to decide.', 'grcmanager') }}</span>
+      <span class="badge bg-info-subtle text-info-emphasis d-none" data-grc-ar-prefill-result role="status"></span>
+   </div>
+{% endif %}
 <div class="table-responsive">
 <table class="table table-sm table-vcenter mb-0">
    <thead>
@@ -30,7 +46,8 @@
    <tbody>
       {% for line in lines %}
          {% set locked = line.tickets_id > 0 %}
-         <tr>
+         <tr data-grc-ar-line data-pending="{{ line.decision == 'pending' and not locked ? 1 : 0 }}"
+            data-suggested="{{ line.suggested_decision|e('html_attr') }}" data-reasons="{{ line.suggestion_reasons_text|default('')|e('html_attr') }}">
             <td class="text-nowrap"><i class="ti ti-user me-1"></i>{{ line.user_name }}</td>
             <td>
                {% for p in line.profiles_list %}<div><i class="ti ti-id-badge-2 me-1 text-muted"></i>{{ p }}</div>{% endfor %}
@@ -64,6 +81,9 @@
                {% else %}
                   <span class="badge {{ decision_class[line.decision] }}">{{ decisions[line.decision] }}</span>
                {% endif %}
+               {% if can_decide and not locked and line.suggested_decision %}
+                  <div class="d-none" data-grc-ar-prefilled><span class="badge bg-warning-subtle text-warning-emphasis mt-1"><i class="ti ti-pencil me-1"></i>{{ __('Pre-filled from the suggestion, not saved yet', 'grcmanager') }}</span></div>
+               {% endif %}
                {% if line.differs %}
                   <div><span class="badge bg-info-subtle text-info-emphasis mt-1"><i class="ti ti-arrows-diff me-1"></i>{{ __('Decision differs from the suggestion', 'grcmanager') }}</span></div>
                {% endif %}
@@ -85,3 +105,51 @@
    </tbody>
 </table>
 </div>
+{% if prefillable > 0 %}
+<script>
+   // Issue #932 : report des suggestions dans le formulaire, sans enregistrement.
+   if (!window.grcAccessReviewPrefill) {
+      window.grcAccessReviewPrefill = true;
+      document.addEventListener('click', function (event) {
+         const button = event.target.closest('[data-grc-ar-prefill]');
+         if (!button) {
+            return;
+         }
+         const form = button.closest('form');
+         let count = 0;
+         form.querySelectorAll('tr[data-grc-ar-line][data-pending="1"]').forEach(function (row) {
+            const value = row.dataset.suggested;
+            if (value === '' || row.querySelector('input.btn-check:checked')) {
+               return;
+            }
+            const radio = row.querySelector('input.btn-check[value="' + value + '"]');
+            if (!radio) {
+               return;
+            }
+            radio.checked = true;
+            const comment = row.querySelector('input[name^="comments["]');
+            if (value === 'remove' && comment && comment.value.trim() === '' && row.dataset.reasons !== '') {
+               comment.value = button.dataset.commentPrefix + ' ' + row.dataset.reasons;
+            }
+            const badge = row.querySelector('[data-grc-ar-prefilled]');
+            if (badge) {
+               badge.classList.remove('d-none');
+            }
+            count++;
+         });
+         const result = button.parentElement.querySelector('[data-grc-ar-prefill-result]');
+         if (result) {
+            result.textContent = button.dataset.done.replace('%d', String(count));
+            result.classList.remove('d-none');
+         }
+      });
+      document.addEventListener('change', function (event) {
+         const row = event.target.closest('tr[data-grc-ar-line]');
+         const badge = row ? row.querySelector('[data-grc-ar-prefilled]') : null;
+         if (badge && event.target.classList.contains('btn-check')) {
+            badge.classList.add('d-none');
+         }
+      });
+   }
+</script>
+{% endif %}

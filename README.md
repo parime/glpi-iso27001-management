@@ -105,6 +105,11 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
   exigences du référentiel de certification (SMSI, clauses du contrat client, souveraineté des
   données), reliées à l'Annexe A ISO 27001 et aux modules du plugin, badges « HDS EXI n » sur les
   mesures et taux HDS.
+- **MonServiceSécurisé (ANSSI), ETSI EN 319 401 et Secure Controls Framework**, optionnels et
+  désactivés par défaut : les 135 mesures du référentiel MonServiceSécurisé v2 en 29 thèmes, les
+  paragraphes 5 à 7 d'ETSI EN 319 401 V3.2.1 (prestataires de services de confiance) et les 34
+  domaines du SCF, reliés à l'Annexe A ISO 27001 et aux modules du plugin, badges sur les mesures et
+  taux par référentiel.
 - **Référentiels personnalisés** : un référentiel absent du plugin (exigences d'un groupe, plan
   d'assurance sécurité d'un client) s'importe depuis un tableur enregistré en CSV, à partir d'un
   modèle téléchargeable, avec le rapport des lignes rejetées. Activable comme les autres, mesuré par
@@ -197,7 +202,7 @@ archivé), avec ses champs de classification ISO 27001 fusionnés dessus.
 
 **Pilotage**
 - Tableau de bord ISMS par défaut et indicateurs à ajouter aux tableaux de bord GLPI, dont la
-  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS si activés), les échéances à 90 jours, la revue des accès
+  conformité par référentiel (ISO 27001, NIS2, ANSSI, NIST CSF, CIS Controls, et DORA, ISO 27701, ISO 22301, ISO 42001, PCI DSS, SOC 2, AI Act, HDS, MonServiceSécurisé, ETSI EN 319 401, SCF si activés), les échéances à 90 jours, la revue des accès
   et les délais de notification (NIS2, RGPD, DORA, CRA) en alerte ; menu GRC & Conformité > Tableau de bord, vues ISMS et
   Direction, tendance mensuelle.
 - **Formations notées**, en une ou plusieurs sessions (formateur, lieu, note, seuil de réussite,
@@ -532,6 +537,20 @@ du dépôt et dans la documentation indique uniquement le référentiel que le p
   approuvé par l'arrêté du 26 avril 2024, document public. Les numéros d'exigences sont les numéros
   officiels ; les exigences sont résumées par ce projet et la correspondance avec l'Annexe A ISO
   27001 est indicative. Seul le référentiel publié par l'ANS fait foi.
+- **MonServiceSécurisé** : référentiel de mesures (version 2) publié par l'ANSSI dans le code source
+  du service ([github.com/betagouv/mon-service-securise](https://github.com/betagouv/mon-service-securise)),
+  sous licence [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) ; mesures RGPD issues de la
+  CNIL. Les identifiants des mesures sont repris, les thèmes sont résumés par ce projet et la
+  correspondance avec l'Annexe A ISO 27001 est indicative. Ce projet n'est pas affilié à l'ANSSI.
+- **ETSI EN 319 401 V3.2.1 (2026-01)** : norme protégée par le droit d'auteur (© ETSI, tous droits
+  réservés), téléchargeable gratuitement sur [etsi.org](https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/).
+  Seuls les numéros des paragraphes sont repris ; résumés et correspondance avec l'Annexe A ISO 27001
+  sont rédigés par ce projet, qui n'est pas affilié à l'ETSI.
+- **Secure Controls Framework (SCF)** : identifiants et noms des 34 domaines, © SCF Council, sous
+  licence [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/), reproduits sans
+  modification et non traduits ([securecontrolsframework.com](https://securecontrolsframework.com/)).
+  La correspondance avec l'Annexe A ISO 27001 est indicative et rédigée par ce projet (elle ne
+  reprend pas celle du SCF) ; ce projet n'est ni affilié au SCF Council ni approuvé par lui.
 - **SOC 2 / Trust Services Criteria** : critères protégés par le droit d'auteur (© AICPA). Seuls
   leurs identifiants sont repris ; les résumés sont rédigés par ce projet et la correspondance avec
   l'Annexe A ISO 27001 est indicative (elle ne reprend pas celle de l'AICPA). Ce projet n'est pas

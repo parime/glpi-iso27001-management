@@ -1,0 +1,428 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Domains followed"
+msgstr "Dominios supervisados"
+
+msgid "%d domain checked"
+msgid_plural "%d domains checked"
+msgstr[0] "%d dominio comprobado"
+msgstr[1] "%d dominios comprobados"
+
+msgid "Domains protected by DMARC"
+msgstr "Dominios protegidos por DMARC"
+
+msgid "Fake e-mails put in quarantine or rejected"
+msgstr "Correos falsos en cuarentena o rechazados"
+
+msgid "Domains with a gap to fix"
+msgstr "Dominios con una desviación que corregir"
+
+msgid "Spoofing remains possible"
+msgstr "La suplantación sigue siendo posible"
+
+msgid "Expiring or expired"
+msgstr "Próximo a vencer o vencido"
+
+msgid "Domain or certificate, alert %d day before"
+msgid_plural "Domain or certificate, alert %d days before"
+msgstr[0] "Dominio o certificado, aviso %d día antes"
+msgstr[1] "Dominio o certificado, aviso %d días antes"
+
+msgid "Domains of the organisation"
+msgstr "Dominios de la organización"
+
+msgid "At most %d domain per click"
+msgid_plural "At most %d domains per click"
+msgstr[0] "Como máximo %d dominio por clic"
+msgstr[1] "Como máximo %d dominios por clic"
+
+msgid "Check all domains"
+msgstr "Comprobar todos los dominios"
+
+msgid "The check only reads public DNS records, like any mail server does before delivering an e-mail. No e-mail is sent and no server is scanned."
+msgstr "La comprobación solo lee registros DNS públicos, como hace cualquier servidor de correo antes de entregar un mensaje. No se envía ningún correo y no se escanea ningún servidor."
+
+msgid "No domain entered yet: the module stays inactive and makes no DNS query. Add the domains your organisation uses to send or receive e-mail, and the ones it only owns."
+msgstr "Ningún dominio introducido: el módulo permanece inactivo y no hace ninguna consulta DNS. Añada los dominios que su organización usa para enviar o recibir correo, y los que solo posee."
+
+msgid "Servers allowed to send e-mails for the domain"
+msgstr "Servidores autorizados a enviar correo en nombre del dominio"
+
+msgid "Signature of the e-mails sent"
+msgstr "Firma de los correos enviados"
+
+msgid "What receiving servers do with fake e-mails"
+msgstr "Qué hacen los servidores receptores con los correos falsos"
+
+msgid "Encryption required between mail servers"
+msgstr "Cifrado obligatorio entre servidores de correo"
+
+msgid "Reports of encryption failures"
+msgstr "Informes de fallos de cifrado"
+
+msgid "Signature of the DNS answers"
+msgstr "Firma de las respuestas DNS"
+
+msgid "Domain expiry"
+msgstr "Vencimiento del dominio"
+
+msgid "Mail certificate"
+msgstr "Certificado de correo"
+
+msgid "Mail servers (MX)"
+msgstr "Servidores de correo (MX)"
+
+msgid "Remove this domain from the list? Nothing is changed in the DNS."
+msgstr "¿Quitar este dominio de la lista? No se modifica nada en el DNS."
+
+msgid "What to do"
+msgstr "Qué hacer"
+
+msgid "Advice"
+msgstr "Consejo"
+
+msgid "Edit the domain %s"
+msgstr "Modificar el dominio %s"
+
+msgid "Add a domain"
+msgstr "Añadir un dominio"
+
+msgid "Domain name"
+msgstr "Nombre de dominio"
+
+msgid "The part after the @ of the e-mail addresses."
+msgstr "La parte que sigue a la @ de las direcciones de correo."
+
+msgid "DKIM selectors"
+msgstr "Selectores DKIM"
+
+msgid "Given by your e-mail service, separated by commas (selector1 and selector2 for Microsoft 365, google for Google Workspace)."
+msgstr "Indicados por su servicio de correo, separados por comas (selector1 y selector2 para Microsoft 365, google para Google Workspace)."
+
+msgid "For example: main domain, or domain kept for the brand only"
+msgstr "Por ejemplo: dominio principal, o dominio conservado solo por la marca"
+
+msgid "Domain expiry date"
+msgstr "Fecha de vencimiento del dominio"
+
+msgid "Shown in the customer area of the registrar."
+msgstr "Indicada en el área de cliente del registrador."
+
+msgid "Expiry date of the mail server certificate"
+msgstr "Fecha de vencimiento del certificado de los servidores de correo"
+
+msgid "Leave empty when the mail service is hosted (Microsoft 365, Google Workspace): the provider renews it."
+msgstr "Dejar vacío si el correo está alojado (Microsoft 365, Google Workspace): el proveedor lo renueva."
+
+msgid "Add the domain"
+msgstr "Añadir el dominio"
+
+msgid "DNS server used for DNSSEC (optional)"
+msgstr "Servidor DNS usado para DNSSEC (opcional)"
+
+msgid "By default, the DNS server of the GLPI server is asked. Some of them (inside Docker, for example) do not relay the DNSSEC records: DNSSEC then shows \"Unknown\". Enter the IP address of another DNS server of your organisation or of your provider to fix it."
+msgstr "Por defecto se consulta el servidor DNS del servidor GLPI. Algunos (dentro de Docker, por ejemplo) no transmiten los registros DNSSEC: DNSSEC muestra entonces \"Desconocido\". Introduzca la dirección IP de otro servidor DNS de su organización o de su proveedor para corregirlo."
+
+msgid "IP address of the DNS server"
+msgstr "Dirección IP del servidor DNS"
+
+msgid "DNS server of the GLPI server"
+msgstr "Servidor DNS del servidor GLPI"
+
+msgid "The protections in a few words"
+msgstr "Las protecciones en pocas palabras"
+
+msgid "List of the servers allowed to send e-mails for the domain. \"-all\" refuses all the others."
+msgstr "Lista de los servidores autorizados a enviar correo en nombre del dominio. \"-all\" rechaza todos los demás."
+
+msgid "Signature added to each e-mail sent, checked by the receiver with a key published in the DNS under a \"selector\"."
+msgstr "Firma añadida a cada correo enviado, comprobada por el receptor con una clave publicada en el DNS bajo un \"selector\"."
+
+msgid "Tells receiving servers what to do with an e-mail that fails SPF and DKIM: observe (none), put in quarantine or reject. Only quarantine and reject stop the spoofing."
+msgstr "Indica a los servidores receptores qué hacer con un correo que no supera SPF y DKIM: observar (none), poner en cuarentena o rechazar. Solo la cuarentena y el rechazo detienen la suplantación."
+
+msgid "Require encrypted connections between mail servers, and send a report when encryption fails."
+msgstr "Exigen conexiones cifradas entre servidores de correo y envían un informe cuando falla el cifrado."
+
+msgid "Signs the DNS answers of the domain so that nobody can forge them."
+msgstr "Firma las respuestas DNS del dominio para que nadie pueda falsificarlas."
+
+msgid "Domain added. Click \"Check now\" to read its DNS records."
+msgstr "Dominio añadido. Haga clic en \"Comprobar ahora\" para leer sus registros DNS."
+
+msgid "Domain saved."
+msgstr "Dominio guardado."
+
+msgid "Domain removed from the list."
+msgstr "Dominio quitado de la lista."
+
+msgid "DNS records read."
+msgstr "Registros DNS leídos."
+
+msgid "%d domain checked."
+msgid_plural "%d domains checked."
+msgstr[0] "%d dominio comprobado."
+msgstr[1] "%d dominios comprobados."
+
+msgid "Not saved: enter the IP address of a DNS server, for example 192.0.2.53, or leave empty."
+msgstr "No guardado: introduzca la dirección IP de un servidor DNS, por ejemplo 192.0.2.53, o déjelo vacío."
+
+msgid "DNS server saved."
+msgstr "Servidor DNS guardado."
+
+msgid "Shows whether the e-mail domains of the organisation are protected against spoofing and phishing: who may send e-mails in their name (SPF), signature of the e-mails (DKIM), what receiving servers do with fake e-mails (DMARC), encryption between mail servers (MTA-STS, TLS-RPT), signature of the DNS (DNSSEC), and the expiry of the domains and of the certificate of the mail servers."
+msgstr "Muestra si los dominios de correo de la organización están protegidos contra la suplantación y el phishing: quién puede enviar correos en su nombre (SPF), firma de los correos (DKIM), qué hacen los servidores receptores con los correos falsos (DMARC), cifrado entre servidores de correo (MTA-STS, TLS-RPT), firma del DNS (DNSSEC) y el vencimiento de los dominios y del certificado de los servidores de correo."
+
+msgid "Enter the domains of the organisation, with the DKIM selectors given by your e-mail service and the expiry dates shown by the registrar, then click \"Check now\". The plugin only reads public DNS records: it sends no e-mail, connects to no mail server and changes nothing. Fix the gaps with your DNS host, then check again and record the result as an effectiveness test of the control."
+msgstr "Introduzca los dominios de la organización, con los selectores DKIM indicados por su servicio de correo y las fechas de vencimiento que muestra el registrador, y haga clic en \"Comprobar ahora\". El plugin solo lee registros DNS públicos: no envía ningún correo, no se conecta a ningún servidor de correo y no modifica nada. Corrija las desviaciones con su proveedor DNS, vuelva a comprobar y registre el resultado como prueba de eficacia del control."
+
+msgid "ISO/IEC 27001, controls A.5.14 and A.8.21"
+msgstr "ISO/IEC 27001, controles A.5.14 y A.8.21"
+
+msgid "Mail domains without an enforced DMARC policy (%)"
+msgstr "Dominios de correo sin política DMARC aplicada (%)"
+
+msgid "Mail and domain security"
+msgstr "Seguridad del correo y de los dominios"
+
+msgid "The domain was not found in the DNS."
+msgstr "El dominio no se encontró en el DNS."
+
+msgid "Check the spelling of the domain, or remove it if it is no longer used."
+msgstr "Compruebe la ortografía del dominio, o quítelo si ya no se usa."
+
+msgid "No SPF record: anyone can send e-mails pretending to come from this domain."
+msgstr "Ningún registro SPF: cualquiera puede enviar correos que parecen venir de este dominio."
+
+msgid "Publish on %s a TXT record \"v=spf1 ... -all\" listing the servers allowed to send its e-mails (for a domain that never sends e-mail: \"v=spf1 -all\")."
+msgstr "Publique en %s un registro TXT \"v=spf1 ... -all\" que liste los servidores autorizados a enviar sus correos (para un dominio que nunca envía correo: \"v=spf1 -all\")."
+
+msgid "Several SPF records: receiving servers ignore all of them."
+msgstr "Varios registros SPF: los servidores receptores los ignoran todos."
+
+msgid "Merge them into a single TXT record starting with v=spf1."
+msgstr "Únalos en un único registro TXT que empiece por v=spf1."
+
+msgid "SPF allows every server in the world to send for the domain (+all)."
+msgstr "SPF permite a cualquier servidor del mundo enviar en nombre del dominio (+all)."
+
+msgid "Replace +all with -all (or ~all while you check the list of servers)."
+msgstr "Sustituya +all por -all (o ~all mientras comprueba la lista de servidores)."
+
+msgid "SPF does not say what to do with the other servers (?all or no all)."
+msgstr "SPF no indica qué hacer con los demás servidores (?all o sin all)."
+
+msgid "End the record with -all, or ~all while you check the list of servers."
+msgstr "Termine el registro con -all, o ~all mientras comprueba la lista de servidores."
+
+msgid "SPF needs more than 10 DNS lookups: receiving servers may reject it."
+msgstr "SPF necesita más de 10 consultas DNS: los servidores receptores pueden rechazarlo."
+
+msgid "Reduce the number of include, a and mx mechanisms of the record."
+msgstr "Reduzca el número de mecanismos include, a y mx del registro."
+
+msgid "SPF only marks the other servers as suspicious (~all)."
+msgstr "SPF solo marca los demás servidores como sospechosos (~all)."
+
+msgid "Move to -all once every service that sends e-mail for you is listed."
+msgstr "Pase a -all cuando estén listados todos los servicios que envían correo por usted."
+
+msgid "No DMARC policy: receiving servers do not know what to do with fake e-mails."
+msgstr "Ninguna política DMARC: los servidores receptores no saben qué hacer con los correos falsos."
+
+msgid "Publish a TXT record on _dmarc.%s starting with \"v=DMARC1; p=none; rua=mailto:...\", read the reports, then move to p=quarantine and p=reject."
+msgstr "Publique un registro TXT en _dmarc.%s que empiece por \"v=DMARC1; p=none; rua=mailto:...\", lea los informes y pase después a p=quarantine y p=reject."
+
+msgid "The DMARC record is invalid or published several times."
+msgstr "El registro DMARC no es válido o está publicado varias veces."
+
+msgid "Keep a single record with p=none, p=quarantine or p=reject."
+msgstr "Conserve un único registro con p=none, p=quarantine o p=reject."
+
+msgid "DMARC only observes (p=none): fake e-mails are still delivered."
+msgstr "DMARC solo observa (p=none): los correos falsos se siguen entregando."
+
+msgid "After reading the reports, move to p=quarantine, then p=reject."
+msgstr "Tras leer los informes, pase a p=quarantine y luego a p=reject."
+
+msgid "DMARC applies to only part of the e-mails (pct below 100)."
+msgstr "DMARC solo se aplica a una parte de los correos (pct inferior a 100)."
+
+msgid "Raise pct to 100, or remove it."
+msgstr "Suba pct a 100, o elimínelo."
+
+msgid "DMARC sends no report (no rua address)."
+msgstr "DMARC no envía ningún informe (sin dirección rua)."
+
+msgid "Add rua=mailto:... to receive the reports of the receiving servers."
+msgstr "Añada rua=mailto:... para recibir los informes de los servidores receptores."
+
+msgid "A declared DKIM selector has no published key."
+msgstr "Un selector DKIM declarado no tiene clave publicada."
+
+msgid "Check the selector name given by your e-mail service, or publish its key."
+msgstr "Compruebe el nombre del selector indicado por su servicio de correo, o publique su clave."
+
+msgid "A DKIM key is revoked (empty key)."
+msgstr "Una clave DKIM está revocada (clave vacía)."
+
+msgid "Remove the selector from the list if it is no longer used."
+msgstr "Quite el selector de la lista si ya no se usa."
+
+msgid "No DKIM selector declared: the signature of the e-mails is not checked."
+msgstr "Ningún selector DKIM declarado: la firma de los correos no se comprueba."
+
+msgid "Enter the selectors given by your e-mail service (for example selector1 and selector2 for Microsoft 365, google for Google Workspace)."
+msgstr "Introduzca los selectores indicados por su servicio de correo (por ejemplo selector1 y selector2 para Microsoft 365, google para Google Workspace)."
+
+msgid "The domain is not signed with DNSSEC: its DNS answers can be forged."
+msgstr "El dominio no está firmado con DNSSEC: sus respuestas DNS pueden falsificarse."
+
+msgid "Enable DNSSEC with your registrar or DNS host."
+msgstr "Active DNSSEC con su registrador o proveedor DNS."
+
+msgid "DNSSEC could not be checked: the DNS server did not answer or does not relay DNSSEC records."
+msgstr "No se pudo comprobar DNSSEC: el servidor DNS no respondió o no transmite los registros DNSSEC."
+
+msgid "Check the domain again later, or choose another DNS server at the bottom of the page."
+msgstr "Vuelva a comprobar el dominio más tarde, o elija otro servidor DNS al final de la página."
+
+msgid "No MTA-STS: encryption between mail servers is not required."
+msgstr "Sin MTA-STS: el cifrado entre servidores de correo no es obligatorio."
+
+msgid "Publish an MTA-STS policy (record _mta-sts.%s and policy file) once your mail servers accept encrypted connections."
+msgstr "Publique una política MTA-STS (registro _mta-sts.%s y archivo de política) cuando sus servidores de correo acepten conexiones cifradas."
+
+msgid "No TLS-RPT: you receive no report of encryption failures."
+msgstr "Sin TLS-RPT: no recibe ningún informe de los fallos de cifrado."
+
+msgid "Publish a TXT record on _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+msgstr "Publique un registro TXT en _smtp._tls.%s: \"v=TLSRPTv1; rua=mailto:...\"."
+
+msgid "The registration of the domain has expired."
+msgstr "El registro del dominio ha vencido."
+
+msgid "Renew it with the registrar at once: an expired domain can be bought by someone else."
+msgstr "Renuévelo de inmediato con el registrador: un dominio vencido puede comprarlo otra persona."
+
+msgid "The registration of the domain expires within 30 days."
+msgstr "El registro del dominio vence en menos de 30 días."
+
+msgid "Renew it, or enable automatic renewal with the registrar."
+msgstr "Renuévelo, o active la renovación automática con el registrador."
+
+msgid "Expiry date of the domain not entered."
+msgstr "Fecha de vencimiento del dominio no introducida."
+
+msgid "Enter the date shown by the registrar to be alerted before it expires."
+msgstr "Introduzca la fecha que muestra el registrador para recibir un aviso antes del vencimiento."
+
+msgid "The certificate of the mail servers has expired."
+msgstr "El certificado de los servidores de correo ha vencido."
+
+msgid "Renew it: other servers may refuse to deliver e-mail securely."
+msgstr "Renuévelo: otros servidores pueden negarse a entregar el correo de forma segura."
+
+msgid "The certificate of the mail servers expires within 30 days."
+msgstr "El certificado de los servidores de correo vence en menos de 30 días."
+
+msgid "Plan its renewal."
+msgstr "Planifique su renovación."
+
+msgid "To improve"
+msgstr "A mejorar"
+
+msgid "Not checked yet"
+msgstr "Aún no comprobado"
+
+msgid "Enter a domain name only, for example example.org (no e-mail address, no https://)."
+msgstr "Introduzca solo un nombre de dominio, por ejemplo example.org (sin dirección de correo ni https://)."
+
+msgid "This domain is already followed in this entity."
+msgstr "Este dominio ya se supervisa en esta entidad."
+
+msgid "Domain not found."
+msgstr "Dominio no encontrado."
+
+msgid "You do not have the right to change the domains."
+msgstr "No tiene derecho a modificar los dominios."
+
+msgid "Domain not found"
+msgstr "Dominio no encontrado"
+
+msgid "Several records"
+msgstr "Varios registros"
+
+msgid "Strict (-all)"
+msgstr "Estricto (-all)"
+
+msgid "Lenient (~all)"
+msgstr "Flexible (~all)"
+
+msgid "Anyone (+all)"
+msgstr "Cualquiera (+all)"
+
+msgid "Redirected"
+msgstr "Redirigido"
+
+msgid "Neutral"
+msgstr "Neutro"
+
+msgid "Invalid"
+msgstr "No válido"
+
+msgid "Reject (reject)"
+msgstr "Rechazo (reject)"
+
+msgid "Quarantine (quarantine)"
+msgstr "Cuarentena (quarantine)"
+
+msgid "Monitoring (none)"
+msgstr "Observación (none)"
+
+msgid "No selector declared"
+msgstr "Ningún selector declarado"
+
+msgid "%1$d of %2$d keys found"
+msgstr "%1$d de %2$d claves encontradas"
+
+msgid "Not published"
+msgstr "No publicado"
+
+msgid "Zone signed"
+msgstr "Zona firmada"
+
+msgid "Zone not signed"
+msgstr "Zona no firmada"
+
+msgid "Expired on %s"
+msgstr "Vencido el %s"
+
+msgid "In %d day"
+msgid_plural "In %d days"
+msgstr[0] "En %d día"
+msgstr[1] "En %d días"
+
+msgid "Not entered"
+msgstr "No introducido"
+
+msgid "No domain entered yet"
+msgstr "Ningún dominio introducido"
+
+msgid "Enter the domains"
+msgstr "Introducir los dominios"
+
+msgid "DMARC enforced on %1$d of %2$d domain(s)"
+msgstr "DMARC aplicado en %1$d de %2$d dominio(s)"
+
+msgid "%d domain(s) with a gap to fix"
+msgstr "%d dominio(s) con una desviación que corregir"
+
+msgid "%d domain(s) or certificate(s) expiring or expired"
+msgstr "%d dominio(s) o certificado(s) próximos a vencer o vencidos"
+
+msgid "%d domain(s) not checked yet"
+msgstr "%d dominio(s) aún no comprobado(s)"

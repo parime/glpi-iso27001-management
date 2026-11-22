@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Access;
 
+use GlpiPlugin\Grcmanager\Services\People\PersonnelComplianceRules;
+
 /**
  * Issue #866 : suggestion « garder / retirer / à examiner » de chaque compte d'une revue des accès,
  * calculée par des règles explicites (pas d'IA), sans dépendance à GLPI pour être testée
@@ -33,7 +35,9 @@ namespace GlpiPlugin\Grcmanager\Services\Access;
  *   (assetsign) dont la date est passée ;
  * - à examiner : départ ou fin du compte dans les N jours, aucune connexion depuis N jours ou
  *   compte jamais utilisé, changement de groupes sans revue des profils, profil à privilèges
- *   (et, s'il n'a aucune MFA connue, la raison le dit) ;
+ *   (et, s'il n'a aucune MFA connue, la raison le dit), écart de la fiche de conformité du
+ *   collaborateur (#932 : formation obligatoire non suivie ou expirée, charte envoyée mais non
+ *   signée, politique non lue, délai dépassé) ;
  * - garder : aucun de ces signaux.
  */
 final class AccessReviewSuggestionRules
@@ -51,6 +55,7 @@ final class AccessReviewSuggestionRules
     public const R_GROUP_CHANGED = 'group_changed';
     public const R_PRIVILEGED = 'privileged';
     public const R_PRIVILEGED_NO_MFA = 'privileged_no_mfa';
+    public const R_COMPLIANCE_GAP = 'compliance_gap';
     public const R_NO_SIGNAL = 'no_signal';
 
     /** Raisons qui conduisent à « retirer ». */
@@ -60,11 +65,23 @@ final class AccessReviewSuggestionRules
     public const INACTIVE_DAYS = [0, 30, 60, 90, 180, 365];
     public const LEAVING_DAYS = [0, 7, 15, 30, 60, 90];
 
+    /**
+     * Issue #932 : écarts de la fiche de conformité du collaborateur retenus comme signal
+     * (« composante.code » de PersonnelComplianceRules). Seuls les manquements de la personne à
+     * une demande réelle comptent : l'absence de toute campagne (aucune formation assignée, aucune
+     * charte envoyée) ou une donnée RH jamais saisie (vérification préalable, engagement de
+     * confidentialité) n'en sont pas, sinon tous les comptes seraient « à examiner ».
+     */
+    public const COMPLIANCE_SIGNALS = [
+        'training.pending', 'training.renewal_overdue', 'charter.pending', 'policies.pending',
+    ];
+
     /** Fenêtre d'observation d'un changement de groupes. */
     public const GROUP_CHANGE_DAYS = 90;
 
     /**
-     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool}
+     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool,
+     *     compliance: bool}
      */
     public static function defaults(): array
     {
@@ -74,6 +91,7 @@ final class AccessReviewSuggestionRules
             'privileged'    => true,
             'mfa'           => true,
             'group_change'  => true,
+            'compliance'    => true,
         ];
     }
 
@@ -81,7 +99,8 @@ final class AccessReviewSuggestionRules
      * Réglages d'une campagne : valeurs connues gardées, le reste aux valeurs par défaut. Une valeur
      * absente d'un formulaire envoyé (case décochée) se passe à false par l'appelant.
      *
-     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool}
+     * @return array{inactive_days: int, leaving_days: int, privileged: bool, mfa: bool, group_change: bool,
+     *     compliance: bool}
      */
     public static function normalize(mixed $settings): array
     {
@@ -105,6 +124,7 @@ final class AccessReviewSuggestionRules
             'privileged'    => $flag($settings['privileged'] ?? null, $defaults['privileged']),
             'mfa'           => $flag($settings['mfa'] ?? null, $defaults['mfa']),
             'group_change'  => $flag($settings['group_change'] ?? null, $defaults['group_change']),
+            'compliance'    => $flag($settings['compliance'] ?? null, $defaults['compliance']),
         ];
     }
 
@@ -113,7 +133,7 @@ final class AccessReviewSuggestionRules
      *
      * Faits attendus (tous facultatifs) : is_deleted_ldap, end_date, departure_date, last_login,
      * date_creation, privileged_profiles (noms), mfa_level (strong, weak, none ; null si inconnu),
-     * group_changed (bool).
+     * group_changed (bool), compliance_gaps (voir complianceGaps()).
      *
      * @param array<string, mixed> $facts
      * @param array<string, mixed> $settings voir normalize()
@@ -169,6 +189,19 @@ final class AccessReviewSuggestionRules
             $add(self::R_GROUP_CHANGED, ['days' => self::GROUP_CHANGE_DAYS]);
         }
 
+        if ($settings['compliance']) {
+            foreach (is_array($facts['compliance_gaps'] ?? null) ? $facts['compliance_gaps'] : [] as $gap) {
+                $signal = is_array($gap) ? ($gap['component'] ?? '') . '.' . ($gap['detail'] ?? '') : '';
+                if (in_array($signal, self::COMPLIANCE_SIGNALS, true)) {
+                    $add(self::R_COMPLIANCE_GAP, [
+                        'component' => (string) $gap['component'],
+                        'detail'    => (string) $gap['detail'],
+                        'titles'    => array_values(array_map('strval', (array) ($gap['titles'] ?? []))),
+                    ]);
+                }
+            }
+        }
+
         $privileged = array_values(array_filter(
             array_map('strval', is_array($facts['privileged_profiles'] ?? null) ? $facts['privileged_profiles'] : []),
             static fn (string $name): bool => $name !== ''
@@ -190,6 +223,40 @@ final class AccessReviewSuggestionRules
         }
 
         return ['suggestion' => $suggestion, 'reasons' => $reasons];
+    }
+
+    /**
+     * Issue #932 : écarts retenus d'une fiche de conformité évaluée (composantes de
+     * PersonnelComplianceRules::evaluate()) : composante en retard dont le code figure dans
+     * COMPLIANCE_SIGNALS, avec les intitulés concernés (formations, politiques, campagne de charte).
+     *
+     * @param list<array<string, mixed>> $components
+     * @return list<array{component: string, detail: string, titles: list<string>}>
+     */
+    public static function complianceGaps(array $components): array
+    {
+        $gaps = [];
+        foreach ($components as $component) {
+            $key = (string) ($component['key'] ?? '');
+            $code = (string) ($component['code'] ?? '');
+            if (
+                ($component['status'] ?? '') !== PersonnelComplianceRules::LATE
+                || !in_array($key . '.' . $code, self::COMPLIANCE_SIGNALS, true)
+            ) {
+                continue;
+            }
+            $params = is_array($component['params'] ?? null) ? $component['params'] : [];
+            $titles = is_array($params['titles'] ?? null)
+                ? $params['titles']
+                : (isset($params['campaign']) && $params['campaign'] !== '' ? [$params['campaign']] : []);
+            $gaps[] = [
+                'component' => $key,
+                'detail'    => $code,
+                'titles'    => array_values(array_map('strval', $titles)),
+            ];
+        }
+
+        return $gaps;
     }
 
     /**
