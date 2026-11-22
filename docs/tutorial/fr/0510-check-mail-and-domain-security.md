@@ -25,5 +25,6 @@ serveur de messagerie. Tant qu'aucun domaine n'est saisi, il ne fait aucune requ
 
 Si la colonne DNSSEC reste « Inconnu », le serveur DNS du serveur GLPI ne relaie pas les
 enregistrements DNSSEC (c'est le cas dans Docker) : saisissez l'adresse IP d'un autre serveur DNS de
-l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC**, puis vérifiez de
+l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC** (bouton **Régler la connexion** : onglet
+**Connecteurs** de la configuration), **Tester la connexion**, puis vérifiez de
 nouveau.

@@ -173,6 +173,19 @@ final class VeeamClient
     }
 
     /**
+     * Essai de la connexion (issue #1042, bouton « Tester la connexion » de la configuration) :
+     * demande d'un jeton d'accès avec le compte de lecture. Code d'erreur, vide si elle a réussi.
+     */
+    public function test(): string
+    {
+        if ($this->baseUrl === '' || trim($this->username) === '' || $this->password === '') {
+            return self::ERROR_CONFIG;
+        }
+
+        return $this->token()['error'];
+    }
+
+    /**
      * @param array<string, string> $query
      * @return array{items: list<array<string, mixed>>, error: string}
      */

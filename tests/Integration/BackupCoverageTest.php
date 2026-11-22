@@ -315,8 +315,19 @@ final class BackupCoverageTest extends GrcmanagerIntegrationTestCase
         );
         try {
             $data = BackupCoverage::pageData();
-            $this->assertTrue($data['veeam']['has_password']);
-            $this->assertSame('https://veeam.exemple.test:9419', $data['veeam']['url']);
+            $this->assertTrue($data['veeam']['configured']);
+            // Issue #1042 : la connexion se règle dans l'onglet Connecteurs de la configuration.
+            $config = \GlpiPlugin\Grcmanager\Config\Block\VeeamConnectorBlock::data();
+            $this->assertTrue($config['veeam']['has_password']);
+            $this->assertSame('https://veeam.exemple.test:9419', $config['veeam']['url']);
+            $this->assertArrayNotHasKey('password', $config['veeam']);
+            $block = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
+                '@grcmanager/config/blocks/_veeam_connector.html.twig',
+                $config + ['csrf_token' => '', 'can_edit_config' => true]
+            );
+            $this->assertStringContainsString('name="save_veeam"', $block);
+            $this->assertStringContainsString('name="test_veeam"', $block);
+            $this->assertStringNotContainsString('mot-de-passe-fictif-838', $block);
             $html = \Glpi\Application\View\TemplateRenderer::getInstance()->render(
                 '@grcmanager/backup_coverage.html.twig',
                 $data
@@ -326,6 +337,7 @@ final class BackupCoverageTest extends GrcmanagerIntegrationTestCase
             $this->assertStringContainsString('inconnu-' . $this->suffix, $html, 'Machines non rapprochées listées.');
             $this->assertStringContainsString('name="import_backup_hosts"', $html);
             $this->assertStringContainsString('name="fetch_veeam"', $html);
+            $this->assertStringNotContainsString('name="save_veeam"', $html);
             $this->assertStringNotContainsString('mot-de-passe-fictif-838', $html);
             $this->assertArrayNotHasKey('password', $data['veeam']);
         } finally {
