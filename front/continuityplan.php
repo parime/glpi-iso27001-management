@@ -17,7 +17,6 @@
 
 use GlpiPlugin\Grcmanager\ContinuityPlan;
 use GlpiPlugin\Grcmanager\Menu;
-use GlpiPlugin\Grcmanager\PageHelp;
 
 // Issue #1083 : plans de continuité et de reprise (PCA, PRA, PCI, PRI), A.5.29 et A.5.30. Droit de la
 // continuité ; seuls les plans et processus des entités de la session sont lus.
@@ -29,7 +28,7 @@ Menu::header(
     ContinuityPlan::getSearchURL()
 );
 Menu::showSection(ContinuityPlan::class);
-PageHelp::show('continuityplan');
+\GlpiPlugin\Grcmanager\PageHelp::show('continuityplan');
 ContinuityPlan::showRegister();
 
 Html::footer();

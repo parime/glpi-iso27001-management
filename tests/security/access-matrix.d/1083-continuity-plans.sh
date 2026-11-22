@@ -4,6 +4,7 @@
 # registres sensibles), lecture seule pour le lecteur, modification par le gestionnaire de A ; un plan
 # de B n'est ni nomme ni ouvert hors super-admin. Le circuit d'approbation et les tests exigent de
 # pouvoir modifier le plan ; repondre exige d'etre approbateur de la version en attente.
+# Pages : front/continuityplan.php, front/continuityplan.form.php, front/continuityplan.export.php.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
 readable front/continuityplan.php
 cp_tab() { # onglet, id du plan
