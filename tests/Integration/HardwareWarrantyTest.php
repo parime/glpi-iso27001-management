@@ -168,7 +168,11 @@ final class HardwareWarrantyTest extends GrcmanagerIntegrationTestCase
         $this->assertNotNull($page);
         $entityName = 'PhpUnitDemo Atelier ' . $this->suffix;
         $mineGroups = array_values(array_filter($page['groups'], fn (array $g): bool => $g['entity'] === $entityName));
-        $this->assertSame([\Computer::class, \Monitor::class], array_column($mineGroups, 'itemtype'));
+        // Groupes rangés par nom de type traduit (Ordinateur après Moniteur en français) : l'ordre
+        // dépend de la langue, seuls les types présents sont comparés.
+        $types = array_column($mineGroups, 'itemtype');
+        sort($types);
+        $this->assertSame([\Computer::class, \Monitor::class], $types);
         $this->assertSame(
             [R::STATUS_EXPIRED => 1, R::STATUS_SOON => 1, R::STATUS_COVERED => 2, R::STATUS_UNKNOWN => 2],
             $mineGroups[0]['counts']
