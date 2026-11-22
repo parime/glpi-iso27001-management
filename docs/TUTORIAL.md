@@ -1865,6 +1865,22 @@ Rien n'est approuvé automatiquement et aucune politique existante n'est remplac
 fois le même modèle crée deux brouillons distincts. La carte d'un modèle déjà importé indique les
 politiques créées.
 
+### Étape 63 : Compléter la vue Sécurité 360° avec les autres modules
+
+La vue Sécurité 360° (voir étape 54) s'enrichit à mesure que les modules du plugin
+sont utilisés : chaque source n'apparaît qu'une fois ses données importées.
+
+1. **Classification** : classez l'actif (onglet **Classification C/I/D**). Un actif non classé apparaît
+   « à surveiller », car sa criticité règle les délais de sauvegarde, de journaux et de correctifs.
+2. **Correctifs**, **fin de support** et **garantie** : lus dans l'inventaire de GLPI et le cache
+   de fin de support déjà rempli ; une fin de vie constructeur atteinte est critique.
+3. **EDR** : avec le connecteur SentinelOne, l'onglet montre si un agent actif protège l'ordinateur
+   et si des alertes attendent une vérification.
+4. **Supervision**, **sauvegardes** et **journaux** : après une lecture Zabbix ou un import des
+   outils de sauvegarde et de collecte, l'actif affiche son état et le lien vers la page du module.
+
+Le score global tient compte de toutes les sources évaluées ; aucune n'est modifiée depuis l'onglet.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3611,3 +3627,19 @@ suppliers, teleworking, cryptography...), under the CC0 1.0 licence:
 Nothing is approved automatically and no existing policy is replaced: importing the same template
 twice creates two separate drafts. The card of a template already imported lists the policies
 created.
+
+### Step 63: Complete the Security 360° view with the other modules
+
+The Security 360° view (see step 54) grows as the plugin modules are used: each
+source only appears once its data has been imported.
+
+1. **Classification**: classify the asset (**C/I/A classification** tab). An unclassified asset is shown
+   "to watch", as its criticality sets the backup, log and patch delays.
+2. **Patches**, **end of support** and **warranty**: read from the GLPI inventory and the end of
+   support cache already filled; a manufacturer end of life reached is critical.
+3. **EDR**: with the SentinelOne connector, the tab shows whether an active agent protects the
+   computer and whether alerts are waiting to be reviewed.
+4. **Monitoring**, **backups** and **logs**: after a Zabbix reading or an import from the backup and
+   log collection tools, the asset shows its status and the link to the module page.
+
+The overall score takes every evaluated source into account; nothing is changed from the tab.
