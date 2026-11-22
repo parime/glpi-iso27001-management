@@ -52,6 +52,6 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 
 $params = QueryBuilder::manageParams(DataBreach::class, $_GET);
 
-Search::showList(DataBreach::class, $params, DefaultSearchColumns::COLUMNS[DataBreach::class]);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(DataBreach::class, $params, DefaultSearchColumns::COLUMNS[DataBreach::class]);
 
 Html::footer();

@@ -32,7 +32,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\RiskIndicator::$rightname, READ);
 \GlpiPlugin\Grcmanager\PageHelp::show('riskindicator');
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\RiskIndicator::class, $_GET);
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\RiskIndicator::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\RiskIndicator::class]

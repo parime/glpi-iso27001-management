@@ -34,7 +34,7 @@ if (\GlpiPlugin\Grcmanager\Playbook::canCreate()) {
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Playbook::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Playbook::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Playbook::class]

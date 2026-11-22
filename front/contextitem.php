@@ -37,6 +37,6 @@ ContextItem::showOverview();
 
 $params = QueryBuilder::manageParams(ContextItem::class, $_GET);
 
-Search::showList(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
 
 Html::footer();

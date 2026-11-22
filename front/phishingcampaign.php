@@ -39,6 +39,6 @@ Session::checkRight(PhishingCampaign::$rightname, READ);
 ]);
 
 $params = QueryBuilder::manageParams(PhishingCampaign::class, $_GET);
-Search::showList(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
 
 Html::footer();

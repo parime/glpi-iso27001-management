@@ -27,6 +27,6 @@ Session::checkRight(EbiosStudy::$rightname, READ);
 \GlpiPlugin\Grcmanager\PageHelp::show('ebiosstudy');
 
 $params = QueryBuilder::manageParams(EbiosStudy::class, $_GET);
-Search::showList(EbiosStudy::class, $params, DefaultSearchColumns::COLUMNS[EbiosStudy::class]);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(EbiosStudy::class, $params, DefaultSearchColumns::COLUMNS[EbiosStudy::class]);
 
 Html::footer();

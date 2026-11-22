@@ -46,7 +46,7 @@ if (SupplierQuestionnaireTemplate::canCreate()) {
 
 $params = QueryBuilder::manageParams(SupplierQuestionnaireTemplate::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     SupplierQuestionnaireTemplate::class,
     $params,
     DefaultSearchColumns::COLUMNS[SupplierQuestionnaireTemplate::class]
