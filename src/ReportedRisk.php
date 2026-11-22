@@ -433,8 +433,7 @@ class ReportedRisk extends ReportedRiskBase
         string $reason,
         int $riskId = 0,
         string $category = ''
-    ): array
-    {
+    ): array {
         $denied = ['error' => 'denied', 'risks_id' => 0];
         $report = new self();
         if (!self::canTriage() || !$report->getFromDB($id)) {
