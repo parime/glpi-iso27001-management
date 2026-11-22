@@ -198,7 +198,8 @@ final class RiskTrajectoryRules
      * Trajectoire du registre : somme, à chaque date, des scores des risques dont la trajectoire est
      * tracée. La courbe réelle s'arrête aujourd'hui.
      *
-     * @param list<array{planned: list<array{0: string, 1: float}>, actual: list<array{0: string, 1: float}>}> $trajectories
+     * @param list<array{planned: list<array{0: string, 1: float}>, actual: list<array{0: string, 1: float}>}>
+     *        $trajectories
      *
      * @return array{planned: list<array{0: string, 1: float}>, actual: list<array{0: string, 1: float}>}
      */
