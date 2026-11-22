@@ -22,6 +22,7 @@ use CommonGLPI;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\AssetClassificationBase;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
+use GlpiPlugin\Grcmanager\Services\Cve\ContextualSeverityRules as ContextRules;
 use GlpiPlugin\Grcmanager\Services\Impact\RecoveryObjectives;
 use GlpiPlugin\Grcmanager\Services\Ui\Badge;
 use GlpiPlugin\Grcmanager\Services\Ui\Fragment;
@@ -152,6 +153,23 @@ class AssetClassification extends AssetClassificationBase
             'datatype' => 'specific',
         ];
 
+        // Issue #887 : environnement et exposition déclarés.
+        $tab[] = [
+            'id'       => 7,
+            'table'    => $this->getTable(),
+            'field'    => 'environment',
+            'name'     => __('Environment', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
+        $tab[] = [
+            'id'       => 8,
+            'table'    => $this->getTable(),
+            'field'    => 'exposure',
+            'name'     => __('Exposure to the Internet', 'grcmanager'),
+            'datatype' => 'specific',
+        ];
+
         return $tab;
     }
 
@@ -166,6 +184,17 @@ class AssetClassification extends AssetClassificationBase
         }
         if (in_array($field, ['rto_hours', 'rpo_hours'], true)) {
             return htmlescape(self::getRecoveryOptions()[(int) ($values[$field] ?? 0)] ?? '');
+        }
+        if ($field === 'environment') {
+            return htmlescape(
+                VulnerabilityContext::getEnvironmentLabels()[(string) ($values[$field] ?? '')]
+                    ?? __('Not specified', 'grcmanager')
+            );
+        }
+        if ($field === 'exposure') {
+            return htmlescape(
+                VulnerabilityContext::getExposureLabels()[ContextRules::sanitizeExposure($values[$field] ?? '')]
+            );
         }
 
         return parent::getSpecificValueToDisplay($field, $values, $options);
@@ -210,6 +239,13 @@ class AssetClassification extends AssetClassificationBase
             if (array_key_exists($axis, $input)) {
                 $input[$axis] = ClassificationLevels::sanitize($input[$axis]) ?? '';
             }
+        }
+        // Issue #887 : environnement et exposition, uniquement parmi les valeurs proposées.
+        if (array_key_exists('environment', $input)) {
+            $input['environment'] = ContextRules::sanitizeEnvironment($input['environment']);
+        }
+        if (array_key_exists('exposure', $input)) {
+            $input['exposure'] = ContextRules::sanitizeExposure($input['exposure']);
         }
         // Issue #177, phase 2 : objectifs de reprise, uniquement parmi les durées proposées.
         foreach (['rto_hours', 'rpo_hours'] as $field) {
@@ -342,6 +378,15 @@ class AssetClassification extends AssetClassificationBase
             'classified'     => ClassificationLevels::isClassified($classification),
             'levels'         => self::getLevels(),
             'recovery'       => self::getRecoveryOptions(),
+            // Issue #887 : environnement et exposition, pour le niveau des vulnérabilités.
+            'environments'   => VulnerabilityContext::getEnvironmentLabels(),
+            'exposures'      => VulnerabilityContext::getExposureLabels(),
+            'context'        => VulnerabilityContext::forItem(
+                $item->getType(),
+                (int) $item->getID(),
+                $classification ?? []
+            ),
+            'flows_url'      => Session::haveRight(NetworkFlow::RIGHTNAME, READ) ? NetworkFlow::getSearchURL() : '',
             'can_edit'       => Session::haveRight(self::$rightname, UPDATE),
             'action'         => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/assetclassification.form.php',
         ]);

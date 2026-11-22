@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "A vulnerability found only on test or development machines can be fixed one step later, if the option is enabled in the remediation deadlines."
+msgstr "Une vulnérabilité présente seulement sur des machines de test ou de développement peut être corrigée un cran plus tard, si l'option est activée dans les délais de correction."
+
+msgid "Adjust the level to the context of the machines"
+msgstr "Ajuster le niveau au contexte des machines"
+
+msgid "All affected machines are in test or development and none is reachable from the Internet: the level is one step less urgent."
+msgstr "Toutes les machines touchées sont en test ou en développement et aucune n'est joignable depuis Internet : le niveau est un cran moins urgent."
+
+msgid "At least one affected machine is reachable from the Internet: the level, and therefore the deadline, is one step more urgent."
+msgstr "Au moins une machine touchée est joignable depuis Internet : le niveau, et donc le délai, est un cran plus urgent."
+
+msgid "By default, an asset targeted by an active Internet publication flow of the network flow matrix counts as reachable from the Internet: its vulnerabilities become one step more urgent."
+msgstr "Par défaut, un actif visé par un flux actif de publication vers Internet de la matrice des flux compte comme joignable depuis Internet : ses vulnérabilités deviennent un cran plus urgentes."
+
+msgid "Deduced from the network flow matrix"
+msgstr "Déduite de la matrice des flux"
+
+msgid "Development"
+msgstr "Développement"
+
+msgid "Environment"
+msgstr "Environnement"
+
+msgid "Exposure to the Internet"
+msgstr "Exposition à Internet"
+
+msgid "Internal network only"
+msgstr "Réseau interne seulement"
+
+msgid "Lowered: test or development machines only"
+msgstr "Abaissé : machines de test ou de développement seulement"
+
+msgid "Not applicable or accepted risk: write the justification in a waiver. Once approved, the waiver replaces the deadline until its end date."
+msgstr "Non applicable ou risque accepté : écrivez la justification dans une dérogation. Une fois validée, la dérogation remplace l'échéance jusqu'à sa date de fin."
+
+msgid "Not reachable from the Internet"
+msgstr "Non joignable depuis Internet"
+
+msgid "Not specified (counted as production)"
+msgstr "Non renseigné (compte comme la production)"
+
+msgid "One step more urgent when an affected machine is reachable from the Internet (declared in its C/I/A classification tab, or targeted by an Internet publication flow of the network flow matrix); one step less urgent when all affected machines are in test or development. Actively exploited vulnerabilities (KEV) never move, and a deadline already known is never pushed back."
+msgstr "Un cran plus urgent quand une machine touchée est joignable depuis Internet (déclarée dans son onglet de classification C/I/D, ou visée par un flux de publication vers Internet de la matrice des flux) ; un cran moins urgent quand toutes les machines touchées sont en test ou en développement. Les vulnérabilités exploitées activement (KEV) ne bougent jamais, et une échéance déjà connue n'est jamais repoussée."
+
+msgid "Production"
+msgstr "Production"
+
+msgid "Raised: exposed to the Internet"
+msgstr "Relevé : exposé à Internet"
+
+msgid "Reachable from the Internet"
+msgstr "Joignable depuis Internet"
+
+msgid "Set aside with a justification"
+msgstr "Écarter avec une justification"
+
+msgid "Test or acceptance"
+msgstr "Test ou recette"
+
+msgid "(%d Internet publication flow in the network flow matrix)"
+msgid_plural "(%d Internet publication flows in the network flow matrix)"
+msgstr[0] "(%d flux de publication vers Internet dans la matrice des flux)"
+msgstr[1] "(%d flux de publication vers Internet dans la matrice des flux)"
