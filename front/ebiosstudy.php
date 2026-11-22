@@ -18,6 +18,7 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\EbiosStudy;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Ui\SearchPage;
 
 // Issue #376 : études EBIOS Risk Manager.
 Session::checkRight(EbiosStudy::$rightname, READ);
@@ -27,6 +28,6 @@ Session::checkRight(EbiosStudy::$rightname, READ);
 \GlpiPlugin\Grcmanager\PageHelp::show('ebiosstudy');
 
 $params = QueryBuilder::manageParams(EbiosStudy::class, $_GET);
-\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(EbiosStudy::class, $params, DefaultSearchColumns::COLUMNS[EbiosStudy::class]);
+SearchPage::show(EbiosStudy::class, $params, DefaultSearchColumns::COLUMNS[EbiosStudy::class]);
 
 Html::footer();

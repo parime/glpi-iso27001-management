@@ -18,6 +18,7 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\PhishingCampaign;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Ui\SearchPage;
 
 // Issue #604 : campagnes de simulation d'hameçonnage. Droit général du plugin ; liste et tendance
 // limitées aux entités de la session, taux seulement (le détail par personne est sur la fiche, avec
@@ -39,6 +40,6 @@ Session::checkRight(PhishingCampaign::$rightname, READ);
 ]);
 
 $params = QueryBuilder::manageParams(PhishingCampaign::class, $_GET);
-\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
+SearchPage::show(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
 
 Html::footer();

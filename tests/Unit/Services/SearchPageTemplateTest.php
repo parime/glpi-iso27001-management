@@ -58,15 +58,16 @@ final class SearchPageTemplateTest extends TestCase
     {
         $twig = (string) file_get_contents(dirname(__DIR__, 3) . '/templates/_search_page.html.twig');
 
-        foreach ([
+        $expected = [
             'search-container',
             'data-glpi-search-container',
             "include('layout/parts/saved_searches.html.twig'",
             "user_pref('show_search_form')",
             'QueryBuilder::showGenericSearch',
             'Search::showList',
-        ] as $expected) {
-            self::assertStringContainsString($expected, $twig);
+        ];
+        foreach ($expected as $fragment) {
+            self::assertStringContainsString($fragment, $twig);
         }
     }
 }

@@ -18,6 +18,7 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Ui\SearchPage;
 
 // Issue #608 : contexte de l'organisation (enjeux et parties intéressées). Droit général du plugin ;
 // la recherche de GLPI limite la liste aux entités de la session.
@@ -37,6 +38,6 @@ ContextItem::showOverview();
 
 $params = QueryBuilder::manageParams(ContextItem::class, $_GET);
 
-\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
+SearchPage::show(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
 
 Html::footer();
