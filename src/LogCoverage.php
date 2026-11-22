@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager;
 
 use CommonGLPI;
+use CommonDBTM;
 use Computer;
 use ComputerType;
 use Config;
@@ -762,6 +763,31 @@ class LogCoverage extends CommonGLPI
         }
 
         return (string) ($obligation->fields['title'] ?? '');
+    }
+
+    /**
+     * Issue #837 : ligne d'un actif pour la vue Sécurité 360°, null si aucun hôte émetteur n'a encore été
+     * importé ou si l'actif n'est pas concerné (calcul du module, gardé en mémoire pour la requête).
+     *
+     * @return array<string, mixed>|null
+     */
+    public static function assetRow(CommonDBTM $item): ?array
+    {
+        if (!self::canView()) {
+            return null;
+        }
+        $data = self::data();
+        if ($data['platforms'] === []) {
+            return null;
+        }
+        $key = $item::class . ':' . (int) $item->getID();
+        foreach ($data['assets'] as $row) {
+            if (($row['key'] ?? null) === $key) {
+                return $row;
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -75,6 +75,20 @@ final class EndOfLifeInventory
     }
 
     /**
+     * Issue #837 : logiciels et système d'un seul actif visible (vue Sécurité 360°), sans parcourir
+     * le parc.
+     *
+     * @param class-string<\CommonDBTM> $itemtype
+     * @return list<Item>
+     */
+    public static function itemsOf(string $itemtype, int $id): array
+    {
+        $only = [$itemtype, $id];
+
+        return [...self::softwareRows(true, $only), ...self::operatingSystemRows(true, $only)];
+    }
+
+    /**
      * Noms en service dans tout le parc (tâche automatique), par type d'élément.
      *
      * @return list<array{kind: string, name: string}>
@@ -168,15 +182,16 @@ final class EndOfLifeInventory
     }
 
     /**
+     * @param array{0: string, 1: int}|null $only un seul actif [type, id] (vue Sécurité 360°)
      * @return list<Item>
      */
-    private static function softwareRows(bool $visibleOnly): array
+    private static function softwareRows(bool $visibleOnly, ?array $only = null): array
     {
         global $DB, $CFG_GLPI;
 
         $rows = [];
         foreach ($CFG_GLPI['software_types'] ?? [] as $itemtype) {
-            $assetCriteria = self::assetCriteria($itemtype, $visibleOnly);
+            $assetCriteria = self::assetCriteria($itemtype, $visibleOnly, $only);
             if ($assetCriteria === null) {
                 continue;
             }
@@ -225,16 +240,17 @@ final class EndOfLifeInventory
     }
 
     /**
+     * @param array{0: string, 1: int}|null $only un seul actif [type, id] (vue Sécurité 360°)
      * @return list<Item>
      */
-    private static function operatingSystemRows(bool $visibleOnly): array
+    private static function operatingSystemRows(bool $visibleOnly, ?array $only = null): array
     {
         global $DB, $CFG_GLPI;
 
         $link = 'glpi_items_operatingsystems';
         $rows = [];
         foreach ($CFG_GLPI['operatingsystem_types'] ?? [] as $itemtype) {
-            $assetCriteria = self::assetCriteria($itemtype, $visibleOnly);
+            $assetCriteria = self::assetCriteria($itemtype, $visibleOnly, $only);
             if ($assetCriteria === null) {
                 continue;
             }
@@ -284,13 +300,17 @@ final class EndOfLifeInventory
      * Critères sur la table de l'actif (ni corbeille ni gabarit ; entités actives et droit de
      * lecture pour l'affichage), null si le type n'est pas lisible.
      *
+     * @param array{0: string, 1: int}|null $only un seul actif [type, id] (vue Sécurité 360°)
      * @return array<mixed>|null
      */
-    private static function assetCriteria(mixed $itemtype, bool $visibleOnly): ?array
+    private static function assetCriteria(mixed $itemtype, bool $visibleOnly, ?array $only = null): ?array
     {
         global $DB;
 
         if (!is_string($itemtype) || !is_a($itemtype, \CommonDBTM::class, true)) {
+            return null;
+        }
+        if ($only !== null && $only[0] !== $itemtype) {
             return null;
         }
         if ($visibleOnly && !$itemtype::canView()) {
@@ -309,6 +329,9 @@ final class EndOfLifeInventory
         if ($visibleOnly && $DB->fieldExists($itemTable, 'entities_id')) {
             $recursive = $DB->fieldExists($itemTable, 'is_recursive');
             $criteria += getEntitiesRestrictCriteria($itemTable, '', '', $recursive);
+        }
+        if ($only !== null) {
+            $criteria["{$itemTable}.id"] = $only[1];
         }
 
         return $criteria;
