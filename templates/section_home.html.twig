@@ -1,0 +1,78 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1038 : page d'accueil d'une rubrique du menu GRC (GlpiPlugin\\Grcmanager\\Navigation\\SectionHome).
+   D'abord ce qui attend l'utilisateur dans la rubrique (éléments de « Mon espace »), puis les écrans
+   de la rubrique en cartes groupées. Seuls les écrans que le profil peut ouvrir sont listés. #}
+{{ include('@grcmanager/_page_help.html.twig', {
+   page: 'hub-' ~ key,
+   purpose: description,
+   expected: __('Start with what is overdue, then open the screen you need from the cards below.', 'grcmanager'),
+}) }}
+<div class="container-fluid my-2" id="grc-section-home" data-section="{{ key }}">
+   <h2 class="h3 d-flex align-items-center mb-3">
+      {% if icon %}<i class="{{ icon }} me-2" aria-hidden="true"></i>{% endif %}{{ title }}
+   </h2>
+
+   {% if has_todo %}
+      <section class="card mb-3" id="grc-section-todo" aria-labelledby="grc-section-todo-title">
+         <div class="card-header">
+            <h3 class="card-title" id="grc-section-todo-title"><i class="ti ti-list-check me-2" aria-hidden="true"></i>{{ __('What is waiting for you', 'grcmanager') }}</h3>
+            <div class="card-actions">
+               <span class="badge {{ todo_total > 0 ? 'bg-blue-subtle text-blue-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }}">{{ __('%d to do', 'grcmanager')|format(todo_total) }}</span>
+            </div>
+         </div>
+         <div class="card-body">
+            {% if todo is empty %}
+               <p class="mb-0 text-success"><i class="ti ti-circle-check me-1" aria-hidden="true"></i>{{ __('Nothing is waiting for you at the moment.', 'grcmanager') }}</p>
+            {% else %}
+               <ul class="list-unstyled mb-2">
+                  {% for row in todo %}
+                     <li class="d-flex flex-wrap align-items-center gap-2 py-1 border-bottom">
+                        {% if row.urgency == 'overdue' %}
+                           <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-alarm me-1" aria-hidden="true"></i>{{ __('%d day(s) late', 'grcmanager')|format(row.days_late) }}</span>
+                        {% elseif row.urgency == 'soon' %}
+                           <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-clock me-1" aria-hidden="true"></i>{{ __('Due soon', 'grcmanager') }}</span>
+                        {% endif %}
+                        <span class="text-muted text-nowrap"><i class="ti {{ row.icon }} me-1" aria-hidden="true"></i>{{ row.label }}</span>
+                        <a href="{{ row.url }}">{{ row.name }}</a>
+                        {% if row.due_text %}<span class="small text-muted ms-auto">{{ row.due_text }}</span>{% endif %}
+                     </li>
+                  {% endfor %}
+               </ul>
+            {% endif %}
+            <a class="btn btn-sm btn-outline-secondary" href="{{ myspace_url }}"><i class="ti ti-user-check me-1" aria-hidden="true"></i>{{ __('All my tasks', 'grcmanager') }}</a>
+         </div>
+      </section>
+   {% endif %}
+
+   {% for group in groups %}
+      <section class="mb-3" aria-label="{{ group.label ?: __('Screens', 'grcmanager') }}">
+         <h3 class="h4 text-secondary mb-2">{{ group.label ?: __('Screens', 'grcmanager') }}</h3>
+         <div class="row row-cards">
+            {% for card in group.cards %}
+               <div class="col-sm-6 col-lg-4 col-xl-3">
+                  <a class="card card-link card-link-pop h-100 text-reset text-decoration-none grc-section-card" href="{{ card.url }}">
+                     <div class="card-body d-flex align-items-center">
+                        <span class="avatar bg-primary-subtle text-primary-emphasis me-3" aria-hidden="true"><i class="{{ card.icon ?: 'ti ti-file' }}"></i></span>
+                        <span class="fw-semibold">{{ card.title }}</span>
+                        <i class="ti ti-chevron-right ms-auto text-muted" aria-hidden="true"></i>
+                     </div>
+                  </a>
+               </div>
+            {% endfor %}
+         </div>
+      </section>
+   {% endfor %}
+</div>

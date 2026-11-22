@@ -61,6 +61,17 @@ foreach (Sections::all() as $section) {
         'sub'    => false,
         'none'   => $visibleWithoutRights($parent, true),
     ];
+    // Issue #1038 : rubrique avec page d'accueil, son entrée mène à front/section.php ; la page propre
+    // de la classe parente reste servie, avec le fil d'Ariane de la rubrique.
+    if (isset($parentMenu['section_page'])) {
+        $menuPages[] = [
+            'key'    => $parent . '#page',
+            'url'    => (string) $parentMenu['section_page'],
+            'parent' => (string) $parentMenu['page'],
+            'sub'    => false,
+            'none'   => $visibleWithoutRights($parent, true),
+        ];
+    }
     foreach (array_keys(Sections::pages($parent)) as $key) {
         $menu = Menu::pageMenu($key);
         if ($menu === null || !isset($menu['page'])) {

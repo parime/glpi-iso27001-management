@@ -19,7 +19,9 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskHeatmapService;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
-\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Risk::class, __('Risk heatmap', 'grcmanager'));
+// Issue #1038 : sous-page de la rubrique Risques.
+\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::HEATMAP, __('Risk heatmap', 'grcmanager'));
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::HEATMAP);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskheatmap');
 
