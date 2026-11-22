@@ -231,7 +231,7 @@ class Delegation extends CommonDBTM
         foreach (
             $DB->request([
                 'FROM'  => self::TABLE,
-                'WHERE' => getEntitiesRestrictCriteria(self::TABLE, '', '', true),
+                'WHERE' => getEntitiesRestrictCriteria(self::TABLE, '', '', false),
                 'ORDER' => 'id DESC',
                 'LIMIT' => $limit,
             ]) as $row
