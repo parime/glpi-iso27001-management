@@ -288,8 +288,8 @@ msgstr ""
 
 #: front/backupcoverage.php:86
 msgid ""
-"Not saved: the address must start with https:// (for example https://veeam."
-"example.test:9419) and contain no user name or password."
+"Not saved: the address must start with https:// (for example https://"
+"veeam.example.test:9419) and contain no user name or password."
 msgstr ""
 
 #: front/backupcoverage.php:96
@@ -4977,9 +4977,9 @@ msgstr ""
 
 #: src/CanonicalProduct.php:187
 msgid ""
-"A CPE identifier as reported by the NVD for this product (e.g. \"cpe:2.3:a:"
-"apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point to the same "
-"product."
+"A CPE identifier as reported by the NVD for this product (e.g. "
+"\"cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*\"). Several identifiers can point "
+"to the same product."
 msgstr ""
 
 #: src/CanonicalProduct.php:196
@@ -5687,8 +5687,8 @@ msgstr ""
 #, php-format
 msgid ""
 "GLPI also refuses internal addresses for this plugin: add %s to the constant "
-"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/local_define."
-"php)."
+"GLPI_SERVERSIDE_URL_ALLOWED_PRIVATE_NETWORKS_CONTEXTS (config/"
+"local_define.php)."
 msgstr ""
 
 #: src/Competence.php:66
@@ -21229,8 +21229,8 @@ msgstr ""
 
 #: templates/ad_security_audit.html.twig
 msgid ""
-"Run the health check (--healthcheck option), then import the ad_hc_[domain]."
-"xml file (not the HTML file)."
+"Run the health check (--healthcheck option), then import the "
+"ad_hc_[domain].xml file (not the HTML file)."
 msgstr ""
 
 #: templates/ad_security_audit.html.twig
@@ -26337,9 +26337,9 @@ msgstr ""
 #: templates/control_test_sample.html.twig
 #: templates/pdf/control_test_record.html.twig
 msgid ""
-"Each item of the population is ranked by the SHA-256 fingerprint of \"seed:"
-"identifier\"; the first items of this ranking form the sample. The same "
-"population and the same seed always give the same sample."
+"Each item of the population is ranked by the SHA-256 fingerprint of "
+"\"seed:identifier\"; the first items of this ranking form the sample. The "
+"same population and the same seed always give the same sample."
 msgstr ""
 
 #: templates/control_test_sample.html.twig templates/control_test_tab.html.twig
@@ -28696,8 +28696,8 @@ msgid ""
 "One CSV file per template of the implementing regulation, with the official "
 "column codes (c0010...), as in an xBRL-CSV report package. Closed lists are "
 "written with their official English wording: your reporting tool converts "
-"them into the codes of the EBA taxonomy and adds the package files (report."
-"json, parameters, filing indicators)."
+"them into the codes of the EBA taxonomy and adds the package files "
+"(report.json, parameters, filing indicators)."
 msgstr ""
 
 #: templates/dora/register.html.twig
@@ -29034,8 +29034,8 @@ msgid ""
 "Well-known names are linked automatically (for instance \"Debian GNU/Linux\" "
 "or \"Mozilla Firefox\"). For any other name, add a link: type the name "
 "exactly as GLPI shows it, and the product identifier found in the address of "
-"its page on endoflife.date (for instance \"fortios\" for https://endoflife."
-"date/fortios). Leave the product empty to stop following a name."
+"its page on endoflife.date (for instance \"fortios\" for https://"
+"endoflife.date/fortios). Leave the product empty to stop following a name."
 msgstr ""
 
 #: templates/endoflife_config.html.twig
@@ -31485,8 +31485,8 @@ msgstr ""
 #: templates/park_endoflife.html.twig
 msgid ""
 "Not enabled: the plugin can show which software, operating systems and "
-"firmwares no longer receive security fixes, from the public site endoflife."
-"date."
+"firmwares no longer receive security fixes, from the public site "
+"endoflife.date."
 msgstr ""
 
 #: templates/park_endoflife.html.twig
@@ -36169,8 +36169,8 @@ msgstr ""
 
 #: templates/share_access.html.twig
 msgid ""
-"Application permissions to grant, with admin consent (read only): Sites.Read."
-"All, Files.Read.All, User.Read.All and GroupMember.Read.All."
+"Application permissions to grant, with admin consent (read only): "
+"Sites.Read.All, Files.Read.All, User.Read.All and GroupMember.Read.All."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -36231,8 +36231,9 @@ msgstr ""
 
 #: templates/share_access.html.twig
 msgid ""
-"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 -"
-"OutFile shares.csv (Depth: how many folder levels under each share are read)."
+"In PowerShell, run for example: ./Export-GrcShareAccess.ps1 -Depth 2 "
+"-OutFile shares.csv (Depth: how many folder levels under each share are "
+"read)."
 msgstr ""
 
 #: templates/share_access.html.twig
@@ -38031,8 +38032,8 @@ msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
 msgid ""
-"Useful evidence formats (to allow in the GLPI document types): .log, .evtx, ."
-"json, .pcap, .eml, .csv, .zip."
+"Useful evidence formats (to allow in the GLPI document "
+"types): .log, .evtx, .json, .pcap, .eml, .csv, .zip."
 msgstr ""
 
 #: templates/tabs/incident_evidence.html.twig
@@ -39116,8 +39117,8 @@ msgstr ""
 #: templates/zabbix_monitoring.html.twig
 msgid ""
 "Users > User roles: create a role of type User with API access limited to "
-"the methods host.get, problem.get, event.get, service.get, sla.get and sla."
-"getsli."
+"the methods host.get, problem.get, event.get, service.get, sla.get and "
+"sla.getsli."
 msgstr ""
 
 #: templates/zabbix_monitoring.html.twig
@@ -39964,4 +39965,316 @@ msgstr ""
 
 #: templates/tabs/supplier_evaluation_link.html.twig
 msgid "Valid for (days)"
+msgstr ""
+
+#: front/soascoping.php:46
+msgid ""
+"Answers saved. Review the proposals below: nothing is applied to the "
+"Statement of Applicability until you accept it."
+msgstr ""
+
+#: front/soascoping.php:56
+#, php-format
+msgid "Proposals accepted: %d."
+msgstr ""
+
+#: front/soascoping.php:57
+#, php-format
+msgid "Proposals rejected: %d."
+msgstr ""
+
+#: src/Feature/SoaScopingFeature.php:32
+msgid ""
+"Helps you decide and justify the applicability of each Annex A control: a "
+"few questions about your context (remote work, software development, "
+"suppliers, cloud, premises, personal data) give a proposed applicability and "
+"justification for every control of the Statement of Applicability."
+msgstr ""
+
+#: src/Feature/SoaScopingFeature.php:39
+msgid ""
+"Answer the questions, then accept or reject each proposal, one by one or in "
+"bulk after a preview. Nothing is applied without your decision, a written "
+"justification is never overwritten, and every decision is logged with its "
+"author and date. Export the CSV for the auditor."
+msgstr ""
+
+#: src/Feature/SoaScopingFeature.php:45
+msgid "ISO/IEC 27001, clause 6.1.3 c) and d)"
+msgstr ""
+
+#: src/SoaScoping.php:48
+msgid "SoA scoping"
+msgstr ""
+
+#: src/SoaScoping.php:96
+msgid "Do staff work remotely (from home or while travelling)?"
+msgstr ""
+
+#: src/SoaScoping.php:97
+msgid ""
+"Telework, nomadic work, access to the information system from outside the "
+"premises."
+msgstr ""
+
+#: src/SoaScoping.php:98
+msgid "staff work remotely"
+msgstr ""
+
+#: src/SoaScoping.php:99
+msgid "no staff member works remotely"
+msgstr ""
+
+#: src/SoaScoping.php:102
+msgid "Does the organisation develop or customise software in-house?"
+msgstr ""
+
+#: src/SoaScoping.php:103
+msgid ""
+"Applications, scripts, websites, integrations or significant configuration "
+"code."
+msgstr ""
+
+#: src/SoaScoping.php:104
+msgid "the organisation develops or customises software in-house"
+msgstr ""
+
+#: src/SoaScoping.php:105
+msgid "the organisation does not develop or customise software in-house"
+msgstr ""
+
+#: src/SoaScoping.php:108
+msgid "Is software development outsourced to a provider?"
+msgstr ""
+
+#: src/SoaScoping.php:109
+msgid "A developer, integrator or agency builds or changes software for you."
+msgstr ""
+
+#: src/SoaScoping.php:110
+msgid "software development is outsourced"
+msgstr ""
+
+#: src/SoaScoping.php:111
+msgid "no software development is outsourced"
+msgstr ""
+
+#: src/SoaScoping.php:114
+msgid ""
+"Do suppliers or subcontractors access your information or provide ICT "
+"services?"
+msgstr ""
+
+#: src/SoaScoping.php:115
+msgid "Outsourcing, maintenance, hosting, managed services, telecoms."
+msgstr ""
+
+#: src/SoaScoping.php:116
+msgid "suppliers access information or provide ICT services"
+msgstr ""
+
+#: src/SoaScoping.php:117
+msgid "no supplier accesses information or provides ICT services"
+msgstr ""
+
+#: src/SoaScoping.php:120
+msgid "Does the organisation use cloud services (SaaS, IaaS, PaaS)?"
+msgstr ""
+
+#: src/SoaScoping.php:121
+msgid "Online office suite, hosted applications, cloud storage or servers."
+msgstr ""
+
+#: src/SoaScoping.php:122
+msgid "the organisation uses cloud services"
+msgstr ""
+
+#: src/SoaScoping.php:123
+msgid "the organisation uses no cloud service"
+msgstr ""
+
+#: src/SoaScoping.php:126
+msgid "Does the organisation occupy premises whose security it manages?"
+msgstr ""
+
+#: src/SoaScoping.php:127
+msgid ""
+"Offices, sites or shops: perimeter, entry, protection against physical "
+"threats."
+msgstr ""
+
+#: src/SoaScoping.php:128
+msgid "the organisation manages the security of its own premises"
+msgstr ""
+
+#: src/SoaScoping.php:129
+msgid ""
+"the organisation manages no premises (security handled by the landlord or "
+"host)"
+msgstr ""
+
+#: src/SoaScoping.php:132
+msgid "Are servers or network equipment hosted in your own premises?"
+msgstr ""
+
+#: src/SoaScoping.php:133
+msgid ""
+"Server room, network cabinet, power supply and cabling under your "
+"responsibility."
+msgstr ""
+
+#: src/SoaScoping.php:134
+msgid "servers or network equipment are hosted on the premises"
+msgstr ""
+
+#: src/SoaScoping.php:135
+msgid "no server or network equipment is hosted on the premises"
+msgstr ""
+
+#: src/SoaScoping.php:138
+msgid "Does the organisation process personal data?"
+msgstr ""
+
+#: src/SoaScoping.php:139
+msgid "Staff, customers, prospects, patients, users: almost always yes."
+msgstr ""
+
+#: src/SoaScoping.php:140
+msgid "the organisation processes personal data"
+msgstr ""
+
+#: src/SoaScoping.php:141
+msgid "the organisation processes no personal data"
+msgstr ""
+
+#: src/SoaScoping.php:160
+msgid "Waiting for answers"
+msgstr ""
+
+#: src/SoaScoping.php:170
+msgid "Matches the SoA"
+msgstr ""
+
+#: src/SoaScoping.php:244
+msgid ""
+"Applicable: baseline control for any organisation within the ISMS scope; no "
+"scoping answer excludes it."
+msgstr ""
+
+#: src/SoaScoping.php:254
+#, php-format
+msgid "Applicable: %s (SoA scoping questionnaire)."
+msgstr ""
+
+#: src/SoaScoping.php:258
+#, php-format
+msgid ""
+"Not applicable: %s (SoA scoping questionnaire). To be reviewed if this "
+"changes."
+msgstr ""
+
+#: src/SoaScoping.php:325
+msgid "Baseline control"
+msgstr ""
+
+#: src/SoaScoping.php:443
+msgid "Answer given"
+msgstr ""
+
+#: src/SoaScoping.php:445 templates/soa_scoping.html.twig
+msgid "Not answered"
+msgstr ""
+
+#: src/SoaScoping.php:450 src/SoaScoping.php:465
+msgid "Proposed applicability"
+msgstr ""
+
+#: src/SoaScoping.php:451
+msgid "Basis of the proposal"
+msgstr ""
+
+#: src/SoaScoping.php:451 src/SoaScoping.php:466
+msgid "Proposed justification"
+msgstr ""
+
+#: src/SoaScoping.php:452
+msgid "Decided by"
+msgstr ""
+
+#: src/SoaScoping.php:452
+msgid "Decision date"
+msgstr ""
+
+#: src/SoaScoping.php:465
+msgid "Previous applicability"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "1. Describe your context"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "2. Review the proposals, control by control"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "3. Decision log (who validated what, and when)"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "A written justification is never overwritten."
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+#, php-format
+msgid "Accept these %d proposals"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Answer the questions above to get a proposal."
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Existing justification kept"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Export CSV for the auditor"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "In the SoA today"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "No decision yet."
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Preview all proposals to review"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Preview the selected proposals"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Preview: what accepting these proposals will change"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Proposal"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Reject the selected proposals"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+msgid "Save the answers"
+msgstr ""
+
+#: templates/soa_scoping.html.twig
+#, php-format
+msgid "Statement of Applicability of: %s"
 msgstr ""

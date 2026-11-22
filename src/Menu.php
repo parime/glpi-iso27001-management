@@ -91,6 +91,8 @@ class Menu extends CommonGLPI
             Control::class => [
                 // Issue #867 : mesures bloquées (ce qui empêche chaque mesure d'être conforme).
                 ControlBlocker::class,
+                // Issue #873 : cadrage guidé de la SoA par questions (applicabilité et justifications).
+                SoaScoping::class,
                 Referentials::class, CustomFramework::class, IsmsRequirement::class,
                 // Issue #608 : contexte de l'organisation (enjeux, parties intéressées).
                 ContextItem::class,
@@ -103,6 +105,8 @@ class Menu extends CommonGLPI
                 DataBreach::class, Policy::class,
                 // Issue #879 : mesures couvertes par les textes de la bibliothèque des politiques.
                 PolicyCoverage::class,
+                // Issue #545 : modèles de politiques prêts à adapter, importés en brouillon.
+                PolicyTemplate::class,
                 // Issue #775 : registre des procédures d'exploitation et couverture (A.5.37).
                 OperatingProcedure::class,
                 // Issue #778 : sécurité physique des sites (A.7.1 à A.7.14), comparaison entre sites.

@@ -1796,6 +1796,109 @@ compte GLPI (sinon, voir 55).
 5. Un lien se révoque à tout moment (bouton **Révoquer**). Le journal d'audit sécurité garde la
    création, chaque ouverture, chaque envoi et chaque révocation.
 
+### Étape 60 : Renouveler une preuve sur un rythme récurrent
+
+Certaines preuves ne valent pas jusqu'à une date fixe mais doivent être produites encore et encore :
+revue hebdomadaire des journaux, rapport mensuel de sauvegarde, revue trimestrielle des accès
+(clause 7.5, mesure A.5.36). L'auditeur vérifie que la dernière n'est pas plus ancienne que le
+rythme attendu.
+
+1. Ouvrez la mesure (ou la politique, le risque fournisseur, l'audit), onglet **Validités des
+   preuves**.
+2. Sur la ligne du document, dans **Renouvellement récurrent**, réglez **Intervalle** sur N **jours**,
+   **semaines**, **mois**, **ans**, **mois, dernier jour ouvré** ou **trimestres, dernier jour ouvré**.
+3. Saisissez **Dernière collecte le**, ou laissez vide : la dernière modification du document est
+   retenue (déposer un nouveau fichier dans le document vaut collecte). Enregistrez.
+4. La **prochaine échéance** est calculée et affichée avec un badge : **À jour**, **Renouvellement
+   proche** (jusqu'à une semaine avant) ou **Non renouvelée à temps**. Les jours ouvrés excluent les
+   week-ends et les périodes de fermeture déclarées dans GLPI (intitulés des calendriers).
+5. Le responsable du renouvellement est prévenu une fois par échéance par la notification
+   **Preuve à renouveler**. La carte du tableau de bord **Preuves récurrentes non renouvelées à
+   temps**, les contrôles de cohérence et le dossier de preuves pour l'auditeur signalent les
+   retards.
+
+Rien n'est modifié automatiquement : ajoutez la dernière preuve, puis mettez à jour sa date de
+collecte.
+
+### Étape 61 : Cadrer la Déclaration d'Applicabilité par questions (6.1.3 c et d)
+
+L'auditeur demande pourquoi chaque mesure de l'Annexe A est retenue ou exclue. L'onglet
+**Cadrage de la SoA** de la rubrique **Conformité** vous aide à répondre sans partir d'une page
+blanche.
+
+1. Ouvrez **Conformité > Cadrage de la SoA**. La page porte sur la SoA de l'entité active.
+2. Répondez aux huit questions (télétravail, développement logiciel, sous-traitance du
+   développement, fournisseurs, cloud, locaux, serveurs sur site, données personnelles), puis
+   cliquez sur **Enregistrer les réponses**. Une question laissée « Sans réponse » met en attente
+   les mesures qu'elle concerne.
+3. Le tableau compare, pour chaque mesure, ce que dit la SoA aujourd'hui et la proposition, avec
+   la question qui la fonde. L'état **À relire** signale une différence, **Conforme à la SoA** une
+   proposition qui ne change rien.
+4. Acceptez ou refusez une proposition avec les boutons de sa ligne. Pour un lot, cochez les
+   mesures puis **Aperçu des propositions sélectionnées**, ou cliquez sur **Aperçu de toutes les
+   propositions à relire** : l'aperçu montre ce qui changera avant que vous confirmiez.
+5. Une justification déjà écrite n'est jamais remplacée ; complétez-la si besoin depuis la fiche de
+   la mesure (lien sur le code).
+6. Le **journal des décisions** garde qui a validé quoi et quand. **Export CSV pour l'auditeur**
+   réunit les réponses, la comparaison et le journal.
+
+Rien ne change dans la SoA sans votre décision explicite.
+
+### Étape 62 : Partir d'un modèle de politique
+
+Une organisation qui démarre son SMSI n'a souvent aucune politique écrite. Le plugin propose douze
+modèles rédigés par le projet (politique de sécurité de l'information, contrôle d'accès,
+sauvegarde, incidents, fournisseurs, télétravail, cryptographie...), sous licence CC0 1.0 :
+
+1. Ouvrez **Conformité > Modèles de politiques**. Choisissez la langue des textes (français ou
+   anglais). Chaque carte montre le résumé du modèle, les mesures de l'Annexe A qu'il couvre et,
+   en dépliant **Sections**, le plan du texte.
+2. Dans **Valeurs insérées dans le texte**, indiquez le nom de l'organisation, le responsable de la
+   sécurité de l'information (il devient propriétaire des politiques créées) et la périodicité de
+   revue en mois. Une valeur laissée vide devient un repère entre crochets à compléter.
+3. Cochez les modèles utiles, puis cliquez sur **Créer les politiques cochées en brouillon**.
+   Chaque modèle devient une nouvelle politique en brouillon, reliée section par section aux
+   mesures de la SoA (onglet **Mesures couvertes**, voir 57).
+4. Adaptez le texte à vos pratiques réelles, puis faites approuver la politique comme les autres.
+
+Rien n'est approuvé automatiquement et aucune politique existante n'est remplacée : importer deux
+fois le même modèle crée deux brouillons distincts. La carte d'un modèle déjà importé indique les
+politiques créées.
+
+### Étape 63 : Compléter la vue Sécurité 360° avec les autres modules
+
+La vue Sécurité 360° (voir étape 54) s'enrichit à mesure que les modules du plugin
+sont utilisés : chaque source n'apparaît qu'une fois ses données importées.
+
+1. **Classification** : classez l'actif (onglet **Classification C/I/D**). Un actif non classé apparaît
+   « à surveiller », car sa criticité règle les délais de sauvegarde, de journaux et de correctifs.
+2. **Correctifs**, **fin de support** et **garantie** : lus dans l'inventaire de GLPI et le cache
+   de fin de support déjà rempli ; une fin de vie constructeur atteinte est critique.
+3. **EDR** : avec le connecteur SentinelOne, l'onglet montre si un agent actif protège l'ordinateur
+   et si des alertes attendent une vérification.
+4. **Supervision**, **sauvegardes** et **journaux** : après une lecture Zabbix ou un import des
+   outils de sauvegarde et de collecte, l'actif affiche son état et le lien vers la page du module.
+
+Le score global tient compte de toutes les sources évaluées ; aucune n'est modifiée depuis l'onglet.
+
+### Étape 64 : Suivre la santé des serveurs et le journal de leur contrôleur (mesures A.7.13 et A.8.16)
+
+Une fois les contrôleurs lus (50), chaque lecture
+Redfish reprend aussi la santé détaillée du serveur et les derniers événements du journal du
+contrôleur. Rien n'est envoyé au serveur : uniquement des requêtes de lecture (GET) vers l'adresse
+configurée.
+
+1. Cliquez sur **Lire maintenant** sur la page **Contrôleurs de gestion des serveurs**.
+2. Ouvrez l'ordinateur, onglet **Contrôleur de gestion**, cadre **Santé du serveur** : alimentations,
+   disques (une panne annoncée compte comme un avertissement), ventilateurs et températures, les
+   composants dégradés d'abord, puis les événements récents du journal (IML, SEL ou Lifecycle selon
+   le constructeur). Les emplacements vides ne sont pas listés.
+3. La vue **Sécurité 360°** de l'ordinateur ajoute la source **Santé du serveur** : critique si un
+   composant ou un événement des sept derniers jours l'est, à surveiller pour un avertissement.
+4. Pour une lecture chaque jour, activez la tâche automatique `bmcread` (lien **Régler l'action
+   automatique** sur la page des contrôleurs). Elle est désactivée après l'installation ; une lecture
+   en échec garde la précédente.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -3478,3 +3581,99 @@ account (otherwise, see 55).
    the evaluation before.
 5. A link can be revoked at any time (**Revoke** button). The security audit log keeps the
    creation, each opening, each sending and each revocation.
+
+### Step 60: Renew evidence on a recurring rhythm
+
+Some evidence is not valid until a fixed date but must be produced again and again: a weekly log
+review, a monthly backup report, a quarterly access review (clause 7.5, control A.5.36). The auditor
+checks that the latest one is not older than the expected rhythm.
+
+1. Open the control (or the policy, the supplier risk, the audit), **Evidence validities** tab.
+2. On the line of the document, in **Recurring renewal**, set **Interval** to N **days**, **weeks**,
+   **months**, **years**, **months, last business day** or **quarters, last business day**.
+3. Enter **Last collected on**, or leave it empty: the last change of the document is used (adding a
+   new file to the document counts as a collection). Save.
+4. The **next due date** is computed and shown with a badge: **Up to date**, **Renewal due soon** (up
+   to a week before) or **Not renewed in time**. Business days exclude weekends and the close times
+   declared in GLPI (dropdowns of the calendars).
+5. The renewal owner is notified once per due date by the **Evidence to renew** notification. The
+   dashboard card **Recurring evidence not renewed in time**, the consistency checks and the
+   evidence pack for the auditor flag the late ones.
+
+Nothing is changed automatically: add the latest evidence, then update its collection date.
+
+### Step 61: Scope the Statement of Applicability with a few questions (6.1.3 c and d)
+
+The auditor asks why each Annex A control is included or excluded. The **SoA scoping** tab of the
+**Compliance** section helps you answer without starting from a blank page.
+
+1. Open **Compliance > SoA scoping**. The page covers the Statement of Applicability of the active
+   entity.
+2. Answer the eight questions (remote work, software development, outsourced development,
+   suppliers, cloud, premises, on-site servers, personal data), then click **Save the answers**. A
+   question left "Not answered" puts the controls it concerns on hold.
+3. For each control, the table compares what the SoA says today with the proposal and the question
+   it relies on. **To review** flags a difference, **Matches the SoA** a proposal that changes
+   nothing.
+4. Accept or reject a proposal with the buttons of its row. For a batch, tick the controls then
+   **Preview the selected proposals**, or click **Preview all proposals to review**: the preview
+   shows what will change before you confirm.
+5. A justification already written is never replaced; complete it if needed from the control form
+   (link on the code).
+6. The **decision log** keeps who validated what and when. **Export CSV for the auditor** gathers
+   the answers, the comparison and the log.
+
+Nothing changes in the SoA without your explicit decision.
+
+### Step 62: Start from a policy template
+
+An organisation that starts its ISMS often has no written policy. The plugin offers twelve
+templates written by the project (information security policy, access control, backup, incidents,
+suppliers, teleworking, cryptography...), under the CC0 1.0 licence:
+
+1. Open **Compliance > Policy templates**. Choose the language of the texts (French or English).
+   Each card shows the summary of the template, the Annex A controls it covers and, when you
+   expand **Sections**, the outline of the text.
+2. In **Values inserted into the text**, enter the name of the organisation, the information
+   security manager (who becomes the owner of the policies created) and the review period in
+   months. A value left empty becomes a reminder in square brackets, to be completed.
+3. Tick the templates you need, then click **Create the ticked policies as drafts**. Each template
+   becomes a new draft policy, linked section by section to the controls of the Statement of
+   Applicability ("Covered controls" tab, see 57).
+4. Adapt the text to your actual practice, then have the policy approved like the others.
+
+Nothing is approved automatically and no existing policy is replaced: importing the same template
+twice creates two separate drafts. The card of a template already imported lists the policies
+created.
+
+### Step 63: Complete the Security 360° view with the other modules
+
+The Security 360° view (see step 54) grows as the plugin modules are used: each
+source only appears once its data has been imported.
+
+1. **Classification**: classify the asset (**C/I/A classification** tab). An unclassified asset is shown
+   "to watch", as its criticality sets the backup, log and patch delays.
+2. **Patches**, **end of support** and **warranty**: read from the GLPI inventory and the end of
+   support cache already filled; a manufacturer end of life reached is critical.
+3. **EDR**: with the SentinelOne connector, the tab shows whether an active agent protects the
+   computer and whether alerts are waiting to be reviewed.
+4. **Monitoring**, **backups** and **logs**: after a Zabbix reading or an import from the backup and
+   log collection tools, the asset shows its status and the link to the module page.
+
+The overall score takes every evaluated source into account; nothing is changed from the tab.
+
+### Step 64: Follow the health of the servers and the log of their controller (controls A.7.13 and A.8.16)
+
+Once the controllers are read (50), each Redfish
+reading also takes the detailed health of the server and the latest events of the controller log.
+Nothing is sent to the server: only read requests (GET) to the configured address.
+
+1. Click **Read now** on the **Server management controllers** page.
+2. Open the computer, **Management controller** tab, **Server health** box: power supplies, disks (a
+   predicted failure counts as a warning), fans and temperatures, degraded components first, then the
+   recent events of the log (IML, SEL or Lifecycle depending on the vendor). Empty slots are not
+   listed.
+3. The **Security 360°** view of the computer adds the **Server health** source: critical if a
+   component or an event of the last seven days is, to watch for a warning.
+4. For a daily reading, enable the automatic action `bmcread` (link **Set the automatic action** on
+   the controllers page). It is disabled after installation; a failed reading keeps the previous one.

@@ -545,6 +545,14 @@ class PolicyCoverage extends CommonGLPI
         return $added;
     }
 
+    /** Issue #545 : politique purgée, ses liens aux mesures disparaissent avec elle. */
+    public static function forgetPolicy(int $policiesId): void
+    {
+        global $DB;
+
+        $DB->delete(PolicyCoverageTables::LINKS, ['plugin_grcmanager_policies_id' => $policiesId]);
+    }
+
     /** Retire un lien : droit de modifier la politique, mesure lisible. */
     public static function removeLink(int $linkId): bool
     {

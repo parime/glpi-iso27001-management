@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use Computer;
+use CronTask;
 use ComputerModel;
 use ComputerType;
 use Dropdown;
@@ -38,6 +39,7 @@ use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\BmcFirmwareRules;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\BmcRules as Rules;
 use GlpiPlugin\Grcmanager\Services\ServerManagement\RedfishClient;
+use GlpiPlugin\Grcmanager\Services\ServerManagement\RedfishHealthReader;
 use Html;
 use Manufacturer;
 use Session;
@@ -68,6 +70,9 @@ class ServerManagement extends CommonGLPI
 
     /** Contrôleurs et serveurs listés au plus sur la page. */
     public const MAX_ROWS = 300;
+
+    /** Lot 3 : lecture planifiée de tous les contrôleurs Redfish (tâche désactivée par défaut). */
+    public const CRON_NAME = 'bmcread';
 
     /** Numéros de série trop génériques pour rapprocher un serveur. */
     private const GENERIC_SERIALS = [
@@ -477,6 +482,7 @@ class ServerManagement extends CommonGLPI
             return false;
         }
         $DB->delete(Tables::ACCOUNTS, ['plugin_grcmanager_bmccontrollers_id' => $id]);
+        ServerHealth::purge($id);
         $DB->delete(Tables::CONTROLLERS, ['id' => $id]);
         AuditLog::record('purge', self::class, $id, 0, 'success');
         self::reset();
@@ -506,8 +512,6 @@ class ServerManagement extends CommonGLPI
      */
     public static function read(int $id, ?RedfishClient $client = null): array
     {
-        global $DB;
-
         $result = ['error' => '', 'accounts' => 0, 'accounts_read' => false];
         if (!self::canManage()) {
             return ['error' => 'rights'] + $result;
@@ -519,6 +523,23 @@ class ServerManagement extends CommonGLPI
         if ((string) $controller['source'] !== Rules::SOURCE_REDFISH) {
             return ['error' => 'csv_source'] + $result;
         }
+
+        return self::readController($controller, $client);
+    }
+
+    /**
+     * Lecture d'un contrôleur Redfish déjà autorisé (clic sur « Lire maintenant » ou tâche
+     * automatique) : inventaire, écarts, comptes, puis santé détaillée et journal (lot 3).
+     *
+     * @param array<string, mixed> $controller
+     * @return array{error: string, accounts: int, accounts_read: bool}
+     */
+    private static function readController(array $controller, ?RedfishClient $client = null): array
+    {
+        global $DB;
+
+        $result = ['error' => '', 'accounts' => 0, 'accounts_read' => false];
+        $id = (int) $controller['id'];
         $client ??= self::clientFor($controller);
         $now = $_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s');
         $fetch = $client->fetch();
@@ -566,9 +587,14 @@ class ServerManagement extends CommonGLPI
         if ($fetch['accounts_read']) {
             self::storeAccounts($id, $fetch['accounts'], $now);
         }
+        // Lot 3 : santé détaillée et journal, mêmes GET bornés ; illisible : la précédente est gardée.
+        $health = (new RedfishHealthReader($client))->read();
+        ServerHealth::store($id, $health, $now);
         AuditLog::record('import', self::class, $id, 0, 'success', [
-            'source'   => 'redfish',
-            'accounts' => count($fetch['accounts']),
+            'source'     => 'redfish',
+            'accounts'   => count($fetch['accounts']),
+            'components' => count($health['components']),
+            'events'     => count($health['events']),
         ]);
         self::reset();
 
@@ -1160,6 +1186,7 @@ class ServerManagement extends CommonGLPI
             'eol_config_url'  => EndOfLife::canView() ? EndOfLife::getConfigURL() : '',
             'entity_name'     => (string) Dropdown::getDropdownName('glpi_entities', (int) Session::getActiveEntity()),
             'max_bytes_label' => sprintf('%d MB', (int) (Rules::MAX_BYTES / 1024 / 1024)),
+            'cron'            => self::cronState(),
         ];
     }
 
@@ -1205,7 +1232,9 @@ class ServerManagement extends CommonGLPI
         $rows = [];
         foreach (self::data()['controllers'] as $controller) {
             if ((int) $controller['computer_id'] === $id) {
-                $rows[] = self::decorate($controller);
+                $rows[] = self::decorate($controller) + ['health_detail' => ServerHealth::forController(
+                    (int) $controller['id']
+                )];
             }
         }
 
@@ -1213,6 +1242,70 @@ class ServerManagement extends CommonGLPI
             'rows'      => $rows,
             'gap_infos' => self::gapInfos(),
             'page_url'  => self::getSearchURL(),
+        ];
+    }
+
+    // ------------------------------------------------------------------ Lecture planifiée (lot 3).
+
+    /**
+     * @return array<string, string>
+     */
+    public static function cronInfo(string $name): array
+    {
+        return $name === self::CRON_NAME
+            ? ['description' => __(
+                'Server management controllers: reads inventory, gaps, accounts and health by Redfish (read only)',
+                'grcmanager'
+            )]
+            : [];
+    }
+
+    /**
+     * Lit tous les contrôleurs Redfish configurés (GET seulement, aucune action sur les serveurs).
+     * Sans session : pas de filtre d'entité, la tâche est réglée par un administrateur de GLPI.
+     */
+    public static function cronBmcread(CronTask $task): int
+    {
+        global $DB;
+
+        $done = 0;
+        foreach (
+            $DB->request([
+                'FROM'  => Tables::CONTROLLERS,
+                'WHERE' => ['source' => Rules::SOURCE_REDFISH, 'NOT' => ['url' => '']],
+                'ORDER' => ['id ASC'],
+            ]) as $controller
+        ) {
+            $result = self::readController($controller);
+            if ($result['error'] !== '') {
+                // Code d'erreur seulement : ni compte, ni mot de passe.
+                $task->log(sprintf('#%d: %s', (int) $controller['id'], $result['error']));
+                continue;
+            }
+            ++$done;
+        }
+        $task->addVolume($done);
+
+        return $done > 0 ? 1 : 0;
+    }
+
+    /**
+     * État de la tâche automatique pour la page : active ou non, lien vers son réglage dans GLPI
+     * (réservé à qui peut régler les tâches automatiques).
+     *
+     * @return array{enabled: bool, url: string}
+     */
+    public static function cronState(): array
+    {
+        $task = new CronTask();
+        if (!$task->getFromDBbyName(self::class, self::CRON_NAME)) {
+            return ['enabled' => false, 'url' => ''];
+        }
+
+        return [
+            'enabled' => (int) $task->fields['state'] !== CronTask::STATE_DISABLE,
+            'url'     => (bool) Session::haveRight('config', UPDATE)
+                ? CronTask::getFormURLWithID((int) $task->getID()) : '',
         ];
     }
 

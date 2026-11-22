@@ -7,6 +7,76 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.81.0] - 2026-11-22
+
+### Added
+
+- **Modèles de politiques de sécurité prêts à adapter** (issue #545, clause 5.2 et mesure A.5.1).
+  Nouvelle page **Conformité > Modèles de politiques** : douze modèles rédigés par le projet, en
+  français et en anglais, sous licence CC0 1.0 (politique de sécurité de l'information, contrôle
+  d'accès, gestion des actifs, sauvegarde, journalisation et surveillance, gestion des incidents,
+  fournisseurs, télétravail, développement sécurisé, cryptographie, continuité, classification).
+  Chaque modèle montre ses sections et les mesures de l'Annexe A qu'elles couvrent. Les textes
+  suivent les exigences de la norme avec nos mots, sans en reproduire le texte. Importer un modèle
+  crée toujours une **nouvelle politique en brouillon** (version 0.1), avec le nom de
+  l'organisation, le responsable de la sécurité (propriétaire de la politique) et la périodicité
+  de revue insérés dans le texte, et la relie section par section aux mesures de la SoA de
+  l'entité active (mécanisme de l'issue #879). Aucune politique existante n'est remplacée et rien
+  n'est approuvé automatiquement.
+
+- **Réponse du fournisseur par lien sécurisé, sans compte GLPI** (issue #865, mesures A.5.19 à
+  A.5.22). Désactivée par défaut, la fonction s'active dans la configuration du plugin. Un nouvel
+  onglet **Lien sécurisé** d'une évaluation crée un lien personnel à envoyer au fournisseur : jeton
+  aléatoire de 32 octets dont GLPI ne garde que l'empreinte SHA-256, lié à une seule évaluation, avec
+  une durée de validité (14 jours par défaut, 60 au plus) et un nombre d'envois limité (5 au plus),
+  révocable à tout moment. La page publique ne montre que les questions de cette évaluation (ni
+  entité, ni utilisateur, ni nom du fournisseur) ; elle est protégée par un jeton CSRF, une
+  limitation de débit par adresse IP et par lien, et des en-têtes de sécurité (politique de contenu
+  sans script, pas d'affichage dans un cadre, pas de référent). Les pièces jointes passent les mêmes
+  contrôles que les autres preuves (types acceptés par GLPI, taille, contenu réel). Les réponses
+  reçues restent en brouillon : un utilisateur GLPI les relit dans le même aperçu que le fichier,
+  puis les enregistre (origine « lien ») ou les rejette. Création du lien, ouverture, envoi,
+  révocation et relecture sont inscrits dans le journal d'audit sécurité.
+
+- **Cadrage guidé de la Déclaration d'Applicabilité** (issue #873, clause 6.1.3 c et d). Nouvel
+  onglet **Cadrage de la SoA** de la rubrique Conformité : huit questions courtes sur le contexte
+  (télétravail, développement logiciel interne ou sous-traité, fournisseurs et sous-traitants,
+  cloud, locaux gérés, serveurs sur site, données personnelles) proposent, pour chacune des 93
+  mesures de l'Annexe A, une applicabilité et une justification. Rien n'est appliqué sans
+  relecture : chaque proposition s'accepte ou se refuse mesure par mesure, ou par lot après un
+  aperçu de ce qui changera. Une acceptation passe par la fiche de la mesure (historique,
+  contrôles habituels) et n'écrase jamais une justification déjà écrite ; une exclusion reçoit la
+  catégorie « activité non exercée » si elle n'en a pas. Chaque décision est journalisée (qui,
+  quand, applicabilité et justification avant, proposition) ; l'export CSV réunit les réponses,
+  la comparaison mesure par mesure et le journal pour le dossier de l'auditeur. Les réponses sont
+  propres à la SoA de chaque entité.
+
+- **Fraîcheur des preuves sur un rythme récurrent** (issue #886, clause 7.5, mesure A.5.36).
+  - Onglet « Validités des preuves » : un rythme de renouvellement par document de preuve, tous les
+    N jours, semaines, mois ou ans, ou au dernier jour ouvré du mois ou du trimestre, en plus de la
+    date de validité fixe. La prochaine échéance est calculée depuis la dernière collecte saisie,
+    sinon depuis la dernière modification du document ; les jours ouvrés excluent les week-ends et
+    les fermetures déclarées dans GLPI.
+  - Une preuve non renouvelée à temps est signalée : badge de l'onglet, carte du tableau de bord
+    « Preuves récurrentes non renouvelées à temps », contrôle de cohérence des preuves expirées et
+    index du dossier de preuves pour l'auditeur.
+  - Le responsable du renouvellement est prévenu une fois par échéance par la notification
+    existante « Preuve à renouveler » (nouvelle balise `##evidence.nextdue##`). Aucune preuve,
+    aucun statut, aucun ticket n'est modifié ou créé automatiquement.
+
+### Changed
+
+- **Traductions compilées à la construction** (issue #985) : les catalogues `locales/*.mo` ne sont
+  plus versionnés. `tools/build_locales.py` les compile depuis les `.po` pour la CI, l'archive
+  publiée (contrôlée : chaque langue livrée y a son `.mo`) et le déploiement. Rien ne change pour
+  l'utilisateur ; les fusions de PR ne se bloquent plus sur des fichiers binaires.
+
+- **Traductions des PR en fragments** (issue #985) : une PR ajoute ses textes dans
+  `locales/unreleased/<issue>-<sujet>.<langue>.po` au lieu de modifier les fichiers de langue
+  complets et le `.pot`, que toutes les branches touchaient. La publication les range dans les
+  `.po` (`tools/build_locales.py --release`) et régénère le `.pot` ; la CI vérifie que chaque
+  chaîne du code est traduite. Rien ne change pour l'utilisateur.
+
 ## [2.80.0] - 2026-11-21
 
 ### Added

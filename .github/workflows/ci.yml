@@ -195,24 +195,25 @@ jobs:
           # copied as msgstr for every string) - undo that so en_GB.po is checked the same way
           # as every other language, not blindly regenerated.
           git checkout -- locales/en_GB.po
+          # Strings of the current code, kept aside; the versioned .pot is restored (#985).
+          mv locales/grcmanager.pot /tmp/extracted.pot
+          git checkout -- locales/grcmanager.pot
 
-      # Charte commune, sections 2 et 2 bis : le .pot versionné est la source unique des
-      # traductions (Hosted Weblate le lit dans le dépôt). Il doit donc correspondre au code :
-      # chaînes comparées triées et sans emplacement (les numéros de ligne bougent à chaque
-      # modification sans changer les chaînes), date de génération ignorée.
-      - name: Versioned .pot is up to date
+      # Charte commune, sections 2 et 2 bis : le .pot versionné est la source des traductions
+      # (Hosted Weblate le lit dans le dépôt). Depuis #985, une PR n'y touche plus : ses chaînes
+      # sont dans des fragments locales/unreleased/<issue>-<sujet>.<langue>.po, et la publication
+      # régénère le .pot. Chaque chaîne du code doit donc être dans le .pot versionné ou dans un
+      # fragment ; chaque entrée de fragment doit exister dans le code.
+      - name: Versioned .pot and translation fragments cover the code
         run: |
           if ! git cat-file -e HEAD:locales/grcmanager.pot 2>/dev/null; then
-            echo "::error::locales/grcmanager.pot is not versioned: run vendor/bin/extract-locales and commit it"
+            echo "::error::locales/grcmanager.pot is not versioned"
             exit 1
           fi
-          if ! diff <(msgcat --sort-output --no-location locales/grcmanager.pot | grep -v POT-Creation) \
-                    <(git show HEAD:locales/grcmanager.pot | msgcat --sort-output --no-location - \
-                      | grep -v POT-Creation); then
-            echo "::error::locales/grcmanager.pot is out of date: run vendor/bin/extract-locales,"\
-              "then git checkout -- locales/en_GB.po, and commit the .pot"
-            exit 1
-          fi
+          python3 tools/build_locales.py --check --extracted /tmp/extracted.pot
+
+      - name: Merge translation fragments into the .po (this checkout only)
+        run: python3 tools/build_locales.py --merge
 
       - name: "Check regional variants (es_MX, fr_CA, en_US...) follow their language"
         run: sh tools/sync-locale-variants.sh --check
@@ -224,7 +225,7 @@ jobs:
             lang=$(basename "$po" .po)
             # Fichier valide (syntaxe, formats %s/%d identiques à la source) avant toute comparaison.
             msgfmt --check-format --check-domain -o /dev/null "$po" || { echo "::error::${lang}.po is not a valid PO file"; status=1; }
-            msgmerge --no-fuzzy-matching --quiet -o /tmp/merged_${lang}.po locales/${lang}.po locales/grcmanager.pot
+            msgmerge --no-fuzzy-matching --quiet -o /tmp/merged_${lang}.po locales/${lang}.po /tmp/extracted.pot
             missing=$(msgattrib --untranslated /tmp/merged_${lang}.po | grep -c '^msgid "[^"]' || true)
             if [ "$missing" -gt 0 ]; then
               echo "::error::${lang}.po is missing ${missing} translation(s) for strings present in the code"
@@ -250,6 +251,13 @@ jobs:
 
       - name: Composer install
         run: composer install --no-progress --prefer-dist
+
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
 
       - name: PHPUnit (unit tests)
         run: vendor/bin/phpunit --testsuite unit
@@ -319,6 +327,13 @@ jobs:
             docker logs glpi --tail 200
             exit 1
           fi
+
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
 
       - name: Copie le plugin dans le conteneur GLPI
         run: |
@@ -397,58 +412,26 @@ jobs:
       # l'utilisateur ne voit pas, et un demandeur ne peut pas approuver sa propre SoA. Le
       # super-admin garde l'acces a tout.
       - name: Matrice de controle d'acces (profils limites a une entite, puis super-admin)
-        run: |
-          # bin/console tourne en root plus haut : rend files/ a Apache (www-data).
-          docker exec -u root glpi chown -R www-data:www-data /var/glpi/files
-          setup() { docker exec -u www-data glpi php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
-          ids=$(setup); echo "$ids"
-          bash tests/security/access-matrix.sh http://localhost:8080 limited iso-gestionnaire 'Secrev#2026' "$ids"
-          links=$(setup risk-links "$(jq -r .risk <<< "$ids")")
-          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" 'index($b) != null' <<< "$links" > /dev/null \
-            || { echo "::error::enregistrer le risque a efface le lien vers un actif invisible pour l'utilisateur : $links"; exit 1; }
-          approvers=$(setup soa-approvers)
-          jq -e --argjson me "$(jq -r .manager <<< "$ids")" '.approvers | index($me) == null' <<< "$approvers" > /dev/null \
-            || { echo "::error::le demandeur s'est designe approbateur de sa propre SoA : $approvers"; exit 1; }
-          echo "OK  liens du risque conserves ($links), demandeur absent des approbateurs ($approvers)"
-          # Issue #375 : enregistrer le traitement de A ne retire pas l'ordinateur de B, invisible pour lui.
-          plinks=$(setup processing-links "$(jq -r .processing_A <<< "$ids")")
-          jq -e --arg b "Computer:$(jq -r .computer_B <<< "$ids")" --arg a "Computer:$(jq -r .computer_A <<< "$ids")" \
-            'index($b) != null and index($a) != null' <<< "$plinks" > /dev/null \
-            || { echo "::error::enregistrer le traitement a modifie un lien vers un actif invisible pour l'utilisateur : $plinks"; exit 1; }
-          echo "OK  liens du traitement conserves ($plinks)"
-          counts_before=$(setup counts)
-          bash tests/security/access-matrix.sh http://localhost:8080 none iso-sans-droit 'Secrev#2026' "$ids"
-          bash tests/security/access-matrix.sh http://localhost:8080 reader iso-lecteur 'Secrev#2026' "$ids"
-          # Registres sensibles : droit general du SMSI sans le droit dedie.
-          bash tests/security/access-matrix.sh http://localhost:8080 general iso-general 'Secrev#2026' "$ids"
-          counts_after=$(setup counts)
-          [ "$counts_before" = "$counts_after" ] || { echo "::error::un profil sans droit ou en lecture seule a cree ou supprime des donnees"; echo "avant : $counts_before"; echo "apres : $counts_after"; exit 1; }
-          echo "OK  aucune ligne creee ni supprimee par les profils sans droit et lecteur"
-          bash tests/security/access-matrix.sh http://localhost:8080 admin glpi glpi "$ids"
+        run: bash .github/scripts/security-e2e.sh matrix
+
+      # Issue #980 : formulaires cles modifies et enregistres dans un vrai navigateur (cas de #951).
+      - name: Scenarios d'edition dans le navigateur
+        run: bash .github/scripts/security-e2e.sh edit
 
       # Test XSS de bout en bout : une charge piegee dans chaque champ texte libre, aucune page ni
       # onglet ne doit la restituer sans echappement.
       - name: Test XSS (charge piegee dans chaque champ texte libre)
-        run: |
-          setup() { docker exec -u www-data glpi php /var/www/glpi/plugins/grcmanager/tests/security/setup.php "$@" | tail -1; }
-          ids=$(setup)
-          xss=$(setup xss "$ids")
-          bash tests/security/xss-check.sh http://localhost:8080 "$ids" "$xss"
+        run: bash .github/scripts/security-e2e.sh xss
 
       # Issue #978 : dans un vrai navigateur, aucune erreur JavaScript (« Maximum call stack size
       # exceeded »...) ni boite de dialogue (charge XSS executee) sur l'accueil et les pages du plugin.
-      # Python 3.12 : le Python du runner est trop recent pour les roues de greenlet (Playwright).
-      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0 (SHA pinned)
-        with:
-          python-version: '3.12'
+      # Image Docker Playwright epinglee (#980) : Playwright n'installe pas Chromium sur Ubuntu 26.04.
       - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
-        # Non bloquant tant que Playwright ne gere pas Ubuntu 26.04, voir #980.
-        continue-on-error: true
-        run: |
-          python -m pip install --quiet playwright==1.57.0
-          # Sans --with-deps : Playwright ne sait pas encore installer de paquets sur Ubuntu 26.04.
-          python -m playwright install chromium
-          python tests/security/js-errors.py http://localhost:8080 front
+        run: bash .github/scripts/security-e2e.sh js
+
+      # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
+      - name: Purge du jeu de donnees de test
+        run: bash .github/scripts/security-e2e.sh purge
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()
@@ -516,7 +499,7 @@ jobs:
 
       - name: Demarre GLPI 12 et installe sa base
         run: |
-          docker run -d --name glpi --network grcmanager-ci -e TIMEZONE=Europe/Paris "$GLPI12_IMAGE"
+          docker run -d --name glpi --network grcmanager-ci -p 8080:80 -e TIMEZONE=Europe/Paris "$GLPI12_IMAGE"
           for i in $(seq 1 12); do
             docker exec glpi php bin/console database:install --db-host=mariadb --db-name=glpidb \
               --db-user=glpi_user --db-password=glpi_password --no-interaction && exit 0
@@ -524,6 +507,13 @@ jobs:
             sleep 5
           done
           exit 1
+
+      # Les .mo ne sont pas versionnés (#985) : compilés depuis les .po et les fragments
+      # locales/unreleased/ avant les tests (notifications par langue lues dans les .mo).
+      - name: Compile translations (.mo)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
 
       - name: Copie le plugin et installe ses dependances de production
         run: |
@@ -563,6 +553,22 @@ jobs:
 
       - name: PHPStan contre les sources de GLPI 12 (méthodes du cœur supprimées)
         run: docker exec glpi sh -c 'cd /var/www/glpi/plugins/grcmanager && php vendor/bin/phpstan analyse -c phpstan.glpi12.neon --no-progress --memory-limit=2G'
+
+      # Issue #980 : la matrice d'acces et le test XSS ne tournaient que sur GLPI 11.
+      - name: Matrice de controle d'acces sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh matrix
+
+      - name: Scenarios d'edition dans le navigateur sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh edit
+
+      - name: Test XSS sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh xss
+
+      - name: Erreurs JavaScript dans le navigateur sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh js
+
+      - name: Purge du jeu de donnees de test sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh purge
 
       - name: Logs GLPI (en cas d'echec)
         if: failure()

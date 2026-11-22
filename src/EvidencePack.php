@@ -25,6 +25,7 @@ use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidencePackRules as Rules;
+use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceRecurrenceRules as RecurrenceRules;
 use GlpiPlugin\Grcmanager\Services\Evidence\EvidenceValidity;
 use Html;
 use Session;
@@ -374,15 +375,19 @@ class EvidencePack extends CommonGLPI
         }
         $links = Document_Item::getTable();
         $validity = [];
+        $evidenceIds = [];
         foreach (
             $DB->request([
-                'SELECT' => ['items_id', 'documents_id', 'valid_until'],
+                'SELECT' => ['id', 'items_id', 'documents_id', 'valid_until'],
                 'FROM'   => Evidence::getTable(),
                 'WHERE'  => ['itemtype' => $itemtype, 'items_id' => $itemIds],
             ]) as $row
         ) {
             $validity[$row['items_id'] . ':' . $row['documents_id']] = $row['valid_until'];
+            $evidenceIds[$row['items_id'] . ':' . $row['documents_id']] = (int) $row['id'];
         }
+        // Issue #886 : rythme de renouvellement, pour signaler une preuve récurrente périmée.
+        $rhythms = EvidenceRecurrence::forEvidences(array_values($evidenceIds));
         $result = [];
         foreach (
             $DB->request([
@@ -404,7 +409,14 @@ class EvidencePack extends CommonGLPI
             if (!self::registerDocument($row, $expired, $documents)) {
                 continue;
             }
-            $result[(int) $row['items_id']][] = self::link($row, $expired, $validUntil);
+            $rhythm = $rhythms[$evidenceIds[$row['items_id'] . ':' . $row['documents_id']] ?? 0] ?? null;
+            $recurrence = $rhythm !== null
+                ? EvidenceRecurrence::describe($rhythm, $row['date_mod'] ?? null, $today)
+                : null;
+            $result[(int) $row['items_id']][] = array_merge(self::link($row, $expired, $validUntil), [
+                'stale'    => $recurrence !== null && $recurrence['status'] === RecurrenceRules::STATUS_STALE,
+                'next_due' => $recurrence['next_due'] ?? null,
+            ]);
         }
 
         return $result;
@@ -474,6 +486,8 @@ class EvidencePack extends CommonGLPI
             'date'         => (string) ($row['date_mod'] ?? $row['date_creation'] ?? ''),
             'valid_until'  => $validUntil,
             'expired'      => $expired,
+            'stale'        => false,
+            'next_due'     => null,
         ];
     }
 
@@ -645,6 +659,8 @@ class EvidencePack extends CommonGLPI
                         ? Html::convDateTime($link['date']) : '';
                     $data['groups'][$g]['rows'][$r]['links'][$l]['valid_until'] = $link['valid_until'] !== null
                         ? Html::convDate($link['valid_until']) : '';
+                    $data['groups'][$g]['rows'][$r]['links'][$l]['next_due'] = ($link['next_due'] ?? null) !== null
+                        ? Html::convDate($link['next_due']) : '';
                 }
             }
         }
@@ -748,6 +764,7 @@ class EvidencePack extends CommonGLPI
         }
         $data = self::collect($entityId);
         $expired = [];
+        $stale = [];
         $missing = 0;
         foreach ($data['groups'] as $group) {
             foreach ($group['rows'] as $row) {
@@ -758,6 +775,8 @@ class EvidencePack extends CommonGLPI
                     if ($link['state'] === Rules::STATE_EXPIRED) {
                         $expired[] = ['code' => $row['code'], 'name' => $link['name'],
                             'valid_until' => $link['valid_until']];
+                    } elseif ($link['stale']) {
+                        $stale[] = ['code' => $row['code'], 'name' => $link['name'], 'next_due' => $link['next_due']];
                     }
                 }
             }
@@ -778,6 +797,7 @@ class EvidencePack extends CommonGLPI
             ], $data['groups']),
             'missing'      => $missing,
             'expired'      => $expired,
+            'stale'        => $stale,
             'states'       => self::getStates(),
             'can_generate' => self::canGenerate(),
             'packs'        => self::history(),

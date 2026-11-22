@@ -79,7 +79,30 @@ jobs:
           git archive "$GITHUB_REF_NAME" | tar -x -C /tmp/staging/grcmanager
           cp -r vendor /tmp/staging/grcmanager/vendor
 
+          # Traductions compilées : les .mo ne sont pas versionnés (#985), git archive ne les
+          # contient donc pas. Compilés ici depuis les .po du tag (et d'éventuels fragments).
+          sudo apt-get update -qq && sudo apt-get install -y --no-install-recommends gettext
+          python3 tools/build_locales.py
+          cp locales/*.mo /tmp/staging/grcmanager/locales/
+          # Contrôle : chaque langue livrée (.po) a son catalogue .mo non vide dans l'archive.
+          missing=0
+          for po in /tmp/staging/grcmanager/locales/*.po; do
+            mo="${po%.po}.mo"
+            if [ ! -s "$mo" ]; then
+              echo "::error::$(basename "$mo") absent de l'archive : les traductions ne s'afficheraient pas"
+              missing=1
+            fi
+          done
+          [ "$missing" = 0 ] || exit 1
+
           (cd /tmp/staging && zip -qr "$GITHUB_WORKSPACE/${ARCHIVE_NAME}" grcmanager)
+          # Même contrôle sur le zip final (ce que télécharge l'administrateur).
+          zipped=$(unzip -Z1 "$GITHUB_WORKSPACE/${ARCHIVE_NAME}" 'grcmanager/locales/*.mo' | wc -l)
+          shipped=$(ls /tmp/staging/grcmanager/locales/*.po | wc -l)
+          if [ "$zipped" -ne "$shipped" ]; then
+            echo "::error::l'archive contient ${zipped} fichier(s) .mo pour ${shipped} langue(s)"
+            exit 1
+          fi
 
       - name: Démarre MariaDB
         run: |

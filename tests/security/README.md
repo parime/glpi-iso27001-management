@@ -8,6 +8,7 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `access-matrix.sh` | matrice de contrôle d'accès, une fois par profil (`none`, `reader`, `limited`, `general`, `admin`) |
 | `xss-check.sh` | vérifie qu'aucune page ne restitue la charge piégée sans échappement |
 | `js-errors.py` | ouvre l'accueil et chaque page de `front/` dans Chromium (Playwright) : aucune erreur JavaScript ni boîte de dialogue |
+| `purge.php` | supprime le jeu de données (entités et comptes « Securite ISO … », objets nommés « … securite ») d'une instance de test partagée ; `--dry-run` compte sans supprimer |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
 
 ## Ajouter les tests d'une fonctionnalité : un nouveau fichier par script
@@ -27,8 +28,11 @@ Les fragments sont chargés à la fin du script, dans l'ordre des noms, et voien
 fonctions :
 
 - `setup.php` : `$DB`, `$ids`, `$a` et `$b` (entités), `$add($objet, $champs)`. Le script est
-  relancé plusieurs fois : un fragment vérifie d'abord que ses données n'existent pas
-  (`countElementsInTable`, `getFromDBByCrit`).
+  relancé plusieurs fois, aussi sur une instance déjà utilisée (la CI le lance deux fois de suite
+  et exige les mêmes identifiants et le même nombre de lignes) : `$add` et
+  `$insertOnce($table, $ligne)` retrouvent l'objet ou la ligne existante (nom, titre, code, type,
+  entité, clés étrangères) avant de créer ; un autre appel vérifie d'abord que ses données
+  n'existent pas (`countElementsInTable`, `getFromDBByCrit`).
 - `setup.php xss` : `$DB`, `$ids` (jeu de données), `$out`, `$canary`, `$insert($table, $ligne)`,
   `$update($table, $ligne, $id)` (tables sans le préfixe `glpi_plugin_grcmanager_`).
 - `access-matrix.sh` : `$ROLE`, `$P` (URL de `front/`), `id <clé>`, `code`, `body`, `csrf`,
