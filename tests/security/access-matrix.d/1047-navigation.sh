@@ -4,7 +4,8 @@
 # (liste : setup.d/1037-menu-sections.php, cle menu_pages) doit etre montree si et seulement si le
 # profil peut l'ouvrir (200) :
 # - une entree de rubrique apparait dans le menu de GLPI (barre laterale) ;
-# - une sous-page apparait sur la page de sa rubrique (carte de la page d'accueil ou onglet).
+# - une sous-page apparait sur la page de sa rubrique (carte de la page d'accueil ou onglet) ; si la
+#   rubrique est interdite au profil, sur la sous-page que le menu montre a sa place.
 # Une entree montree qui refuse (menu trompeur) ou une page ouverte que le menu cache (ecran joignable
 # seulement par un lien) echouent. GLPI garde le menu en session : nouvelle connexion, dans un pot de
 # cookies a part, pour lire le menu des reglages en vigueur apres les cas qui precedent.
@@ -36,8 +37,19 @@ while IFS=$'\t' read -r nav_key nav_url nav_parent nav_sub; do
     nav_shown=non; grep -qF "$nav_href" <<< "$nav_menu" && nav_shown=oui
     expect "menu : entree $nav_url montree si et seulement si elle s'ouvre ($nav_status)" "$nav_opens" "$nav_shown"
   else
+    # Page d'entree de la rubrique pour ce profil : la rubrique elle-meme, ou, si elle lui est
+    # interdite, la premiere sous-page que le menu montre a sa place (Menu::withSubPages()).
+    nav_entry=$nav_parent
+    if [ "$(nav_code "$BASE$nav_parent")" != 200 ]; then
+      nav_entry=
+      while IFS= read -r nav_sibling; do
+        if grep -qF "${nav_sibling//&/&amp;}\"" <<< "$nav_menu"; then nav_entry=$nav_sibling; break; fi
+      done < <(jq -r --arg p "$nav_parent" '.menu_pages[] | select(.parent == $p and .sub) | .url' <<< "$IDS")
+    fi
     nav_shown=non
-    if [ "$(nav_code "$BASE$nav_parent")" = 200 ] && grep -qF "$nav_href" <<< "$(nav_links_of "$nav_parent")"; then
+    if [ "$nav_entry" = "$nav_url" ]; then
+      nav_shown=oui
+    elif [ -n "$nav_entry" ] && grep -qF "$nav_href" <<< "$(nav_links_of "$nav_entry")"; then
       nav_shown=oui
     fi
     expect "rubrique $nav_parent : carte ou onglet $nav_url montre si et seulement si il s'ouvre ($nav_status)" \
