@@ -149,7 +149,9 @@ final class RiskTrajectoryRulesTest extends TestCase
         $actions = [['due_date' => '2025-12-01', 'completion_date' => '2025-12-01', 'status' => 'done']];
         $result = RiskTrajectoryRules::build(4.0, 1.0, $actions, '2026-01-10', self::TODAY);
 
-        self::assertSame('2025-12-01', $result['planned'][0][0]);
+        self::assertSame(['2025-11-30', 4.0], $result['planned'][0]);
+        self::assertSame(['2025-11-30', 4.0], $result['actual'][0]);
+        self::assertSame(['2025-12-01', 1.0], $result['planned'][1]);
     }
 
     public function testValueAt(): void

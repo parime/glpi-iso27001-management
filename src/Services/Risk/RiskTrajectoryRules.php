@@ -140,7 +140,12 @@ final class RiskTrajectoryRules
         sort($doneDates);
         $result['planned_end'] = $dueDates === [] ? null : end($dueDates);
 
+        // Point de départ au niveau initial : la création du risque, ou la veille de la première
+        // échéance ou fin d'action si elle tombe ce jour-là ou avant (plan saisi après coup).
         $origin = min(array_merge([$startDate, $today], $dueDates, $doneDates));
+        if (in_array($origin, array_merge($dueDates, $doneDates), true)) {
+            $origin = (new \DateTimeImmutable($origin))->modify('-1 day')->format('Y-m-d');
+        }
         $result['planned'] = self::steps($origin, $start, $step, $dueDates);
         $result['actual'] = self::steps($origin, $start, $step, $doneDates);
         // La courbe réelle s'arrête aujourd'hui ; la prévue va au moins jusqu'à aujourd'hui.
