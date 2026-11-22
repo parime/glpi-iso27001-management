@@ -6,7 +6,8 @@
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
 readable "front/section.php?section=suppliersecurity"
 SUPPLIER_TAB='GlpiPlugin%5CGrcmanager%5CSupplierSecurityTab$1'
-supplier_tab=$(tab Supplier "$SUPPLIER_TAB" "$(id supplier)")
+# Fournisseur de A (setup.d/1040-supplier-security.php) : le fournisseur commun n'est pas ouvert a A.
+supplier_tab=$(tab Supplier "$SUPPLIER_TAB" "$(id supplier_tab)")
 SEE_SUPPLIER_RISKS=oui
 CREATE_SUPPLIER_RISK=non
 PORTAL_CONFIG=403
@@ -18,9 +19,9 @@ esac
 contains "fiche Fournisseur, onglet Securite : affiche avec le droit des risques fournisseurs" \
   'id="grc-supplier-security-tab"' $SEE_SUPPLIER_RISKS "$supplier_tab"
 contains "fiche Fournisseur, onglet Securite : risque fournisseur de A" \
-  "supplierrisk.form.php?id=$(id supplierrisk)\"" $SEE_SUPPLIER_RISKS "$supplier_tab"
+  "Risque onglet fournisseur A" $SEE_SUPPLIER_RISKS "$supplier_tab"
 contains "fiche Fournisseur, onglet Securite : risque fournisseur de B" \
-  "Risque fournisseur securite B" $SEE_B "$supplier_tab"
+  "Risque onglet fournisseur B" $SEE_B "$supplier_tab"
 contains "fiche Fournisseur, onglet Securite : bouton Evaluer ce fournisseur" \
   'id="grc-supplier-security-create"' $CREATE_SUPPLIER_RISK "$supplier_tab"
 # Valeur deja posee par 865-supplier-portal.sh (super-admin) : l'etat du jeu de donnees ne change pas.
@@ -39,5 +40,5 @@ if [ "$ROLE" = admin ]; then
   contains "configuration, General : reglage du lien securise plus envoye a la page d'exploitation" \
     'supplierevaluationlink.php' non "$block"
   expect "front/supplierrisk.form.php : nouveau risque prerempli depuis la fiche Fournisseur" 200 \
-    "$(code "$P/supplierrisk.form.php?suppliers_id=$(id supplier)")"
+    "$(code "$P/supplierrisk.form.php?suppliers_id=$(id supplier_tab)")"
 fi
