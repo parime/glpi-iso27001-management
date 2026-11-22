@@ -13,9 +13,11 @@ secret is never requested.
      read permissions "Dependabot alerts", "Secret scanning alerts" and "Code scanning alerts";
    - GitLab: a project or group access token with the `read_api` scope (the vulnerability report
      requires GitLab Ultimate).
-3. Open **Controls > Code security**, frame **Connection to GitHub and GitLab**: paste the token
-   (and, if needed, the address of your GitHub Enterprise or GitLab server), then **Save** and
-   **Read now**.
+3. Open Setup > Plugins > GRC Manager, tab **Connectors** (or the **Set up the connection** button
+   of **Code security**), box **Connection to GitHub and GitLab**: paste the token (and, if
+   needed, the address of your GitHub Enterprise or GitLab server), then **Save**; **Test the
+   connection** checks the token without reading any alert. Then click **Read now** on the
+   **Code security** page.
 4. The **Applications and their repositories** frame shows, for each application, the number of
    alerts per family (exposed secrets, vulnerable dependencies, code analysis) and the **Not
    enabled** badge when an analysis does not run on the repository: this is already a gap for
@@ -27,5 +29,6 @@ secret is never requested.
 6. The **Code security** tab of each application sums up its alerts; the sheet of controls A.8.28
    and A.8.29 shows the summary as evidence. To be warned, create a risk indicator "Exposed secrets
    not revoked in the code" or "Code security alerts past their deadline".
-7. For a daily reading, tick **Read automatically every day**: the automatic action
+7. For a daily reading, tick **Read automatically every day** in the same box of the
+   configuration: the automatic action
    `codesecurity` is disabled after installation.

@@ -15,13 +15,17 @@ secret. You need the plugin right and the native right to read users.
    one line per account with the columns `login` or `email`, `methods` (or `mfa` yes/no), and
    optionally `admin`, `remote_access`, `excluded`, `exclusion_reason`. Accounts are matched on the
    login, the email address or the part of the UPN before the @; those that match no GLPI account
-   are listed separately. For Entra ID, you can also fill in **Read Microsoft Entra ID directly
-   (Microsoft Graph)**: register an application in the Entra admin center, grant it the
-   AuditLog.Read.All application permission with admin consent, create a client secret, then
-   enter the tenant, the application ID and the secret. **Read now from Microsoft Graph** replaces
-   the Entra ID import of the entity; nothing is written in Entra ID.
-4. In **Which accounts have remote access?**, choose the GLPI groups of the VPN or remote desktop
-   users.
+   are listed separately. For Entra ID, you can also read the report directly: register an
+   application in the Entra admin center, grant it the AuditLog.Read.All application permission
+   with admin consent and create a client secret. Then open Setup > Plugins > GRC Manager, tab
+   **Connectors** (or the **Set up the connection** button of the **Read Microsoft Entra ID
+   directly (Microsoft Graph)** box), enter the tenant, the application ID and the secret in
+   **Microsoft Entra ID and Microsoft Graph** and save; **Test the connection** checks them without
+   reading anything. Back on the page, **Read now from Microsoft Graph** replaces the Entra ID
+   import of the entity; nothing is written in Entra ID.
+4. Choose the GLPI groups of the VPN or remote desktop users in Setup > Plugins > GRC Manager, tab
+   **People and policies**, box **Which accounts have remote access?** (the **Change the
+   settings** button of the page leads there).
 5. The list starts with the **gaps**: administrator without MFA, remote access without MFA, SMS,
    call or email only, account excluded without justification. Fix them in your identity provider,
    then import a new export.

@@ -5,8 +5,9 @@ liens de partage et les invités de Microsoft 365. Le plugin lit les droits par 
 lecture seule, et ne modifie rien dans Microsoft 365. Il faut le droit du plugin et le droit des
 registres sensibles (en modification pour lire ou importer).
 
-1. Réglez une fois l'application Microsoft Graph sur la page **Couverture MFA** (locataire,
-   identifiant d'application, secret)  (voir étape {{step:0400-measure-multi-factor-authentication-coverage}}). Accordez-lui en
+1. Réglez une fois l'application Microsoft Graph dans Configuration > Plugins > GRC Manager, onglet
+   **Connecteurs**, cadre **Microsoft Entra ID et Microsoft Graph** (locataire, identifiant
+   d'application, secret) (voir étape {{step:0400-measure-multi-factor-authentication-coverage}}). Accordez-lui en
    plus, avec le consentement de l'administrateur, les permissions d'application
    `Sites.Read.All`, `Files.Read.All`, `User.Read.All` et `GroupMember.Read.All`.
 2. Ouvrez Revue des accès > **Droits sur les partages de fichiers**, cadre **Lire les droits

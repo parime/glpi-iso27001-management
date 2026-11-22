@@ -113,6 +113,19 @@ final class EntraGraphClient
     }
 
     /**
+     * Issue #1043 : essai de la connexion enregistrée, par la seule demande d'un jeton d'application.
+     * Rien n'est lu dans Entra ID ni enregistré. Renvoie le code d'erreur, vide si le jeton est obtenu.
+     */
+    public function test(): string
+    {
+        if (!self::isValidTenant($this->tenant) || !self::isValidClientId($this->clientId) || $this->secret === '') {
+            return self::ERROR_CONFIG;
+        }
+
+        return $this->token()['error'];
+    }
+
+    /**
      * Lit tout le rapport (complete = false si la limite de pages est atteinte ou en cas d'erreur).
      *
      * @return array{items: list<array<string, mixed>>, pages: int, complete: bool, error: string}
