@@ -17,8 +17,8 @@ msgstr "Ora si fa in Parco > Sicurezza del parco > %s."
 msgid "No screen of this section is available with your profile."
 msgstr "Nessuna schermata di questa sezione è disponibile con il tuo profilo."
 
-msgid "Known flaws of the installed software, the most exposed machines and leaked accounts."
-msgstr "Falle note del software installato, le macchine più esposte e gli account trapelati."
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr "Falle note del software installato e le macchine più esposte."
 
 msgid "End of life and patches"
 msgstr "Fine vita e patch"

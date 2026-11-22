@@ -17,8 +17,8 @@ msgstr "Dies erfolgt jetzt unter Assets > Sicherheit der Assets > %s."
 msgid "No screen of this section is available with your profile."
 msgstr "Mit Ihrem Profil ist kein Bildschirm dieses Bereichs verfügbar."
 
-msgid "Known flaws of the installed software, the most exposed machines and leaked accounts."
-msgstr "Bekannte Schwachstellen der installierten Software, die am stärksten exponierten Geräte und geleakte Konten."
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr "Bekannte Schwachstellen der installierten Software und die am stärksten exponierten Geräte."
 
 msgid "End of life and patches"
 msgstr "Lebensende und Patches"

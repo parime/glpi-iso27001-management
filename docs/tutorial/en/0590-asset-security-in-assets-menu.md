@@ -4,8 +4,7 @@ The technical security screens are in **Assets > Asset security**, next to compu
 devices.
 
 1. Open **Assets > Asset security**. The home page shows the screens as cards, by theme:
-   - **Vulnerabilities**: fleet vulnerabilities, most exposed machines, watched products, accounts
-     exposed in data leaks;
+   - **Vulnerabilities**: fleet vulnerabilities, most exposed machines, watched products;
    - **End of life and patches**: software to watch (end of support read on endoflife.date), hardware
      end of life, late patches, licences;
    - **Hardening**: automated technical checks, configuration compliance, disk encryption, Active

@@ -22,7 +22,6 @@ namespace GlpiPlugin\Grcmanager\Navigation\Section;
 use GlpiPlugin\Grcmanager\AdSecurityAudit;
 use GlpiPlugin\Grcmanager\AssetSecurity;
 use GlpiPlugin\Grcmanager\BackupCoverage;
-use GlpiPlugin\Grcmanager\BreachExposure;
 use GlpiPlugin\Grcmanager\CanonicalProduct;
 use GlpiPlugin\Grcmanager\CodeSecurity;
 use GlpiPlugin\Grcmanager\ComplianceAudit;
@@ -82,7 +81,7 @@ final class AssetSecuritySection extends AbstractSection
                 'label'       => __('Vulnerabilities', 'grcmanager'),
                 'icon'        => 'ti ti-bug',
                 'description' => __(
-                    'Known flaws of the installed software, the most exposed machines and leaked accounts.',
+                    'Known flaws of the installed software and the most exposed machines.',
                     'grcmanager'
                 ),
             ],
@@ -144,8 +143,8 @@ final class AssetSecuritySection extends AbstractSection
                 'rights_of' => ParkVulnerability::class,
             ]),
             CanonicalProduct::class => $in('vulnerabilities'),
-            // Issue #183 : comptes exposés dans des fuites de données.
-            BreachExposure::class => $in('vulnerabilities'),
+            // Les comptes exposés dans des fuites de données sont dans « Personnes et sensibilisation »
+            // (PeopleSection, lot 1).
 
             Menu::SOFTWARE_WATCH => $in('lifecycle', [
                 'title'     => __('Software to watch', 'grcmanager'),

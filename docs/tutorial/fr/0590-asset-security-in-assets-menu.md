@@ -4,8 +4,7 @@ Les écrans de sécurité technique sont rangés dans **Parc > Sécurité du par
 ordinateurs et des matériels réseau.
 
 1. Ouvrez **Parc > Sécurité du parc**. La page d'accueil range les écrans en cartes, par thème :
-   - **Vulnérabilités** : vulnérabilités du parc, machines les plus exposées, produits suivis, comptes
-     exposés dans des fuites de données ;
+   - **Vulnérabilités** : vulnérabilités du parc, machines les plus exposées, produits suivis ;
    - **Fin de vie et correctifs** : logiciels à surveiller (fin de support lue sur endoflife.date),
      fin de vie des matériels, retard des correctifs, licences ;
    - **Durcissement** : contrôles techniques automatiques, conformité de configuration, chiffrement

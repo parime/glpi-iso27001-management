@@ -17,8 +17,8 @@ msgstr "Teraz odbywa się to w Zasoby > Bezpieczeństwo zasobów > %s."
 msgid "No screen of this section is available with your profile."
 msgstr "Żaden ekran tej sekcji nie jest dostępny dla Twojego profilu."
 
-msgid "Known flaws of the installed software, the most exposed machines and leaked accounts."
-msgstr "Znane luki zainstalowanego oprogramowania, najbardziej narażone maszyny i ujawnione konta."
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr "Znane luki zainstalowanego oprogramowania i najbardziej narażone maszyny."
 
 msgid "End of life and patches"
 msgstr "Koniec życia i poprawki"
