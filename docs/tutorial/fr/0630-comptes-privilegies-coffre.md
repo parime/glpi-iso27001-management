@@ -15,7 +15,8 @@ mot de passe.
 3. Avec Vaultwarden ou une solution PAM, importez les membres en CSV (colonnes `email`, `type`,
    `status`, `collections`, `twoFactorEnabled`).
 4. Importez les éléments du coffre en CSV **sans les mots de passe** : `name`, `collectionIds`,
-   `username`, `uri`, `passwordRevisionDate`. Avec Bitwarden ou Vaultwarden, l'interface en ligne
+   `username`, `uri`, `passwordRevisionDate`, `creationDate` (date retenue pour un mot de passe
+   jamais changé, dont `passwordRevisionDate` est vide). Avec Bitwarden ou Vaultwarden, l'interface en ligne
    de commande `bw list items` donne ces champs ; ne gardez que ces colonnes. Un fichier qui contient
    une colonne de mot de passe, de code, de note ou de champ personnalisé est refusé en entier.
 5. Traitez les écarts signalés : mot de passe non changé dans le délai, personne partie qui a encore

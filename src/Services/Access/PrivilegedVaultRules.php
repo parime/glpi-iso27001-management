@@ -75,7 +75,9 @@ final class PrivilegedVaultRules
     /**
      * Colonnes reconnues des éléments => en-têtes normalisés (minuscules, sans séparateurs), par
      * ordre de préférence. « date » : date du dernier changement du mot de passe de préférence
-     * (passwordRevisionDate de Bitwarden), sinon de l'élément.
+     * (passwordRevisionDate de Bitwarden), sinon de l'élément, et en dernier recours sa date de
+     * création : Bitwarden et Vaultwarden laissent passwordRevisionDate vide tant que le mot de
+     * passe n'a jamais été changé (#1145).
      *
      * @var array<string, list<string>>
      */
@@ -91,6 +93,7 @@ final class PrivilegedVaultRules
             'passwordrevisiondate', 'passwordchanged', 'passwordlastchanged', 'lastpasswordchange',
             'lastrotation', 'rotationdate', 'lastchanged', 'datechanged', 'revisiondate', 'lastmodified',
             'modified', 'datemodification', 'dernierchangement',
+            'creationdate', 'created', 'creationtime', 'datecreation',
         ],
         'holders'     => ['holders', 'access', 'members', 'users', 'acces', 'membres'],
     ];

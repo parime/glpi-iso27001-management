@@ -14,7 +14,8 @@ solution) with the GLPI accounts. Only **metadata** is read: never a password.
 3. With Vaultwarden or a PAM solution, import the members as CSV (columns `email`, `type`,
    `status`, `collections`, `twoFactorEnabled`).
 4. Import the vault items as CSV **without the passwords**: `name`, `collectionIds`, `username`,
-   `uri`, `passwordRevisionDate`. With Bitwarden or Vaultwarden, the `bw list items` command line
+   `uri`, `passwordRevisionDate`, `creationDate` (used for a password never changed, whose
+   `passwordRevisionDate` is empty). With Bitwarden or Vaultwarden, the `bw list items` command line
    gives these fields; keep only these columns. A file with a password, code, note or custom field
    column is refused as a whole.
 5. Follow up the reported gaps: password not changed within the delay, person who left and still
