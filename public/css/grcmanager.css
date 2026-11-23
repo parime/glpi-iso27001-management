@@ -259,3 +259,32 @@
     outline: 2px solid var(--tblr-primary, #206bc4);
     outline-offset: 2px;
 }
+
+/*
+ * Issue #1114 : barre d'onglets d'une rubrique (et sa barre de pages repliées) toujours sur une
+ * seule ligne, même à 1280 px de large ou avec des libellés traduits plus longs : onglets plus
+ * serrés, libellés sans retour à la ligne, et défilement horizontal de la barre si elle déborde
+ * (le focus clavier fait défiler jusqu'à l'onglet atteint).
+ */
+.grcmanager-section-nav,
+.grcmanager-section-subnav,
+#grc-config-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+.grcmanager-section-nav > .nav-item,
+.grcmanager-section-subnav > .nav-item,
+#grc-config-tabs > .nav-item {
+    flex-shrink: 0;
+}
+
+.grcmanager-section-nav .nav-link,
+.grcmanager-section-subnav .nav-link,
+#grc-config-tabs .nav-link {
+    white-space: nowrap;
+    padding-left: .6rem;
+    padding-right: .6rem;
+}
