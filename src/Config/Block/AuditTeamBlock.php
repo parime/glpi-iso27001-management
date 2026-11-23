@@ -19,9 +19,16 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use Dropdown;
+use GlpiPlugin\Grcmanager\AuditTeam;
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
+use GlpiPlugin\Grcmanager\Config\ConfigTabs;
+use Group;
 
-/** Issue #140 : groupe RSSI des audits internes. */
+/**
+ * Issue #140 : groupe RSSI des audits internes. Issue #1054 : le groupe se choisit dans le bloc
+ * « Rôles du SMSI » (onglet Personnes et politiques) ; ce bloc rappelle le groupe et y mène.
+ */
 final class AuditTeamBlock extends ConfigBlock
 {
     public static function tab(): string
@@ -46,8 +53,12 @@ final class AuditTeamBlock extends ConfigBlock
 
     public static function data(): array
     {
+        $groupsId = AuditTeam::getCisoGroupId();
+
         return [
-            'ciso_groups_id' => \GlpiPlugin\Grcmanager\AuditTeam::getCisoGroupId(),
+            'ciso_groups_id'  => $groupsId,
+            'ciso_group_name' => $groupsId > 0 ? (string) Dropdown::getDropdownName(Group::getTable(), $groupsId) : '',
+            'isms_roles_url'  => ConfigTabs::anchorUrl(IsmsRolesBlock::ANCHOR),
         ];
     }
 }

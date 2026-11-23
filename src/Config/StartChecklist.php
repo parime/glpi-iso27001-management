@@ -189,7 +189,7 @@ final class StartChecklist
             'ciso_group' => [
                 'label' => __('Choose the CISO group', 'grcmanager'),
                 'icon'  => 'ti-users-group',
-                'url'   => ConfigTabs::anchorUrl('grc-audit-config'),
+                'url'   => ConfigTabs::anchorUrl(Block\IsmsRolesBlock::ANCHOR),
                 'link'  => $open,
                 'menu'  => '',
             ],

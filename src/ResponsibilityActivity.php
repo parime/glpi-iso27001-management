@@ -21,6 +21,8 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\ResponsibilityActivityBase;
+use GlpiPlugin\Grcmanager\Config\Block\IsmsRolesBlock;
+use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Services\Clause\IsmsClauseCatalog;
 use GlpiPlugin\Grcmanager\Services\Responsibility\DefaultActivities;
 use GlpiPlugin\Grcmanager\Services\Responsibility\ResponsibilityRules as Rules;
@@ -792,6 +794,11 @@ class ResponsibilityActivity extends ResponsibilityActivityBase
             'page_url'    => self::getSearchURL(),
             'export_url'  => self::exportUrl(),
             'exports'     => ResponsibilityExport::recent(),
+            // Issue #1054 : rôles du SMSI ; le lien vers leur réglage, pour qui peut le modifier.
+            'isms_roles'     => IsmsRoles::summary(),
+            'isms_roles_url' => IsmsRoles::canEdit()
+                ? ConfigTabs::anchorUrl(IsmsRolesBlock::ANCHOR)
+                : '',
         ]);
     }
 
@@ -817,6 +824,7 @@ class ResponsibilityActivity extends ResponsibilityActivityBase
             'perimeter'          => Dropdown::getDropdownName(Entity::getTable(), Session::getActiveEntity()),
             'matrix'             => self::matrix(),
             'roles'              => self::getRoles(),
+            'isms_roles'         => IsmsRoles::summary(),
         ]);
     }
 }
