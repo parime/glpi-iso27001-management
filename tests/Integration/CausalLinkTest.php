@@ -26,6 +26,8 @@ use GlpiPlugin\Grcmanager\CausalLink as Link;
  */
 final class CausalLinkTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private function risk(string $title): string
     {
         $id = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
@@ -79,6 +81,6 @@ final class CausalLinkTest extends GrcmanagerIntegrationTestCase
     {
         $node = Link::describe(\GlpiPlugin\Grcmanager\Risk::class . ':999999999');
         $this->assertFalse($node['visible']);
-        $this->assertSame(__('Item not visible', 'grcmanager'), $node['label']);
+        $this->assertSame('Item not visible', $node['label']);
     }
 }

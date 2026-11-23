@@ -40,6 +40,8 @@ use Ticket;
  */
 final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /** @var array<int, int|string> entités actives à restaurer après chaque test */
     private array $activeEntities = [];
 
@@ -230,7 +232,7 @@ final class RiskAppetiteKriTest extends GrcmanagerIntegrationTestCase
         $display = static fn (string $level): string
             => Risk::getSpecificValueToDisplay('residual_level', ['residual_level' => $level]);
         $this->assertStringContainsString('badge', $display('low'));
-        $this->assertSame(__('To be assessed', 'grcmanager'), $display(''));
+        $this->assertSame('To be assessed', $display(''));
     }
 
     public function testNothingChangesWithoutAppetite(): void

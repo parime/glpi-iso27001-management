@@ -66,16 +66,16 @@ final class MySpaceRulesTest extends TestCase
     public function testBuildFiltersSortsAndQualifies(): void
     {
         $items = Rules::build([
-            self::candidate('Sans échéance', null, true, 'treatment_action'),
+            self::candidate('Action sans date', null, true, 'treatment_action'),
             self::candidate('Revue lointaine', '2027-03-01'),
-            self::candidate('Bientôt', '2026-11-20 10:00:00'),
+            self::candidate('Bilan proche', '2026-11-20 10:00:00'),
             self::candidate('Action lointaine', '2027-03-01', true, 'treatment_action'),
-            self::candidate('En retard', '2026-10-01'),
-            self::candidate('b même jour', '2026-11-20'),
+            self::candidate('Tâche échue', '2026-10-01'),
+            self::candidate('b même date', '2026-11-20'),
         ], self::TODAY);
 
         $this->assertSame(
-            ['En retard', 'b même jour', 'Bientôt', 'Action lointaine', 'Sans échéance'],
+            ['Tâche échue', 'b même date', 'Bilan proche', 'Action lointaine', 'Action sans date'],
             array_column($items, 'name'),
             'Échéance croissante, puis nom (sans casse), sans échéance à la fin ; revue lointaine écartée.'
         );

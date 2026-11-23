@@ -40,6 +40,8 @@ use GlpiPlugin\Grcmanager\Services\Policy\PolicyApprovalRules;
  */
 final class ContinuityPlanTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     protected function setUp(): void
     {
         global $DB;

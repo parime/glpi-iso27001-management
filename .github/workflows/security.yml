@@ -43,8 +43,7 @@ jobs:
       # lignes.
       navigation-mode: warning
       pages-mode: warning
-      # Assertions de test sur des libellés traduits, en avertissement le temps de l'issue #1078.
-      translated-assertions-mode: warning
+      translated-assertions-mode: error
       # Administrateur, puis le lecteur de l'entité A créé par tests/security/setup.php
       # (SECURITY_TEST_PASSWORD).
       pages-accounts: 'glpi:glpi iso-lecteur:Secrev#2026'

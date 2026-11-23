@@ -34,6 +34,8 @@ use Supplier;
  */
 final class ContextItemTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /**
      * @param array<string, mixed> $input
      */
@@ -282,18 +284,18 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
         ob_start();
         $party->showForm($party->getID());
         $html = (string) ob_get_clean();
-        $this->assertStringContainsString(__('Needs and expectations', 'grcmanager'), $html);
+        $this->assertStringContainsString('Needs and expectations', $html);
         $this->assertStringContainsString(ContextItem::LINKS_MARKER, $html);
 
         ob_start();
         (new ContextItem())->showForm(0, ['kind' => Rules::KIND_ISSUE, 'category' => Rules::CATEGORY_CLIMATE]);
         $html = (string) ob_get_clean();
-        $this->assertStringContainsString(__('Is climate change relevant?', 'grcmanager'), $html);
+        $this->assertStringContainsString('Is climate change relevant?', $html);
 
         ob_start();
         ContextItem::showOverview();
         $html = (string) ob_get_clean();
-        $this->assertStringContainsString(__('Add an interested party', 'grcmanager'), $html);
+        $this->assertStringContainsString('Add an interested party', $html);
         $this->assertStringContainsString('contextitem.export.php?format=pdf', $html);
     }
 
@@ -340,7 +342,7 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(1, $linked);
         $this->assertSame((int) $party->getID(), (int) $linked[0]['id']);
         $tab = (string) (new ContextItem())->getTabNameForItem($risk);
-        $this->assertStringContainsString(htmlescape(__('Context of the organization', 'grcmanager')), $tab);
+        $this->assertStringContainsString(htmlescape('Context of the organization'), $tab);
         $this->assertMatchesRegularExpression('/>1<\/span>/', $tab, 'Une fiche citée.');
 
         ob_start();
@@ -385,7 +387,7 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
         ]);
 
         $rows = ContextItem::csvRows();
-        $this->assertSame(__('Needs and expectations', 'grcmanager'), $rows[0][5]);
+        $this->assertSame('Needs and expectations', $rows[0][5]);
         $flat = implode(PHP_EOL, array_map(static fn (array $r): string => implode(';', $r), $rows));
         $this->assertStringContainsString("'=PHPUnit partie formule", $flat, 'Formule neutralisée.');
         $this->assertStringContainsString('PHPUnit risque export contexte', $flat);
@@ -406,7 +408,7 @@ final class ContextItemTest extends GrcmanagerIntegrationTestCase
 
         $html = ContextItem::reportHtml();
         $this->assertStringContainsString('PHPUnit enjeu export', $html);
-        $this->assertStringContainsString(__('Interested parties', 'grcmanager'), $html);
+        $this->assertStringContainsString('Interested parties', $html);
         $this->assertStringContainsString('(4.2)', $html);
     }
 }
