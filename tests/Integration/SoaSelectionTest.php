@@ -36,6 +36,8 @@ use Migration;
  */
 final class SoaSelectionTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /** @var array<string, mixed> */
     private array $savedSession = [];
 
@@ -312,8 +314,8 @@ final class SoaSelectionTest extends GrcmanagerIntegrationTestCase
         $this->excludeA74();
 
         $html = SoaReportBuilder::renderHtml(0);
-        $this->assertStringContainsString(htmlspecialchars(__('Summary by theme', 'grcmanager')), $html);
-        $this->assertStringContainsString(htmlspecialchars(__('Reasons for selection', 'grcmanager')), $html);
+        $this->assertStringContainsString(htmlspecialchars('Summary by theme'), $html);
+        $this->assertStringContainsString(htmlspecialchars('Reasons for selection'), $html);
         $this->assertStringContainsString(
             htmlspecialchars(Control::getExclusionCategories()['certified_provider']),
             $html

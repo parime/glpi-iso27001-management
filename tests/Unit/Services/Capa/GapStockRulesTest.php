@@ -143,7 +143,7 @@ final class GapStockRulesTest extends TestCase
     {
         $this->assertSame("'=HYPERLINK(1)", R::csvCell('=HYPERLINK(1)'));
         $this->assertSame("'-1", R::csvCell('-1'));
-        $this->assertSame('Constat', R::csvCell('Constat'));
+        $this->assertSame('Texte libre', R::csvCell('Texte libre'));
         $this->assertSame('', R::csvCell(''));
     }
 }

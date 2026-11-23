@@ -24,6 +24,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
  */
 final class PageHelpTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testEveryHelpTextIsShownByItsPage(): void
     {
         $front = dirname(__DIR__, 2) . '/front/';
@@ -44,7 +46,7 @@ final class PageHelpTest extends GrcmanagerIntegrationTestCase
         ob_start();
         \GlpiPlugin\Grcmanager\PageHelp::show('risk');
         $html = (string) ob_get_clean();
-        $this->assertStringContainsString(__('What is this page for?', 'grcmanager'), $html);
+        $this->assertStringContainsString('What is this page for?', $html);
         $this->assertStringContainsString('grc-help-risk', $html);
 
         ob_start();

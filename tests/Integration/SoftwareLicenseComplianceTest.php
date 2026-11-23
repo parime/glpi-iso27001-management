@@ -33,6 +33,8 @@ use GlpiPlugin\Grcmanager\SoftwareLicenseCompliance;
  */
 final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const TODAY = '2026-11-20';
 
     private string $suffix;
@@ -353,7 +355,7 @@ final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
             fn (array $r): bool => $r[3] === 'PhpUnitDemo CAO ' . $this->suffix
         ));
         $this->assertCount(1, $rows);
-        $this->assertSame(__('Yes'), $rows[0][10]);
+        $this->assertSame('Yes', $rows[0][10]);
     }
 
     public function testChildLicencesShareTheSeatsOfTheirParent(): void

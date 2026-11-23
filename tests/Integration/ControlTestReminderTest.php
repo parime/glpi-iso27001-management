@@ -42,6 +42,8 @@ use UserEmail;
  */
 final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const MAIL_SETTINGS = [
         'use_notifications'     => 1,
         'notifications_mailing' => 1,
@@ -127,7 +129,7 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
         $mails = $this->mailsFor($control, 'ines@example.org');
         $this->assertCount(1, $mails, 'Rappel au responsable du plan de test.');
         $this->assertStringContainsString('A.5.15', $mails[0]['name']);
-        $withdrawn = __('The "Verified" status was withdrawn: the last effectiveness test has expired.', 'grcmanager');
+        $withdrawn = 'The "Verified" status was withdrawn: the last effectiveness test has expired.';
         $this->assertStringContainsString($withdrawn, (string) $mails[0]['body_text']);
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_text'], 'Toutes les balises remplacées.');
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_html']);
@@ -156,7 +158,7 @@ final class ControlTestReminderTest extends GrcmanagerIntegrationTestCase
         $mails = $this->mailsFor($control, 'hugo@example.org');
         $this->assertCount(1, $mails);
         $this->assertStringNotContainsString(
-            __('The "Verified" status was withdrawn: the last effectiveness test has expired.', 'grcmanager'),
+            'The "Verified" status was withdrawn: the last effectiveness test has expired.',
             (string) $mails[0]['body_text'],
             'Encadré du retrait masqué quand l\'état n\'a pas changé.'
         );

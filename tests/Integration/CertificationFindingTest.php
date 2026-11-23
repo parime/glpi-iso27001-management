@@ -126,13 +126,13 @@ final class CertificationFindingTest extends GrcmanagerIntegrationTestCase
             'name' => 'Site fictif 772', 'entities_id' => 0, 'is_recursive' => 1,
         ]);
         $major = $this->finding($audit, Rules::CATEGORY_MAJOR_NC, 'GVE-36', [
-            'audited_process'       => '  Gestion des accès ',
+            'audited_process'       => '  Processus fictif PHPUnit ',
             'requirement_reference' => 'A.5.15',
             'locations_id'          => $locationId,
         ]);
         $this->assertSame('nonconformity', $major->fields['finding_type']);
         $this->assertSame('major', $major->fields['severity']);
-        $this->assertSame('Gestion des accès', $major->fields['audited_process']);
+        $this->assertSame('Processus fictif PHPUnit', $major->fields['audited_process']);
         $this->assertSame($locationId, (int) $major->fields['locations_id']);
         $this->assertSame((int) $audit->fields['entities_id'], (int) $major->fields['entities_id']);
 
