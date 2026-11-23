@@ -37,16 +37,20 @@ final class LayeredLayout
 
     /**
      * @param array<int, list<string>> $layers couche => clés, dans l'ordre d'affichage
+     * @param list<int> $shown couches dessinées (les autres n'ont pas de bande)
      * @return array{width: int, height: int,
      *     bands: list<array{layer: int, y: int, height: int, hidden: int}>,
      *     nodes: array<string, array{x: int, y: int, cx: int, cy: int}>}
      */
-    public static function place(array $layers): array
+    public static function place(array $layers, array $shown = Layers::ALL): array
     {
         $bands = [];
         $nodes = [];
         $y = 0;
         foreach (array_reverse(Layers::ALL) as $layer) {
+            if (!in_array($layer, $shown, true)) {
+                continue;
+            }
             $keys = $layers[$layer] ?? [];
             $drawn = array_slice($keys, 0, self::MAX_DRAWN);
             $rows = max(1, (int) ceil(count($drawn) / self::PER_ROW));

@@ -40676,3 +40676,12 @@ msgstr[1] "%d Einträge warten auf Sie"
 
 msgid "version %s"
 msgstr "Version %s"
+
+msgid "Reports to sort"
+msgstr "Zu prüfende Meldungen"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Bewertete Risiken, ihre Behandlung und ihre Nachverfolgung."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Von Mitarbeitenden gemeldete Risiken, die ins Register aufzunehmen oder zu verwerfen sind."

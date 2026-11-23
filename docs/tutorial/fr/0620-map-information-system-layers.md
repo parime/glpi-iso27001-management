@@ -19,3 +19,13 @@ La cartographie relie ce que GLPI et GRC connaissent déjà, sans rien dessiner 
 Deux switchs reliés entre eux ne propagent pas l'impact (le plugin ne connaît pas la redondance) :
 déclarez la dépendance dans l'analyse d'impact de GLPI si elle existe. Un élément que vous ne pouvez
 pas voir (autre entité, droit manquant) est compté sans être nommé.
+
+Pour aller plus loin :
+
+- cliquez sur une case du schéma pour **repartir de cet élément** ; décochez des **couches** pour
+  alléger la carte ;
+- cochez **Flux applicatifs (matrice des flux)** pour ajouter les flux entre applications et serveurs
+  (traits pointillés) : le client dépend du serveur qu'il appelle ;
+- **Export (CSV)** et **Export (PDF)** donnent la carte à joindre au PCA/PRA ou au dossier d'audit ;
+- la même carte est dans l'onglet **Cartographie du SI** de chaque ordinateur, matériel réseau et
+  processus métier.

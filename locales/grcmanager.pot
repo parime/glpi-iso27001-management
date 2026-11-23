@@ -45644,3 +45644,15 @@ msgstr ""
 #, php-format
 msgid "out of %d critical assets"
 msgstr ""
+
+#: src/Navigation/Section/RiskSection.php
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr ""
+
+#: src/Navigation/Section/RiskSection.php
+msgid "Reports to sort"
+msgstr ""
+
+#: src/Navigation/Section/RiskSection.php
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr ""

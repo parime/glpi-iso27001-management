@@ -40345,3 +40345,12 @@ msgstr[1] "%d éléments vous attendent"
 
 msgid "version %s"
 msgstr "version %s"
+
+msgid "Reports to sort"
+msgstr "Signalements à trier"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Risques évalués, leur traitement et leur suivi."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Risques remontés par les collaborateurs, à intégrer au registre ou à écarter."

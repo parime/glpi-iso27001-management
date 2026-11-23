@@ -44658,3 +44658,12 @@ msgstr "version %s"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
+
+msgid "Reports to sort"
+msgstr "Reports to sort"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Assessed risks, their treatment and their follow-up."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Risks raised by staff, to add to the register or to dismiss."

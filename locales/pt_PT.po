@@ -40032,3 +40032,12 @@ msgstr[1] "%d itens esperam por você"
 
 msgid "version %s"
 msgstr "versão %s"
+
+msgid "Reports to sort"
+msgstr "Relatos a triar"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Riscos avaliados, seu tratamento e seu acompanhamento."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Riscos relatados pelos colaboradores, a incluir no registro ou descartar."

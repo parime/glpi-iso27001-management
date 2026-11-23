@@ -118,6 +118,39 @@ final class SectionHomeTest extends GrcmanagerIntegrationTestCase
         $this->assertLessThanOrEqual(SectionHome::MAX_TODO, count($data['todo']));
     }
 
+    /**
+     * Les cartes « Risques » et « Risques signalés » se confondaient : chacune a maintenant un titre
+     * distinct et un sous-titre qui dit à quoi elle sert (titres comparés entre eux, pas à un texte
+     * d'interface, pour rester indépendant de la langue).
+     */
+    public function testRegisterAndReportedRisksCardsAreDistinctAndDescribed(): void
+    {
+        $data = SectionHome::data(RiskSection::class, (int) \Session::getLoginUserID(), date('Y-m-d'));
+        $this->assertIsArray($data);
+        $cards = $data['groups'][0]['cards'];
+        $register = $cards[0];
+        $reported = null;
+        foreach ($cards as $card) {
+            if (str_contains($card['url'], 'reportedrisk')) {
+                $reported = $card;
+            }
+        }
+        $this->assertNotNull($reported, 'Carte des signalements dans le groupe du registre.');
+        $this->assertNotSame('', $register['description'], 'Sous-titre du registre.');
+        $this->assertNotSame('', $reported['description'], 'Sous-titre des signalements.');
+        $this->assertNotSame($register['title'], $reported['title']);
+        $this->assertStringNotContainsString(
+            $register['title'],
+            $reported['title'],
+            'Titres qui ne se recoupent plus.'
+        );
+
+        // Les autres rubriques gardent leurs cartes sans sous-titre imposé.
+        foreach ($cards as $card) {
+            $this->assertArrayHasKey('description', $card);
+        }
+    }
+
     public function testDelegatedDecisionsAndNationalRegistersAreReachableFromTheMenu(): void
     {
         $this->assertSame(
