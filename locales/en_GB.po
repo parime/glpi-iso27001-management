@@ -322,7 +322,7 @@ msgstr "Verified breach"
 #: templates/supplier_risk_form.html.twig templates/evidence_tab.html.twig
 #: templates/objective_form.html.twig templates/my_evidence_requests.html.twig
 #: templates/processing_activity_form.html.twig
-#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
 #: templates/risk_treatment_plan.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -1569,7 +1569,7 @@ msgid "Overdue"
 msgstr "Overdue"
 
 #: templates/pdf/postmortem_report.html.twig
-#: templates/postmortem_tab.html.twig src/DataBreach.php:131
+#: templates/postmortem_tab.html.twig src/DataBreach.php:131
 msgid "Not notified"
 msgstr "Not notified"
 
@@ -1694,7 +1694,7 @@ msgid "Affected items"
 msgstr "Affected items"
 
 #: templates/pdf/postmortem_report.html.twig
-#: inc/securityincident.class.php:234 src/SecurityIncidentTicket.php:117
+#: inc/securityincident.class.php:234 src/SecurityIncidentTicket.php:117
 msgid "Linked tickets"
 msgstr "Linked tickets"
 
@@ -2379,7 +2379,7 @@ msgid "Corrective action"
 msgstr "Corrective action"
 
 #: templates/pdf/internal_audit_report.html.twig
-#: templates/audit_form.html.twig src/Audit.php:250
+#: templates/audit_form.html.twig src/Audit.php:250
 msgid "Conclusion"
 msgstr "Conclusion"
 
@@ -2461,8 +2461,8 @@ msgid "Theme"
 msgstr "Theme"
 
 #: templates/pdf/soa_report.html.twig
-#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
-#: templates/control_form.html.twig front/customframework.php:157
+#: templates/custom_framework_list.html.twig templates/referentiels.html.twig
+#: templates/control_form.html.twig front/customframework.php:157
 msgctxt "label"
 msgid "Title"
 msgstr "Title"
@@ -2819,7 +2819,7 @@ msgstr "No risk linked to this process."
 #: templates/tabs/business_process_risks.html.twig
 #: templates/risk_form.html.twig templates/risk_appetite.html.twig
 #: src/NotificationTargetRisk.php:95
-#: src/NotificationTargetSupplierRisk.php:118 src/Risk.php:378
+#: src/NotificationTargetSupplierRisk.php:118 src/Risk.php:378
 #: src/SupplierRisk.php:208
 msgid "Risk level"
 msgstr "Risk level"
@@ -2912,8 +2912,8 @@ msgstr "Name"
 #: templates/itil_classification_section.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/custom_framework_form.html.twig
-#: inc/securityincident.class.php:940 src/NetworkFlow.php:255
-#: src/NetworkFlow.php:400 src/NotificationTargetRiskIndicator.php:155
+#: inc/securityincident.class.php:940 src/NetworkFlow.php:255
+#: src/NetworkFlow.php:400 src/NotificationTargetRiskIndicator.php:155
 #: src/RiskIndicator.php:733
 msgid "Source"
 msgstr "Source"
@@ -2934,7 +2934,7 @@ msgstr "Protocol and ports"
 #: templates/pdf/risk_register_report.html.twig
 #: templates/supplier_risk_form.html.twig templates/objective_form.html.twig
 #: templates/processing_activity_form.html.twig
-#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
+#: templates/policy_form.html.twig templates/risk_indicator_form.html.twig
 #: templates/risk_form.html.twig templates/compliance_obligation_form.html.twig
 #: templates/network_flow_form.html.twig src/ComplianceObligation.php:213
 #: src/NetworkFlow.php:266 src/Objective.php:190 src/Policy.php:176
@@ -3019,7 +3019,7 @@ msgstr "Risks in the register"
 
 #: templates/pdf/risk_register_report.html.twig
 #: templates/pdf/dpia_report.html.twig
-#: templates/park_vulnerabilities.html.twig templates/tabs/dpia.html.twig
+#: templates/park_vulnerabilities.html.twig templates/tabs/dpia.html.twig
 #: templates/risk_form.html.twig
 msgid "Level"
 msgstr "Level"
@@ -3045,7 +3045,7 @@ msgstr "Category"
 #: src/ManagementReview.php:304
 #: src/NotificationTargetComplianceObligation.php:94
 #: src/NotificationTargetRisk.php:96
-#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:411
+#: src/NotificationTargetSupplierRisk.php:119 src/Risk.php:411
 #: src/RiskRegisterImport.php:599 src/SupplierRisk.php:241
 msgid "Review date"
 msgstr "Review date"
@@ -3060,7 +3060,7 @@ msgstr "Approved"
 #: templates/pdf/dpia_report.html.twig templates/tabs/dpia.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/policy_approval_tab.html.twig src/Policy.php:98
-#: src/Policy.php:245 src/ProcessingActivity.php:130
+#: src/Policy.php:245 src/ProcessingActivity.php:130
 msgid "Draft"
 msgstr "Draft"
 
@@ -3490,8 +3490,8 @@ msgid "How to fix"
 msgstr "How to fix"
 
 #: templates/pdf/consistency_report.html.twig
-#: templates/park_machines.html.twig templates/my_space.html.twig
-#: templates/network_flow_matrix.html.twig templates/tabs/ioc.html.twig
+#: templates/park_machines.html.twig templates/my_space.html.twig
+#: templates/network_flow_matrix.html.twig templates/tabs/ioc.html.twig
 #: templates/network_flow_import.html.twig
 #: templates/compliance_event_form.html.twig
 #: templates/compliance_obligation_form.html.twig
@@ -4255,7 +4255,7 @@ msgid "CISA KEV catalog updated"
 msgstr "CISA KEV catalog updated"
 
 #: templates/park_vulnerabilities.html.twig
-#: templates/account_hygiene.html.twig templates/periodic_reviews.html.twig
+#: templates/account_hygiene.html.twig templates/periodic_reviews.html.twig
 #: src/ControlTestReminder.php:79
 msgid "Never"
 msgstr "Never"
@@ -4423,7 +4423,7 @@ msgid "EPSS"
 msgstr "EPSS"
 
 #: templates/park_vulnerabilities.html.twig
-#: templates/park_cve_ticket.html.twig templates/park_item_tab.html.twig
+#: templates/park_cve_ticket.html.twig templates/park_item_tab.html.twig
 msgid "Exploited"
 msgstr "Exploited"
 
@@ -6386,7 +6386,7 @@ msgstr "Record this breach in the register"
 
 #: templates/tabs/incident_playbook.html.twig
 #: templates/tabs/incident_data_breach.html.twig
-#: front/databreach.export.php:35 front/databreach.php:27
+#: front/databreach.export.php:35 front/databreach.php:27
 #: src/DataBreach.php:88
 msgid "Breach register"
 msgstr "Breach register"
@@ -8852,7 +8852,7 @@ msgid "Integrity"
 msgstr "Integrity"
 
 #: templates/asset_classification_tab.html.twig
-#: src/AssetClassification.php:189 src/Risk.php:837
+#: src/AssetClassification.php:189 src/Risk.php:837
 msgid "Not classified"
 msgstr "Not classified"
 
@@ -9351,7 +9351,7 @@ msgstr ""
 "below."
 
 #: templates/data_subject_request_form.html.twig
-#: src/DataSubjectRequest.php:385 src/NotificationTargetPolicyVersion.php:139
+#: src/DataSubjectRequest.php:385 src/NotificationTargetPolicyVersion.php:139
 #: src/NotificationTargetSoaVersion.php:104
 msgid "Requester"
 msgstr "Requester"
