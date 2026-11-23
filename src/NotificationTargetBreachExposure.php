@@ -36,6 +36,11 @@ class NotificationTargetBreachExposure extends NotificationTarget
     use IsmsRoleTargets;
 
     public const TARGET_CISO_GROUP = 1830;
+    // Issue #1054 : cibles des rôles du SMSI (communes, voir IsmsRoleTargets), déclarées ici aussi
+    // pour le contrôle des cibles de la classe (SecurityReviewTest, contrôles dans un vrai GLPI).
+    public const TARGET_CISO_EMAIL = IsmsRoles::TARGET_CISO_EMAIL;
+    public const TARGET_DPO_GROUP = IsmsRoles::TARGET_DPO_GROUP;
+    public const TARGET_DPO_EMAIL = IsmsRoles::TARGET_DPO_EMAIL;
 
     #[Override]
     public function getEvents()
