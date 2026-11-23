@@ -14,6 +14,7 @@
  * (at your option) any later version. See LICENSE for the full text.
  * -------------------------------------------------------------------------
  */
+
 declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Services\Lifecycle;
@@ -162,7 +163,8 @@ final class EndOfLifeCatalogStore
 
         $keys = [];
         foreach ($DB->request(['FROM' => EndOfLifeCatalogTables::REJECTS]) as $row) {
-            $keys[EndOfLifeCatalog::rejectKey((string) $row['kind'], (string) $row['name'], (string) $row['product'])] = true;
+            $key = EndOfLifeCatalog::rejectKey((string) $row['kind'], (string) $row['name'], (string) $row['product']);
+            $keys[$key] = true;
         }
 
         return $keys;

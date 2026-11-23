@@ -29,7 +29,8 @@ final class EndOfLifeCatalogTest extends TestCase
     }
 
     /**
-     * @return array<string, array{label: string, category: string, terms: list<array{term: string, level: int, source: string}>}>
+     * @return array<string, array{label: string, category: string,
+     *     terms: list<array{term: string, level: int, source: string}>}>
      */
     private static function catalog(): array
     {
@@ -74,12 +75,15 @@ final class EndOfLifeCatalogTest extends TestCase
 
     public function testCpeAndPurlDecomposition(): void
     {
-        $this->assertSame(['ubuntu_linux', 'canonical ubuntu_linux'], EndOfLifeCatalog::cpeWords('cpe:/o:canonical:ubuntu_linux'));
-        $this->assertSame(['firefox', 'mozilla firefox'], EndOfLifeCatalog::cpeWords('cpe:2.3:a:mozilla:firefox:*:*:*:*:*:*:*:*'));
+        $words = EndOfLifeCatalog::cpeWords('cpe:/o:canonical:ubuntu_linux');
+        $this->assertSame(['ubuntu_linux', 'canonical ubuntu_linux'], $words);
+        $words = EndOfLifeCatalog::cpeWords('cpe:2.3:a:mozilla:firefox:*:*:*:*:*:*:*:*');
+        $this->assertSame(['firefox', 'mozilla firefox'], $words);
         $this->assertSame([], EndOfLifeCatalog::cpeWords('cpe:2.3:a:*:*'));
         $this->assertSame([], EndOfLifeCatalog::cpeWords('not-a-cpe'));
         $this->assertSame(['core', 'angular core'], EndOfLifeCatalog::purlWords('pkg:npm/%40angular/core'));
-        $this->assertSame(['firefox-esr', 'debian firefox-esr'], EndOfLifeCatalog::purlWords('pkg:deb/debian/firefox-esr'));
+        $words = EndOfLifeCatalog::purlWords('pkg:deb/debian/firefox-esr');
+        $this->assertSame(['firefox-esr', 'debian firefox-esr'], $words);
         $this->assertSame(['firefox'], EndOfLifeCatalog::purlWords('pkg:generic/firefox'));
         $this->assertSame(
             ['oraclelinux'],
@@ -103,12 +107,14 @@ final class EndOfLifeCatalogTest extends TestCase
         ];
         $proposed = self::proposed($names);
 
-        $this->assertSame(['apache-http-server'], $proposed['Apache HTTP Server 2.4.62 (x64)'], 'Version et précision retirées.');
+        $apache = $proposed['Apache HTTP Server 2.4.62 (x64)'];
+        $this->assertSame(['apache-http-server'], $apache, 'Version et précision retirées.');
         $this->assertSame(['ubuntu'], $proposed['Canonical Ubuntu Linux'], 'CPE : vendeur et produit.');
         $this->assertSame(['firefox'], $proposed['firefox-esr'], 'purl : nom du paquet.');
         $this->assertSame(['angular'], $proposed['Angular'], 'Le nom du produit passe avant le purl d\'AngularJS.');
         $this->assertArrayNotHasKey('Core', $proposed, 'Terme trop vague (plus de trois produits) : rien.');
-        $this->assertSame(['amazon-linux', 'oracle-linux'], $proposed['Linux'], 'Deux produits : choix laissé à la personne.');
+        $linux = $proposed['Linux'];
+        $this->assertSame(['amazon-linux', 'oracle-linux'], $linux, 'Deux produits : choix laissé à la personne.');
         $this->assertArrayNotHasKey('Contoso Tool', $proposed, 'Nom inconnu : rien.');
         $this->assertArrayNotHasKey('Apache HTTP Server Tools', $proposed, 'Jamais de ressemblance.');
     }
@@ -119,7 +125,8 @@ final class EndOfLifeCatalogTest extends TestCase
         $rejected = [EndOfLifeCatalog::rejectKey('os', 'LINUX', 'amazon-linux') => true];
 
         $rows = EndOfLifeCatalog::suggest($names, self::catalog(), $rejected);
-        $this->assertSame(['oracle-linux'], array_column($rows[0]['candidates'], 'product'), 'Refus propre au nom et au type.');
+        $products = array_column($rows[0]['candidates'], 'product');
+        $this->assertSame(['oracle-linux'], $products, 'Refus propre au nom et au type.');
         $this->assertSame(['amazon-linux', 'oracle-linux'], array_column($rows[1]['candidates'], 'product'));
         $this->assertNotSame($rows[0]['token'], $rows[1]['token']);
         $this->assertSame(EndOfLifeCatalog::token('os', 'Linux'), EndOfLifeCatalog::token('os', 'linux'));

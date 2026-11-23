@@ -129,7 +129,8 @@ final class EndOfLifeCatalog
             }
             foreach (array_slice($identifiers, 0, self::MAX_IDENTIFIERS) as $row) {
                 $identifier = is_array($row) ? self::text($row['identifier'] ?? null) : '';
-                $product = is_array($row) && is_array($row['product'] ?? null) ? ($row['product']['name'] ?? null) : null;
+                $ref = is_array($row) ? ($row['product'] ?? null) : null;
+                $product = is_array($ref) ? ($ref['name'] ?? null) : null;
                 if ($identifier === '' || !is_string($product) || !isset($catalog[$product])) {
                     continue;
                 }
@@ -154,7 +155,7 @@ final class EndOfLifeCatalog
     public static function cpeWords(string $cpe): array
     {
         $parts = explode(':', strtolower($cpe));
-        if (($parts[0] ?? '') !== 'cpe') {
+        if ($parts[0] !== 'cpe') {
             return [];
         }
         if (($parts[1] ?? '') === '2.3') {
@@ -219,7 +220,8 @@ final class EndOfLifeCatalog
             foreach ($levels as $level => $products) {
                 $products = array_filter(
                     $products,
-                    static fn (string $product): bool => !isset($rejected[self::rejectKey($entry['kind'], $entry['name'], $product)]),
+                    static fn (string $product): bool
+                        => !isset($rejected[self::rejectKey($entry['kind'], $entry['name'], $product)]),
                     ARRAY_FILTER_USE_KEY
                 );
                 if ($products === []) {

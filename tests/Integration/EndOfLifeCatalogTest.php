@@ -139,7 +139,8 @@ final class EndOfLifeCatalogTest extends GrcmanagerIntegrationTestCase
         $this->assertArrayHasKey('ubuntu', EndOfLifeCatalogStore::catalog());
 
         $proposals = $this->proposals();
-        $this->assertSame('phpunitdemo-eol-' . $this->suffix, $proposals[$label . ' 2.1.0']['candidates'][0]['product']);
+        $first = $proposals[$label . ' 2.1.0']['candidates'][0];
+        $this->assertSame('phpunitdemo-eol-' . $this->suffix, $first['product']);
         $this->assertSame('product', $proposals[$alias]['candidates'][0]['via']);
         $this->assertSame([], array_filter(
             EndOfLifeStore::mappings(),
@@ -151,7 +152,8 @@ final class EndOfLifeCatalogTest extends GrcmanagerIntegrationTestCase
 
         $this->calls = [];
         $this->assertSame(EndOfLifeCatalogStore::FRESH, EndOfLife::refresh(5, $this->client())['catalog']);
-        $this->assertSame([], array_filter($this->calls, static fn (string $u): bool => !str_contains($u, '/products/')));
+        $catalogCalls = array_filter($this->calls, static fn (string $u): bool => !str_contains($u, '/products/'));
+        $this->assertSame([], $catalogCalls, 'Catalogue de moins d\'une semaine : pas relu.');
     }
 
     public function testAcceptSavesALinkAndRejectHidesTheProposal(): void
