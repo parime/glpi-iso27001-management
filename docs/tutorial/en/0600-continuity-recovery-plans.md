@@ -5,7 +5,7 @@ The continuity and recovery plans answer controls A.5.29 and A.5.30 of ISO 27001
 
 1. Create a plan with one of the four buttons: **BCP** and **BRP** for a business activity, **ITCP**
    and **DRP** for an IT system. The plan starts from a short model to replace (set in
-   **Setup > Plugins > GRC Manager**, **Incidents and continuity** tab).
+   **Setup > Plugins > GRC Manager**, **Risks and incidents** tab).
 2. Choose the owner, the approver (usually a member of management), the crisis team and the
    on-call team (GLPI groups), then the **covered processes**: their RTO and RPO come from their
    BIA, with the last recovery test of each one.
