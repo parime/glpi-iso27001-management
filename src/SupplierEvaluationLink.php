@@ -126,6 +126,10 @@ class SupplierEvaluationLink extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
+        // Portail fournisseur désactivé : pas d'onglet (charte, section 9 : rien d'inactif affiché).
+        if (!self::isEnabled()) {
+            return '';
+        }
         if (!$item instanceof SupplierEvaluation || $item->isNewItem() || !SupplierEvaluation::canView()) {
             return '';
         }
