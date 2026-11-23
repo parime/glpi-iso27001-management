@@ -26,6 +26,8 @@ use Glpi\Dashboard\Dashboard;
  */
 final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testMenuTitleAndFirstEntryOpenTheDashboard(): void
     {
         global $PLUGIN_HOOKS;

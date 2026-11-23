@@ -30,6 +30,8 @@ use PluginGrcmanagerSecurityIncidentTask as Task;
  */
 final class CrisisExerciseTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testExerciseRunsFromLaunchToArchivedReport(): void
     {
         global $DB;

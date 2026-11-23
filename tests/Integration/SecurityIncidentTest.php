@@ -15,6 +15,8 @@ use GlpiPlugin\Grcmanager\SecurityIncidentCve;
  */
 final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testCanBeAddedAndReadBackFromItsOwnRealTable(): void
     {
         $entityId = $this->createTestEntity(0, 'PHPUnit SecurityIncident Entity');
@@ -343,7 +345,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         }
 
         $latest = $DB->request(['FROM' => 'glpi_queuednotifications', 'ORDER' => 'id DESC', 'LIMIT' => 1])->current();
-        $this->assertStringContainsString(__('New security incident', 'grcmanager'), $latest['name']);
+        $this->assertStringContainsString('New security incident', $latest['name']);
         $this->assertStringContainsString('Test: notification', $latest['name']);
     }
 
@@ -368,7 +370,7 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
         $incident->update(['id' => $id, 'status' => PluginGrcmanagerSecurityIncident::SOLVED]);
 
         $latest = $DB->request(['FROM' => 'glpi_queuednotifications', 'ORDER' => 'id DESC', 'LIMIT' => 1])->current();
-        $this->assertStringContainsString(__('Security incident solved', 'grcmanager'), $latest['name']);
+        $this->assertStringContainsString('Security incident solved', $latest['name']);
     }
 
     /**

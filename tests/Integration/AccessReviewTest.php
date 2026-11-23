@@ -15,6 +15,8 @@ use Ticket;
  */
 final class AccessReviewTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /** @var array<string, int> */
     private array $ids = [];
 

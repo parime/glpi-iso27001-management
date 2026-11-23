@@ -48,7 +48,7 @@ final class ContextItemRulesTest extends TestCase
 
     public function testJustificationRequiredWhenNotRetained(): void
     {
-        $party = ['name' => 'Clients grands comptes', 'kind' => Rules::KIND_PARTY];
+        $party = ['name' => 'Clients fictifs PHPUnit', 'kind' => Rules::KIND_PARTY];
         $this->assertSame([], Rules::errors($party + ['relevance' => Rules::RELEVANCE_RETAINED]));
         $this->assertSame(
             [Rules::ERROR_JUSTIFICATION],
@@ -122,7 +122,7 @@ final class ContextItemRulesTest extends TestCase
         $this->assertSame("'+33 1 00 00 00 00", Rules::csvCell('+33 1 00 00 00 00'));
         $this->assertSame("'-x", Rules::csvCell('-x'));
         $this->assertSame("'@cmd", Rules::csvCell('@cmd'));
-        $this->assertSame('Clients grands comptes', Rules::csvCell('Clients grands comptes'));
+        $this->assertSame('Clients fictifs PHPUnit', Rules::csvCell('Clients fictifs PHPUnit'));
         $this->assertSame('12', Rules::csvCell(12));
         $this->assertSame('', Rules::csvCell(null));
     }

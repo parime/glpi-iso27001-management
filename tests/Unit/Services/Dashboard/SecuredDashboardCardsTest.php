@@ -17,10 +17,10 @@ final class SecuredDashboardCardsTest extends TestCase
     public function testBigNumberCardIsZeroedButKeepsItsPresentation(): void
     {
         $card = SecuredDashboardCards::zeroed([
-            'number' => 42, 'label' => 'Risques ouverts', 'icon' => 'ti ti-alert', 'url' => '/risk.php?id=3',
+            'number' => 42, 'label' => 'Carte fictive PHPUnit', 'icon' => 'ti ti-alert', 'url' => '/risk.php?id=3',
         ]);
 
-        self::assertEquals(['number' => 0, 'label' => 'Risques ouverts', 'icon' => 'ti ti-alert'], $card);
+        self::assertEquals(['number' => 0, 'label' => 'Carte fictive PHPUnit', 'icon' => 'ti ti-alert'], $card);
     }
 
     public function testListCardsLoseEveryEntryAndTheirLabels(): void

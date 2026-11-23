@@ -24,6 +24,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
  */
 final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testScoresComputeResultsAndRetakeList(): void
     {
         global $DB;
@@ -64,7 +66,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             $training->getFromDB($id);
             $report = \GlpiPlugin\Grcmanager\Training::renderSessionReport($training);
             $this->assertStringContainsString('32/40 (80 %)', $report);
-            $this->assertStringContainsString(__('To retake', 'grcmanager'), $report);
+            $this->assertStringContainsString('To retake', $report);
             $this->assertStringStartsWith('%PDF', \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf($report));
 
             // Une note hors barème est ignorée, jamais enregistrée.

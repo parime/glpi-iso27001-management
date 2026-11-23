@@ -28,6 +28,8 @@ use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
  */
 final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private string $vendor;
 
     protected function setUp(): void
@@ -66,7 +68,7 @@ final class SecurityWatchTest extends GrcmanagerIntegrationTestCase
         $this->assertSame([strtolower($this->vendor)], SecurityWatch::keywordsFor($risk));
 
         $tab = (string) (new SecurityWatch())->getTabNameForItem($risk);
-        $this->assertStringContainsString(__('Security watch', 'grcmanager'), $tab);
+        $this->assertStringContainsString('Security watch', $tab);
         ob_start();
         SecurityWatch::displayTabContentForItem($risk);
         $html = (string) ob_get_clean();

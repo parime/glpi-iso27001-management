@@ -43,6 +43,8 @@ use UserEmail;
  */
 final class KriAlertTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const MAIL_SETTINGS = [
         'use_notifications'     => 1,
         'notifications_mailing' => 1,

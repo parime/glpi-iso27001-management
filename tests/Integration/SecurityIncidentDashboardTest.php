@@ -36,6 +36,8 @@ use PluginGrcmanagerSecurityIncident;
  */
 final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const RIGHT = 'plugin_grcmanager_securityincident';
 
     /**
@@ -143,7 +145,7 @@ final class SecurityIncidentDashboardTest extends GrcmanagerIntegrationTestCase
             $this->assertSame(['nodata' => true], SecuredDashboardCards::attackTactics()['data']);
             $this->assertSame(1, SecuredDashboardCards::averageTimeToContain()['number']);
             $severity = array_column(SecuredDashboardCards::securityIncidentsBySeverity()['data'], 'number', 'label');
-            $this->assertSame(0, $severity[__('Critical', 'grcmanager')]);
+            $this->assertSame(0, $severity['Critical']);
             $classification = array_column(SecuredDashboardCards::byClassification()['data'], 'number', 'label');
             $this->assertArrayNotHasKey(__('Data breach', 'grcmanager'), $classification);
             $this->assertSame(3, array_sum(array_column(SecuredDashboardCards::incidentsByEntity()['data'], 'number')));
