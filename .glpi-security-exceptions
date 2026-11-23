@@ -1,54 +1,6 @@
 # Exceptions justifiées des contrôles de sécurité communs (parime/glpi-plugin-security).
 # Format : « <contrôle> <identifiant> : <justification> », une par ligne ; « # » : commentaire.
-# Charte commune : parime/glpi-plugin-template, CHARTE.md, section 9 (menus et réglages).
-
-# Issue #656 : outil métier complet. Le secteur « GRC & Conformité » regroupe les écrans d'usage,
-# chacun pour des publics différents ; tous les réglages restent dans la page de configuration du
-# plugin (front/config.php, ouverte depuis Configuration > Plugins).
-# Issue #1038 : 13 rubriques aux noms parlants (Tableau de bord, Mon espace, Risques, Analyses de
-# risques, Mesures de sécurité, Politiques et procédures, Audits et preuves, Amélioration continue,
-# Réglementations, Vie privée, Accès et comptes, Personnel et sensibilisation, Organisation du SMSI),
-# 7 sous-pages au plus chacune, plus « Sécurité technique » jusqu'à son départ dans Parc (#1039).
-menus-secteur-metier : plugin GRC conséquent : environ 11 rubriques aux noms parlants dans son secteur propre, décision du mainteneur du 22/11 (#1035)
-
-# Entrée Assistance > Incidents de sécurité (PluginGrcmanagerSecurityIncident, affichée seulement si
-# le module est activé) : c'est un objet ITIL (CommonITILObject : acteurs, tâches, gabarits, SLA,
-# règles, notifications), géré au quotidien par l'équipe de support et de sécurité, à côté des
-# tickets, problèmes et changements natifs ; GLPI range ses objets ITIL dans Assistance. Seule entrée
-# hors du secteur GRC, gardée volontairement (identifiant reconnu depuis glpi-plugin-security v1.7.1).
-menus-entree-native helpdesk > PluginGrcmanagerSecurityIncident : objet ITIL des incidents de sécurité, rangé dans Assistance à côté des tickets, problèmes et changements
-menus-entree-native assets > GlpiPlugin\Grcmanager\AssetSecurity : sécurité du parc rangée dans Parc à côté des matériels, décision du mainteneur du 22/11 (#1035)
-menus-entree-native helpdesk > GlpiPlugin\Grcmanager\CrisisContinuity : crise et continuité (PCA/PRA) rangées dans Assistance avec les incidents de sécurité, décision du mainteneur du 22/11 (#1035)
-menus-entree-native management > GlpiPlugin\Grcmanager\SupplierRisk : sécurité des fournisseurs (risques fournisseurs, questionnaires, registre DORA) rangée dans Gestion à côté des fournisseurs et des contrats, décision du mainteneur du 22/11 (#1035)
-
-# Issue #1078 : assertions de test sur un libellé traduit (contrôle translated-assertions).
-translated-assertion tests/Integration/AuditEvidenceSettingsBlocksTest.php::testBlocksAreInTheirTabAndOldAnchorsOpenThem : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/CausalLinkTest.php::testHiddenNodeIsCountedWithoutBeingNamed : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/CertificationReadinessTest.php::testReportIsReadOnlyAndExportedAsPdfAndDashboardCard : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/ContextItemTest.php::testExportForTheAuditor : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/ContextItemTest.php::testFormAndListRender : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/ContinuityPlanTest.php::testTestsAndGapsBecomeANonconformity : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/ControlTestReminderTest.php::testDueSoonReminderKeepsTheVerifiedStatus : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/CrisisCommunicationTest.php::testMessageIsFilledFromTheIncidentAndEscaped : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/DashboardMenuTest.php::testGroupedScreensAreSubPagesOfASingleEntry : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/KriAlertTest.php::testManualValuesAlertOncePerStateChangeAndWhenBackToGreen : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/NetworkFlowReportTest.php::testReportListsActiveFlowsWithTheirGapsAndRendersAsPdf : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/NotificationTemplateLanguagesTest.php::testOriginalFrenchTemplateIsMigratedAndMissingLanguagesAdded : traducteur français historique passé explicitement (legacyTranslator), indépendant de la langue de la session
-translated-assertion tests/Integration/PageHelpTest.php::testBoxRendersWithTranslatedTitle : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/ParkVulnerabilityTest.php::testNewVulnerableMachinesAreLinkedToTheOpenTicket : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/PolicyTemplateTest.php::testImportCreatesDraftLinkedBySectionWithoutOverwriting : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/RiskAppetiteKriTest.php::testResidualRiskDecidesThePositionOnceAssessed : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/SecurityIncidentTest.php::testCreatingAnIncidentQueuesANewNotification : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/SecurityIncidentTest.php::testGetTypeNameUsesTheRealTranslationDomainForSingularAndPlural : teste la traduction de getTypeName dans le domaine grcmanager, langue forcée en en_GB (ForcesEnglishLanguage)
-translated-assertion tests/Integration/SecurityIncidentTest.php::testSolvingAnIncidentQueuesASolvedNotification : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/SecurityWatchTest.php::testSupplierTabListsNoticesAndOwnerIsNotifiedOnce : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Integration/TrainingScoreTest.php::testScoresComputeResultsAndRetakeList : libellé d'interface vérifié avec la langue forcée en en_GB (ForcesEnglishLanguage), même résultat en CI et en développement
-translated-assertion tests/Unit/Services/Access/CloudPostureReportTest.php::testParsesScubaGearResults : faux positif : texte du fichier d'exemple resources/scubagear-example.json, on vérifie que la section Raw n'est pas lue
-translated-assertion tests/Unit/Services/Acn/AcnCatalogDefaultsTest.php::testTextsFollowTheRequestedLanguageWithFallback : texte du catalogue de référence dans une langue passée explicitement, sans GLPI
-translated-assertion tests/Unit/Services/Control/DoraCatalogDefaultsTest.php::testMajorIncidentReportingDeadlinesAreStated : texte du catalogue de référence dans une langue passée explicitement, sans GLPI
-translated-assertion tests/Unit/Services/Control/Nis2CatalogDefaultsTest.php::testNotificationDeadlinesAreStated : texte du catalogue de référence dans une langue passée explicitement, sans GLPI
-translated-assertion tests/Unit/Services/Dora/RegisterBuilderTest.php::testAssessmentOnlyForCriticalFunctions : faux positif : libellé fixe de la taxonomie EBA du registre DORA (RegisterTemplates), non traduit
-translated-assertion tests/Unit/Services/Incident/MitreAttackTest.php::testEmbeddedFileIsComplete : faux positif : nom officiel d'une tactique MITRE ATT&CK lu dans le fichier embarqué, non traduit
-translated-assertion tests/Unit/Services/Network/NetworkFlowStormshieldTest.php::testSidesAreLocatedWithoutTheObjectsExport : faux positif : valeur fixe « Tous » produite par la lecture de l'export Stormshield, non traduite
-translated-assertion tests/Unit/Services/Notification/MoCatalogTest.php::testFallsBackToTheMsgid : teste le catalogue .mo d'une langue passée explicitement, sans GLPI
-translated-assertion tests/Unit/Services/Notification/MoCatalogTest.php::testTranslatesFromThePluginCatalogOfTheGivenLanguage : teste le catalogue .mo d'une langue passée explicitement, sans GLPI
+# Issue #1098 : les exceptions sont rangées en fragments dans .glpi-security-exceptions.d/, un fichier
+# par sujet ou par issue d'origine (<issue>-<sujet>). Une nouvelle exception = un nouveau fichier (ou
+# une ligne dans le fragment de son sujet), jamais ce fichier-ci : deux branches ne se gênent plus.
+# Les contrôles communs lisent ce fichier puis chaque fragment (checks/exceptions-cat.sh).
