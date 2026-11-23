@@ -288,3 +288,24 @@
     padding-left: .6rem;
     padding-right: .6rem;
 }
+
+/*
+ * Issue #1114 : libellés des onglets lisibles quelle que soit la palette de GLPI (contraste d'au
+ * moins 4,5:1) : couleur du texte de la page, et onglet courant de la barre des pages repliées
+ * marqué par un fond discret, un trait de la couleur principale et du gras (la palette par défaut
+ * « auror » écrivait ce libellé en jaune pâle sur fond clair, 1,4:1).
+ */
+.grcmanager-section-nav .nav-link,
+.grcmanager-section-subnav .nav-link,
+#grc-config-tabs .nav-link {
+    color: var(--tblr-body-color);
+}
+
+.grcmanager-section-subnav .nav-link.active,
+.grcmanager-section-subnav .nav-link.active:hover,
+.grcmanager-section-subnav .nav-link.active:focus {
+    color: var(--tblr-body-color);
+    background-color: var(--tblr-bg-surface-secondary, rgba(0, 0, 0, .05));
+    box-shadow: inset 0 -2px 0 var(--tblr-primary, #206bc4);
+    font-weight: 600;
+}

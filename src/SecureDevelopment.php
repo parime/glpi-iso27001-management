@@ -302,6 +302,9 @@ class SecureDevelopment extends CommonGLPI
             'can_see_apps'      => self::canViewApplications(),
             'can_see_releases'  => self::canViewReleases(),
             'appliances_url'    => Appliance::getSearchURL(),
+            // Issue #1114 : nomenclatures (SBOM) importées, atteignables depuis cette page.
+            'sbom_url'          => ProductSbom::canView() ? ProductSbom::getPageURL() : '',
+            'sbom_label'        => ProductSbom::getTypeName(Session::getPluralNumber()),
             'period_days'       => self::RELEASE_PERIOD_DAYS,
         ]);
     }
