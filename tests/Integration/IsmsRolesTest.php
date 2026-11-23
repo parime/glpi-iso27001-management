@@ -173,7 +173,8 @@ final class IsmsRolesTest extends GrcmanagerIntegrationTestCase
         ]);
 
         $recipients = static function (int $targetId): array {
-            $target = new NotificationTargetBreachExposure(0, BreachExposure::NEW_EXPOSURES_EVENT, new BreachExposure());
+            $event = BreachExposure::NEW_EXPOSURES_EVENT;
+            $target = new NotificationTargetBreachExposure(0, $event, new BreachExposure());
             $target->setMode(Notification_NotificationTemplate::MODE_MAIL)->setEvent(NotificationEventMailing::class);
             $target->addSpecificTargets(['items_id' => $targetId], []);
 

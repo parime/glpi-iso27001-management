@@ -41,7 +41,10 @@ final class IsmsRoleRulesTest extends TestCase
     public function testLegacyAddressOnlyBecomesTheGenericAddress(): void
     {
         $this->assertSame(['email' => 'dpo@example.org', 'note' => ''], Rules::splitLegacyContact(' dpo@example.org '));
-        $this->assertSame(['email' => 'dpo@example.org', 'note' => ''], Rules::splitLegacyContact('mailto:DPO@example.org'));
+        $this->assertSame(
+            ['email' => 'dpo@example.org', 'note' => ''],
+            Rules::splitLegacyContact('mailto:DPO@example.org')
+        );
     }
 
     public function testLegacyNameAndAddressAreSplit(): void
