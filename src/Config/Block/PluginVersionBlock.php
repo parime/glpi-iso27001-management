@@ -31,7 +31,8 @@ final class PluginVersionBlock extends ConfigBlock
 
     public static function order(): int
     {
-        return 10;
+        // Premier bloc affiché de la configuration (demande du mainteneur, 23/11).
+        return 1;
     }
 
     public static function template(): string
