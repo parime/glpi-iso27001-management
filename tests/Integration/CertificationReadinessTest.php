@@ -36,6 +36,8 @@ use GlpiPlugin\Grcmanager\Services\Readiness\CertificationReadinessRules as Rule
  */
 final class CertificationReadinessTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /**
      * @return array<string, array<string, mixed>> étape => données de l'étape
      */
@@ -207,8 +209,8 @@ final class CertificationReadinessTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($before, $after);
 
         $html = CertificationReadiness::renderPdf($report);
-        $this->assertStringContainsString(__('Assess the risks', 'grcmanager'), $html);
-        $this->assertStringContainsString(__('Certification readiness report', 'grcmanager'), $html);
+        $this->assertStringContainsString('Assess the risks', $html);
+        $this->assertStringContainsString('Certification readiness report', $html);
         $this->assertStringContainsString('grc-st-' . $report['steps'][0]['status'], $html);
 
         $card = SecuredDashboardCards::certificationReadinessScore();

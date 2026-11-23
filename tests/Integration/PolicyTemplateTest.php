@@ -18,6 +18,8 @@ use GlpiPlugin\Grcmanager\PolicyTemplate;
  */
 final class PolicyTemplateTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testImportCreatesDraftLinkedBySectionWithoutOverwriting(): void
     {
         global $DB;

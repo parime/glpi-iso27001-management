@@ -17,7 +17,7 @@ require_once __DIR__ . '/../../setup.php';
  * runs plugin_init_grcmanager() or any other GLPI-dependent function).
  *
  * This is the *wiring* half of the fix for two real bugs (CHANGELOG v1.1.3/v1.1.4: wrong
- * breadcrumb sector, then a duplicate "GRC & Conformité" row in its own submenu) : the *effect*
+ * breadcrumb sector, then a duplicate "Secteur fictif PHPUnit" row in its own submenu) : the *effect*
  * those fixes have on GLPI's actual rendered menu isn't practically unit-testable (depends on
  * `Html::generateMenuSession()`/`Html::header()` rendering against a real GLPI instance), but this
  * function's own contract - "remove exactly the anchor class's own row, touch nothing else" - is,
@@ -36,9 +36,9 @@ final class SetupMenuRedefinitionTest extends TestCase
 
         $menu = [
             'grcmanager' => [
-                'title' => 'GRC & Conformité',
+                'title' => 'Secteur fictif PHPUnit',
                 'content' => [
-                    $anchorKey => ['title' => 'GRC & Conformité', 'page' => '/front/risk.php'],
+                    $anchorKey => ['title' => 'Secteur fictif PHPUnit', 'page' => '/front/risk.php'],
                     'plugingrcmanagerrisk' => ['title' => 'Registre des risques', 'page' => '/front/risk.php'],
                     'plugingrcmanagercontrol' => ['title' => 'Contrôles (SoA)', 'page' => '/front/control.php'],
                 ],
@@ -64,7 +64,7 @@ final class SetupMenuRedefinitionTest extends TestCase
             'Sibling menu entries must be untouched.'
         );
         $this->assertSame(
-            'GRC & Conformité',
+            'Secteur fictif PHPUnit',
             $result['grcmanager']['title'],
             'The sector title itself must be untouched: only the anchor\'s own content row is removed.'
         );
@@ -74,7 +74,7 @@ final class SetupMenuRedefinitionTest extends TestCase
     {
         $menu = [
             'grcmanager' => [
-                'title' => 'GRC & Conformité',
+                'title' => 'Secteur fictif PHPUnit',
                 'content' => [
                     'plugingrcmanagerrisk' => ['title' => 'Registre des risques', 'page' => '/front/risk.php'],
                 ],
@@ -100,10 +100,10 @@ final class SetupMenuRedefinitionTest extends TestCase
                 ],
             ],
             'grcmanager' => [
-                'title' => 'GRC & Conformité',
+                'title' => 'Secteur fictif PHPUnit',
                 'content' => [
                     strtolower(\GlpiPlugin\Grcmanager\Menu::class) => [
-                        'title' => 'GRC & Conformité',
+                        'title' => 'Secteur fictif PHPUnit',
                         'page' => '/front/risk.php',
                     ],
                 ],

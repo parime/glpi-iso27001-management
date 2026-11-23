@@ -80,7 +80,7 @@ final class ChecklistRulesTest extends TestCase
     {
         self::assertSame('Revue  des accès', Rules::cleanLongText("  Revue  des accès \r\n"));
         self::assertSame("a\nb", Rules::cleanLongText("a\r\nb"));
-        self::assertSame('Revue des accès', Rules::cleanText("  Revue \n des   accès ", 255));
+        self::assertSame('Revue des lots fictifs', Rules::cleanText("  Revue \n des   lots   fictifs ", 255));
         self::assertSame('abc', Rules::cleanText('abcdef', 3));
         self::assertSame('', Rules::cleanText(['tableau'], 10));
     }
