@@ -344,20 +344,8 @@ if (isset($_POST['update_recyf_entities'])) {
     Html::back();
 }
 
-// Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30).
-if (isset($_POST['update_dpo_contact'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-
-    $before = \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact();
-    \GlpiPlugin\Grcmanager\ProcessingActivity::saveDpoContact((string) ($_POST['dpo_contact'] ?? ''));
-    if ($before !== \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact()) {
-        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
-            'changes' => ['dpo_contact' => true],
-        ]);
-    }
-
-    Html::back();
-}
+// Issue #1054 : contact du DPO (#375) et groupe RSSI des audits (#140) : bloc « Rôles du SMSI »
+// (Config\Block\IsmsRolesBlock::handle()).
 
 // Issue #380 : groupe RSSI prévenu des tests d'efficacité en retard ou proches de l'échéance.
 if (isset($_POST['update_controltest_reminder'])) {
@@ -546,14 +534,6 @@ if (isset($_POST['update_http_config'])) {
             'changes' => ['http_allow_private_networks' => (int) $allow],
         ]);
     }
-
-    Html::back();
-}
-
-if (isset($_POST['update_audit_config'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-
-    \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
 
     Html::back();
 }

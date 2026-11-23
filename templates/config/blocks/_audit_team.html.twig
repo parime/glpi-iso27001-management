@@ -12,22 +12,22 @@
  # (at your option) any later version. See LICENSE for the full text.
  # -------------------------------------------------------------------------
  #}
-{# Issue #140 : groupe RSSI, qui lit les documents de tous les audits internes. #}
-{% import 'components/form/fields_macros.html.twig' as fields %}
+{# Issue #140 : groupe RSSI, qui lit les documents de tous les audits internes. Issue #1054 : choisi
+   dans le bloc « Rôles du SMSI » (onglet Personnes et politiques), rappelé ici. #}
 <div class="card mb-3" id="grc-audit-config">
   <div class="card-body">
     <h4>{{ __('Internal audits', 'grcmanager') }}</h4>
     <p class="text-muted">
       {{ __('The documents of an audit can only be read by its team (auditors, owner, auditees) and by the members of this group, even with the GLPI Documents right.', 'grcmanager') }}
     </p>
-    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
-      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
-      {{ fields.dropdownField('Group', 'ciso_groups_id', ciso_groups_id, __('CISO group', 'grcmanager'), {'entity': -1}) }}
-      {% if can_edit_config %}
-        <div class="d-flex gap-2 mt-2">
-          <button type="submit" name="update_audit_config" class="btn btn-primary">{{ __('Save') }}</button>
-        </div>
+    <p class="mb-0">
+      {{ __('CISO group', 'grcmanager') }} :
+      {% if ciso_groups_id > 0 %}
+        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-users-group me-1"></i>{{ ciso_group_name }}</span>
+      {% else %}
+        <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No group', 'grcmanager') }}</span>
       {% endif %}
-    </form>
+      <a href="{{ isms_roles_url }}" class="ms-2"><i class="ti ti-arrow-right me-1"></i>{{ __('Choose it in the ISMS roles', 'grcmanager') }}</a>
+    </p>
   </div>
 </div>

@@ -48,6 +48,45 @@
    </div>
 </div>
 
+{# Issue #1054 : rôles du SMSI (mesure A.5.2), choisis dans la configuration du plugin. #}
+<div class="card mb-3" id="grc-isms-roles">
+   <div class="card-header d-flex flex-wrap gap-2 align-items-center">
+      <h3 class="card-title me-auto"><i class="ti ti-users-group me-1"></i>{{ __('ISMS roles', 'grcmanager') }}</h3>
+      {% if isms_roles_url is not empty %}
+         <a href="{{ isms_roles_url }}" class="btn btn-sm btn-outline-secondary"><i class="ti ti-settings me-1"></i>{{ __('Choose the roles', 'grcmanager') }}</a>
+      {% endif %}
+   </div>
+   <div class="card-body">
+      <div class="row g-3">
+         {% for role in isms_roles %}
+            <div class="col-12 col-md-6">
+               <div class="fw-bold mb-1"><i class="ti {{ role.key == 'dpo' ? 'ti-shield-lock' : 'ti-shield-check' }} me-1"></i>{{ role.label }}</div>
+               <div>
+                  {% if role.group_id > 0 %}
+                     <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-users-group me-1"></i>{% if role.group_url is not empty %}<a href="{{ role.group_url }}" class="text-reset">{{ role.group_name }}</a>{% else %}{{ role.group_name }}{% endif %}</span>
+                  {% else %}
+                     <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('No group', 'grcmanager') }}</span>
+                  {% endif %}
+                  {% if role.email is not empty %}
+                     <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-mail me-1"></i>{{ role.email }}</span>
+                  {% else %}
+                     <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-mail-off me-1"></i>{{ __('No generic address', 'grcmanager') }}</span>
+                  {% endif %}
+               </div>
+               {% if role.members is not empty %}
+                  <div class="text-secondary small mt-1">{{ __('Members', 'grcmanager') }} : {{ role.members|join(', ') }}</div>
+               {% elseif role.group_id > 0 %}
+                  <div class="text-warning small mt-1">{{ __('The group has no active member.', 'grcmanager') }}</div>
+               {% endif %}
+               {% if role.note is not empty %}
+                  <div class="small mt-1"><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-pencil-exclamation me-1"></i>{{ __('To be reworked', 'grcmanager') }}</span> {{ role.note }}</div>
+               {% endif %}
+            </div>
+         {% endfor %}
+      </div>
+   </div>
+</div>
+
 <div class="card mb-3">
    <div class="card-header d-flex flex-wrap gap-2 align-items-center">
       <h3 class="card-title me-auto"><i class="ti ti-table me-1"></i>{{ __('Responsibility matrix', 'grcmanager') }}</h3>

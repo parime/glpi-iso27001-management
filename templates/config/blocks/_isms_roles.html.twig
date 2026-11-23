@@ -1,0 +1,68 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1054 : rôles du SMSI (mesure A.5.2). Pour le RSSI et le DPO : groupe GLPI (titulaires et
+   suppléants, notifications) et adresse e-mail générique (documents, destinataire de notification). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<div class="card mb-3" id="grc-isms-roles-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center">
+      <i class="ti ti-users-group me-2"></i>{{ __('ISMS roles', 'grcmanager') }}
+    </h4>
+    <p class="text-muted">
+      {{ __('For each role, choose the GLPI group of the people who hold it (holders and substitutes) and a generic e-mail address that does not change when the person changes. The group receives the notifications and reads the documents of the internal audits (CISO); the generic address is shown on the registers and can be chosen as a notification recipient. The roles are shown on the responsibility matrix (ISMS organisation).', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-3">
+        {% for role in isms_roles %}
+          <div class="col-12 col-lg-6">
+            <div class="border rounded p-3 h-100">
+              <h5 class="d-flex align-items-center">
+                <i class="ti {{ role.key == 'dpo' ? 'ti-shield-lock' : 'ti-shield-check' }} me-2"></i>{{ role.label }}
+                {% if role.group_id > 0 %}
+                  <span class="badge bg-success-subtle text-success-emphasis ms-2"><i class="ti ti-check me-1"></i>{{ _n('%d member', '%d members', role.members|length, 'grcmanager')|format(role.members|length) }}</span>
+                {% else %}
+                  <span class="badge bg-warning-subtle text-warning-emphasis ms-2"><i class="ti ti-alert-triangle me-1"></i>{{ __('No group', 'grcmanager') }}</span>
+                {% endif %}
+              </h5>
+              {{ fields.dropdownField('Group', role.key ~ '_groups_id', role.group_id, _n('Group', 'Groups', 1), {'entity': -1, 'readonly': not can_edit_config, 'full_width': true}) }}
+              <label class="form-label" for="grc-isms-role-{{ role.key }}-email">{{ __('Generic e-mail address', 'grcmanager') }}</label>
+              <input type="email" class="form-control" id="grc-isms-role-{{ role.key }}-email" name="{{ role.key }}_email" maxlength="255" value="{{ role.email }}" placeholder="{{ role.key }}@example.org" {{ can_edit_config ? '' : 'disabled' }}>
+              <div class="form-hint">{{ __('A shared mailbox or a list, not a personal address.', 'grcmanager') }}</div>
+              {% if role.note is not empty %}
+                <div class="alert alert-warning mt-3 mb-0">
+                  <span class="badge bg-warning-subtle text-warning-emphasis mb-1"><i class="ti ti-pencil-exclamation me-1"></i>{{ __('To be reworked', 'grcmanager') }}</span>
+                  <div>{{ __('Kept from the former "DPO" text field:', 'grcmanager') }} <strong>{{ role.note }}</strong></div>
+                  <div class="form-hint">{{ __('Shown on the registers as long as no group and no address are chosen. Choose the group or the address, then delete this note.', 'grcmanager') }}</div>
+                  {% if can_edit_config %}
+                    <div class="form-check mt-1">
+                      <input class="form-check-input" type="checkbox" id="grc-isms-role-clear-note" name="clear_dpo_note" value="1">
+                      <label class="form-check-label" for="grc-isms-role-clear-note">{{ __('The note has been reworked: delete it', 'grcmanager') }}</label>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" name="update_isms_roles" value="1" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+  </div>
+</div>
