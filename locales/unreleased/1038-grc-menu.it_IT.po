@@ -53,8 +53,8 @@ msgstr "Dati personali: il registro delle attività di trattamento, le richieste
 msgid "Access and accounts"
 msgstr "Accessi e account"
 
-msgid "Who has access to what: access reviews, periodic reviews, account hygiene, multi-factor authentication and file share permissions."
-msgstr "Chi ha accesso a cosa: revisioni degli accessi, revisioni periodiche, igiene degli account, autenticazione a più fattori e permessi delle condivisioni."
+msgid "Who has access to what: access reviews, periodic reviews, account hygiene, multi-factor authentication, file share permissions and the Active Directory audit."
+msgstr "Chi ha accesso a cosa: revisioni degli accessi, revisioni periodiche, igiene degli account, autenticazione a più fattori, permessi delle condivisioni e audit di Active Directory."
 
 msgid "People and awareness"
 msgstr "Persone e sensibilizzazione"

@@ -293,7 +293,7 @@ class Delegation extends DelegationBase
         return [
             'types'       => DelegationConfig::typeInfos(),
             'enabled'     => DelegationConfig::types(),
-            'action'      => self::getSearchURL(),
+            'action'      => \GlpiPlugin\Grcmanager\Config\ConfigTabs::url('people'),
             'can_edit'    => self::canConfigure(),
         ];
     }

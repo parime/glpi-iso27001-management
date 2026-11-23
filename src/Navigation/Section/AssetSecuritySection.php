@@ -97,7 +97,7 @@ final class AssetSecuritySection extends AbstractSection
                 'label'       => __('Hardening', 'grcmanager'),
                 'icon'        => 'ti ti-adjustments-check',
                 'description' => __(
-                    'Automated checks of the inventory, secure configuration, disk encryption and Active Directory.',
+                    'Automated checks of the inventory, secure configuration and disk encryption.',
                     'grcmanager'
                 ),
             ],
@@ -164,8 +164,7 @@ final class AssetSecuritySection extends AbstractSection
             ConfigurationCompliance::class => $in('configuration'),
             // Issue #847 : chiffrement des disques du parc (A.8.24, A.8.1).
             DiskEncryption::class => $in('configuration'),
-            // Issue #835 : audit de sécurité de l'Active Directory (rapports PingCastle).
-            AdSecurityAudit::class => $in('configuration'),
+            // L'audit de l'Active Directory (#835) est dans « Accès et comptes » (AccessReviewSection, #1047).
 
             // Issue #853 : couverture de la journalisation (A.8.15, A.8.16, A.8.17).
             LogCoverage::class => $in('monitoring'),

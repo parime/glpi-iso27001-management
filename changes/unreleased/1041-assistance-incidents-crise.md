@@ -16,5 +16,4 @@
     alertes à examiner. L'onglet Connecteurs garde l'adresse, le jeton, l'entité, le test de
     connexion et la date de la dernière lecture. Un ancien envoi « Lire maintenant » depuis
     la configuration reste accepté pendant une version et ouvre la nouvelle page.
-  - Les adresses des pages et les droits ne changent pas. Le menu étant gardé dans la session,
-    la nouvelle organisation apparaît à la connexion suivante.
+  - Les adresses des pages et les droits ne changent pas.
