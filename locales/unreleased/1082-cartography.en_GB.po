@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "IT system map"
+msgstr "IT system map"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, servers, workstations and virtual machines, installed software and applications, then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, servers, workstations and virtual machines, installed software and applications, then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+
+msgid "Nothing is drawn by hand: the map reads what GLPI and GRC already know (network connections, virtual machines, installed software, appliances, GLPI impact analysis, dependencies of the business processes). A missing link is completed in GLPI or on the process; two connected switches do not spread the impact, declare it in the GLPI impact analysis."
+msgstr "Nothing is drawn by hand: the map reads what GLPI and GRC already know (network connections, virtual machines, installed software, appliances, GLPI impact analysis, dependencies of the business processes). A missing link is completed in GLPI or on the process; two connected switches do not spread the impact, declare it in the GLPI impact analysis."
+
+msgid "ISO/IEC 27001, controls A.5.9 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.5.9 and A.5.30"
+
+msgid "Servers, workstations and virtualisation"
+msgstr "Servers, workstations and virtualisation"
+
+msgid "Choose the item to map"
+msgstr "Choose the item to map"
+
+msgid "Starting item"
+msgstr "Starting item"
+
+msgid "What does its failure affect?"
+msgstr "What does its failure affect?"
+
+msgid "What does it depend on?"
+msgstr "What does it depend on?"
+
+msgid "Show the map"
+msgstr "Show the map"
+
+msgid "This item does not exist or you cannot see it."
+msgstr "This item does not exist or you cannot see it."
+
+msgid "Items affected by a failure of:"
+msgstr "Items affected by a failure of:"
+
+msgid "Items this one depends on:"
+msgstr "Items this one depends on:"
+
+msgid "The map is limited to %d items: start from a more precise item to see the rest."
+msgstr "The map is limited to %d items: start from a more precise item to see the rest."
+
+msgid "Business processes affected, most urgent first"
+msgstr "Business processes affected, most urgent first"
+
+msgid "No business process depends on this item according to what GLPI and GRC know. Link the assets to the processes in the business impact analysis to see the business impact."
+msgstr "No business process depends on this item according to what GLPI and GRC know. Link the assets to the processes in the business impact analysis to see the business impact."
+
+msgid "Distance"
+msgstr "Distance"
+
+msgid "Map by layer"
+msgstr "Map by layer"
+
+msgid "+ %d in the list"
+msgstr "+ %d in the list"
+
+msgid "Nothing in this layer."
+msgstr "Nothing in this layer."
+
+msgid "What does this process depend on?"
+msgstr "What does this process depend on?"
+
+msgid "No business process yet: describe them in the business impact analysis."
+msgstr "No business process yet: describe them in the business impact analysis."
+
+msgid "What does the failure of this equipment affect?"
+msgstr "What does the failure of this equipment affect?"
+
+msgid "No network equipment in the inventory."
+msgstr "No network equipment in the inventory."
+
+msgid "%d linked item"
+msgid_plural "%d linked items"
+msgstr[0] "%d linked item"
+msgstr[1] "%d linked items"
+
+msgid "%d step"
+msgid_plural "%d steps"
+msgstr[0] "%d step"
+msgstr[1] "%d steps"

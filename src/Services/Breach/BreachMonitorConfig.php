@@ -37,15 +37,23 @@ final class BreachMonitorConfig
     public const DOMAINS_KEY = 'hibp_domains';
     /** Dernier utilisateur interrogé adresse par adresse : reprise au lot suivant. */
     public const CURSOR_KEY = 'hibp_cursor';
+    /** Issue #1055 : fournisseur choisi (PROVIDER_HIBP ou PROVIDER_XON). */
+    public const PROVIDER_KEY = 'breach_provider';
+    /** Issue #1055 : clé XposedOrNot de recherche par domaine (facultative). */
+    public const XON_API_KEY = 'xon_api_key';
+
+    public const PROVIDER_HIBP = 'hibp';
+    public const PROVIDER_XON = 'xposedornot';
 
     /** Clés à déclarer en configuration sécurisée. */
-    public const SECURED = [self::API_KEY];
+    public const SECURED = [self::API_KEY, self::XON_API_KEY];
 
     public static function isEnabled(): bool
     {
         return (self::values()[self::ENABLED_KEY] ?? '0') === '1';
     }
 
+    /** Clé Have I Been Pwned enregistrée. */
     public static function hasApiKey(): bool
     {
         return (self::values()[self::API_KEY] ?? '') !== '';
@@ -53,9 +61,41 @@ final class BreachMonitorConfig
 
     public static function apiKey(): string
     {
-        $stored = (string) (self::values()[self::API_KEY] ?? '');
+        return self::decrypted(self::API_KEY);
+    }
 
-        return $stored === '' ? '' : (string) (new GLPIKey())->decrypt($stored);
+    /** Issue #1055 : clé XposedOrNot (recherche par domaine) enregistrée. */
+    public static function hasXonApiKey(): bool
+    {
+        return (self::values()[self::XON_API_KEY] ?? '') !== '';
+    }
+
+    /**
+     * Fournisseur choisi. Sans choix enregistré : Have I Been Pwned si sa clé l'est déjà (installations
+     * antérieures au #1055), sinon XposedOrNot, gratuit et utilisable sans clé.
+     */
+    public static function provider(): string
+    {
+        $stored = (string) (self::values()[self::PROVIDER_KEY] ?? '');
+        if (in_array($stored, [self::PROVIDER_HIBP, self::PROVIDER_XON], true)) {
+            return $stored;
+        }
+
+        return self::hasApiKey() ? self::PROVIDER_HIBP : self::PROVIDER_XON;
+    }
+
+    /** La tâche peut tourner : activée, et clé présente pour Have I Been Pwned (XposedOrNot s'en passe). */
+    public static function isReady(): bool
+    {
+        return self::isEnabled() && (self::provider() === self::PROVIDER_XON || self::hasApiKey());
+    }
+
+    /** Client du fournisseur choisi, avec sa clé déchiffrée. */
+    public static function client(): BreachProvider
+    {
+        return self::provider() === self::PROVIDER_XON
+            ? new XposedOrNotClient(self::decrypted(self::XON_API_KEY))
+            : new HibpClient(self::apiKey());
     }
 
     /**
@@ -78,21 +118,46 @@ final class BreachMonitorConfig
 
     /**
      * Enregistre les réglages du formulaire. Une clé vide garde la clé déjà enregistrée (elle n'est
-     * jamais réaffichée) ; $clearKey l'efface.
+     * jamais réaffichée) ; $clearKey (Have I Been Pwned) et $clearXonKey (XposedOrNot) l'effacent. Un
+     * fournisseur inconnu ou vide garde le choix actuel.
      */
-    public static function save(bool $enabled, string $domains, string $apiKey, bool $clearKey): void
-    {
+    public static function save(
+        bool $enabled,
+        string $domains,
+        string $apiKey,
+        bool $clearKey,
+        string $provider = '',
+        string $xonApiKey = '',
+        bool $clearXonKey = false,
+    ): void {
         $values = [
             self::ENABLED_KEY => $enabled ? '1' : '0',
             self::DOMAINS_KEY => implode(', ', BreachRules::normalizeDomains($domains)),
         ];
-        $apiKey = trim($apiKey);
-        if ($clearKey) {
-            $values[self::API_KEY] = '';
-        } elseif ($apiKey !== '') {
-            $values[self::API_KEY] = $apiKey;
+        if (in_array($provider, [self::PROVIDER_HIBP, self::PROVIDER_XON], true)) {
+            $values[self::PROVIDER_KEY] = $provider;
+        }
+        $keys = [self::API_KEY => [$apiKey, $clearKey], self::XON_API_KEY => [$xonApiKey, $clearXonKey]];
+        foreach ($keys as $key => $input) {
+            $value = trim($input[0]);
+            if ($input[1]) {
+                $values[$key] = '';
+            } elseif ($value !== '') {
+                $values[$key] = $value;
+            }
+        }
+        // Le curseur de reprise ne vaut que pour un fournisseur : un changement repart du début.
+        if (isset($values[self::PROVIDER_KEY]) && $values[self::PROVIDER_KEY] !== self::provider()) {
+            $values[self::CURSOR_KEY] = '0';
         }
         Config::setConfigurationValues(self::CONTEXT, $values);
+    }
+
+    private static function decrypted(string $key): string
+    {
+        $stored = (string) (self::values()[$key] ?? '');
+
+        return $stored === '' ? '' : (string) (new GLPIKey())->decrypt($stored);
     }
 
     /**
@@ -102,7 +167,10 @@ final class BreachMonitorConfig
     {
         return Config::getConfigurationValues(
             self::CONTEXT,
-            [self::ENABLED_KEY, self::API_KEY, self::DOMAINS_KEY, self::CURSOR_KEY]
+            [
+                self::ENABLED_KEY, self::API_KEY, self::DOMAINS_KEY, self::CURSOR_KEY,
+                self::PROVIDER_KEY, self::XON_API_KEY,
+            ]
         );
     }
 }

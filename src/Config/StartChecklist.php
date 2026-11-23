@@ -43,8 +43,8 @@ use Toolbox;
  * SoA), sans rien modifier ; le calcul de l'avancement est dans StartChecklistRules.
  *
  * Chaque étape mène à son onglet de configuration. Le cadrage de la SoA est un écran d'usage :
- * l'étape indique où le trouver dans le menu, sans lien (la page de configuration ne sert pas de
- * porte d'entrée vers l'exploitation).
+ * l'étape donne son chemin complet dans le menu et un bouton direct (23/11, demande du mainteneur :
+ * une étape d'installation sans bouton laissait l'utilisateur chercher l'écran).
  */
 final class StartChecklist
 {
@@ -189,7 +189,7 @@ final class StartChecklist
             'ciso_group' => [
                 'label' => __('Choose the CISO group', 'grcmanager'),
                 'icon'  => 'ti-users-group',
-                'url'   => ConfigTabs::anchorUrl('grc-audit-config'),
+                'url'   => ConfigTabs::anchorUrl(Block\IsmsRolesBlock::ANCHOR),
                 'link'  => $open,
                 'menu'  => '',
             ],
@@ -202,10 +202,17 @@ final class StartChecklist
             ],
             'soa_scope' => [
                 'label' => __('Scope the Statement of Applicability', 'grcmanager'),
-                'menu'  => SoaScoping::getTypeName(),
+                'menu'  => sprintf(
+                    '%s > %s > %s',
+                    __('GRC & Compliance', 'grcmanager'),
+                    __('Security controls (SoA)', 'grcmanager'),
+                    SoaScoping::getTypeName()
+                ),
                 'icon'  => 'ti-checklist',
-                'url'   => '',
-                'link'  => '',
+                // Bouton direct vers l'écran (demande du mainteneur, 23/11) : étape d'installation
+                // guidée, pas une porte d'entrée générale vers l'exploitation.
+                'url'   => SoaScoping::getSearchURL(),
+                'link'  => __('Open the screen', 'grcmanager'),
             ],
         ];
     }

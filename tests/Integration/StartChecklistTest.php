@@ -21,6 +21,7 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
 
 use Config;
 use GlpiPlugin\Grcmanager\AuditTeam;
+use GlpiPlugin\Grcmanager\Config\Block\PluginVersionBlock;
 use GlpiPlugin\Grcmanager\Config\Block\StartChecklistBlock;
 use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Config\StartChecklist;
@@ -48,7 +49,9 @@ final class StartChecklistTest extends GrcmanagerIntegrationTestCase
             ConfigTabs::blockClasses(),
             static fn (string $class): bool => $class::tab() === 'general'
         ));
-        $this->assertSame(StartChecklistBlock::class, $general[0] ?? null);
+        // #1110 : l'encadré « Version du plugin » passe en tête, la liste de démarrage juste après.
+        $this->assertSame(PluginVersionBlock::class, $general[0] ?? null);
+        $this->assertSame(StartChecklistBlock::class, $general[1] ?? null);
 
         $rights = $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] ?? 0;
         $_SESSION['glpiactiveprofile'][Installer::RIGHT_NAME] = READ;
@@ -112,11 +115,11 @@ final class StartChecklistTest extends GrcmanagerIntegrationTestCase
         preg_match_all('/href="([^"]+)"/', $html, $links);
         foreach ($links[1] as $link) {
             $this->assertMatchesRegularExpression(
-                '#/front/(config\.php\?tab=|profile\.php)#',
+                '#/front/(config\.php\?tab=|profile\.php|soascoping\.php)#',
                 html_entity_decode($link)
             );
         }
-        $this->assertCount(5, $links[1], 'Five steps link to a setting; the SoA scoping names its menu.');
+        $this->assertCount(6, $links[1], 'Every step has a button (#1110: the SoA scoping opens its screen).');
     }
 
     /** Étapes remises « à faire » (la transaction du test annule ces écritures). */

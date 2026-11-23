@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ISMS roles"
+msgstr "Rôles du SMSI"
+
+msgid "For each role, choose the GLPI group of the people who hold it (holders and substitutes) and a generic e-mail address that does not change when the person changes. The group receives the notifications and reads the documents of the internal audits (CISO); the generic address is shown on the registers and can be chosen as a notification recipient. The roles are shown on the responsibility matrix (ISMS organisation)."
+msgstr "Pour chaque rôle, choisissez le groupe GLPI des personnes qui le tiennent (titulaires et suppléants) et une adresse e-mail générique qui ne change pas quand la personne change. Le groupe reçoit les notifications et lit les documents des audits internes (RSSI) ; l'adresse générique est affichée sur les registres et peut être choisie comme destinataire de notification. Les rôles sont affichés sur la matrice des responsabilités (Organisation du SMSI)."
+
+msgid "%s: the generic e-mail address is not valid, it was not saved."
+msgstr "%s : l'adresse e-mail générique n'est pas valide, elle n'a pas été enregistrée."
+
+msgid "Generic e-mail address"
+msgstr "Adresse e-mail générique"
+
+msgid "A shared mailbox or a list, not a personal address."
+msgstr "Une boîte partagée ou une liste, pas une adresse personnelle."
+
+msgid "To be reworked"
+msgstr "À reprendre"
+
+msgid "Kept from the former \"DPO\" text field:"
+msgstr "Gardé de l'ancien champ texte « DPO » :"
+
+msgid "Shown on the registers as long as no group and no address are chosen. Choose the group or the address, then delete this note."
+msgstr "Affichée sur les registres tant qu'aucun groupe ni adresse n'est choisi. Choisissez le groupe ou l'adresse, puis supprimez cette note."
+
+msgid "The note has been reworked: delete it"
+msgstr "La note a été reprise : la supprimer"
+
+msgid "Choose it in the ISMS roles"
+msgstr "Le choisir dans les rôles du SMSI"
+
+msgid "No CISO group is set (ISMS roles, People and policies tab, or Configuration GLPI Auto): only the test plan owner is reminded."
+msgstr "Aucun groupe RSSI n'est défini (rôles du SMSI, onglet Personnes et politiques, ou Configuration GLPI Auto) : seul le responsable du plan de test est relancé."
+
+msgid "CISO generic address (GRC Manager)"
+msgstr "Adresse générique du RSSI (GRC Manager)"
+
+msgid "DPO group (GRC Manager)"
+msgstr "Groupe DPO (GRC Manager)"
+
+msgid "DPO generic address (GRC Manager)"
+msgstr "Adresse générique du DPO (GRC Manager)"
+
+msgid "Choose the roles"
+msgstr "Choisir les rôles"
+
+msgid "No generic address"
+msgstr "Pas d'adresse générique"
+
+msgid "The group has no active member."
+msgstr "Le groupe n'a aucun membre actif."

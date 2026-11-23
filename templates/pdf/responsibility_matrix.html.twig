@@ -31,6 +31,29 @@
   <tr><td>{{ __('Exported by', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ generated_by }}</td></tr>
 </table>
 
+{# Issue #1054 : rôles du SMSI (mesure A.5.2), groupe, membres et adresse générique. #}
+<h2>{{ __('ISMS roles', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-table">
+  <thead>
+    <tr>
+      <th>{{ __('Role', 'grcmanager') }}</th>
+      <th>{{ _n('Group', 'Groups', 1) }}</th>
+      <th>{{ _n('Member', 'Members', 2) }}</th>
+      <th>{{ __('Generic e-mail address', 'grcmanager') }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for role in isms_roles %}
+      <tr>
+        <td>{{ role.label }}</td>
+        <td>{{ role.group_name ?: __('Not set', 'grcmanager') }}</td>
+        <td>{{ role.members|join(', ') }}</td>
+        <td>{{ role.email ?: __('Not set', 'grcmanager') }}{% if role.note is not empty %} ({{ __('%1$s: %2$s')|format(__('To be reworked', 'grcmanager'), role.note) }}){% endif %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 <h2>{{ __('Responsibility matrix', 'grcmanager') }}</h2>
 <table class="grcmanager-pdf-table">
   <thead>

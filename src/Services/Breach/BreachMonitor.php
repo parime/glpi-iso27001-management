@@ -26,7 +26,8 @@ use GlpiPlugin\Grcmanager\BreachExposure;
  * Issue #183 : un passage de la surveillance des fuites (tâche planifiée « breachmonitor »).
  *
  * Pour chaque domaine professionnel configuré :
- * - domaine vérifié chez Have I Been Pwned : une requête pour tout le domaine (seul le domaine part) ;
+ * - domaine vérifié chez le fournisseur (BreachProvider, #1055 : Have I Been Pwned ou XposedOrNot) : une
+ *   requête pour tout le domaine (seul le domaine part) ;
  * - sinon : une requête par adresse des utilisateurs actifs de ce domaine, par lots, en respectant la
  *   limite de débit de la clé (429 : attente du délai demandé s'il reste du temps, sinon arrêt et
  *   reprise au même utilisateur au passage suivant).
@@ -44,7 +45,7 @@ final class BreachMonitor
      * @param (Closure(int): void)|null $sleep Attente (injectable pour les tests)
      */
     public function __construct(
-        private readonly HibpClient $client,
+        private readonly BreachProvider $client,
         private readonly int $timeBudget = 240,
         ?Closure $sleep = null,
     ) {

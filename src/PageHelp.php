@@ -892,7 +892,9 @@ class PageHelp
             ],
             'breachexposure' => [
                 'purpose'   => __(
-                    'Work email addresses found in known data breaches (Have I Been Pwned), checked every day.',
+                    'Work email addresses found in known data breaches, checked every day with the provider '
+                        . 'chosen in the plugin configuration (XposedOrNot or Have I Been Pwned), to which these '
+                        . 'addresses are sent.',
                     'grcmanager'
                 ),
                 'expected'  => __(
