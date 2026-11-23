@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\Compat\Http;
@@ -82,7 +83,7 @@ final class UptimeKumaConnectorBlock extends ConfigBlock
                 'last_read'     => $lastRead['date'] !== '' ? (string) Html::convDateTime($lastRead['date']) : '',
                 'last_error'    => $lastRead['error'] !== ''
                     ? UptimeKumaMonitoring::errorMessage($lastRead['error'], $lastRead['page']) : '',
-                'page_url'      => UptimeKumaMonitoring::getSearchURL(),
+                'page_path'     => AssetSecurity::menuPath(UptimeKumaMonitoring::getTypeName(2)),
             ],
         ];
     }

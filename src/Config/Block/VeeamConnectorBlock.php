@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\BackupCoverage;
@@ -79,7 +80,7 @@ final class VeeamConnectorBlock extends ConfigBlock
                 'configured'   => VeeamConfig::isConfigured(),
                 'lookback'     => VeeamClient::LOOKBACK_DAYS,
                 'last_read'    => $lastRead !== '' ? (string) Html::convDateTime($lastRead) : '',
-                'page_url'     => BackupCoverage::getSearchURL(),
+                'page_path'    => AssetSecurity::menuPath(BackupCoverage::getTypeName(2)),
             ],
         ];
     }
