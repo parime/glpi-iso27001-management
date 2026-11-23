@@ -1,0 +1,129 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%1$d open findings, %2$d of them critical or high."
+msgstr "%1$d hallazgos abiertos, %2$d de ellos críticos o altos."
+
+msgid "Brings the results of your network vulnerability scanner (Greenbone / OpenVAS) into the ISMS: each finding is matched to a GLPI computer, kept from one scan to the next and marked fixed when a later scan of the same host no longer reports it."
+msgstr "Incorpora al SGSI los resultados de su escáner de vulnerabilidades de red (Greenbone / OpenVAS): cada hallazgo se vincula a un ordenador de GLPI, se sigue de un análisis a otro y se marca como corregido cuando un análisis posterior del mismo host ya no lo indica."
+
+msgid "Choose the XML report downloaded from Greenbone (OpenVAS)."
+msgstr "Elija el informe XML descargado de Greenbone (OpenVAS)."
+
+msgid "Creates a ticket linked to the computer, with the finding and its solution. Nothing is created without this click."
+msgstr "Crea un ticket vinculado al ordenador, con el hallazgo y su solución. No se crea nada sin este clic."
+
+msgid "Delete this import and the findings it was the last to see?"
+msgstr "¿Eliminar esta importación y los hallazgos que fue el último en ver?"
+
+msgid "Detection quality %d%%"
+msgstr "Calidad de detección %d %%"
+
+msgid "Findings by severity"
+msgstr "Hallazgos por gravedad"
+
+msgid "Fixed since the previous scan"
+msgstr "Corregidos desde el análisis anterior"
+
+msgid "Format not recognised: export the report from Greenbone in the XML format."
+msgstr "Formato no reconocido: exporte el informe desde Greenbone en formato XML."
+
+msgid "Formats read:"
+msgstr "Formatos leídos:"
+
+msgid "Highest score"
+msgstr "Puntuación más alta"
+
+msgid "Host in the report"
+msgstr "Host en el informe"
+
+msgid "Host matched to the computer."
+msgstr "Host vinculado al ordenador."
+
+msgid "Hosts not matched to a computer"
+msgstr "Hosts no vinculados a un ordenador"
+
+msgid "ISO/IEC 27001, control A.8.8"
+msgstr "ISO/IEC 27001, control A.8.8"
+
+msgid "Import a scanner report"
+msgstr "Importar un informe de escáner"
+
+msgid "Import history"
+msgstr "Historial de importaciones"
+
+msgid "Import the XML report after each scan, match the hosts that were not recognised, then handle the critical and high findings first (ticket proposed on click only). Nothing is changed automatically, neither in GLPI nor on the scanner."
+msgstr "Importe el informe XML después de cada análisis, vincule los hosts no reconocidos y trate primero los hallazgos críticos y altos (ticket propuesto solo con un clic). Nada se modifica automáticamente, ni en GLPI ni en el escáner."
+
+msgid "In Greenbone (OpenVAS), open the finished report, choose Download and the XML format, then import the file here. Each finding is matched to the GLPI computer of the same name or IP address. Importing the same report again updates it without creating duplicates; a finding missing from a later scan of the same host is marked fixed."
+msgstr "En Greenbone (OpenVAS), abra el informe terminado, elija Descargar y el formato XML y luego importe el archivo aquí. Cada hallazgo se vincula al ordenador de GLPI con el mismo nombre o la misma dirección IP. Volver a importar el mismo informe lo actualiza sin crear duplicados; un hallazgo ausente de un análisis posterior del mismo host se marca como corregido."
+
+msgid "Last scan imported: %s"
+msgstr "Último análisis importado: %s"
+
+msgid "Network scanner findings"
+msgstr "Hallazgos del escáner de red"
+
+msgid "No computer you can see bears this name or this IP address, or several do. Check the computer in GLPI, or choose it here: the next imports will reuse this choice."
+msgstr "Ningún ordenador que usted vea tiene este nombre o esta dirección IP, o varios lo tienen. Compruebe el ordenador en GLPI o elíjalo aquí: las próximas importaciones reutilizarán esta elección."
+
+msgid "No finding matches these filters."
+msgstr "Ningún hallazgo coincide con estos filtros."
+
+msgid "No open finding in the last network scans of this computer."
+msgstr "Ningún hallazgo abierto en los últimos análisis de red de este ordenador."
+
+msgid "No report imported yet. Import a Greenbone (OpenVAS) report to list the vulnerabilities found on the network."
+msgstr "Aún no se ha importado ningún informe. Importe un informe de Greenbone (OpenVAS) para listar las vulnerabilidades encontradas en la red."
+
+msgid "No report imported yet."
+msgstr "Aún no se ha importado ningún informe."
+
+msgid "Only the first %d findings are shown, the most severe first: use the filters."
+msgstr "Solo se muestran los %d primeros hallazgos, los más graves primero: use los filtros."
+
+msgid "Open critical or high scanner findings"
+msgstr "Hallazgos críticos o altos abiertos (escáner)"
+
+msgid "Open findings"
+msgstr "Hallazgos abiertos"
+
+msgid "Open findings: %s"
+msgstr "Hallazgos abiertos: %s"
+
+msgid "Port"
+msgstr "Puerto"
+
+msgid "Report file"
+msgstr "Archivo del informe"
+
+msgid "Report imported: %1$d finding(s) on %2$d host(s), %3$d host(s) not matched to a computer, %4$d finding(s) fixed since the previous scan."
+msgstr "Informe importado: %1$d hallazgo(s) en %2$d host(s), %3$d host(s) no vinculado(s) a un ordenador, %4$d hallazgo(s) corregido(s) desde el análisis anterior."
+
+msgid "Scanned hosts not matched to a computer"
+msgstr "Hosts analizados no vinculados a un ordenador"
+
+msgid "The file could not be read as a scanner report."
+msgstr "El archivo no se pudo leer como un informe de escáner."
+
+msgid "The file declares a DTD or entities: it is refused for security reasons."
+msgstr "El archivo declara una DTD o entidades: se rechaza por seguridad."
+
+msgid "The file holds more findings than the import keeps: only the first ones were kept."
+msgstr "El archivo contiene más hallazgos de los que la importación conserva: solo se conservaron los primeros."
+
+msgid "This report had already been imported: its findings were updated, without duplicates."
+msgstr "Este informe ya se había importado: sus hallazgos se actualizaron, sin duplicados."
+
+msgid "Vulnerability found by %s, to fix on the computer linked to this ticket."
+msgstr "Vulnerabilidad encontrada por %s, a corregir en el ordenador vinculado a este ticket."
+
+msgid "Vulnerability found by the scanner: %1$s on %2$s"
+msgstr "Vulnerabilidad encontrada por el escáner: %1$s en %2$s"
+
+msgid "Vulnerability scanner reports"
+msgstr "Informes de escáneres de vulnerabilidades"
+
+msgid "XML file, %d MB at most. The file itself is not kept: only the findings."
+msgstr "Archivo XML, %d MB como máximo. El archivo en sí no se conserva: solo los hallazgos."
