@@ -74,7 +74,7 @@
                   {% endif %}
                </div>
                {% if role.members is not empty %}
-                  <div class="text-secondary small mt-1">{{ __('Members', 'grcmanager') }} : {{ role.members|join(', ') }}</div>
+                  <div class="text-secondary small mt-1">{{ __('%1$s: %2$s')|format(_n('Member', 'Members', 2), role.members|join(', ')) }}</div>
                {% elseif role.group_id > 0 %}
                   <div class="text-warning small mt-1">{{ __('The group has no active member.', 'grcmanager') }}</div>
                {% endif %}

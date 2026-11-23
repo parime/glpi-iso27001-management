@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ISMS roles"
+msgstr "ISMS-Rollen"
+
+msgid "For each role, choose the GLPI group of the people who hold it (holders and substitutes) and a generic e-mail address that does not change when the person changes. The group receives the notifications and reads the documents of the internal audits (CISO); the generic address is shown on the registers and can be chosen as a notification recipient. The roles are shown on the responsibility matrix (ISMS organisation)."
+msgstr "Wählen Sie für jede Rolle die GLPI-Gruppe der Personen, die sie innehaben (Inhaber und Vertreter), und eine allgemeine E-Mail-Adresse, die sich beim Personenwechsel nicht ändert. Die Gruppe erhält die Benachrichtigungen und liest die Dokumente der internen Audits (CISO); die allgemeine Adresse erscheint in den Verzeichnissen und kann als Empfänger einer Benachrichtigung gewählt werden. Die Rollen werden in der Verantwortlichkeitsmatrix angezeigt (ISMS-Organisation)."
+
+msgid "%s: the generic e-mail address is not valid, it was not saved."
+msgstr "%s: Die allgemeine E-Mail-Adresse ist ungültig, sie wurde nicht gespeichert."
+
+msgid "Generic e-mail address"
+msgstr "Allgemeine E-Mail-Adresse"
+
+msgid "A shared mailbox or a list, not a personal address."
+msgstr "Ein gemeinsames Postfach oder eine Liste, keine persönliche Adresse."
+
+msgid "To be reworked"
+msgstr "Zu überarbeiten"
+
+msgid "Kept from the former \"DPO\" text field:"
+msgstr "Aus dem früheren Textfeld „DSB“ übernommen:"
+
+msgid "Shown on the registers as long as no group and no address are chosen. Choose the group or the address, then delete this note."
+msgstr "Wird in den Verzeichnissen angezeigt, solange weder Gruppe noch Adresse gewählt sind. Wählen Sie die Gruppe oder die Adresse und löschen Sie dann diese Notiz."
+
+msgid "The note has been reworked: delete it"
+msgstr "Die Notiz wurde überarbeitet: löschen"
+
+msgid "Choose it in the ISMS roles"
+msgstr "In den ISMS-Rollen wählen"
+
+msgid "No CISO group is set (ISMS roles, People and policies tab, or Configuration GLPI Auto): only the test plan owner is reminded."
+msgstr "Keine CISO-Gruppe festgelegt (ISMS-Rollen, Registerkarte Personen und Richtlinien, oder Configuration GLPI Auto): Nur der Verantwortliche des Testplans wird erinnert."
+
+msgid "CISO generic address (GRC Manager)"
+msgstr "Allgemeine CISO-Adresse (GRC Manager)"
+
+msgid "DPO group (GRC Manager)"
+msgstr "DSB-Gruppe (GRC Manager)"
+
+msgid "DPO generic address (GRC Manager)"
+msgstr "Allgemeine DSB-Adresse (GRC Manager)"
+
+msgid "Choose the roles"
+msgstr "Rollen wählen"
+
+msgid "No generic address"
+msgstr "Keine allgemeine Adresse"
+
+msgid "The group has no active member."
+msgstr "Die Gruppe hat kein aktives Mitglied."
