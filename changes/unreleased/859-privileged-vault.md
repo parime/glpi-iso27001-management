@@ -1,7 +1,7 @@
 ### Added
 
 - **Comptes à privilèges et coffre-fort de mots de passe** (issue #859, mesures A.5.17 et A.8.2).
-  Nouvelle page **GRC > Accès et comptes > Comptes privilégiés** : éléments du coffre (comptes
+  Nouvelle page **GRC > Accès et comptes > Comptes à privilèges** : éléments du coffre (comptes
   partagés, mots de passe des équipements) et membres, importés en CSV de métadonnées (Bitwarden,
   Vaultwarden par l'interface `bw`, solution PAM) ou, pour les membres, lus sur clic par l'API
   publique d'organisation de Bitwarden. Un fichier qui peut contenir un secret (mot de passe, code
