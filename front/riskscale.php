@@ -32,6 +32,11 @@ Session::checkRight(Installer::SENSITIVE_RIGHT, UPDATE);
 $configUrl = \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-risk-matrix-config');
 $from = RiskMatrixConfig::size();
 $to = (int) ($_POST['size'] ?? $_GET['size'] ?? 0);
+// Issue #1114 : sans taille demandée (ouverture directe), pas d'écran : requête invalide, au lieu
+// d'un renvoi vers la configuration.
+if (!isset($_POST['size']) && !isset($_GET['size'])) {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
 if (!in_array($to, RiskScale::SIZES, true) || $to === $from) {
     Session::addMessageAfterRedirect(
         htmlescape(__('Choose a matrix size different from the current one.', 'grcmanager')),

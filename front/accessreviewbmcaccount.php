@@ -50,4 +50,6 @@ if (isset($_POST['decide'])) {
     Html::back();
 }
 
-Html::redirect(AccessReview::getSearchURL());
+// Issue #1114 : sans action (ouverture directe), pas d'écran : requête invalide, au lieu d'un renvoi
+// vers la liste des campagnes.
+throw new \Glpi\Exception\Http\BadRequestHttpException();

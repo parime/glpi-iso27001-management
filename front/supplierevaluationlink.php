@@ -34,7 +34,11 @@ Session::checkRight(SupplierEvaluation::$rightname, READ);
 
 $evaluation = new SupplierEvaluation();
 $id = (int) ($_POST['id'] ?? $_GET['id'] ?? 0);
-if ($id <= 0 || !$evaluation->getFromDB($id)) {
+// Issue #1114 : sans évaluation (ouverture directe), pas d'écran : requête invalide.
+if ($id <= 0) {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+if (!$evaluation->getFromDB($id)) {
     Html::redirect(SupplierRisk::getSearchURL());
 }
 $evaluation->check($id, UPDATE);
