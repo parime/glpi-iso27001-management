@@ -73,7 +73,7 @@
                   <span class="badge bg-secondary-lt">{{ scenario.risk.status }}</span>
                 </div>
                 {% if scenario.risk.differs %}
-                  <div class="small text-warning mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('The likelihood or the severity no longer matches this risk: review it in the register.', 'grcmanager') }}</div>
+                  <div class="small text-warning-emphasis mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('The likelihood or the severity no longer matches this risk: review it in the register.', 'grcmanager') }}</div>
                 {% endif %}
               {% elseif can_edit and can_create_risk %}
                 <form method="post" action="{{ form_url }}">

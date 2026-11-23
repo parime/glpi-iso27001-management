@@ -27,7 +27,7 @@
             <div class="text-muted">{{ __('Applications without separation of environments', 'grcmanager') }}</div>
             <div class="h1 mb-0 {{ i.without_separation > 0 ? 'text-danger' : 'text-success' }}" id="grc-sd-without-separation">{{ i.without_separation }}</div>
             {% if i.separation_unjustified > 0 %}<div class="small text-danger">{{ __('%d without justification', 'grcmanager')|format(i.separation_unjustified) }}</div>{% endif %}
-            {% if i.separation_incomplete > 0 %}<div class="small text-warning" id="grc-sd-separation-incomplete">{{ __('%d with access, data or configuration not separated', 'grcmanager')|format(i.separation_incomplete) }}</div>{% endif %}
+            {% if i.separation_incomplete > 0 %}<div class="small text-warning-emphasis" id="grc-sd-separation-incomplete">{{ __('%d with access, data or configuration not separated', 'grcmanager')|format(i.separation_incomplete) }}</div>{% endif %}
          </div></div>
       </div>
       <div class="col-sm-6 col-lg-3">

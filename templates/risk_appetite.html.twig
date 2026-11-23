@@ -98,7 +98,7 @@
                      {% else %}
                         {{ r.treatment }}
                         {% if r.accepted_by %}<div class="small text-muted">{{ __('Formally accepted by %s', 'grcmanager')|format(r.accepted_by) }}{% if r.by_direction %} <span class="badge bg-blue-lt"><i class="ti ti-building me-1"></i>{{ __('Management', 'grcmanager') }}</span>{% endif %}</div>{% endif %}
-                        {% if r.needs_direction %}<div class="small text-warning"><i class="ti ti-alert-triangle me-1"></i>{{ __('To be signed by management', 'grcmanager') }}</div>{% endif %}
+                        {% if r.needs_direction %}<div class="small text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('To be signed by management', 'grcmanager') }}</div>{% endif %}
                      {% endif %}
                   </td>
                </tr>
