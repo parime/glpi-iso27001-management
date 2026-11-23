@@ -1,0 +1,26 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #543 : contenu du ticket proposé pour un constat de scanner (texte du rapport échappé). #}
+<p>{{ __('Vulnerability found by %s, to fix on the computer linked to this ticket.', 'grcmanager')|format(scanner) }}</p>
+<ul>
+   <li>{{ __('Vulnerability', 'grcmanager') }} : {{ finding.name }}</li>
+   <li>{{ __('Severity', 'grcmanager') }} : {{ (levels[finding.level].label ?? finding.level) }} ({{ finding.severity|number_format(1) }})</li>
+   <li>{{ __('Host in the report', 'grcmanager') }} : {{ finding.host }}{% if finding.hostname %} ({{ finding.hostname }}){% endif %}</li>
+   <li>{{ __('Port', 'grcmanager') }} : {{ finding.port }}</li>
+   {% if finding.cve_list is not empty %}<li>CVE : {{ finding.cve_list|join(', ') }}</li>{% endif %}
+   {% if finding.test_id %}<li>{{ __('Test', 'grcmanager') }} : {{ finding.test_id }}</li>{% endif %}
+   <li>{{ __('Last seen', 'grcmanager') }} : {{ last_seen }}</li>
+</ul>
+{% if finding.solution %}<p>{{ __('Solution', 'grcmanager') }}{% if finding.solution_type %} ({{ finding.solution_type }}){% endif %} :</p><p>{{ finding.solution|nl2br }}</p>{% endif %}
