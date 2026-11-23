@@ -206,33 +206,47 @@ class Cartography extends CommonGLPI
     }
 
     /**
-     * @return array{key: string, label: string, short: string, url: string, visible: bool, layer: int,
-     *     type: string, rto: int, rto_label: string, rto_short: string}
+     * @return array{key: string, label: string, name: string, url: string, visible: bool, layer: int,
+     *     type: string, rto: int, rto_label: string, short: string, type_short: string, rto_short: string}
      */
     public static function describe(string $key): array
     {
         [$itemtype, $itemsId] = ImpactGraph::split($key);
-        $node = ImpactAnalysis::describe($key);
-        $rto = $node['rto'];
-        if ($itemtype === BusinessProcess::class && $node['visible']) {
-            $process = new BusinessProcess();
-            $rto = $process->getFromDB($itemsId) ? (int) $process->fields['rto_hours'] : 0;
-        }
-        $durations = BusinessProcess::getDurationOptions();
-        $rtoLabel = $node['visible'] && $rto > 0 ? ($durations[$rto] ?? $rto . ' h') : '';
-        $type = $node['visible'] && is_a($itemtype, CommonDBTM::class, true) ? (string) $itemtype::getTypeName(1) : '';
-
-        return [
+        $node = [
             'key'       => $key,
-            'label'     => $node['label'],
-            'short'     => LayeredLayout::shortLabel($node['label']),
-            'url'       => $node['url'],
-            'visible'   => $node['visible'],
+            'label'     => __('Item not visible', 'grcmanager'),
+            'name'      => __('Item not visible', 'grcmanager'),
+            'url'       => '',
+            'visible'   => false,
             'layer'     => Layers::of($itemtype),
-            'type'      => $type,
-            'rto'       => $node['visible'] ? $rto : 0,
-            'rto_label' => $rtoLabel,
-            'rto_short' => LayeredLayout::shortLabel($rtoLabel, 16),
+            'type'      => '',
+            'rto'       => 0,
+            'rto_label' => '',
+        ];
+        $item = is_a($itemtype, CommonDBTM::class, true) ? new $itemtype() : null;
+        if ($item !== null && $item->can($itemsId, READ)) {
+            $type = (string) $itemtype::getTypeName(1);
+            $name = (string) $item->getName();
+            $rto = $item instanceof BusinessProcess
+                ? (int) $item->fields['rto_hours']
+                : (int) (AssetClassification::getByItem($itemtype, $itemsId)['rto_hours'] ?? 0);
+            $durations = BusinessProcess::getDurationOptions();
+            $node = [
+                'label'     => $type . ' ' . $name,
+                'name'      => $name,
+                'url'       => $item->getLinkURL(),
+                'visible'   => true,
+                'type'      => $type,
+                'rto'       => $rto,
+                'rto_label' => $rto > 0 ? ($durations[$rto] ?? $rto . ' h') : '',
+            ] + $node;
+        }
+
+        // Le schéma n'a la place que pour le nom : la couche dit déjà le type.
+        return $node + [
+            'short'      => LayeredLayout::shortLabel($node['name']),
+            'type_short' => LayeredLayout::shortLabel($node['type']),
+            'rto_short'  => LayeredLayout::shortLabel($node['rto_label'], 16),
         ];
     }
 

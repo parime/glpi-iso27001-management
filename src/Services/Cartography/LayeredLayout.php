@@ -30,8 +30,8 @@ final class LayeredLayout
     public const PER_ROW = 6;
     public const MAX_DRAWN = 12;
     public const NODE_WIDTH = 148;
-    public const NODE_HEIGHT = 40;
-    public const ROW_HEIGHT = 60;
+    public const NODE_HEIGHT = 46;
+    public const ROW_HEIGHT = 64;
     public const BAND_PADDING = 30;
     public const LEFT = 170;
 

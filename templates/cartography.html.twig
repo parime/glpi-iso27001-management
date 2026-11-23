@@ -26,6 +26,7 @@
   .grcmanager-map-node.is-start rect { stroke-width: 3; }
   .grcmanager-map-node.is-hidden rect { stroke-dasharray: 4 3; stroke: var(--tblr-secondary, #667382); }
   .grcmanager-map-node text { fill: var(--tblr-body-color, #1d273b); font-size: 12px; }
+  .grcmanager-map-node .grcmanager-map-type { fill: var(--tblr-secondary, #667382); font-size: 11px; }
   .grcmanager-map-node .grcmanager-map-rto { fill: var(--tblr-orange, #f76707); font-weight: 600; }
   .grcmanager-map-node:focus { outline: none; }
   .grcmanager-map-node:focus rect, .grcmanager-map-node:hover rect { stroke: var(--tblr-orange, #f76707); stroke-width: 3; }
@@ -136,8 +137,12 @@
                   {% if n.url %}<a href="{{ n.url }}" class="{{ classes }}" aria-label="{{ n.label }}{{ n.rto_label ? ', RTO ' ~ n.rto_label }}">{% else %}<g class="{{ classes }}">{% endif %}
                      <title>{{ n.label }}{{ n.rto_label ? ' (RTO ' ~ n.rto_label ~ ')' }}</title>
                      <rect x="{{ n.x }}" y="{{ n.y }}" width="{{ d.node_w }}" height="{{ d.node_h }}" rx="6"></rect>
-                     <text x="{{ n.x + 8 }}" y="{{ n.y + (n.rto_label ? 17 : 25) }}">{{ n.short }}</text>
-                     {% if n.rto_label %}<text class="grcmanager-map-rto" x="{{ n.x + 8 }}" y="{{ n.y + 33 }}">RTO {{ n.rto_short }}</text>{% endif %}
+                     <text x="{{ n.x + 8 }}" y="{{ n.y + 18 }}">{{ n.short }}</text>
+                     {% if n.rto_label %}
+                        <text class="grcmanager-map-rto" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">RTO {{ n.rto_short }}</text>
+                     {% elseif n.type %}
+                        <text class="grcmanager-map-type" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">{{ n.type_short }}</text>
+                     {% endif %}
                   {% if n.url %}</a>{% else %}</g>{% endif %}
                {% endfor %}
             </svg>
@@ -155,7 +160,8 @@
                      <ul class="list-group list-group-flush">
                         {% for n in l.nodes %}
                            <li class="list-group-item">
-                              {% if n.url %}<a href="{{ n.url }}" class="{{ n.start ? 'fw-bold' }}">{{ n.label }}</a>{% else %}<span class="text-muted">{{ n.label }}</span>{% endif %}
+                              {% if n.url %}<a href="{{ n.url }}" class="{{ n.start ? 'fw-bold' }}">{{ n.name }}</a>{% else %}<span class="text-muted">{{ n.name }}</span>{% endif %}
+                              {% if n.type %}<span class="text-muted small ms-1">{{ n.type }}</span>{% endif %}
                               {% if n.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1">RTO {{ n.rto_label }}</span>{% endif %}
                               {% if n.start %}<span class="badge bg-primary-subtle text-primary-emphasis ms-1">{{ __('Starting item', 'grcmanager') }}</span>{% endif %}
                            </li>
@@ -177,7 +183,7 @@
                   <ul class="list-group list-group-flush">
                      {% for p in entry.processes %}
                         <li class="list-group-item d-flex align-items-center">
-                           <a href="{{ action }}?itemtype={{ process_type|url_encode }}&amp;items_id={{ p.key|split(':')|last }}&amp;direction=down">{{ p.label }}</a>
+                           <a href="{{ action }}?itemtype={{ process_type|url_encode }}&amp;items_id={{ p.key|split(':')|last }}&amp;direction=down">{{ p.name }}</a>
                            {% if p.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-auto">RTO {{ p.rto_label }}</span>{% endif %}
                         </li>
                      {% endfor %}
@@ -193,7 +199,7 @@
                {% else %}
                   <ul class="list-group list-group-flush">
                      {% for n in entry.network %}
-                        <li class="list-group-item"><a href="{{ action }}?itemtype=NetworkEquipment&amp;items_id={{ n.key|split(':')|last }}&amp;direction=up">{{ n.label }}</a></li>
+                        <li class="list-group-item"><a href="{{ action }}?itemtype=NetworkEquipment&amp;items_id={{ n.key|split(':')|last }}&amp;direction=up">{{ n.name }}</a></li>
                      {% endfor %}
                   </ul>
                {% endif %}
