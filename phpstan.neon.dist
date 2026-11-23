@@ -57,10 +57,11 @@ parameters:
         # Sprint 7: depends on GLPI core's Glpi\Dashboard\Dashboard (global $DB, Session,
         # TemplateRenderer...), same rationale as DashboardCardService.php above.
         - src/Services/Dashboard/DefaultDashboardService.php
-        # Sprint 7 (suivi de version GitHub): depends on \Toolbox::getURLContent(), $GLPI_CACHE
-        # and DAY_TIMESTAMP, same category of GLPI-core-only runtime symbol as
-        # RiskMatrixConfig.php/OverdueCapaService.php below.
-        - src/Services/GithubVersionChecker.php
+        # Issue #1064 (composant commun « Version du plugin »): depends on $GLPI_CACHE and the GLPI
+        # core HTTP client through Compat\Http, same category of GLPI-core-only runtime symbol as
+        # RiskMatrixConfig.php/OverdueCapaService.php below. Its pure logic is unit-tested
+        # (tests/Unit/PluginVersionTest.php, with injected fetch/load/save/now).
+        - src/PluginVersion.php
         # Sprint 2: reads GLPI's runtime global $DB (RiskMatrixConfig) or depends on GLPI core
         # classes NotificationEvent/GlpiPlugin\Grcmanager\Risk (ReviewReminderService), same rationale.
         # RiskMatrixDefaults.php and ReviewReminderResult.php in the same directory stay in scope:

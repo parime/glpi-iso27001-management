@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "GitHub cannot be reached from the GLPI server (no Internet access, proxy or firewall)"
+msgstr "GitHub ist vom GLPI-Server aus nicht erreichbar (kein Internetzugang, Proxy oder Firewall)"
+
+msgid "the GitHub request limit is reached, a new attempt will be made within an hour"
+msgstr "das Anfragelimit von GitHub ist erreicht, ein neuer Versuch erfolgt innerhalb einer Stunde"
+
+msgid "GitHub did not answer within 3 seconds"
+msgstr "GitHub hat nicht innerhalb von 3 Sekunden geantwortet"
+
+msgid "no release is published on GitHub yet"
+msgstr "auf GitHub ist noch keine Version veröffentlicht"
+
+msgid "the answer from GitHub could not be read"
+msgstr "die Antwort von GitHub konnte nicht gelesen werden"
+
+msgid "Latest release on GitHub"
+msgstr "Neueste Version auf GitHub"
+
+#, php-format
+msgid "Update available: %s"
+msgstr "Aktualisierung verfügbar: %s"
+
+msgid "Latest version unknown"
+msgstr "Neueste Version unbekannt"
+
+msgid "Release notes"
+msgstr "Versionshinweise"
+
+msgid "Download the archive"
+msgstr "Archiv herunterladen"
+
+#, php-format
+msgid "Last check failed: %s."
+msgstr "Die letzte Prüfung ist fehlgeschlagen: %s."
+
+#, php-format
+msgid "Result of the last successful check (%s) shown."
+msgstr "Ergebnis der letzten erfolgreichen Prüfung (%s) angezeigt."
+
+#, php-format
+msgid "Reason: %s."
+msgstr "Grund: %s."
+
+#, php-format
+msgid "Last successful check: %s."
+msgstr "Letzte erfolgreiche Prüfung: %s."
+
+msgid "No successful check yet."
+msgstr "Noch keine erfolgreiche Prüfung."
+
+msgid "See the releases on GitHub"
+msgstr "Versionen auf GitHub ansehen"
+
+#, php-format
+msgid "Last checked: %s (checked again every 12 hours)."
+msgstr "Zuletzt geprüft: %s (erneute Prüfung alle 12 Stunden)."
+
+msgid "the check follows the GLPI automatic action \"checkupdate\", which is turned off (Setup > Automatic actions)"
+msgstr "die Prüfung folgt der automatischen GLPI-Aktion „checkupdate“, die deaktiviert ist (Einrichtung > Automatische Aktionen)"

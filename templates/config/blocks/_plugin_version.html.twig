@@ -12,21 +12,86 @@
  # (at your option) any later version. See LICENSE for the full text.
  # -------------------------------------------------------------------------
  #}
-{# Version installee vs derniere version publiee sur GitHub - meme mecanisme/gabarit que les
-   plugins jumeaux glpi-vulnerability-manager, assetsign-glpi et Configuration-glpi-auto. #}
+{# Issue #1064 : encadré « Version du plugin » du composant commun (parime/glpi-plugin-template#12,
+   charte section 9 bis). Reçoit plugin_version = PluginVersion::status(). Seule différence avec le
+   modèle : la vérification suit l'action automatique « checkupdate » de GLPI (raison « disabled »). #}
+{% set pv = plugin_version %}
+{% set reasons = {
+   'disabled':         __('the check follows the GLPI automatic action "checkupdate", which is turned off (Setup > Automatic actions)', 'grcmanager'),
+   'unreachable':      __('GitHub cannot be reached from the GLPI server (no Internet access, proxy or firewall)', 'grcmanager'),
+   'rate_limited':     __('the GitHub request limit is reached, a new attempt will be made within an hour', 'grcmanager'),
+   'timeout':          __('GitHub did not answer within 3 seconds', 'grcmanager'),
+   'no_release':       __('no release is published on GitHub yet', 'grcmanager'),
+   'invalid_response': __('the answer from GitHub could not be read', 'grcmanager'),
+} %}
 <div class="card card-sm mb-3" id="grc-plugin-version">
-  <div class="card-body d-flex align-items-center gap-3">
-    <i class="ti ti-brand-github fs-1 text-muted"></i>
-    <div>
-      <div class="fw-bold">{{ __('Plugin version', 'grcmanager') }}</div>
-      <div class="text-muted small">
-        {{ __('Installed version', 'grcmanager') }}
-        <span class="badge bg-blue-lt">v{{ installed_version }}</span>
-        {% if latest_github_version %}
-          {{ __('Latest version on GitHub', 'grcmanager') }}
-          <span class="badge {{ latest_github_version != installed_version ? 'bg-orange-lt' : 'bg-green-lt' }}">v{{ latest_github_version }}</span>
-        {% endif %}
+   <div class="card-body d-flex align-items-start gap-3">
+      <i class="ti ti-brand-github fs-1 text-muted"></i>
+      <div class="flex-fill">
+         <div class="fw-bold mb-1">{{ __('Plugin version', 'grcmanager') }}</div>
+         <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="text-muted small">{{ __('Installed version', 'grcmanager') }}</span>
+            <span class="badge bg-info-subtle text-info-emphasis"><i class="ti ti-package me-1"></i>v{{ pv.installed }}</span>
+            {% if pv.latest %}
+               <span class="text-muted small">{{ __('Latest release on GitHub', 'grcmanager') }}</span>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-tag me-1"></i>v{{ pv.latest }}</span>
+            {% endif %}
+
+            {% if pv.state == 'up_to_date' %}
+               {% include '@grcmanager/_badge.html.twig' with {
+                  class: 'bg-success-subtle text-success-emphasis', icon: 'ti-circle-check', label: __('Up to date', 'grcmanager'),
+               } only %}
+            {% elseif pv.state == 'update_available' %}
+               {% include '@grcmanager/_badge.html.twig' with {
+                  class: 'bg-warning-subtle text-warning-emphasis', icon: 'ti-alert-triangle',
+                  label: __('Update available: %s', 'grcmanager')|format('v' ~ pv.latest),
+               } only %}
+            {% else %}
+               {% include '@grcmanager/_badge.html.twig' with {
+                  class: 'bg-secondary-subtle text-secondary-emphasis', icon: 'ti-help-circle',
+                  label: __('Latest version unknown', 'grcmanager'),
+               } only %}
+            {% endif %}
+         </div>
+
+         {% if pv.state == 'update_available' %}
+            <div class="mt-2 d-flex flex-wrap gap-2">
+               <a href="{{ pv.release_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary">
+                  <i class="ti ti-notes me-1"></i>{{ __('Release notes', 'grcmanager') }}
+               </a>
+               {% if pv.download_url %}
+                  <a href="{{ pv.download_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary">
+                     <i class="ti ti-download me-1"></i>{{ __('Download the archive', 'grcmanager') }}
+                  </a>
+               {% endif %}
+            </div>
+         {% endif %}
+
+         {% if pv.reason %}
+            <div class="text-muted small mt-2">
+               <i class="ti ti-info-circle me-1"></i>
+               {% if pv.stale %}
+                  {{ __('Last check failed: %s.', 'grcmanager')|format(reasons[pv.reason] ?? pv.reason) }}
+                  {{ __('Result of the last successful check (%s) shown.', 'grcmanager')|format(pv.last_success|formatted_datetime) }}
+               {% else %}
+                  {{ __('Reason: %s.', 'grcmanager')|format(reasons[pv.reason] ?? pv.reason) }}
+                  {% if pv.reason != 'disabled' %}
+                     {% if pv.last_success %}
+                        {{ __('Last successful check: %s.', 'grcmanager')|format(pv.last_success|formatted_datetime) }}
+                     {% else %}
+                        {{ __('No successful check yet.', 'grcmanager') }}
+                     {% endif %}
+                  {% endif %}
+               {% endif %}
+               {% if pv.reason != 'disabled' %}
+                  <a href="{{ pv.release_url }}" target="_blank" rel="noopener noreferrer" class="text-decoration-underline">{{ __('See the releases on GitHub', 'grcmanager') }}</a>
+               {% endif %}
+            </div>
+         {% elseif pv.checked_at %}
+            <div class="text-muted small mt-2">
+               <i class="ti ti-clock me-1"></i>{{ __('Last checked: %s (checked again every 12 hours).', 'grcmanager')|format(pv.checked_at|formatted_datetime) }}
+            </div>
+         {% endif %}
       </div>
-    </div>
-  </div>
+   </div>
 </div>

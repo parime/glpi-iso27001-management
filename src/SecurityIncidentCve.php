@@ -65,7 +65,7 @@ class SecurityIncidentCve extends SecurityIncidentCveBase
 
     /**
      * Best-effort synchronous enrichment right after a successful add: a single lightweight NVD
-     * call, same cost as GithubVersionChecker's own inline HTTP call elsewhere in this plugin. A
+     * call, same cost as PluginVersion's own inline HTTP call elsewhere in this plugin. A
      * network failure here is captured as `fetch_status = 'error'` by
      * NvdCveEnrichmentService::fetchForCve() itself (never an exception), so it can never abort or
      * roll back the CVE reference that was just successfully added; the daily Cron
