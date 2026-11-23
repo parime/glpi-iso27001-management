@@ -274,19 +274,14 @@ final class RedfishClient
                 }
                 $https = is_array($p['HTTPS'] ?? null) ? $p['HTTPS'] : [];
                 $certificates = $this->members(self::link($https, 'Certificates'), self::MAX_CERTIFICATES);
-                foreach ($certificates['members'] as $path) {
-                    $certificate = $this->get($path);
-                    if ($certificate['data'] === null) {
-                        continue;
-                    }
-                    $expiry = BmcRules::dateOf($certificate['data']['ValidNotAfter'] ?? null);
-                    if ($expiry !== null && ($snapshot['cert_expiry'] === null || $expiry < $snapshot['cert_expiry'])) {
-                        $snapshot['cert_expiry'] = $expiry;
-                    }
-                    $self = BmcRules::isSelfSigned($certificate['data']) ? 1 : 0;
-                    $snapshot['cert_self_signed'] = max((int) $snapshot['cert_self_signed'], $self);
-                }
+                $this->readCertificates($certificates['members'], $snapshot);
             }
+        }
+        if ($snapshot['cert_expiry'] === null && (int) $snapshot['cert_self_signed'] === BmcRules::UNKNOWN) {
+            $this->readCertificates($this->certificateLocations($rootData, $manager), $snapshot);
+        }
+        if ($snapshot['cert_expiry'] === null && (int) $snapshot['cert_self_signed'] === BmcRules::UNKNOWN) {
+            $this->readHpeHttpsCertificate($manager, $snapshot);
         }
 
         // Lot 4 : protocoles TLS anciens, d'après la politique de sécurité ou les extensions Oem.
@@ -359,5 +354,104 @@ final class RedfishClient
             'accounts'      => array_values($accounts),
             'accounts_read' => $accountsRead,
         ];
+    }
+
+    /**
+     * Certificats HTTPS lus (expiration la plus proche, auto-signé si l'un l'est).
+     *
+     * @param list<string> $paths
+     * @param array<string, mixed> $snapshot
+     */
+    private function readCertificates(array $paths, array &$snapshot): void
+    {
+        foreach (array_slice($paths, 0, self::MAX_CERTIFICATES) as $path) {
+            $certificate = $this->get($path);
+            if (!is_array($certificate['data'])) {
+                continue;
+            }
+            self::noteCertificate($certificate['data'], $snapshot);
+        }
+    }
+
+    /**
+     * @param array<mixed> $certificate Certificate DMTF ou X509CertificateInformation HPE
+     * @param array<string, mixed> $snapshot
+     */
+    private static function noteCertificate(array $certificate, array &$snapshot): void
+    {
+        $expiry = BmcRules::dateOf($certificate['ValidNotAfter'] ?? null);
+        if ($expiry !== null && ($snapshot['cert_expiry'] === null || $expiry < $snapshot['cert_expiry'])) {
+            $snapshot['cert_expiry'] = $expiry;
+        }
+        $self = BmcRules::isSelfSigned($certificate) ? 1 : 0;
+        $snapshot['cert_self_signed'] = max((int) $snapshot['cert_self_signed'], $self);
+    }
+
+    /**
+     * Certificats HTTPS du contrôleur recensés par le service de certificats DMTF
+     * (CertificateService > CertificateLocations > Links.Certificates,
+     * https://redfish.dmtf.org/schemas/v1/CertificateLocations.v1_0_3.json), quand les protocoles
+     * réseau ne donnent pas le lien HTTPS.Certificates. Seuls les certificats rangés sous
+     * « NetworkProtocol/HTTPS » du contrôleur lu sont retenus (pas ceux de LDAP, KMIP ou du système).
+     *
+     * @param array<mixed> $root
+     * @param array<mixed> $manager
+     * @return list<string>
+     */
+    private function certificateLocations(array $root, array $manager): array
+    {
+        $service = $this->get(self::link($root, 'CertificateService'));
+        if (!is_array($service['data'])) {
+            return [];
+        }
+        $locations = $this->get(self::link($service['data'], 'CertificateLocations'));
+        if (!is_array($locations['data'])) {
+            return [];
+        }
+        $links = $locations['data']['Links']['Certificates'] ?? null;
+        $managerPath = BmcRules::safePath($manager['@odata.id'] ?? null);
+        $prefix = $managerPath === null ? null : mb_strtolower(rtrim($managerPath, '/')) . '/networkprotocol/https/';
+        $paths = [];
+        foreach (is_array($links) ? $links : [] as $link) {
+            $path = BmcRules::safePath(is_array($link) ? ($link['@odata.id'] ?? null) : null);
+            if ($path === null) {
+                continue;
+            }
+            $lower = mb_strtolower($path);
+            $isHttps = $prefix !== null ? str_starts_with($lower, $prefix) : str_contains($lower, '/networkprotocol/https/');
+            if ($isHttps) {
+                $paths[] = $path;
+            }
+        }
+
+        return array_slice($paths, 0, self::MAX_CERTIFICATES);
+    }
+
+    /**
+     * HPE iLO 5/6/7 : certificat HTTPS dans la ressource Oem HpeHttpsCert du service de sécurité
+     * (/redfish/v1/Managers/{id}/SecurityService/HttpsCert, objet X509CertificateInformation :
+     * Issuer et Subject en chaînes, ValidNotAfter en date-heure ;
+     * https://servermanagementportal.ext.hpe.com/docs/redfishservices/ilos/supplementdocuments/securityservice).
+     *
+     * @param array<mixed> $manager
+     * @param array<string, mixed> $snapshot
+     */
+    private function readHpeHttpsCertificate(array $manager, array &$snapshot): void
+    {
+        $oem = is_array($manager['Oem'] ?? null) ? $manager['Oem'] : [];
+        foreach (['Hpe', 'Hp'] as $vendor) {
+            $service = $oem[$vendor]['Links']['SecurityService'] ?? null;
+            $path = BmcRules::safePath(is_array($service) ? ($service['@odata.id'] ?? null) : null);
+            if ($path === null) {
+                continue;
+            }
+            $answer = $this->get(rtrim($path, '/') . '/HttpsCert');
+            $info = is_array($answer['data']) ? ($answer['data']['X509CertificateInformation'] ?? null) : null;
+            if (is_array($info)) {
+                self::noteCertificate($info, $snapshot);
+            }
+
+            return;
+        }
     }
 }

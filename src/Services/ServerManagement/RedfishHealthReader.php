@@ -23,7 +23,11 @@ namespace GlpiPlugin\Grcmanager\Services\ServerManagement;
  * Issue #843, lot 3 : santé détaillée d'un serveur lue par Redfish, en LECTURE SEULE, par le même
  * client (GET uniquement, adresse du contrôleur seulement, chemins sous /redfish/v1, requêtes bornées).
  *
- * - Châssis (Thermal, Power) : ventilateurs, températures, alimentations ;
+ * - Châssis : ventilateurs, températures, alimentations. Ressources ThermalSubsystem (Fans,
+ *   ThermalMetrics.TemperatureReadingsCelsius) et PowerSubsystem (PowerSupplies) d'abord ; Thermal
+ *   et Power, dépréciées depuis Chassis v1_15_0 au profit des précédentes, seulement à défaut
+ *   (https://redfish.dmtf.org/schemas/v1/Chassis.v1_25_0.json, ThermalSubsystem.v1_3_3.json,
+ *   Fan.v1_5_2.json, ThermalMetrics.v1_3_2.json, PowerSubsystem.v1_1_3.json, PowerSupply.v1_6_0.json) ;
  * - Stockage du système : disques ;
  * - Journaux du contrôleur (LogServices) : événements récents (MAX_EVENTS, les plus récents d'abord).
  *
@@ -42,6 +46,8 @@ final class RedfishHealthReader
     public const KIND_TEMPERATURE = 'temperature';
 
     public const MAX_CHASSIS = 2;
+    public const MAX_FANS = 12;
+    public const MAX_SUPPLIES = 8;
     public const MAX_STORAGE = 4;
     public const MAX_DRIVES = 24;
     public const MAX_COMPONENTS = 120;
@@ -89,25 +95,38 @@ final class RedfishHealthReader
             if ($resource === null) {
                 continue;
             }
-            $thermal = $this->data(self::link($resource, 'Thermal'));
-            if ($thermal !== null) {
+            // Ressources récentes (Chassis v1_15 et plus) d'abord ; Thermal et Power, dépréciées, à défaut.
+            $subsystem = $this->thermalSubsystem($resource);
+            if ($subsystem !== null) {
                 $read = true;
-                foreach (self::list($thermal, 'Fans') as $fan) {
-                    $components[] = self::component(self::KIND_FAN, $fan, self::fanReading($fan));
-                }
-                foreach (self::list($thermal, 'Temperatures') as $sensor) {
-                    $components[] = self::component(
-                        self::KIND_TEMPERATURE,
-                        $sensor,
-                        self::temperatureReading($sensor)
-                    );
+                array_push($components, ...$subsystem);
+            } else {
+                $thermal = $this->data(self::link($resource, 'Thermal'));
+                if ($thermal !== null) {
+                    $read = true;
+                    foreach (self::list($thermal, 'Fans') as $fan) {
+                        $components[] = self::component(self::KIND_FAN, $fan, self::fanReading($fan));
+                    }
+                    foreach (self::list($thermal, 'Temperatures') as $sensor) {
+                        $components[] = self::component(
+                            self::KIND_TEMPERATURE,
+                            $sensor,
+                            self::temperatureReading($sensor)
+                        );
+                    }
                 }
             }
-            $power = $this->data(self::link($resource, 'Power'));
-            if ($power !== null) {
+            $supplies = $this->powerSubsystem($resource);
+            if ($supplies !== null) {
                 $read = true;
-                foreach (self::list($power, 'PowerSupplies') as $supply) {
-                    $components[] = self::component(self::KIND_POWER, $supply, self::powerReading($supply));
+                array_push($components, ...$supplies);
+            } else {
+                $power = $this->data(self::link($resource, 'Power'));
+                if ($power !== null) {
+                    $read = true;
+                    foreach (self::list($power, 'PowerSupplies') as $supply) {
+                        $components[] = self::component(self::KIND_POWER, $supply, self::powerReading($supply));
+                    }
                 }
             }
         }
@@ -184,6 +203,78 @@ final class RedfishHealthReader
         }
 
         return null;
+    }
+
+    /**
+     * ThermalSubsystem : ventilateurs (collection Fans, une ressource Fan par membre, vitesse dans
+     * SpeedPercent) et températures (ThermalMetrics.TemperatureReadingsCelsius, sans état de santé
+     * ni seuil dans cet extrait). null si le châssis n'a pas cette ressource ou si elle est illisible.
+     *
+     * @param array<mixed> $chassis
+     * @return list<Component|null>|null
+     */
+    private function thermalSubsystem(array $chassis): ?array
+    {
+        $subsystem = $this->data(self::link($chassis, 'ThermalSubsystem'));
+        if ($subsystem === null) {
+            return null;
+        }
+        $components = [];
+        foreach ($this->members(self::link($subsystem, 'Fans'), self::MAX_FANS) ?? [] as $path) {
+            $fan = $this->data($path);
+            if ($fan !== null) {
+                $speed = is_array($fan['SpeedPercent'] ?? null) ? $fan['SpeedPercent'] : [];
+                $components[] = self::component(self::KIND_FAN, $fan, self::fanSpeedReading($speed));
+            }
+        }
+        $metrics = $this->data(self::link($subsystem, 'ThermalMetrics'));
+        foreach ($metrics === null ? [] : self::list($metrics, 'TemperatureReadingsCelsius') as $sensor) {
+            $name = trim((string) ($sensor['DeviceName'] ?? ''));
+            if ($name === '') {
+                $source = (string) ($sensor['DataSourceUri'] ?? '');
+                $name = $source !== '' ? basename($source) : (string) ($sensor['PhysicalContext'] ?? '');
+            }
+            $reading = is_numeric($sensor['Reading'] ?? null) ? round((float) $sensor['Reading']) . ' °C' : '';
+            $components[] = self::component(self::KIND_TEMPERATURE, ['Name' => $name], $reading);
+        }
+
+        return $components;
+    }
+
+    /**
+     * PowerSubsystem : alimentations (collection PowerSupplies, une ressource PowerSupply par membre).
+     *
+     * @param array<mixed> $chassis
+     * @return list<Component|null>|null
+     */
+    private function powerSubsystem(array $chassis): ?array
+    {
+        $subsystem = $this->data(self::link($chassis, 'PowerSubsystem'));
+        if ($subsystem === null) {
+            return null;
+        }
+        $components = [];
+        foreach ($this->members(self::link($subsystem, 'PowerSupplies'), self::MAX_SUPPLIES) ?? [] as $path) {
+            $supply = $this->data($path);
+            if ($supply !== null) {
+                $components[] = self::component(self::KIND_POWER, $supply, self::powerReading($supply));
+            }
+        }
+
+        return $components;
+    }
+
+    /** Vitesse d'un ventilateur (Fan.SpeedPercent : Reading en %, SpeedRPM facultatif). */
+    private static function fanSpeedReading(array $speed): string
+    {
+        if (is_numeric($speed['Reading'] ?? null)) {
+            return rtrim(rtrim(sprintf('%.1f', (float) $speed['Reading']), '0'), '.') . ' %';
+        }
+        if (is_numeric($speed['SpeedRPM'] ?? null)) {
+            return round((float) $speed['SpeedRPM']) . ' RPM';
+        }
+
+        return '';
     }
 
     /** @return array<mixed>|null */

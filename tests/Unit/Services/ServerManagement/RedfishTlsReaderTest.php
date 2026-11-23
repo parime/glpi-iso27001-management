@@ -152,18 +152,53 @@ final class RedfishTlsReaderTest extends TestCase
         );
     }
 
-    /** Politique de sécurité Redfish standard : versions autorisées côté serveur. */
+    /**
+     * Politique de sécurité Redfish standard (schéma SecurityPolicy v1_0) : TLS.Server.Allowed.Versions
+     * et TLS.Server.Denied.Versions ; une version refusée l'emporte, « ALL » ou une liste vide
+     * désigne toutes les versions. La politique côté client (sortant) n'est pas lue.
+     */
     public function testDmtfSecurityPolicy(): void
     {
         $manager = ['SecurityPolicy' => ['@odata.id' => '/redfish/v1/Managers/1/SecurityPolicy']];
-        $policy = static fn (array $allowed): array => ['TLS' => [
-            'Server' => ['Versions' => ['Allowed' => $allowed]],
-            'Client' => ['Versions' => ['Allowed' => ['1.0']]],
+        $policy = static fn (array $allowed, ?array $denied = null): array => ['TLS' => [
+            'Server' => ['Allowed' => ['Versions' => $allowed]]
+                + ($denied === null ? [] : ['Denied' => ['Versions' => $denied]]),
+            'Client' => ['Allowed' => ['Versions' => ['1.0']]],
         ]];
         $path = '/redfish/v1/Managers/1/SecurityPolicy';
+        $weak = fn (array $resource): int => $this->fetch(self::controller($manager, [$path => $resource]))['weak_tls'];
 
-        $this->assertSame(0, $this->fetch(self::controller($manager, [$path => $policy(['1.2', '1.3'])]))['weak_tls']);
-        $this->assertSame(1, $this->fetch(self::controller($manager, [$path => $policy(['1.1', '1.2'])]))['weak_tls']);
+        $this->assertSame(0, $weak($policy(['1.2', '1.3'])));
+        $this->assertSame(1, $weak($policy(['1.1', '1.2'])));
+        // Toutes les versions autorisées, sauf celles refusées.
+        $this->assertSame(1, $weak($policy(['ALL'])));
+        $this->assertSame(1, $weak($policy([])));
+        $this->assertSame(0, $weak($policy(['ALL'], ['1.0', '1.1'])));
+        // Refus prioritaire sur la même version autorisée (maquette DMTF public-rackmount1).
+        $this->assertSame(0, $weak($policy(['1.1', '1.3'], ['1.1', '1.2'])));
+        // Ancien chemin erroné (Server.Versions.Allowed) : non lu, donc inconnu.
+        $this->assertSame(
+            Rules::UNKNOWN,
+            $weak(['TLS' => ['Server' => ['Versions' => ['Allowed' => ['1.0']]]]])
+        );
+        $this->assertSame(Rules::UNKNOWN, $weak($policy(['NONE'])));
+    }
+
+    /** HPE iLO 7 : mode SecureStandard (équivalent de HighSecurity, défaut d'iLO 7). */
+    public function testHpeIlo7SecureStandardMeansModernTlsOnly(): void
+    {
+        $manager = ['Oem' => ['Hpe' => ['Links' => [
+            'SecurityService' => ['@odata.id' => '/redfish/v1/Managers/1/SecurityService'],
+        ]]]];
+        $snapshot = $this->fetch(self::controller(
+            $manager,
+            ['/redfish/v1/Managers/1/SecurityService' => [
+                'SecurityState' => 'SecureStandard',
+                'TLSVersion' => ['TLS1_2' => 'Enabled', 'TLS1_3' => 'Enabled'],
+            ]]
+        ));
+
+        $this->assertSame(0, $snapshot['weak_tls']);
     }
 
     /** Lenovo, Supermicro et autres : réglages trouvés dans la rubrique Oem du contrôleur. */
@@ -221,6 +256,10 @@ final class RedfishTlsReaderTest extends TestCase
         $this->assertNull(RedfishTlsReader::lowestMinor('1.2'));
         $this->assertSame(2, RedfishTlsReader::lowestMinor('1.2', true));
         $this->assertNull(RedfishTlsReader::lowestMinor('Enabled'));
+        $this->assertSame([2, 3], RedfishTlsReader::policyVersions(['1.2', '1.3', 'TLS 1.0']));
+        $this->assertSame([0, 1, 2, 3], RedfishTlsReader::policyVersions(['ALL']));
+        $this->assertSame([], RedfishTlsReader::policyVersions(['NONE']));
+        $this->assertNull(RedfishTlsReader::policyVersions(null));
 
         // TLS 1.0 et 1.1 tous deux désactivés : TLS 1.2 et plus seulement ; un seul : inconnu.
         $both = new TlsEvidence();
