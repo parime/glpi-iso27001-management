@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\BackupCoverage;
@@ -69,7 +70,7 @@ final class BackupSettingsBlock extends ConfigBlock
                 'settings'      => $settings,
                 'max_age_label' => BackupCoverage::formatHours($settings['max_age_hours']),
                 'scopes'        => BackupCoverage::scopeLabels(),
-                'page_url'      => BackupCoverage::getSearchURL(),
+                'page_path'     => AssetSecurity::menuPath(BackupCoverage::getTypeName(2)),
             ],
         ];
     }
