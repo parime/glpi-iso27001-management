@@ -51,11 +51,11 @@ final class SecurityIncidentTest extends GrcmanagerIntegrationTestCase
     public function testGetTypeNameUsesTheRealTranslationDomainForSingularAndPlural(): void
     {
         $this->assertSame(
-            _n('Security incident', 'Security incidents', 1, 'grcmanager'),
+            'Security incident',
             PluginGrcmanagerSecurityIncident::getTypeName(1)
         );
         $this->assertSame(
-            _n('Security incident', 'Security incidents', 2, 'grcmanager'),
+            'Security incidents',
             PluginGrcmanagerSecurityIncident::getTypeName(2)
         );
         $this->assertNotSame(

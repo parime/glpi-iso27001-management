@@ -44,9 +44,9 @@ final class CrisisExerciseTest extends GrcmanagerIntegrationTestCase
         $incident = $exercise->getIncident();
         $this->assertNotNull($incident);
         $this->assertSame(1, (int) $incident->fields['is_exercise']);
-        // Libellé traduit : la CI tourne en anglais, l'instance de développement en français.
+        // Langue forcée en anglais (ForcesEnglishLanguage, issue #1078).
         $this->assertSame(
-            sprintf(__('[EXERCISE] %s', 'grcmanager'), Exercise::getScenarios()['ransomware']['label']),
+            sprintf('[EXERCISE] %s', Exercise::getScenarios()['ransomware']['label']),
             $incident->fields['name']
         );
         $this->assertSame('malware', $incident->fields['category']);

@@ -121,9 +121,9 @@ final class AccessReviewTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($this->ids['manager'], (int) $line['decided_by']);
         $ticket = new Ticket();
         $this->assertTrue($ticket->getFromDB($line['tickets_id']));
-        // Libellé comparé dans la langue de l'instance (anglais en CI, français en développement).
+        // Langue forcée en anglais (ForcesEnglishLanguage, issue #1078).
         $this->assertSame(
-            sprintf(__('Access review: remove the access of %s', 'grcmanager'), getUserName($this->ids['bob'])),
+            sprintf('Access review: remove the access of %s', getUserName($this->ids['bob'])),
             $ticket->fields['name']
         );
         $this->assertStringContainsString('A quitté le support', $ticket->fields['content']);

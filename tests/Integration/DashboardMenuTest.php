@@ -70,7 +70,7 @@ final class DashboardMenuTest extends GrcmanagerIntegrationTestCase
             }
         }
         $this->assertSame(
-            __('Automated technical checks', 'grcmanager'),
+            'Automated technical checks',
             \GlpiPlugin\Grcmanager\ComplianceAudit::getTypeName()
         );
         \GlpiPlugin\Grcmanager\Services\Control\FrameworkConfig::reset();

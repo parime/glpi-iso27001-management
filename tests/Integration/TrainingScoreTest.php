@@ -107,9 +107,9 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             (new \GlpiPlugin\Grcmanager\Training())->showForm(0, ['retake_of' => $id]);
             $html = (string) ob_get_clean();
 
-            // La CI tourne en anglais : comparer au titre traduit.
+            // Langue forcée en anglais (ForcesEnglishLanguage, issue #1078).
             $this->assertStringContainsString(
-                htmlspecialchars(sprintf(__('%s - retake', 'grcmanager'), 'PHPUnit session source')),
+                htmlspecialchars(sprintf('%s - retake', 'PHPUnit session source')),
                 $html
             );
             $this->assertStringContainsString('name="max_score"', $html);
