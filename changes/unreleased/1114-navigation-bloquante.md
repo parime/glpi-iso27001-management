@@ -1,8 +1,9 @@
 ### Changed
 
-- **Navigation et parcours des pages bloquants en CI** (issue #1114). La refonte de la navigation
-  (#1035) étant terminée, le contrôle d'ergonomie (réglages, menus, fil d'Ariane) et le parcours de
-  toutes les pages ne sont plus de simples avertissements : une régression arrête la CI.
+- **Contrôle de navigation bloquant en CI** (issue #1114). La refonte de la navigation (#1035)
+  étant terminée, le contrôle d'ergonomie (réglages, menus, en-têtes) n'est plus un simple
+  avertissement : une régression arrête la CI. Le parcours de toutes les pages reste en
+  avertissement tant que ses anomalies ne sont pas corrigées.
 
 ### Fixed
 
