@@ -50,6 +50,12 @@ def lands_on(final, target):
     return f.path.endswith(t.path) and set(parse_qsl(t.query)) <= set(parse_qsl(f.query))
 
 
+def shown_here(pg, url, target):
+    """Ancre d'un bloc de l'onglet ouvert par défaut : la page l'affiche déjà, sans redirection."""
+    anchor = urlsplit(url).fragment
+    return bool(anchor) and urlsplit(pg.url).path.endswith(urlsplit(target).path)         and pg.locator('[id="%s"]' % anchor.replace('"', '')).count() > 0
+
+
 def login(ctx, user, password):
     pg = ctx.new_page()
     pg.set_default_timeout(60000)
@@ -81,7 +87,7 @@ def visit(pg, url, target, first, bad, label):
         return True
     if status != 200 or ERR.search(pg.content()):
         bad.append('%s : HTTP %d ou erreur PHP' % (label, status))
-    elif not lands_on(pg.url, target):
+    elif not lands_on(pg.url, target) and not shown_here(pg, url, target):
         bad.append('%s : attendu %s, obtenu %s' % (label, target, pg.url))
     else:
         crumbs = [c.strip() for c in pg.locator(CRUMBS).all_inner_texts() if c.strip()]
