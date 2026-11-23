@@ -29,8 +29,9 @@ use Session;
  * porte l'entrée de menu de la rubrique et montre, en cartes groupées, les écrans de la rubrique que
  * le profil peut ouvrir, avec leur nombre d'éléments et les tests de reprise à faire.
  *
- * La rubrique accueillera les plans de continuité et de reprise (PCA, PRA, PCI, PRI, issue #1083) :
- * un groupe de cartes de plus, sans changer les autres.
+ * Issue #1083 : les plans de continuité et de reprise (PCA, PRA, PCI, PRI) ont leur carte dans
+ * « Se préparer », avec leurs indicateurs (non approuvés, revue dépassée, non testés dans l'année,
+ * processus critiques sans plan).
  */
 class CrisisContinuity extends CommonGLPI
 {
@@ -62,6 +63,7 @@ class CrisisContinuity extends CommonGLPI
     {
         return BusinessProcess::canView()
             || CrisisScenario::canView()
+            || ContinuityPlan::canView()
             || CrisisExercise::canView()
             || CrisisMessageTemplate::canView();
     }
@@ -100,6 +102,7 @@ class CrisisContinuity extends CommonGLPI
                         'Crisis scenarios of the continuity plan and how ready you are for each one.',
                         'grcmanager'
                     )),
+                    self::planCard($today),
                 ])),
             ],
             [
@@ -144,6 +147,57 @@ class CrisisContinuity extends CommonGLPI
             'count'       => self::countVisible($class),
             'todo'        => [],
         ];
+    }
+
+    /**
+     * Issue #1083 : carte des plans de continuité et de reprise, avec leurs indicateurs.
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function planCard(string $today): ?array
+    {
+        $card = self::classCard(ContinuityPlan::class, __(
+            'Business continuity and recovery plans (BCP, BRP) and IT continuity and recovery plans (ITCP, DRP): '
+                . 'approval, review and tests.',
+            'grcmanager'
+        ));
+        if ($card === null) {
+            return null;
+        }
+        $summary = ContinuityPlan::coverage(ContinuityPlan::register($today))['summary'];
+        $badges = [
+            'not_approved'       => ['bg-orange-subtle text-orange-emphasis', 'ti ti-signature', _n(
+                '%d plan not approved',
+                '%d plans not approved',
+                $summary['not_approved'],
+                'grcmanager'
+            )],
+            'review_overdue'     => ['bg-red-subtle text-red-emphasis', 'ti ti-calendar-exclamation', _n(
+                '%d review overdue',
+                '%d reviews overdue',
+                $summary['review_overdue'],
+                'grcmanager'
+            )],
+            'untested'           => ['bg-yellow-subtle text-yellow-emphasis', 'ti ti-test-pipe', _n(
+                '%d plan not tested within a year',
+                '%d plans not tested within a year',
+                $summary['untested'],
+                'grcmanager'
+            )],
+            'critical_uncovered' => ['bg-red-subtle text-red-emphasis', 'ti ti-building-factory-2', _n(
+                '%d critical process without plan',
+                '%d critical processes without plan',
+                $summary['critical_uncovered'],
+                'grcmanager'
+            )],
+        ];
+        foreach ($badges as $key => [$class, $icon, $label]) {
+            if ($summary[$key] > 0) {
+                $card['todo'][] = ['class' => $class, 'icon' => $icon, 'label' => sprintf($label, $summary[$key])];
+            }
+        }
+
+        return $card;
     }
 
     /** @return array<string, mixed>|null */

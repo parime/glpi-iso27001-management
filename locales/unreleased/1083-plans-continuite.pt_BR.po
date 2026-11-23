@@ -1,0 +1,430 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: %3$s"
+msgstr "Versão congelada %1$s, enviada em %2$s. Impressão digital SHA-256 do conteúdo: %3$s"
+
+msgid "On-call team"
+msgstr "Equipe de plantão"
+
+msgid "Covered processes and recovery objectives"
+msgstr "Processos cobertos e objetivos de recuperação"
+
+msgid "Crisis scenarios"
+msgstr "Cenários de crise"
+
+msgid "Content of the plan"
+msgstr "Conteúdo do plano"
+
+msgid "Plan test"
+msgid_plural "Plan tests"
+msgstr[0] "Teste do plano"
+msgstr[1] "Testes do plano"
+
+msgid "No test recorded yet."
+msgstr "Nenhum teste registrado ainda."
+
+msgid "Gaps found"
+msgstr "Desvios constatados"
+
+msgid "History of versions"
+msgstr "Histórico de versões"
+
+msgid "Continuity and recovery plans"
+msgstr "Planos de continuidade e de recuperação"
+
+msgid "The plans themselves are managed in Assistance > Crisis and continuity. Here: how often they are reviewed and what a new plan starts with."
+msgstr "Os planos são gerenciados em Assistência > Crise e continuidade. Aqui: com que frequência são revisados e com o que um novo plano começa."
+
+msgid "Default review period (months)"
+msgstr "Periodicidade de revisão padrão (meses)"
+
+msgid "Used when a plan does not set its own period. The next review date is computed when the plan is approved."
+msgstr "Usada quando um plano não define sua própria periodicidade. A data da próxima revisão é calculada na aprovação do plano."
+
+msgid "Review reminder (days before)"
+msgstr "Lembrete de revisão (dias antes)"
+
+msgid "From this many days before the date, the review is shown as due soon."
+msgstr "A partir deste número de dias antes da data, a revisão aparece como próxima."
+
+msgid "Start a new plan from the model"
+msgstr "Iniciar um novo plano a partir do modelo"
+
+msgid "Pre-fills the scope, activation, steps, fallback and communication with short guidance to replace."
+msgstr "Preenche o escopo, o acionamento, as etapas, as alternativas e a comunicação com orientações curtas a substituir."
+
+msgid "Version %s has been sent to the approvers; its content is frozen until their decision."
+msgstr "A versão %s foi enviada aos aprovadores; seu conteúdo fica congelado até a decisão deles."
+
+msgid "Version %s is approved and in force."
+msgstr "A versão %s está aprovada e em vigor."
+
+msgid "Version %1$s is being prepared; the version approved on %2$s stays in force until then."
+msgstr "A versão %1$s está em preparação; a versão aprovada em %2$s continua em vigor até lá."
+
+msgid "Version %s is a draft: send it for approval once it is ready."
+msgstr "A versão %s é um rascunho: envie-a para aprovação quando estiver pronta."
+
+msgid "Next review: %s"
+msgstr "Próxima revisão: %s"
+
+msgid "Your decision"
+msgstr "Sua decisão"
+
+msgid "Version %s awaits your decision. Read the plan (Plan tab or PDF) before answering."
+msgstr "A versão %s aguarda sua decisão. Leia o plano (aba do plano ou PDF) antes de responder."
+
+msgid "No approver: choose one on the plan, or set the default approvers of policies in the configuration."
+msgstr "Nenhum aprovador: escolha um no plano ou defina os aprovadores padrão das políticas na configuração."
+
+msgid "Default approvers of policies (configuration)."
+msgstr "Aprovadores padrão das políticas (configuração)."
+
+msgid "Approver designated on the plan."
+msgstr "Aprovador designado no plano."
+
+msgid "Have this plan approved"
+msgstr "Submeter este plano à aprovação"
+
+msgid "Freezes version %s (content and SHA-256 fingerprint, kept in the history and printable) and sends it to the approvers. The content can no longer be changed until their decision."
+msgstr "Congela a versão %s (conteúdo e impressão digital SHA-256, guardados no histórico e imprimíveis) e a envia aos aprovadores. O conteúdo não pode mais ser alterado até a decisão deles."
+
+msgid "An approved plan can no longer be changed. Prepare a new version: it goes back to draft, and the approved version stays in force and in the history until the new one is approved."
+msgstr "Um plano aprovado não pode mais ser alterado. Prepare uma nova versão: ela volta a rascunho, e a versão aprovada continua em vigor e no histórico até a aprovação da nova."
+
+msgid "You do not have the right to modify this plan."
+msgstr "Você não tem o direito de modificar este plano."
+
+msgid "Print the current plan (PDF)"
+msgstr "Imprimir o plano atual (PDF)"
+
+msgid "This critical process is not covered by any continuity or recovery plan."
+msgstr "Este processo crítico não é coberto por nenhum plano de continuidade ou de recuperação."
+
+msgid "No continuity or recovery plan covers this process yet."
+msgstr "Nenhum plano de continuidade ou de recuperação cobre ainda este processo."
+
+msgid "All continuity and recovery plans"
+msgstr "Todos os planos de continuidade e de recuperação"
+
+msgid "This plan has never been tested. A plan that has not been tested gives no assurance that it works."
+msgstr "Este plano nunca foi testado. Um plano não testado não dá nenhuma garantia de que funciona."
+
+msgid "The last test is more than a year old: plan a new exercise."
+msgstr "O último teste tem mais de um ano: planeje um novo exercício."
+
+msgid "This plan has been tested within the year."
+msgstr "Este plano foi testado no último ano."
+
+msgid "Action created"
+msgstr "Ação criada"
+
+msgid "Create a nonconformity"
+msgstr "Criar uma não conformidade"
+
+msgid "Remove this test"
+msgstr "Remover este teste"
+
+msgid "Record a test of the plan"
+msgstr "Registrar um teste do plano"
+
+msgid "What was tested, who took part, the times measured against the objectives."
+msgstr "O que foi testado, quem participou, os tempos medidos frente aos objetivos."
+
+msgid "Each gap can then become a nonconformity to follow up in the improvement section."
+msgstr "Cada desvio pode depois se tornar uma não conformidade a acompanhar na seção de melhoria."
+
+msgid "Recovery tests of the covered processes"
+msgstr "Testes de recuperação dos processos cobertos"
+
+msgid "Recovery tests are recorded on each process (Recovery strategy tab) and in the recovery test programme."
+msgstr "Os testes de recuperação são registrados em cada processo (aba Estratégia de recuperação) e no programa de testes de recuperação."
+
+msgid "%d plan"
+msgid_plural "%d plans"
+msgstr[0] "%d plano"
+msgstr[1] "%d planos"
+
+msgid "%d plan not approved"
+msgid_plural "%d plans not approved"
+msgstr[0] "%d plano não aprovado"
+msgstr[1] "%d planos não aprovados"
+
+msgid "%d review overdue"
+msgid_plural "%d reviews overdue"
+msgstr[0] "%d revisão atrasada"
+msgstr[1] "%d revisões atrasadas"
+
+msgid "%d plan not tested within a year"
+msgid_plural "%d plans not tested within a year"
+msgstr[0] "%d plano não testado no último ano"
+msgstr[1] "%d planos não testados no último ano"
+
+msgid "%d critical process without plan"
+msgid_plural "%d critical processes without plan"
+msgstr[0] "%d processo crítico sem plano"
+msgstr[1] "%d processos críticos sem plano"
+
+msgid "Plans awaiting your approval"
+msgstr "Planos aguardando sua aprovação"
+
+msgid "version %s"
+msgstr "versão %s"
+
+msgid "Critical processes not covered by any plan"
+msgstr "Processos críticos não cobertos por nenhum plano"
+
+msgid "No plan yet. Start with the continuity plan of your most critical activity, then the IT recovery plan it relies on."
+msgstr "Nenhum plano ainda. Comece pelo plano de continuidade da sua atividade mais crítica e depois pelo plano de recuperação de TI do qual ela depende."
+
+msgid "Approved: %1$d / %2$d"
+msgstr "Aprovados: %1$d / %2$d"
+
+msgid "Tested within a year: %1$d / %2$d"
+msgstr "Testados no último ano: %1$d / %2$d"
+
+msgid "Print the plan (PDF)"
+msgstr "Imprimir o plano (PDF)"
+
+msgid "This plan is approved, reviewed on time and tested within the year."
+msgstr "Este plano está aprovado, revisado no prazo e testado no último ano."
+
+msgid "The content of this plan is frozen while it is awaiting approval or approved. To change it, prepare a new version in the Versions and approval tab."
+msgstr "O conteúdo deste plano fica congelado durante a aprovação e depois de aprovado. Para alterá-lo, prepare uma nova versão na aba Versões e aprovação."
+
+msgid "For example \"Recovery plan of the main data centre\" or \"Continuity plan of order taking\"."
+msgstr "Por exemplo “Plano de recuperação do data center principal” ou “Plano de continuidade da tomada de pedidos”."
+
+msgid "BCP and BRP keep or restart business activities; ITCP and DRP keep or restore IT systems and data."
+msgstr "O PCN e o PRN mantêm ou retomam as atividades de negócio; o PCTI e o PRD mantêm ou restauram os sistemas e os dados de TI."
+
+msgid "The version number changes when a new version is prepared after an approval."
+msgstr "O número da versão muda quando uma nova versão é preparada após uma aprovação."
+
+msgid "0 uses the default period of the configuration (%d months). The next review date is computed at approval."
+msgstr "0 usa a periodicidade padrão da configuração (%d meses). A data da próxima revisão é calculada na aprovação."
+
+msgid "People in charge"
+msgstr "Responsáveis"
+
+msgid "Usually a member of management. Empty: the default approvers of policies (configuration) are asked."
+msgstr "Geralmente um membro da direção. Vazio: os aprovadores padrão das políticas (configuração) são consultados."
+
+msgid "GLPI group gathered when the plan is activated."
+msgstr "Grupo do GLPI reunido no acionamento do plano."
+
+msgid "GLPI group reachable outside working hours. Its active members are printed in the plan."
+msgstr "Grupo do GLPI acessível fora do horário de trabalho. Seus membros ativos são impressos no plano."
+
+msgid "What the plan covers"
+msgstr "O que o plano cobre"
+
+msgid "Covered processes"
+msgstr "Processos cobertos"
+
+msgid "Business processes kept or restarted by the plan. Their RTO and RPO come from their business impact analysis."
+msgstr "Processos de negócio mantidos ou retomados pelo plano. Seus RTO e RPO vêm da análise de impacto no negócio."
+
+msgid "Crisis scenarios handled by this plan."
+msgstr "Cenários de crise tratados por este plano."
+
+msgid "Suppliers needed for the recovery or to call during the crisis."
+msgstr "Fornecedores necessários para a recuperação ou a contatar durante a crise."
+
+msgid "Only the elements visible from the entity of the plan are offered."
+msgstr "Somente os elementos visíveis a partir da entidade do plano são oferecidos."
+
+msgid "Recovery objectives from the BIA"
+msgstr "Objetivos de recuperação do BIA"
+
+msgid "The plan has been frozen and sent for approval."
+msgstr "O plano foi congelado e enviado para aprovação."
+
+msgid "Your answer was not recorded: a rejection needs a comment."
+msgstr "Sua resposta não foi registrada: uma recusa exige um comentário."
+
+msgid "Test recorded."
+msgstr "Teste registrado."
+
+msgid "Nonconformity created from the gaps of the test."
+msgstr "Não conformidade criada a partir dos desvios do teste."
+
+msgid "Settings of the continuity and recovery plans saved."
+msgstr "Configurações dos planos de continuidade e de recuperação salvas."
+
+msgid "Continuity or recovery plan"
+msgid_plural "Continuity and recovery plans"
+msgstr[0] "Plano de continuidade ou de recuperação"
+msgstr[1] "Planos de continuidade e de recuperação"
+
+msgid "Business continuity plan (BCP)"
+msgstr "Plano de continuidade de negócios (PCN)"
+
+msgid "Business recovery plan (BRP)"
+msgstr "Plano de recuperação de negócios (PRN)"
+
+msgid "IT continuity plan (ITCP)"
+msgstr "Plano de continuidade de TI (PCTI)"
+
+msgid "IT disaster recovery plan (DRP)"
+msgstr "Plano de recuperação de desastres (PRD)"
+
+msgctxt "plan type"
+msgid "BCP"
+msgstr "PCN"
+
+msgctxt "plan type"
+msgid "BRP"
+msgstr "PRN"
+
+msgctxt "plan type"
+msgid "ITCP"
+msgstr "PCTI"
+
+msgctxt "plan type"
+msgid "DRP"
+msgstr "PRD"
+
+msgid "Not tested for more than a year"
+msgstr "Não testado há mais de um ano"
+
+msgid "Last test failed"
+msgstr "Último teste falhou"
+
+msgid "No covered process"
+msgstr "Nenhum processo coberto"
+
+msgid "No crisis team"
+msgstr "Nenhum comitê de crise"
+
+msgid "No recovery steps"
+msgstr "Nenhuma etapa de recuperação"
+
+msgid "A named person has left (inactive account)"
+msgstr "Uma pessoa designada saiu (conta inativa)"
+
+msgid "Entities, services, sites and activities covered by the plan."
+msgstr "Entidades, serviços, locais e atividades cobertos pelo plano."
+
+msgid "Activation criteria"
+msgstr "Critérios de acionamento"
+
+msgid "Situations that trigger the plan, for example an unavailability longer than the RTO of a critical process."
+msgstr "Situações que acionam o plano, por exemplo uma indisponibilidade mais longa que o RTO de um processo crítico."
+
+msgid "Who activates the plan"
+msgstr "Quem aciona o plano"
+
+msgid "Person or role allowed to activate the plan, and their deputy."
+msgstr "Pessoa ou função autorizada a acionar o plano, e seu substituto."
+
+msgid "Recovery objectives"
+msgstr "Objetivos de recuperação"
+
+msgid "The RTO and RPO of the covered processes come from their business impact analysis; add here the objectives of services that are not processes."
+msgstr "O RTO e o RPO dos processos cobertos vêm da análise de impacto; adicione aqui os objetivos dos serviços que não são processos."
+
+msgid "Roles and contacts"
+msgstr "Funções e contatos"
+
+msgid "Who does what during the crisis, with internal and external contacts (suppliers, insurer, authorities)."
+msgstr "Quem faz o quê durante a crise, com os contatos internos e externos (fornecedores, seguradora, autoridades)."
+
+msgid "Steps of the plan"
+msgstr "Etapas do plano"
+
+msgid "Numbered steps from activation to return to normal. Cite the response playbooks to follow."
+msgstr "Etapas numeradas do acionamento ao retorno à normalidade. Cite os procedimentos de resposta a seguir."
+
+msgid "Fallback solutions"
+msgstr "Soluções alternativas"
+
+msgid "Backup site, degraded mode, manual workarounds."
+msgstr "Site de contingência, modo degradado, contornos manuais."
+
+msgid "Dependencies and recovery order"
+msgstr "Dependências e ordem de recuperação"
+
+msgid "Applications, infrastructure and suppliers needed, in the order in which they are restored."
+msgstr "Aplicações, infraestrutura e fornecedores necessários, na ordem em que são restaurados."
+
+msgid "Who informs staff, customers, partners and authorities, and with which crisis message templates."
+msgstr "Quem informa a equipe, os clientes, os parceiros e as autoridades, e com quais modelos de mensagens de crise."
+
+msgid "This plan is awaiting approval or approved: its content is frozen. Prepare a new version in the Versions and approval tab to change it."
+msgstr "Este plano está aguardando aprovação ou aprovado: seu conteúdo está congelado. Prepare uma nova versão na aba Versões e aprovação para alterá-lo."
+
+msgid "The plan name is required."
+msgstr "O nome do plano é obrigatório."
+
+msgid "An element outside the entity of the plan was not linked."
+msgstr "Um elemento fora da entidade do plano não foi vinculado."
+
+msgid "Partially met"
+msgstr "Parcialmente atingidos"
+
+msgid "Give the date of the test (today or earlier)."
+msgstr "Informe a data do teste (hoje ou antes)."
+
+msgid "Gap found when testing the plan \"%1$s\" on %2$s"
+msgstr "Desvio constatado no teste do plano “%1$s” em %2$s"
+
+msgid "Versions and approval"
+msgstr "Versões e aprovação"
+
+msgid "Only a draft plan can be submitted for approval."
+msgstr "Somente um plano em rascunho pode ser enviado para aprovação."
+
+msgid "This version number has already been approved: give the plan a new version number."
+msgstr "Este número de versão já foi aprovado: dê ao plano um novo número de versão."
+
+msgid "No active approver: designate one on the plan, or set the default approvers of policies in the configuration."
+msgstr "Nenhum aprovador ativo: designe um no plano ou defina os aprovadores padrão das políticas na configuração."
+
+msgid "Give a version number that has not been approved yet."
+msgstr "Informe um número de versão que ainda não foi aprovado."
+
+msgid "Business continuity and recovery plans (BCP, BRP) and IT continuity and recovery plans (ITCP, DRP): approval, review and tests."
+msgstr "Planos de continuidade e recuperação de negócios (PCN, PRN) e planos de continuidade e recuperação de TI (PCTI, PRD): aprovação, revisão e testes."
+
+msgid "The continuity and recovery plans of the organisation: business continuity and recovery plans (BCP, BRP) for activities, IT continuity and disaster recovery plans (ITCP, DRP) for systems. Each plan gathers the covered processes with their recovery objectives, the crisis team, the steps, the fallback solutions and the communication."
+msgstr "Os planos de continuidade e de recuperação da organização: planos de continuidade e recuperação de negócios (PCN, PRN) para as atividades, planos de continuidade e recuperação de TI (PCTI, PRD) para os sistemas. Cada plano reúne os processos cobertos com seus objetivos de recuperação, o comitê de crise, as etapas, as soluções alternativas e a comunicação."
+
+msgid "Create one plan per critical activity or system, link the covered processes, then have it approved by management (Versions and approval tab) and test it at least once a year (Plan tests tab). Print the approved plan in PDF to keep a copy outside GLPI."
+msgstr "Crie um plano por atividade ou sistema crítico, vincule os processos cobertos, submeta-o à aprovação da direção (aba Versões e aprovação) e teste-o pelo menos uma vez por ano (aba Testes do plano). Imprima o plano aprovado em PDF para guardar uma cópia fora do GLPI."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30; ISO 22301"
+msgstr "ISO/IEC 27001, controles A.5.29 e A.5.30; ISO 22301"
+
+msgid "Systems, applications and data covered; hosting sites; entities served."
+msgstr "Sistemas, aplicações e dados cobertos; locais de hospedagem; entidades atendidas."
+
+msgid "Activities, teams and sites covered; entities concerned."
+msgstr "Atividades, equipes e locais cobertos; entidades envolvidas."
+
+msgid "Loss of a site, a system or a supplier expected to last longer than the RTO of a covered process."
+msgstr "Perda de um local, de um sistema ou de um fornecedor que possa durar mais que o RTO de um processo coberto."
+
+msgid "Disruption that threatens a critical activity: unavailability, cyberattack, loss of staff or premises."
+msgstr "Perturbação que ameaça uma atividade crítica: indisponibilidade, ataque cibernético, perda de pessoal ou de instalações."
+
+msgid "Crisis manager (and deputy), after an assessment with the CISO and the IT department."
+msgstr "Gestor de crise (e substituto), após avaliação com o CISO e o departamento de TI."
+
+msgid "1. Assess the incident and activate the plan.\n2. Isolate the affected systems.\n3. Restore in the recovery order, from verified backups.\n4. Check integrity and security before reopening.\n5. Return to normal and hold the lessons learned review."
+msgstr "1. Avaliar o incidente e acionar o plano.\n2. Isolar os sistemas afetados.\n3. Restaurar na ordem de recuperação, a partir de backups verificados.\n4. Verificar a integridade e a segurança antes da reabertura.\n5. Voltar à normalidade e realizar a análise de lições aprendidas."
+
+msgid "1. Activate the plan and gather the crisis team.\n2. Switch the critical activities to degraded mode.\n3. Inform staff, customers and partners.\n4. Follow the recovery and check the objectives.\n5. Return to normal and hold the lessons learned review."
+msgstr "1. Acionar o plano e reunir o comitê de crise.\n2. Passar as atividades críticas para o modo degradado.\n3. Informar a equipe, os clientes e os parceiros.\n4. Acompanhar a recuperação e verificar os objetivos.\n5. Voltar à normalidade e realizar a análise de lições aprendidas."
+
+msgid "Backup site or cloud environment, spare equipment, degraded mode for users."
+msgstr "Site de contingência ou ambiente em nuvem, equipamentos de reserva, modo degradado para os usuários."
+
+msgid "Alternative premises, remote work, manual procedures, temporary staff."
+msgstr "Instalações alternativas, trabalho remoto, procedimentos manuais, pessoal temporário."
+
+msgid "Who informs whom, through which channel, with which crisis message template."
+msgstr "Quem informa quem, por qual canal, com qual modelo de mensagem de crise."

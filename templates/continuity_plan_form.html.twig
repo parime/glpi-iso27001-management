@@ -1,0 +1,150 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : fiche d'un plan de continuité ou de reprise (PCA, PRA, PCI, PRI) : type, version,
+   responsables, éléments couverts (processus avec leurs objectifs du BIA), contenu structuré. Voir
+   GlpiPlugin\Grcmanager\ContinuityPlan::showForm(). #}
+{% extends 'generic_show_form.html.twig' %}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+
+{% block form_fields %}
+   {% if plan is not null %}
+      <div class="col-12 mb-3" id="grc-continuity-plan-status">
+         <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="badge {{ plan.status_class }} fs-5"><i class="ti {{ plan.status_icon }} me-1" aria-hidden="true"></i>{{ plan.status_label }}</span>
+            <span class="badge bg-blue-subtle text-blue-emphasis">{{ plan.type_short }} - {{ __('version %s', 'grcmanager')|format(plan.version) }}</span>
+            {% if plan.date_approved %}
+               <span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-signature me-1" aria-hidden="true"></i>{{ __('Approved on %s', 'grcmanager')|format(plan.date_approved|formatted_date) }}</span>
+            {% endif %}
+            {% if plan.next_review %}
+               {% set review_class = plan.review_status == 'overdue' ? 'bg-red-subtle text-red-emphasis' : (plan.review_status == 'soon' ? 'bg-yellow-subtle text-yellow-emphasis' : 'bg-secondary-subtle text-secondary-emphasis') %}
+               <span class="badge {{ review_class }}"><i class="ti ti-calendar-repeat me-1" aria-hidden="true"></i>{{ __('Next review: %s', 'grcmanager')|format(plan.next_review|formatted_date) }}</span>
+            {% endif %}
+            <span class="badge {{ plan.last_test ? 'bg-secondary-subtle text-secondary-emphasis' : 'bg-orange-subtle text-orange-emphasis' }}"><i class="ti ti-test-pipe me-1" aria-hidden="true"></i>{{ plan.last_test ? __('Last test: %s', 'grcmanager')|format(plan.last_test|formatted_date) : __('Never tested', 'grcmanager') }}</span>
+            {% if export_url %}
+               <a class="btn btn-sm btn-outline-secondary ms-auto" href="{{ export_url }}"><i class="ti ti-file-type-pdf me-1" aria-hidden="true"></i>{{ __('Print the plan (PDF)', 'grcmanager') }}</a>
+            {% endif %}
+         </div>
+         {% if plan.gaps is empty %}
+            <div class="alert alert-success mb-0"><i class="ti ti-circle-check me-1" aria-hidden="true"></i>{{ __('This plan is approved, reviewed on time and tested within the year.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="alert alert-warning mb-0">
+               <div class="fw-bold mb-1"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ __('To complete', 'grcmanager') }}</div>
+               <ul class="mb-0">
+                  {% for label in plan.gap_labels %}<li>{{ label }}</li>{% endfor %}
+               </ul>
+            </div>
+         {% endif %}
+      </div>
+   {% endif %}
+   {% if locked %}
+      <div class="col-12 mb-3">
+         <div class="alert alert-info mb-0"><i class="ti ti-lock me-1" aria-hidden="true"></i>{{ __('The content of this plan is frozen while it is awaiting approval or approved. To change it, prepare a new version in the Versions and approval tab.', 'grcmanager') }}</div>
+      </div>
+   {% endif %}
+
+   {{ fields.smallTitle(__('Identification', 'grcmanager'), 'ti ti-file-shield') }}
+   {{ fields.textField('name', item.fields['name'], __('Name'), {
+      'required': true,
+      'add_field_html': hints.hint(__('For example "Recovery plan of the main data centre" or "Continuity plan of order taking".', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownArrayField('plan_type', item.fields['plan_type'], types, __('Type'), {
+      'add_field_html': hints.hint(__('BCP and BRP keep or restart business activities; ITCP and DRP keep or restore IT systems and data.', 'grcmanager')),
+   }) }}
+   {{ fields.textField('version', item.fields['version'], __('Version', 'grcmanager'), {
+      'readonly': not item.isNewItem(),
+      'add_field_html': hints.hint(__('The version number changes when a new version is prepared after an approval.', 'grcmanager')),
+   }) }}
+   {{ fields.numberField('review_months', item.fields['review_months'], __('Review every (months)', 'grcmanager'), {
+      'min': 0, 'max': 60,
+      'add_field_html': hints.hint(__('0 uses the default period of the configuration (%d months). The next review date is computed at approval.', 'grcmanager')|format(review_months)),
+   }) }}
+
+   {{ fields.smallTitle(__('People in charge', 'grcmanager'), 'ti ti-users-group') }}
+   {{ fields.dropdownField('User', 'users_id', item.fields['users_id'], __('Owner', 'grcmanager'), {'right': 'all'}) }}
+   {{ fields.dropdownField('User', 'users_id_approver', item.fields['users_id_approver'], __('Approver', 'grcmanager'), {
+      'right': 'all',
+      'add_field_html': hints.hint(__('Usually a member of management. Empty: the default approvers of policies (configuration) are asked.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('Group', 'groups_id_crisis', item.fields['groups_id_crisis'], __('Crisis team', 'grcmanager'), {
+      'add_field_html': hints.hint(__('GLPI group gathered when the plan is activated.', 'grcmanager')),
+   }) }}
+   {{ fields.dropdownField('Group', 'groups_id_oncall', item.fields['groups_id_oncall'], __('On-call team', 'grcmanager'), {
+      'add_field_html': hints.hint(__('GLPI group reachable outside working hours. Its active members are printed in the plan.', 'grcmanager')),
+   }) }}
+
+   {{ fields.smallTitle(__('What the plan covers', 'grcmanager'), 'ti ti-building-factory-2') }}
+   <input type="hidden" name="_links_sent" value="1">
+   {% set link_labels = {
+      '_processes': [__('Covered processes', 'grcmanager'), __('Business processes kept or restarted by the plan. Their RTO and RPO come from their business impact analysis.', 'grcmanager')],
+      '_scenarios': [__('Crisis scenarios', 'grcmanager'), __('Crisis scenarios handled by this plan.', 'grcmanager')],
+      '_suppliers': [__('Suppliers', 'grcmanager'), __('Suppliers needed for the recovery or to call during the crisis.', 'grcmanager')],
+   } %}
+   {% for field, link in links %}
+      {% if link.visible %}
+         {{ fields.dropdownArrayField(field, '', link.choices, link_labels[field][0], {
+            'multiple': true, 'values': link.values, 'full_width': true,
+            'add_field_html': hints.hint(link_labels[field][1] ~ ' ' ~ __('Only the elements visible from the entity of the plan are offered.', 'grcmanager')),
+         }) }}
+      {% endif %}
+   {% endfor %}
+   {% if processes is not empty %}
+      {% set processes_html %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter mb-0" id="grc-continuity-plan-processes">
+               <thead>
+                  <tr>
+                     <th>{{ __('Process', 'grcmanager') }}</th>
+                     <th>{{ __('MTPD', 'grcmanager') }}</th>
+                     <th>RTO</th>
+                     <th>RPO</th>
+                     <th>{{ __('Last recovery test', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for process in processes %}
+                     <tr>
+                        <td><a href="{{ process.url }}">{{ process.name }}</a>{% if process.critical %} <span class="badge bg-red-subtle text-red-emphasis">{{ __('Critical', 'grcmanager') }}</span>{% endif %}</td>
+                        <td>{{ process.mtpd ?: '-' }}</td>
+                        <td>{{ process.rto ?: '-' }}</td>
+                        <td>{{ process.rpo ?: '-' }}</td>
+                        <td>
+                           {% if process.last_test %}
+                              {{ process.last_test|formatted_date }} ({{ process.test_duration }})
+                              {% if process.test_exceeds %}<span class="badge bg-red-subtle text-red-emphasis"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ __('Above the RTO', 'grcmanager') }}</span>{% endif %}
+                           {% else %}
+                              <span class="badge bg-orange-subtle text-orange-emphasis">{{ __('Never tested', 'grcmanager') }}</span>
+                           {% endif %}
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endset %}
+      {{ fields.htmlField('', processes_html, __('Recovery objectives from the BIA', 'grcmanager'), {'full_width': true}) }}
+   {% endif %}
+
+   {{ fields.smallTitle(__('Content of the plan', 'grcmanager'), 'ti ti-list-details') }}
+   {% for field, text in text_fields %}
+      {{ fields.textareaField(field, item.fields[field], text.label, {
+         'full_width': true,
+         'rows': field == 'procedures' ? 8 : 3,
+         'add_field_html': hints.hint(text.hint),
+      }) }}
+   {% endfor %}
+
+   {{ fields.textareaField('comment', item.fields['comment'], __('Comments'), {'full_width': true}) }}
+{% endblock %}

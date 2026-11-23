@@ -190,6 +190,8 @@ class BusinessProcess extends BusinessProcessBase
         DoraRegister::forgetItem($this);
         // Issue #776 : le processus quitte les scénarios de crise.
         CrisisScenario::forgetProcess((int) $this->getID());
+        // Issue #1083 : le processus quitte les plans de continuité et de reprise.
+        ContinuityPlan::forgetItem(self::class, (int) $this->getID());
     }
 
     /**

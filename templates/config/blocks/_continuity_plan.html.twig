@@ -1,0 +1,48 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : réglages des plans de continuité et de reprise (revue, rappel, modèle). #}
+<div class="card mb-3" id="grc-continuity-plan-settings">
+  <div class="card-body">
+    <h4><i class="ti ti-file-shield me-1" aria-hidden="true"></i>{{ __('Continuity and recovery plans', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The plans themselves are managed in Assistance > Crisis and continuity. Here: how often they are reviewed and what a new plan starts with.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-2 mb-2">
+        <div class="col-md-4">
+          <label class="form-label" for="grc-continuity-review-months">{{ __('Default review period (months)', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="grc-continuity-review-months" name="review_months" min="1" max="60" value="{{ continuity_plan.review_months }}" {{ can_edit_config ? '' : 'disabled' }}>
+          <div class="form-hint">{{ __('Used when a plan does not set its own period. The next review date is computed when the plan is approved.', 'grcmanager') }}</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="grc-continuity-reminder-days">{{ __('Review reminder (days before)', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="grc-continuity-reminder-days" name="reminder_days" min="0" max="365" value="{{ continuity_plan.reminder_days }}" {{ can_edit_config ? '' : 'disabled' }}>
+          <div class="form-hint">{{ __('From this many days before the date, the review is shown as due soon.', 'grcmanager') }}</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-check mt-4">
+            <input type="checkbox" class="form-check-input" name="prefill" value="1" {{ continuity_plan.prefill ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+            <span class="form-check-label">{{ __('Start a new plan from the model', 'grcmanager') }}</span>
+          </label>
+          <div class="form-hint">{{ __('Pre-fills the scope, activation, steps, fallback and communication with short guidance to replace.', 'grcmanager') }}</div>
+        </div>
+      </div>
+      {% if can_edit_config %}
+        <button type="submit" name="update_continuity_plan_settings" value="1" class="btn btn-primary">{{ __('Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>

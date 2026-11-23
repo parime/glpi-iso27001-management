@@ -1,0 +1,168 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : onglet « Versions et approbation » d'un plan de continuité ou de reprise : statut,
+   approbateurs, demande d'approbation, réponse, nouvelle version, historique des versions figées.
+   Voir GlpiPlugin\Grcmanager\ContinuityPlanVersion::displayTabContentForItem(). #}
+<div class="card mb-3">
+   <div class="card-body d-flex flex-wrap align-items-center gap-3">
+      <span class="badge {{ status_badge[1] }} fs-5"><i class="ti {{ status_badge[2] }} me-1" aria-hidden="true"></i>{{ status_badge[0] }}</span>
+      {% if pending is not null %}
+         <span>{{ __('Version %s has been sent to the approvers; its content is frozen until their decision.', 'grcmanager')|format(pending.version) }}</span>
+      {% elseif status == 'approved' %}
+         <span>{{ __('Version %s is approved and in force.', 'grcmanager')|format(version) }}</span>
+      {% elseif date_approved %}
+         <span>{{ __('Version %1$s is being prepared; the version approved on %2$s stays in force until then.', 'grcmanager')|format(version, date_approved|formatted_date) }}</span>
+      {% else %}
+         <span>{{ __('Version %s is a draft: send it for approval once it is ready.', 'grcmanager')|format(version) }}</span>
+      {% endif %}
+      {% if next_review %}
+         <span class="text-muted small ms-auto"><i class="ti ti-calendar-repeat me-1" aria-hidden="true"></i>{{ __('Next review: %s', 'grcmanager')|format(next_review|formatted_date) }}</span>
+      {% endif %}
+   </div>
+</div>
+
+{% if pending is not null and pending.is_approver %}
+   <div class="card mb-3 border-primary" id="grc-continuity-plan-answer">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-signature me-2" aria-hidden="true"></i>{{ __('Your decision', 'grcmanager') }}</h3></div>
+      <div class="card-body">
+         <p>{{ __('Version %s awaits your decision. Read the plan (Plan tab or PDF) before answering.', 'grcmanager')|format(pending.version) }}</p>
+         <form method="post" action="{{ action }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ plan_id }}">
+            <label class="form-label" for="grc-continuity-answer-comment">{{ __('Comment (required to reject)', 'grcmanager') }}</label>
+            <textarea class="form-control mb-2" name="comment" id="grc-continuity-answer-comment" rows="2"></textarea>
+            <input type="hidden" name="answer_approval" value="1">
+            <button type="submit" name="decision" value="approve" class="btn btn-success"><i class="ti ti-check me-1" aria-hidden="true"></i>{{ __('Approve', 'grcmanager') }}</button>
+            <button type="submit" name="decision" value="reject" class="btn btn-outline-danger"><i class="ti ti-x me-1" aria-hidden="true"></i>{{ __('Reject', 'grcmanager') }}</button>
+         </form>
+      </div>
+   </div>
+{% endif %}
+
+<div class="row g-3 mb-3">
+   <div class="col-lg-6">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-users me-2" aria-hidden="true"></i>{{ __('Approvers', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if approvers is empty %}
+               <p class="text-danger mb-2"><i class="ti ti-alert-circle me-1" aria-hidden="true"></i>{{ __('No approver: choose one on the plan, or set the default approvers of policies in the configuration.', 'grcmanager') }}</p>
+            {% else %}
+               <ul class="list-unstyled mb-2">
+                  {% for approver in approvers %}
+                     <li><i class="ti {{ approver.icon }} me-1" aria-hidden="true"></i>{{ approver.name }}</li>
+                  {% endfor %}
+               </ul>
+               <p class="text-muted small mb-2">
+                  {{ uses_default ? __('Default approvers of policies (configuration).', 'grcmanager') : __('Approver designated on the plan.', 'grcmanager') }}
+                  {{ __('%d active account(s) will be asked.', 'grcmanager')|format(approver_count) }}
+               </p>
+            {% endif %}
+            <p class="mb-0"><strong>{{ __('Approval rule', 'grcmanager') }} :</strong> {{ rule }}.
+               <span class="text-muted small">{{ __('One rejection is enough to reject the version.', 'grcmanager') }}</span></p>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6">
+      <div class="card h-100">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-send me-2" aria-hidden="true"></i>{{ __('Have this plan approved', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% if can_submit %}
+               <p class="text-muted">{{ __('Freezes version %s (content and SHA-256 fingerprint, kept in the history and printable) and sends it to the approvers. The content can no longer be changed until their decision.', 'grcmanager')|format(version) }}</p>
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ plan_id }}">
+                  <label class="form-label" for="grc-continuity-submit-comment">{{ __('Message to the approvers (optional)', 'grcmanager') }}</label>
+                  <textarea class="form-control mb-2" name="comment" id="grc-continuity-submit-comment" rows="2"></textarea>
+                  <button type="submit" name="submit_approval" value="1" class="btn btn-primary"><i class="ti ti-send me-1" aria-hidden="true"></i>{{ __('Freeze and send for approval', 'grcmanager') }}</button>
+               </form>
+            {% elseif can_withdraw %}
+               <p>{{ __('Version %s is awaiting approval. To change its content, withdraw the request: the approvers will no longer be able to answer.', 'grcmanager')|format(pending.version) }}</p>
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ plan_id }}">
+                  <button type="submit" name="withdraw_approval" value="1" class="btn btn-outline-danger"><i class="ti ti-arrow-back-up me-1" aria-hidden="true"></i>{{ __('Withdraw the request', 'grcmanager') }}</button>
+               </form>
+            {% elseif can_new_version %}
+               <p>{{ __('An approved plan can no longer be changed. Prepare a new version: it goes back to draft, and the approved version stays in force and in the history until the new one is approved.', 'grcmanager') }}</p>
+               <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2 align-items-end">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id" value="{{ plan_id }}">
+                  <div>
+                     <label class="form-label" for="grc-continuity-new-version">{{ __('New version number', 'grcmanager') }}</label>
+                     <input type="text" class="form-control" name="new_version" id="grc-continuity-new-version" maxlength="16" required>
+                  </div>
+                  <button type="submit" name="new_version_submit" value="1" class="btn btn-primary"><i class="ti ti-file-plus me-1" aria-hidden="true"></i>{{ __('Prepare a new version', 'grcmanager') }}</button>
+               </form>
+            {% else %}
+               <p class="text-muted mb-0">{{ __('You do not have the right to modify this plan.', 'grcmanager') }}</p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="card">
+   <div class="card-header d-flex align-items-center">
+      <h3 class="card-title"><i class="ti ti-history me-2" aria-hidden="true"></i>{{ __('History of versions', 'grcmanager') }}</h3>
+      <a href="{{ export_url }}" class="btn btn-outline-secondary btn-sm ms-auto"><i class="ti ti-file-type-pdf me-1" aria-hidden="true"></i>{{ __('Print the current plan (PDF)', 'grcmanager') }}</a>
+   </div>
+   <div class="card-body p-0">
+      {% if history is empty %}
+         <p class="text-muted p-3 mb-0">{{ __('No version submitted yet.', 'grcmanager') }}</p>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-vcenter mb-0" id="grc-continuity-plan-history">
+               <thead>
+                  <tr>
+                     <th>{{ __('Version', 'grcmanager') }}</th>
+                     <th>{{ __('Status') }}</th>
+                     <th>{{ __('Requested', 'grcmanager') }}</th>
+                     <th>{{ __('Decisions', 'grcmanager') }}</th>
+                     <th>{{ __('Frozen version', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row in history %}
+                     <tr>
+                        <td><strong>{{ row.version }}</strong></td>
+                        <td>
+                           <span class="badge {{ row.status_class }}">{{ row.status_label }}</span>
+                           {% if row.answered_at %}<div class="text-muted small">{{ row.answered_at }}</div>{% endif %}
+                        </td>
+                        <td>
+                           {{ row.requested_at }}<div class="text-muted small">{{ row.requested_by }}</div>
+                           {% if row.comment %}<div class="small">{{ row.comment }}</div>{% endif %}
+                        </td>
+                        <td>
+                           {% for approver in row.approvers %}
+                              <div>{{ approver.name }} :
+                                 <span class="badge {{ approver.status == 'approved' ? 'bg-green-subtle text-green-emphasis' : (approver.status == 'rejected' ? 'bg-red-subtle text-red-emphasis' : 'bg-secondary-subtle text-secondary-emphasis') }}">{{ approver.status_label }}</span>
+                                 {% if approver.answered_text %}<span class="text-muted small">{{ approver.answered_text }}</span>{% endif %}
+                                 {% if approver.comment %}<div class="small text-muted">« {{ approver.comment }} »</div>{% endif %}
+                              </div>
+                           {% endfor %}
+                        </td>
+                        <td>
+                           <a href="{{ row.pdf_url }}"><i class="ti ti-file-type-pdf me-1" aria-hidden="true"></i>PDF</a>
+                           <div class="text-muted small" title="{{ row.fingerprint }}">SHA-256 {{ row.fingerprint|slice(0, 12) }}...</div>
+                        </td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>
