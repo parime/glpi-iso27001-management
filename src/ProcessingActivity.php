@@ -52,11 +52,6 @@ class ProcessingActivity extends ProcessingActivityBase
      */
     public const INCIDENT_ITEMTYPE = 'PluginGrcmanagerSecurityIncident';
 
-    /** Contact du DPO : réglage du plugin, nettoyé avec son contexte à la désinstallation. */
-    private const DPO_CONFIG_KEY = 'gdpr_dpo_contact';
-
-    private const DPO_MAX_LENGTH = 255;
-
     /** Champ caché du formulaire : les listes à choix multiples ont été soumises (même vides). */
     public const LISTS_MARKER = '_processing_lists_defined';
 
@@ -968,22 +963,11 @@ class ProcessingActivity extends ProcessingActivityBase
 
     /**
      * Article 30 : coordonnées du délégué à la protection des données, sur l'export du registre.
+     * Issue #1054 : groupe DPO, ses membres et l'adresse générique (rôles du SMSI).
      */
     public static function dpoContact(): string
     {
-        $values = \Config::getConfigurationValues('plugin:grcmanager', [self::DPO_CONFIG_KEY]);
-
-        return (string) ($values[self::DPO_CONFIG_KEY] ?? '');
-    }
-
-    /**
-     * Texte brut uniquement : les balises sont retirées (affiché sur la configuration et le PDF).
-     */
-    public static function saveDpoContact(string $contact): void
-    {
-        \Config::setConfigurationValues('plugin:grcmanager', [
-            self::DPO_CONFIG_KEY => mb_substr(trim(strip_tags($contact)), 0, self::DPO_MAX_LENGTH),
-        ]);
+        return IsmsRoles::dpoContactText();
     }
 
     /**

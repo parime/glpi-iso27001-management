@@ -1,0 +1,11 @@
+# Anciennes adresses des pages déplacées (issue #1050), vérifiées par old-urls.py : chaque ancienne
+# adresse mène, après redirection, à sa nouvelle adresse (même chemin, paramètres de la nouvelle
+# adresse présents). Une page déplacée garde une redirection depuis son ancienne adresse (#1035) :
+# ajouter ici une ligne à chaque déplacement. Les anciennes ancres de la configuration
+# (config.php#<bloc>) n'ont pas à y figurer : le script les lit dans la page (data-anchors).
+#
+# Format, adresses depuis la racine de GLPI :
+#   plugins/grcmanager/front/<ancienne>.php -> plugins/grcmanager/front/<nouvelle>.php?tab=<onglet>
+
+# Issue #1047 : import des référentiels personnalisés, devenu un bloc de l'onglet Référentiels.
+plugins/grcmanager/front/customframework.php -> plugins/grcmanager/front/config.php?tab=frameworks

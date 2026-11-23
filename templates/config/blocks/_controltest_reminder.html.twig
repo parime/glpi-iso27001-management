@@ -29,7 +29,7 @@
         {% endfor %}
       </select>
       {% if ciso_groups_id <= 0 %}
-        <div class="form-hint">{{ __('No CISO group is set (Internal audits above, or Configuration GLPI Auto): only the test plan owner is reminded.', 'grcmanager') }}</div>
+        <div class="form-hint">{{ __('No CISO group is set (ISMS roles, People and policies tab, or Configuration GLPI Auto): only the test plan owner is reminded.', 'grcmanager') }}</div>
       {% endif %}
       <div class="form-hint">
         {{ controltest_cga_branding ? __('E-mail colour taken from the notification branding of Configuration GLPI Auto:', 'grcmanager') : __('E-mail colour:', 'grcmanager') }}

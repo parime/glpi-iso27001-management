@@ -1,0 +1,51 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Every day, the work email addresses of active users are sent to the chosen provider to find known data breaches; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the provider."
+msgstr "Codziennie służbowe adresy e-mail aktywnych użytkowników są wysyłane do wybranego dostawcy w celu wyszukania znanych wycieków danych; każde narażenie jest zapisywane w rejestrze wrażliwym, a grupa CISO otrzymuje powiadomienie. Adresy prywatne nigdy nie są wysyłane. Zweryfikowana domena wymaga jednego zapytania; w przeciwnym razie adresy są sprawdzane pojedynczo, w granicach limitu zapytań dostawcy."
+
+msgid "Breach data provider"
+msgstr "Dostawca danych o wyciekach"
+
+msgid "Free, no key needed"
+msgstr "Bezpłatnie, bez klucza"
+
+msgid "Paid API key"
+msgstr "Płatny klucz API"
+
+msgid "Free API: up to %d addresses per run (the provider allows 25 per hour and 100 per day); the next run resumes where the previous one stopped. To go faster, run the \"breachmonitor\" automatic action every hour."
+msgstr "Bezpłatne API: najwyżej %d adresów na przebieg (dostawca przyjmuje 25 na godzinę i 100 na dzień); następny przebieg wznawia od miejsca, w którym zatrzymał się poprzedni. Aby przyspieszyć, uruchamiaj akcję automatyczną „breachmonitor” co godzinę."
+
+msgid "API documentation"
+msgstr "Dokumentacja API"
+
+msgid "XposedOrNot domain API key (optional)"
+msgstr "Klucz API domeny XposedOrNot (opcjonalny)"
+
+msgid "Free key given once your domain is verified on the XposedOrNot dashboard: the whole domain is then checked with a single request. Encrypted with the GLPI key and never displayed again."
+msgstr "Bezpłatny klucz wydawany po zweryfikowaniu domeny w panelu XposedOrNot: cała domena jest wtedy sprawdzana jednym zapytaniem. Szyfrowany kluczem GLPI i nigdy więcej nie wyświetlany."
+
+msgid "%s: connection successful."
+msgstr "%s: połączenie udane."
+
+msgid "%s refused the API key."
+msgstr "%s odrzucił klucz API."
+
+msgid "%1$s could not be reached (code %2$d)."
+msgstr "%1$s jest nieosiągalny (kod %2$d)."
+
+msgid "Published by the breach database"
+msgstr "Opublikowano w bazie wycieków"
+
+msgid "Data breach monitoring: checks work email addresses with the chosen provider (XposedOrNot or Have I Been Pwned)"
+msgstr "Monitorowanie wycieków danych: sprawdza służbowe adresy e-mail u wybranego dostawcy (XposedOrNot lub Have I Been Pwned)"
+
+msgid "%1$s: error %2$s"
+msgstr "%1$s: błąd %2$s"
+
+msgid "%s: rate limit reached, the next run resumes where this one stopped"
+msgstr "%s: osiągnięto limit zapytań, następny przebieg wznowi od miejsca, w którym zatrzymał się ten"
+
+msgid "Work email addresses found in known data breaches, checked every day with the provider chosen in the plugin configuration (XposedOrNot or Have I Been Pwned), to which these addresses are sent."
+msgstr "Służbowe adresy e-mail znalezione w znanych wyciekach danych, sprawdzane codziennie u dostawcy wybranego w konfiguracji wtyczki (XposedOrNot lub Have I Been Pwned), do którego te adresy są wysyłane."

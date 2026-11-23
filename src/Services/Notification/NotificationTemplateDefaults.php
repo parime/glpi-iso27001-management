@@ -402,7 +402,12 @@ final class NotificationTemplateDefaults
             'breach_exposures' => [
                 BreachExposure::class, BreachExposure::NEW_EXPOSURES_EVENT, 'New data breach exposures',
                 'Sent by the "breachmonitor" automatic task (Have I Been Pwned).',
-                [NotificationTargetBreachExposure::TARGET_CISO_GROUP, Notification::GLOBAL_ADMINISTRATOR],
+                [
+                    NotificationTargetBreachExposure::TARGET_CISO_GROUP,
+                    // Issue #1054 : groupe DPO des rôles du SMSI (rien n'est envoyé s'il n'est pas choisi).
+                    \GlpiPlugin\Grcmanager\IsmsRoles::TARGET_DPO_GROUP,
+                    Notification::GLOBAL_ADMINISTRATOR,
+                ],
                 'Nouvelles expositions à des fuites de données',
                 'Envoyée par la tâche automatique « breachmonitor » (Have I Been Pwned).',
             ],

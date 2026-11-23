@@ -9,8 +9,35 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `xss-check.sh` | vérifie qu'aucune page ne restitue la charge piégée sans échappement |
 | `js-errors.py` | ouvre l'accueil et chaque page de `front/` dans Chromium (Playwright) : aucune erreur JavaScript ni boîte de dialogue |
 | `a11y-check.py` | axe-core sur des pages clés, en thème clair puis sombre (`a11y-palette.php`) : aucune violation grave des règles d'accessibilité déjà corrigées (#663) |
+| `old-urls.py` | anciennes adresses (`old-urls.txt`) et anciennes ancres de la configuration (`config.php#<bloc>`, carte `data-anchors`) redirigées vers leur nouvelle place, avec un fil d'Ariane, en super-admin puis en lecteur (#1050) |
 | `purge.php` | supprime le jeu de données (entités et comptes « Securite ISO … », objets nommés « … securite ») d'une instance de test partagée ; `--dry-run` compte sans supprimer |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
+
+## Parcours de toutes les pages et anciennes adresses (#1050)
+
+Le parcours de toutes les pages est celui de la sécurité commune
+([glpi-plugin-security](https://github.com/parime/glpi-plugin-security), `checks/check-pages.sh`
+et `checks/crawl-pages.py`), lancé par `.github/workflows/security.yml` sur chaque PR, en GLPI 11 et
+12, avec l'administrateur et le lecteur de l'entité A (`pages-accounts`). Il découvre les pages
+seul (menus, onglets, sous-pages, `front/*.php`, fiches) et signale les codes 404, 500 et 403 à
+tort, les pages blanches, les erreurs PHP et JavaScript, le fil d'Ariane absent ou différent du
+menu, et les écrans qu'aucun menu n'atteint. Une nouvelle page est parcourue sans rien modifier.
+
+Les anciennes adresses sont vérifiées par `old-urls.py` (job d'installation réelle de `ci.yml`,
+GLPI 11 et 12). Une page déplacée ajoute sa ligne à `old-urls.txt` ; une ancre de la
+configuration déplacée n'a rien à ajouter (le script lit la carte `data-anchors` de la page).
+
+Lancement local, sur une instance où le plugin et le jeu de données (`setup.php`) sont installés :
+
+```sh
+# Anciennes adresses (conteneur GLPI « glpi », image Playwright de la CI)
+bash .github/scripts/security-e2e.sh old-urls
+# ou, avec Playwright installé sur le poste :
+python3 tests/security/old-urls.py http://localhost:8080 glpi:glpi 'iso-lecteur:Secrev#2026'
+
+# Parcours de toutes les pages (clone de glpi-plugin-security à côté du plugin)
+GLPI_CONTAINER=glpi bash ../glpi-plugin-security/checks/check-pages.sh . grcmanager ''   'php plugins/grcmanager/tests/security/setup.php' error 3000 'glpi:glpi iso-lecteur:Secrev#2026'
+```
 
 ## Ajouter les tests d'une fonctionnalité : un nouveau fichier par script
 

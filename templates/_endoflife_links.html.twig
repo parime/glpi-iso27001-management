@@ -75,6 +75,73 @@
     </form>
     {% endif %}
 
+    {# Issue #1056 : correspondances proposées d'après le catalogue d'endoflife.date (nom, alias,
+       identifiants CPE et purl de l'API v1). Rien n'est appliqué sans validation : cocher puis
+       « Accepter » enregistre une correspondance manuelle, « Refuser » ne la propose plus. #}
+    <div class="border rounded p-2 mb-3" id="grc-endoflife-suggestions">
+      <h5 class="mb-1"><i class="ti ti-bulb me-1 text-warning" aria-hidden="true"></i>{{ __('Proposed links, to review', 'grcmanager') }}
+        {% if eol.suggestions_total > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{{ eol.suggestions_total }}</span>{% endif %}</h5>
+      <p class="small text-muted mb-2">
+        {{ __('For the names not linked yet, the endoflife.date catalogue (product names, aliases, CPE and package identifiers) gives a likely product. Nothing is applied until you accept it: check the proposals that are right, then accept them; reject the wrong ones so they are no longer proposed.', 'grcmanager') }}
+        {% if eol.catalog_date %}<br><i class="ti ti-clock me-1" aria-hidden="true"></i>{{ __('Catalogue read on %s (once a week, with "Update now" or the daily task).', 'grcmanager')|format(eol.catalog_date) }}{% endif %}
+      </p>
+      {% if not eol.catalog_date %}
+        <p class="small mb-0"><span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-info-circle me-1" aria-hidden="true"></i>{{ __('Catalogue not read yet: use "Update now".', 'grcmanager') }}</span></p>
+      {% elseif eol.suggestions is empty %}
+        <p class="small mb-0"><span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1" aria-hidden="true"></i>{{ __('No proposal: every name found in the catalogue is already linked or reviewed.', 'grcmanager') }}</span></p>
+      {% else %}
+      <form method="post" action="{{ action }}">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <div class="table-responsive">
+          <table class="table table-sm table-vcenter mb-2">
+            <thead><tr>
+              {% if can_edit_config %}<th class="w-1"><span class="visually-hidden">{{ __('Select', 'grcmanager') }}</span></th>{% endif %}
+              <th>{{ __('Kind of item', 'grcmanager') }}</th>
+              <th>{{ __('Name in GLPI', 'grcmanager') }}</th>
+              <th>{{ __('Proposed product', 'grcmanager') }}</th>
+              <th>{{ __('Why', 'grcmanager') }}</th>
+            </tr></thead>
+            <tbody>
+              {% for row in eol.suggestions %}
+              {% set first = row.candidates|first %}
+              <tr class="grc-endoflife-suggestion">
+                {% if can_edit_config %}
+                <td><input class="form-check-input" type="checkbox" name="endoflife_suggestion[]" value="{{ row.token }}" id="grc-eol-s-{{ row.token }}" aria-label="{{ __('Select the proposal for %s', 'grcmanager')|format(row.name) }}"></td>
+                {% endif %}
+                <td><span class="badge bg-info-subtle text-info-emphasis">{{ row.kind_label }}</span></td>
+                <td>{% if can_edit_config %}<label for="grc-eol-s-{{ row.token }}" class="mb-0">{{ row.name }}</label>{% else %}{{ row.name }}{% endif %}</td>
+                <td>
+                  {% if row.candidates|length > 1 and can_edit_config %}
+                    <select class="form-select form-select-sm" name="endoflife_choice[{{ row.token }}]" aria-label="{{ __('Product for %s', 'grcmanager')|format(row.name) }}">
+                      {% for c in row.candidates %}<option value="{{ c.product }}">{{ c.label }} ({{ c.product }})</option>{% endfor %}
+                    </select>
+                  {% else %}
+                    {% for c in row.candidates %}
+                      {% if c.url %}<a href="{{ c.url }}" target="_blank" rel="noopener noreferrer">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}
+                      <code class="ms-1">{{ c.product }}</code>{% if c.category %}<span class="badge bg-secondary-subtle text-secondary-emphasis ms-1">{{ c.category }}</span>{% endif %}{% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </td>
+                <td class="small">
+                  <span class="badge bg-primary-subtle text-primary-emphasis"><i class="ti ti-{{ first.via == 'product' ? 'tag' : 'fingerprint' }} me-1" aria-hidden="true"></i>{{ eol.via_labels[first.via] ?? first.via }}</span>
+                  <code class="ms-1 text-break">{{ first.source }}</code>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% if eol.suggestions_total > eol.suggestions|length %}<p class="small text-muted">{{ __('%d more not shown: they appear once these are reviewed.', 'grcmanager')|format(eol.suggestions_total - eol.suggestions|length) }}</p>{% endif %}
+        {% if can_edit_config %}
+        <div class="d-flex flex-wrap gap-2">
+          <button type="submit" name="accept_endoflife_suggestions" value="1" class="btn btn-sm btn-primary"><i class="ti ti-check me-1" aria-hidden="true"></i>{{ __('Accept the checked proposals', 'grcmanager') }}</button>
+          <button type="submit" name="reject_endoflife_suggestions" value="1" class="btn btn-sm btn-outline-danger"><i class="ti ti-x me-1" aria-hidden="true"></i>{{ __('Reject the checked proposals', 'grcmanager') }}</button>
+        </div>
+        {% endif %}
+      </form>
+      {% endif %}
+    </div>
+
     {% if eol.mappings is not empty %}
     <div class="table-responsive mb-3">
       <table class="table table-sm table-vcenter">
