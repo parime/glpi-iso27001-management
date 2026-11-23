@@ -63,6 +63,14 @@ final class IsmsRoleRulesTest extends TestCase
         );
     }
 
+    public function testLegacyBracketsThatAreNotAroundTheAddressAreKept(): void
+    {
+        $this->assertSame(
+            ['email' => 'dpo@example.org', 'note' => 'Alice Martin (cabinet externe)'],
+            Rules::splitLegacyContact('Alice Martin (cabinet externe), dpo@example.org')
+        );
+    }
+
     public function testLegacyTextWithoutAddressIsKeptAsANote(): void
     {
         $this->assertSame(

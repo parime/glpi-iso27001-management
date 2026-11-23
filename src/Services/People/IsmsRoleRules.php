@@ -28,8 +28,8 @@ final class IsmsRoleRules
     public const EMAIL_MAX_LENGTH = 255;
     public const NOTE_MAX_LENGTH = 255;
 
-    /** Caractères retirés autour de ce qui reste de l'ancien champ une fois l'adresse extraite. */
-    private const NOTE_TRIM = " \t\n\r\0\x0B,;:-<>()[]\"'";
+    /** Séparateurs retirés autour de ce qui reste de l'ancien champ une fois l'adresse extraite. */
+    private const NOTE_TRIM = " \t\n\r\0\x0B,;:-";
 
     /**
      * Adresse générique saisie : '' si vide, l'adresse en minuscules si le format est valable,
@@ -70,7 +70,10 @@ final class IsmsRoleRules
                 $text = str_replace($match[0], ' ', $text);
             }
         }
-        $note = trim((string) preg_replace('/\s+/u', ' ', strip_tags($text)), self::NOTE_TRIM);
+        // Crochets vidés par l'extraction (« Nom <adresse> », « Nom (adresse) ») retirés.
+        $text = strip_tags((string) preg_replace('/\(\s*\)|<\s*>|\[\s*\]/u', '', $text));
+        $text = (string) preg_replace('/\s+/u', ' ', $text);
+        $note = trim($text, self::NOTE_TRIM);
 
         return ['email' => $email, 'note' => mb_substr($note, 0, self::NOTE_MAX_LENGTH)];
     }
