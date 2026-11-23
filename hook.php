@@ -1033,6 +1033,8 @@ function plugin_grcmanager_install(): bool
 function plugin_grcmanager_uninstall(): bool
 {
     $migration = new Migration(PLUGIN_GRCMANAGER_VERSION);
+    // Issue #1064 : état de la vérification de version gardé dans le cache de GLPI.
+    \GlpiPlugin\Grcmanager\PluginVersion::uninstall('grcmanager');
 
     return (new Installer())->uninstall($migration);
 }

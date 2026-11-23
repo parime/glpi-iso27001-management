@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "GitHub cannot be reached from the GLPI server (no Internet access, proxy or firewall)"
+msgstr "GitHub non è raggiungibile dal server GLPI (nessun accesso a Internet, proxy o firewall)"
+
+msgid "the GitHub request limit is reached, a new attempt will be made within an hour"
+msgstr "il limite di richieste di GitHub è stato raggiunto, un nuovo tentativo sarà fatto entro un'ora"
+
+msgid "GitHub did not answer within 3 seconds"
+msgstr "GitHub non ha risposto entro 3 secondi"
+
+msgid "no release is published on GitHub yet"
+msgstr "nessuna versione è ancora pubblicata su GitHub"
+
+msgid "the answer from GitHub could not be read"
+msgstr "non è stato possibile leggere la risposta di GitHub"
+
+msgid "Latest release on GitHub"
+msgstr "Ultima versione su GitHub"
+
+#, php-format
+msgid "Update available: %s"
+msgstr "Aggiornamento disponibile: %s"
+
+msgid "Latest version unknown"
+msgstr "Ultima versione sconosciuta"
+
+msgid "Release notes"
+msgstr "Note di rilascio"
+
+msgid "Download the archive"
+msgstr "Scarica l'archivio"
+
+#, php-format
+msgid "Last check failed: %s."
+msgstr "L'ultima verifica non è riuscita: %s."
+
+#, php-format
+msgid "Result of the last successful check (%s) shown."
+msgstr "Viene mostrato il risultato dell'ultima verifica riuscita (%s)."
+
+#, php-format
+msgid "Reason: %s."
+msgstr "Motivo: %s."
+
+#, php-format
+msgid "Last successful check: %s."
+msgstr "Ultima verifica riuscita: %s."
+
+msgid "No successful check yet."
+msgstr "Nessuna verifica riuscita finora."
+
+msgid "See the releases on GitHub"
+msgstr "Vedi le versioni su GitHub"
+
+#, php-format
+msgid "Last checked: %s (checked again every 12 hours)."
+msgstr "Ultima verifica: %s (nuova verifica ogni 12 ore)."
+
+msgid "the check follows the GLPI automatic action \"checkupdate\", which is turned off (Setup > Automatic actions)"
+msgstr "il controllo segue l'azione automatica «checkupdate» di GLPI, che è disattivata (Configurazione > Azioni automatiche)"
