@@ -19,3 +19,13 @@ The map links what GLPI and GRC already know, without drawing anything by hand:
 Two connected switches do not spread the impact (the plugin does not know about redundancy):
 declare the dependency in the GLPI impact analysis if it exists. An item you cannot see (other
 entity, missing right) is counted without being named.
+
+To go further:
+
+- click a box of the drawing to **start again from that item**; untick **layers** to lighten the
+  map;
+- tick **Application flows (flow matrix)** to add the flows between applications and servers
+  (dashed lines): the client depends on the server it calls;
+- **Export (CSV)** and **Export (PDF)** give the map to attach to the BCP/DRP or to the audit file;
+- the same map is in the **IT system map** tab of each computer, network equipment and business
+  process.

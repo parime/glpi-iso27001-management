@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Application flows (flow matrix)"
+msgstr "Fluxos de aplicação (matriz de fluxos)"
+
+msgid "Application flows"
+msgstr "Fluxos de aplicação"
+
+msgid "Click a box to start the map again from it."
+msgstr "Clique em uma caixa para recomeçar o mapa a partir dela."
+
+msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
+msgstr "Linha tracejada: fluxo de aplicação da matriz de fluxos (a origem depende do destino)."
+
+msgid "Export the map (CSV)"
+msgstr "Exportar o mapa (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Exportar o mapa (PDF)"
+
+msgid "Layer"
+msgstr "Camada"
+
+msgid "Layers shown"
+msgstr "Camadas exibidas"
+
+msgid "Linked items"
+msgstr "Itens vinculados"
+
+msgid "Open the full map"
+msgstr "Abrir o mapa completo"
+
+msgid "Start the map from %s"
+msgstr "Recomeçar a partir de %s"
+
+msgid "%d application flow"
+msgid_plural "%d application flows"
+msgstr[0] "%d fluxo de aplicação"
+msgstr[1] "%d fluxos de aplicação"
