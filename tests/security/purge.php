@@ -10,7 +10,9 @@
  *   - les comptes « iso-... » et les profils « Securite ISO - ... » ;
  *   - à la racine et dans les tables du plugin, les objets dont le nom ou le titre contient le mot
  *     « securite » (sans accent, en minuscules, comme le jeu de données), la charge XSS de
- *     « setup.php xss » et le gabarit « Gabarit test 980 ».
+ *     « setup.php xss » et le gabarit « Gabarit test 980 » ;
+ *   - dans les tables du plugin, toute ligne dont une colonne de texte contient la charge XSS
+ *     (issue #1125 : produits canoniques, références CPE, alias... qui n'ont ni nom ni titre).
  * Les données réelles (« sécurité » avec accents, connexions « Labo réel - ... ») ne sont pas touchées.
  *
  * Usage (en www-data, depuis la racine GLPI) :
@@ -33,7 +35,9 @@ global $DB;
 
 $dryRun = in_array('--dry-run', $argv, true);
 $done = [];
-$purge = static function (string $table, int $id) use ($DB, $dryRun, &$done): void {
+$purged = [];
+$purge = static function (string $table, int $id) use ($DB, $dryRun, &$done, &$purged): void {
+    $purged[$table][$id] = true;
     $done[$table] = ($done[$table] ?? 0) + 1;
     if ($dryRun) {
         return;
@@ -114,6 +118,29 @@ foreach ($DB->listTables('glpi_%') as $tableRow) {
             // La comparaison SQL ignore les accents et la casse : filtre exact ici.
             if ($isTestValue((string) $row[$field])) {
                 $purge($table, (int) $row['id']);
+            }
+        }
+    }
+    // Issue #1125 : la charge XSS de « setup.php xss » et des fragments setup-xss.d/ n'est pas
+    // toujours dans un nom ou un titre (produit canonique : fabricant et produit ; référence CPE ;
+    // alias...). Dans les tables du plugin, toute colonne de texte qui la contient désigne une ligne du
+    // jeu de données : le marqueur « xss-canary » n'existe dans aucune donnée réelle.
+    if ($isPlugin) {
+        $textColumns = [];
+        foreach ($DB->listFields($table) as $column => $definition) {
+            if (preg_match('/char|text/i', (string) ($definition['Type'] ?? '')) === 1) {
+                $textColumns[] = $column;
+            }
+        }
+        if ($textColumns !== []) {
+            $canaryWhere = ['OR' => array_map(
+                static fn (string $column): array => [$column => ['LIKE', '%xss-canary%']],
+                $textColumns
+            )];
+            foreach ($DB->request(['SELECT' => ['id'], 'FROM' => $table, 'WHERE' => $canaryWhere]) as $row) {
+                if (!isset($purged[$table][(int) $row['id']])) {
+                    $purge($table, (int) $row['id']);
+                }
             }
         }
     }
