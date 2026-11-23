@@ -264,7 +264,11 @@ final class RedfishHealthReader
         return $components;
     }
 
-    /** Vitesse d'un ventilateur (Fan.SpeedPercent : Reading en %, SpeedRPM facultatif). */
+    /**
+     * Vitesse d'un ventilateur (Fan.SpeedPercent : Reading en %, SpeedRPM facultatif).
+     *
+     * @param array<mixed> $speed
+     */
     private static function fanSpeedReading(array $speed): string
     {
         if (is_numeric($speed['Reading'] ?? null)) {

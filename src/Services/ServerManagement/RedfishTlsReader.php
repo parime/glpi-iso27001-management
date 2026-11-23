@@ -20,7 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\ServerManagement;
 
 /**
- * Issue #843, lot 4 (corrigé par l'issue #1085) : protocoles TLS anciens (SSLv3, TLS 1.0, TLS 1.1) acceptés par l'interface
+ * Issue #843, lot 4 (corrigé par l'issue #1085) : protocoles TLS anciens (SSLv3, TLS 1.0,
+ * TLS 1.1) acceptés par l'interface
  * HTTPS du contrôleur, lus en LECTURE SEULE.
  *
  * Redfish standard ne décrit ces réglages que dans la ressource récente « SecurityPolicy » ; les

@@ -418,7 +418,9 @@ final class RedfishClient
                 continue;
             }
             $lower = mb_strtolower($path);
-            $isHttps = $prefix !== null ? str_starts_with($lower, $prefix) : str_contains($lower, '/networkprotocol/https/');
+            $isHttps = $prefix !== null
+                ? str_starts_with($lower, $prefix)
+                : str_contains($lower, '/networkprotocol/https/');
             if ($isHttps) {
                 $paths[] = $path;
             }
