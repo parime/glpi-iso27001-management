@@ -27,7 +27,6 @@ use GlpiPlugin\Grcmanager\Compat\Base\BreachExposureBase;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitor;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
 use GlpiPlugin\Grcmanager\Services\Breach\BreachRules;
-use GlpiPlugin\Grcmanager\Services\Breach\HibpClient;
 use Log;
 use NotificationEvent;
 use Session;
@@ -125,7 +124,7 @@ class BreachExposure extends BreachExposureBase
         $tab[] = ['id' => 4, 'table' => $table, 'field' => 'breach_date', 'name' => __('Breach date', 'grcmanager'),
             'datatype' => 'date', 'massiveaction' => false];
         $tab[] = ['id' => 5, 'table' => $table, 'field' => 'added_date',
-            'name' => __('Published by Have I Been Pwned', 'grcmanager'), 'datatype' => 'datetime',
+            'name' => __('Published by the breach database', 'grcmanager'), 'datatype' => 'datetime',
             'massiveaction' => false];
         $tab[] = ['id' => 6, 'table' => $table, 'field' => 'data_classes', 'name' => __('Exposed data', 'grcmanager'),
             'datatype' => 'specific', 'nosearch' => true, 'massiveaction' => false];
@@ -241,7 +240,8 @@ class BreachExposure extends BreachExposureBase
     {
         return $name === 'breachmonitor'
             ? ['description' => __(
-                'Data breach monitoring: checks work email addresses with Have I Been Pwned',
+                'Data breach monitoring: checks work email addresses with the chosen provider '
+                    . '(XposedOrNot or Have I Been Pwned)',
                 'grcmanager'
             )]
             : [];
@@ -249,20 +249,21 @@ class BreachExposure extends BreachExposureBase
 
     public static function cronBreachmonitor(CronTask $task): int
     {
-        if (!BreachMonitorConfig::isEnabled() || !BreachMonitorConfig::hasApiKey()) {
+        if (!BreachMonitorConfig::isReady()) {
             return 0;
         }
-        $monitor = new BreachMonitor(new HibpClient(BreachMonitorConfig::apiKey()));
+        $client = BreachMonitorConfig::client();
+        $monitor = new BreachMonitor($client);
         $result = $monitor->run(BreachMonitorConfig::domains(), BreachMonitorConfig::cursor());
         BreachMonitorConfig::setCursor($result->cursor);
         if ($result->error !== '') {
-            $task->log(sprintf(__('Have I Been Pwned: error %s', 'grcmanager'), $result->error));
+            $task->log(sprintf(__('%1$s: error %2$s', 'grcmanager'), $client->name(), $result->error));
         }
         if ($result->rateLimited) {
-            $task->log(__(
-                'Have I Been Pwned: rate limit reached, the next run resumes where this one stopped',
+            $task->log(sprintf(__(
+                '%s: rate limit reached, the next run resumes where this one stopped',
                 'grcmanager'
-            ));
+            ), $client->name()));
         }
         if ($result->created > 0) {
             NotificationEvent::raiseEvent(self::NEW_EXPOSURES_EVENT, new self(), ['new_count' => $result->created]);
