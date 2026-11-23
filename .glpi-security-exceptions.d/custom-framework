@@ -1,0 +1,1 @@
+config-lien src/Config/Block/CustomFrameworkImportBlock.php > front/customframework.form.php : la fiche d'un référentiel importé fait partie de sa mise en place (vérifier les exigences après l'import), décision du mainteneur du 23/11.
