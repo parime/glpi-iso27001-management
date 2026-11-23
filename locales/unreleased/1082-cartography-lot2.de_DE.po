@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Application flows (flow matrix)"
+msgstr "Anwendungsflüsse (Flussmatrix)"
+
+msgid "Application flows"
+msgstr "Anwendungsflüsse"
+
+msgid "Click a box to start the map again from it."
+msgstr "Klicken Sie auf ein Feld, um die Karte von dort neu zu beginnen."
+
+msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
+msgstr "Gestrichelte Linie: Anwendungsfluss aus der Flussmatrix (die Quelle hängt vom Ziel ab)."
+
+msgid "Export the map (CSV)"
+msgstr "Karte exportieren (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Karte exportieren (PDF)"
+
+msgid "Layer"
+msgstr "Schicht"
+
+msgid "Layers shown"
+msgstr "Angezeigte Schichten"
+
+msgid "Linked items"
+msgstr "Verknüpfte Elemente"
+
+msgid "Open the full map"
+msgstr "Vollständige Karte öffnen"
+
+msgid "Start the map from %s"
+msgstr "Karte von %s aus beginnen"
+
+msgid "%d application flow"
+msgid_plural "%d application flows"
+msgstr[0] "%d Anwendungsfluss"
+msgstr[1] "%d Anwendungsflüsse"
