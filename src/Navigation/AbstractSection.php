@@ -75,6 +75,19 @@ abstract class AbstractSection implements MenuSection
         return '';
     }
 
+    /**
+     * Titre et sous-titre facultatifs de la carte de la page parente sur l'accueil de la rubrique
+     * (clés « title » et « description »), quand le nom de l'objet seul n'est pas assez parlant.
+     * Les sous-pages passent les leurs par les options « card_title » et « card_description » de
+     * pages().
+     *
+     * @return array{title?: string, description?: string}
+     */
+    public static function parentCard(): array
+    {
+        return [];
+    }
+
     public static function todoSources(): array
     {
         return [];

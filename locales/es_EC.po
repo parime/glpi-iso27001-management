@@ -40323,3 +40323,12 @@ msgstr[1] "%d elementos le esperan"
 
 msgid "version %s"
 msgstr "versión %s"
+
+msgid "Reports to sort"
+msgstr "Avisos por clasificar"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Riesgos evaluados, su tratamiento y su seguimiento."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Riesgos comunicados por el personal, para añadir al registro o descartar."
