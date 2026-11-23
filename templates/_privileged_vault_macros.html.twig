@@ -1,0 +1,32 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #859 : macros communes de la page des comptes à privilèges et de l'onglet de la revue des accès. #}
+{% macro gaps(codes, infos) %}
+   {% for code in codes %}
+      {% set info = infos[code] %}
+      <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1 mb-1"><i class="{{ info.icon }} me-1"></i>{{ info.label }}</span>
+   {% else %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('No gap', 'grcmanager') }}</span>
+   {% endfor %}
+{% endmacro %}
+{% macro two_factor(value) %}
+   {% if value is null %}
+      <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not known', 'grcmanager') }}</span>
+   {% elseif value %}
+      <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-shield-check me-1"></i>{{ __('Yes') }}</span>
+   {% else %}
+      <span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-shield-x me-1"></i>{{ __('No') }}</span>
+   {% endif %}
+{% endmacro %}
