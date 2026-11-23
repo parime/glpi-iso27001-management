@@ -102,8 +102,12 @@ final class DockerSource implements EdgeSource
         ];
         if (isset($where['n.computers_id'])) {
             $criteria['INNER JOIN'] = [
-                self::SERVICES_NODES . ' AS sn' => ['ON' => ['sn' => 'plugin_dockerinventory_services_id', 's' => 'id']],
-                self::NODES . ' AS n'           => ['ON' => ['sn' => 'plugin_dockerinventory_nodes_id', 'n' => 'id']],
+                self::SERVICES_NODES . ' AS sn' => [
+                    'ON' => ['sn' => 'plugin_dockerinventory_services_id', 's' => 'id'],
+                ],
+                self::NODES . ' AS n'           => [
+                    'ON' => ['sn' => 'plugin_dockerinventory_nodes_id', 'n' => 'id'],
+                ],
             ];
         }
         foreach ($DB->request($criteria) as $row) {

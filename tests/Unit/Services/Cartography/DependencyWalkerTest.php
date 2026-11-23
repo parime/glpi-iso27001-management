@@ -116,8 +116,9 @@ final class DependencyWalkerTest extends TestCase
 
     public function testProcessesSortedByRecoveryTimeUndefinedLast(): void
     {
-        $nodes = [self::PROCESS . ':3' => 3, self::PROCESS . ':4' => 4, self::PROCESS . ':6' => 5, self::PROCESS . ':8' => 1];
-        $rto = [self::PROCESS . ':3' => 24, self::PROCESS . ':4' => 4, self::PROCESS . ':6' => 0, self::PROCESS . ':8' => 24];
+        $p = self::PROCESS;
+        $nodes = [$p . ':3' => 3, $p . ':4' => 4, $p . ':6' => 5, $p . ':8' => 1];
+        $rto = [$p . ':3' => 24, $p . ':4' => 4, $p . ':6' => 0, $p . ':8' => 24];
 
         $this->assertSame(
             [self::PROCESS . ':4', self::PROCESS . ':8', self::PROCESS . ':3', self::PROCESS . ':6'],
@@ -136,7 +137,10 @@ final class DependencyWalkerTest extends TestCase
         $this->assertSame(['NetworkEquipment:1'], $layers[Layers::NETWORK]);
         $this->assertSame(['Computer:10', 'Computer:20'], $layers[Layers::INFRASTRUCTURE]);
         $this->assertSame(['Software:5', 'Appliance:7'], $layers[Layers::APPLICATION]);
-        $this->assertSame([self::PROCESS . ':3', self::PROCESS . ':4', self::PROCESS . ':6'], $layers[Layers::BUSINESS]);
+        $this->assertSame(
+            [self::PROCESS . ':3', self::PROCESS . ':4', self::PROCESS . ':6'],
+            $layers[Layers::BUSINESS]
+        );
     }
 
     public function testLayersAndNetworkDirection(): void
