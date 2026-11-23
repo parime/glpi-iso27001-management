@@ -37,7 +37,8 @@ final class PrivilegedVaultRulesTest extends TestCase
         ) {
             self::assertTrue(Rules::isSecretHeader($header), $header);
         }
-        foreach (['passwordRevisionDate', 'password_last_changed', 'password_age', 'name', 'login_username'] as $header) {
+        $metadata = ['passwordRevisionDate', 'password_last_changed', 'password_age', 'name', 'login_username'];
+        foreach ($metadata as $header) {
             self::assertFalse(Rules::isSecretHeader($header), $header);
         }
     }

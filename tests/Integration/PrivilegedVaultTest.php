@@ -203,7 +203,7 @@ final class PrivilegedVaultTest extends GrcmanagerIntegrationTestCase
         $present = $this->email('present');
         $transport = static function (string $method) use ($present): array {
             if ($method === 'POST') {
-                return ['status' => 200, 'body' => '{"access_token":"fictif","token_type":"Bearer"}', 'retry_after' => 0];
+                return ['status' => 200, 'body' => '{"access_token":"fictif"}', 'retry_after' => 0];
             }
 
             return ['status' => 200, 'retry_after' => 0, 'body' => (string) json_encode([
@@ -237,7 +237,10 @@ final class PrivilegedVaultTest extends GrcmanagerIntegrationTestCase
             'secret-fictif',
             static fn (): array => ['status' => 401, 'body' => '', 'retry_after' => 0]
         );
-        $this->assertSame(BitwardenPublicClient::ERROR_UNAUTHORIZED, PrivilegedVault::fetchFromBitwarden($failing)['error']);
+        $this->assertSame(
+            BitwardenPublicClient::ERROR_UNAUTHORIZED,
+            PrivilegedVault::fetchFromBitwarden($failing)['error']
+        );
         $this->assertCount(1, PrivilegedVault::members());
     }
 

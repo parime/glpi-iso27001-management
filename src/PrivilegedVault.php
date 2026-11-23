@@ -220,7 +220,8 @@ class PrivilegedVault extends CommonGLPI
     {
         return match ($code) {
             BitwardenPublicClient::ERROR_CONFIG       => __(
-                'Enter the server, the client ID (organization.…) and the client secret of the organization API key first.',
+                'Enter the server, the client ID (organization.…) and the client secret of the organization API '
+                    . 'key first.',
                 'grcmanager'
             ),
             BitwardenPublicClient::ERROR_UNAUTHORIZED => __(
@@ -737,7 +738,10 @@ class PrivilegedVault extends CommonGLPI
         $sources = self::sourceLabels();
         $kinds = self::kindLabels();
         $imports = [];
-        $tables = [Rules::KIND_ENTRIES => PrivilegedVaultTables::ENTRIES, Rules::KIND_MEMBERS => PrivilegedVaultTables::MEMBERS];
+        $tables = [
+            Rules::KIND_ENTRIES => PrivilegedVaultTables::ENTRIES,
+            Rules::KIND_MEMBERS => PrivilegedVaultTables::MEMBERS,
+        ];
         foreach ($tables as $kind => $table) {
             foreach (
                 $DB->request([

@@ -44,7 +44,7 @@ final class PrivilegedVaultTables implements FeatureTables
                 `source` varchar(16) NOT NULL DEFAULT 'bitwarden',
                 `external_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Identifiant dans le coffre',
                 `name` varchar(255) NOT NULL DEFAULT '',
-                `collection` varchar(255) NOT NULL DEFAULT '' COMMENT 'Collections ou coffres, separes par des virgules',
+                `collection` varchar(255) NOT NULL DEFAULT '' COMMENT 'Collections ou coffres, par virgules',
                 `username` varchar(255) NOT NULL DEFAULT '' COMMENT 'Identifiant de connexion, jamais le mot de passe',
                 `uri` varchar(255) NOT NULL DEFAULT '',
                 `date_changed` timestamp NULL DEFAULT NULL COMMENT 'Dernier changement du secret',

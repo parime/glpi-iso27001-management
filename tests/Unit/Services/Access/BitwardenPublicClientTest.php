@@ -45,18 +45,16 @@ final class BitwardenPublicClientTest extends TestCase
         string $identity = 'https://identity.bitwarden.com'
     ): Client {
         $membersBody ??= (string) json_encode(self::members());
+        $answer = ['status' => $membersStatus, 'body' => $membersBody, 'token' => $tokenStatus];
 
         return new Client(
             $api,
             $identity,
             self::CLIENT_ID,
             self::SECRET,
-            function (string $method, string $url, array $headers, ?string $body) use (
-                $membersStatus,
-                $membersBody,
-                $tokenStatus
-            ): array {
+            function (string $method, string $url, array $headers, ?string $body) use ($answer): array {
                 $this->calls[] = ['method' => $method, 'url' => $url, 'headers' => $headers, 'body' => $body];
+                $tokenStatus = $answer['token'];
                 if ($method === 'POST') {
                     return [
                         'status'      => $tokenStatus,
@@ -67,7 +65,7 @@ final class BitwardenPublicClientTest extends TestCase
                     ];
                 }
 
-                return ['status' => $membersStatus, 'body' => $membersBody, 'retry_after' => 0];
+                return ['status' => $answer['status'], 'body' => $answer['body'], 'retry_after' => 0];
             }
         );
     }

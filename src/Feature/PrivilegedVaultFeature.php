@@ -79,7 +79,6 @@ final class PrivilegedVaultFeature implements
                 'rights'    => ['user' => READ],
                 'global'    => false,
                 'compute'   => [PrivilegedVault::class, 'staleSecrets'],
-                'after'     => 'admins_without_mfa',
             ],
         ];
     }

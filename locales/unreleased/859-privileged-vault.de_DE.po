@@ -173,7 +173,7 @@ msgid "Not known"
 msgstr "Unbekannt"
 
 msgid "Not saved: the client ID must start with organization. followed by an identifier, and the address of a self-hosted server must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
-msgstr "Nicht gespeichert: die Client-ID muss mit organization. und einer Kennung beginnen, und die Adresse eines selbst gehosteten Servers muss mit https:// beginnen (oder http://, wenn interne Adressen erlaubt sind), ohne Benutzername, Passwort oder Parameter."
+msgstr "Nicht gespeichert: die Client-ID muss mit organization. und einer Kennung beginnen, und die Adresse eines selbst gehosteten Servers muss mit https:// beginnen (oder http:// bei erlaubten internen Adressen), ohne Benutzername, Passwort oder Parameter."
 
 msgid "Nothing is changed in the vault nor in GLPI from this page: change the passwords and remove the accesses in the vault itself."
 msgstr "Von dieser Seite aus wird weder im Tresor noch in GLPI etwas geändert: Passwörter ändern und Zugriffe im Tresor selbst entfernen."
