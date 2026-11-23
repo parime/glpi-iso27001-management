@@ -192,7 +192,9 @@ class ScannerImport extends CommonGLPI
         if ($importId > 0) {
             $DB->update(Tables::IMPORTS, $row, ['id' => $importId]);
         } else {
-            $DB->insert(Tables::IMPORTS, $row + ['entities_id' => $entity, 'scanner' => $scanner, 'report_uuid' => $uuid]);
+            $DB->insert(Tables::IMPORTS, $row + [
+                'entities_id' => $entity, 'scanner' => $scanner, 'report_uuid' => $uuid,
+            ]);
             $importId = (int) $DB->insertId();
         }
 
@@ -205,7 +207,8 @@ class ScannerImport extends CommonGLPI
         foreach ($parsed['findings'] as $finding) {
             $key = Reports::findingKey($scanner, $finding['host'], $finding['port'], $finding['test_id']);
             $seenKeys[$finding['host']][] = $key;
-            self::storeFinding($finding, $key, $scanner, $entity, $importId, $scanDate, $computers[$finding['host']] ?? 0);
+            $computerId = $computers[$finding['host']] ?? 0;
+            self::storeFinding($finding, $key, $scanner, $entity, $importId, $scanDate, $computerId);
         }
 
         // Constat absent d'une analyse plus récente du même hôte : corrigé.
@@ -533,11 +536,16 @@ class ScannerImport extends CommonGLPI
         $hosts = [];
         foreach (self::findings(['computers_id' => 0, 'is_resolved' => 0], null, Reports::MAX_FINDINGS) as $row) {
             $host = (string) $row['host'];
-            $hosts[$host] ??= ['host' => $host, 'hostname' => (string) $row['hostname'], 'count' => 0, 'severity' => 0.0];
+            $hosts[$host] ??= [
+                'host' => $host, 'hostname' => (string) $row['hostname'], 'count' => 0, 'severity' => 0.0,
+            ];
             $hosts[$host]['count']++;
             $hosts[$host]['severity'] = max($hosts[$host]['severity'], $row['severity']);
         }
-        usort($hosts, static fn (array $a, array $b): int => [$b['severity'], $a['host']] <=> [$a['severity'], $b['host']]);
+        usort(
+            $hosts,
+            static fn (array $a, array $b): int => [$b['severity'], $a['host']] <=> [$a['severity'], $b['host']]
+        );
 
         return array_slice(array_values($hosts), 0, self::MAX_ROWS);
     }

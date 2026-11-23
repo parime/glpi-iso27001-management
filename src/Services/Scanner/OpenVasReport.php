@@ -31,7 +31,8 @@ use XMLReader;
  * Sources officielles suivies :
  * - protocole GMP, réponse de get_reports (éléments report, results/result, host, nvt, refs/ref,
  *   severity, threat, qod, scan_start, scan_end) : https://docs.greenbone.net/API/GMP/gmp-22.4.html#command_get_reports
- * - rapport réel publié par Greenbone (GMP 22.8) : https://github.com/greenbone/gvm-report-service/blob/main/scripts/report.xml
+ * - rapport réel publié par Greenbone (GMP 22.8) :
+ *   https://github.com/greenbone/gvm-report-service/blob/main/scripts/report.xml
  * - anciennes versions (OMP 7 / GMP 8) : CVE dans nvt/cve, séparées par des virgules, « NOCVE » si
  *   aucune : https://docs.greenbone.net/API/GMP/gmp-8.0.html#command_get_reports
  *
@@ -263,7 +264,10 @@ final class OpenVasReport implements ScannerReportParser
             $refs = self::child($nvt, 'refs');
             if ($refs !== null) {
                 foreach ($refs->childNodes as $ref) {
-                    if ($ref instanceof DOMElement && $ref->localName === 'ref' && strtolower($ref->getAttribute('type')) === 'cve') {
+                    if (
+                        $ref instanceof DOMElement && $ref->localName === 'ref'
+                        && strtolower($ref->getAttribute('type')) === 'cve'
+                    ) {
                         $cves[] = $ref->getAttribute('id');
                     }
                 }
@@ -277,7 +281,8 @@ final class OpenVasReport implements ScannerReportParser
                 $solution = (string) $solutionNode->textContent;
                 $solutionType = $solutionNode->getAttribute('type');
             }
-            if ($solutionType === '' && preg_match('/(?:^|\|)solution_type=([A-Za-z]+)/', self::childText($nvt, 'tags'), $match) === 1) {
+            $tags = self::childText($nvt, 'tags');
+            if ($solutionType === '' && preg_match('/(?:^|\|)solution_type=([A-Za-z]+)/', $tags, $match) === 1) {
                 $solutionType = $match[1];
             }
         }
