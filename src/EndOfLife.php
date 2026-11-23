@@ -24,6 +24,8 @@ use CronTask;
 use Html;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\CacheRefresh;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\CycleMatcher;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeCatalog;
+use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeCatalogStore;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeClient;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeException;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeInventory;
@@ -57,6 +59,9 @@ class EndOfLife extends CommonGLPI
 
     /** Noms non rapprochés proposés dans la configuration. */
     public const MAX_UNMAPPED = 30;
+
+    /** Issue #1056 : correspondances proposées affichées au plus (le reste après validation). */
+    public const MAX_SUGGESTIONS = 50;
 
     public static function getTypeName($nb = 0)
     {
@@ -111,7 +116,8 @@ class EndOfLife extends CommonGLPI
     {
         if (
             !isset($post['refresh_endoflife']) && !isset($post['add_endoflife_mapping'])
-            && !isset($post['delete_endoflife_mapping'])
+            && !isset($post['delete_endoflife_mapping']) && !isset($post['accept_endoflife_suggestions'])
+            && !isset($post['reject_endoflife_suggestions'])
         ) {
             return false;
         }
@@ -138,11 +144,96 @@ class EndOfLife extends CommonGLPI
                     'grcmanager'
                 )), false, ERROR);
             }
-        } else {
+        } elseif (isset($post['delete_endoflife_mapping'])) {
             EndOfLifeStore::deleteMapping((int) $post['delete_endoflife_mapping']);
+        } else {
+            self::reviewSuggestions($post, isset($post['accept_endoflife_suggestions']));
         }
 
         return true;
+    }
+
+    /**
+     * Issue #1056 : propositions cochées acceptées (correspondance manuelle enregistrée) ou refusées
+     * (plus proposées pour ce nom). Le produit est recalculé ici : seul un produit de la proposition
+     * est accepté, jamais une valeur libre de l'envoi. Renvoie le nombre de propositions traitées.
+     *
+     * @param array<string, mixed> $post
+     */
+    public static function reviewSuggestions(array $post, bool $accept): int
+    {
+        $tokens = is_array($post['endoflife_suggestion'] ?? null) ? $post['endoflife_suggestion'] : [];
+        $choices = is_array($post['endoflife_choice'] ?? null) ? $post['endoflife_choice'] : [];
+        $done = 0;
+        foreach (self::suggestions() as $suggestion) {
+            if (!in_array($suggestion['token'], $tokens, true)) {
+                continue;
+            }
+            $products = array_column($suggestion['candidates'], 'product');
+            $choice = (string) ($choices[$suggestion['token']] ?? $products[0]);
+            if (!in_array($choice, $products, true)) {
+                continue;
+            }
+            if ($accept) {
+                $done += EndOfLifeStore::saveMapping($suggestion['kind'], $suggestion['name'], $choice) ? 1 : 0;
+                continue;
+            }
+            foreach ($products as $product) {
+                EndOfLifeCatalogStore::reject(
+                    $suggestion['kind'],
+                    $suggestion['name'],
+                    $product,
+                    (int) Session::getLoginUserID()
+                );
+            }
+            $done++;
+        }
+        $message = $accept
+            ? __('%d proposed link(s) accepted.', 'grcmanager')
+            : __('%d proposal(s) rejected: they will no longer be proposed.', 'grcmanager');
+        Session::addMessageAfterRedirect(htmlescape(sprintf($message, $done)), false, $done > 0 ? INFO : WARNING);
+
+        return $done;
+    }
+
+    /**
+     * Issue #1056 : correspondances proposées (catalogue d'endoflife.date) pour les noms en service
+     * reliés à rien, ni à la main ni par une forme sûre.
+     *
+     * @return list<array{kind: string, name: string, token: string,
+     *     candidates: list<array{product: string, label: string, category: string, via: string, source: string}>}>
+     */
+    public static function suggestions(): array
+    {
+        $catalog = EndOfLifeCatalogStore::catalog();
+        if ($catalog === []) {
+            return [];
+        }
+        $manual = EndOfLifeStore::manualMap();
+        $unlinked = [];
+        foreach (EndOfLifeInventory::namesInUse() as $entry) {
+            if (
+                !array_key_exists(ProductMatcher::key($entry['kind'], $entry['name']), $manual)
+                && ProductMatcher::automatic($entry['kind'], $entry['name']) === ''
+            ) {
+                $unlinked[] = $entry;
+            }
+        }
+        usort($unlinked, static fn (array $a, array $b): int => [$a['kind'], $a['name']] <=> [$b['kind'], $b['name']]);
+
+        return EndOfLifeCatalog::suggest($unlinked, $catalog, EndOfLifeCatalogStore::rejected());
+    }
+
+    /**
+     * @return array<string, string> Raison d'une proposition (niveau de EndOfLifeCatalog).
+     */
+    public static function viaLabels(): array
+    {
+        return [
+            'product' => __('Name or alias of the product', 'grcmanager'),
+            'cpe'     => __('CPE identifier', 'grcmanager'),
+            'purl'    => __('Package identifier (purl)', 'grcmanager'),
+        ];
     }
 
     // ------------------------------------------------------------------ Libellés.
@@ -291,16 +382,21 @@ class EndOfLife extends CommonGLPI
      * désactivée. Jamais d'exception : limite de requêtes ou panne arrêtent seulement les appels.
      *
      * @param EndOfLifeClient|null $client Transport de test ; client réel sinon.
+     * Issue #1056 : relit aussi, au plus une fois par semaine, le catalogue des produits qui sert à
+     * proposer des correspondances (« catalog » : fresh, updated, unavailable ou code d'erreur).
+     *
      * @return array{status: string, products: int, fetched: int, cached: int, not_found: int,
-     *     requests: int, errors: list<array{product: string, code: string}>}
+     *     requests: int, errors: list<array{product: string, code: string}>, catalog: string}
      */
     public static function refresh(int $budget = CacheRefresh::DEFAULT_BUDGET, ?EndOfLifeClient $client = null): array
     {
         if (!EndOfLifeStore::isEnabled()) {
             return ['status' => 'disabled', 'products' => 0, 'fetched' => 0, 'cached' => 0, 'not_found' => 0,
-                'requests' => 0, 'errors' => []];
+                'requests' => 0, 'errors' => [], 'catalog' => ''];
         }
         $now = date('Y-m-d H:i:s');
+        $client ??= new EndOfLifeClient();
+        $catalog = EndOfLifeCatalogStore::refreshIfStale($client, $now);
         $cache = [];
         foreach (EndOfLifeStore::cache() as $product => $row) {
             $cache[$product] = ['date_success' => $row['date_success'], 'error' => $row['error']];
@@ -308,20 +404,21 @@ class EndOfLife extends CommonGLPI
         $result = CacheRefresh::run(
             EndOfLifeInventory::productsInUse(),
             $cache,
-            $client ?? new EndOfLifeClient(),
+            $client,
             $now,
             $budget
         );
         EndOfLifeStore::applyWrites($result['writes'], $now);
 
-        return ['status' => $result['report']['errors'] === [] ? 'ok' : 'partial'] + $result['report'];
+        return ['status' => $result['report']['errors'] === [] ? 'ok' : 'partial'] + $result['report']
+            + ['catalog' => $catalog];
     }
 
     /**
      * Compte rendu lisible d'une mise à jour.
      *
      * @param array{status: string, products: int, fetched: int, cached: int, not_found: int,
-     *     requests: int, errors: list<array{product: string, code: string}>} $report
+     *     requests: int, errors: list<array{product: string, code: string}>, catalog?: string} $report
      */
     public static function refreshMessage(array $report): string
     {
@@ -342,6 +439,18 @@ class EndOfLife extends CommonGLPI
             $message .= ' ' . sprintf(
                 __('%d product(s) not read: the data already in cache is still used.', 'grcmanager'),
                 count($report['errors'])
+            );
+        }
+        $catalog = $report['catalog'] ?? '';
+        if ($catalog === EndOfLifeCatalogStore::UPDATED) {
+            $message .= ' ' . __(
+                'Product catalogue updated: links are proposed for the names not linked yet.',
+                'grcmanager'
+            );
+        } elseif (!in_array($catalog, ['', EndOfLifeCatalogStore::FRESH, EndOfLifeCatalogStore::UNAVAILABLE], true)) {
+            $message .= ' ' . sprintf(
+                __('Product catalogue not read (%s): the proposals use the previous one.', 'grcmanager'),
+                self::errorLabels()[$catalog] ?? $catalog
             );
         }
 
@@ -601,8 +710,21 @@ class EndOfLife extends CommonGLPI
             'not_found'   => ($cache[$row['product']]['error'] ?? '') === EndOfLifeException::NOT_FOUND,
         ], EndOfLifeStore::mappings());
         $source = EndOfLifeStore::sourceState();
+        $suggestions = self::suggestions();
+        $catalogDate = EndOfLifeCatalogStore::lastSuccess();
 
         return [
+            // Issue #1056 : correspondances proposées, à relire avant d'être appliquées.
+            'suggestions'       => array_map(static fn (array $row): array => [
+                'kind_label' => self::kindLabels()[$row['kind']] ?? $row['kind'],
+                'candidates' => array_map(
+                    static fn (array $c): array => $c + ['url' => self::productUrl($c['product'])],
+                    $row['candidates']
+                ),
+            ] + $row, array_slice($suggestions, 0, self::MAX_SUGGESTIONS)),
+            'suggestions_total' => count($suggestions),
+            'via_labels'        => self::viaLabels(),
+            'catalog_date'      => $catalogDate === '' ? '' : Html::convDateTime($catalogDate),
             'enabled'          => $settings['enabled'],
             'warning_days'     => $settings['warning_days'],
             'min_days'         => EndOfLifeStore::MIN_WARNING_DAYS,

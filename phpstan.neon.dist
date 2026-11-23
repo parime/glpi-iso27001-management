@@ -148,6 +148,9 @@ parameters:
         # même rationale. Client, rapprochement et mise à jour du cache restent analysés : pur PHP.
         - src/Services/Lifecycle/EndOfLifeStore.php
         - src/Services/Lifecycle/EndOfLifeInventory.php
+        # Issue #1056 : catalogue et refus des correspondances proposées (base), même rationale.
+        # EndOfLifeCatalog.php reste analysé : pur PHP.
+        - src/Services/Lifecycle/EndOfLifeCatalogStore.php
         # Issue #782 : matériels et informations financières (base, $CFG_GLPI), même rationale.
         # WarrantyRules.php reste analysé : pur PHP.
         - src/Services/Lifecycle/HardwareWarrantyInventory.php
