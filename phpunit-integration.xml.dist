@@ -9,4 +9,9 @@
             <directory>tests/Integration</directory>
         </testsuite>
     </testsuites>
+    <!-- La suite approchait la limite de 256 Mo de PHP en CLI (247 Mo sur GLPI 12) : 1 Go, comme la
+         suite lancée par les contrôles de sécurité (security.yml). -->
+    <php>
+        <ini name="memory_limit" value="1G"/>
+    </php>
 </phpunit>

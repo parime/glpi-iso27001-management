@@ -21,20 +21,18 @@ use GlpiPlugin\Grcmanager\DataSubjectRequest;
 // Issue #375 : demandes d'exercice des droits (RGPD). Donnée sensible : droit dédié.
 Session::checkRight(DataSubjectRequest::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    DataSubjectRequest::class,
     DataSubjectRequest::getTypeName(2),
-    DataSubjectRequest::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    DataSubjectRequest::class
+    DataSubjectRequest::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, DataSubjectRequest::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(DataSubjectRequest::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('datasubjectrequest');
 
 $params = QueryBuilder::manageParams(DataSubjectRequest::class, $_GET);
 
-Search::showList(DataSubjectRequest::class, $params);
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(DataSubjectRequest::class, $params);
 
 Html::footer();

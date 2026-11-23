@@ -8,6 +8,7 @@ Lancés par la CI (job d'installation réelle) dans une instance GLPI jetable :
 | `access-matrix.sh` | matrice de contrôle d'accès, une fois par profil (`none`, `reader`, `limited`, `general`, `admin`) |
 | `xss-check.sh` | vérifie qu'aucune page ne restitue la charge piégée sans échappement |
 | `js-errors.py` | ouvre l'accueil et chaque page de `front/` dans Chromium (Playwright) : aucune erreur JavaScript ni boîte de dialogue |
+| `a11y-check.py` | axe-core sur des pages clés, en thème clair puis sombre (`a11y-palette.php`) : aucune violation grave des règles d'accessibilité déjà corrigées (#663) |
 | `purge.php` | supprime le jeu de données (entités et comptes « Securite ISO … », objets nommés « … securite ») d'une instance de test partagée ; `--dry-run` compte sans supprimer |
 | `not-covered.txt` | pages de `front/` volontairement non testées, avec la raison |
 
@@ -38,7 +39,12 @@ fonctions :
 - `access-matrix.sh` : `$ROLE`, `$P` (URL de `front/`), `id <clé>`, `code`, `body`, `csrf`,
   `expect <libellé> <attendu> <obtenu>`, `contains <libellé> <texte> oui|non <contenu>`,
   `tab <itemtype> <onglet> <id>`, `readable <pages...>` (refusées sans droit, ouvertes au lecteur
-  et au super-admin, comme la liste `READABLE`), `$SEE_B` et `$DENY`.
+  et au super-admin, comme la liste `READABLE`), `$SEE_B`, `$DENY` et `$IS_ADMIN`. Les fragments
+  sont chargés pour **chaque** profil (`none`, `reader`, `general`, `limited`, `admin`), même ceux
+  dont la partie commune s'arrête plus tôt (issue #1079). Le journal donne le nombre de cas
+  exécutés par profil (`INFO profil reader : N cas executes, dont M dans les fragments`), et la
+  matrice échoue si un fragment nomme le profil courant (`reader)`, `limited|admin)`,
+  `[ "$ROLE" = none ]`) sans y exécuter aucun cas.
 - `xss-check.sh` : `$P`, `id`, `xid`, `check <libellé> <url>`, `tab`.
 
 Le contrôle commun de couverture (glpi-plugin-security v1.9.1 et suivantes) trouve le chemin d'une

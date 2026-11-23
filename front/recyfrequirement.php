@@ -33,13 +33,12 @@ if (!RecyfRequirement::isFrameworkEnabled()) {
 $registers = RecyfRequirement::availableRegisters();
 $entityId = RecyfRequirement::selectedRegister($registers, $_GET['entities_id'] ?? null);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Navigation\Section\RegulationSection::RECYF,
     RecyfRequirement::getTypeName(Session::getPluralNumber()),
-    RecyfRequirement::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
+    RecyfRequirement::getSearchURL()
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RegulationSection::RECYF);
 
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/recyf_register.html.twig', [
     'registers'        => $registers,

@@ -170,7 +170,7 @@
                      <td>{{ a.date_text }}</td>
                      {% for key, labels in check_labels %}
                         {% set st = check_states[a.checks[key]] %}
-                        <td class="text-center"><span class="badge {{ st.badge }}" title="{{ labels[1] }} : {{ st.label }}" aria-label="{{ labels[1] }} : {{ st.label }}"><i class="ti {{ st.icon }}"></i></span></td>
+                        <td class="text-center"><span class="badge {{ st.badge }}" role="img" title="{{ labels[1] }} : {{ st.label }}" aria-label="{{ labels[1] }} : {{ st.label }}"><i class="ti {{ st.icon }}" aria-hidden="true"></i></span></td>
                      {% endfor %}
                   </tr>
                {% endfor %}
@@ -181,38 +181,6 @@
       </div>
    </div>
 
-   {% if can_edit %}
-   <div class="card mb-3">
-      <div class="card-header"><h3 class="card-title"><i class="ti ti-settings me-2"></i>{{ __('Programme settings', 'grcmanager') }}</h3></div>
-      <div class="card-body">
-         <form method="post" action="{{ action }}" class="row g-3 align-items-end">
-            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-            <div class="col-md-4">
-               <label class="form-label" for="grc-programme-cycle-start">{{ __('Default certification cycle', 'grcmanager') }}</label>
-               <select name="cycle_start" id="grc-programme-cycle-start" class="form-select">
-                  {% for value, label in start_choices %}
-                     <option value="{{ value }}"{% if value == p.start %} selected{% endif %}>{{ label }}</option>
-                  {% endfor %}
-               </select>
-            </div>
-            <div class="col-md-6">
-               <label class="form-label" for="grc-programme-trainings">{{ __('Trainings that qualify an internal auditor', 'grcmanager') }}</label>
-               {% if trainings is empty %}
-                  <div class="text-muted small">{{ __('No training recorded yet.', 'grcmanager') }}</div>
-               {% else %}
-                  <select name="training_ids[]" id="grc-programme-trainings" class="form-select" multiple size="4">
-                     {% for id, title in trainings %}
-                        <option value="{{ id }}"{% if id in qualifying %} selected{% endif %}>{{ title }}</option>
-                     {% endfor %}
-                  </select>
-                  <div class="form-hint">{{ __('For example "ISO 27001 internal auditor". The Team tab of each audit shows whether its auditors have followed one of them.', 'grcmanager') }}</div>
-               {% endif %}
-            </div>
-            <div class="col-md-2">
-               <button type="submit" name="save_settings" value="1" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
-            </div>
-         </form>
-      </div>
-   </div>
-   {% endif %}
+   {# Issue #1045 : réglages du programme dans la configuration du plugin. #}
+   {% include '@grcmanager/config/_settings_link.html.twig' with {settings_title: __('Programme settings', 'grcmanager')} %}
 </div>

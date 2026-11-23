@@ -9,7 +9,8 @@ natifs de lecture des logiciels et des licences.
 2. En bas de la page, vérifiez la liste des **éditeurs commerciaux surveillés** (Microsoft, Adobe,
    Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
    écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
-   une personne qui peut modifier la configuration du plugin change ces listes.
+   une personne qui peut modifier la configuration du plugin change ces listes, avec le bouton
+   **Modifier dans la configuration** (Configuration > Plugins > GRC Manager, onglet **Parc**).
 3. Les compteurs donnent le nombre de constats, regroupés ensuite par entité :
    - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
      aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
@@ -24,8 +25,8 @@ natifs de lecture des logiciels et des licences.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
    - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
-     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai en bas de la page
-     (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
+     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai dans l'onglet Parc de
+     la configuration (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
 
    Le badge **Dépassement autorisé** signale un surdéploiement sur une licence qui l'autorise : il
    reste à régulariser auprès de l'éditeur. Au-dessus des constats, la **couverture des licences**

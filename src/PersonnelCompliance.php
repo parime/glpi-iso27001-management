@@ -117,7 +117,16 @@ class PersonnelCompliance extends PersonnelComplianceBase
     }
 
     /** Sous-page de la rubrique « Revue des accès » (barre d'onglets commune, aucun menu en plus). */
+    /** Issue #1038 : entrée de la rubrique « Personnel et sensibilisation » (src/Navigation/Section/). */
     public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, self::ownMenuContent());
+    }
+
+    /**
+     * @return array<string, mixed>|false
+     */
+    private static function ownMenuContent()
     {
         if (!self::canViewList()) {
             return false;
@@ -233,7 +242,6 @@ class PersonnelCompliance extends PersonnelComplianceBase
             'max'     => Rules::MAX_DAYS,
             'weights' => $rows,
             'choices' => Rules::WEIGHTS,
-            'url'     => self::getSearchURL(),
         ];
     }
 

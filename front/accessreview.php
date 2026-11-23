@@ -21,18 +21,14 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\AccessReview::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
     \GlpiPlugin\Grcmanager\AccessReview::getTypeName(2),
-    \GlpiPlugin\Grcmanager\AccessReview::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\AccessReview::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('accessreview');
 
 TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', [
@@ -45,7 +41,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\AccessReview::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\AccessReview::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\AccessReview::class]

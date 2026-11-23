@@ -71,19 +71,13 @@ if ($enabled === []) {
 }
 $isEnabled = static fn (string $framework): bool => in_array($framework, $enabled, true);
 
-Html::header(
-    __('Reference frameworks', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Referentials::class,
+    __('Reference frameworks', 'grcmanager')
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\Referentials::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Referentials::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('referentiels');
 
 $titles = \GlpiPlugin\Grcmanager\Control::getControlTitles();
@@ -489,10 +483,11 @@ foreach (Iso27090CatalogDefaults::CHAPTERS as $chapter => $chapterTitle) {
     'acn'             => $isEnabled(FrameworkSelection::ACN_IT)
         ? \GlpiPlugin\Grcmanager\AcnRequirement::referentialCard() : null,
     // Issue #599 : ReCyF (NIS2 France), catalogue des mesures et lien vers le registre de l'entité.
-    'recyf'           => $isEnabled(FrameworkSelection::NIS2)
+    // Issue #1053 : déclinaison France de NIS2, cochée sous NIS2.
+    'recyf'           => $isEnabled(FrameworkSelection::RECYF)
         ? \GlpiPlugin\Grcmanager\RecyfRequirement::referentialCard() : null,
     'custom_frameworks'    => $customFrameworks,
-    'custom_frameworks_url' => \GlpiPlugin\Grcmanager\CustomFramework::getSearchURL(),
+    'custom_frameworks_url' => \GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock::url(),
     'can_import_framework' => Session::haveRight(\GlpiPlugin\Grcmanager\CustomFramework::RIGHTNAME, CREATE),
     'anssi'        => $isEnabled(FrameworkSelection::ANSSI) ? $anssi : [],
     'anssi_source' => AnssiHygieneCatalogDefaults::SOURCE_URL,

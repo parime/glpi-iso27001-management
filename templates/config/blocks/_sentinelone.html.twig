@@ -1,0 +1,117 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #707 : connecteur SentinelOne en lecture seule (voir front/config.php, SentinelOneAlert).
+   Le jeton n'est jamais renvoyé au navigateur : le champ reste vide, un texte indique s'il est enregistré. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set s1 = sentinelone %}
+<div class="card mb-3" id="grc-sentinelone">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center flex-wrap gap-2">
+      <i class="ti ti-shield-search"></i>{{ __('SentinelOne connector', 'grcmanager') }}
+      <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+      {% if s1.enabled %}
+        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-player-play me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-player-pause me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
+    <p class="text-muted">
+      {{ __('Every hour, the threats and alerts detected by SentinelOne are fetched and proposed as security incidents on the EDR import screen: nothing is created without your validation. The agents are matched with the GLPI computers (serial number, then exact name) and the application vulnerabilities join the fleet vulnerabilities. Nothing is ever sent to SentinelOne (no isolation, no resolution).', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch mb-2">
+        <input type="hidden" name="sentinelone_enabled" value="0">
+        <input type="checkbox" class="form-check-input" role="switch" id="grc-s1-enabled" name="sentinelone_enabled" value="1" {{ s1.enabled ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-s1-enabled">{{ __('Fetch automatically from SentinelOne', 'grcmanager') }}</label>
+        <div class="form-hint">{{ __('Turns on the automatic action that reads SentinelOne every hour. Off by default.', 'grcmanager') }}</div>
+      </div>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label" for="grc-s1-url">{{ __('Console address', 'grcmanager') }}</label>
+          <input type="url" class="form-control" id="grc-s1-url" name="sentinelone_url" value="{{ s1.url }}" placeholder="https://euce1-100.sentinelone.net" maxlength="255" {{ can_edit_config ? '' : 'disabled' }}>
+          <div class="form-hint">{{ __('The address you use to open the SentinelOne console, in HTTPS.', 'grcmanager') }}</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="grc-s1-token">{{ __('API token', 'grcmanager') }}</label>
+          <input type="password" class="form-control" id="grc-s1-token" name="sentinelone_api_token" value="" autocomplete="new-password" placeholder="{{ s1.has_token ? __('Token saved (leave empty to keep it)', 'grcmanager') : '' }}" {{ can_edit_config ? '' : 'disabled' }}>
+          <div class="form-hint">
+            {% if s1.has_token %}<span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-lock me-1"></i>{{ __('Token saved', 'grcmanager') }}</span>{% endif %}
+            {{ __('Token of a service user with the Viewer role only. Encrypted with the GLPI key, never displayed again nor logged.', 'grcmanager') }}
+          </div>
+          {% if s1.has_token %}
+            <div class="form-check mt-1">
+              <input type="checkbox" class="form-check-input" id="grc-s1-clear" name="sentinelone_clear_token" value="1" {{ can_edit_config ? '' : 'disabled' }}>
+              <label class="form-check-label" for="grc-s1-clear">{{ __('Delete the saved token', 'grcmanager') }}</label>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="mt-2" style="max-width: 32rem">
+        {{ fields.dropdownField('Entity', 'sentinelone_entities_id', s1.entities_id, __('Entity of the alerts whose computer is not found in GLPI', 'grcmanager'), {
+          'field_class': 'col-12',
+          'label_class': 'col-12',
+          'input_class': 'col-12',
+        }) }}
+      </div>
+      {% if can_edit_config %}
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <button type="submit" name="update_sentinelone_config" class="btn btn-primary">{{ __('Save') }}</button>
+          {% if s1.configured %}
+            <button type="submit" name="test_sentinelone_config" class="btn btn-outline-secondary"><i class="ti ti-plug-connected me-1"></i>{{ __('Test the connection', 'grcmanager') }}</button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </form>
+
+    {% if s1.cron_url %}
+      <div class="form-hint mt-2">
+        <i class="ti ti-clock me-1"></i>{{ __('Automatic action', 'grcmanager') }} :
+        {% if s1.cron_active %}
+          <span class="badge bg-success-subtle text-success-emphasis">{{ __('active', 'grcmanager') }}</span>
+        {% else %}
+          <span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('disabled', 'grcmanager') }}</span>
+        {% endif %}
+        <a href="{{ s1.cron_url }}">{{ __('Open the automatic action', 'grcmanager') }}</a>
+      </div>
+    {% endif %}
+
+    {# Issue #1041 : la lecture à la demande, le détail des lectures, les agents sans ordinateur et
+       la revue des alertes sont sur la page d'exploitation (Assistance > Incidents de sécurité >
+       Import des alertes EDR). Ici, seulement l'état du connecteur. #}
+    {% if s1.last_run %}
+      {% set s1_errors = s1.last_run.steps|filter(step => step.error is not empty) %}
+      <p class="mt-3 mb-1">
+        <i class="ti ti-history me-1"></i>{{ __('Last read: %s', 'grcmanager')|format(s1.last_run.date) }}
+        {% if s1_errors is empty %}
+          <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-check me-1"></i>{{ __('No error', 'grcmanager') }}</span>
+        {% endif %}
+      </p>
+      {% if s1_errors is not empty %}
+        <ul class="list-unstyled mb-2">
+          {% for key, step in s1_errors %}
+            <li class="mb-1">
+              <strong>{{ s1.step_labels[key] ?? key }}</strong> :
+              <span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ s1.error_labels[step.error] ?? step.error }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endif %}
+    <p class="form-hint mt-2 mb-0">
+      <i class="ti ti-info-circle me-1"></i>{{ __('The alerts read from SentinelOne are reviewed, and a reading can be started at any time, in Assistance > Security incidents > EDR alerts import.', 'grcmanager') }}
+    </p>
+  </div>
+</div>

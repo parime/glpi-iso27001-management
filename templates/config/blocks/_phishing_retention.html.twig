@@ -1,0 +1,33 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #604, lot 2 : durée de conservation des résultats individuels des simulations d'hameçonnage. #}
+<div class="card mb-3" id="grc-phishing-retention-config">
+  <div class="card-body">
+    <h4><i class="ti ti-fish-hook me-1"></i>{{ __('Phishing simulations: retention of the results per person', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('The results per person of a phishing simulation are personal data. After this number of months from the date of the campaign, a daily automatic action deletes them: only the anonymous rates remain (by campaign and by group). 0 keeps them until they are deleted by hand from the campaign. Write this period in your record of processing activities and in the information given to employees.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <label class="form-label" for="grc-phishing-retention">{{ __('Retention period (months)', 'grcmanager') }}</label>
+      <input type="number" class="form-control" style="max-width: 10rem;" id="grc-phishing-retention" name="phishing_retention_months"
+             min="0" max="{{ phishing_retention.max }}" value="{{ phishing_retention.months }}" {{ can_edit_config and can_edit_sensitive ? '' : 'disabled' }}>
+      <div class="form-hint">{{ __('Between 0 and %d months. Default: 0 (no automatic deletion). Changing it needs the right to update the sensitive registers.', 'grcmanager')|format(phishing_retention.max) }}</div>
+      {% if can_edit_config and can_edit_sensitive %}
+        <button type="submit" name="update_phishing_retention" class="btn btn-primary mt-2">{{ __('Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>

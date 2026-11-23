@@ -25,14 +25,12 @@ global $CFG_GLPI;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Risk::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Risk::class,
+    \GlpiPlugin\Grcmanager\Risk::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class, \GlpiPlugin\Grcmanager\Risk::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Risk::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('risk');
 
@@ -80,7 +78,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_list_actions.html.twi
 // first place, see DefaultSearchColumns.php), while restoring URL-driven search behaviour.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Risk::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Risk::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Risk::class]

@@ -23,6 +23,10 @@ use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 // pour chaque ligne qu'il en est le responsable (ou qu'il gère les campagnes).
 Session::checkLoginUser();
 $usersId = (int) Session::getLoginUserID();
+// Issue #618 : lignes des titulaires absents que l'utilisateur remplace (période déclarée dans GLPI,
+// type de décision délégable), à décider pour leur compte.
+$delegatedLines = \GlpiPlugin\Grcmanager\AccessReview::getDelegatedLines($usersId);
+$delegatedIds = array_map('intval', array_column($delegatedLines, 'id'));
 
 if (isset($_POST['save_decisions'])) {
     global $DB;
@@ -41,7 +45,7 @@ if (isset($_POST['save_decisions'])) {
         // autres cas (gestionnaire de la campagne, refus).
         if (
             $current !== null
-            && (int) $current['reviewers_id'] === $usersId
+            && ((int) $current['reviewers_id'] === $usersId || in_array((int) $current['id'], $delegatedIds, true))
             && $current['decision'] === $decision
             && (string) $current['comment'] === $comment
         ) {
@@ -53,7 +57,9 @@ if (isset($_POST['save_decisions'])) {
         } else {
             // Nom du compte seulement pour une ligne confiée à cet utilisateur : sinon l'erreur
             // révélerait l'identité d'un compte d'une campagne à laquelle il n'a pas accès.
-            $name = $current !== null && (int) $current['reviewers_id'] === $usersId
+            $mine = $current !== null
+                && ((int) $current['reviewers_id'] === $usersId || in_array((int) $current['id'], $delegatedIds, true));
+            $name = $mine
                 ? getUserName((int) $current['users_id'])
                 : '#' . (int) $lineId;
             Session::addMessageAfterRedirect(htmlescape($name . ' : ' . $error), false, ERROR);
@@ -65,23 +71,25 @@ if (isset($_POST['save_decisions'])) {
     Html::back();
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\AccessReview::class,
     __('My access reviews', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\AccessReview::getMineURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class
+    \GlpiPlugin\Grcmanager\AccessReview::getMineURL()
 );
 
 $campaigns = [];
-foreach (\GlpiPlugin\Grcmanager\AccessReview::getLinesForReviewer($usersId) as $line) {
-    $campaignId = (int) $line['plugin_grcmanager_accessreviews_id'];
-    $campaigns[$campaignId] ??= [
-        'name'     => (string) $line['campaign_name'],
-        'due_date' => (string) $line['campaign_due_date'],
-        'late'     => date('Y-m-d') > (string) $line['campaign_due_date'],
-        'lines'    => [],
+foreach (array_merge(\GlpiPlugin\Grcmanager\AccessReview::getLinesForReviewer($usersId), $delegatedLines) as $line) {
+    // Une carte par campagne et par titulaire : ses propres lignes, puis celles de chaque absent.
+    $key = (int) $line['plugin_grcmanager_accessreviews_id'] . '-' . (int) ($line['on_behalf_of'] ?? 0);
+    $campaigns[$key] ??= [
+        'name'           => (string) $line['campaign_name'],
+        'due_date'       => (string) $line['campaign_due_date'],
+        'late'           => date('Y-m-d') > (string) $line['campaign_due_date'],
+        'on_behalf_name' => (string) ($line['on_behalf_name'] ?? ''),
+        'absent_until'   => (string) ($line['absent_until'] ?? ''),
+        'lines'          => [],
     ];
-    $campaigns[$campaignId]['lines'][] = $line;
+    $campaigns[$key]['lines'][] = $line;
 }
 foreach ($campaigns as &$campaign) {
     $campaign['progress'] = AccessReviewLogic::progress(array_column($campaign['lines'], 'decision'));

@@ -22,11 +22,14 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 // plugin ; génération et limite de taille avec le droit de le modifier (jeton CSRF vérifié par GLPI).
 Session::checkRight(EvidencePack::RIGHTNAME, READ);
 
+// Issue #1045 : la limite de taille est dans la configuration du plugin (onglet « Mesures, audits
+// et preuves ») ; l'ancien envoi reste accepté pendant une version et mène à son bloc.
 if (isset($_POST['save_settings'])) {
     Session::checkRight(EvidencePack::RIGHTNAME, UPDATE);
     EvidencePack::saveMaxMb($_POST['max_mb'] ?? null);
-    Session::addMessageAfterRedirect(__('Evidence pack settings saved.', 'grcmanager'));
-    Html::redirect(EvidencePack::getSearchURL());
+    \GlpiPlugin\Grcmanager\Config\SettingsLink::redirectMoved(
+        \GlpiPlugin\Grcmanager\Config\Block\EvidencePackBlock::ANCHOR
+    );
 }
 
 if (isset($_POST['generate'])) {
@@ -46,15 +49,13 @@ if (isset($_POST['generate'])) {
     Html::redirect(EvidencePack::getSearchURL() . '?entities_id=' . $entityId);
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    EvidencePack::class,
     EvidencePack::getTypeName(1),
-    EvidencePack::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    EvidencePack::class
+    EvidencePack::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, EvidencePack::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(EvidencePack::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('evidencepack');
 // Entité demandée : affichée seulement si elle est accessible, sinon l'entité active.

@@ -17,14 +17,18 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    `methods` (ou `mfa` oui/non), et au choix `admin`, `remote_access`, `excluded`,
    `exclusion_reason`. Les comptes sont rapprochés par identifiant, adresse e-mail ou partie de
    l'UPN avant le @ ; ceux qui ne correspondent à aucun compte GLPI sont listés à part.
-   Pour Entra ID, vous pouvez aussi remplir **Lire directement Microsoft Entra ID (Microsoft
-   Graph)** : inscrivez une application dans le centre d'administration Entra, donnez-lui la
-   permission d'application AuditLog.Read.All avec le consentement de l'administrateur, créez un
-   secret client, puis saisissez le locataire, l'identifiant d'application et le secret.
+   Pour Entra ID, vous pouvez aussi lire le rapport directement : inscrivez une application dans
+   le centre d'administration Entra, donnez-lui la permission d'application AuditLog.Read.All avec
+   le consentement de l'administrateur et créez un secret client. Ouvrez ensuite Configuration >
+   Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la connexion** du cadre
+   **Lire directement Microsoft Entra ID (Microsoft Graph)**), saisissez le locataire,
+   l'identifiant d'application et le secret dans **Microsoft Entra ID et Microsoft Graph** puis
+   enregistrez ; **Tester la connexion** les vérifie sans rien lire. De retour sur la page,
    **Lire maintenant dans Microsoft Graph** remplace l'import Entra ID de l'entité ; rien n'est
    écrit dans Entra ID.
-4. Dans **Quels comptes ont un accès distant ?**, choisissez les groupes GLPI des utilisateurs du
-   VPN ou du bureau à distance.
+4. Choisissez les groupes GLPI des utilisateurs du VPN ou du bureau à distance dans Configuration >
+   Plugins > GRC Manager, onglet **Personnes et politiques**, cadre **Quels comptes ont un accès
+   distant ?** (le bouton **Modifier les réglages** de la page y mène).
 5. La liste commence par les **écarts** : administrateur sans MFA, accès distant sans MFA, SMS,
    appel ou e-mail seul, compte exclu sans justification. Traitez-les dans votre fournisseur
    d'identité, puis importez un nouvel export.

@@ -1,0 +1,26 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #403 : référentiels de conformité actifs. Une case décochée masque le référentiel et
+   l'écarte des scores, sans rien supprimer (voir front/config.php, FrameworkConfig).
+   Issue #1053 : les cases sont rangées par famille dans les blocs suivants (_framework_family). #}
+<div class="card mb-3" id="grc-frameworks-config">
+  <div class="card-body">
+    <h4><i class="ti ti-books me-1"></i>{{ __('Compliance frameworks', 'grcmanager') }}</h4>
+    <p class="text-muted mb-0">
+      {{ __('Untick a framework your organisation does not follow: it is no longer shown or counted in the scores. Nothing is deleted, and its data comes back when it is enabled again.', 'grcmanager') }}
+      {{ __('Frameworks are grouped by family: open a family to tick its frameworks, then save it.', 'grcmanager') }}
+    </p>
+  </div>
+</div>

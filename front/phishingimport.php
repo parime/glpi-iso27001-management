@@ -133,13 +133,7 @@ $labels = [
     'submitted'  => __('Data entered', 'grcmanager'),
     'reported'   => __('Reported', 'grcmanager'),
 ];
-Html::header(
-    PhishingCampaign::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    PhishingCampaign::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(PhishingCampaign::class, PhishingCampaign::getTypeName(1));
 \GlpiPlugin\Grcmanager\PageHelp::show('phishingimport');
 TemplateRenderer::getInstance()->display('@grcmanager/phishing_import.html.twig', [
     'action'       => $action,

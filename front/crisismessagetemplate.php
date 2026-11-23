@@ -21,12 +21,11 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #616 : bibliothèque des modèles de messages de crise.
 Session::checkRight(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'helpdesk',
-    PluginGrcmanagerSecurityIncident::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\CrisisMessageTemplate::class,
+    \GlpiPlugin\Grcmanager\CrisisMessageTemplate::getTypeName(Session::getPluralNumber())
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('crisismessagetemplate');
 if (\GlpiPlugin\Grcmanager\CrisisMessageTemplate::canCreate()) {
     \Glpi\Application\View\TemplateRenderer::getInstance()->display(
@@ -37,7 +36,7 @@ if (\GlpiPlugin\Grcmanager\CrisisMessageTemplate::canCreate()) {
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\CrisisMessageTemplate::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\CrisisMessageTemplate::class]

@@ -369,14 +369,13 @@ class PhishingCampaign extends PhishingCampaignBase
     /**
      * Réglage de la configuration du plugin.
      *
-     * @return array{months: int, max: int, url: string}
+     * @return array{months: int, max: int}
      */
     public static function configData(): array
     {
         return [
             'months' => self::retentionMonths(),
             'max'    => Rules::MAX_RETENTION_MONTHS,
-            'url'    => self::getSearchURL(),
         ];
     }
 

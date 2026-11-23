@@ -227,7 +227,7 @@
                </div>
             {% endif %}
          {% else %}
-            <div class="alert alert-info small mb-3"><i class="ti ti-info-circle me-1"></i>{{ __('Microsoft Graph is not set up yet. Enter the tenant, the application ID and the client secret on the MFA coverage page, or import a CSV export below.', 'grcmanager') }} <a href="{{ graph.settings_url }}">{{ __('Microsoft Graph settings', 'grcmanager') }}</a></div>
+            <div class="alert alert-info small mb-3"><i class="ti ti-info-circle me-1"></i>{{ __('Microsoft Graph is not set up yet. Enter the tenant, the application ID and the client secret in the plugin configuration (Connectors tab), or import a CSV export below.', 'grcmanager') }} <a href="{{ graph.settings_url }}"><i class="ti ti-settings me-1"></i>{{ __('Set up the connection', 'grcmanager') }}</a></div>
          {% endif %}
          <p class="small mb-2">{{ __('Fallback: import a CSV file with one line per right and columns such as Source (SharePoint, OneDrive or Teams), Site, SiteUrl, Item, Identity, Type (User, Group, Guest), Roles (read, write, owner) and LinkScope (anonymous, organization, users).', 'grcmanager') }}</p>
          <div class="mb-3"><a class="btn btn-sm btn-outline-secondary" href="{{ m365_example_url }}"><i class="ti ti-file-type-csv me-1"></i>{{ __('Download an example file', 'grcmanager') }}</a></div>

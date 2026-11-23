@@ -71,14 +71,12 @@ if (isset($_POST['import'])) {
 
 $language = PolicyTemplate::language(isset($_GET['language']) ? (string) $_GET['language'] : null);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    PolicyTemplate::class,
     PolicyTemplate::getTypeName(Session::getPluralNumber()),
-    PolicyTemplate::getSearchURL(),
-    'grcmanager',
-    Control::class,
-    PolicyTemplate::class
+    PolicyTemplate::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, PolicyTemplate::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PolicyTemplate::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('policytemplate');
 TemplateRenderer::getInstance()->display('@grcmanager/policy_templates.html.twig', [

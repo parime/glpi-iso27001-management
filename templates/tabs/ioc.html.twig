@@ -81,7 +81,7 @@
         <th>{{ __('Seen', 'grcmanager') }}</th>
         <th>{{ __('Lookup', 'grcmanager') }}</th>
         <th>{{ __('Also seen in', 'grcmanager') }}</th>
-        {% if can_edit %}<th></th>{% endif %}
+        {% if can_edit %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}
       </tr>
     </thead>
     <tbody>

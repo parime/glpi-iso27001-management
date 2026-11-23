@@ -11,7 +11,8 @@ plugin et le droit natif de lecture des ordinateurs.
    (par défaut), les portables et tablettes seulement (type d'ordinateur remonté par l'agent :
    Laptop, Notebook, Tablet...), ou les types choisis. Vous pouvez y ajouter tout ordinateur classé
    en confidentialité moyenne ou élevée (classification C/I/D, onglet de la fiche de l'ordinateur).
-   Il faut le droit de modifier le plugin.
+   Cette règle se règle une fois dans Configuration > Plugins > GRC Manager, onglet **Parc** (bouton
+   **Modifier dans la configuration** de la page) ; il faut le droit de modifier le plugin.
 3. Les compteurs donnent le taux d'ordinateurs concernés entièrement chiffrés, le taux des
    portables, les algorithmes faibles (DES, RC4...) et anciens (BitLocker avec diffuseur, mode CBC),
    puis le nombre d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état

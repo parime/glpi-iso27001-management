@@ -23,6 +23,7 @@ use CommonGLPI;
 use Config;
 use Document;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Config\Block\SupplierPortalBlock;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\Install\SupplierPortalTables as Portal;
 use GlpiPlugin\Grcmanager\Install\SupplierQuestionnaireTables as Tables;
@@ -102,7 +103,8 @@ class SupplierEvaluationLink extends CommonGLPI
     {
         return [
             'enabled' => self::isEnabled(),
-            'action'  => self::getActionURL(),
+            // Issue #1040 : enregistré par le bloc de la configuration (SupplierPortalBlock::handle()).
+            'action'  => dirname(self::getActionURL()) . '/config.php',
         ];
     }
 
@@ -124,6 +126,10 @@ class SupplierEvaluationLink extends CommonGLPI
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
     {
+        // Portail fournisseur désactivé : pas d'onglet (charte, section 9 : rien d'inactif affiché).
+        if (!self::isEnabled()) {
+            return '';
+        }
         if (!$item instanceof SupplierEvaluation || $item->isNewItem() || !SupplierEvaluation::canView()) {
             return '';
         }
@@ -163,7 +169,7 @@ class SupplierEvaluationLink extends CommonGLPI
             'new_url'       => $token !== null ? self::publicURL($token) : null,
             'action'        => self::getActionURL(),
             'config_url'    => Session::haveRight(Installer::RIGHT_NAME, UPDATE)
-                ? dirname(self::getActionURL()) . '/config.php#grc-supplier-portal-config' : '',
+                ? \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(SupplierPortalBlock::ANCHOR) : '',
             'default_days'  => Rules::DEFAULT_DAYS,
             'max_days'      => Rules::MAX_DAYS,
             'max_uses'      => Rules::MAX_USES,

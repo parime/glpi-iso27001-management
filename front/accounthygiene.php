@@ -37,19 +37,14 @@ if (isset($_POST['create_ticket'])) {
     Html::redirect(\GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL() . '?days=' . $days);
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\AccountHygiene::class,
     \GlpiPlugin\Grcmanager\AccountHygiene::getTypeName(),
-    \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\AccountHygiene::class
+    \GlpiPlugin\Grcmanager\AccountHygiene::getSearchURL()
 );
 // Encadré « À quoi sert cette page ? ».
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\AccountHygiene::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccountHygiene::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('accounthygiene');
 
 \GlpiPlugin\Grcmanager\AccountHygiene::showList($days);

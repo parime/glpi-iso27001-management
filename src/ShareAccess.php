@@ -1312,7 +1312,10 @@ class ShareAccess extends CommonGLPI
             'graph'       => [
                 'configured'   => EntraGraphConfig::isConfigured(),
                 'tenant'       => EntraGraphConfig::tenant(),
-                'settings_url' => MfaCoverage::getSearchURL() . '#grc-mfa-graph',
+                // Issue #1043 : la connexion se règle dans la configuration, onglet Connecteurs.
+                'settings_url' => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                    \GlpiPlugin\Grcmanager\Config\Block\EntraGraphConnectorBlock::ANCHOR
+                ),
                 'sources'      => M365ShareRules::SOURCES,
             ],
             'script_url'  => self::getSearchURL() . '?script=1',

@@ -23,15 +23,13 @@ use GlpiPlugin\Grcmanager\SecureDevelopment;
 // droits natifs et les entités de la session (SecureDevelopment::applications()/releases()).
 Session::checkRight(Installer::RIGHT_NAME, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    SecureDevelopment::class,
     SecureDevelopment::getTypeName(Session::getPluralNumber()),
-    SecureDevelopment::getPageURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    SecureDevelopment::class
+    SecureDevelopment::getPageURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, SecureDevelopment::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(SecureDevelopment::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('securedevelopment');
 SecureDevelopment::showPage();

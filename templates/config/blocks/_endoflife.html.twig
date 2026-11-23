@@ -1,0 +1,63 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #704 : fin de vie des logiciels, systèmes et firmwares (endoflife.date). Source
+   désactivée par défaut. Réglages seulement : activation et seuil d'alerte (commun avec la fin de vie
+   constructeur des modèles et la fin de garantie du matériel). #}
+{% set eol = endoflife %}
+{% set action = config('root_doc') ~ '/plugins/grcmanager/front/config.php' %}
+<div class="card mb-3" id="grc-endoflife-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center">
+      <i class="ti ti-calendar-x me-2"></i>{{ __('End of support (endoflife.date)', 'grcmanager') }}
+      {% if eol.enabled %}
+        <span class="badge bg-success-subtle text-success-emphasis ms-2"><i class="ti ti-plug-connected me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis ms-2"><i class="ti ti-plug-off me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
+    <p class="text-muted">
+      {{ __('Shows which installed software, operating systems and firmwares no longer receive security fixes, from the public site endoflife.date (ISO 27001 A.8.8 and A.8.9). Once a day, the plugin reads the end of support dates of the products found in the inventory; only the product name is sent (for instance "debian"), never the name of a computer or of an entity. Nothing is changed in the inventory, and no ticket is created.', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ action }}" class="mb-3">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="grc-endoflife-enabled" name="endoflife_enabled" value="1" {{ eol.enabled ? 'checked' }} {{ can_edit_config ? '' : 'disabled' }}>
+        <label class="form-check-label" for="grc-endoflife-enabled">{{ __('Read the end of support dates on endoflife.date', 'grcmanager') }}</label>
+      </div>
+      <div class="mb-2" style="max-width: 320px;">
+        <label class="form-label" for="grc-endoflife-days">{{ __('Warn this many days before the end of support', 'grcmanager') }}</label>
+        <div class="input-group">
+          <input type="number" class="form-control" id="grc-endoflife-days" name="endoflife_warning_days" min="{{ eol.min_days }}" max="{{ eol.max_days }}" step="1" value="{{ eol.warning_days }}" {{ can_edit_config ? '' : 'disabled' }}>
+          <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
+        </div>
+        <div class="form-hint">{{ __('Below this number of days, a version is shown as "End of support soon".', 'grcmanager') }} {{ __('The same threshold shows a hardware warranty as "Warranty ends soon", even when endoflife.date is not enabled.', 'grcmanager') }} {{ __('It also applies to the manufacturer end of life of hardware models.', 'grcmanager') }}</div>
+      </div>
+      <ul class="list-unstyled small mb-2">
+        <li><i class="ti ti-refresh me-1"></i>{{ __('Last successful reading', 'grcmanager') }} : {{ eol.last_success ?: __('none yet', 'grcmanager') }}
+          {% if eol.cached_products %}<span class="text-muted">({{ __('%d product(s) in cache', 'grcmanager')|format(eol.cached_products) }})</span>{% endif %}</li>
+        {% for error in eol.errors %}
+          <li class="text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ error.product }} : {{ error.label }}</li>
+        {% endfor %}
+      </ul>
+      {% if can_edit_config %}
+        <button type="submit" name="update_endoflife_config" class="btn btn-primary">{{ _x('button', 'Save') }}</button>
+      {% endif %}
+    </form>
+
+    {# Issue #1039 : « Mettre à jour maintenant » et les correspondances avec les produits sont dans
+       Parc > Sécurité du parc > Logiciels à surveiller (exploitation, pas un réglage). #}
+  </div>
+</div>

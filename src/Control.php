@@ -114,13 +114,8 @@ class Control extends ControlBase
      */
     public static function getMenuContent()
     {
-        $menu = parent::getMenuContent();
-        if (is_array($menu) && $menu !== []) {
-            $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Compliance', 'grcmanager');
-        }
-
-        return Menu::withSubPages(self::class, $menu);
+        // Issue #1038 : nom de la rubrique et page d'accueil déclarés dans src/Navigation/Section/.
+        return Menu::withSubPages(self::class, parent::getMenuContent());
     }
 
     /**
@@ -1578,6 +1573,7 @@ class Control extends ControlBase
                 : [];
             if ($customCodes !== []) {
                 $customFrameworks[] = [
+                    'key'   => $customKey,
                     'label' => $customFramework['label'],
                     'codes' => $customCodes,
                     'url'   => CustomFramework::getFormURL() . '?id=' . $customFramework['id'],
@@ -1740,6 +1736,8 @@ class Control extends ControlBase
             // A.8.2 et A.8.5.
             'ad_security_audit'       => AdSecurityAudit::evidence($code),
             'referentials_url'        => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php',
+            // Issue #1053 : correspondances rangées par famille, comme dans la configuration.
+            'framework_families'      => \GlpiPlugin\Grcmanager\Config\FrameworkFamilies::describe(),
         ]);
 
         return true;

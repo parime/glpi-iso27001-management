@@ -98,7 +98,7 @@ if (isset($_POST['purge'])) {
     Session::checkRight(CustomFramework::RIGHTNAME, PURGE);
     $framework->delete(['id' => $id], true);
     \GlpiPlugin\Grcmanager\AuditLog::record('custom_framework_purge', CustomFramework::class, $id);
-    Html::redirect(CustomFramework::getSearchURL());
+    Html::redirect(\GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock::url());
 }
 
 $statuses = CustomRequirement::getStatuses();
@@ -147,14 +147,14 @@ $active = array_sum($counts);
 $assessed = $active - $counts[CustomRequirement::STATUS_NONE];
 $applicable = $active - $counts[CustomRequirement::STATUS_NOT_APPLICABLE] - $counts[CustomRequirement::STATUS_NONE];
 
-Html::header(
+// Issue #1047 : l'auto-évaluation des exigences est rangée avec l'évaluation par référentiel
+// (Réglementations) ; la création et l'import sont dans la configuration.
+\GlpiPlugin\Grcmanager\Menu::header(
+    FrameworkAssessment::class,
     CustomFramework::getTypeName(1),
-    CustomFramework::getSearchURL(),
-    'grcmanager',
-    Control::class,
-    CustomFramework::class
+    FrameworkAssessment::getSearchURL()
 );
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, CustomFramework::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(FrameworkAssessment::class);
 TemplateRenderer::getInstance()->display('@grcmanager/custom_framework_form.html.twig', [
     'framework'       => $framework->fields,
     'enabled'         => FrameworkConfig::isEnabled($key),
@@ -175,7 +175,8 @@ TemplateRenderer::getInstance()->display('@grcmanager/custom_framework_form.html
     'imported_by'     => (int) $framework->fields['users_id'] > 0
         ? getUserName((int) $framework->fields['users_id']) : '',
     'form_url'        => CustomFramework::getFormURL(),
-    'list_url'        => CustomFramework::getSearchURL(),
+    'list_url'        => \GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock::url(),
+    'new_version_url' => \GlpiPlugin\Grcmanager\Config\Block\CustomFrameworkImportBlock::url($id),
     'control_url'     => Control::getFormURL(),
     'assessment_url'  => FrameworkAssessment::getSearchURL() . '?framework=' . $key,
     'referentials_url' => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/referentiels.php#grcmanager-'

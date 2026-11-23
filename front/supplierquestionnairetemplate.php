@@ -19,17 +19,15 @@ use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 use GlpiPlugin\Grcmanager\SupplierQuestionnaireTemplate;
 
-// Issue #864 : bibliothèque des modèles de questionnaire fournisseur, ouverte depuis le registre des
-// risques fournisseurs (pas d'entrée de menu propre). Droit et entités du registre.
+// Issue #864 : bibliothèque des modèles de questionnaire fournisseur. Droit et entités du registre.
+// Issue #1040 : onglet de « Gestion > Sécurité des fournisseurs » (fil d'Ariane et barre d'onglets).
 Session::checkRight(SupplierQuestionnaireTemplate::$rightname, READ);
 
-Html::header(
-    SupplierQuestionnaireTemplate::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\SupplierRisk::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    SupplierQuestionnaireTemplate::class,
+    SupplierQuestionnaireTemplate::getTypeName(Session::getPluralNumber())
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(SupplierQuestionnaireTemplate::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('supplierquestionnairetemplate');
 $buttons = [[
     'url'   => \GlpiPlugin\Grcmanager\SupplierRisk::getSearchURL(),
@@ -49,7 +47,7 @@ if (SupplierQuestionnaireTemplate::canCreate()) {
 
 $params = QueryBuilder::manageParams(SupplierQuestionnaireTemplate::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     SupplierQuestionnaireTemplate::class,
     $params,
     DefaultSearchColumns::COLUMNS[SupplierQuestionnaireTemplate::class]

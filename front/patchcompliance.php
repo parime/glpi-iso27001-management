@@ -22,38 +22,19 @@ use GlpiPlugin\Grcmanager\PatchCompliance;
 Session::checkRight(PatchCompliance::RIGHTNAME, READ);
 Session::checkRight(Computer::$rightname, READ);
 
-// Délais cibles par criticité (jeton CSRF vérifié par GLPI).
+// Issue #1044 : ce réglage est dans l'onglet Parc de la configuration du plugin. L'ancien envoi
+// reste accepté pendant une version : enregistré, puis renvoi sur l'onglet avec un message.
 if (isset($_POST['save_patch_targets'])) {
-    Session::checkRight(PatchCompliance::RIGHTNAME, UPDATE);
-    $before = PatchCompliance::getTargets();
-    $submitted = $_POST['patch_targets'] ?? [];
-    $after = PatchCompliance::setTargets(is_array($submitted) ? $submitted : []);
-    if ($after !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => [PatchCompliance::TARGETS_KEY => $after]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Target delays saved.', 'grcmanager')));
-    Html::redirect(PatchCompliance::getSearchURL() . '#grc-patch-targets');
+    \GlpiPlugin\Grcmanager\Config\Block\PatchTargetsBlock::handle(true);
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    PatchCompliance::class,
     PatchCompliance::getTypeName(),
-    PatchCompliance::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    PatchCompliance::class
+    PatchCompliance::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    PatchCompliance::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(PatchCompliance::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('patchcompliance');
 

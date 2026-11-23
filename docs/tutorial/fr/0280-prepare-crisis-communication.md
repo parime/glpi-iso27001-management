@@ -1,8 +1,7 @@
 ### Préparer la communication de crise (mesure A.5.26, article 7.4)
 
-1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
-   crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
-   violation de données (information des personnes concernées), indisponibilité (message aux
+1. Menu **Assistance > Crise et continuité**, onglet **Modèles de messages de crise**. Cinq
+   modèles sont fournis : incident majeur (premier message interne et fin de crise), violation de données (information des personnes concernées), indisponibilité (message aux
    utilisateurs et aux clients) et rançongiciel (consignes au personnel). Adaptez-les à votre
    organisation : objet, texte, situation, étape et public.
 2. Les **variables** s'écrivent entre accolades, par exemple `{reference}`, `{title}`,

@@ -270,6 +270,8 @@ class CrisisScenario extends CrisisScenarioBase
 
         parent::post_purgeItem();
         $DB->delete(CrisisScenarioTables::PROCESSES, [self::FK => (int) $this->getID()]);
+        // Issue #1083 : le scénario quitte les plans de continuité et de reprise.
+        ContinuityPlan::forgetItem(self::class, (int) $this->getID());
     }
 
     /**

@@ -30,13 +30,8 @@ Session::checkRight(Audit::$rightname, READ);
 
 $years = ChecklistRules::coverageYears($_GET['years'] ?? ChecklistRules::DEFAULT_COVERAGE_YEARS);
 
-Html::header(
-    __('Audit programme coverage', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    Audit::class
-);
-\GlpiPlugin\Grcmanager\Menu::showSection(Audit::class, Audit::class);
+\GlpiPlugin\Grcmanager\Menu::header(Audit::class, __('Audit programme coverage', 'grcmanager'));
+\GlpiPlugin\Grcmanager\Menu::showSection(Audit::class);
 
 $yearChoices = [];
 for ($i = 1; $i <= ChecklistRules::MAX_COVERAGE_YEARS; $i++) {

@@ -47,6 +47,6 @@ if (isset($_POST['add'])) {
     // Issue #140 : affichage avec onglets (Constats, Documents, Historique).
     \GlpiPlugin\Grcmanager\Audit::displayFullPageForItem(
         (int) ($_GET['id'] ?? 0),
-        ['central' => ['grcmanager', \GlpiPlugin\Grcmanager\Audit::class], 'helpdesk' => []]
+        ['central' => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\Audit::class), 'helpdesk' => []]
     );
 }

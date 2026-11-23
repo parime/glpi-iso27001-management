@@ -20,18 +20,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\ComplianceObligation::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\ComplianceObligation::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\ComplianceObligation::class,
+    \GlpiPlugin\Grcmanager\ComplianceObligation::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Control::class,
-    \GlpiPlugin\Grcmanager\ComplianceObligation::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\ComplianceObligation::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('complianceobligation');
 
@@ -40,7 +34,7 @@ Html::header(
 // through QueryBuilder::manageParams() itself, unlike Search::show().
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\ComplianceObligation::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\ComplianceObligation::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\ComplianceObligation::class]

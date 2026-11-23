@@ -1,0 +1,46 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+{# Issue #618 : types de décisions délégables à un suppléant pendant une absence (aucun par défaut),
+   enregistrés par la configuration (DelegationBlock, #1047). #}
+{% set d = delegation %}
+<div class="card mb-3" id="grc-delegation-config">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center">
+      <i class="ti ti-user-share me-2"></i>{{ __('Delegation during an absence', 'grcmanager') }}
+      {% if d.enabled is not empty %}
+        <span class="badge bg-success-subtle text-success-emphasis ms-2"><i class="ti ti-check me-1"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis ms-2"><i class="ti ti-ban me-1"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
+    <p class="text-muted">
+      {{ __('Lets the substitute declared in GLPI (user preferences, "Authorized substitutes" tab, with a substitution start date and end date) take the decisions waiting for an absent person, during the declared period only. A period without an end date delegates nothing. Each decision is recorded as taken by the substitute on behalf of the absent person. Waivers and risk acceptances are never delegated: they depend on a right, not on a person.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ d.action }}">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      {% for key, info in d.types %}
+        <div class="form-check form-switch mb-2">
+          <input class="form-check-input" type="checkbox" role="switch" id="grc-delegation-{{ key }}" name="delegation_types[]" value="{{ key }}" {{ key in d.enabled ? 'checked' }} {{ d.can_edit ? '' : 'disabled' }}>
+          <label class="form-check-label" for="grc-delegation-{{ key }}"><i class="ti {{ info.icon }} me-1"></i>{{ info.label }}</label>
+          <div class="form-hint">{{ info.help }}</div>
+        </div>
+      {% endfor %}
+      <div class="d-flex gap-2 mt-2">
+        {% if d.can_edit %}
+          <button type="submit" name="update_delegation_config" value="1" class="btn btn-primary">{{ __('Save') }}</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>

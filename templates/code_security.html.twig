@@ -42,8 +42,9 @@
       <div class="alert alert-info d-flex align-items-start gap-2 mb-3" id="grc-cs-empty">
          <i class="ti ti-info-circle fs-2"></i>
          <div>
-            {{ __('Nothing has been read yet. 1. Enter the code repository of each application in its "Secure development" tab. 2. Enter a read-only token below. 3. Click "Read now".', 'grcmanager') }}
+            {{ __('Nothing has been read yet. 1. Enter the code repository of each application in its "Secure development" tab. 2. Enter a read-only token in the plugin configuration, Connectors tab. 3. Click "Read now".', 'grcmanager') }}
             <a href="{{ register_url }}">{{ __('Register of applications', 'grcmanager') }}</a>
+            · <a href="{{ connector_url }}">{{ __('Set up the connection', 'grcmanager') }}</a>
          </div>
       </div>
    {% elseif last_read.error_label %}
@@ -141,7 +142,8 @@
       </div>
    </div>
 
-   {# Connexion à GitHub et GitLab (lecture seule). #}
+   {# Connexion à GitHub et GitLab (lecture seule) : elle se règle dans la configuration (issue #1043) ;
+      ici, l'état de la dernière lecture et les boutons d'usage. #}
    <div class="card mb-3" id="grc-cs-connection">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-plug-connected me-2"></i>{{ __('Connection to GitHub and GitLab (read only)', 'grcmanager') }}</h3>
@@ -162,74 +164,26 @@
                {{ __('No reading yet.', 'grcmanager') }}
             {% endif %}
          </p>
-         <p class="small text-muted mb-1">{{ __('How to prepare the tokens (one of the two, or both):', 'grcmanager') }}</p>
-         <ol class="small text-muted">
-            <li>{{ __('GitHub: create a fine-grained personal access token limited to the repositories concerned, with the read-only permissions "Dependabot alerts", "Secret scanning alerts" and "Code scanning alerts".', 'grcmanager') }}</li>
-            <li>{{ __('GitLab: create a project or group access token with the "read_api" scope and at least the Developer role (the vulnerability report requires GitLab Ultimate).', 'grcmanager') }}</li>
-         </ol>
-         {% if not connection.allow_private %}
-            <div class="alert alert-info small py-2">
-               <i class="ti ti-info-circle me-1"></i>{{ __('A server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration.', 'grcmanager') }}
-               <a href="{{ config_url }}">{{ __('Outgoing connections', 'grcmanager') }}</a>
-            </div>
-         {% endif %}
-         {% if can_manage %}
-            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
-               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-               <div class="col-12"><h4 class="mb-0"><i class="ti ti-brand-github me-1"></i>GitHub</h4></div>
-               <div class="col-md-6">
-                  <label class="form-label" for="grc-cs-github-token">{{ __('Read-only token', 'grcmanager') }}</label>
-                  <input type="password" class="form-control" id="grc-cs-github-token" name="codesecurity_github_token" value="" autocomplete="new-password" placeholder="{{ connection.has_github ? __('Token saved (leave empty to keep it)', 'grcmanager') : '' }}">
-                  {% if connection.has_github %}
-                     <span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-lock me-1"></i>{{ __('Token saved', 'grcmanager') }}</span>
-                     <span class="form-check form-check-inline ms-2">
-                        <input type="checkbox" class="form-check-input" id="grc-cs-github-clear" name="codesecurity_github_clear" value="1">
-                        <label class="form-check-label" for="grc-cs-github-clear">{{ __('Delete the saved token', 'grcmanager') }}</label>
-                     </span>
-                  {% endif %}
-               </div>
-               <div class="col-md-6">
-                  <label class="form-label" for="grc-cs-github-url">{{ __('GitHub Enterprise Server address (optional)', 'grcmanager') }}</label>
-                  <input type="url" class="form-control" id="grc-cs-github-url" name="codesecurity_github_url" value="{{ connection.github_url }}" maxlength="255" placeholder="https://github.example.test" autocomplete="off">
-                  <div class="form-hint">{{ __('Leave empty for github.com.', 'grcmanager') }}</div>
-               </div>
-               <div class="col-12"><h4 class="mb-0 mt-2"><i class="ti ti-brand-gitlab me-1"></i>GitLab</h4></div>
-               <div class="col-md-6">
-                  <label class="form-label" for="grc-cs-gitlab-token">{{ __('Read-only token', 'grcmanager') }}</label>
-                  <input type="password" class="form-control" id="grc-cs-gitlab-token" name="codesecurity_gitlab_token" value="" autocomplete="new-password" placeholder="{{ connection.has_gitlab ? __('Token saved (leave empty to keep it)', 'grcmanager') : '' }}">
-                  {% if connection.has_gitlab %}
-                     <span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-lock me-1"></i>{{ __('Token saved', 'grcmanager') }}</span>
-                     <span class="form-check form-check-inline ms-2">
-                        <input type="checkbox" class="form-check-input" id="grc-cs-gitlab-clear" name="codesecurity_gitlab_clear" value="1">
-                        <label class="form-check-label" for="grc-cs-gitlab-clear">{{ __('Delete the saved token', 'grcmanager') }}</label>
-                     </span>
-                  {% endif %}
-               </div>
-               <div class="col-md-6">
-                  <label class="form-label" for="grc-cs-gitlab-url">{{ __('GitLab server address (optional)', 'grcmanager') }}</label>
-                  <input type="url" class="form-control" id="grc-cs-gitlab-url" name="codesecurity_gitlab_url" value="{{ connection.gitlab_url }}" maxlength="255" placeholder="https://gitlab.example.test" autocomplete="off">
-                  <div class="form-hint">{{ __('Leave empty for gitlab.com.', 'grcmanager') }}</div>
-               </div>
-               <div class="col-12 form-hint">{{ __('The tokens are encrypted with the GLPI key, never displayed again nor logged. Only the security alerts are read; the value of an exposed secret is never requested.', 'grcmanager') }}</div>
-               <div class="col-12">
-                  <div class="form-check form-switch">
-                     <input type="checkbox" class="form-check-input" role="switch" id="grc-cs-enabled" name="codesecurity_enabled" value="1" {{ connection.enabled ? 'checked' }}>
-                     <label class="form-check-label" for="grc-cs-enabled">{{ __('Read automatically every day (automatic action "codesecurity")', 'grcmanager') }}</label>
-                  </div>
-               </div>
-               <div class="col-12 d-flex flex-wrap gap-2">
-                  <button type="submit" class="btn btn-outline-primary" name="save_codesecurity" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
+         <p class="small mb-2">
+            {% if connection.has_github %}<span class="badge bg-dark-subtle text-dark-emphasis me-1"><i class="ti ti-brand-github me-1"></i>GitHub</span>{% endif %}
+            {% if connection.has_gitlab %}<span class="badge bg-orange-subtle text-orange-emphasis me-1"><i class="ti ti-brand-gitlab me-1"></i>GitLab</span>{% endif %}
+            {% if connection.enabled %}<span class="badge bg-azure-subtle text-azure-emphasis me-1"><i class="ti ti-clock-play me-1"></i>{{ __('Read automatically every day (automatic action "codesecurity")', 'grcmanager') }}</span>{% endif %}
+            {% if not connection.configured %}<span class="text-muted">{{ __('The GitHub and GitLab tokens are entered in the plugin configuration, Connectors tab.', 'grcmanager') }}</span>{% endif %}
+         </p>
+         <div class="d-flex flex-wrap gap-2">
+            {% if can_manage and (connection.configured or repositories is not empty) %}
+               <form method="post" action="{{ action }}" class="d-flex flex-wrap gap-2">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
                   {% if connection.configured %}
                      <button type="submit" class="btn btn-primary" name="read_codesecurity" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now', 'grcmanager') }}</button>
                   {% endif %}
                   {% if repositories is not empty %}
-                     <button type="submit" class="btn btn-outline-danger ms-auto" name="clear_codesecurity" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the readings', 'grcmanager') }}</button>
+                     <button type="submit" class="btn btn-outline-danger" name="clear_codesecurity" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the readings', 'grcmanager') }}</button>
                   {% endif %}
-               </div>
-            </form>
-         {% else %}
-            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data can set up this reading.', 'grcmanager') }}</p>
-         {% endif %}
+               </form>
+            {% endif %}
+            <a class="btn btn-outline-secondary" href="{{ connector_url }}"><i class="ti ti-settings me-1"></i>{{ __('Set up the connection', 'grcmanager') }}</a>
+         </div>
       </div>
    </div>
 

@@ -1,0 +1,139 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Enrichissement CVE via NVD : dépend d'un appel réseau externe (services.nvd.nist.gov) à
+   chaque nouvelle CVE suivie, désactivé par défaut - même raisonnement/convention que le module
+   Incidents de sécurité ci-dessus (interrupteur explicite plutôt qu'un comportement silencieux
+   au premier upgrade). #}
+<div class="card mb-3" id="grc-nvd-config">
+  <div class="card-body">
+    <h4>{{ __('CVE enrichment (NVD)', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Automatically retrieves the CVSS score, severity, description and patch links for each tracked CVE, from the public NVD (National Vulnerability Database). No data is ever invented: if the NVD hasn\'t analyzed a CVE yet, nothing is shown until it has.', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="enable_nvd_enrichment" name="enable_nvd_enrichment" {{ nvd_config.enable_nvd_enrichment ? 'checked' : '' }}>
+        <label class="form-check-label" for="enable_nvd_enrichment">{{ __('Enable NVD enrichment', 'grcmanager') }}</label>
+      </div>
+
+      <div class="mb-2" style="max-width: 220px;">
+        <label class="form-label" for="cvss_alert_threshold">{{ __('Alert threshold (CVSS score)', 'grcmanager') }}</label>
+        <input type="number" class="form-control" id="cvss_alert_threshold" name="cvss_alert_threshold" min="0" max="10" step="0.1" value="{{ nvd_config.cvss_alert_threshold }}">
+        <div class="form-hint">{{ __('A CVE with an equal or higher score is highlighted as urgent.', 'grcmanager') }}</div>
+      </div>
+
+      {# Issue #160, phase 2 : tickets automatiques des vulnérabilités du parc. #}
+      <h5 class="mt-3">{{ __('Fleet vulnerability tickets', 'grcmanager') }}</h5>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_tickets_enabled" name="park_tickets_enabled" value="1" {{ park_thresholds.enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_tickets_enabled">{{ __('Automatically create a ticket for each vulnerability above a threshold', 'grcmanager') }}</label>
+      </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" id="park_ticket_kev" name="park_ticket_kev" value="1" {{ park_thresholds.kev ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_ticket_kev">{{ __('Actively exploited vulnerability (CISA KEV catalog)', 'grcmanager') }}</label>
+      </div>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        <div style="max-width: 220px;">
+          <label class="form-label" for="park_ticket_cvss">{{ __('or CVSS of at least', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_ticket_cvss" name="park_ticket_cvss" min="0" max="10" step="0.1" value="{{ park_thresholds.cvss }}">
+        </div>
+        <div style="max-width: 220px;">
+          <label class="form-label" for="park_ticket_epss_percent">{{ __('or exploitation probability (EPSS, %) of at least', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_ticket_epss_percent" name="park_ticket_epss_percent" min="0" max="100" step="1" value="{{ (park_thresholds.epss * 100)|round }}">
+        </div>
+      </div>
+      <div class="form-hint mb-2">{{ __('A single open ticket per software, detailing its vulnerabilities and linked to the affected machines. At most %d tickets are created per run, most severe first. A followup is added when more machines are affected, when a vulnerability becomes actively exploited, or when no machine is vulnerable anymore. The ticket is never closed and its priority never changed automatically.', 'grcmanager')|format(max_tickets) }}</div>
+
+      {# Issue #601 : délais de correction des vulnérabilités du parc, par niveau. #}
+      <h5 class="mt-4" id="grc-remediation-settings"><i class="ti ti-calendar-time me-1"></i>{{ __('Vulnerability remediation deadlines', 'grcmanager') }}</h5>
+      <p class="text-muted mb-2">{{ __('How many days the team has to fix a vulnerability of the fleet, by level (ISO 27001 A.8.8). The fleet vulnerabilities page, the dashboard cards and the report by email then show the due dates, the overdue vulnerabilities and the share fixed on time.', 'grcmanager') }}</p>
+      <div class="form-check form-switch mb-2">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_sla_enabled" name="park_sla_enabled" value="1" {{ remediation_settings.enabled ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_sla_enabled">{{ __('Track remediation deadlines', 'grcmanager') }}</label>
+      </div>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        {% for level, label in remediation_levels %}
+        <div style="max-width: 200px;">
+          <label class="form-label" for="park_sla_days_{{ level }}">{{ label }}</label>
+          <div class="input-group">
+            <input type="number" class="form-control" id="park_sla_days_{{ level }}" name="park_sla_days_{{ level }}" min="1" max="3650" step="1" value="{{ remediation_settings.days[level] }}">
+            <span class="input-group-text">{{ __('days', 'grcmanager') }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="mb-2" style="max-width: 320px;">
+        <label class="form-label" for="park_sla_critical_percent">{{ __('Deadline on assets with a high C/I/A classification (%)', 'grcmanager') }}</label>
+        <input type="number" class="form-control" id="park_sla_critical_percent" name="park_sla_critical_percent" min="10" max="100" step="5" value="{{ remediation_settings.critical_percent }}">
+        <div class="form-hint">{{ __('50 = half the normal deadline when a vulnerable machine is classified high in confidentiality, integrity or availability. 100 = no shorter deadline.', 'grcmanager') }}</div>
+      </div>
+      {# Issue #887 : niveau ajusté à l'environnement et à l'exposition des machines touchées. #}
+      <div class="form-check form-switch mb-1">
+        <input class="form-check-input" type="checkbox" role="switch" id="park_sla_context" name="park_sla_context" value="1" {{ remediation_context ? 'checked' : '' }}>
+        <label class="form-check-label" for="park_sla_context"><i class="ti ti-adjustments-alt me-1"></i>{{ __('Adjust the level to the context of the machines', 'grcmanager') }}</label>
+      </div>
+      <div class="form-hint mb-2">{{ __('One step more urgent when an affected machine is reachable from the Internet (declared in its C/I/A classification tab, or targeted by an Internet publication flow of the network flow matrix); one step less urgent when all affected machines are in test or development. Actively exploited vulnerabilities (KEV) never move, and a deadline already known is never pushed back.', 'grcmanager') }}</div>
+      <div class="form-hint mb-2">{{ __('The deadline runs from the first detection of the vulnerability. A vulnerability covered by an approved waiver in progress follows the end date of the waiver, and becomes overdue again when it expires. Tickets show the due date, but their priority and status are never changed.', 'grcmanager') }}</div>
+
+      {# Issue #485 : rapport des vulnérabilités du parc par e-mail. #}
+      <h5 class="mt-4"><i class="ti ti-mail-bolt me-1"></i>{{ __('Fleet vulnerability report by email', 'grcmanager') }}</h5>
+      <p class="text-muted mb-2">{{ __('A regular email listing the vulnerabilities of the fleet that are exploited, likely to be exploited, critical or high. Its subject shows the urgency at a glance, for instance "[URGENT] 2 actively exploited vulnerabilities, 14 machines exposed".', 'grcmanager') }}</p>
+      <div class="d-flex flex-wrap gap-3 mb-2">
+        <div style="max-width: 260px;">
+          <label class="form-label" for="park_digest_frequency">{{ __('Send the report', 'grcmanager') }}</label>
+          <select class="form-select" id="park_digest_frequency" name="park_digest_frequency">
+            {% for key, label in digest.frequencies %}<option value="{{ key }}" {{ key == digest.frequency ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div style="max-width: 260px;">
+          <label class="form-label" for="park_digest_min_cvss">{{ __('Include vulnerabilities from CVSS', 'grcmanager') }}</label>
+          <input type="number" class="form-control" id="park_digest_min_cvss" name="park_digest_min_cvss" min="0" max="10" step="0.1" value="{{ digest.min_cvss }}">
+          <div class="form-hint">{{ __('7 = high and critical. Exploited vulnerabilities are always included.', 'grcmanager') }}</div>
+        </div>
+      </div>
+      <ul class="list-unstyled small mb-2">
+        <li><i class="ti ti-calendar-event me-1"></i>{{ __('Last report', 'grcmanager') }} :
+          {% if digest.last %}
+            {{ digest.last_date }} <span class="badge {{ {'urgent': 'bg-red-lt', 'high': 'bg-orange-lt', 'watch': 'bg-yellow-lt', 'ok': 'bg-green-lt'}[digest.last.urgency]|default('bg-secondary-lt') }}">{{ digest.urgencies[digest.last.urgency]|default(digest.last.urgency) }}</span>
+          {% else %}
+            {{ __('none yet', 'grcmanager') }}
+          {% endif %}
+        </li>
+        {% if digest.next_date %}<li><i class="ti ti-calendar-time me-1"></i>{{ __('Next report', 'grcmanager') }} : {{ digest.next_date }}</li>{% endif %}
+        <li><i class="ti ti-users me-1"></i>{{ __('Recipients: the CISO group, and anyone added to the notification who can read the vulnerabilities of the whole fleet.', 'grcmanager') }}
+          {% if digest.notification_url %}<a href="{{ digest.notification_url }}">{{ __('Change the recipients or the text', 'grcmanager') }}</a>{% endif %}
+        </li>
+      </ul>
+      {% for problem, active in {
+        (__('The vulnerability watch (NVD enrichment) is disabled: no report is sent.', 'grcmanager')): not digest.watch_enabled,
+        (__('Email notifications are disabled in GLPI (Setup > Notifications): the report cannot reach anyone.', 'grcmanager')): not digest.mail_enabled,
+        (__('No CISO group is set (Audit team section above): add recipients to the notification, or the report will reach nobody.', 'grcmanager')): not digest.has_ciso_group,
+        (__('The notification "GRC Manager - Fleet vulnerability report" is inactive.', 'grcmanager')): digest.notification_url and not digest.is_active,
+      } %}
+        {% if active %}<div class="alert alert-warning py-2 mb-2"><i class="ti ti-alert-triangle me-1"></i>{{ problem }}</div>{% endif %}
+      {% endfor %}
+
+
+      {% if can_edit_config %}
+      <div class="d-flex gap-2 mt-2">
+        <button type="submit" name="update_nvd_config" class="btn btn-primary">{{ __('Save') }}</button>
+      </div>
+      {% endif %}
+    </form>
+  </div>
+</div>

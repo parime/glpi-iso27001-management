@@ -45,12 +45,10 @@ if (isset($_POST['add'])) {
         $item->check($id, READ);
     }
 
-    Html::header(
+    \GlpiPlugin\Grcmanager\Menu::header(
+        CrisisScenario::class,
         CrisisScenario::getTypeName(1),
-        CrisisScenario::getSearchURL(),
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\AccessReview::class,
-        CrisisScenario::class
+        CrisisScenario::getSearchURL()
     );
 
     $item->display(['id' => $id]);

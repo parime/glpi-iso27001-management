@@ -21,12 +21,11 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #370 : bibliothèque des procédures de remédiation.
 Session::checkRight(\GlpiPlugin\Grcmanager\Playbook::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Playbook::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'helpdesk',
-    PluginGrcmanagerSecurityIncident::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Playbook::class,
+    \GlpiPlugin\Grcmanager\Playbook::getTypeName(Session::getPluralNumber())
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Playbook::class);
 \GlpiPlugin\Grcmanager\PageHelp::show('playbook');
 if (\GlpiPlugin\Grcmanager\Playbook::canCreate()) {
     \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/playbook_list_header.html.twig', [
@@ -36,7 +35,7 @@ if (\GlpiPlugin\Grcmanager\Playbook::canCreate()) {
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Playbook::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Playbook::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Playbook::class]

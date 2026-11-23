@@ -29,6 +29,7 @@ use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeException;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeInventory;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\EndOfLifeStore;
 use GlpiPlugin\Grcmanager\Services\Lifecycle\ProductMatcher;
+use Session;
 
 /**
  * Issue #704 : fin de vie des logiciels, systèmes d'exploitation et firmwares du parc, d'après
@@ -84,9 +85,64 @@ class EndOfLife extends CommonGLPI
      */
     public static function getConfigURL(bool $full = true): string
     {
-        global $CFG_GLPI;
+        // Issue #1036 : onglet de la configuration qui porte ce bloc.
+        return \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-endoflife-config', $full);
+    }
 
-        return ($full ? $CFG_GLPI['root_doc'] : '') . '/plugins/grcmanager/front/config.php#grc-endoflife-config';
+    /**
+     * Issue #1039 : lecture manuelle (« Mettre à jour maintenant ») et correspondances avec les
+     * produits d'endoflife.date, sorties de la configuration vers Parc > Sécurité du parc >
+     * Logiciels à surveiller.
+     */
+    public static function getLinksURL(bool $full = true): string
+    {
+        return ParkVulnerability::getWatchURL($full) . '#grc-endoflife-links';
+    }
+
+    /**
+     * Issue #1039 : envois d'exploitation de la fin de support (lecture manuelle, ajout ou retrait d'une
+     * correspondance), traités par la page « Logiciels à surveiller » et, pendant une version, par
+     * l'ancien formulaire de la configuration. Droit de modifier la configuration, comme avant.
+     * Renvoie faux si l'envoi n'en est pas un.
+     *
+     * @param array<string, mixed> $post
+     */
+    public static function handleWorkPost(array $post): bool
+    {
+        if (
+            !isset($post['refresh_endoflife']) && !isset($post['add_endoflife_mapping'])
+            && !isset($post['delete_endoflife_mapping'])
+        ) {
+            return false;
+        }
+        Session::checkRight(Install\Installer::RIGHT_NAME, UPDATE);
+
+        if (isset($post['refresh_endoflife'])) {
+            // Quelques produits seulement : le reste suit avec la tâche automatique quotidienne.
+            $report = self::refresh(30);
+            Session::addMessageAfterRedirect(
+                htmlescape(self::refreshMessage($report)),
+                false,
+                $report['status'] === 'partial' ? WARNING : INFO
+            );
+        } elseif (isset($post['add_endoflife_mapping'])) {
+            $saved = EndOfLifeStore::saveMapping(
+                (string) ($post['endoflife_kind'] ?? ''),
+                (string) ($post['endoflife_name'] ?? ''),
+                (string) ($post['endoflife_product'] ?? '')
+            );
+            if (!$saved) {
+                Session::addMessageAfterRedirect(htmlescape(__(
+                    'Link not saved: give the exact name shown in GLPI and an endoflife.date product identifier '
+                        . '(lower case letters, digits and dashes, for instance "debian").',
+                    'grcmanager'
+                )), false, ERROR);
+            }
+        } else {
+            EndOfLifeStore::deleteMapping((int) $post['delete_endoflife_mapping']);
+        }
+
+        return true;
     }
 
     // ------------------------------------------------------------------ Libellés.
@@ -366,6 +422,8 @@ class EndOfLife extends CommonGLPI
             'all'          => $all,
             'export_url'   => self::getExportURL(),
             'config_url'   => self::getConfigURL(),
+            // Issue #1039 : lecture manuelle et correspondances, sur « Logiciels à surveiller ».
+            'links_url'    => self::getLinksURL(),
             'statuses'     => self::statusInfos(),
         ];
         if (!$settings['enabled']) {

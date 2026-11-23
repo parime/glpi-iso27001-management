@@ -747,16 +747,16 @@ class CodeSecurity extends CommonGLPI
             'ages'           => self::ageLabels(),
             'providers'      => self::providerInfos(),
             'policy_days'    => $days,
-            // Les jetons ne sont jamais renvoyés, seulement leur présence.
+            // Issue #1043 : la connexion se règle dans la configuration ; ici, son état seulement.
             'connection'     => [
-                'github_url'    => CodeSecurityConfig::rawGithubUrl(),
-                'gitlab_url'    => CodeSecurityConfig::rawGitlabUrl(),
                 'has_github'    => CodeSecurityConfig::hasGithubToken(),
                 'has_gitlab'    => CodeSecurityConfig::hasGitlabToken(),
                 'configured'    => CodeSecurityConfig::isConfigured(),
                 'enabled'       => CodeSecurityConfig::isEnabled(),
-                'allow_private' => \GlpiPlugin\Grcmanager\Compat\Http::allowsPrivateNetworks(),
             ],
+            'connector_url'  => \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl(
+                \GlpiPlugin\Grcmanager\Config\Block\CodeHostingConnectorBlock::ANCHOR
+            ),
             'last_read'      => $lastRead + [
                 'date_label'  => $lastRead['date'] !== '' ? (string) Html::convDateTime($lastRead['date']) : '',
                 'error_label' => $lastRead['error'] !== '' ? self::errorMessage($lastRead['error']) : '',
@@ -765,7 +765,6 @@ class CodeSecurity extends CommonGLPI
             'action'         => self::getSearchURL(),
             'register_url'   => SecureDevelopment::getPageURL(),
             'policy_url'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-remediation-settings',
-            'config_url'     => $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php#grc-outgoing-http',
             'kri_url'        => RiskIndicator::getSearchURL(),
         ];
     }

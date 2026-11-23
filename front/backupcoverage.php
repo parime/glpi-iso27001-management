@@ -18,7 +18,6 @@
 use GlpiPlugin\Grcmanager\BackupCoverage;
 use GlpiPlugin\Grcmanager\ControlTest;
 use GlpiPlugin\Grcmanager\Services\Backup\BackupCoverageRules;
-use GlpiPlugin\Grcmanager\Services\Backup\VeeamConfig;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 
 // Issue #838 : couverture des sauvegardes (A.8.13, A.5.30). Droit du plugin et lecture native des
@@ -70,34 +69,12 @@ if (isset($_POST['clear_backup_hosts'])) {
     Html::redirect(BackupCoverage::getSearchURL() . '#grc-backup-import');
 }
 
-// Connecteur Veeam : réglages et lecture sur clic, droit de modifier. Le mot de passe n'est jamais
-// renvoyé au navigateur ni écrit dans un journal.
-if (isset($_POST['save_veeam'])) {
-    Session::checkRight(BackupCoverage::RIGHTNAME, UPDATE);
-    $saved = VeeamConfig::save(
-        (string) ($_POST['veeam_url'] ?? ''),
-        (string) ($_POST['veeam_username'] ?? ''),
-        (string) ($_POST['veeam_password'] ?? ''),
-        (string) ($_POST['veeam_api_version'] ?? ''),
-        !empty($_POST['veeam_clear_password'])
-    );
-    if (!$saved['saved']) {
-        Session::addMessageAfterRedirect(htmlescape(__(
-            'Not saved: the address must start with https:// (for example https://veeam.example.test:9419) and '
-                . 'contain no user name or password.',
-            'grcmanager'
-        )), false, ERROR);
-    } else {
-        if ($saved['changes'] !== []) {
-            \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
-                'changes' => $saved['changes'],
-            ]);
-        }
-        Session::addMessageAfterRedirect(htmlescape(__('Veeam settings saved.', 'grcmanager')));
-    }
-    Html::redirect(BackupCoverage::getSearchURL() . '#grc-backup-veeam');
-}
+// Issue #1042 : la connexion à Veeam (onglet Connecteurs) et les actifs à sauvegarder (onglet Parc)
+// se règlent dans la configuration. L'ancien envoi de cette page reste accepté pendant une version et y mène.
+\GlpiPlugin\Grcmanager\Config\Block\VeeamConnectorBlock::handleLegacyPost();
+\GlpiPlugin\Grcmanager\Config\Block\BackupSettingsBlock::handleLegacyPost();
 
+// Lecture de Veeam sur clic, droit de modifier.
 if (isset($_POST['fetch_veeam'])) {
     Session::checkRight(BackupCoverage::RIGHTNAME, UPDATE);
     $result = BackupCoverage::importFromVeeam();
@@ -122,41 +99,13 @@ if (isset($_POST['fetch_veeam'])) {
     Html::redirect(BackupCoverage::getSearchURL() . '#grc-backup-veeam');
 }
 
-// Réglages : actifs concernés, ancienneté admise sans RPO, fréquence des tests de restauration.
-if (isset($_POST['save_backup_settings'])) {
-    Session::checkRight(BackupCoverage::RIGHTNAME, UPDATE);
-    $before = BackupCoverage::getSettings();
-    $after = BackupCoverage::setSettings([
-        'scope'          => (string) ($_POST['backup_scope'] ?? ''),
-        'max_age_hours'  => $_POST['backup_max_age_hours'] ?? '',
-        'restore_months' => $_POST['backup_restore_months'] ?? '',
-    ]);
-    if ($after !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => [BackupCoverage::SETTINGS_KEY => $after]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Backup settings saved.', 'grcmanager')));
-    Html::redirect(BackupCoverage::getSearchURL() . '#grc-backup-settings');
-}
-
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    BackupCoverage::class,
     BackupCoverage::getTypeName(),
-    BackupCoverage::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    BackupCoverage::class
+    BackupCoverage::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    BackupCoverage::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(BackupCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('backupcoverage');
 

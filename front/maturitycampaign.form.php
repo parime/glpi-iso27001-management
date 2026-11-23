@@ -17,7 +17,6 @@
 
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use Glpi\Exception\Http\BadRequestHttpException;
-use GlpiPlugin\Grcmanager\Dashboard;
 use GlpiPlugin\Grcmanager\MaturityAssessment;
 use GlpiPlugin\Grcmanager\MaturityCampaign;
 
@@ -68,13 +67,7 @@ if (isset($_POST['add'])) {
         throw new AccessDeniedHttpException();
     }
 
-    Html::header(
-        MaturityCampaign::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        Dashboard::class,
-        MaturityCampaign::class
-    );
+    \GlpiPlugin\Grcmanager\Menu::header(MaturityCampaign::class, MaturityCampaign::getTypeName(1));
 
     $item->display(['id' => $id]);
 

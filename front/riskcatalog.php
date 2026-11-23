@@ -44,12 +44,12 @@ if (isset($_POST['import'])) {
     Html::redirect(\GlpiPlugin\Grcmanager\RiskCatalog::getSearchURL());
 }
 
-Html::header(
-    \GlpiPlugin\Grcmanager\RiskCatalog::getTypeName(),
-    \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
+// Issue #1038 : sous-page de la rubrique Risques.
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::CATALOG,
+    \GlpiPlugin\Grcmanager\RiskCatalog::getTypeName()
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::CATALOG);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskcatalog');
 

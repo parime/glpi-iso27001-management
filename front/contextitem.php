@@ -18,20 +18,19 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\ContextItem;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Ui\SearchPage;
 
 // Issue #608 : contexte de l'organisation (enjeux et parties intéressées). Droit général du plugin ;
 // la recherche de GLPI limite la liste aux entités de la session.
 Session::checkRight(ContextItem::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ContextItem::class,
     __('Context of the organization', 'grcmanager'),
-    ContextItem::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    ContextItem::class
+    ContextItem::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, ContextItem::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ContextItem::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('contextitem');
 // Question du changement climatique et boutons d'ajout (enjeu, partie intéressée).
@@ -39,6 +38,6 @@ ContextItem::showOverview();
 
 $params = QueryBuilder::manageParams(ContextItem::class, $_GET);
 
-Search::showList(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
+SearchPage::show(ContextItem::class, $params, DefaultSearchColumns::COLUMNS[ContextItem::class]);
 
 Html::footer();

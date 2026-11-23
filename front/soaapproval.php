@@ -26,6 +26,9 @@ global $CFG_GLPI;
 // en attente accède quand même à cette page, limitée à ses propres versions à approuver.
 $canRead   = Session::haveRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, READ);
 $myPending = \GlpiPlugin\Grcmanager\SoaVersion::pendingForUser((int) Session::getLoginUserID());
+// Issue #618 : versions qui attendent un approbateur absent que l'utilisateur remplace.
+$onBehalf = \GlpiPlugin\Grcmanager\SoaVersion::pendingOnBehalf((int) Session::getLoginUserID());
+$myPending = array_merge($myPending, $onBehalf);
 if (!$canRead && $myPending === []) {
     Session::checkRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, READ);
 }
@@ -75,12 +78,20 @@ if (isset($_POST['answer'])) {
     if (!$approve && $comment === '') {
         Session::addMessageAfterRedirect(__('Please give the reason for the rejection.', 'grcmanager'), false, ERROR);
     } elseif (
-        \GlpiPlugin\Grcmanager\SoaVersion::answer(
-            (int) ($_POST['versions_id'] ?? 0),
-            (int) Session::getLoginUserID(),
-            $approve,
-            $comment
-        )
+        (int) ($_POST['on_behalf_of'] ?? 0) > 0
+            ? \GlpiPlugin\Grcmanager\SoaVersion::answer(
+                (int) ($_POST['versions_id'] ?? 0),
+                (int) $_POST['on_behalf_of'],
+                $approve,
+                $comment,
+                (int) Session::getLoginUserID()
+            )
+            : \GlpiPlugin\Grcmanager\SoaVersion::answer(
+                (int) ($_POST['versions_id'] ?? 0),
+                (int) Session::getLoginUserID(),
+                $approve,
+                $comment
+            )
     ) {
         Session::addMessageAfterRedirect($approve
             ? __('Approval recorded.', 'grcmanager')
@@ -91,12 +102,7 @@ if (isset($_POST['answer'])) {
     Html::redirect($CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/soaapproval.php');
 }
 
-Html::header(
-    __('SoA approval', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(\GlpiPlugin\Grcmanager\Control::class, __('SoA approval', 'grcmanager'));
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('soaapproval');
 
@@ -160,6 +166,9 @@ $canRequest = Session::haveRight(\GlpiPlugin\Grcmanager\SoaVersion::$rightname, 
         'requested_by' => getUserName((int) $row['users_id']),
         'comment'      => (string) ($row['comment'] ?? ''),
         'pdf_url'      => (int) $row['documents_id'] > 0 ? $selfUrl . '?pdf=' . (int) $row['id'] : null,
+        'on_behalf_of'   => (int) ($row['on_behalf_of'] ?? 0),
+        'on_behalf_name' => (string) ($row['on_behalf_name'] ?? ''),
+        'absent_until'   => (string) ($row['absent_until'] ?? ''),
     ], $myPending),
     'can_read'       => $canRead,
     'history'        => $history,

@@ -872,6 +872,35 @@ class AuditProgramme extends CommonGLPI
         return Rules::cycleStart($requested, (int) date('Y'));
     }
 
+    /**
+     * Cycles de certification proposés (année de début => « début - fin »), pour le choix du cycle
+     * affiché et le réglage du cycle par défaut (issue #1045).
+     *
+     * @return array<int, string>
+     */
+    public static function startChoices(): array
+    {
+        $currentYear = (int) date('Y');
+        $choices = [];
+        for ($year = $currentYear - Rules::MAX_PAST_YEARS; $year <= $currentYear + Rules::MAX_FUTURE_YEARS; $year++) {
+            $choices[$year] = sprintf('%d - %d', $year, $year + Rules::CYCLE_LENGTH - 1);
+        }
+
+        return $choices;
+    }
+
+    /**
+     * Enregistre les réglages du programme (cycle par défaut, formations qualifiantes des
+     * auditeurs), depuis la configuration du plugin ou l'ancien formulaire de la page.
+     *
+     * @param array<string, mixed> $input
+     */
+    public static function saveSettings(array $input): void
+    {
+        self::setCycleStart($input['cycle_start'] ?? null);
+        self::setQualifyingTrainingIds((array) ($input['training_ids'] ?? []));
+    }
+
     public static function setCycleStart(mixed $year): void
     {
         Config::setConfigurationValues(self::CONFIG_CONTEXT, [

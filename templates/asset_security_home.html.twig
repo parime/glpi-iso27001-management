@@ -1,0 +1,42 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1039 : page d'accueil de Parc > Sécurité du parc (GlpiPlugin\Grcmanager\AssetSecurity).
+   Les écrans de la rubrique en cartes groupées par thème ; seuls ceux que le profil peut ouvrir. #}
+<div class="container-fluid my-2" id="grc-asset-security-home">
+   {% for group in groups %}
+      <section class="mb-4" aria-labelledby="grc-asset-group-{{ group.key }}">
+         <h3 class="h4 d-flex align-items-center mb-1" id="grc-asset-group-{{ group.key }}">
+            <span class="avatar avatar-sm bg-primary-subtle text-primary-emphasis me-2" aria-hidden="true"><i class="{{ group.icon }}"></i></span>{{ group.label }}
+            <span class="badge bg-secondary-subtle text-secondary-emphasis ms-2">{{ group.cards|length }}</span>
+         </h3>
+         {% if group.description %}<p class="text-muted small mb-2">{{ group.description }}</p>{% endif %}
+         <div class="row row-cards">
+            {% for card in group.cards %}
+               <div class="col-sm-6 col-lg-4 col-xl-3">
+                  <a class="card card-link card-link-pop h-100 text-reset text-decoration-none grc-asset-security-card" href="{{ card.url }}">
+                     <div class="card-body d-flex align-items-center">
+                        <span class="avatar bg-blue-subtle text-blue-emphasis me-3" aria-hidden="true"><i class="{{ card.icon ?: 'ti ti-file' }}"></i></span>
+                        <span class="fw-semibold">{{ card.title }}</span>
+                        <i class="ti ti-chevron-right ms-auto text-muted" aria-hidden="true"></i>
+                     </div>
+                  </a>
+               </div>
+            {% endfor %}
+         </div>
+      </section>
+   {% else %}
+      <p class="text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('No screen of this section is available with your profile.', 'grcmanager') }}</p>
+   {% endfor %}
+</div>

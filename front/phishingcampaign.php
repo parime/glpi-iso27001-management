@@ -18,21 +18,19 @@
 use Glpi\Search\Input\QueryBuilder;
 use GlpiPlugin\Grcmanager\PhishingCampaign;
 use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
+use GlpiPlugin\Grcmanager\Services\Ui\SearchPage;
 
 // Issue #604 : campagnes de simulation d'hameçonnage. Droit général du plugin ; liste et tendance
 // limitées aux entités de la session, taux seulement (le détail par personne est sur la fiche, avec
 // le droit des registres sensibles).
 Session::checkRight(PhishingCampaign::$rightname, READ);
 
-Html::header(
-    PhishingCampaign::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    PhishingCampaign::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    PhishingCampaign::class,
+    PhishingCampaign::getTypeName(Session::getPluralNumber())
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\AccessReview::class, PhishingCampaign::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(PhishingCampaign::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('phishingcampaign');
 \Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/phishing_trend.html.twig', [
@@ -42,6 +40,6 @@ Html::header(
 ]);
 
 $params = QueryBuilder::manageParams(PhishingCampaign::class, $_GET);
-Search::showList(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
+SearchPage::show(PhishingCampaign::class, $params, DefaultSearchColumns::COLUMNS[PhishingCampaign::class]);
 
 Html::footer();

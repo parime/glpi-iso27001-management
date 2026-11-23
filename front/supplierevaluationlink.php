@@ -18,24 +18,17 @@
 use Glpi\Application\View\TemplateRenderer;
 use Glpi\Exception\Http\AccessDeniedHttpException;
 use Glpi\Exception\Http\BadRequestHttpException;
-use GlpiPlugin\Grcmanager\Install\Installer;
+use GlpiPlugin\Grcmanager\Config\Block\SupplierPortalBlock;
 use GlpiPlugin\Grcmanager\SupplierEvaluation;
 use GlpiPlugin\Grcmanager\SupplierEvaluationLink;
 use GlpiPlugin\Grcmanager\SupplierRisk;
 
-// Issue #865, lot 2 : lien sécurisé de réponse du fournisseur, côté GLPI. Réglage (activer ou
-// non, droit de configuration du plugin), création et révocation d'un lien, relecture puis
-// enregistrement ou rejet des réponses reçues (droit de modifier l'évaluation). Le jeton CSRF des
-// formulaires est contrôlé par GLPI.
-if (isset($_POST['update_portal_config'])) {
-    // Réglage global (toutes les entités) qui ouvre une page publique : droit de configuration de
-    // GLPI exigé en plus du droit du plugin, qu'un gestionnaire limité à une entité peut avoir.
-    Session::checkRight(Installer::RIGHT_NAME, UPDATE);
-    Session::checkRight('config', UPDATE);
-    SupplierEvaluationLink::setEnabled(!empty($_POST['supplier_portal_enabled']));
-    Session::addMessageAfterRedirect(htmlescape(__('Settings saved.', 'grcmanager')));
-    Html::redirect(dirname(SupplierEvaluationLink::getActionURL()) . '/config.php#grc-supplier-portal-config');
-}
+// Issue #865, lot 2 : lien sécurisé de réponse du fournisseur, côté GLPI : création et révocation
+// d'un lien, relecture puis enregistrement ou rejet des réponses reçues (droit de modifier
+// l'évaluation). Le jeton CSRF des formulaires est contrôlé par GLPI.
+// Issue #1040 : le réglage (activer ou non) est dans Configuration > Plugins > GRC Manager, onglet
+// Général ; l'ancien envoi de cette page y mène, enregistré, pendant une version.
+SupplierPortalBlock::handleLegacyPost();
 
 Session::checkRight(SupplierEvaluation::$rightname, READ);
 
@@ -97,13 +90,7 @@ if (isset($_POST['confirm'])) {
     Html::redirect(SupplierEvaluation::getFormURLWithID($id));
 }
 
-Html::header(
-    SupplierEvaluationLink::getTypeName(1),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    SupplierRisk::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(SupplierRisk::class, SupplierEvaluationLink::getTypeName(1));
 \GlpiPlugin\Grcmanager\PageHelp::show('supplierevaluationlink');
 TemplateRenderer::getInstance()->display(
     '@grcmanager/supplier_evaluation_import.html.twig',

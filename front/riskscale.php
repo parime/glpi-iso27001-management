@@ -27,10 +27,9 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 Session::checkRight(Installer::RIGHT_NAME, UPDATE);
 Session::checkRight(Installer::SENSITIVE_RIGHT, UPDATE);
 
-// Page incluse depuis une méthode du routeur GLPI : $CFG_GLPI n'y est pas une variable locale.
-global $CFG_GLPI;
-
-$configUrl = $CFG_GLPI['root_doc'] . '/plugins/grcmanager/front/config.php';
+// Issue #1046 : écran de réglage, rangé dans Configuration > Plugins (fil d'Ariane de la page de
+// configuration) ; le retour mène à l'onglet Risques, sur le bloc de la matrice.
+$configUrl = \GlpiPlugin\Grcmanager\Config\ConfigTabs::anchorUrl('grc-risk-matrix-config');
 $from = RiskMatrixConfig::size();
 $to = (int) ($_POST['size'] ?? $_GET['size'] ?? 0);
 if (!in_array($to, RiskScale::SIZES, true) || $to === $from) {
@@ -68,7 +67,7 @@ if (isset($_POST['apply'])) {
 $step = isset($_POST['preview']) ? 'confirm' : 'mapping';
 
 $title = __('Change the risk matrix size', 'grcmanager');
-Html::header($title, $_SERVER['PHP_SELF'], 'tools', \GlpiPlugin\Grcmanager\Risk::class);
+Html::header($title, $_SERVER['PHP_SELF'], 'config', 'plugin');
 TemplateRenderer::getInstance()->display('@grcmanager/risk_scale_change.html.twig', [
     'title'      => $title,
     'step'       => $step,

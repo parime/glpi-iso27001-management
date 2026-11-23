@@ -54,8 +54,11 @@ final class AcnRequirementTest extends GrcmanagerIntegrationTestCase
         foreach ($keys as $key) {
             $this->savedSession[$key] = $_SESSION[$key] ?? null;
         }
-        $this->savedFrameworks = FrameworkConfig::enabled();
-        FrameworkConfig::save(array_merge($this->savedFrameworks, [FrameworkSelection::ACN_IT]));
+        // Issue #1053 : ACN est la déclinaison Italie de NIS2, active seulement avec NIS2.
+        $this->savedFrameworks = FrameworkConfig::storedEnabled();
+        FrameworkConfig::save(
+            array_merge($this->savedFrameworks, [FrameworkSelection::NIS2, FrameworkSelection::ACN_IT])
+        );
 
         // Catégories de l'instance écartées (annulé avec la transaction) : registres de ce test seulement.
         global $DB;

@@ -1,0 +1,59 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #703 : catégorie NIS2 italienne de chaque entité GLPI (soggetto importante ou essenziale),
+   qui crée son registre ACN. Affiché quand le référentiel « NIS2 Italia - ACN » est actif. #}
+{% if acn_enabled %}
+<div class="card mb-3" id="grcmanager-acn">
+  <div class="card-body">
+    <h4><i class="ti ti-flag me-1"></i>NIS2 Italia – ACN</h4>
+    <p class="text-muted">
+      {{ __('For each GLPI entity subject to the Italian NIS2 law, choose whether it is an important entity (annex 1 of the ACN determination) or an essential entity (annex 2). Its register is created with one record per requirement; sub-entities without a choice follow their parent. Changing or removing the choice never deletes what was entered.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="table-responsive">
+        <table class="table table-sm table-vcenter" style="max-width: 820px;">
+          <thead>
+            <tr>
+              <th>{{ __('Entity', 'grcmanager') }}</th>
+              <th>{{ __('Classification', 'grcmanager') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in acn_entities %}
+              <tr>
+                <td><label for="grc-acn-{{ row.id }}">{{ row.name }}</label></td>
+                <td>
+                  <select class="form-select form-select-sm" id="grc-acn-{{ row.id }}" name="acn_category[{{ row.id }}]" {{ can_edit_config ? '' : 'disabled' }}>
+                    <option value="">{{ __('Not subject (or follows its parent)', 'grcmanager') }}</option>
+                    {% for value, label in acn_categories %}
+                      <option value="{{ value }}" {{ row.category == value ? 'selected' : '' }}>{{ label }}</option>
+                    {% endfor %}
+                  </select>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        {% if can_edit_config %}
+          <button type="submit" name="update_acn_entities" class="btn btn-primary">{{ __('Save') }}</button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>
+{% endif %}

@@ -23,6 +23,7 @@ use GlpiPlugin\Grcmanager\Compat\Base\SoaVersionBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Control\SoaApprovalLogic;
 use GlpiPlugin\Grcmanager\Services\Control\SoaReportBuilder;
+use GlpiPlugin\Grcmanager\Services\Delegation\DelegationRules;
 use Html;
 use NotificationEvent;
 use Session;
@@ -180,7 +181,12 @@ class SoaVersion extends SoaVersionBase
         ) {
             $approvers[] = [
                 'users_id'      => (int) $row['users_id'],
-                'name'          => getUserName((int) $row['users_id']),
+                // Issue #618 : réponse d'un suppléant, « X pour le compte de Y » (historique, PDF,
+                // notifications).
+                'users_id_substitute' => (int) ($row['users_id_substitute'] ?? 0),
+                'name'          => (int) ($row['users_id_substitute'] ?? 0) > 0
+                    ? Delegation::onBehalfLabel((int) $row['users_id_substitute'], (int) $row['users_id'])
+                    : getUserName((int) $row['users_id']),
                 'status'        => (string) $row['status'],
                 'date_answered' => $row['date_answered'],
                 'comment'       => (string) ($row['comment'] ?? ''),
@@ -221,6 +227,54 @@ class SoaVersion extends SoaVersionBase
         }
 
         return $versions;
+    }
+
+    /**
+     * Issue #618 : versions en attente de la réponse d'un titulaire absent que $substituteId remplace
+     * pour ce type de décision, sauf celles qu'il approuve lui-même (il ne vote pas deux fois).
+     * Chaque ligne porte le titulaire (on_behalf_of, on_behalf_name, absent_until).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function pendingOnBehalf(int $substituteId): array
+    {
+        $versions = [];
+        foreach (Delegation::holdersFor($substituteId, DelegationRules::TYPE_SOA_APPROVAL) as $holderId => $period) {
+            foreach (self::pendingForUser($holderId) as $row) {
+                if (self::canAnswerOnBehalf((int) $row['id'], $holderId, $substituteId)) {
+                    $versions[] = $row + [
+                        'on_behalf_of'   => $holderId,
+                        'on_behalf_name' => getUserName($holderId),
+                        'absent_until'   => (string) Html::convDateTime($period['end']),
+                    ];
+                }
+            }
+        }
+
+        return $versions;
+    }
+
+    /**
+     * Le suppléant peut-il répondre à cette version pour le compte du titulaire ? Délégation en
+     * cours pour ce type, titulaire en attente, suppléant hors des approbateurs de la version.
+     */
+    public static function canAnswerOnBehalf(int $versionId, int $holderId, int $substituteId): bool
+    {
+        if (!Delegation::isSubstituteOf($substituteId, $holderId, DelegationRules::TYPE_SOA_APPROVAL)) {
+            return false;
+        }
+        $approvers = self::getApprovers($versionId);
+        $pending = array_filter(
+            $approvers,
+            static fn (array $approver): bool => $approver['status'] === SoaApprovalLogic::ANSWER_PENDING
+        );
+
+        return DelegationRules::canAnswerApproval(
+            $substituteId,
+            $holderId,
+            array_map('intval', array_column($approvers, 'users_id')),
+            array_map('intval', array_column($pending, 'users_id'))
+        );
     }
 
     /**
@@ -351,12 +405,21 @@ class SoaVersion extends SoaVersionBase
     /**
      * Réponse d'un approbateur désigné (seulement tant que la version est en attente).
      */
-    public static function answer(int $versionId, int $usersId, bool $approve, string $comment): bool
-    {
+    public static function answer(
+        int $versionId,
+        int $usersId,
+        bool $approve,
+        string $comment,
+        int $substituteId = 0
+    ): bool {
         global $DB;
 
         $version = new self();
         if (!$version->getFromDB($versionId) || $version->fields['status'] !== SoaApprovalLogic::VERSION_PENDING) {
+            return false;
+        }
+        // Issue #618 : réponse d'un suppléant pour le compte du titulaire absent $usersId.
+        if ($substituteId > 0 && !self::canAnswerOnBehalf($versionId, $usersId, $substituteId)) {
             return false;
         }
 
@@ -364,6 +427,7 @@ class SoaVersion extends SoaVersionBase
             'status'        => $approve ? SoaApprovalLogic::ANSWER_APPROVED : SoaApprovalLogic::ANSWER_REJECTED,
             'comment'       => $comment,
             'date_answered' => date('Y-m-d H:i:s'),
+            'users_id_substitute' => max(0, $substituteId),
         ], [
             'plugin_grcmanager_soaversions_id' => $versionId,
             'users_id'                         => $usersId,
@@ -371,6 +435,18 @@ class SoaVersion extends SoaVersionBase
         ]);
         if ($DB->affectedRows() === 0) {
             return false;
+        }
+        if ($substituteId > 0) {
+            Delegation::record(
+                DelegationRules::TYPE_SOA_APPROVAL,
+                self::class,
+                $versionId,
+                (int) $version->fields['entities_id'],
+                sprintf(__('Statement of Applicability, version %d', 'grcmanager'), (int) $version->fields['version']),
+                $approve ? SoaApprovalLogic::ANSWER_APPROVED : SoaApprovalLogic::ANSWER_REJECTED,
+                $usersId,
+                $substituteId
+            );
         }
 
         $status = SoaApprovalLogic::versionStatus(array_column(self::getApprovers($versionId), 'status'));

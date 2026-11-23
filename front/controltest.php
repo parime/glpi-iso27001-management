@@ -24,15 +24,9 @@ use GlpiPlugin\Grcmanager\Services\Control\ControlTestRules;
 // proches de leur échéance. Mêmes droits que la SoA (lecture des mesures).
 Session::checkRight(ControlTest::RIGHTNAME, READ);
 
-Html::header(
-    ControlTest::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    Control::class,
-    ControlTest::class
-);
+\GlpiPlugin\Grcmanager\Menu::header(ControlTest::class, ControlTest::getTypeName(Session::getPluralNumber()));
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(Control::class, ControlTest::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ControlTest::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('controltest');
 

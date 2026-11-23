@@ -180,12 +180,10 @@ if (isset($_POST['journal'])) {
     Html::redirect(\GlpiPlugin\Grcmanager\CrisisExercise::getFormURLWithID($id) . '#grc-crisis-journal');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\CrisisExercise::class,
     $exercise->isDrill() ? \GlpiPlugin\Grcmanager\CrisisExercise::getTypeName(1) : __('Crisis team', 'grcmanager'),
-    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\AccessReview::class,
-    \GlpiPlugin\Grcmanager\CrisisExercise::class
+    \GlpiPlugin\Grcmanager\CrisisExercise::getSearchURL()
 );
 // Issue #377, troisième étape : temps de reprise des processus mesurés pendant l'exercice (droit de la
 // continuité ; seuls les processus lisibles sont nommés, seuls ceux modifiables sont proposés).

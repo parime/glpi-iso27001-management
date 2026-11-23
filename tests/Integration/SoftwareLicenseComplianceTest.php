@@ -390,10 +390,12 @@ final class SoftwareLicenseComplianceTest extends GrcmanagerIntegrationTestCase
         $findings = SoftwareLicenseCompliance::findings(self::TODAY);
         $volume = array_values(array_filter($findings, fn (array $f): bool => $f['software_id'] === $suite));
         $this->assertTrue($volume[0]['nested']);
-        $this->assertStringContainsString(
-            'Child licenses share the seats of their parent license',
-            SoftwareLicenseCompliance::detail($volume[0])
-        );
+        // Note des licences filles ajoutée au détail, quelle que soit la langue : le détail d'une
+        // famille imbriquée prolonge celui de la même constatation sans imbrication.
+        $withNote = SoftwareLicenseCompliance::detail($volume[0]);
+        $withoutNote = SoftwareLicenseCompliance::detail(['nested' => false] + $volume[0]);
+        $this->assertNotSame($withoutNote, $withNote);
+        $this->assertStringStartsWith($withoutNote . ' ', $withNote);
         $expired = array_values(array_filter(
             $findings,
             fn (array $f): bool => $f['type'] === Rules::FINDING_EXPIRED && $f['licence_id'] === $expiredChild

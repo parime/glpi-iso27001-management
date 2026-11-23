@@ -23,15 +23,13 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // Issue #375 : registre des activités de traitement (RGPD, article 30). Donnée sensible : droit dédié.
 Session::checkRight(ProcessingActivity::$rightname, READ);
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    ProcessingActivity::class,
     ProcessingActivity::getTypeName(2),
-    ProcessingActivity::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Control::class,
-    ProcessingActivity::class
+    ProcessingActivity::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Control::class, ProcessingActivity::class);
+\GlpiPlugin\Grcmanager\Menu::showSection(ProcessingActivity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('processingactivity');
 
@@ -54,7 +52,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 
 $params = QueryBuilder::manageParams(ProcessingActivity::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     ProcessingActivity::class,
     $params,
     DefaultSearchColumns::COLUMNS[ProcessingActivity::class]

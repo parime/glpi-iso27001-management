@@ -19,12 +19,12 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskHeatmapService;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Risk::$rightname, READ);
 
-Html::header(
-    __('Risk heatmap', 'grcmanager'),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class
+// Issue #1038 : sous-page de la rubrique Risques.
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::HEATMAP,
+    __('Risk heatmap', 'grcmanager')
 );
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Navigation\Section\RiskSection::HEATMAP);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskheatmap');
 
@@ -52,6 +52,10 @@ unset($impacts, $cell);
     'risk_probabilities' => \GlpiPlugin\Grcmanager\Risk::getProbabilities(),
     'risk_impacts'       => \GlpiPlugin\Grcmanager\Risk::getImpacts(),
     'risk_list_url'      => \GlpiPlugin\Grcmanager\Risk::getSearchURL(),
+]);
+// Issue #871 : trajectoire projetée du registre, d'après les échéances des plans de traitement.
+\Glpi\Application\View\TemplateRenderer::getInstance()->display('@grcmanager/_risk_trajectory_register.html.twig', [
+    'trajectory' => \GlpiPlugin\Grcmanager\RiskTrajectory::registerData(),
 ]);
 
 Html::footer();

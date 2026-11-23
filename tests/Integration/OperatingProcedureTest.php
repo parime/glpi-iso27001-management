@@ -196,7 +196,7 @@ final class OperatingProcedureTest extends GrcmanagerIntegrationTestCase
     {
         $this->procedure();
         $this->assertNotSame([], OperatingProcedure::procedures());
-        $this->assertContains(OperatingProcedure::class, Menu::sections()[Control::class]);
+        $this->assertContains(OperatingProcedure::class, Menu::sections()[Policy::class]);
 
         $rights = $_SESSION['glpiactiveprofile'][Policy::RIGHTNAME] ?? 0;
         $_SESSION['glpiactiveprofile'][Policy::RIGHTNAME] = 0;

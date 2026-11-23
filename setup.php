@@ -17,7 +17,6 @@
 
 use Glpi\Plugin\Hooks;
 use GlpiPlugin\Grcmanager\Compat\RequirementChecker;
-use GlpiPlugin\Grcmanager\Services\Incident\SecurityIncidentModuleConfig;
 
 // GLPI does NOT autoload plugin src/ classes on its own (confirmed against a real GLPI 11
 // instance by the sibling plugins of this same author, see docs/design/DEVELOPMENT_PLAN.md
@@ -33,7 +32,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.84.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.85.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -95,45 +94,16 @@ function plugin_init_grcmanager(): void
 
     // Menu « GRC & Conformité » : un secteur de premier niveau dédié. Une clé de catégorie inconnue
     // des secteurs natifs fait créer par Html::generateMenuSession() (cœur de GLPI) une nouvelle
-    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu (inc/menu.class.php), ancre sans table, est
-    // placée EN TÊTE du tableau pour que le titre et l'icône du secteur soient les siens et non ceux
-    // du premier écran fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
+    // entrée de la barre latérale. \GlpiPlugin\Grcmanager\Menu, ancre sans table, est placée EN TÊTE
+    // du secteur pour que son titre et son icône soient les siens et non ceux du premier écran
+    // fonctionnel ; plugin_grcmanager_redefine_menus() retire ensuite sa ligne.
     //
-    // Six rubriques, dans l'ordre du cycle du SMSI : pilotage, risques, conformité, audits et
-    // amélioration, opérations, sécurité technique. Chaque rubrique est une seule entrée de menu ;
-    // les autres écrans de la rubrique sont ses sous-pages, avec une barre d'onglets commune
-    // (\GlpiPlugin\Grcmanager\Menu::sections()) et le fil d'Ariane « Rubrique > Page ». Les objets enfants
-    // (mesures d'un objectif, actions de traitement d'un risque…) n'ont pas d'entrée : ils se gèrent
-    // depuis la fiche de leur parent.
-    $menuToAdd = [
-        'grcmanager' => [
-            \GlpiPlugin\Grcmanager\Menu::class,
-            // Issue #247 : tableau de bord en tête, comme dans Parc et Assistance.
-            \GlpiPlugin\Grcmanager\Dashboard::class,
-            // Issue #539 : tout ce qui attend l'utilisateur connecté, avec leur nombre dans le menu.
-            \GlpiPlugin\Grcmanager\MySpace::class,
-            \GlpiPlugin\Grcmanager\Risk::class,
-            \GlpiPlugin\Grcmanager\Control::class,
-            \GlpiPlugin\Grcmanager\Audit::class,
-            \GlpiPlugin\Grcmanager\AccessReview::class,
-            \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-        ],
-    ];
-
-    // Absorption de glpi-security-incidents (ROADMAP.md "Version 2.0") : contrairement au reste de
-    // ce plugin (registres CommonDBTM dans le secteur "GRC & Conformité" ci-dessus), l'objet ITIL
-    // fusionné vit dans le secteur natif "helpdesk" ("Assistance"), aux côtés de Ticket/Problem/
-    // Change - un incident géré au quotidien (acteurs, workflow, tâches) appartient à ce secteur,
-    // pas au menu de conformité. Un même plugin peut parfaitement enregistrer des classes dans
-    // plusieurs secteurs à la fois (confirmé par lecture de Html::generateMenuSession()) : rien
-    // n'empêche cet objet de vivre physiquement dans ce plugin tout en apparaissant ailleurs dans
-    // le menu. Conditionné par SecurityIncidentModuleConfig : un administrateur qui désactive le
-    // module ne voit plus l'entrée de menu, mais les données/droits/tables restent intacts.
-    if (SecurityIncidentModuleConfig::load()['securityincident_enabled']) {
-        $menuToAdd['helpdesk'] = [PluginGrcmanagerSecurityIncident::class];
-    }
-
-    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = $menuToAdd;
+    // Issue #1037 : chaque rubrique (une entrée de menu, ses autres écrans en sous-pages avec une
+    // barre d'onglets commune et le fil d'Ariane « Rubrique > Page ») est déclarée dans son fichier
+    // src/Navigation/Section/<X>Section.php : son secteur GLPI (menu du plugin, Assistance, Parc,
+    // Gestion, Outils), sa place, son droit et ses sous-pages. Ce tableau n'est plus écrit à la main.
+    // Les incidents de sécurité vivent ainsi dans le secteur Assistance, aux côtés des tickets.
+    $PLUGIN_HOOKS[Hooks::MENU_TOADD]['grcmanager'] = \GlpiPlugin\Grcmanager\Navigation\Sections::menuToAdd();
     // Issue #247 : Html::header() ne charge la grille et les graphiques des tableaux de bord que
     // pour les pages déclarées ici (même mécanisme que Parc > Tableau de bord ; clé en minuscules).
     $CFG_GLPI['javascript']['grcmanager'][strtolower(\GlpiPlugin\Grcmanager\Dashboard::class)] = ['dashboard'];
@@ -152,6 +122,8 @@ function plugin_init_grcmanager(): void
     // polymorphe CommonDBTM::cleanDBonPurge()) - ignorerait cette politique.
     global $CFG_GLPI;
     $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\Policy::class;
+    // Issue #1083 : annexes des plans de continuité et de reprise.
+    $CFG_GLPI['document_types'][] = \GlpiPlugin\Grcmanager\ContinuityPlan::class;
     // Issue #775, lot 2 : le texte d'une procédure d'exploitation peut être un article de la base de
     // connaissances, lié par l'onglet natif « Base de connaissances » (KnowbaseItem_Item), dans les
     // deux sens (depuis la procédure ou depuis l'article).
@@ -205,7 +177,7 @@ function plugin_init_grcmanager(): void
     // Issue #1026 : classes bg-X-subtle / text-X-emphasis des couleurs nommées de Tabler (orange,
     // blue, green...), absentes de GLPI et de Tabler. Chargée sur toutes les pages, car les badges
     // GRC apparaissent aussi dans les onglets des fiches du cœur (tickets, actifs...).
-    $PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css'];
+    $PLUGIN_HOOKS[Hooks::ADD_CSS]['grcmanager'] = ['css/grcmanager.css', 'css/grcmanager-a11y.css'];
 
     // Issue #25 (lien registre de risques <-> actifs GLPI/CMDB) : onglet "Risques" en lecture
     // seule sur la fiche de chaque actif potentiellement lié (voir
@@ -246,6 +218,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ProductSbom::class, ['addtabon' => [Appliance::class]]);
     // Issue #858 : onglet « Sécurité du code » des applications (alertes GitHub et GitLab, lecture seule).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CodeSecurity::class, ['addtabon' => [Appliance::class]]);
+    // Issue #622 : onglet « Usage autorisé » des applications, et « Applications autorisées » des préférences.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ApprovedApplication::class, [
+        'addtabon' => [Appliance::class, Preference::class],
+    ]);
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReleaseValidation::class, ['addtabon' => [Change::class]]);
 
     // Issue #145 : onglet « Validités des preuves » sur les éléments dont les documents prouvent
@@ -299,6 +275,11 @@ function plugin_init_grcmanager(): void
     // Issue #843 : onglet « Contrôleur de gestion » sur les ordinateurs (iLO, iDRAC, XClarity, IPMI),
     // lecture seule.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ServerManagement::class, ['addtabon' => ['Computer']]);
+    // Issue #1039 : onglet « Fin de vie constructeur » des fiches de modèles de matériel (ComputerModel,
+    // MonitorModel, NetworkEquipmentModel…), sorti de la page de configuration.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\HardwareModelEol::class, [
+        'addtabon' => array_keys(\GlpiPlugin\Grcmanager\HardwareModelEol::modelItemtypes()),
+    ]);
     // Issue #837 : onglet « Sécurité 360° » des ordinateurs et matériels réseau (sources du registre
     // src/Feature/, lecture seule).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AssetSecurity360::class, [
@@ -328,6 +309,10 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisScenario::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
     ]);
+    // Issue #1083 : onglet « Plans de continuité et de reprise » des processus métier.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\ContinuityPlan::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\BusinessProcess::class],
+    ]);
     // Issue #185 : onglet « Cellule de crise » de l'incident.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CrisisExercise::class, [
         'addtabon' => [PluginGrcmanagerSecurityIncident::class],
@@ -354,6 +339,9 @@ function plugin_init_grcmanager(): void
     Plugin::registerClass(\GlpiPlugin\Grcmanager\DoraRegister::class, [
         'addtabon' => [Supplier::class, Contract::class, \GlpiPlugin\Grcmanager\BusinessProcess::class],
     ]);
+
+    // Issue #1040 : onglet « Sécurité » de la fiche Fournisseur (risques, évaluations, réévaluation).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SupplierSecurityTab::class, ['addtabon' => [Supplier::class]]);
 
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
@@ -409,6 +397,10 @@ function plugin_init_grcmanager(): void
     // risque les signalements qui l'ont créé ou lui ont été rattachés (lecture du registre).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ReportedRisk::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Risk::class, Preference::class],
+    ]);
+    // Issue #871 : trajectoire projetée du risque, d'après les échéances de son plan de traitement.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\RiskTrajectory::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\Risk::class],
     ]);
     // Issue #604 : « Mes simulations d'hameçonnage » dans les préférences (ses propres résultats).
     Plugin::registerClass(\GlpiPlugin\Grcmanager\PhishingResult::class, ['addtabon' => [Preference::class]]);
@@ -525,7 +517,9 @@ function plugin_grcmanager_redefine_menus(array $menu): array
         $menu['grcmanager']['content'][$mySpace]['title'] = \GlpiPlugin\Grcmanager\MySpace::menuTitle();
     }
 
-    return $menu;
+    // Issue #1037 : GLPI ajoute les entrées des plugins à la fin d'un secteur ; une rubrique peut
+    // demander à suivre une entrée du cœur (after(), par exemple Change::class dans Assistance).
+    return \GlpiPlugin\Grcmanager\Navigation\Sections::reorderMenu($menu);
 }
 
 /**

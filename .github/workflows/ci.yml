@@ -20,6 +20,13 @@ on:
 permissions:
   contents: read
 
+# Un nouveau commit sur une pull request annule l'exécution précédente de cette PR (coord/ci_ok.py
+# ne regarde que le dernier commit). Push sur main ou dev, planification, lancement manuel et
+# publication : un groupe par exécution (run_id), jamais annulés.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   detect:
     name: Detect project state
@@ -27,8 +34,29 @@ jobs:
     outputs:
       has_composer: ${{ steps.check.outputs.has_composer }}
       has_lockfiles: ${{ steps.check.outputs.has_lockfiles }}
+      heavy: ${{ steps.heavy.outputs.heavy }}
     steps:
+      # fetch-depth 2 : commit de fusion de la PR et son premier parent (fichiers modifiés).
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+        with:
+          fetch-depth: 2
+
+      # Installations reelles sur GLPI 11 et 12 seulement si la PR touche autre chose que la
+      # documentation (meme liste que heavy-paths dans security.yml, meme script que le workflow
+      # commun) ; push sur main ou dev, planification, lancement manuel : tout tourne. Les jobs
+      # sautes valent « skipped », accepte pour un controle exige. Pas de paths-ignore dans le
+      # declencheur : un workflow qui ne demarre pas laisse un controle exige en attente.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
+        with:
+          repository: parime/glpi-plugin-security
+          ref: v1.11.1 # meme version que security.yml
+          path: .glpi-plugin-security
+      - name: Controles lourds necessaires (fichiers modifies)
+        id: heavy
+        env:
+          EVENT: ${{ github.event_name }}
+          HEAVY_PATHS: '* !docs/* !changes/* !*.md !*.png !*.jpg !*.jpeg !*.gif !*.svg !*.webp'
+        run: bash .glpi-plugin-security/checks/heavy-changes.sh . "$EVENT"
 
       - name: Detect presence of PHP/JS manifests
         id: check
@@ -85,25 +113,6 @@ jobs:
       - name: CHANGELOG - fragments de changes/unreleased valides
         run: python3 tools/build_changelog.py --check
 
-  secrets-scan:
-    name: Secret scanning (Gitleaks)
-    runs-on: ubuntu-latest
-    # Le CLI gitleaks est appele directement sur la plage de commits de la PR (pas gitleaks-action,
-    # qui appelle l'API GitHub pulls.listFiles et echoue systematiquement "403 Resource not
-    # accessible by integration" sur toute PR Dependabot : GitHub plafonne le GITHUB_TOKEN en
-    # lecture seule pour ce type de PR, quoi que le workflow demande dans son bloc `permissions`).
-    # Lecon reprise du plugin jumeau glpi-vulnerability-manager (meme auteur), deja corrigee la-bas
-    # en conditions reelles, appliquee ici des le premier commit.
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
-        with:
-          fetch-depth: 0
-      - name: Scanne les secrets sur la plage de commits de la PR
-        run: |
-          docker run --rm -v "$(pwd):/repo" zricethezav/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f detect --source /repo --log-opts="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}" --redact --exit-code 1
-
   sast-scan:
     name: Static security analysis (Semgrep)
     runs-on: ubuntu-latest
@@ -120,18 +129,6 @@ jobs:
       # dans la requete, |raw Twig. Bloquant (--error), local : sans token ni registre en ligne.
       - name: Semgrep - regles securite GLPI du projet
         run: semgrep scan --config .semgrep/ --error --metrics=off
-
-  # Bloque une PR qui ajoute ou met a jour une dependance (composer, actions) ayant un avis de
-  # securite connu - avant la fusion, la ou Dependabot ne previent qu'apres coup.
-  dependency-review:
-    name: Dependency Review
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
-      - uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0 (SHA pinned)
-        with:
-          fail-on-severity: moderate
 
   php-quality:
     name: PHP quality (syntax, PHPStan, PHPCS)
@@ -150,8 +147,9 @@ jobs:
       - name: Composer install
         run: composer install --no-progress --prefer-dist
 
+      # En parallele (un php -l par coeur) : 64 s en serie sur le runner, pour le meme resultat.
       - name: PHP syntax check
-        run: find . -path ./vendor -prune -o -name "*.php" -print0 | xargs -0 -n1 php -l
+        run: find . -path ./vendor -prune -o -name "*.php" -print0 | xargs -0 -n1 -P "$(nproc)" php -l
 
       - name: PHPStan
         run: vendor/bin/phpstan analyse --no-progress
@@ -262,19 +260,6 @@ jobs:
       - name: PHPUnit (unit tests)
         run: vendor/bin/phpunit --testsuite unit
 
-  dependency-scan:
-    name: Dependency vulnerability scan (Trivy)
-    needs: detect
-    if: needs.detect.outputs.has_lockfiles == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7 (SHA pinned)
-      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0 (SHA pinned, pas @master)
-        with:
-          scan-type: fs
-          scan-ref: .
-          severity: CRITICAL,HIGH
-
   real-glpi-install:
     name: Installation reelle sur GLPI (Docker)
     # Ne remplace pas les tests unitaires (job "tests" ci-dessus) : verifie ce qu'eux ne peuvent
@@ -282,7 +267,7 @@ jobs:
     # GLPI qui boot pour de vrai. Approche et commandes reprises du plugin jumeau
     # glpi-vulnerability-manager (meme auteur), deja validees manuellement contre glpi/glpi:11.0.12.
     needs: detect
-    if: needs.detect.outputs.has_composer == 'true'
+    if: needs.detect.outputs.has_composer == 'true' && needs.detect.outputs.heavy != 'false'
     runs-on: ubuntu-latest
     env:
       GLPI_IMAGE: glpi/glpi:11.0.12
@@ -429,6 +414,11 @@ jobs:
       - name: Erreurs JavaScript dans le navigateur (accueil et pages du plugin)
         run: bash .github/scripts/security-e2e.sh js
 
+      # Issue #663 : accessibilite (axe-core) de pages cles en theme clair et sombre ; echoue sur toute
+      # violation grave d'une regle deja corrigee.
+      - name: Accessibilite dans le navigateur (pages cles, themes clair et sombre)
+        run: bash .github/scripts/security-e2e.sh a11y
+
       # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
       - name: Purge du jeu de donnees de test
         run: bash .github/scripts/security-e2e.sh purge
@@ -476,7 +466,7 @@ jobs:
     # d'integration : sans ce job, la compatibilite GLPI 12 pourrait regresser silencieusement.
     # Job separe plutot qu'une matrice : une matrice renommerait le check existant.
     needs: detect
-    if: needs.detect.outputs.has_composer == 'true'
+    if: needs.detect.outputs.has_composer == 'true' && needs.detect.outputs.heavy != 'false'
     runs-on: ubuntu-latest
     env:
       GLPI12_IMAGE: glpi/glpi:12.0.1
@@ -566,6 +556,9 @@ jobs:
 
       - name: Erreurs JavaScript dans le navigateur sur GLPI 12
         run: bash .github/scripts/security-e2e.sh js
+
+      - name: Accessibilite dans le navigateur sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh a11y
 
       - name: Purge du jeu de donnees de test sur GLPI 12
         run: bash .github/scripts/security-e2e.sh purge

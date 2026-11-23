@@ -1,0 +1,38 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1083 : onglet « Plans de continuité et de reprise » d'un processus métier. Voir
+   GlpiPlugin\Grcmanager\ContinuityPlan::displayTabContentForItem(). #}
+{% if plans is empty %}
+   <div class="alert {{ critical ? 'alert-warning' : 'alert-info' }}">
+      <i class="ti {{ critical ? 'ti-alert-triangle' : 'ti-info-circle' }} me-1" aria-hidden="true"></i>{{ critical ? __('This critical process is not covered by any continuity or recovery plan.', 'grcmanager') : __('No continuity or recovery plan covers this process yet.', 'grcmanager') }}
+   </div>
+{% else %}
+   <table class="table table-vcenter">
+      <thead>
+         <tr><th>{{ __('Plan', 'grcmanager') }}</th><th>{{ __('Type') }}</th><th>{{ __('Version', 'grcmanager') }}</th><th>{{ __('Status') }}</th></tr>
+      </thead>
+      <tbody>
+         {% for plan in plans %}
+            <tr>
+               <td><a href="{{ plan.url }}">{{ plan.name }}</a></td>
+               <td>{{ plan.type }}</td>
+               <td>{{ plan.version }}</td>
+               <td><span class="badge {{ plan.status_class }}">{{ plan.status_label }}</span></td>
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+{% endif %}
+<a href="{{ list_url }}"><i class="ti ti-file-shield me-1" aria-hidden="true"></i>{{ __('All continuity and recovery plans', 'grcmanager') }}</a>

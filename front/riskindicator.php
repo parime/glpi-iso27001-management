@@ -22,23 +22,17 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 // entités de l'utilisateur (moteur de recherche de GLPI).
 Session::checkRight(\GlpiPlugin\Grcmanager\RiskIndicator::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\RiskIndicator::getTypeName(Session::getPluralNumber()),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\RiskIndicator::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\RiskIndicator::class,
+    \GlpiPlugin\Grcmanager\RiskIndicator::getTypeName(Session::getPluralNumber())
 );
 // Rubrique « Risques » : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Risk::class,
-    \GlpiPlugin\Grcmanager\RiskIndicator::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\RiskIndicator::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('riskindicator');
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\RiskIndicator::class, $_GET);
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\RiskIndicator::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\RiskIndicator::class]

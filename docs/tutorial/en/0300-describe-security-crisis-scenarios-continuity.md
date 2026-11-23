@@ -4,7 +4,7 @@ The continuity plan describes the technical recovery of each process (recovery s
 step adds information security during the crisis: how to keep working without lowering security
 when the crisis is itself an attack.
 
-1. Menu **GRC & Compliance > Operations**, **Security crisis scenarios** tab (next to the
+1. Menu **Assistance > Crisis and continuity**, **Security crisis scenarios** tab (next to the
    business processes). The **Business continuity** right of the profile is required.
 2. Click **Add the default scenarios**: five scenarios are added to the active entity, ready to
    adapt: ransomware attack, data leak, compromise of privileged accounts, unavailability of a

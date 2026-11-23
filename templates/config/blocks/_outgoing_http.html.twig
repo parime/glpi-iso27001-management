@@ -1,0 +1,48 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #658 : les appels sortants (NVD, CISA, FIRST, CERT-FR, Have I Been Pwned, GitHub) refusent
+   les adresses internes et ne suivent jamais une redirection. Seul un administrateur de GLPI (droit
+   de modifier la configuration générale) peut autoriser les adresses internes, pour toutes les
+   entités (voir src/Compat/Http.php). #}
+<div class="card mb-3 border-warning" id="grc-outgoing-http">
+  <div class="card-body">
+    <h4 class="d-flex align-items-center">
+      <i class="ti ti-shield-lock me-2 text-warning"></i>{{ __('Outgoing connections', 'grcmanager') }}
+      {% if http_allow_private %}
+        <span class="badge bg-warning text-dark ms-2">{{ __('Internal addresses allowed', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-success ms-2">{{ __('Internal addresses refused', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
+    <p class="text-muted">
+      {{ __('For security, the plugin never calls an internal address (the server itself, a private network, the metadata of a cloud provider) and never follows a redirection. Allow internal addresses only if your organisation reaches these services through an internal mirror or relay. This setting applies to all entities.', 'grcmanager') }}
+    </p>
+    {% if http_can_edit_private %}
+      <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+        <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+        <div class="form-check form-switch mb-2">
+          <input type="checkbox" class="form-check-input" role="switch" id="grc-http-allow-private" name="http_allow_private_networks" value="1" {{ http_allow_private ? 'checked' }}>
+          <label class="form-check-label" for="grc-http-allow-private">{{ __('Allow internal addresses', 'grcmanager') }}</label>
+        </div>
+        {% if http_glpi12_context_hint %}
+          <div class="form-hint mb-2"><i class="ti ti-info-circle me-1"></i>{{ http_glpi12_context_hint }}</div>
+        {% endif %}
+        <button type="submit" name="update_http_config" class="btn btn-primary">{{ __('Save') }}</button>
+      </form>
+    {% else %}
+      <div class="form-hint"><i class="ti ti-lock me-1"></i>{{ __('Only a GLPI administrator (right to update the general configuration) can change this setting.', 'grcmanager') }}</div>
+    {% endif %}
+  </div>
+</div>

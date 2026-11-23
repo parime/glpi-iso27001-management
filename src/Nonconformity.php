@@ -88,6 +88,12 @@ class Nonconformity extends NonconformityBase
         return 'title';
     }
 
+    /** Issue #1038 : entrée de la rubrique « Non-conformités et amélioration » (src/Navigation/Section/). */
+    public static function getMenuContent()
+    {
+        return Menu::withSubPages(self::class, parent::getMenuContent());
+    }
+
     public static function getTypeName($nb = 0)
     {
         return _n('Non-conformity', 'Non-conformities', $nb, 'grcmanager');

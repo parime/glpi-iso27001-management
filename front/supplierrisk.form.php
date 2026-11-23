@@ -48,12 +48,10 @@ if (isset($_POST['add'])) {
     \GlpiPlugin\Grcmanager\SupplierRisk::displayFullPageForItem(
         $_GET['id'] ?? 0,
         [
-            'central'  => [
-                'grcmanager',
-                \GlpiPlugin\Grcmanager\Risk::class,
-                \GlpiPlugin\Grcmanager\SupplierRisk::class,
-            ],
+            'central'  => \GlpiPlugin\Grcmanager\Menu::sectorPath(\GlpiPlugin\Grcmanager\SupplierRisk::class),
             'helpdesk' => [],
-        ]
+        ],
+        // Issue #1040 : fournisseur prérempli depuis l'onglet Sécurité de sa fiche (nouvel élément seulement).
+        ['suppliers_id' => (int) ($_GET['suppliers_id'] ?? 0)]
     );
 }

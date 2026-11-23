@@ -23,6 +23,9 @@ use CommonGLPI;
 use Config;
 use Dropdown;
 use Glpi\Application\View\TemplateRenderer;
+use GlpiPlugin\Grcmanager\Config\Block\EntraGraphConnectorBlock;
+use GlpiPlugin\Grcmanager\Config\Block\MfaRemoteAccessBlock;
+use GlpiPlugin\Grcmanager\Config\ConfigTabs;
 use GlpiPlugin\Grcmanager\Install\MfaCoverageTables;
 use GlpiPlugin\Grcmanager\Services\Access\EntraGraphClient;
 use GlpiPlugin\Grcmanager\Services\Access\EntraGraphConfig;
@@ -789,19 +792,18 @@ class MfaCoverage extends CommonGLPI
             'unmatched'      => self::unmatched(),
             'imports'        => self::imports(),
             'providers'      => self::providerLabels(),
-            'remote_groups'  => $remoteGroups,
             'remote_names'   => array_map(
                 static fn (int $id): string => (string) Dropdown::getDropdownName(Group::getTable(), $id),
                 $remoteGroups
             ),
             'glpi_enforced'  => (int) ($CFG_GLPI['2fa_enforced'] ?? 0) === 1,
-            // Lecture d'Entra ID par Microsoft Graph : le secret n'est jamais renvoyé, seulement sa présence.
+            // Lecture d'Entra ID par Microsoft Graph : la connexion se règle dans la configuration (#1043).
             'graph'          => [
                 'tenant'     => EntraGraphConfig::tenant(),
-                'client_id'  => EntraGraphConfig::clientId(),
-                'has_secret' => EntraGraphConfig::hasSecret(),
                 'configured' => EntraGraphConfig::isConfigured(),
             ],
+            'connector_url'  => ConfigTabs::anchorUrl(EntraGraphConnectorBlock::ANCHOR),
+            'remote_url'     => ConfigTabs::anchorUrl(MfaRemoteAccessBlock::ANCHOR),
             'can_manage'     => self::canManage(),
             'action'         => self::getSearchURL(),
             'hygiene_url'    => AccountHygiene::getSearchURL(),

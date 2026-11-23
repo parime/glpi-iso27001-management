@@ -1,0 +1,158 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Sprint 2 : matrice probabilité x impact administrable (voir front/config.php,
+   RiskMatrixConfig), onglet Risques de la configuration (issue #1036). #}
+<div class="card mb-3" id="grc-risk-matrix-config">
+  <div class="card-body">
+    <h4>{{ __('Risk matrix', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Automatically determines a risk\'s level (low/medium/high/critical) from its probability and impact. The default values below reproduce exactly the register\'s behaviour before this screen existed: no existing risk changes level until you edit the grid.', 'grcmanager') }}
+    </p>
+
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle grcmanager-risk-matrix" style="max-width: 720px;">
+          <thead>
+            <tr>
+              <th>{{ __('Probability', 'grcmanager') }} \ {{ __('Impact', 'grcmanager') }}</th>
+              {% for impact_key, impact_label in risk_impacts %}<th>{{ impact_label }}</th>{% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for probability_key, probability_label in risk_probabilities %}
+              <tr>
+                <th>{{ probability_label }}</th>
+                {% for impact_key, impact_label in risk_impacts %}
+                  {% set current_level = risk_matrix[probability_key][impact_key]|default('medium') %}
+                  <td class="grcmanager-matrix-cell grcmanager-level-{{ current_level }}">
+                    <select name="matrix_{{ probability_key }}_{{ impact_key }}" class="form-select form-select-sm grcmanager-level-select" data-level="{{ current_level }}">
+                      {% for level_key, level_label in risk_levels %}
+                        <option value="{{ level_key }}" {{ current_level == level_key ? 'selected' : '' }}>{{ level_label }}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      {% if can_edit_config %}
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" name="update_risk_matrix" class="btn btn-primary">{{ __('Save') }}</button>
+        </div>
+      {% endif %}
+    </form>
+
+    {# Issue #706 : taille de la matrice (4x4 par défaut, 5x5 au choix). Le changement passe par un
+       écran de correspondance (front/riskscale.php) : simple lien GET ici, rien n'est écrit. #}
+    <hr>
+    <h4>{{ __('Matrix size', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Current size: %s.', 'grcmanager')|format(risk_scale_sizes[risk_scale_size]|default(risk_scale_size)) }}
+      {{ __('Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it.', 'grcmanager') }}
+    </p>
+    {% if can_edit_config and can_edit_sensitive %}
+      <form method="get" action="{{ risk_scale_url }}" class="d-flex flex-wrap align-items-end gap-2">
+        <div>
+          <label class="form-label" for="grc-risk-scale-size">{{ __('New size', 'grcmanager') }}</label>
+          <select class="form-select" id="grc-risk-scale-size" name="size">
+            {% for size_key, size_label in risk_scale_sizes %}
+              {% if size_key != risk_scale_size %}
+                <option value="{{ size_key }}">{{ size_label }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-primary"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Prepare the change', 'grcmanager') }}</button>
+      </form>
+    {% else %}
+      <div class="form-hint">{{ __('Changing the size requires the right to update the plugin configuration and the sensitive registers.', 'grcmanager') }}</div>
+    {% endif %}
+
+    {# Issue #706, lot 2 : libellés des niveaux de la taille actuelle. Un champ vide garde le libellé
+       par défaut, traduit dans la langue de chaque utilisateur. Seules les clés connues sont gardées
+       (RiskScale::sanitizeLabels), le libellé est échappé à l'affichage. #}
+    <hr>
+    <h4><i class="ti ti-tags me-1"></i>{{ __('Level labels', 'grcmanager') }}</h4>
+    <p class="text-muted">
+      {{ __('Rename the levels of probability and impact to match your method, for example the wording of your risk management policy. Leave a field empty to keep the default label, translated into the language of each user; a label you enter is shown as is in every language. Renaming a level changes nothing in existing risks.', 'grcmanager') }}
+    </p>
+    <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
+      <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+      <div class="row g-3">
+        {% for axis, axis_data in {
+          'probability': {'title': __('Probability', 'grcmanager'), 'values': risk_probabilities, 'defaults': risk_default_probabilities, 'icon': 'ti-dice-3'},
+          'impact': {'title': __('Impact', 'grcmanager'), 'values': risk_impacts, 'defaults': risk_default_impacts, 'icon': 'ti-flame'}
+        } %}
+          <div class="col-md-6">
+            <h5><i class="ti {{ axis_data.icon }} me-1"></i>{{ axis_data.title }}</h5>
+            {% for key, label in axis_data.values %}
+              <div class="mb-2">
+                <label class="form-label" for="grc-scale-label-{{ axis }}-{{ key }}">
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ loop.index }}</span>
+                  {{ __('Default label: %s', 'grcmanager')|format(axis_data.defaults[key]|default(key)) }}
+                </label>
+                <input type="text" class="form-control" id="grc-scale-label-{{ axis }}-{{ key }}"
+                       name="scale_labels[{{ axis }}][{{ key }}]"
+                       value="{{ risk_scale_labels[axis][key]|default('') }}"
+                       placeholder="{{ axis_data.defaults[key]|default(key) }}"
+                       maxlength="{{ risk_label_max_length }}"
+                       {{ can_edit_config ? '' : 'disabled' }}>
+              </div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="form-hint mb-2">{{ __('Levels are listed from the lowest (1) to the highest.', 'grcmanager') }}</div>
+      {% if can_edit_config %}
+        <button type="submit" name="update_risk_scale_labels" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i>{{ _x('button', 'Save') }}</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+
+{# Color-coded matrix cells (same low/medium/high/critical -> green/yellow/orange/red convention
+   as GlpiPlugin\\Grcmanager\\Risk::riskLevelBadge(), inc/risk.class.php), so a non-technical admin sees
+   at a glance which combinations are severe without reading every select's value. Updates live on
+   change, not just on page load, so the visual stays true after an edit and before saving. #}
+<style>
+  .grcmanager-matrix-cell.grcmanager-level-low { background-color: var(--tblr-green-lt, #d4f4e2); }
+  .grcmanager-matrix-cell.grcmanager-level-medium { background-color: var(--tblr-yellow-lt, #fdf3d8); }
+  .grcmanager-matrix-cell.grcmanager-level-high { background-color: var(--tblr-orange-lt, #fde6d8); }
+  .grcmanager-matrix-cell.grcmanager-level-critical { background-color: var(--tblr-red-lt, #fbd9d3); }
+</style>
+<script>
+(function () {
+    document.querySelectorAll('.grcmanager-level-select').forEach(function (select) {
+        select.addEventListener('change', function () {
+            var cell = select.closest('.grcmanager-matrix-cell');
+            if (!cell) {
+                return;
+            }
+            cell.classList.remove(
+                'grcmanager-level-low',
+                'grcmanager-level-medium',
+                'grcmanager-level-high',
+                'grcmanager-level-critical'
+            );
+            cell.classList.add('grcmanager-level-' + select.value);
+        });
+    });
+})();
+</script>

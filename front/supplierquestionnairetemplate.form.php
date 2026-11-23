@@ -78,12 +78,9 @@ if (isset($_POST['add'])) {
         throw new AccessDeniedHttpException();
     }
 
-    Html::header(
-        SupplierQuestionnaireTemplate::getTypeName(1),
-        $_SERVER['PHP_SELF'],
-        'grcmanager',
-        \GlpiPlugin\Grcmanager\Risk::class,
-        \GlpiPlugin\Grcmanager\SupplierRisk::class
+    \GlpiPlugin\Grcmanager\Menu::header(
+        SupplierQuestionnaireTemplate::class,
+        SupplierQuestionnaireTemplate::getTypeName(1)
     );
 
     $item->display(['id' => $id]);

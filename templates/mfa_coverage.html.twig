@@ -14,7 +14,6 @@
  #}
 {# Issue #852 : couverture MFA par compte (A.8.5, A.5.17), comptes habilités dans les entités de la
    personne. Aucun secret n'est lu ni stocké ; rien n'est modifié dans GLPI. #}
-{% import 'components/form/fields_macros.html.twig' as fields %}
 {% macro rate_color(rate) %}{{ rate is null ? 'secondary' : (rate >= 95 ? 'success' : (rate >= 80 ? 'warning' : 'danger')) }}{% endmacro %}
 {% macro rate_card(id, icon, title, s, help) %}
    {% import _self as helpers %}
@@ -166,7 +165,7 @@
          </ul>
          {% if imports is not empty %}
             <table class="table table-sm mb-3">
-               <thead><tr><th>{{ __('Identity provider', 'grcmanager') }}</th><th class="text-end">{{ __('Imported accounts', 'grcmanager') }}</th><th class="text-end">{{ __('Matched', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th>{% if can_manage %}<th></th>{% endif %}</tr></thead>
+               <thead><tr><th>{{ __('Identity provider', 'grcmanager') }}</th><th class="text-end">{{ __('Imported accounts', 'grcmanager') }}</th><th class="text-end">{{ __('Matched', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th>{% if can_manage %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}</tr></thead>
                <tbody>
                {% for import in imports %}
                   <tr>
@@ -209,7 +208,8 @@
       </div>
    </div>
 
-   {# Lecture directe d'Entra ID par Microsoft Graph (#852), sur clic, en lecture seule. #}
+   {# Lecture directe d'Entra ID par Microsoft Graph (#852), sur clic, en lecture seule. La connexion se
+      règle dans la configuration (issue #1043). #}
    <div class="card mb-3" id="grc-mfa-graph">
       <div class="card-header">
          <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
@@ -224,50 +224,24 @@
       </div>
       <div class="card-body">
          <p class="small">{{ __('Instead of downloading the CSV export, GLPI can read the same report (user registration details) from Microsoft Graph when you click the button. The result replaces the Microsoft Entra ID import of the current entity. Nothing is ever written in Entra ID and nothing runs automatically.', 'grcmanager') }}</p>
-         <ol class="small text-muted">
-            <li>{{ __('In the Entra admin center, App registrations > New registration: create an application (for example "GLPI GRC - MFA report").', 'grcmanager') }}</li>
-            <li>{{ __('API permissions > Add a permission > Microsoft Graph > Application permissions: AuditLog.Read.All, then Grant admin consent. The report requires an Entra ID P1 or P2 licence.', 'grcmanager') }}</li>
-            <li>{{ __('Certificates & secrets > New client secret, then copy here the tenant ID, the application (client) ID and the secret value.', 'grcmanager') }}</li>
-         </ol>
-         {% if can_manage %}
-            <form method="post" action="{{ action }}" class="row g-2 align-items-end">
-               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-               <div class="col-md-4">
-                  <label class="form-label" for="grc-mfa-graph-tenant">{{ __('Tenant (directory) ID or domain', 'grcmanager') }}</label>
-                  <input type="text" class="form-control" id="grc-mfa-graph-tenant" name="mfa_graph_tenant" value="{{ graph.tenant }}" maxlength="253" placeholder="example.onmicrosoft.com" autocomplete="off">
-               </div>
-               <div class="col-md-4">
-                  <label class="form-label" for="grc-mfa-graph-client">{{ __('Application (client) ID', 'grcmanager') }}</label>
-                  <input type="text" class="form-control" id="grc-mfa-graph-client" name="mfa_graph_client_id" value="{{ graph.client_id }}" maxlength="36" placeholder="00000000-0000-0000-0000-000000000000" autocomplete="off">
-               </div>
-               <div class="col-md-4">
-                  <label class="form-label" for="grc-mfa-graph-secret">{{ __('Client secret', 'grcmanager') }}</label>
-                  <input type="password" class="form-control" id="grc-mfa-graph-secret" name="mfa_graph_secret" value="" autocomplete="new-password" placeholder="{{ graph.has_secret ? __('Secret saved (leave empty to keep it)', 'grcmanager') : '' }}">
-               </div>
-               <div class="col-12 form-hint">
-                  {% if graph.has_secret %}<span class="badge bg-success-subtle text-success-emphasis me-1"><i class="ti ti-lock me-1"></i>{{ __('Secret saved', 'grcmanager') }}</span>{% endif %}
-                  {{ __('The secret is encrypted with the GLPI key, never displayed again nor logged.', 'grcmanager') }}
-                  {% if graph.has_secret %}
-                     <span class="form-check form-check-inline ms-2">
-                        <input type="checkbox" class="form-check-input" id="grc-mfa-graph-clear" name="mfa_graph_clear_secret" value="1">
-                        <label class="form-check-label" for="grc-mfa-graph-clear">{{ __('Delete the saved secret', 'grcmanager') }}</label>
-                     </span>
-                  {% endif %}
-               </div>
-               <div class="col-12 d-flex flex-wrap gap-2">
-                  <button type="submit" class="btn btn-outline-primary" name="save_mfa_graph" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save') }}</button>
-                  {% if graph.configured %}
-                     <button type="submit" class="btn btn-primary" name="fetch_mfa_graph" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now from Microsoft Graph', 'grcmanager') }}</button>
-                  {% endif %}
-               </div>
-            </form>
+         {% if graph.configured %}
+            <p class="small mb-2"><span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Microsoft Graph connected', 'grcmanager') }}</span> {{ graph.tenant }}</p>
          {% else %}
-            <p class="small text-muted mb-0">{{ __('Only users who can modify the plugin data can set up this reading.', 'grcmanager') }}</p>
+            <p class="small text-muted mb-2">{{ __('The tenant, the application ID and the client secret are entered in the plugin configuration, Connectors tab.', 'grcmanager') }}</p>
          {% endif %}
+         <div class="d-flex flex-wrap gap-2">
+            {% if can_manage and graph.configured %}
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-primary" name="fetch_mfa_graph" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now from Microsoft Graph', 'grcmanager') }}</button>
+               </form>
+            {% endif %}
+            <a class="btn btn-outline-secondary" href="{{ connector_url }}"><i class="ti ti-settings me-1"></i>{{ __('Set up the connection', 'grcmanager') }}</a>
+         </div>
       </div>
    </div>
 
-   {# Comptes à accès distant : groupes GLPI choisis. #}
+   {# Comptes à accès distant : groupes GLPI choisis dans la configuration (issue #1043) ; ici, leur rappel. #}
    <div class="card mb-3" id="grc-mfa-remote">
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-world-share me-2"></i>{{ __('Which accounts have remote access?', 'grcmanager') }}</h3>
@@ -280,16 +254,7 @@
                {{ __('Members of these groups have remote access: %s.', 'grcmanager')|format(remote_names|join(', ')) }}
             {% endif %}
          </p>
-         {% if can_manage %}
-            <form method="post" action="{{ action }}">
-               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-               {{ fields.dropdownField('Group', 'mfa_remote_groups', remote_groups, __('Remote access groups (VPN, remote desktop...)', 'grcmanager'), {
-                  'multiple': true,
-                  'entity': -1,
-               }) }}
-               <button type="submit" class="btn btn-primary" name="save_mfa_remote" value="1"><i class="ti ti-device-floppy me-1"></i>{{ __('Save', 'grcmanager') }}</button>
-            </form>
-         {% endif %}
+         <a class="btn btn-outline-secondary" href="{{ remote_url }}"><i class="ti ti-settings me-1"></i>{{ __('Change the settings', 'grcmanager') }}</a>
       </div>
    </div>
 

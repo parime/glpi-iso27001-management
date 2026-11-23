@@ -69,27 +69,10 @@ if (isset($_POST['clear_log_hosts'])) {
     Html::redirect(LogCoverage::getSearchURL() . '#grc-log-import');
 }
 
-// Réglages : actifs concernés, conservation exigée par la politique, seuil « plus rien depuis ».
+// Issue #1044 : ce réglage est dans l'onglet Parc de la configuration du plugin. L'ancien envoi
+// reste accepté pendant une version : enregistré, puis renvoi sur l'onglet avec un message.
 if (isset($_POST['save_log_settings'])) {
-    Session::checkRight(LogCoverage::RIGHTNAME, UPDATE);
-    $before = LogCoverage::getSettings();
-    $after = LogCoverage::setSettings([
-        'scope'       => (string) ($_POST['log_scope'] ?? ''),
-        'policy_days' => $_POST['log_policy_days'] ?? '',
-        'stale_days'  => $_POST['log_stale_days'] ?? '',
-    ]);
-    if ($after !== $before) {
-        \GlpiPlugin\Grcmanager\AuditLog::record(
-            'config_change',
-            'Config',
-            0,
-            0,
-            'success',
-            ['changes' => [LogCoverage::SETTINGS_KEY => $after]]
-        );
-    }
-    Session::addMessageAfterRedirect(htmlescape(__('Logging settings saved.', 'grcmanager')));
-    Html::redirect(LogCoverage::getSearchURL() . '#grc-log-settings');
+    \GlpiPlugin\Grcmanager\Config\Block\LogCoverageBlock::handle(true);
 }
 
 // Conservation, obligation et horloges déclarées pour une plateforme (entité active).
@@ -102,18 +85,13 @@ if (isset($_POST['declare_log_platform'])) {
     Html::redirect(LogCoverage::getSearchURL() . '#grc-log-retention');
 }
 
-Html::header(
+\GlpiPlugin\Grcmanager\Menu::header(
+    LogCoverage::class,
     LogCoverage::getTypeName(),
-    LogCoverage::getSearchURL(),
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    LogCoverage::class
+    LogCoverage::getSearchURL()
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\ComplianceAudit::class,
-    LogCoverage::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(LogCoverage::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('logcoverage');
 

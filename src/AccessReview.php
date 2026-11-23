@@ -28,6 +28,7 @@ use GlpiPlugin\Grcmanager\Compat\Base\AccessReviewBase;
 use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewLogic;
 use GlpiPlugin\Grcmanager\Services\Access\AccessReviewSuggestionRules;
+use GlpiPlugin\Grcmanager\Services\Delegation\DelegationRules;
 use Group;
 use Group_User;
 use Html;
@@ -86,13 +87,8 @@ class AccessReview extends AccessReviewBase
      */
     public static function getMenuContent()
     {
-        $menu = parent::getMenuContent();
-        if (is_array($menu) && $menu !== []) {
-            $menu['section_label'] = $menu['title'];
-            $menu['title'] = __('Operations', 'grcmanager');
-        }
-
-        return Menu::withSubPages(self::class, $menu);
+        // Issue #1038 : nom de la rubrique et page d'accueil déclarés dans src/Navigation/Section/.
+        return Menu::withSubPages(self::class, parent::getMenuContent());
     }
 
     /**
@@ -513,6 +509,10 @@ class AccessReview extends AccessReviewBase
         $row['profiles_list'] = is_array($profiles) ? $profiles : [];
         $row['groups_list'] = is_array($groups) ? $groups : [];
         $row['decided_by_name'] = (int) $row['decided_by'] > 0 ? getUserName((int) $row['decided_by']) : '';
+        // Issue #618 : décision prise par un suppléant, « par X pour le compte de Y » (écran, PDF).
+        if (!empty($row['is_delegated']) && (int) $row['decided_by'] > 0) {
+            $row['decided_by_name'] = Delegation::onBehalfLabel((int) $row['decided_by'], (int) $row['reviewers_id']);
+        }
         $row['ticket_url'] = (int) $row['tickets_id'] > 0 ? Ticket::getFormURLWithID((int) $row['tickets_id']) : '';
 
         return AccessReviewSuggestion::decorate($row) + $row;
@@ -548,6 +548,34 @@ class AccessReview extends AccessReviewBase
         ]);
         foreach ($rows as $row) {
             $lines[] = self::decorateLine($row);
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Issue #618 : lignes des campagnes en cours confiées aux titulaires absents dont $substituteId
+     * est le suppléant pour la revue des accès, sans celle de son propre compte. Chaque ligne porte
+     * le titulaire (on_behalf_of, on_behalf_name, absent_until).
+     *
+     * @return list<array<string, mixed>>
+     */
+    public static function getDelegatedLines(int $substituteId): array
+    {
+        $lines = [];
+        foreach (Delegation::holdersFor($substituteId, DelegationRules::TYPE_ACCESS_REVIEW) as $holderId => $period) {
+            foreach (self::getLinesForReviewer($holderId) as $line) {
+                $reviewer = (int) $line['reviewers_id'];
+                $account = (int) $line['users_id'];
+                if (!DelegationRules::canDecideAccessLine($substituteId, $holderId, $reviewer, $account)) {
+                    continue;
+                }
+                $lines[] = $line + [
+                    'on_behalf_of'   => $holderId,
+                    'on_behalf_name' => getUserName($holderId),
+                    'absent_until'   => (string) Html::convDateTime($period['end']),
+                ];
+            }
         }
 
         return $lines;
@@ -688,8 +716,19 @@ class AccessReview extends AccessReviewBase
         }
         // Gestionnaire des campagnes : droit UPDATE sur CETTE campagne (donc sur son entité), pas le
         // seul droit global : sinon une ligne d'une campagne d'une autre entité serait modifiable.
+        // Issue #618 : un suppléant décide des lignes du titulaire absent qu'il remplace, pendant la
+        // période déclarée et pour ce type de décision seulement, jamais de son propre compte.
+        $delegated = false;
         if ((int) $line['reviewers_id'] !== $actorId && !$campaign->can($campaign->getID(), UPDATE)) {
-            return __('This line is assigned to another reviewer.', 'grcmanager');
+            $delegated = DelegationRules::canDecideAccessLine(
+                $actorId,
+                (int) $line['reviewers_id'],
+                (int) $line['reviewers_id'],
+                (int) $line['users_id']
+            ) && Delegation::isSubstituteOf($actorId, (int) $line['reviewers_id'], DelegationRules::TYPE_ACCESS_REVIEW);
+            if (!$delegated) {
+                return __('This line is assigned to another reviewer.', 'grcmanager');
+            }
         }
         if (!AccessReviewLogic::isDecision($decision)) {
             return __('Unknown decision.', 'grcmanager');
@@ -716,6 +755,7 @@ class AccessReview extends AccessReviewBase
             'decision'      => $decision,
             'comment'       => $comment,
             'decided_by'    => $actorId,
+            'is_delegated'  => $delegated ? 1 : 0,
             'date_decision' => date('Y-m-d H:i:s'),
         ];
         if (AccessReviewLogic::needsTicket($decision)) {
@@ -728,6 +768,18 @@ class AccessReview extends AccessReviewBase
             );
         }
         $DB->update(self::LINES_TABLE, $update, ['id' => $lineId]);
+        if ($delegated) {
+            Delegation::record(
+                DelegationRules::TYPE_ACCESS_REVIEW,
+                self::class,
+                $campaign->getID(),
+                (int) $campaign->fields['entities_id'],
+                sprintf(__('%1$s: %2$s'), (string) $campaign->fields['name'], getUserName((int) $line['users_id'])),
+                $decision,
+                (int) $line['reviewers_id'],
+                $actorId
+            );
+        }
 
         return '';
     }

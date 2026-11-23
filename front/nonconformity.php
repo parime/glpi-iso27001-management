@@ -21,18 +21,12 @@ use GlpiPlugin\Grcmanager\Services\DefaultSearchColumns;
 
 Session::checkRight(\GlpiPlugin\Grcmanager\Nonconformity::$rightname, READ);
 
-Html::header(
-    \GlpiPlugin\Grcmanager\Nonconformity::getTypeName(2),
-    $_SERVER['PHP_SELF'],
-    'grcmanager',
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\Nonconformity::class
+\GlpiPlugin\Grcmanager\Menu::header(
+    \GlpiPlugin\Grcmanager\Nonconformity::class,
+    \GlpiPlugin\Grcmanager\Nonconformity::getTypeName(2)
 );
 // Rubrique du menu regroupant plusieurs écrans : barre d'onglets commune.
-\GlpiPlugin\Grcmanager\Menu::showSection(
-    \GlpiPlugin\Grcmanager\Audit::class,
-    \GlpiPlugin\Grcmanager\Nonconformity::class
-);
+\GlpiPlugin\Grcmanager\Menu::showSection(\GlpiPlugin\Grcmanager\Nonconformity::class);
 // Encadré « À quoi sert cette page ? ».
 \GlpiPlugin\Grcmanager\PageHelp::show('nonconformity');
 
@@ -55,7 +49,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 // Same URL-driven search fix as front/risk.php/front/control.php/front/audit.php.
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\Nonconformity::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\Nonconformity::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\Nonconformity::class]
