@@ -308,6 +308,25 @@ final class PrivilegedVaultRules
         }
         $get = static fn (array $row, string $field): string
             => isset($mapping[$field]) ? trim((string) ($row[$mapping[$field]] ?? '')) : '';
+        // Date : première colonne remplie, par ordre de préférence (mot de passe, puis élément).
+        $normalized = array_map([EdrCsvImport::class, 'normalizeHeader'], $parsed['headers']);
+        $dateColumns = [];
+        foreach (self::ENTRY_FIELDS['date'] as $alias) {
+            $index = array_search($alias, $normalized, true);
+            if ($index !== false) {
+                $dateColumns[] = (int) $index;
+            }
+        }
+        $date = static function (array $row) use ($dateColumns): ?string {
+            foreach ($dateColumns as $index) {
+                $value = self::parseDate((string) ($row[$index] ?? ''));
+                if ($value !== null) {
+                    return $value;
+                }
+            }
+
+            return null;
+        };
         foreach ($parsed['rows'] as $row) {
             $parsedRow = $kind === self::KIND_MEMBERS
                 ? self::memberRow(
@@ -325,7 +344,7 @@ final class PrivilegedVaultRules
                     self::splitList($get($row, 'collection')),
                     $get($row, 'username'),
                     $get($row, 'uri'),
-                    self::parseDate($get($row, 'date')),
+                    $date($row),
                     self::splitList($get($row, 'holders'))
                 );
             if ($parsedRow !== null) {
