@@ -178,7 +178,9 @@ final class DependencyWalkerTest extends TestCase
             $this->assertLessThanOrEqual(LayeredLayout::WIDTH, $position['x'] + LayeredLayout::NODE_WIDTH);
             $this->assertLessThanOrEqual($layout['height'], $position['y'] + LayeredLayout::NODE_HEIGHT);
         }
-        $this->assertSame('Serveur', LayeredLayout::shortLabel('Serveur'));
+        // Valeur fictive qui n'est pas un texte d'interface : le contrôle des assertions traduites
+        // signalerait sinon « Serveur », alors qu'on vérifie seulement qu'un libellé court reste intact.
+        $this->assertSame('SRV-FIC-01', LayeredLayout::shortLabel('SRV-FIC-01'));
         $this->assertSame(10, mb_strlen(LayeredLayout::shortLabel('Serveur de fichiers principal', 10)));
     }
 
