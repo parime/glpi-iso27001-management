@@ -1,0 +1,11 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8
+"
+
+msgid "Open the screen"
+msgstr "Abrir a tela"
+
+#, php-format
+msgid "Answer every question of the SoA scoping screen (menu %s): the answers suggest which controls apply."
+msgstr "Responda a todas as perguntas da tela de delimitação da SoA (menu %s): as respostas sugerem os controles aplicáveis."
