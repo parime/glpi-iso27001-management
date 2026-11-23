@@ -260,7 +260,9 @@ function plugin_init_grcmanager(): void
         // Issue #842 : clé d'API d'Uptime Kuma (lecture de /metrics).
         \GlpiPlugin\Grcmanager\Services\Monitoring\UptimeKumaConfig::SECURED,
         // Issue #858 : jetons de lecture des alertes de sécurité du code (GitHub, GitLab).
-        \GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig::SECURED,
+        // Issue #859 : secret de la clé d'API d'organisation de Bitwarden (lecture des membres).
+        \GlpiPlugin\Grcmanager\Services\Access\PrivilegedVaultConfig::SECURED
     );
     // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
     // processus métier (lecture seule).
@@ -287,6 +289,10 @@ function plugin_init_grcmanager(): void
     ]);
     // Issue #843, lot 2 : onglet « Comptes des contrôleurs de serveurs » des campagnes de revue des accès.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AccessReviewBmcAccount::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
+    ]);
+    // Issue #859 : onglet « Comptes à privilèges » des campagnes de revue des accès (coffre-fort).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PrivilegedVault::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
     ]);
     // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.

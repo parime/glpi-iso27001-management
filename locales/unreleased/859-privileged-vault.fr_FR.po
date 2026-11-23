@@ -1,0 +1,301 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#, php-format
+msgid "%1$d lines: the first %2$d are shown, gaps first."
+msgstr "%1$d lignes : les %2$d premières sont affichées, écarts d'abord."
+
+#, php-format
+msgid "%d line(s) imported."
+msgstr "%d ligne(s) importée(s)."
+
+#, php-format
+msgid "%d member(s) read from Bitwarden."
+msgstr "%d membre(s) lu(s) dans Bitwarden."
+
+msgid "A password of a shared or privileged account kept in the vault that has not been changed for longer is reported on the privileged accounts page and in the access reviews."
+msgstr "Un mot de passe de compte partagé ou à privilèges rangé dans le coffre et non changé depuis plus longtemps est signalé sur la page des comptes à privilèges et dans les revues des accès."
+
+msgid "A self-hosted server on an internal address (private network) is refused by default: an administrator can allow internal addresses in the plugin configuration."
+msgstr "Un serveur auto-hébergé sur une adresse interne (réseau privé) est refusé par défaut : un administrateur peut autoriser les adresses internes dans la configuration du plugin."
+
+msgid "Access refused by Bitwarden: the organization API is available on the Teams and Enterprise plans."
+msgstr "Accès refusé par Bitwarden : l'API d'organisation existe dans les offres Teams et Enterprise."
+
+msgid "Address of the self-hosted server"
+msgstr "Adresse du serveur auto-hébergé"
+
+msgid "Admin Console > Settings > Organization info > API key: view the key (owner only) and copy the client ID and the client secret here. The organization API exists on the Teams and Enterprise plans."
+msgstr "Console d'administration > Paramètres > Informations de l'organisation > Clé d'API : affichez la clé (propriétaire seulement) et copiez ici l'identifiant et le secret du client. L'API d'organisation existe dans les offres Teams et Enterprise."
+
+#, php-format
+msgid "Administrators: %1$d, without two-step login: %2$d"
+msgstr "Administrateurs : %1$d, sans connexion en deux étapes : %2$d"
+
+msgid "Bitwarden asks to slow down: try again in a few minutes."
+msgstr "Bitwarden demande de ralentir : réessayez dans quelques minutes."
+
+msgid "Bitwarden cloud (European Union)"
+msgstr "Nuage Bitwarden (Union européenne)"
+
+msgid "Bitwarden cloud (United States)"
+msgstr "Nuage Bitwarden (États-Unis)"
+
+msgid "Bitwarden could not be reached: check the network access or the GLPI proxy."
+msgstr "Bitwarden est injoignable : vérifiez l'accès réseau ou le proxy de GLPI."
+
+msgid "Bitwarden or Vaultwarden"
+msgstr "Bitwarden ou Vaultwarden"
+
+msgid "Bitwarden or Vaultwarden: produce the file with the Bitwarden command line (bw list items and bw list org-members) and keep only these columns, without the passwords."
+msgstr "Bitwarden ou Vaultwarden : produisez le fichier avec l'interface en ligne de commande de Bitwarden (bw list items et bw list org-members) et ne gardez que ces colonnes, sans les mots de passe."
+
+msgid "Bitwarden refused the client ID or the client secret of the organization API key."
+msgstr "Bitwarden a refusé l'identifiant ou le secret du client de la clé d'API d'organisation."
+
+msgid "Bitwarden returned an unexpected answer."
+msgstr "Bitwarden a renvoyé une réponse inattendue."
+
+msgid "Bitwarden settings saved."
+msgstr "Réglages de Bitwarden enregistrés."
+
+msgid "Client ID"
+msgstr "Identifiant du client"
+
+msgid "Collections"
+msgstr "Collections"
+
+msgid "Connection to Bitwarden (read only)"
+msgstr "Connexion à Bitwarden (lecture seule)"
+
+msgid "Connection to Bitwarden succeeded."
+msgstr "Connexion à Bitwarden réussie."
+
+msgid "Custom role"
+msgstr "Rôle personnalisé"
+
+msgid "Date of the last change unknown"
+msgstr "Date du dernier changement inconnue"
+
+msgid "Enabled administrator accounts read on the server management controllers (iLO, iDRAC, XClarity, IPMI). An account is found in the vault when an item has the same login name and cites the controller (name, host or IP address)."
+msgstr "Comptes d'administration actifs lus sur les contrôleurs de gestion des serveurs (iLO, iDRAC, XClarity, IPMI). Un compte est trouvé dans le coffre quand un élément a le même identifiant de connexion et cite le contrôleur (nom, hôte ou adresse IP)."
+
+msgid "Enter the server, the client ID (organization.…) and the client secret of the organization API key first."
+msgstr "Saisissez d'abord le serveur, l'identifiant du client (organization.…) et le secret du client de la clé d'API d'organisation."
+
+msgid "Expected change delay (months)"
+msgstr "Délai de changement attendu (mois)"
+
+#, php-format
+msgid "Expected change delay: %d months"
+msgstr "Délai de changement attendu : %d mois"
+
+msgid "GLPI reads the members of your Bitwarden organization from the privileged accounts page, on request: email address, role, status, two-step login and accessible collections. Never an item, a password or a note."
+msgstr "GLPI lit les membres de votre organisation Bitwarden depuis la page des comptes privilégiés, à la demande : adresse électronique, rôle, statut, connexion en deux étapes et collections accessibles. Jamais un élément, un mot de passe ni une note."
+
+msgid "How often must shared passwords be changed?"
+msgstr "À quelle fréquence changer les mots de passe partagés ?"
+
+msgid "How to prepare Bitwarden:"
+msgstr "Préparer Bitwarden :"
+
+msgid "ISO/IEC 27001, controls A.5.17 and A.8.2"
+msgstr "ISO/IEC 27001, mesures A.5.17 et A.8.2"
+
+msgid "Import a CSV file with a header, one line per item or per member. A new import of the same source and the same kind replaces the previous one in the current entity."
+msgstr "Importez un fichier CSV avec un en-tête, une ligne par élément ou par membre. Un nouvel import de même source et de même nature remplace le précédent dans l'entité courante."
+
+msgid "Import the items and the members of the vault (or read the members from Bitwarden), then follow up the gaps: password not changed within the expected delay, access of a person who left, member unknown in GLPI, vault administrator without two-step login, server controller administrator account missing from the vault. Nothing is changed automatically. The gaps are also shown in the access review campaigns."
+msgstr "Importez les éléments et les membres du coffre (ou lisez les membres dans Bitwarden), puis traitez les écarts : mot de passe non changé dans le délai attendu, accès d'une personne partie, membre inconnu de GLPI, administrateur du coffre sans connexion en deux étapes, compte d'administration d'un contrôleur de serveur absent du coffre. Rien n'est modifié automatiquement. Les écarts apparaissent aussi dans les campagnes de revue des accès."
+
+msgid "Import the vault metadata"
+msgstr "Importer les métadonnées du coffre"
+
+msgid "Invited"
+msgstr "Invité"
+
+#, php-format
+msgid "Items still reachable by them: %d"
+msgstr "Éléments encore à leur portée : %d"
+
+msgid "Items: name; optional id, collections, username, uri, passwordRevisionDate (or revisionDate, last_changed) and holders (email addresses separated by commas)."
+msgstr "Éléments : name ; facultatifs id, collections, username, uri, passwordRevisionDate (ou revisionDate, last_changed) et holders (adresses électroniques séparées par des virgules)."
+
+msgid "Last change"
+msgstr "Dernier changement"
+
+msgid "Login name"
+msgstr "Identifiant de connexion"
+
+msgid "Members are matched with GLPI accounts on the email address, the login, or the part of the address before the @. A person who left is a GLPI account disabled or deleted, or with a past departure date."
+msgstr "Les membres sont rapprochés des comptes GLPI par l'adresse électronique, l'identifiant ou la partie de l'adresse avant le @. Une personne partie est un compte GLPI désactivé ou supprimé, ou dont la date de départ est passée."
+
+msgid "Members of the vault"
+msgstr "Membres du coffre"
+
+msgid "Members to review"
+msgstr "Membres à revoir"
+
+msgid "Members unknown in GLPI"
+msgstr "Membres inconnus de GLPI"
+
+msgid "Members: email; optional name, type or role (owner, admin, user, custom), status (active, invited, revoked), collections and twoFactorEnabled (yes/no)."
+msgstr "Membres : email ; facultatifs name, type ou role (owner, admin, user, custom), status (active, invited, revoked), collections et twoFactorEnabled (oui/non)."
+
+msgid "No administrator account missing from the vault."
+msgstr "Aucun compte d'administration absent du coffre."
+
+msgid "No email column found: the file of the members needs a column such as email."
+msgstr "Aucune colonne d'adresse trouvée : le fichier des membres doit avoir une colonne comme email."
+
+msgid "No item imported yet: import the items of the vault below."
+msgstr "Aucun élément importé : importez les éléments du coffre ci-dessous."
+
+msgid "No item name column found: the file needs a header with a column such as name."
+msgstr "Aucune colonne de nom trouvée : le fichier doit avoir un en-tête avec une colonne comme name."
+
+msgid "No member imported yet: import the members of the vault or read them from Bitwarden below."
+msgstr "Aucun membre importé : importez les membres du coffre ou lisez-les dans Bitwarden ci-dessous."
+
+msgid "No member with a gap."
+msgstr "Aucun membre en écart."
+
+msgid "No shared account with a gap."
+msgstr "Aucun compte partagé en écart."
+
+#, php-format
+msgid "Not changed for more than %1$d months: %2$d"
+msgstr "Non changés depuis plus de %1$d mois : %2$d"
+
+msgid "Not changed within the expected delay"
+msgstr "Non changé dans le délai attendu"
+
+msgid "Not known"
+msgstr "Inconnu"
+
+msgid "Not saved: the client ID must start with organization. followed by an identifier, and the address of a self-hosted server must start with https:// (or http:// when internal addresses are allowed), without user name, password or parameters."
+msgstr "Non enregistré : l'identifiant du client doit commencer par organization. suivi d'un identifiant, et l'adresse d'un serveur auto-hébergé doit commencer par https:// (ou http:// si les adresses internes sont autorisées), sans nom d'utilisateur, mot de passe ni paramètres."
+
+msgid "Nothing is changed in the vault nor in GLPI from this page: change the passwords and remove the accesses in the vault itself."
+msgstr "Rien n'est modifié dans le coffre ni dans GLPI depuis cette page : changez les mots de passe et retirez les accès dans le coffre lui-même."
+
+msgid "Only for a self-hosted server: GLPI calls its /identity and /api paths."
+msgstr "Seulement pour un serveur auto-hébergé : GLPI appelle ses chemins /identity et /api."
+
+msgid "Only metadata is imported: names, collections, login names, addresses, dates and members. A file with a password, code, note or custom field column is refused as a whole. Nothing is ever written in the vault."
+msgstr "Seules des métadonnées sont importées : noms, collections, identifiants de connexion, adresses, dates et membres. Un fichier avec une colonne de mot de passe, de code, de note ou de champ personnalisé est refusé en entier. Rien n'est jamais écrit dans le coffre."
+
+msgid "Other password vault"
+msgstr "Autre coffre-fort de mots de passe"
+
+msgid "People who left with an access"
+msgstr "Personnes parties ayant un accès"
+
+#, php-format
+msgid "People who left with an access: %d"
+msgstr "Personnes parties ayant un accès : %d"
+
+msgid "Person who left"
+msgstr "Personne partie"
+
+msgid "Privileged access management (PAM) solution"
+msgstr "Solution de gestion des accès à privilèges (PAM)"
+
+msgid "Privileged access management (PAM) solution: export the accounts list or the safes members report without the passwords."
+msgstr "Solution de gestion des accès à privilèges (PAM) : exportez la liste des comptes ou le rapport des membres des coffres sans les mots de passe."
+
+#, php-format
+msgid "Privileged accesses to review in the password vault: people who left, members unknown in GLPI, administrators without two-step login, passwords not changed for more than %d months. Remove the accesses and change the passwords in the vault itself."
+msgstr "Accès à privilèges à revoir dans le coffre-fort de mots de passe : personnes parties, membres inconnus de GLPI, administrateurs sans connexion en deux étapes, mots de passe non changés depuis plus de %d mois. Retirez les accès et changez les mots de passe dans le coffre lui-même."
+
+msgid "Privileged accounts and password vault"
+msgstr "Comptes à privilèges et coffre-fort de mots de passe"
+
+msgid "Read now from Bitwarden"
+msgstr "Lire maintenant dans Bitwarden"
+
+msgid "Read the members from Bitwarden"
+msgstr "Lire les membres dans Bitwarden"
+
+msgid "Self-hosted Bitwarden server"
+msgstr "Serveur Bitwarden auto-hébergé"
+
+#, php-format
+msgid "Server controller accounts missing from the vault: %d"
+msgstr "Comptes de contrôleurs de serveurs absents du coffre : %d"
+
+msgid "Server controller administrator accounts missing from the vault"
+msgstr "Comptes d'administration des contrôleurs de serveurs absents du coffre"
+
+msgid "Shared accounts in the vault"
+msgstr "Comptes partagés dans le coffre"
+
+msgid "Shared accounts to review"
+msgstr "Comptes partagés à revoir"
+
+msgid "Shared and privileged accounts in the vault"
+msgstr "Comptes partagés et à privilèges dans le coffre"
+
+msgid "Shared passwords not changed within the expected delay"
+msgstr "Mots de passe partagés non changés dans le délai attendu"
+
+msgid "Shows the shared and privileged accounts kept in your password vault (Bitwarden, Vaultwarden or a privileged access management solution) and who can reach them: when each password was last changed, the members of the vault and their role. Only metadata is read, never a password."
+msgstr "Montre les comptes partagés et à privilèges rangés dans votre coffre-fort de mots de passe (Bitwarden, Vaultwarden ou une solution de gestion des accès à privilèges) et qui peut y accéder : date du dernier changement de chaque mot de passe, membres du coffre et leur rôle. Seules des métadonnées sont lues, jamais un mot de passe."
+
+msgid "Still reachable by a person who left"
+msgstr "Encore accessible à une personne partie"
+
+msgid "The Bitwarden API was not found at this address: check the server address (Vaultwarden does not provide this API, import a CSV file instead)."
+msgstr "L'API de Bitwarden est introuvable à cette adresse : vérifiez l'adresse du serveur (Vaultwarden ne fournit pas cette API, importez plutôt un fichier CSV)."
+
+#, php-format
+msgid "The file was refused because the column \"%s\" may contain secrets. Remove the passwords, codes, notes and custom fields from the export, then import it again. Nothing was imported."
+msgstr "Le fichier est refusé car la colonne « %s » peut contenir des secrets. Retirez de l'export les mots de passe, codes, notes et champs personnalisés, puis importez-le de nouveau. Rien n'a été importé."
+
+msgid "The secret is encrypted with the GLPI key, never displayed again nor logged. GLPI only asks for a token and reads the list of the members."
+msgstr "Le secret est chiffré avec la clé de GLPI, jamais réaffiché ni journalisé. GLPI demande seulement un jeton et lit la liste des membres."
+
+msgid "The server and the API key are entered in the plugin configuration, Connectors tab."
+msgstr "Le serveur et la clé d'API se saisissent dans la configuration du plugin, onglet Connecteurs."
+
+msgid "The server is on an internal address: an administrator must allow internal addresses in the plugin configuration (Outgoing connections)."
+msgstr "Le serveur est sur une adresse interne : un administrateur doit autoriser les adresses internes dans la configuration du plugin (Connexions sortantes)."
+
+msgid "Two-step login"
+msgstr "Connexion en deux étapes"
+
+msgid "Unknown in GLPI"
+msgstr "Inconnu de GLPI"
+
+msgid "Vault administrator without two-step login"
+msgstr "Administrateur du coffre sans connexion en deux étapes"
+
+#, php-format
+msgid "Vault administrators without two-step login: %d"
+msgstr "Administrateurs du coffre sans connexion en deux étapes : %d"
+
+msgid "Vault items (shared accounts)"
+msgstr "Éléments du coffre (comptes partagés)"
+
+msgid "Vault members (who has access)"
+msgstr "Membres du coffre (qui a accès)"
+
+msgid "Vaultwarden does not provide this API: import the CSV files of the members and of the items on the page instead."
+msgstr "Vaultwarden ne fournit pas cette API : importez plutôt les fichiers CSV des membres et des éléments sur la page."
+
+msgid "View all the privileged accounts"
+msgstr "Voir tous les comptes à privilèges"
+
+msgid "Who has access"
+msgstr "Qui y a accès"
+
+msgid "With the organization API key of Bitwarden (Teams and Enterprise plans), GLPI reads the members, their role, their two-step login and their collections when you click the button. The result replaces the Bitwarden members import of the current entity. The items are not exposed by this API: import them as a CSV file."
+msgstr "Avec la clé d'API d'organisation de Bitwarden (offres Teams et Enterprise), GLPI lit les membres, leur rôle, leur connexion en deux étapes et leurs collections quand vous cliquez sur le bouton. Le résultat remplace l'import des membres Bitwarden de l'entité courante. Les éléments ne sont pas exposés par cette API : importez-les en fichier CSV."
+
+#, php-format
+msgid "%d shared account in the vault"
+msgid_plural "%d shared accounts in the vault"
+msgstr[0] "%d compte partagé dans le coffre"
+msgstr[1] "%d comptes partagés dans le coffre"

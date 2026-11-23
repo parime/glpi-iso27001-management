@@ -1,0 +1,258 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #859 : comptes à privilèges et coffre-fort de mots de passe (A.5.17, A.8.2), dans les entités
+   de la personne. Métadonnées seulement, jamais un secret ; rien n'est modifié dans le coffre ni dans GLPI. #}
+{% import '@grcmanager/_privileged_vault_macros.html.twig' as vault %}
+{% macro stat_card(id, icon, color, value, title, detail) %}
+   <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+      <div class="d-flex align-items-center">
+         <span class="badge bg-{{ color }}-subtle text-{{ color }}-emphasis me-2 fs-3"><i class="{{ icon }}"></i></span>
+         <div>
+            <div class="fw-bold fs-3" id="{{ id }}">{{ value }}</div>
+            <div class="small">{{ title }}</div>
+         </div>
+      </div>
+      {% if detail %}<div class="small text-muted mt-1">{{ detail }}</div>{% endif %}
+   </div></div></div>
+{% endmacro %}
+
+<div id="grc-privileged-vault">
+   <div class="row row-cards mb-3">
+      {{ _self.stat_card('grc-vault-entries', 'ti ti-key', summary.stale > 0 ? 'danger' : 'success', summary.entries, __('Shared accounts in the vault', 'grcmanager'), __('Not changed for more than %1$d months: %2$d', 'grcmanager')|format(rotation_months, summary.stale)) }}
+      {{ _self.stat_card('grc-vault-members', 'ti ti-users', summary.admin_no_2fa > 0 ? 'danger' : 'secondary', summary.members, __('Members of the vault', 'grcmanager'), __('Administrators: %1$d, without two-step login: %2$d', 'grcmanager')|format(summary.admins, summary.admin_no_2fa)) }}
+      {% set departed_total = summary.departed + summary.departed_holder %}
+      {{ _self.stat_card('grc-vault-departed', 'ti ti-user-x', departed_total > 0 ? 'danger' : 'success', summary.departed, __('People who left with an access', 'grcmanager'), __('Items still reachable by them: %d', 'grcmanager')|format(summary.departed_holder)) }}
+      {% if show_equipment %}
+         {{ _self.stat_card('grc-vault-equipment', 'ti ti-server-cog', summary.equipment_missing > 0 ? 'warning' : 'success', summary.equipment_missing, __('Server controller administrator accounts missing from the vault', 'grcmanager'), '') }}
+      {% else %}
+         {{ _self.stat_card('grc-vault-unknown', 'ti ti-user-question', summary.unknown > 0 ? 'warning' : 'success', summary.unknown, __('Members unknown in GLPI', 'grcmanager'), '') }}
+      {% endif %}
+   </div>
+
+   <div class="alert alert-info d-flex align-items-start gap-2 mb-3">
+      <i class="ti ti-shield-lock fs-2"></i>
+      <div>
+         {{ __('Only metadata is imported: names, collections, login names, addresses, dates and members. A file with a password, code, note or custom field column is refused as a whole. Nothing is ever written in the vault.', 'grcmanager') }}
+         <a href="{{ policy_url }}">{{ __('Expected change delay: %d months', 'grcmanager')|format(rotation_months) }}</a>
+      </div>
+   </div>
+
+   {# Éléments du coffre : écarts d'abord. #}
+   <div class="card mb-3" id="grc-vault-entries-list">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-key me-2"></i>{{ __('Shared and privileged accounts in the vault', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_entries }}</span></div>
+      </div>
+      {% if entries is empty %}
+         <div class="card-body text-muted">{{ __('No item imported yet: import the items of the vault below.', 'grcmanager') }}</div>
+      {% else %}
+         {% if total_entries > entries|length %}
+            <div class="card-body small pb-0">{{ __('%1$d lines: the first %2$d are shown, gaps first.', 'grcmanager')|format(total_entries, entries|length) }}</div>
+         {% endif %}
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Item', 'grcmanager') }}</th>
+                  <th>{{ __('Login name', 'grcmanager') }}</th>
+                  <th>{{ __('Collections', 'grcmanager') }}</th>
+                  <th>{{ __('Last change', 'grcmanager') }}</th>
+                  <th>{{ __('Who has access', 'grcmanager') }}</th>
+                  <th>{{ __('Gaps', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in entries %}
+                  <tr>
+                     <td>{{ row.name }}{% if row.uri %}<div class="small text-muted">{{ row.uri }}</div>{% endif %}<div class="small text-muted">{{ row.source_name }}</div></td>
+                     <td>{{ row.username ?: '-' }}</td>
+                     <td class="small">{{ row.collections is empty ? '-' : row.collections|join(', ') }}</td>
+                     <td>{{ row.date_label ?: '-' }}</td>
+                     <td class="small">
+                        {% if row.holders is empty %}<span class="text-muted">{{ __('Not known', 'grcmanager') }}</span>{% else %}{{ _n('%d person', '%d people', row.holders|length, 'grcmanager')|format(row.holders|length) }}{% endif %}
+                        {% for holder in row.departed %}<div><span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-user-x me-1"></i>{{ holder }}</span></div>{% endfor %}
+                     </td>
+                     <td>{{ vault.gaps(row.gaps, gap_infos) }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Membres du coffre : écarts d'abord. #}
+   <div class="card mb-3" id="grc-vault-members-list">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-users me-2"></i>{{ __('Members of the vault', 'grcmanager') }}</h3>
+         <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ total_members }}</span></div>
+      </div>
+      {% if members is empty %}
+         <div class="card-body text-muted">{{ __('No member imported yet: import the members of the vault or read them from Bitwarden below.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="card-body small pb-0 text-muted">{{ __('Members are matched with GLPI accounts on the email address, the login, or the part of the address before the @. A person who left is a GLPI account disabled or deleted, or with a past departure date.', 'grcmanager') }}</div>
+         <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Member', 'grcmanager') }}</th>
+                  <th>{{ __('Role', 'grcmanager') }}</th>
+                  <th>{{ __('Status') }}</th>
+                  <th>{{ __('Two-step login', 'grcmanager') }}</th>
+                  <th>{{ __('Collections', 'grcmanager') }}</th>
+                  <th>{{ __('Gaps', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in members %}
+                  {% set role = role_infos[row.role] ?? role_infos['user'] %}
+                  {% set status = status_infos[row.status] ?? status_infos['active'] %}
+                  <tr>
+                     <td>{% if row.url %}<a href="{{ row.url }}">{{ row.email }}</a>{% else %}{{ row.email }}{% endif %}{% if row.name %}<div class="small text-muted">{{ row.name }}</div>{% endif %}</td>
+                     <td><span class="badge bg-{{ role.color }}-subtle text-{{ role.color }}-emphasis">{{ role.label }}</span></td>
+                     <td><span class="badge bg-{{ status.color }}-subtle text-{{ status.color }}-emphasis">{{ status.label }}</span></td>
+                     <td>{{ vault.two_factor(row.two_factor) }}</td>
+                     <td class="small">{{ row.collections|length }}</td>
+                     <td>{{ vault.gaps(row.gaps, gap_infos) }}</td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+
+   {# Comptes d'administration des contrôleurs de gestion de serveur sans élément dans le coffre (#843). #}
+   {% if show_equipment %}
+      <div class="card mb-3" id="grc-vault-equipment">
+         <div class="card-header">
+            <h3 class="card-title"><i class="ti ti-server-cog me-2"></i>{{ __('Server controller administrator accounts missing from the vault', 'grcmanager') }}</h3>
+            <div class="card-actions"><span class="badge bg-secondary-subtle text-secondary-emphasis">{{ equipment|length }}</span></div>
+         </div>
+         <div class="card-body small pb-0 text-muted">{{ __('Enabled administrator accounts read on the server management controllers (iLO, iDRAC, XClarity, IPMI). An account is found in the vault when an item has the same login name and cites the controller (name, host or IP address).', 'grcmanager') }}</div>
+         {% if equipment is empty %}
+            <div class="card-body text-muted">{{ __('No administrator account missing from the vault.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="table-responsive">
+               <table class="table table-sm table-vcenter card-table">
+                  <thead><tr><th>{{ __('Controller', 'grcmanager') }}</th><th>{{ __('Login name', 'grcmanager') }}</th><th>{{ __('Role', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                  {% for row in equipment %}
+                     <tr><td><a href="{{ row.url }}">{{ row.controller }}</a></td><td>{{ row.username }}</td><td>{{ row.role }}</td></tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            </div>
+         {% endif %}
+      </div>
+   {% endif %}
+
+   {# Import CSV de métadonnées. #}
+   <div class="card mb-3" id="grc-vault-import">
+      <div class="card-header">
+         <h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import the vault metadata', 'grcmanager') }}</h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('Import a CSV file with a header, one line per item or per member. A new import of the same source and the same kind replaces the previous one in the current entity.', 'grcmanager') }}</p>
+         <ul class="small text-muted">
+            <li>{{ __('Items: name; optional id, collections, username, uri, passwordRevisionDate (or revisionDate, last_changed) and holders (email addresses separated by commas).', 'grcmanager') }}</li>
+            <li>{{ __('Members: email; optional name, type or role (owner, admin, user, custom), status (active, invited, revoked), collections and twoFactorEnabled (yes/no).', 'grcmanager') }}</li>
+            <li>{{ __('Bitwarden or Vaultwarden: produce the file with the Bitwarden command line (bw list items and bw list org-members) and keep only these columns, without the passwords.', 'grcmanager') }}</li>
+            <li>{{ __('Privileged access management (PAM) solution: export the accounts list or the safes members report without the passwords.', 'grcmanager') }}</li>
+         </ul>
+         {% if imports is not empty %}
+            <table class="table table-sm mb-3">
+               <thead><tr><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Kind', 'grcmanager') }}</th><th class="text-end">{{ __('Lines', 'grcmanager') }}</th><th>{{ __('Last import', 'grcmanager') }}</th>{% if can_manage %}<th><span class="visually-hidden">{{ __('Actions') }}</span></th>{% endif %}</tr></thead>
+               <tbody>
+               {% for import in imports %}
+                  <tr>
+                     <td>{{ import.label }}</td>
+                     <td>{{ import.kind_label }}</td>
+                     <td class="text-end">{{ import.count }}</td>
+                     <td>{{ import.date }}</td>
+                     {% if can_manage %}
+                        <td class="text-end">
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="source" value="{{ import.source }}">
+                              <input type="hidden" name="kind" value="{{ import.kind }}">
+                              <button type="submit" class="btn btn-sm btn-outline-danger" name="clear_vault" value="1"><i class="ti ti-trash me-1"></i>{{ __('Delete the import', 'grcmanager') }}</button>
+                           </form>
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         {% endif %}
+         {% if can_manage %}
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-vault-source">{{ __('Source', 'grcmanager') }}</label>
+                  <select class="form-select" id="grc-vault-source" name="source">
+                     {% for value, label in sources %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                  </select>
+               </div>
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-vault-kind">{{ __('Kind', 'grcmanager') }}</label>
+                  <select class="form-select" id="grc-vault-kind" name="kind">
+                     {% for value, label in kinds %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                  </select>
+               </div>
+               <div class="col-md-4">
+                  <label class="form-label" for="grc-vault-file">{{ __('CSV file', 'grcmanager') }}</label>
+                  <input type="file" class="form-control" id="grc-vault-file" name="vault_file" accept=".csv,.txt,text/csv" required>
+               </div>
+               <div class="col-md-2">
+                  <button type="submit" class="btn btn-primary" name="import_vault" value="1"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               </div>
+            </form>
+         {% endif %}
+      </div>
+   </div>
+
+   {# Lecture des membres par l'API publique de Bitwarden, sur clic, en lecture seule. #}
+   <div class="card mb-3" id="grc-vault-bitwarden">
+      <div class="card-header">
+         <h3 class="card-title d-flex align-items-center flex-wrap gap-2">
+            <i class="ti ti-cloud-download"></i>{{ __('Read the members from Bitwarden', 'grcmanager') }}
+            <span class="badge bg-azure-subtle text-azure-emphasis"><i class="ti ti-eye me-1"></i>{{ __('Read only', 'grcmanager') }}</span>
+            {% if bitwarden.configured %}
+               <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-plug-connected me-1"></i>{{ __('Configured', 'grcmanager') }}</span>
+            {% else %}
+               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-plug-off me-1"></i>{{ __('Not configured', 'grcmanager') }}</span>
+            {% endif %}
+         </h3>
+      </div>
+      <div class="card-body">
+         <p class="small">{{ __('With the organization API key of Bitwarden (Teams and Enterprise plans), GLPI reads the members, their role, their two-step login and their collections when you click the button. The result replaces the Bitwarden members import of the current entity. The items are not exposed by this API: import them as a CSV file.', 'grcmanager') }}</p>
+         {% if not bitwarden.configured %}
+            <p class="small text-muted mb-2">{{ __('The server and the API key are entered in the plugin configuration, Connectors tab.', 'grcmanager') }}</p>
+         {% endif %}
+         <div class="d-flex flex-wrap gap-2">
+            {% if can_manage and bitwarden.configured %}
+               <form method="post" action="{{ action }}">
+                  <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                  <button type="submit" class="btn btn-primary" name="fetch_bitwarden" value="1"><i class="ti ti-refresh me-1"></i>{{ __('Read now from Bitwarden', 'grcmanager') }}</button>
+               </form>
+            {% endif %}
+            <a class="btn btn-outline-secondary" href="{{ connector_url }}"><i class="ti ti-settings me-1"></i>{{ __('Set up the connection', 'grcmanager') }}</a>
+         </div>
+      </div>
+   </div>
+
+   <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+      <span class="text-muted small me-auto"><i class="ti ti-info-circle me-1"></i>{{ __('Nothing is changed in the vault nor in GLPI from this page: change the passwords and remove the accesses in the vault itself.', 'grcmanager') }}</span>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ mfa_url }}"><i class="ti ti-shield-check me-1"></i>{{ __('MFA coverage', 'grcmanager') }}</a>
+      <a class="btn btn-sm btn-outline-primary" href="{{ review_url }}"><i class="ti ti-checklist me-1"></i>{{ __('Access reviews', 'grcmanager') }}</a>
+   </div>
+</div>
