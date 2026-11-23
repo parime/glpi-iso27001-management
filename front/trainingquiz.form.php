@@ -20,6 +20,12 @@
  * de la session). Il faut pouvoir modifier la session.
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 Session::checkRight(\GlpiPlugin\Grcmanager\Training::RIGHTNAME, UPDATE);
 
 $participation = \GlpiPlugin\Grcmanager\TrainingQuiz::getParticipation((int) ($_POST['participations_id'] ?? 0));

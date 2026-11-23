@@ -15,6 +15,12 @@
  * -------------------------------------------------------------------------
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #377 : risques liés à un processus métier (onglet « Risques »). Il faut pouvoir modifier le
 // processus (droit de la continuité et entité) et lire le registre des risques (droit des registres
 // sensibles) ; proposer un risque pour un élément trop lent exige en plus de pouvoir créer un risque

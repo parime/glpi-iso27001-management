@@ -18,6 +18,12 @@
 // Issue #371 : onglet « Équipe d'intervention » de l'incident (ajout, rôle, retrait par un pilote).
 use GlpiPlugin\Grcmanager\SecurityIncidentTeam;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 $item = new SecurityIncidentTeam();
 
 if (isset($_POST['add'])) {

@@ -15,6 +15,12 @@
  * -------------------------------------------------------------------------
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #377 : dépendance entre processus métier (onglet « Processus liés »). Le lien appartient au
 // processus qui dépend de l'autre : l'ajouter ou le retirer exige de pouvoir le modifier (droit et
 // entité) ; l'ajouter exige aussi de pouvoir lire le processus amont.

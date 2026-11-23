@@ -18,6 +18,12 @@
 use GlpiPlugin\Grcmanager\Policy;
 use GlpiPlugin\Grcmanager\PolicyCoverage;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #879 : relier des politiques (entières ou par section) à des mesures de la SoA, ou retirer
 // un lien, depuis l'onglet d'une politique ou d'une mesure. Droit de modifier les politiques ;
 // chaque politique et chaque mesure est vérifiée (droit, entité) dans PolicyCoverage.
