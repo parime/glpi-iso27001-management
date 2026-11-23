@@ -27,7 +27,7 @@
    {{ fields.readOnlyField('', item.fields['breach_title'], __('Breach', 'grcmanager')) }}
    {{ fields.readOnlyField('', item.fields['breach_domain'], __('Breached site', 'grcmanager')) }}
    {{ fields.readOnlyField('', item.fields['breach_date']|formatted_date, __('Breach date', 'grcmanager')) }}
-   {{ fields.readOnlyField('', item.fields['added_date']|formatted_datetime, __('Published by Have I Been Pwned', 'grcmanager')) }}
+   {{ fields.readOnlyField('', item.fields['added_date']|formatted_datetime, __('Published by the breach database', 'grcmanager')) }}
    {{ fields.readOnlyField('', data_classes|join(', '), __('Exposed data', 'grcmanager'), {
       'full_width': true,
       'add_field_html': exposes_passwords
