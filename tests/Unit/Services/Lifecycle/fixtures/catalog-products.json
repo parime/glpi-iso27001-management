@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.2.1",
+  "generated_at": "2026-11-23T00:08:38+00:00",
+  "total": 14,
+  "result": [
+    {
+      "name": "adonisjs",
+      "aliases": [
+        "adonis"
+      ],
+      "label": "AdonisJS",
+      "category": "framework",
+      "tags": [
+        "framework",
+        "javascript-runtime"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/adonisjs"
+    },
+    {
+      "name": "amazon-linux",
+      "aliases": [],
+      "label": "Amazon Linux",
+      "category": "os",
+      "tags": [
+        "amazon",
+        "linux-distribution",
+        "os"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+    },
+    {
+      "name": "angular",
+      "aliases": [],
+      "label": "Angular",
+      "category": "framework",
+      "tags": [
+        "framework",
+        "google",
+        "herodevs",
+        "javascript-runtime"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/angular"
+    },
+    {
+      "name": "angularjs",
+      "aliases": [
+        "angular-js"
+      ],
+      "label": "AngularJS",
+      "category": "framework",
+      "tags": [
+        "discontinued",
+        "framework",
+        "google",
+        "herodevs",
+        "javascript-runtime"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/angularjs"
+    },
+    {
+      "name": "apache-http-server",
+      "aliases": [
+        "apache",
+        "httpd"
+      ],
+      "label": "Apache HTTP Server",
+      "category": "server-app",
+      "tags": [
+        "apache",
+        "server-app",
+        "web-server"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+    },
+    {
+      "name": "drupal",
+      "aliases": [],
+      "label": "Drupal",
+      "category": "server-app",
+      "tags": [
+        "php-runtime",
+        "server-app"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/drupal"
+    },
+    {
+      "name": "firefox",
+      "aliases": [],
+      "label": "Firefox",
+      "category": "app",
+      "tags": [
+        "app",
+        "mozilla",
+        "web-browser"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/firefox"
+    },
+    {
+      "name": "ionic",
+      "aliases": [
+        "ionic-framework"
+      ],
+      "label": "Ionic Framework",
+      "category": "framework",
+      "tags": [
+        "framework",
+        "javascript-runtime"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/ionic"
+    },
+    {
+      "name": "notepad-plus-plus",
+      "aliases": [],
+      "label": "Notepad++",
+      "category": "app",
+      "tags": [
+        "app"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/notepad-plus-plus"
+    },
+    {
+      "name": "oracle-linux",
+      "aliases": [
+        "oraclelinux"
+      ],
+      "label": "Oracle Linux",
+      "category": "os",
+      "tags": [
+        "linux-distribution",
+        "oracle",
+        "os"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+    },
+    {
+      "name": "ubuntu",
+      "aliases": [
+        "ubuntu-linux"
+      ],
+      "label": "Ubuntu",
+      "category": "os",
+      "tags": [
+        "linux-distribution",
+        "os"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/ubuntu"
+    },
+    {
+      "name": "vue",
+      "aliases": [
+        "vuejs"
+      ],
+      "label": "Vue",
+      "category": "framework",
+      "tags": [
+        "framework",
+        "herodevs",
+        "javascript-runtime"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/vue"
+    },
+    {
+      "name": "Not A Valid Id!",
+      "aliases": [],
+      "label": "Invalid row (test)",
+      "category": "app",
+      "tags": [
+        "app"
+      ],
+      "uri": "https://endoflife.date/api/v1/products/invalid"
+    },
+    "not an object"
+  ]
+}

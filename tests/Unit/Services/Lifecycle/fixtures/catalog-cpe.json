@@ -1,0 +1,119 @@
+{
+  "schema_version": "1.2.1",
+  "generated_at": "2026-11-23T00:08:38+00:00",
+  "total": 16,
+  "result": [
+    {
+      "identifier": "cpe:2.3:o:amazon:linux",
+      "product": {
+        "name": "amazon-linux",
+        "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:o:amazon:amazon_linux",
+      "product": {
+        "name": "amazon-linux",
+        "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+      }
+    },
+    {
+      "identifier": "cpe:/o:amazon:linux",
+      "product": {
+        "name": "amazon-linux",
+        "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+      }
+    },
+    {
+      "identifier": "cpe:/o:amazon:amazon_linux",
+      "product": {
+        "name": "amazon-linux",
+        "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+      }
+    },
+    {
+      "identifier": "cpe:/a:angular:angular",
+      "product": {
+        "name": "angular",
+        "uri": "https://endoflife.date/api/v1/products/angular"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:a:angular:angular",
+      "product": {
+        "name": "angular",
+        "uri": "https://endoflife.date/api/v1/products/angular"
+      }
+    },
+    {
+      "identifier": "cpe:/a:apache:http_server",
+      "product": {
+        "name": "apache-http-server",
+        "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:a:apache:http_server",
+      "product": {
+        "name": "apache-http-server",
+        "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:a:drupal:drupal",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "cpe:/a:drupal:drupal",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:a:mozilla:firefox",
+      "product": {
+        "name": "firefox",
+        "uri": "https://endoflife.date/api/v1/products/firefox"
+      }
+    },
+    {
+      "identifier": "cpe:/o:oracle:linux",
+      "product": {
+        "name": "oracle-linux",
+        "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:o:oracle:linux",
+      "product": {
+        "name": "oracle-linux",
+        "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:o:canonical:ubuntu_linux",
+      "product": {
+        "name": "ubuntu",
+        "uri": "https://endoflife.date/api/v1/products/ubuntu"
+      }
+    },
+    {
+      "identifier": "cpe:/o:canonical:ubuntu_linux",
+      "product": {
+        "name": "ubuntu",
+        "uri": "https://endoflife.date/api/v1/products/ubuntu"
+      }
+    },
+    {
+      "identifier": "cpe:2.3:a:example:unknown_product",
+      "product": {
+        "name": "not-in-catalogue",
+        "uri": "https://endoflife.date/api/v1/products/not-in-catalogue"
+      }
+    }
+  ]
+}

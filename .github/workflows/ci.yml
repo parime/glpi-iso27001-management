@@ -419,6 +419,12 @@ jobs:
       - name: Accessibilite dans le navigateur (pages cles, themes clair et sombre)
         run: bash .github/scripts/security-e2e.sh a11y
 
+      # Issue #1050 : anciennes adresses (tests/security/old-urls.txt) et anciennes ancres de la
+      # configuration redirigees vers leur nouvelle place, avec un fil d'Ariane, en super-admin et en
+      # lecteur. Le parcours de toutes les pages est celui de la securite commune (security.yml).
+      - name: Anciennes adresses redirigees (pages deplacees, anciennes ancres)
+        run: bash .github/scripts/security-e2e.sh old-urls
+
       # Issue #1002 : purge du jeu de donnees des tests de securite, puis nouvelle creation.
       - name: Purge du jeu de donnees de test
         run: bash .github/scripts/security-e2e.sh purge
@@ -559,6 +565,9 @@ jobs:
 
       - name: Accessibilite dans le navigateur sur GLPI 12
         run: bash .github/scripts/security-e2e.sh a11y
+
+      - name: Anciennes adresses redirigees sur GLPI 12
+        run: bash .github/scripts/security-e2e.sh old-urls
 
       - name: Purge du jeu de donnees de test sur GLPI 12
         run: bash .github/scripts/security-e2e.sh purge

@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%d more not shown: they appear once these are reviewed."
+msgstr "Altre %d non mostrate: compaiono dopo la revisione di queste."
+
+msgid "%d proposal(s) rejected: they will no longer be proposed."
+msgstr "%d proposta/e rifiutata/e: non saranno più proposte."
+
+msgid "%d proposed link(s) accepted."
+msgstr "%d corrispondenza/e proposta/e accettata/e."
+
+msgid "Accept the checked proposals"
+msgstr "Accetta le proposte selezionate"
+
+msgid "Catalogue not read yet: use \"Update now\"."
+msgstr "Catalogo non ancora letto: usare «Aggiorna ora»."
+
+msgid "Catalogue read on %s (once a week, with \"Update now\" or the daily task)."
+msgstr "Catalogo letto il %s (una volta alla settimana, con «Aggiorna ora» o l'attività giornaliera)."
+
+msgid "For the names not linked yet, the endoflife.date catalogue (product names, aliases, CPE and package identifiers) gives a likely product. Nothing is applied until you accept it: check the proposals that are right, then accept them; reject the wrong ones so they are no longer proposed."
+msgstr "Per i nomi non ancora collegati, il catalogo di endoflife.date (nomi dei prodotti, alias, identificatori CPE e di pacchetto) indica un prodotto probabile. Nulla viene applicato senza il vostro consenso: selezionate le proposte corrette, poi accettatele; rifiutate quelle errate perché non siano più proposte."
+
+msgid "Name or alias of the product"
+msgstr "Nome o alias del prodotto"
+
+msgid "No proposal: every name found in the catalogue is already linked or reviewed."
+msgstr "Nessuna proposta: ogni nome trovato nel catalogo è già collegato o revisionato."
+
+msgid "Package identifier (purl)"
+msgstr "Identificatore di pacchetto (purl)"
+
+msgid "Product catalogue not read (%s): the proposals use the previous one."
+msgstr "Catalogo dei prodotti non letto (%s): le proposte usano quello precedente."
+
+msgid "Product catalogue updated: links are proposed for the names not linked yet."
+msgstr "Catalogo dei prodotti aggiornato: sono proposte corrispondenze per i nomi non ancora collegati."
+
+msgid "Product for %s"
+msgstr "Prodotto per %s"
+
+msgid "Proposed links, to review"
+msgstr "Corrispondenze proposte, da rivedere"
+
+msgid "Proposed product"
+msgstr "Prodotto proposto"
+
+msgid "Reject the checked proposals"
+msgstr "Rifiuta le proposte selezionate"
+
+msgid "Select the proposal for %s"
+msgstr "Seleziona la proposta per %s"
+
+msgid "Select"
+msgstr "Seleziona"

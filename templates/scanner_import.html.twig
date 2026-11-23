@@ -1,0 +1,218 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #543 : rapports de scanners de vulnérabilités importés (A.8.8), dans les entités de la
+   personne. Le contenu des rapports est non fiable : il n'est affiché qu'échappé par Twig. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% macro level(row, levels) %}
+   {% set info = levels[row.level] ?? {'label': row.level, 'color': 'secondary'} %}
+   <span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis text-nowrap"><i class="ti ti-alert-triangle me-1"></i>{{ info.label }} {{ row.severity|number_format(1) }}</span>
+{% endmacro %}
+{% import _self as m %}
+
+<div id="grc-scanner-import">
+   {# Synthèse des constats ouverts. #}
+   <div class="row row-cards mb-3">
+      {% for key, info in levels %}
+         {% set n = summary[key] %}
+         <div class="col-sm-6 col-lg-3"><div class="card card-sm"><div class="card-body">
+            <div class="d-flex align-items-center">
+               <span class="badge bg-{{ n > 0 ? info.color : 'success' }}-subtle text-{{ n > 0 ? info.color : 'success' }}-emphasis me-2 fs-3"><i class="ti {{ n > 0 ? 'ti-bug' : 'ti-circle-check' }}"></i></span>
+               <div>
+                  <div class="fw-bold fs-3" id="grc-scanner-count-{{ key }}">{{ n }}</div>
+                  <div class="small">{{ __('Open findings: %s', 'grcmanager')|format(info.label) }}</div>
+               </div>
+            </div>
+         </div></div></div>
+      {% endfor %}
+   </div>
+
+   {# Import d'un rapport. #}
+   {% if can_manage %}
+      <div class="card mb-3" id="grc-scanner-upload">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-file-upload me-2"></i>{{ __('Import a scanner report', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            <p class="small mb-2">{{ __('In Greenbone (OpenVAS), open the finished report, choose Download and the XML format, then import the file here. Each finding is matched to the GLPI computer of the same name or IP address. Importing the same report again updates it without creating duplicates; a finding missing from a later scan of the same host is marked fixed.', 'grcmanager') }}</p>
+            <p class="small mb-2"><span class="text-muted">{{ __('Formats read:', 'grcmanager') }}</span>
+               {% for label in formats %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-radar-2 me-1"></i>{{ label }} (XML)</span>{% endfor %}
+            </p>
+            <form method="post" action="{{ action }}" enctype="multipart/form-data" class="d-flex flex-wrap align-items-center gap-2">
+               <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+               <input type="file" name="scanner_file" accept=".xml" class="form-control w-auto" required aria-label="{{ __('Report file', 'grcmanager') }}">
+               <button type="submit" name="import_scanner" value="1" class="btn btn-primary"><i class="ti ti-upload me-1"></i>{{ __('Import', 'grcmanager') }}</button>
+               <span class="small text-muted">{{ __('XML file, %d MB at most. The file itself is not kept: only the findings.', 'grcmanager')|format(max_mb) }}</span>
+               <a class="small" href="{{ example_url }}"><i class="ti ti-download me-1"></i>{{ __('Download an example file', 'grcmanager') }}</a>
+            </form>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Constats. #}
+   <div class="card mb-3" id="grc-scanner-findings">
+      <div class="card-header d-flex flex-wrap align-items-center gap-2">
+         <h3 class="card-title me-auto"><i class="ti ti-bug me-2"></i>{{ __('Findings', 'grcmanager') }}{% if computer_name %} <span class="badge bg-primary-subtle text-primary-emphasis ms-1"><i class="ti ti-device-desktop me-1"></i>{{ computer_name }}</span>{% endif %}</h3>
+         <form method="get" action="{{ action }}" class="d-flex flex-wrap align-items-center gap-2">
+            {% if filters.computers_id > 0 %}<input type="hidden" name="computers_id" value="{{ filters.computers_id }}">{% endif %}
+            <select name="status" class="form-select form-select-sm w-auto" aria-label="{{ __('Status', 'grcmanager') }}">
+               <option value="open" {{ filters.status == 'open' ? 'selected' }}>{{ __('Open', 'grcmanager') }}</option>
+               <option value="resolved" {{ filters.status == 'resolved' ? 'selected' }}>{{ __('Fixed', 'grcmanager') }}</option>
+               <option value="all" {{ filters.status == 'all' ? 'selected' }}>{{ __('All', 'grcmanager') }}</option>
+            </select>
+            <select name="severity" class="form-select form-select-sm w-auto" aria-label="{{ __('Severity', 'grcmanager') }}">
+               <option value="">{{ __('All severities', 'grcmanager') }}</option>
+               {% for key, info in levels %}<option value="{{ key }}" {{ filters.severity == key ? 'selected' }}>{{ info.label }}</option>{% endfor %}
+            </select>
+            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="ti ti-filter me-1"></i>{{ __('Filter', 'grcmanager') }}</button>
+            {% if filters.computers_id > 0 %}<a class="small" href="{{ action }}">{{ __('All computers', 'grcmanager') }}</a>{% endif %}
+         </form>
+      </div>
+      {% if rows is empty %}
+         <div class="card-body text-muted">
+            <i class="ti ti-info-circle me-1"></i>{{ imports is empty ? __('No report imported yet. Import a Greenbone (OpenVAS) report to list the vulnerabilities found on the network.', 'grcmanager') : __('No finding matches these filters.', 'grcmanager') }}
+         </div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Severity', 'grcmanager') }}</th>
+                  <th>{{ __('Vulnerability', 'grcmanager') }}</th>
+                  <th>{{ __('Computer', 'grcmanager') }}</th>
+                  <th>{{ __('Port', 'grcmanager') }}</th>
+                  <th>{{ __('Last seen', 'grcmanager') }}</th>
+                  <th>{{ __('Ticket', 'grcmanager') }}</th>
+               </tr></thead>
+               <tbody>
+               {% for row in rows %}
+                  <tr>
+                     <td>{{ m.level(row, levels) }}{% if row.is_resolved %}<div><span class="badge bg-success-subtle text-success-emphasis mt-1"><i class="ti ti-circle-check me-1"></i>{{ __('Fixed', 'grcmanager') }}</span></div>{% endif %}</td>
+                     <td>
+                        <div class="fw-bold">{{ row.name }}</div>
+                        <div class="small text-muted">{{ row.scanner_label }}{% if row.family %} · {{ row.family }}{% endif %}{% if row.qod is not null %} · {{ __('Detection quality %d%%', 'grcmanager')|format(row.qod) }}{% endif %}</div>
+                        {% if row.cve_list is not empty %}<div class="small">{% for cve in row.cve_list|slice(0, 5) %}<span class="badge bg-secondary-subtle text-secondary-emphasis me-1">{{ cve }}</span>{% endfor %}{% if row.cve_list|length > 5 %}<span class="small text-muted">+{{ row.cve_list|length - 5 }}</span>{% endif %}</div>{% endif %}
+                        {% if row.solution %}<details class="small"><summary>{{ __('Solution', 'grcmanager') }}{% if row.solution_type %} ({{ row.solution_type }}){% endif %}</summary><div class="text-break" style="white-space: pre-line">{{ row.solution }}</div></details>{% endif %}
+                     </td>
+                     <td>{% if row.computer_url %}<a href="{{ row.computer_url }}"><i class="ti ti-device-desktop me-1"></i>{{ row.computer_name }}</a>{% else %}<span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-link-off me-1"></i>{{ __('Not matched', 'grcmanager') }}</span>{% endif %}<div class="small text-muted">{{ row.host }}{% if row.hostname and row.hostname != row.host %} · {{ row.hostname }}{% endif %}</div></td>
+                     <td class="text-nowrap small">{{ row.port }}</td>
+                     <td class="text-nowrap small">{{ row.last_seen_label }}</td>
+                     <td>
+                        {% if row.ticket_url %}
+                           <a href="{{ row.ticket_url }}"><i class="ti ti-ticket me-1"></i>{{ __('Ticket %d', 'grcmanager')|format(row.tickets_id) }}</a>
+                        {% elseif can_ticket and row.computer_url and not row.is_resolved %}
+                           <form method="post" action="{{ action }}" class="d-inline">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="finding" value="{{ row.id }}">
+                              <button type="submit" name="scanner_ticket" value="1" class="btn btn-sm btn-outline-secondary" title="{{ __('Creates a ticket linked to the computer, with the finding and its solution. Nothing is created without this click.', 'grcmanager') }}"><i class="ti ti-ticket me-1"></i>{{ __('Propose a ticket', 'grcmanager') }}</button>
+                           </form>
+                        {% endif %}
+                     </td>
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         {% if rows|length >= max_rows %}
+            <div class="card-footer small text-muted">{{ __('Only the first %d findings are shown, the most severe first: use the filters.', 'grcmanager')|format(max_rows) }}</div>
+         {% endif %}
+      {% endif %}
+   </div>
+
+   {# Hôtes non rapprochés. #}
+   {% if unmatched is not empty %}
+      <div class="card mb-3" id="grc-scanner-unmatched">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-link-off me-2 text-warning"></i>{{ __('Scanned hosts not matched to a computer', 'grcmanager') }}</h3></div>
+         <div class="card-body small text-muted pb-0">{{ __('No computer you can see bears this name or this IP address, or several do. Check the computer in GLPI, or choose it here: the next imports will reuse this choice.', 'grcmanager') }}</div>
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Host in the report', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Open findings', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Highest score', 'grcmanager') }}</th>
+                  {% if can_manage %}<th>{{ __('Match to a computer', 'grcmanager') }}</th>{% endif %}
+               </tr></thead>
+               <tbody>
+               {% for host in unmatched %}
+                  <tr>
+                     <td><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-link-off me-1"></i>{{ host.host }}</span>{% if host.hostname and host.hostname != host.host %} <span class="small text-muted">{{ host.hostname }}</span>{% endif %}</td>
+                     <td class="text-end">{{ host.count }}</td>
+                     <td class="text-end">{{ host.severity|number_format(1) }}</td>
+                     {% if can_manage %}
+                        <td>
+                           <form method="post" action="{{ action }}" class="d-flex align-items-center gap-2">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="host" value="{{ host.host }}">
+                              {{ fields.dropdownField('Computer', 'computers_id', 0, '', {'no_label': true, 'rand': loop.index, 'aria_label': __('Computer', 'grcmanager')}) }}
+                              <button type="submit" name="link_scanner_host" value="1" class="btn btn-sm btn-outline-primary"><i class="ti ti-link me-1"></i>{{ __('Match', 'grcmanager') }}</button>
+                           </form>
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+   {% endif %}
+
+   {# Historique des imports. #}
+   <div class="card mb-3" id="grc-scanner-history">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-history me-2"></i>{{ __('Import history', 'grcmanager') }}</h3></div>
+      {% if imports is empty %}
+         <div class="card-body text-muted small">{{ __('No report imported yet.', 'grcmanager') }}</div>
+      {% else %}
+         <div class="table-responsive">
+            <table class="table table-sm table-vcenter card-table">
+               <thead><tr>
+                  <th>{{ __('Scan date', 'grcmanager') }}</th>
+                  <th>{{ __('Scanner', 'grcmanager') }}</th>
+                  <th>{{ __('Task', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Hosts', 'grcmanager') }}</th>
+                  <th>{{ __('Findings by severity', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Change', 'grcmanager') }}</th>
+                  <th class="text-end">{{ __('Fixed since the previous scan', 'grcmanager') }}</th>
+                  {% if can_manage %}<th></th>{% endif %}
+               </tr></thead>
+               <tbody>
+               {% for import in imports %}
+                  <tr>
+                     <td class="text-nowrap">{{ import.scan_label }}</td>
+                     <td>{{ import.scanner_label }}</td>
+                     <td>{{ import.task_name }}<div class="small text-muted text-break">{{ import.file_name }}</div></td>
+                     <td class="text-end">{{ import.host_count }}{% if import.unmatched_count > 0 %} <span class="badge bg-warning-subtle text-warning-emphasis" title="{{ __('Hosts not matched to a computer', 'grcmanager') }}"><i class="ti ti-link-off"></i> {{ import.unmatched_count }}</span>{% endif %}</td>
+                     <td class="text-nowrap">
+                        {% for key, info in levels %}<span class="badge bg-{{ info.color }}-subtle text-{{ info.color }}-emphasis me-1" title="{{ info.label }}">{{ import[key ~ '_count'] }}</span>{% endfor %}
+                     </td>
+                     <td class="text-end">
+                        {% if import.trend is null %}<span class="text-muted">-</span>
+                        {% elseif import.trend > 0 %}<span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-trending-up me-1"></i>+{{ import.trend }}</span>
+                        {% elseif import.trend < 0 %}<span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-trending-down me-1"></i>{{ import.trend }}</span>
+                        {% else %}<span class="badge bg-secondary-subtle text-secondary-emphasis">=</span>{% endif %}
+                     </td>
+                     <td class="text-end">{{ import.resolved_count }}</td>
+                     {% if can_manage %}
+                        <td>
+                           <form method="post" action="{{ action }}" class="d-inline" data-grc-confirm="{{ __('Delete this import and the findings it was the last to see?', 'grcmanager') }}">
+                              <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+                              <input type="hidden" name="import" value="{{ import.id }}">
+                              <button type="submit" name="delete_scanner_import" value="1" class="btn btn-sm btn-ghost-danger" title="{{ __('Delete', 'grcmanager') }}" aria-label="{{ __('Delete', 'grcmanager') }}"><i class="ti ti-trash"></i></button>
+                           </form>
+                        </td>
+                     {% endif %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>
