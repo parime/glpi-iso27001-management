@@ -334,6 +334,9 @@ function plugin_init_grcmanager(): void
         'addtabon' => [Supplier::class, Contract::class, \GlpiPlugin\Grcmanager\BusinessProcess::class],
     ]);
 
+    // Issue #1040 : onglet « Sécurité » de la fiche Fournisseur (risques, évaluations, réévaluation).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\SupplierSecurityTab::class, ['addtabon' => [Supplier::class]]);
+
     // Issue #164 : onglet « Couverture des preuves » sur les mesures et les exigences du SMSI.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\CoverageRule::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\Control::class, \GlpiPlugin\Grcmanager\IsmsRequirement::class],

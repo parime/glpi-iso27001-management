@@ -65,7 +65,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/isms_requirement_list_head
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\IsmsRequirement::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\IsmsRequirement::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\IsmsRequirement::class]

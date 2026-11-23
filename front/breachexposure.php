@@ -31,7 +31,7 @@ Session::checkRight(\GlpiPlugin\Grcmanager\BreachExposure::$rightname, READ);
 
 $params = QueryBuilder::manageParams(\GlpiPlugin\Grcmanager\BreachExposure::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     \GlpiPlugin\Grcmanager\BreachExposure::class,
     $params,
     DefaultSearchColumns::COLUMNS[\GlpiPlugin\Grcmanager\BreachExposure::class]

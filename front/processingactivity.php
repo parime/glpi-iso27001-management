@@ -52,7 +52,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/_list_toolbar.html.twig', 
 
 $params = QueryBuilder::manageParams(ProcessingActivity::class, $_GET);
 
-Search::showList(
+\GlpiPlugin\Grcmanager\Services\Ui\SearchPage::show(
     ProcessingActivity::class,
     $params,
     DefaultSearchColumns::COLUMNS[ProcessingActivity::class]
