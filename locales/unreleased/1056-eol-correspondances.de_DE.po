@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "%d more not shown: they appear once these are reviewed."
+msgstr "%d weitere nicht angezeigt: sie erscheinen, sobald diese geprüft sind."
+
+msgid "%d proposal(s) rejected: they will no longer be proposed."
+msgstr "%d Vorschlag/Vorschläge abgelehnt: sie werden nicht mehr vorgeschlagen."
+
+msgid "%d proposed link(s) accepted."
+msgstr "%d vorgeschlagene Zuordnung(en) übernommen."
+
+msgid "Accept the checked proposals"
+msgstr "Markierte Vorschläge übernehmen"
+
+msgid "Catalogue not read yet: use \"Update now\"."
+msgstr "Katalog noch nicht gelesen: „Jetzt aktualisieren“ verwenden."
+
+msgid "Catalogue read on %s (once a week, with \"Update now\" or the daily task)."
+msgstr "Katalog gelesen am %s (einmal pro Woche, mit „Jetzt aktualisieren“ oder der täglichen Aufgabe)."
+
+msgid "For the names not linked yet, the endoflife.date catalogue (product names, aliases, CPE and package identifiers) gives a likely product. Nothing is applied until you accept it: check the proposals that are right, then accept them; reject the wrong ones so they are no longer proposed."
+msgstr "Für noch nicht zugeordnete Namen liefert der Katalog von endoflife.date (Produktnamen, Aliasse, CPE- und Paketkennungen) ein wahrscheinliches Produkt. Nichts wird ohne Ihre Zustimmung angewendet: markieren Sie die richtigen Vorschläge und übernehmen Sie sie; lehnen Sie die falschen ab, damit sie nicht mehr vorgeschlagen werden."
+
+msgid "Name or alias of the product"
+msgstr "Name oder Alias des Produkts"
+
+msgid "No proposal: every name found in the catalogue is already linked or reviewed."
+msgstr "Kein Vorschlag: jeder im Katalog gefundene Name ist bereits zugeordnet oder geprüft."
+
+msgid "Package identifier (purl)"
+msgstr "Paketkennung (purl)"
+
+msgid "Product catalogue not read (%s): the proposals use the previous one."
+msgstr "Produktkatalog nicht gelesen (%s): die Vorschläge verwenden den vorherigen."
+
+msgid "Product catalogue updated: links are proposed for the names not linked yet."
+msgstr "Produktkatalog aktualisiert: für noch nicht zugeordnete Namen werden Zuordnungen vorgeschlagen."
+
+msgid "Product for %s"
+msgstr "Produkt für %s"
+
+msgid "Proposed links, to review"
+msgstr "Vorgeschlagene Zuordnungen, zu prüfen"
+
+msgid "Proposed product"
+msgstr "Vorgeschlagenes Produkt"
+
+msgid "Reject the checked proposals"
+msgstr "Markierte Vorschläge ablehnen"
+
+msgid "Select the proposal for %s"
+msgstr "Vorschlag für %s auswählen"
+
+msgid "Select"
+msgstr "Auswählen"
