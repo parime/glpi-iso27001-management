@@ -2,7 +2,7 @@
 
 Les comptes partagés et les mots de passe des équipements doivent être rangés dans un coffre-fort,
 partagés au strict besoin et renouvelés (mesures A.5.17 et A.8.2). La page **GRC > Accès et
-comptes > Comptes privilégiés** rapproche votre coffre (Bitwarden, Vaultwarden ou une solution de
+comptes > Comptes à privilèges** rapproche votre coffre (Bitwarden, Vaultwarden ou une solution de
 gestion des accès à privilèges) des comptes GLPI. Seules des **métadonnées** sont lues : jamais un
 mot de passe.
 
@@ -22,5 +22,5 @@ mot de passe.
    accès, membre inconnu de GLPI, administrateur du coffre sans connexion en deux étapes, compte
    d'administration d'un contrôleur de serveur (iLO, iDRAC) absent du coffre. Les corrections se
    font dans le coffre ; le plugin ne modifie rien.
-6. Les mêmes écarts apparaissent dans l'onglet **Comptes privilégiés** de chaque campagne de revue
+6. Les mêmes écarts apparaissent dans l'onglet **Comptes à privilèges** de chaque campagne de revue
    des accès, et en preuve sur les mesures A.5.17 et A.8.2.

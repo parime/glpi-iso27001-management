@@ -30824,7 +30824,7 @@ msgid "Stale objects"
 msgstr "Objets obsolètes"
 
 msgid "Privileged accounts"
-msgstr "Comptes privilégiés"
+msgstr "Comptes à privilèges"
 
 msgid "Trust relationships"
 msgstr "Relations d'approbation"
