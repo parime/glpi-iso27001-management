@@ -64,7 +64,8 @@ if (isset($_POST['import_scanner'])) {
     }
     Session::addMessageAfterRedirect(htmlescape(sprintf(
         __(
-            'Report imported: %1$d finding(s) on %2$d host(s), %3$d host(s) not matched to a computer, %4$d finding(s) fixed since the previous scan.',
+            'Report imported: %1$d finding(s) on %2$d host(s), %3$d host(s) not matched to a computer, '
+                . '%4$d finding(s) fixed since the previous scan.',
             'grcmanager'
         ),
         $result['findings'],

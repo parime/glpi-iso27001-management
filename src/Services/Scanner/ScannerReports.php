@@ -139,7 +139,9 @@ final class ScannerReports
      */
     public static function findingKey(string $scanner, string $host, string $port, string $testId): string
     {
-        return hash('sha256', implode("\n", [$scanner, self::normalizeHost($host), mb_strtolower(trim($port)), trim($testId)]));
+        return hash('sha256', implode("\n", [
+            $scanner, self::normalizeHost($host), mb_strtolower(trim($port)), trim($testId),
+        ]));
     }
 
     /**
