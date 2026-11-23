@@ -930,6 +930,8 @@ function plugin_grcmanager_forget_business_process_item(CommonDBTM $item): void
     \GlpiPlugin\Grcmanager\ApplicationSecurity::forgetItem($item);
     // Issue #622 : et sa fiche « usage autorisé ».
     \GlpiPlugin\Grcmanager\ApprovedApplication::forgetItem($item);
+    // Issue #1095 : et ses liens vers les risques généraux (fournisseurs, actifs).
+    \GlpiPlugin\Grcmanager\Risk::forgetLinkedItem($item);
 }
 
 /**

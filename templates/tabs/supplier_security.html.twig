@@ -98,5 +98,33 @@
         </table>
       </div>
     {% endif %}
+
+    {# Issue #1095 : risques du registre général liés à ce fournisseur depuis la fiche du risque. #}
+    <h3 class="mt-4 mb-2" id="grc-supplier-general-risks"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ __('General risks linked to this supplier', 'grcmanager') }}</h3>
+    <p class="text-muted small">{{ __('Risks of the risk register that concern this supplier. To link one, open the risk and choose this supplier under "Linked suppliers".', 'grcmanager') }}</p>
+    {% if general_risks is empty %}
+      <p class="text-muted mb-0"><i class="ti ti-link-off me-1" aria-hidden="true"></i>{{ __('No risk of the risk register is linked to this supplier in your entities.', 'grcmanager') }}
+        <a class="ms-1" href="{{ risk_register_url }}">{{ __('Open the risk register', 'grcmanager') }}</a></p>
+    {% else %}
+      <div class="table-responsive">
+        <table class="table table-sm table-vcenter mb-0">
+          <thead>
+            <tr>
+              <th>{{ __('Risk', 'grcmanager') }}</th>
+              <th>{{ __('Risk level', 'grcmanager') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for risk in general_risks %}
+              {% set level = levels[risk.risk_level] ?? [risk.risk_level ?: __('To be assessed', 'grcmanager'), 'bg-secondary-subtle text-secondary-emphasis'] %}
+              <tr>
+                <td><a href="{{ risk.url }}"><i class="ti ti-alert-triangle me-1" aria-hidden="true"></i>{{ risk.title }}</a></td>
+                <td><span class="badge {{ level[1] }}">{{ level[0] }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
   </div>
 </div>

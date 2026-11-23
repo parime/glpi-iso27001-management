@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Linked suppliers"
+msgstr "Powiązani dostawcy"
+
+msgid "The risk also appears in the Security tab of each linked supplier. For a risk assessed with a questionnaire, use the supplier risk register instead."
+msgstr "Ryzyko pojawia się także w zakładce Bezpieczeństwo każdego powiązanego dostawcy. W przypadku ryzyka ocenianego kwestionariuszem należy zamiast tego użyć rejestru ryzyk dostawców."
+
+msgid "General risks linked to this supplier"
+msgstr "Ryzyka ogólne powiązane z tym dostawcą"
+
+msgid "Risks of the risk register that concern this supplier. To link one, open the risk and choose this supplier under \"Linked suppliers\"."
+msgstr "Ryzyka z rejestru ryzyk dotyczące tego dostawcy. Aby powiązać ryzyko, otwórz je i wybierz tego dostawcę w sekcji „Powiązani dostawcy”."
+
+msgid "No risk of the risk register is linked to this supplier in your entities."
+msgstr "W Twoich jednostkach żadne ryzyko z rejestru ryzyk nie jest powiązane z tym dostawcą."
