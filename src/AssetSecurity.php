@@ -46,6 +46,15 @@ class AssetSecurity extends CommonGLPI
         return 'ti ti-shield-check';
     }
 
+    /**
+     * Chemin d'un écran de la rubrique dans le menu, cité en texte par la page de configuration au lieu
+     * d'un lien : la configuration ne sert pas de porte d'entrée vers l'exploitation (charte, section 9).
+     */
+    public static function menuPath(string $page): string
+    {
+        return sprintf('%s > %s > %s', __('Assets'), self::getTypeName(), $page);
+    }
+
     /** Visible dès que le profil peut ouvrir l'un des écrans de la rubrique. */
     public static function canView(): bool
     {
