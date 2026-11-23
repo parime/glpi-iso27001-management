@@ -40269,3 +40269,12 @@ msgstr[1] "%d elementi ti aspettano"
 
 msgid "version %s"
 msgstr "versione %s"
+
+msgid "Reports to sort"
+msgstr "Segnalazioni da esaminare"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Rischi valutati, il loro trattamento e il loro monitoraggio."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Rischi segnalati dal personale, da aggiungere al registro o da scartare."

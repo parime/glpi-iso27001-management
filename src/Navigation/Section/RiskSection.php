@@ -68,6 +68,15 @@ final class RiskSection extends AbstractSection
         return ['risk_review', 'treatment_action'];
     }
 
+    /** Carte du registre : « Risques » seul se confondait avec « Risques signalés ». */
+    public static function parentCard(): array
+    {
+        return [
+            'title'       => __('Risk register', 'grcmanager'),
+            'description' => __('Assessed risks, their treatment and their follow-up.', 'grcmanager'),
+        ];
+    }
+
     public static function pages(): array
     {
         $register = __('Register', 'grcmanager');
@@ -76,7 +85,14 @@ final class RiskSection extends AbstractSection
 
         return [
             // Issue #872 : risques signalés par les collaborateurs, à trier.
-            ReportedRisk::class => ['group' => $register],
+            ReportedRisk::class => [
+                'group'            => $register,
+                'card_title'       => __('Reports to sort', 'grcmanager'),
+                'card_description' => __(
+                    'Risks raised by staff, to add to the register or to dismiss.',
+                    'grcmanager'
+                ),
+            ],
             self::HEATMAP => [
                 'title'     => __('Risk heatmap', 'grcmanager'),
                 'page'      => '/plugins/grcmanager/front/riskheatmap.php',

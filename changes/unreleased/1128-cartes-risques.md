@@ -1,0 +1,2 @@
+### Changed
+- **Accueil de la rubrique Risques : cartes parlantes** (issue #1128). « Risques » devient « Registre des risques », « Risques signalés » devient « Signalements à trier », et chaque carte porte un court sous-titre qui dit à quoi elle sert. Les cartes des rubriques acceptent désormais un titre et un sous-titre facultatifs (`parentCard()` de la rubrique, options `card_title` et `card_description` d'une sous-page). Aucun droit ni écran modifié.

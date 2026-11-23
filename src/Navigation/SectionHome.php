@@ -60,11 +60,13 @@ final class SectionHome
                 $firstGroup = (string) ($options['group'] ?? '');
                 break;
             }
+            $parentCard = method_exists($section, 'parentCard') ? $section::parentCard() : [];
             $cards[] = [
-                'title' => (string) ($menu['section_label'] ?? $menu['title']),
-                'icon'  => (string) ($menu['icon'] ?? ''),
-                'url'   => $root . (string) ($menu['section_page'] ?? $menu['page']),
-                'group' => $firstGroup,
+                'title'       => (string) ($parentCard['title'] ?? $menu['section_label'] ?? $menu['title']),
+                'description' => (string) ($parentCard['description'] ?? ''),
+                'icon'        => (string) ($menu['icon'] ?? ''),
+                'url'         => $root . (string) ($menu['section_page'] ?? $menu['page']),
+                'group'       => $firstGroup,
             ];
         }
         foreach ($declared as $key => $options) {
@@ -73,9 +75,10 @@ final class SectionHome
                 continue;
             }
             $cards[] = [
-                'title' => (string) ($child['title'] ?? ''),
-                'icon'  => (string) ($child['icon'] ?? ''),
-                'url'   => $root . (string) $child['page'],
+                'title'       => (string) ($options['card_title'] ?? $child['title'] ?? ''),
+                'description' => (string) ($options['card_description'] ?? ''),
+                'icon'        => (string) ($child['icon'] ?? ''),
+                'url'         => $root . (string) $child['page'],
                 'group' => (string) ($options['group'] ?? ''),
             ];
         }

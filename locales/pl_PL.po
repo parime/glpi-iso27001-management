@@ -40122,3 +40122,12 @@ msgstr[2] "%d elementów czeka na Ciebie"
 
 msgid "version %s"
 msgstr "wersja %s"
+
+msgid "Reports to sort"
+msgstr "Zgłoszenia do rozpatrzenia"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Ocenione ryzyka, sposób postępowania z nimi i ich monitorowanie."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Ryzyka zgłoszone przez pracowników, do dodania do rejestru lub odrzucenia."
