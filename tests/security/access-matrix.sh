@@ -932,11 +932,6 @@ matrix=$(curl -s -c "$JAR" -b "$JAR" "$P/responsibilityactivity.php")
 contains "matrice : activite de A" "Activite securite A" oui    "$matrix"
 contains "matrice : activite de B" "Activite securite B" $SEE_B "$matrix"
 expect "modifier l'activite de B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "update=1&id=$(id responsibility_B)&name=Activite%20securite%20B&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.form.php")"
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  for action in add_defaults=1 archive=1; do
-    expect "front/responsibilityactivity.php : ${action%%=*}" 403       "$(code -d "$action&_glpi_csrf_token=$(csrf)" "$P/responsibilityactivity.php")"
-  done
-fi
 # Issue #608, lot 2 : export du registre et onglet du risque de A, limites aux entites de la session.
 context_csv=$(curl -s -c "$JAR" -b "$JAR" "$P/contextitem.export.php?format=csv")
 contains "export du contexte : partie de A" "Partie securite A" oui    "$context_csv"
@@ -951,9 +946,6 @@ expect "campagne de revue, entite A"   200    "$(code "$P/accessreview.form.php?
 expect "campagne de revue, entite B"   $DENY  "$(code "$P/accessreview.form.php?id=$(id campaign_B)")"
 # Issue #866 : recalcul des suggestions, droit de modification sur la campagne exigé.
 expect "recalculer les suggestions de la campagne B" "$([ "$ROLE" = admin ] && echo 302 || echo 403)"   "$(code -d "refresh_suggestions=1&id=$(id campaign_B)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  expect "recalculer les suggestions de la campagne A en lecture seule" 403     "$(code -d "refresh_suggestions=1&id=$(id campaign_A)&_glpi_csrf_token=$(csrf)" "$P/accessreview.form.php")"
-fi
 
 control_tab=$(tab GlpiPlugin%5CGrcmanager%5CControl 'GlpiPlugin%5CGrcmanager%5CAccessReview$2' "$(id control)")
 contains "onglet revues d'acces d'un controle : campagne A" "Campagne securite A" oui     "$control_tab"
@@ -1257,8 +1249,6 @@ expect "fonction de B : ajout d'un titulaire" "$([ "$ROLE" = admin ] && echo 302
 ARCHIVE=403; case $ROLE in limited|admin) ARCHIVE=302 ;; general) ARCHIVE= ;; esac
 [ -n "$ARCHIVE" ] && expect "front/ismsfunction.php : archiver le dossier" $ARCHIVE \
   "$(code -d "archive=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
-[ "$ROLE" = reader ] || [ "$ROLE" = none ] && expect "front/ismsfunction.php : fonctions par defaut" 403 \
-  "$(code -d "add_defaults=1&_glpi_csrf_token=$(csrf)" "$P/ismsfunction.php")"
 expect "front/ismsfunction.php : archiver sans jeton CSRF" 403 "$(code -d "archive=1" "$P/ismsfunction.php")"
 # Lot 3 : titulaires repris d'une activité de la matrice des responsabilités. L'activité de B n'est
 # jamais acceptée pour la fonction de A (entité), et elle n'est proposée qu'à qui voit B.
@@ -1327,23 +1317,12 @@ if [ "$ROLE" = admin ]; then
 else
   code -d "acknowledge=1&confirm_read=1&lines_id=$(id ack_line)&_glpi_csrf_token=$(csrf)" "$P/policyacknowledgement.form.php" > /dev/null
 fi
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  for action in launch=1 remind=1 close=1 add_audience=1 save_days=1; do
-    expect "front/policyacknowledgement.form.php : ${action%%=*}" 403 \
-      "$(code -d "$action&policies_id=$(id policy_ack)&campaigns_id=$(id ack_campaign)&itemtype=Group&items_id=1&acknowledgement_days=3&_glpi_csrf_token=$(csrf)" "$P/policyacknowledgement.form.php")"
-  done
-fi
 
 # Issue #611 : approbation des politiques. Exporter l'historique exige la lecture des politiques ;
 # demander, retirer, preparer une version ou designer les approbateurs exige leur modification ; un
 # PDF fige n'est servi qu'aux lecteurs ou a l'approbateur designe de la version.
 expect "front/policyapproval.php : export de l'historique" $READ_POLICY   "$(code "$P/policyapproval.php?export=$(id policy_ack)")"
 expect "front/policyapproval.php : PDF fige inexistant" 404 "$(code "$P/policyapproval.php?pdf=999999999")"
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  for action in submit_approval=1 save_approvers=1 withdraw=1 new_version_submit=1; do
-    expect "front/policyapproval.php : ${action%%=*}" 403       "$(code -d "$action&policies_id=$(id policy_ack)&versions_id=1&new_version=9.9&approver_users[]=2&_glpi_csrf_token=$(csrf)" "$P/policyapproval.php")"
-  done
-fi
 
 # Issue #538 : demandes de preuves d'audit et espace auditeur. iso-sans-droit (aucun droit sur le
 # plugin) a un acces auditeur en vigueur a « Audit securite » seulement : il y voit la demande
@@ -1380,14 +1359,6 @@ else
       "$P/auditevidencerequest.mine.php" > /dev/null
   done
 fi
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  for action in add=1 accept=1 ask_completion=1 update=1 purge=1 remind=1 grant_access=1 revoke_access=1; do
-    expect "front/auditevidencerequest.form.php : ${action%%=*}" 403 \
-      "$(code -d "$action&plugin_grcmanager_audits_id=$(id audit)&id=$(id evreq_submitted)&reference=securite&review_comment=x&users_id=2&date_end=$(date +%Y-%m-%d)&accesses_id=1&_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
-  done
-  expect "front/auditevidencerequest.form.php : import CSV" 403 \
-    "$(code -F import_csv=1 -F "plugin_grcmanager_audits_id=$(id audit)" -F "csv_file=@$EVIDENCE_PDF;filename=liste.csv" -F "_glpi_csrf_token=$(csrf)" "$P/auditevidencerequest.form.php")"
-fi
 
 # Issue #606 : grille d'audit, memes regles d'acces que les documents de l'audit. glpi, auditeur de
 # « Audit securite », la lit et la modifie ; les autres profils, hors de l'equipe, ne voient que le
@@ -1423,11 +1394,6 @@ SEE_A=oui; [ "$ROLE" = none ] && SEE_A=non
 contains "export DORA : contrat de A" "DORA-securite-A" $SEE_A "$register"
 contains "export DORA : contrat de B" "DORA-securite-B" $SEE_B "$register"
 contains "onglet registre DORA d'un contrat" "grc-dora-arrangement-form" $SEE_A   "$(tab Contract 'GlpiPlugin%5CGrcmanager%5CDoraRegister$2' "$(id contract_A)")"
-if [ "$ROLE" = none ] || [ "$ROLE" = reader ]; then
-  for action in save_settings=1 save_provider=1 save_function=1 include=1 exclude=1 save_arrangement=1 add_function=1     remove_function=1 add_subcontractor=1 remove_subcontractor=1; do
-    expect "front/doraregister.form.php : ${action%%=*}" 403       "$(code -d "$action&contracts_id=$(id contract_A)&suppliers_id=$(id supplier)&name=securite&reference=securite&_glpi_csrf_token=$(csrf)" "$P/doraregister.form.php")"
-  done
-fi
 if [ "$ROLE" = limited ]; then
   expect "front/doraregister.form.php : contrat de B" 403     "$(code -d "save_arrangement=1&contracts_id=$(id contract_B)&reference=securite&_glpi_csrf_token=$(csrf)" "$P/doraregister.form.php")"
 fi

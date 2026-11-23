@@ -2,12 +2,11 @@
 
 - **Parc > Sécurité du parc** (#1039, navigation simplifiée #1035) : les écrans de sécurité technique
   quittent le menu GRC pour le menu Parc, là où l'on cherche la sécurité d'un actif. Une page
-  d'accueil range en cartes les 21 écrans, en six groupes : Vulnérabilités, Fin de vie et correctifs,
+  d'accueil range en cartes les 20 écrans, en six groupes : Vulnérabilités, Fin de vie et correctifs,
   Durcissement, Supervision, Sauvegardes et réseau, Sites et développement (sécurité physique,
   développement sécurisé et sécurité du code, venus de la rubrique des mesures). La barre d'onglets
   montre l'accueil et un onglet par groupe ; une seconde barre montre les pages du groupe ouvert. Le
-  fil d'Ariane suit : « Parc > Sécurité du parc > … ». Les adresses des pages ne changent pas ; le
-  nouveau menu apparaît à la connexion suivante.
+  fil d'Ariane suit : « Parc > Sécurité du parc > … ». Les adresses des pages ne changent pas.
 - **Fin de vie constructeur des modèles de matériel** (#1039) : ce n'est plus un réglage de la
   configuration, mais une donnée du parc. Elle se saisit dans un nouvel onglet « Fin de vie
   constructeur » des fiches de modèles de GLPI (ordinateurs, écrans, matériels réseau, imprimantes,

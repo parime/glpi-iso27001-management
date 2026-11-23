@@ -29,8 +29,8 @@ msgstr "Oprogramowanie i sprzęt bez poprawek, opóźnione poprawki i licencje."
 msgid "Hardening"
 msgstr "Utwardzanie"
 
-msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
-msgstr "Automatyczne kontrole inwentarza, bezpieczna konfiguracja, szyfrowanie dysków i Active Directory."
+msgid "Automated checks of the inventory, secure configuration and disk encryption."
+msgstr "Automatyczne kontrole inwentarza, bezpieczna konfiguracja i szyfrowanie dysków."
 
 msgid "Logs, supervision, exposed services and server management controllers."
 msgstr "Dzienniki, nadzór, wystawione usługi i kontrolery zarządzania serwerami."

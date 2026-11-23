@@ -7,8 +7,6 @@
   Politiques et procédures, Audits et preuves, Non-conformités et amélioration, Réglementations, Vie privée
   (RGPD), Accès et comptes, Personnel et sensibilisation, Organisation du SMSI. Les adresses des
   écrans et les droits ne changent pas ; le fil d'Ariane suit le nouvel emplacement.
-  **Déconnectez-vous puis reconnectez-vous pour voir le nouveau menu** : GLPI garde le menu en
-  mémoire pendant la session.
 - **Page d'accueil de chaque rubrique** (#1038) : en cliquant sur une rubrique du menu, on voit
   d'abord ce qui vous attend dans cette rubrique (retards en tête, repris de « Mon espace »), puis
   ses écrans en cartes groupées par thème. Seuls les écrans que votre profil peut ouvrir sont

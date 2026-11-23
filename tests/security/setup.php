@@ -808,6 +808,10 @@ $noRight = $userId('iso-sans-droit', $a, $profileId('Securite ISO - sans droit',
     // (classification, processus métier) ne lui montrent rien.
     'appliance'                          => READ,
     'supplier'                           => READ,
+    // Issue #1047 : le droit qui ouvre la fiche d'un fournisseur est « contact_enterprise » (Gestion >
+    // Contacts et fournisseurs) ; sans lui, le fournisseur commun restait invisible et le contrôle de
+    // ses onglets ne vérifiait rien.
+    'contact_enterprise'                 => READ,
     // Issue #777 : lit les changements, dont l'onglet de validation de mise en production ne lui
     // montre rien.
     'change'                             => CommonITILObject::READALL,

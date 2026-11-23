@@ -29,8 +29,8 @@ msgstr "Software y hardware que ya no reciben correcciones, parches atrasados y 
 msgid "Hardening"
 msgstr "Bastionado"
 
-msgid "Automated checks of the inventory, secure configuration, disk encryption and Active Directory."
-msgstr "Controles automáticos del inventario, configuración segura, cifrado de discos y Active Directory."
+msgid "Automated checks of the inventory, secure configuration and disk encryption."
+msgstr "Controles automáticos del inventario, configuración segura y cifrado de discos."
 
 msgid "Logs, supervision, exposed services and server management controllers."
 msgstr "Registros, supervisión, servicios expuestos y controladores de gestión de servidores."
