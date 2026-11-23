@@ -27,6 +27,8 @@ use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
  */
 final class NetworkFlowReportTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testReportListsActiveFlowsWithTheirGapsAndRendersAsPdf(): void
     {
         $flow = new \GlpiPlugin\Grcmanager\NetworkFlow();
@@ -51,8 +53,8 @@ final class NetworkFlowReportTest extends GrcmanagerIntegrationTestCase
             $this->assertArrayHasKey('PHPUnit RDP publié', $flows);
             $row = $flows['PHPUnit RDP publié'];
             $this->assertSame('TCP 3389', $row['service']);
-            $this->assertContains(__('Administration exposed on the Internet', 'grcmanager'), $row['checks']);
-            $this->assertContains(__('No justification', 'grcmanager'), $row['checks']);
+            $this->assertContains('Administration exposed on the Internet', $row['checks']);
+            $this->assertContains('No justification', $row['checks']);
 
             $html = TemplateRenderer::getInstance()->render('@grcmanager/pdf/network_flow_report.html.twig', [
                 'report_title'       => 'Matrice',

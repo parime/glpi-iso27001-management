@@ -36,6 +36,8 @@ use PluginGrcmanagerSecurityIncident;
  */
 final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     /**
      * @param array<string, mixed> $input
      */
@@ -225,7 +227,7 @@ final class CrisisCommunicationTest extends GrcmanagerIntegrationTestCase
         $this->assertNotSame('', $reference);
         $this->assertStringStartsWith('[' . $reference . '] Attaque en cours : PHPUnit <script>', $mine['subject']);
         $this->assertStringContainsString('Systèmes touchés : PHPUnit SRV-FICHIERS', $mine['body']);
-        $this->assertStringContainsString(__('[to be completed]', 'grcmanager'), $mine['body']);
+        $this->assertStringContainsString('[to be completed]', $mine['body']);
 
         ob_start();
         $this->assertTrue(CrisisCommunication::displayTabContentForItem($incident));

@@ -43,6 +43,8 @@ use UserEmail;
  */
 final class KriAlertTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const MAIL_SETTINGS = [
         'use_notifications'     => 1,
         'notifications_mailing' => 1,
@@ -120,7 +122,7 @@ final class KriAlertTest extends GrcmanagerIntegrationTestCase
         $this->assertCount(1, $mails, 'Passage au rouge : une alerte.');
         $this->assertStringContainsString($kri->fields['name'], (string) $mails[0]['name']);
         $this->assertStringContainsString(
-            __('Risk indicator (KRI) in alert', 'grcmanager'),
+            'Risk indicator (KRI) in alert',
             (string) $mails[0]['name']
         );
         $this->assertStringNotContainsString('##', (string) $mails[0]['body_text'], 'Toutes les balises remplacées.');
@@ -134,7 +136,7 @@ final class KriAlertTest extends GrcmanagerIntegrationTestCase
         $mails = $this->mailsFor($kri, 'olga@example.org');
         $this->assertCount(2, $mails, 'Retour au vert : un message.');
         $this->assertStringContainsString(
-            __('Risk indicator (KRI) back to green', 'grcmanager'),
+            'Risk indicator (KRI) back to green',
             (string) $mails[1]['name']
         );
         $this->assertSame('', $this->fresh($kri)->fields['alert_status']);

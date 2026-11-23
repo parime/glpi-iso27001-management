@@ -30,6 +30,8 @@ use GlpiPlugin\Grcmanager\Services\Notification\SensitiveNotification;
  */
 final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private function withoutSensitiveRight(callable $test): void
     {
         $saved = $_SESSION['glpiactiveprofile'][Installer::SENSITIVE_RIGHT] ?? 0;
@@ -113,7 +115,7 @@ final class SensitiveRegistersTest extends GrcmanagerIntegrationTestCase
 
         $target = new \GlpiPlugin\Grcmanager\NotificationTargetRisk(0, 'review_due', $risk);
         $target->addDataForTemplate('review_due');
-        $this->assertSame(sprintf(__('Risk no. %d', 'grcmanager'), $riskId), $target->data['##risk.title##']);
+        $this->assertSame(sprintf('Risk no. %d', $riskId), $target->data['##risk.title##']);
         $this->assertSame('', $target->data['##risk.risklevel##']);
         $this->assertStringNotContainsString('Faille du VPN', implode(' ', array_map('strval', $target->data)));
 

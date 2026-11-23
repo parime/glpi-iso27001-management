@@ -24,6 +24,8 @@ namespace GlpiPlugin\Grcmanager\Tests\Integration;
  */
 final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     public function testScoresComputeResultsAndRetakeList(): void
     {
         global $DB;
@@ -64,7 +66,7 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             $training->getFromDB($id);
             $report = \GlpiPlugin\Grcmanager\Training::renderSessionReport($training);
             $this->assertStringContainsString('32/40 (80 %)', $report);
-            $this->assertStringContainsString(__('To retake', 'grcmanager'), $report);
+            $this->assertStringContainsString('To retake', $report);
             $this->assertStringStartsWith('%PDF', \GlpiPlugin\Grcmanager\Pdf\PdfRenderer::renderHtmlToPdf($report));
 
             // Une note hors barème est ignorée, jamais enregistrée.
@@ -105,9 +107,9 @@ final class TrainingScoreTest extends GrcmanagerIntegrationTestCase
             (new \GlpiPlugin\Grcmanager\Training())->showForm(0, ['retake_of' => $id]);
             $html = (string) ob_get_clean();
 
-            // La CI tourne en anglais : comparer au titre traduit.
+            // Langue forcée en anglais (ForcesEnglishLanguage, issue #1078).
             $this->assertStringContainsString(
-                htmlspecialchars(sprintf(__('%s - retake', 'grcmanager'), 'PHPUnit session source')),
+                htmlspecialchars(sprintf('%s - retake', 'PHPUnit session source')),
                 $html
             );
             $this->assertStringContainsString('name="max_score"', $html);

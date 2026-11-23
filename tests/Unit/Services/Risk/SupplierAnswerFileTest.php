@@ -203,14 +203,14 @@ final class SupplierAnswerFileTest extends TestCase
     public function testWindows1252IsConverted(): void
     {
         $content = (string) mb_convert_encoding(
-            self::returned([self::row('Q01', 'yes', 'Sécurité')]),
+            self::returned([self::row('Q01', 'yes', 'Réponse détaillée')]),
             'Windows-1252',
             'UTF-8'
         );
 
         $parsed = AnswerFile::parse($content, 7, self::answers(), self::LABELS);
 
-        self::assertSame('Sécurité', $parsed['changes'][0]['comment']);
+        self::assertSame('Réponse détaillée', $parsed['changes'][0]['comment']);
     }
 
     public function testEvidenceNamesAreReducedToAFileName(): void
