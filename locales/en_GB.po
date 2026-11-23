@@ -41476,6 +41476,2188 @@ msgstr[1] "Reported risks"
 msgid "Rejected with a reason"
 msgstr "Rejected with a reason"
 
+msgid "Connectors"
+msgstr "Connectors"
+
+msgid "Controls, audits and evidence"
+msgstr "Controls, audits and evidence"
+
+msgid "Fleet"
+msgstr "Fleet"
+
+msgid "Frameworks"
+msgstr "Frameworks"
+
+msgid ""
+"Gathers the settings of the plugin, by tab: frameworks, risk method, audits "
+"and evidence, people and policies, incidents, connectors and fleet. Daily "
+"work stays in the menus."
+msgstr ""
+"Gathers the settings of the plugin, by tab: frameworks, risk method, audits "
+"and evidence, people and policies, incidents, connectors and fleet. Daily "
+"work stays in the menus."
+
+msgid ""
+"Go through each tab once when you set up the plugin, then come back only to "
+"change a setting. A tab is shown when you have the right to at least one of "
+"its settings."
+msgstr ""
+"Go through each tab once when you set up the plugin, then come back only to "
+"change a setting. A tab is shown when you have the right to at least one of "
+"its settings."
+
+msgid "Incidents and continuity"
+msgstr "Incidents and continuity"
+
+msgid "People and policies"
+msgstr "People and policies"
+
+msgid ""
+"Identify, assess and treat the risks of the organisation: the register, the "
+"risks reported by staff, the heatmap, the catalogue of typical risks and the "
+"accepted risks."
+msgstr ""
+"Identify, assess and treat the risks of the organisation: the register, the "
+"risks reported by staff, the heatmap, the catalogue of typical risks and the "
+"accepted risks."
+
+msgid "Map and library"
+msgstr "Map and library"
+
+msgid "Import and export"
+msgstr "Import and export"
+
+msgid "Risk analyses"
+msgstr "Risk analyses"
+
+msgid ""
+"Go deeper into the risks: impact analyses, domino effects between risks, "
+"EBIOS Risk Manager studies and key risk indicators."
+msgstr ""
+"Go deeper into the risks: impact analyses, domino effects between risks, "
+"EBIOS Risk Manager studies and key risk indicators."
+
+msgid "Security controls (SoA)"
+msgstr "Security controls (SoA)"
+
+msgid ""
+"The security measures of Annex A and the Statement of Applicability: which "
+"measures apply, what blocks them and whether they work."
+msgstr ""
+"The security measures of Annex A and the Statement of Applicability: which "
+"measures apply, what blocks them and whether they work."
+
+msgid "Policies and procedures"
+msgstr "Policies and procedures"
+
+msgid ""
+"The written rules of the organisation: policies, ready-to-adapt templates, "
+"operating procedures and the online services approved for use."
+msgstr ""
+"The written rules of the organisation: policies, ready-to-adapt templates, "
+"operating procedures and the online services approved for use."
+
+msgid "Audits and evidence"
+msgstr "Audits and evidence"
+
+msgid ""
+"Prepare and follow the audits, and keep the evidence that the security "
+"measures are applied."
+msgstr ""
+"Prepare and follow the audits, and keep the evidence that the security "
+"measures are applied."
+
+msgid ""
+"Handle what does not work and follow the progress: nonconformities, open "
+"gaps, security objectives and management reviews."
+msgstr ""
+"Handle what does not work and follow the progress: nonconformities, open "
+"gaps, security objectives and management reviews."
+
+msgid "Regulations"
+msgstr "Regulations"
+
+msgid ""
+"The laws and standards that apply besides ISO 27001 (NIS2 and its national "
+"versions, DORA, other frameworks) and how far you comply with them."
+msgstr ""
+"The laws and standards that apply besides ISO 27001 (NIS2 and its national "
+"versions, DORA, other frameworks) and how far you comply with them."
+
+msgid "Privacy (GDPR)"
+msgstr "Privacy (GDPR)"
+
+msgid ""
+"Personal data: the record of processing activities, the requests from the "
+"people concerned and the data breaches."
+msgstr ""
+"Personal data: the record of processing activities, the requests from the "
+"people concerned and the data breaches."
+
+msgid "Access and accounts"
+msgstr "Access and accounts"
+
+msgid ""
+"Who has access to what: access reviews, periodic reviews, account hygiene, "
+"multi-factor authentication, file share permissions and the Active Directory "
+"audit."
+msgstr ""
+"Who has access to what: access reviews, periodic reviews, account hygiene, "
+"multi-factor authentication, file share permissions and the Active Directory "
+"audit."
+
+msgid "People and awareness"
+msgstr "People and awareness"
+
+msgid ""
+"The staff side of security: the compliance of each person, training, "
+"phishing simulations, skills and the accounts exposed in data leaks."
+msgstr ""
+"The staff side of security: the compliance of each person, training, "
+"phishing simulations, skills and the accounts exposed in data leaks."
+
+msgid "ISMS organisation"
+msgstr "ISMS organisation"
+
+msgid ""
+"How the management system is organised: the requirements of clauses 4 to 10, "
+"the context, the responsibilities, the decisions delegated during an "
+"absence, the official contacts and the obligations."
+msgstr ""
+"How the management system is organised: the requirements of clauses 4 to 10, "
+"the context, the responsibilities, the decisions delegated during an "
+"absence, the official contacts and the obligations."
+
+msgid ""
+"Start with what is overdue, then open the screen you need from the cards "
+"below."
+msgstr ""
+"Start with what is overdue, then open the screen you need from the cards "
+"below."
+
+msgid "What is waiting for you"
+msgstr "What is waiting for you"
+
+msgid "All my tasks"
+msgstr "All my tasks"
+
+msgid "Screens"
+msgstr "Screens"
+
+msgid "Asset security"
+msgstr "Asset security"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Other screens"
+msgstr "Other screens"
+
+msgid "This is now done in Assets > Asset security > %s."
+msgstr "This is now done in Assets > Asset security > %s."
+
+msgid "No screen of this section is available with your profile."
+msgstr "No screen of this section is available with your profile."
+
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr "Known flaws of the installed software and the most exposed machines."
+
+msgid "End of life and patches"
+msgstr "End of life and patches"
+
+msgid ""
+"Software and hardware that no longer receive fixes, late patches and "
+"licences."
+msgstr ""
+"Software and hardware that no longer receive fixes, late patches and "
+"licences."
+
+msgid "Hardening"
+msgstr "Hardening"
+
+msgid ""
+"Automated checks of the inventory, secure configuration and disk encryption."
+msgstr ""
+"Automated checks of the inventory, secure configuration and disk encryption."
+
+msgid "Logs, supervision, exposed services and server management controllers."
+msgstr "Logs, supervision, exposed services and server management controllers."
+
+msgid "Backups and network"
+msgstr "Backups and network"
+
+msgid "Backup coverage, mail and domain security, network flows."
+msgstr "Backup coverage, mail and domain security, network flows."
+
+msgid "Sites and development"
+msgstr "Sites and development"
+
+msgid "Physical security of the sites, secure development and code security."
+msgstr "Physical security of the sites, secure development and code security."
+
+msgid "Hardware end of life"
+msgstr "Hardware end of life"
+
+msgid "End of life dates saved."
+msgstr "End of life dates saved."
+
+msgid ""
+"Same threshold as the end of support of software, set in the plugin "
+"configuration."
+msgstr ""
+"Same threshold as the end of support of software, set in the plugin "
+"configuration."
+
+msgid "\"End of life soon\": within %d days."
+msgstr "\"End of life soon\": within %d days."
+
+msgid ""
+"Enter the date announced by the manufacturer when you know it (optional, "
+"leave empty otherwise). You can also enter it on the form of each model, tab "
+"\"Manufacturer end of life\"."
+msgstr ""
+"Enter the date announced by the manufacturer when you know it (optional, "
+"leave empty otherwise). You can also enter it on the form of each model, tab "
+"\"Manufacturer end of life\"."
+
+msgid "See the hardware concerned"
+msgstr "See the hardware concerned"
+
+msgid ""
+"The date after which the manufacturer no longer provides repairs, spare "
+"parts or firmware updates for this model (optional). The hardware of this "
+"model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset "
+"security (ISO 27001 A.7.13 and A.8.9)."
+msgstr ""
+"The date after which the manufacturer no longer provides repairs, spare "
+"parts or firmware updates for this model (optional). The hardware of this "
+"model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset "
+"security (ISO 27001 A.7.13 and A.8.9)."
+
+msgid "Hardware of this model in your entities"
+msgstr "Hardware of this model in your entities"
+
+msgid "All the models"
+msgstr "All the models"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, on the "
+"form of the model)."
+msgstr ""
+"No manufacturer end of life date entered for this model (optional, on the "
+"form of the model)."
+
+msgid "Links and reading"
+msgstr "Links and reading"
+
+msgid ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the page \"Software to "
+"watch\"."
+msgstr ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the page \"Software to "
+"watch\"."
+
+msgid "It also applies to the manufacturer end of life of hardware models."
+msgstr "It also applies to the manufacturer end of life of hardware models."
+
+msgid ""
+"Everything about the security of your assets in one place: vulnerabilities, "
+"end of life, patches, hardening, monitoring, backups, sites and development. "
+"Each card opens a screen; only the screens your profile can open are shown."
+msgstr ""
+"Everything about the security of your assets in one place: vulnerabilities, "
+"end of life, patches, hardening, monitoring, backups, sites and development. "
+"Each card opens a screen; only the screens your profile can open are shown."
+
+msgid ""
+"Start with the vulnerabilities and the end of life of software and hardware, "
+"then check that the expected protections (encryption, patches, logs, "
+"backups) cover the whole fleet."
+msgstr ""
+"Start with the vulnerabilities and the end of life of software and hardware, "
+"then check that the expected protections (encryption, patches, logs, "
+"backups) cover the whole fleet."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here for all the models "
+"in service, or on the form of each model (tab \"Manufacturer end of life\")."
+msgstr ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here for all the models "
+"in service, or on the form of each model (tab \"Manufacturer end of life\")."
+
+msgid ""
+"Enter the known dates, then follow the hardware whose end of life is reached "
+"or near in the \"Hardware warranty\" card of the fleet vulnerabilities. "
+"Nothing is changed in the GLPI models."
+msgstr ""
+"Enter the known dates, then follow the hardware whose end of life is reached "
+"or near in the \"Hardware warranty\" card of the fleet vulnerabilities. "
+"Nothing is changed in the GLPI models."
+
+msgid "ISO/IEC 27001, controls A.7.13 and A.8.9"
+msgstr "ISO/IEC 27001, controls A.7.13 and A.8.9"
+
+msgid "Supplier security"
+msgstr "Supplier security"
+
+msgid ""
+"Assess the security of your suppliers and service providers: the supplier "
+"risks, the security questionnaires they answer and, when DORA applies, the "
+"register of information."
+msgstr ""
+"Assess the security of your suppliers and service providers: the supplier "
+"risks, the security questionnaires they answer and, when DORA applies, the "
+"register of information."
+
+msgid "Assess this supplier"
+msgstr "Assess this supplier"
+
+msgid "Last evaluation"
+msgstr "Last evaluation"
+
+msgid "Next reassessment: %s"
+msgstr "Next reassessment: %s"
+
+msgid "No evaluation yet"
+msgstr "No evaluation yet"
+
+msgid "No reassessment date planned"
+msgstr "No reassessment date planned"
+
+msgid "Reassessment overdue since %s"
+msgstr "Reassessment overdue since %s"
+
+msgid "Supplier risk register"
+msgstr "Supplier risk register"
+
+msgid ""
+"The security assessment of this supplier: its supplier risks, their level, "
+"the last questionnaire it answered and the next reassessment. The full "
+"register is in Management > Supplier security."
+msgstr ""
+"The security assessment of this supplier: its supplier risks, their level, "
+"the last questionnaire it answered and the next reassessment. The full "
+"register is in Management > Supplier security."
+
+msgid ""
+"This supplier has not been assessed yet: no supplier risk is recorded for it "
+"in your entities."
+msgstr ""
+"This supplier has not been assessed yet: no supplier risk is recorded for it "
+"in your entities."
+
+msgid "%d questionnaire"
+msgid_plural "%d questionnaires"
+msgstr[0] "%d questionnaire"
+msgstr[1] "%d questionnaires"
+
+msgid "Communicate"
+msgstr "Communicate"
+
+msgid "Crisis and continuity"
+msgstr "Crisis and continuity"
+
+msgid ""
+"Crisis exercises and real crisis teams: timeline, decisions and lessons "
+"learned."
+msgstr ""
+"Crisis exercises and real crisis teams: timeline, decisions and lessons "
+"learned."
+
+msgid ""
+"Crisis scenarios of the continuity plan and how ready you are for each one."
+msgstr ""
+"Crisis scenarios of the continuity plan and how ready you are for each one."
+
+msgid ""
+"Critical activities, their business impact analysis (BIA) and recovery "
+"objectives."
+msgstr ""
+"Critical activities, their business impact analysis (BIA) and recovery "
+"objectives."
+
+msgid "EDR alerts import"
+msgstr "EDR alerts import"
+
+msgid ""
+"Everything needed to prepare for a crisis and keep the activity going: "
+"business processes and their impact analysis, crisis scenarios, crisis "
+"exercises, recovery tests and ready-to-use crisis messages."
+msgstr ""
+"Everything needed to prepare for a crisis and keep the activity going: "
+"business processes and their impact analysis, crisis scenarios, crisis "
+"exercises, recovery tests and ready-to-use crisis messages."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.5.29 and A.5.30"
+
+msgid "Last read"
+msgstr "Last read"
+
+msgid "No error"
+msgstr "No error"
+
+msgid "Prepare"
+msgstr "Prepare"
+
+msgid ""
+"Reading SentinelOne now and reviewing its alerts is done in Assistance > "
+"Security incidents > EDR alerts import."
+msgstr ""
+"Reading SentinelOne now and reviewing its alerts is done in Assistance > "
+"Security incidents > EDR alerts import."
+
+msgid "Ready-to-use crisis messages and their distribution lists."
+msgstr "Ready-to-use crisis messages and their distribution lists."
+
+msgid ""
+"Start with the cards that show something to do (recovery tests overdue or "
+"failed), then keep each list up to date. Each card only appears if your "
+"profile can open its screen."
+msgstr ""
+"Start with the cards that show something to do (recovery tests overdue or "
+"failed), then keep each list up to date. Each card only appears if your "
+"profile can open its screen."
+
+msgid ""
+"The alerts read from SentinelOne are reviewed, and a reading can be started "
+"at any time, in Assistance > Security incidents > EDR alerts import."
+msgstr ""
+"The alerts read from SentinelOne are reviewed, and a reading can be started "
+"at any time, in Assistance > Security incidents > EDR alerts import."
+
+msgid ""
+"The automatic reading is disabled: enable it in the Connectors tab of the "
+"plugin configuration, or use the button \"Fetch now\"."
+msgstr ""
+"The automatic reading is disabled: enable it in the Connectors tab of the "
+"plugin configuration, or use the button \"Fetch now\"."
+
+msgid "Train"
+msgstr "Train"
+
+msgid "When each critical process was last tested and which tests are due."
+msgstr "When each critical process was last tested and which tests are due."
+
+msgid "%d last test failed"
+msgid_plural "%d last tests failed"
+msgstr[0] "%d last test failed"
+msgstr[1] "%d last tests failed"
+
+msgid "%d process not tested this year"
+msgid_plural "%d processes not tested this year"
+msgstr[0] "%d process not tested this year"
+msgstr[1] "%d processes not tested this year"
+
+msgid "%d test overdue"
+msgid_plural "%d tests overdue"
+msgstr[0] "%d test overdue"
+msgstr[1] "%d tests overdue"
+
+msgid "These settings are now in Setup > Plugins > GRC Manager, %s tab."
+msgstr "These settings are now in Setup > Plugins > GRC Manager, %s tab."
+
+msgid "Connection to Zabbix %s succeeded."
+msgstr "Connection to Zabbix %s succeeded."
+
+msgid "Connection to Uptime Kuma succeeded."
+msgstr "Connection to Uptime Kuma succeeded."
+
+msgid "Connection to Veeam succeeded."
+msgstr "Connection to Veeam succeeded."
+
+msgid "The DNS server answers the DNSSEC questions."
+msgstr "The DNS server answers the DNSSEC questions."
+
+msgid ""
+"The DNS server did not answer the DNSSEC question: DNSSEC will show "
+"\"Unknown\". Enter another DNS server."
+msgstr ""
+"The DNS server did not answer the DNSSEC question: DNSSEC will show "
+"\"Unknown\". Enter another DNS server."
+
+msgid "See the results"
+msgstr "See the results"
+
+msgid "Set up the connection"
+msgstr "Set up the connection"
+
+msgid "Change the settings"
+msgstr "Change the settings"
+
+msgid "Read automatically every day"
+msgstr "Read automatically every day"
+
+msgid "Read automatically every hour"
+msgstr "Read automatically every hour"
+
+msgid "Read on click only"
+msgstr "Read on click only"
+
+msgid ""
+"Nothing has been read from Zabbix yet: set up the connection in the "
+"configuration, then click \"Read now\". Until then, every asset concerned is "
+"shown as not monitored."
+msgstr ""
+"Nothing has been read from Zabbix yet: set up the connection in the "
+"configuration, then click \"Read now\". Until then, every asset concerned is "
+"shown as not monitored."
+
+msgid ""
+"Nothing has been read from Uptime Kuma yet: set up the connection in the "
+"configuration, then click \"Read now\"."
+msgstr ""
+"Nothing has been read from Uptime Kuma yet: set up the connection in the "
+"configuration, then click \"Read now\"."
+
+msgid "Connection to Microsoft Graph succeeded."
+msgstr "Connection to Microsoft Graph succeeded."
+
+msgid "Connection to %s succeeded."
+msgstr "Connection to %s succeeded."
+
+msgid "Microsoft Entra ID and Microsoft Graph"
+msgstr "Microsoft Entra ID and Microsoft Graph"
+
+msgid ""
+"The same application reads the MFA methods of the accounts and the sharing "
+"rights of SharePoint, OneDrive and Teams, when you click the button on these "
+"pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs "
+"automatically."
+msgstr ""
+"The same application reads the MFA methods of the accounts and the sharing "
+"rights of SharePoint, OneDrive and Teams, when you click the button on these "
+"pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs "
+"automatically."
+
+msgid ""
+"For the sharing rights, also grant Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All."
+msgstr ""
+"For the sharing rights, also grant Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All."
+
+msgid ""
+"The tenant, the application ID and the client secret are entered in the "
+"plugin configuration, Connectors tab."
+msgstr ""
+"The tenant, the application ID and the client secret are entered in the "
+"plugin configuration, Connectors tab."
+
+msgid ""
+"The GitHub and GitLab tokens are entered in the plugin configuration, "
+"Connectors tab."
+msgstr ""
+"The GitHub and GitLab tokens are entered in the plugin configuration, "
+"Connectors tab."
+
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret in the plugin configuration (Connectors tab), or import a "
+"CSV export below."
+msgstr ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret in the plugin configuration (Connectors tab), or import a "
+"CSV export below."
+
+msgid ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token in the plugin "
+"configuration, Connectors tab. 3. Click \"Read now\"."
+msgstr ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token in the plugin "
+"configuration, Connectors tab. 3. Click \"Read now\"."
+
+msgid "Change in the configuration"
+msgstr "Change in the configuration"
+
+msgid "Current rule"
+msgstr "Current rule"
+
+msgid "This setting is now in the plugin configuration, tab %s."
+msgstr "This setting is now in the plugin configuration, tab %s."
+
+msgid "Adjust"
+msgstr "Adjust"
+
+msgid ""
+"Certification cycle shown by default in the internal audit programme, and "
+"the trainings that make an auditor qualified."
+msgstr ""
+"Certification cycle shown by default in the internal audit programme, and "
+"the trainings that make an auditor qualified."
+
+msgid "Settings saved. They are now in %s."
+msgstr "Settings saved. They are now in %s."
+
+msgid "These settings are in %s."
+msgstr "These settings are in %s."
+
+msgid "Getting started"
+msgstr "Getting started"
+
+msgid "All steps done"
+msgstr "All steps done"
+
+#, php-format
+msgid "%1$d of %2$d steps done"
+msgstr "%1$d of %2$d steps done"
+
+msgid ""
+"The main settings to make before using the plugin. Each step is checked from "
+"what is already set up; nothing is changed from here."
+msgstr ""
+"The main settings to make before using the plugin. Each step is checked from "
+"what is already set up; nothing is changed from here."
+
+msgid "Open the setting"
+msgstr "Open the setting"
+
+msgid "Choose the frameworks"
+msgstr "Choose the frameworks"
+
+msgid ""
+"Tick the frameworks your organisation follows and save the choice: the other "
+"ones disappear from the screens."
+msgstr ""
+"Tick the frameworks your organisation follows and save the choice: the other "
+"ones disappear from the screens."
+
+msgid "Validate the risk matrix"
+msgstr "Validate the risk matrix"
+
+msgid ""
+"Check the probability x impact grid, its size and its labels, then save it, "
+"even unchanged."
+msgstr ""
+"Check the probability x impact grid, its size and its labels, then save it, "
+"even unchanged."
+
+msgid "Give the rights to a profile"
+msgstr "Give the rights to a profile"
+
+msgid ""
+"After installation, only the Super-Admin profile can use the plugin. Open a "
+"profile, then its GRC Manager tab, to give the rights to the people who work "
+"on the ISMS."
+msgstr ""
+"After installation, only the Super-Admin profile can use the plugin. Open a "
+"profile, then its GRC Manager tab, to give the rights to the people who work "
+"on the ISMS."
+
+msgid "Open the profiles"
+msgstr "Open the profiles"
+
+msgid "Choose the CISO group"
+msgstr "Choose the CISO group"
+
+msgid "The members of this group can see every audit and its documents."
+msgstr "The members of this group can see every audit and its documents."
+
+msgid "Test at least one connector"
+msgstr "Test at least one connector"
+
+msgid ""
+"Enter the address and the key of a tool you use (SentinelOne, Zabbix, Uptime "
+"Kuma, GitHub or GitLab, endoflife.date): the step is done after a first "
+"successful read."
+msgstr ""
+"Enter the address and the key of a tool you use (SentinelOne, Zabbix, Uptime "
+"Kuma, GitHub or GitLab, endoflife.date): the step is done after a first "
+"successful read."
+
+msgid "Scope the Statement of Applicability"
+msgstr "Scope the Statement of Applicability"
+
+#, php-format
+msgid ""
+"Answer every question of the \"%s\" screen, in the GRC menu: the answers "
+"suggest which controls apply."
+msgstr ""
+"Answer every question of the \"%s\" screen, in the GRC menu: the answers "
+"suggest which controls apply."
+
+msgid "Nonconformities and improvement"
+msgstr "Nonconformities and improvement"
+
+msgid "Create or import a custom framework"
+msgstr "Create or import a custom framework"
+
+msgid "What is this block for?"
+msgstr "What is this block for?"
+
+msgid ""
+"Defining a framework is a setting: it is done here. Its assessment stays in "
+"GRC & Compliance > Regulations."
+msgstr ""
+"Defining a framework is a setting: it is done here. Its assessment stays in "
+"GRC & Compliance > Regulations."
+
+msgid "No custom framework yet."
+msgstr "No custom framework yet."
+
+msgid "ISO standards"
+msgstr "ISO standards"
+
+msgid "European regulations"
+msgstr "European regulations"
+
+msgid "National guides"
+msgstr "National guides"
+
+msgid "Sector frameworks"
+msgstr "Sector frameworks"
+
+msgid "Control catalogs"
+msgstr "Control catalogs"
+
+msgid ""
+"European directive (EU) 2022/2555: the common obligations. A national "
+"implementation adds its own measures, register and score, shown under NIS2; "
+"it is active only while NIS2 is."
+msgstr ""
+"European directive (EU) 2022/2555: the common obligations. A national "
+"implementation adds its own measures, register and score, shown under NIS2; "
+"it is active only while NIS2 is."
+
+msgid "National implementation"
+msgstr "National implementation"
+
+msgid "France (ReCyF)"
+msgstr "France (ReCyF)"
+
+msgid "Italy (ACN)"
+msgstr "Italy (ACN)"
+
+msgid ""
+"Complementary publications of the French cybersecurity agency, each with its "
+"own measures and score. ReCyF is also the French implementation of NIS2: "
+"ticking it here or under NIS2 is the same setting."
+msgstr ""
+"Complementary publications of the French cybersecurity agency, each with its "
+"own measures and score. ReCyF is also the French implementation of NIS2: "
+"ticking it here or under NIS2 is the same setting."
+
+msgid "IT hygiene guide"
+msgstr "IT hygiene guide"
+
+msgid ""
+"French NIS2 framework of ANSSI (ReCyF): a register with one record per "
+"measure, per GLPI entity set as important or essential below; NIS2 is then "
+"assessed on these measures. Requires NIS2."
+msgstr ""
+"French NIS2 framework of ANSSI (ReCyF): a register with one record per "
+"measure, per GLPI entity set as important or essential below; NIS2 is then "
+"assessed on these measures. Requires NIS2."
+
+msgid ""
+"Frameworks are grouped by family: open a family to tick its frameworks, then "
+"save it."
+msgstr ""
+"Frameworks are grouped by family: open a family to tick its frameworks, then "
+"save it."
+
+msgid "Inactive: requires %s"
+msgstr "Inactive: requires %s"
+
+msgid "Enable %s first, in the European regulations family."
+msgstr "Enable %s first, in the European regulations family."
+
+msgid "%1$d of %2$d active"
+msgstr "%1$d of %2$d active"
+
+msgid "No framework in this family yet."
+msgstr "No framework in this family yet."
+
+msgid ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify "
+"your entity as important or essential."
+msgstr ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify "
+"your entity as important or essential."
+
+msgid ""
+"Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: "
+"%3$s"
+msgstr ""
+"Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: "
+"%3$s"
+
+msgid "On-call team"
+msgstr "On-call team"
+
+msgid "Covered processes and recovery objectives"
+msgstr "Covered processes and recovery objectives"
+
+msgid "Crisis scenarios"
+msgstr "Crisis scenarios"
+
+msgid "Content of the plan"
+msgstr "Content of the plan"
+
+msgid "Plan test"
+msgid_plural "Plan tests"
+msgstr[0] "Plan test"
+msgstr[1] "Plan tests"
+
+msgid "No test recorded yet."
+msgstr "No test recorded yet."
+
+msgid "Gaps found"
+msgstr "Gaps found"
+
+msgid "History of versions"
+msgstr "History of versions"
+
+msgid "Continuity and recovery plans"
+msgstr "Continuity and recovery plans"
+
+msgid ""
+"The plans themselves are managed in Assistance > Crisis and continuity. "
+"Here: how often they are reviewed and what a new plan starts with."
+msgstr ""
+"The plans themselves are managed in Assistance > Crisis and continuity. "
+"Here: how often they are reviewed and what a new plan starts with."
+
+msgid "Default review period (months)"
+msgstr "Default review period (months)"
+
+msgid ""
+"Used when a plan does not set its own period. The next review date is "
+"computed when the plan is approved."
+msgstr ""
+"Used when a plan does not set its own period. The next review date is "
+"computed when the plan is approved."
+
+msgid "Review reminder (days before)"
+msgstr "Review reminder (days before)"
+
+msgid "From this many days before the date, the review is shown as due soon."
+msgstr "From this many days before the date, the review is shown as due soon."
+
+msgid "Start a new plan from the model"
+msgstr "Start a new plan from the model"
+
+msgid ""
+"Pre-fills the scope, activation, steps, fallback and communication with "
+"short guidance to replace."
+msgstr ""
+"Pre-fills the scope, activation, steps, fallback and communication with "
+"short guidance to replace."
+
+msgid ""
+"Version %s has been sent to the approvers; its content is frozen until their "
+"decision."
+msgstr ""
+"Version %s has been sent to the approvers; its content is frozen until their "
+"decision."
+
+msgid "Version %s is approved and in force."
+msgstr "Version %s is approved and in force."
+
+msgid ""
+"Version %1$s is being prepared; the version approved on %2$s stays in force "
+"until then."
+msgstr ""
+"Version %1$s is being prepared; the version approved on %2$s stays in force "
+"until then."
+
+msgid "Version %s is a draft: send it for approval once it is ready."
+msgstr "Version %s is a draft: send it for approval once it is ready."
+
+msgid "Next review: %s"
+msgstr "Next review: %s"
+
+msgid "Your decision"
+msgstr "Your decision"
+
+msgid ""
+"Version %s awaits your decision. Read the plan (Plan tab or PDF) before "
+"answering."
+msgstr ""
+"Version %s awaits your decision. Read the plan (Plan tab or PDF) before "
+"answering."
+
+msgid ""
+"No approver: choose one on the plan, or set the default approvers of "
+"policies in the configuration."
+msgstr ""
+"No approver: choose one on the plan, or set the default approvers of "
+"policies in the configuration."
+
+msgid "Default approvers of policies (configuration)."
+msgstr "Default approvers of policies (configuration)."
+
+msgid "Approver designated on the plan."
+msgstr "Approver designated on the plan."
+
+msgid "Have this plan approved"
+msgstr "Have this plan approved"
+
+msgid ""
+"Freezes version %s (content and SHA-256 fingerprint, kept in the history and "
+"printable) and sends it to the approvers. The content can no longer be "
+"changed until their decision."
+msgstr ""
+"Freezes version %s (content and SHA-256 fingerprint, kept in the history and "
+"printable) and sends it to the approvers. The content can no longer be "
+"changed until their decision."
+
+msgid ""
+"An approved plan can no longer be changed. Prepare a new version: it goes "
+"back to draft, and the approved version stays in force and in the history "
+"until the new one is approved."
+msgstr ""
+"An approved plan can no longer be changed. Prepare a new version: it goes "
+"back to draft, and the approved version stays in force and in the history "
+"until the new one is approved."
+
+msgid "You do not have the right to modify this plan."
+msgstr "You do not have the right to modify this plan."
+
+msgid "Print the current plan (PDF)"
+msgstr "Print the current plan (PDF)"
+
+msgid ""
+"This critical process is not covered by any continuity or recovery plan."
+msgstr ""
+"This critical process is not covered by any continuity or recovery plan."
+
+msgid "No continuity or recovery plan covers this process yet."
+msgstr "No continuity or recovery plan covers this process yet."
+
+msgid "All continuity and recovery plans"
+msgstr "All continuity and recovery plans"
+
+msgid ""
+"This plan has never been tested. A plan that has not been tested gives no "
+"assurance that it works."
+msgstr ""
+"This plan has never been tested. A plan that has not been tested gives no "
+"assurance that it works."
+
+msgid "The last test is more than a year old: plan a new exercise."
+msgstr "The last test is more than a year old: plan a new exercise."
+
+msgid "This plan has been tested within the year."
+msgstr "This plan has been tested within the year."
+
+msgid "Action created"
+msgstr "Action created"
+
+msgid "Create a nonconformity"
+msgstr "Create a nonconformity"
+
+msgid "Remove this test"
+msgstr "Remove this test"
+
+msgid "Record a test of the plan"
+msgstr "Record a test of the plan"
+
+msgid ""
+"What was tested, who took part, the times measured against the objectives."
+msgstr ""
+"What was tested, who took part, the times measured against the objectives."
+
+msgid ""
+"Each gap can then become a nonconformity to follow up in the improvement "
+"section."
+msgstr ""
+"Each gap can then become a nonconformity to follow up in the improvement "
+"section."
+
+msgid "Recovery tests of the covered processes"
+msgstr "Recovery tests of the covered processes"
+
+msgid ""
+"Recovery tests are recorded on each process (Recovery strategy tab) and in "
+"the recovery test programme."
+msgstr ""
+"Recovery tests are recorded on each process (Recovery strategy tab) and in "
+"the recovery test programme."
+
+msgid "%d plan"
+msgid_plural "%d plans"
+msgstr[0] "%d plan"
+msgstr[1] "%d plans"
+
+msgid "%d plan not approved"
+msgid_plural "%d plans not approved"
+msgstr[0] "%d plan not approved"
+msgstr[1] "%d plans not approved"
+
+msgid "%d review overdue"
+msgid_plural "%d reviews overdue"
+msgstr[0] "%d review overdue"
+msgstr[1] "%d reviews overdue"
+
+msgid "%d plan not tested within a year"
+msgid_plural "%d plans not tested within a year"
+msgstr[0] "%d plan not tested within a year"
+msgstr[1] "%d plans not tested within a year"
+
+msgid "%d critical process without plan"
+msgid_plural "%d critical processes without plan"
+msgstr[0] "%d critical process without plan"
+msgstr[1] "%d critical processes without plan"
+
+msgid "Plans awaiting your approval"
+msgstr "Plans awaiting your approval"
+
+msgid "Critical processes not covered by any plan"
+msgstr "Critical processes not covered by any plan"
+
+msgid ""
+"No plan yet. Start with the continuity plan of your most critical activity, "
+"then the IT recovery plan it relies on."
+msgstr ""
+"No plan yet. Start with the continuity plan of your most critical activity, "
+"then the IT recovery plan it relies on."
+
+msgid "Approved: %1$d / %2$d"
+msgstr "Approved: %1$d / %2$d"
+
+msgid "Tested within a year: %1$d / %2$d"
+msgstr "Tested within a year: %1$d / %2$d"
+
+msgid "Print the plan (PDF)"
+msgstr "Print the plan (PDF)"
+
+msgid "This plan is approved, reviewed on time and tested within the year."
+msgstr "This plan is approved, reviewed on time and tested within the year."
+
+msgid ""
+"The content of this plan is frozen while it is awaiting approval or "
+"approved. To change it, prepare a new version in the Versions and approval "
+"tab."
+msgstr ""
+"The content of this plan is frozen while it is awaiting approval or "
+"approved. To change it, prepare a new version in the Versions and approval "
+"tab."
+
+msgid ""
+"For example \"Recovery plan of the main data centre\" or \"Continuity plan "
+"of order taking\"."
+msgstr ""
+"For example \"Recovery plan of the main data centre\" or \"Continuity plan "
+"of order taking\"."
+
+msgid ""
+"BCP and BRP keep or restart business activities; ITCP and DRP keep or "
+"restore IT systems and data."
+msgstr ""
+"BCP and BRP keep or restart business activities; ITCP and DRP keep or "
+"restore IT systems and data."
+
+msgid ""
+"The version number changes when a new version is prepared after an approval."
+msgstr ""
+"The version number changes when a new version is prepared after an approval."
+
+msgid ""
+"0 uses the default period of the configuration (%d months). The next review "
+"date is computed at approval."
+msgstr ""
+"0 uses the default period of the configuration (%d months). The next review "
+"date is computed at approval."
+
+msgid "People in charge"
+msgstr "People in charge"
+
+msgid ""
+"Usually a member of management. Empty: the default approvers of policies "
+"(configuration) are asked."
+msgstr ""
+"Usually a member of management. Empty: the default approvers of policies "
+"(configuration) are asked."
+
+msgid "GLPI group gathered when the plan is activated."
+msgstr "GLPI group gathered when the plan is activated."
+
+msgid ""
+"GLPI group reachable outside working hours. Its active members are printed "
+"in the plan."
+msgstr ""
+"GLPI group reachable outside working hours. Its active members are printed "
+"in the plan."
+
+msgid "What the plan covers"
+msgstr "What the plan covers"
+
+msgid "Covered processes"
+msgstr "Covered processes"
+
+msgid ""
+"Business processes kept or restarted by the plan. Their RTO and RPO come "
+"from their business impact analysis."
+msgstr ""
+"Business processes kept or restarted by the plan. Their RTO and RPO come "
+"from their business impact analysis."
+
+msgid "Crisis scenarios handled by this plan."
+msgstr "Crisis scenarios handled by this plan."
+
+msgid "Suppliers needed for the recovery or to call during the crisis."
+msgstr "Suppliers needed for the recovery or to call during the crisis."
+
+msgid "Only the elements visible from the entity of the plan are offered."
+msgstr "Only the elements visible from the entity of the plan are offered."
+
+msgid "Recovery objectives from the BIA"
+msgstr "Recovery objectives from the BIA"
+
+msgid "The plan has been frozen and sent for approval."
+msgstr "The plan has been frozen and sent for approval."
+
+msgid "Your answer was not recorded: a rejection needs a comment."
+msgstr "Your answer was not recorded: a rejection needs a comment."
+
+msgid "Test recorded."
+msgstr "Test recorded."
+
+msgid "Nonconformity created from the gaps of the test."
+msgstr "Nonconformity created from the gaps of the test."
+
+msgid "Settings of the continuity and recovery plans saved."
+msgstr "Settings of the continuity and recovery plans saved."
+
+msgid "Continuity or recovery plan"
+msgid_plural "Continuity and recovery plans"
+msgstr[0] "Continuity or recovery plan"
+msgstr[1] "Continuity and recovery plans"
+
+msgid "Business continuity plan (BCP)"
+msgstr "Business continuity plan (BCP)"
+
+msgid "Business recovery plan (BRP)"
+msgstr "Business recovery plan (BRP)"
+
+msgid "IT continuity plan (ITCP)"
+msgstr "IT continuity plan (ITCP)"
+
+msgid "IT disaster recovery plan (DRP)"
+msgstr "IT disaster recovery plan (DRP)"
+
+msgctxt "plan type"
+msgid "BCP"
+msgstr "BCP"
+
+msgctxt "plan type"
+msgid "BRP"
+msgstr "BRP"
+
+msgctxt "plan type"
+msgid "ITCP"
+msgstr "ITCP"
+
+msgctxt "plan type"
+msgid "DRP"
+msgstr "DRP"
+
+msgid "Not tested for more than a year"
+msgstr "Not tested for more than a year"
+
+msgid "Last test failed"
+msgstr "Last test failed"
+
+msgid "No covered process"
+msgstr "No covered process"
+
+msgid "No crisis team"
+msgstr "No crisis team"
+
+msgid "No recovery steps"
+msgstr "No recovery steps"
+
+msgid "A named person has left (inactive account)"
+msgstr "A named person has left (inactive account)"
+
+msgid "Entities, services, sites and activities covered by the plan."
+msgstr "Entities, services, sites and activities covered by the plan."
+
+msgid "Activation criteria"
+msgstr "Activation criteria"
+
+msgid ""
+"Situations that trigger the plan, for example an unavailability longer than "
+"the RTO of a critical process."
+msgstr ""
+"Situations that trigger the plan, for example an unavailability longer than "
+"the RTO of a critical process."
+
+msgid "Who activates the plan"
+msgstr "Who activates the plan"
+
+msgid "Person or role allowed to activate the plan, and their deputy."
+msgstr "Person or role allowed to activate the plan, and their deputy."
+
+msgid "Recovery objectives"
+msgstr "Recovery objectives"
+
+msgid ""
+"The RTO and RPO of the covered processes come from their business impact "
+"analysis; add here the objectives of services that are not processes."
+msgstr ""
+"The RTO and RPO of the covered processes come from their business impact "
+"analysis; add here the objectives of services that are not processes."
+
+msgid "Roles and contacts"
+msgstr "Roles and contacts"
+
+msgid ""
+"Who does what during the crisis, with internal and external contacts "
+"(suppliers, insurer, authorities)."
+msgstr ""
+"Who does what during the crisis, with internal and external contacts "
+"(suppliers, insurer, authorities)."
+
+msgid "Steps of the plan"
+msgstr "Steps of the plan"
+
+msgid ""
+"Numbered steps from activation to return to normal. Cite the response "
+"playbooks to follow."
+msgstr ""
+"Numbered steps from activation to return to normal. Cite the response "
+"playbooks to follow."
+
+msgid "Fallback solutions"
+msgstr "Fallback solutions"
+
+msgid "Backup site, degraded mode, manual workarounds."
+msgstr "Backup site, degraded mode, manual workarounds."
+
+msgid "Dependencies and recovery order"
+msgstr "Dependencies and recovery order"
+
+msgid ""
+"Applications, infrastructure and suppliers needed, in the order in which "
+"they are restored."
+msgstr ""
+"Applications, infrastructure and suppliers needed, in the order in which "
+"they are restored."
+
+msgid ""
+"Who informs staff, customers, partners and authorities, and with which "
+"crisis message templates."
+msgstr ""
+"Who informs staff, customers, partners and authorities, and with which "
+"crisis message templates."
+
+msgid ""
+"This plan is awaiting approval or approved: its content is frozen. Prepare a "
+"new version in the Versions and approval tab to change it."
+msgstr ""
+"This plan is awaiting approval or approved: its content is frozen. Prepare a "
+"new version in the Versions and approval tab to change it."
+
+msgid "The plan name is required."
+msgstr "The plan name is required."
+
+msgid "An element outside the entity of the plan was not linked."
+msgstr "An element outside the entity of the plan was not linked."
+
+msgid "Partially met"
+msgstr "Partially met"
+
+msgid "Give the date of the test (today or earlier)."
+msgstr "Give the date of the test (today or earlier)."
+
+msgid "Gap found when testing the plan \"%1$s\" on %2$s"
+msgstr "Gap found when testing the plan \"%1$s\" on %2$s"
+
+msgid "Versions and approval"
+msgstr "Versions and approval"
+
+msgid "Only a draft plan can be submitted for approval."
+msgstr "Only a draft plan can be submitted for approval."
+
+msgid ""
+"This version number has already been approved: give the plan a new version "
+"number."
+msgstr ""
+"This version number has already been approved: give the plan a new version "
+"number."
+
+msgid ""
+"No active approver: designate one on the plan, or set the default approvers "
+"of policies in the configuration."
+msgstr ""
+"No active approver: designate one on the plan, or set the default approvers "
+"of policies in the configuration."
+
+msgid "Give a version number that has not been approved yet."
+msgstr "Give a version number that has not been approved yet."
+
+msgid ""
+"Business continuity and recovery plans (BCP, BRP) and IT continuity and "
+"recovery plans (ITCP, DRP): approval, review and tests."
+msgstr ""
+"Business continuity and recovery plans (BCP, BRP) and IT continuity and "
+"recovery plans (ITCP, DRP): approval, review and tests."
+
+msgid ""
+"The continuity and recovery plans of the organisation: business continuity "
+"and recovery plans (BCP, BRP) for activities, IT continuity and disaster "
+"recovery plans (ITCP, DRP) for systems. Each plan gathers the covered "
+"processes with their recovery objectives, the crisis team, the steps, the "
+"fallback solutions and the communication."
+msgstr ""
+"The continuity and recovery plans of the organisation: business continuity "
+"and recovery plans (BCP, BRP) for activities, IT continuity and disaster "
+"recovery plans (ITCP, DRP) for systems. Each plan gathers the covered "
+"processes with their recovery objectives, the crisis team, the steps, the "
+"fallback solutions and the communication."
+
+msgid ""
+"Create one plan per critical activity or system, link the covered processes, "
+"then have it approved by management (Versions and approval tab) and test it "
+"at least once a year (Plan tests tab). Print the approved plan in PDF to "
+"keep a copy outside GLPI."
+msgstr ""
+"Create one plan per critical activity or system, link the covered processes, "
+"then have it approved by management (Versions and approval tab) and test it "
+"at least once a year (Plan tests tab). Print the approved plan in PDF to "
+"keep a copy outside GLPI."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30; ISO 22301"
+msgstr "ISO/IEC 27001, controls A.5.29 and A.5.30; ISO 22301"
+
+msgid "Systems, applications and data covered; hosting sites; entities served."
+msgstr ""
+"Systems, applications and data covered; hosting sites; entities served."
+
+msgid "Activities, teams and sites covered; entities concerned."
+msgstr "Activities, teams and sites covered; entities concerned."
+
+msgid ""
+"Loss of a site, a system or a supplier expected to last longer than the RTO "
+"of a covered process."
+msgstr ""
+"Loss of a site, a system or a supplier expected to last longer than the RTO "
+"of a covered process."
+
+msgid ""
+"Disruption that threatens a critical activity: unavailability, cyberattack, "
+"loss of staff or premises."
+msgstr ""
+"Disruption that threatens a critical activity: unavailability, cyberattack, "
+"loss of staff or premises."
+
+msgid ""
+"Crisis manager (and deputy), after an assessment with the CISO and the IT "
+"department."
+msgstr ""
+"Crisis manager (and deputy), after an assessment with the CISO and the IT "
+"department."
+
+msgid ""
+"1. Assess the incident and activate the plan.\n"
+"2. Isolate the affected systems.\n"
+"3. Restore in the recovery order, from verified backups.\n"
+"4. Check integrity and security before reopening.\n"
+"5. Return to normal and hold the lessons learned review."
+msgstr ""
+"1. Assess the incident and activate the plan.\n"
+"2. Isolate the affected systems.\n"
+"3. Restore in the recovery order, from verified backups.\n"
+"4. Check integrity and security before reopening.\n"
+"5. Return to normal and hold the lessons learned review."
+
+msgid ""
+"1. Activate the plan and gather the crisis team.\n"
+"2. Switch the critical activities to degraded mode.\n"
+"3. Inform staff, customers and partners.\n"
+"4. Follow the recovery and check the objectives.\n"
+"5. Return to normal and hold the lessons learned review."
+msgstr ""
+"1. Activate the plan and gather the crisis team.\n"
+"2. Switch the critical activities to degraded mode.\n"
+"3. Inform staff, customers and partners.\n"
+"4. Follow the recovery and check the objectives.\n"
+"5. Return to normal and hold the lessons learned review."
+
+msgid ""
+"Backup site or cloud environment, spare equipment, degraded mode for users."
+msgstr ""
+"Backup site or cloud environment, spare equipment, degraded mode for users."
+
+msgid "Alternative premises, remote work, manual procedures, temporary staff."
+msgstr "Alternative premises, remote work, manual procedures, temporary staff."
+
+msgid ""
+"Who informs whom, through which channel, with which crisis message template."
+msgstr ""
+"Who informs whom, through which channel, with which crisis message template."
+
+msgid "Linked suppliers"
+msgstr "Linked suppliers"
+
+msgid ""
+"The risk also appears in the Security tab of each linked supplier. For a "
+"risk assessed with a questionnaire, use the supplier risk register instead."
+msgstr ""
+"The risk also appears in the Security tab of each linked supplier. For a "
+"risk assessed with a questionnaire, use the supplier risk register instead."
+
+msgid "General risks linked to this supplier"
+msgstr "General risks linked to this supplier"
+
+msgid ""
+"Risks of the risk register that concern this supplier. To link one, open the "
+"risk and choose this supplier under \"Linked suppliers\"."
+msgstr ""
+"Risks of the risk register that concern this supplier. To link one, open the "
+"risk and choose this supplier under \"Linked suppliers\"."
+
+msgid ""
+"No risk of the risk register is linked to this supplier in your entities."
+msgstr ""
+"No risk of the risk register is linked to this supplier in your entities."
+
+msgid "%1$s on behalf of %2$s"
+msgstr "%1$s on behalf of %2$s"
+
+msgid "%1$s, absent until %2$s:"
+msgstr "%1$s, absent until %2$s:"
+
+msgid ""
+"Check that each delegated decision fits the absence and the delegable "
+"decision types. The substitute gets no right: he only sees the decisions "
+"entrusted to the absent person, and only until the end of the declared "
+"absence."
+msgstr ""
+"Check that each delegated decision fits the absence and the delegable "
+"decision types. The substitute gets no right: he only sees the decisions "
+"entrusted to the absent person, and only until the end of the declared "
+"absence."
+
+msgid ""
+"Decision delegated for the declared absence period: it will be recorded as "
+"yours, on behalf of the absent person."
+msgstr ""
+"Decision delegated for the declared absence period: it will be recorded as "
+"yours, on behalf of the absent person."
+
+msgid "Decision type"
+msgstr "Decision type"
+
+msgid "Declared absence"
+msgstr "Declared absence"
+
+msgid "Delegable decisions"
+msgstr "Delegable decisions"
+
+msgid "Delegated decisions"
+msgstr "Delegated decisions"
+
+msgid "Delegation during an absence"
+msgstr "Delegation during an absence"
+
+msgid ""
+"Lets the substitute declared in GLPI (user preferences, \"Authorized "
+"substitutes\" tab, with a substitution start date and end date) take the "
+"decisions waiting for an absent person, during the declared period only. A "
+"period without an end date delegates nothing. Each decision is recorded as "
+"taken by the substitute on behalf of the absent person. Waivers and risk "
+"acceptances are never delegated: they depend on a right, not on a person."
+msgstr ""
+"Lets the substitute declared in GLPI (user preferences, \"Authorized "
+"substitutes\" tab, with a substitution start date and end date) take the "
+"decisions waiting for an absent person, during the declared period only. A "
+"period without an end date delegates nothing. Each decision is recorded as "
+"taken by the substitute on behalf of the absent person. Waivers and risk "
+"acceptances are never delegated: they depend on a right, not on a person."
+
+msgid ""
+"Lists the decisions taken by a substitute on behalf of an absent person: who "
+"decided, for whom, when, on what, and the absence period declared in GLPI at "
+"that moment."
+msgstr ""
+"Lists the decisions taken by a substitute on behalf of an absent person: who "
+"decided, for whom, when, on what, and the absence period declared in GLPI at "
+"that moment."
+
+msgid "No decision has been taken by a substitute yet."
+msgstr "No decision has been taken by a substitute yet."
+
+msgid "Not delegable"
+msgstr "Not delegable"
+
+msgid "On behalf of"
+msgstr "On behalf of"
+
+msgid "On behalf of %1$s, absent until %2$s"
+msgstr "On behalf of %1$s, absent until %2$s"
+
+msgid "Taken by"
+msgstr "Taken by"
+
+msgid ""
+"The substitute answers for the absent approver, unless he is himself an "
+"approver of the same version."
+msgstr ""
+"The substitute answers for the absent approver, unless he is himself an "
+"approver of the same version."
+
+msgid ""
+"The substitute decides the accounts entrusted to the absent reviewer (never "
+"his own account)."
+msgstr ""
+"The substitute decides the accounts entrusted to the absent reviewer (never "
+"his own account)."
+
+msgid "You are standing in for"
+msgstr "You are standing in for"
+
+msgid ""
+"Your decisions are recorded as yours, on behalf of the absent person, and "
+"stop being possible at the end of the declared absence."
+msgstr ""
+"Your decisions are recorded as yours, on behalf of the absent person, and "
+"stop being possible at the end of the declared absence."
+
+msgid "Delegated decision"
+msgid_plural "Delegated decisions"
+msgstr[0] "Delegated decision"
+msgstr[1] "Delegated decisions"
+
+msgid "%1$d application(s) to review, %2$d ticket(s) opened."
+msgstr "%1$d application(s) to review, %2$d ticket(s) opened."
+
+msgid ""
+"%1$d software not in the register; the %2$d most installed are shown. Choose "
+"a software category (for example online services) to narrow the list."
+msgstr ""
+"%1$d software not in the register; the %2$d most installed are shown. Choose "
+"a software category (for example online services) to narrow the list."
+
+msgid "%d due within 30 days"
+msgstr "%d due within 30 days"
+
+msgid "%d online service(s)"
+msgstr "%d online service(s)"
+
+msgid ""
+"0: no periodic review. When the review is due, a reassessment ticket is "
+"opened for the owner."
+msgstr ""
+"0: no periodic review. When the review is due, a reassessment ticket is "
+"opened for the owner."
+
+msgid "Allowed data level not set"
+msgstr "Allowed data level not set"
+
+msgid "Allowed uses"
+msgstr "Allowed uses"
+
+msgid "Allowed uses not described"
+msgstr "Allowed uses not described"
+
+msgid "Application owner"
+msgstr "Application owner"
+
+msgid ""
+"Applications and online services you may use for your work, with what they "
+"may be used for and the most sensitive data you may put in them. For any "
+"other application, ask the IT department before using it."
+msgstr ""
+"Applications and online services you may use for your work, with what they "
+"may be used for and the most sensitive data you may put in them. For any "
+"other application, ask the IT department before using it."
+
+msgid "Applications in the register: %d"
+msgstr "Applications in the register: %d"
+
+msgid "Applications not to use"
+msgstr "Applications not to use"
+
+msgid "Approved applications and online services"
+msgstr "Approved applications and online services"
+
+msgid "Approved applications to complete"
+msgstr "Approved applications to complete"
+
+msgid "Approved use"
+msgstr "Approved use"
+
+msgid "Approved use sheet saved."
+msgstr "Approved use sheet saved."
+
+msgid "Approved with restrictions"
+msgstr "Approved with restrictions"
+
+msgid "Approved: %d"
+msgstr "Approved: %d"
+
+msgid "Authorised applications"
+msgstr "Authorised applications"
+
+msgid ""
+"Check that the allowed uses, the data level and the supplier are still "
+"right, then record the review in the \"Approved use\" tab of the application."
+msgstr ""
+"Check that the allowed uses, the data level and the supplier are still "
+"right, then record the review in the \"Approved use\" tab of the application."
+
+msgid "Classification above the allowed level"
+msgstr "Classification above the allowed level"
+
+msgid "Comparison with the software inventory"
+msgstr "Comparison with the software inventory"
+
+msgid ""
+"Complete the approved applications (owner, allowed uses, data level), review "
+"them when due (a reassessment ticket is opened for the owner), and check the "
+"installed software that is refused or missing from the register. Nothing is "
+"uninstalled or changed automatically."
+msgstr ""
+"Complete the approved applications (owner, allowed uses, data level), review "
+"them when due (a reassessment ticket is opened for the owner), and check the "
+"installed software that is refused or missing from the register. Nothing is "
+"uninstalled or changed automatically."
+
+msgid "Departments or teams that use it, for example: Sales, Human resources."
+msgstr "Departments or teams that use it, for example: Sales, Human resources."
+
+msgid "End of use"
+msgstr "End of use"
+
+msgid "Exceptions accepted for this application, from the waiver register."
+msgstr "Exceptions accepted for this application, from the waiver register."
+
+msgid ""
+"For example: sharing files with customers and partners, team chat. Shown to "
+"users."
+msgstr ""
+"For example: sharing files with customers and partners, team chat. Shown to "
+"users."
+
+msgid "High: confidential data allowed"
+msgstr "High: confidential data allowed"
+
+msgid "Hosting"
+msgstr "Hosting"
+
+msgid "ISO/IEC 27001, control A.5.23"
+msgstr "ISO/IEC 27001, control A.5.23"
+
+msgid "Installed software not in the register"
+msgstr "Installed software not in the register"
+
+msgid "Installed software that is refused or not yet approved"
+msgstr "Installed software that is refused or not yet approved"
+
+msgid "Leave empty while the application is in use."
+msgstr "Leave empty while the application is in use."
+
+msgid ""
+"Lists the applications and online services that may be used, what for and "
+"with which data: approved, approved with restrictions, under evaluation or "
+"refused. Each decision is recorded in the \"Approved use\" tab of an "
+"appliance of GLPI, next to its secure development sheet. Users see the "
+"approved ones in their preferences, without any right on the plugin."
+msgstr ""
+"Lists the applications and online services that may be used, what for and "
+"with which data: approved, approved with restrictions, under evaluation or "
+"refused. Each decision is recorded in the \"Approved use\" tab of an "
+"appliance of GLPI, next to its secure development sheet. Users see the "
+"approved ones in their preferences, without any right on the plugin."
+
+msgid "Low: public or internal data only"
+msgstr "Low: public or internal data only"
+
+msgid "Medium: up to restricted data (customers, staff)"
+msgstr "Medium: up to restricted data (customers, staff)"
+
+msgid "Most sensitive data allowed"
+msgstr "Most sensitive data allowed"
+
+msgid "No application has been published yet."
+msgstr "No application has been published yet."
+
+msgid ""
+"No application in the register yet. Open an appliance of GLPI (Assets > "
+"Appliances) and fill in its \"Approved use\" tab."
+msgstr ""
+"No application in the register yet. Open an appliance of GLPI (Assets > "
+"Appliances) and fill in its \"Approved use\" tab."
+
+msgid "No decision has been recorded yet for the use of this application."
+msgstr "No decision has been recorded yet for the use of this application."
+
+msgid "No periodic review"
+msgstr "No periodic review"
+
+msgid "None found"
+msgstr "None found"
+
+msgid "On premises (our own servers)"
+msgstr "On premises (our own servers)"
+
+msgid "Online (cloud service, SaaS)"
+msgstr "Online (cloud service, SaaS)"
+
+msgid ""
+"Only for \"Approved with restrictions\": what is not allowed, for example no "
+"customer personal data, links limited to 30 days. Shown to users."
+msgstr ""
+"Only for \"Approved with restrictions\": what is not allowed, for example no "
+"customer personal data, links limited to 30 days. Shown to users."
+
+msgid "Open the application"
+msgstr "Open the application"
+
+msgid ""
+"Opens a reassessment ticket for each approved application whose review is due"
+msgstr ""
+"Opens a reassessment ticket for each approved application whose review is due"
+
+msgid "Owner, allowed uses or data level missing"
+msgstr "Owner, allowed uses or data level missing"
+
+msgid "Reassess the approved application %s"
+msgstr "Reassess the approved application %s"
+
+msgid "Reassessment ticket #%d"
+msgstr "Reassessment ticket #%d"
+
+msgid ""
+"Receives the reassessment ticket. Empty: the technical owner of the "
+"application."
+msgstr ""
+"Receives the reassessment ticket. Empty: the technical owner of the "
+"application."
+
+msgid "Refused: %d"
+msgstr "Refused: %d"
+
+msgid "Register of approved applications and online services"
+msgstr "Register of approved applications and online services"
+
+msgid "Requires the right to read the software of GLPI."
+msgstr "Requires the right to read the software of GLPI."
+
+msgid "Restrictions"
+msgstr "Restrictions"
+
+msgid "Restrictions not described"
+msgstr "Restrictions not described"
+
+msgid "Review done today"
+msgstr "Review done today"
+
+msgid "Review due soon"
+msgstr "Review due soon"
+
+msgid "Review every (months)"
+msgstr "Review every (months)"
+
+msgid "Review up to date"
+msgstr "Review up to date"
+
+msgid "Reviews overdue"
+msgstr "Reviews overdue"
+
+msgid ""
+"Same scale as the confidentiality of the C/I/D classification of the plugin."
+msgstr ""
+"Same scale as the confidentiality of the C/I/D classification of the plugin."
+
+msgid ""
+"Say whether this application or online service may be used, for what and "
+"with which data. Approved applications are listed for every user in their "
+"preferences (\"Authorised applications\" tab)."
+msgstr ""
+"Say whether this application or online service may be used, for what and "
+"with which data. Approved applications are listed for every user in their "
+"preferences (\"Authorised applications\" tab)."
+
+msgid "Software category"
+msgstr "Software category"
+
+msgid ""
+"Software found by the GLPI inventory, matched with the register through the "
+"linked software or the name of the application. Nothing is uninstalled or "
+"changed: open a ticket if action is needed."
+msgstr ""
+"Software found by the GLPI inventory, matched with the register through the "
+"linked software or the name of the application. Nothing is uninstalled or "
+"changed: open a ticket if action is needed."
+
+msgid ""
+"Software of the GLPI inventory that corresponds to this application: used to "
+"find where it is installed."
+msgstr ""
+"Software of the GLPI inventory that corresponds to this application: used to "
+"find where it is installed."
+
+msgid "Start of use"
+msgstr "Start of use"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers): its overall risk is assessed in "
+"the supplier risk register."
+msgstr ""
+"Supplier of GLPI (Management > Suppliers): its overall risk is assessed in "
+"the supplier risk register."
+
+msgid "The approved use sheet could not be saved."
+msgstr "The approved use sheet could not be saved."
+
+msgid ""
+"The confidentiality of this application (%s) is higher than the allowed data "
+"level"
+msgstr ""
+"The confidentiality of this application (%s) is higher than the allowed data "
+"level"
+
+msgid "The periodic review of the application \"%1$s\" was due on %2$s."
+msgstr "The periodic review of the application \"%1$s\" was due on %2$s."
+
+msgid "To complete: %d"
+msgstr "To complete: %d"
+
+msgid "Under evaluation"
+msgstr "Under evaluation"
+
+msgid ""
+"Under evaluation while the security team studies it; refused applications "
+"are shown to users as not to be used."
+msgstr ""
+"Under evaluation while the security team studies it; refused applications "
+"are shown to users as not to be used."
+
+msgid "Use ended"
+msgstr "Use ended"
+
+msgid "User departments"
+msgstr "User departments"
+
+msgid "Waivers granted"
+msgstr "Waivers granted"
+
+msgid "Waivers granted:"
+msgstr "Waivers granted:"
+
+msgid "What is allowed"
+msgstr "What is allowed"
+
+msgid "matched by name"
+msgstr "matched by name"
+
+msgid "Approved application"
+msgid_plural "Approved applications"
+msgstr[0] "Approved application"
+msgstr[1] "Approved applications"
+
+msgid "%d waiver"
+msgid_plural "%d waivers"
+msgstr[0] "%d waiver"
+msgstr[1] "%d waivers"
+
+msgid "Selection"
+msgstr "Selection"
+
+msgid "%1$d of %2$d"
+msgstr "%1$d of %2$d"
+
+msgid ""
+"A trajectory is drawn for risks whose treatment is to reduce or to transfer, "
+"which have a treatment plan."
+msgstr ""
+"A trajectory is drawn for risks whose treatment is to reduce or to transfer, "
+"which have a treatment plan."
+
+msgid "Actions completed"
+msgstr "Actions completed"
+
+msgid "Actions due"
+msgstr "Actions due"
+
+msgid ""
+"Actions were completed before their due date: the risk is lower than planned "
+"today."
+msgstr ""
+"Actions were completed before their due date: the risk is lower than planned "
+"today."
+
+msgid "Actual (actions completed)"
+msgstr "Actual (actions completed)"
+
+msgid ""
+"Add the actions of the treatment plan, with a due date, on the risk form."
+msgstr ""
+"Add the actions of the treatment plan, with a due date, on the risk form."
+
+msgid "Ahead of schedule"
+msgstr "Ahead of schedule"
+
+msgid "Behind schedule"
+msgstr "Behind schedule"
+
+msgid ""
+"Every action of the treatment plan is completed: reassess the risk to "
+"confirm the residual level."
+msgstr ""
+"Every action of the treatment plan is completed: reassess the risk to "
+"confirm the residual level."
+
+msgid "Expected level afterwards"
+msgstr "Expected level afterwards"
+
+msgid ""
+"Fill in the residual probability and impact (the level aimed for after "
+"treatment) on the risk form."
+msgstr ""
+"Fill in the residual probability and impact (the level aimed for after "
+"treatment) on the risk form."
+
+msgid ""
+"It shows how the level of this risk should go down as the treatment plan is "
+"carried out, and compares it with what has actually been done. The curve "
+"starts from the current level and reaches the target level once every action "
+"is completed; each action counts for an equal share. Useful to show an "
+"auditor that the treatment plan is followed (ISO/IEC 27001, clauses 6.1.3 "
+"and 8.3)."
+msgstr ""
+"It shows how the level of this risk should go down as the treatment plan is "
+"carried out, and compares it with what has actually been done. The curve "
+"starts from the current level and reaches the target level once every action "
+"is completed; each action counts for an equal share. Useful to show an "
+"auditor that the treatment plan is followed (ISO/IEC 27001, clauses 6.1.3 "
+"and 8.3)."
+
+msgid "Last due date of the plan"
+msgstr "Last due date of the plan"
+
+msgid "Milestones of the plan"
+msgstr "Milestones of the plan"
+
+msgid "No reduction planned"
+msgstr "No reduction planned"
+
+msgid "No risk is being reduced or transferred yet."
+msgstr "No risk is being reduced or transferred yet."
+
+msgid "No treatment action"
+msgstr "No treatment action"
+
+msgid "On schedule"
+msgstr "On schedule"
+
+msgid "Plan completed"
+msgstr "Plan completed"
+
+msgid "Planned (treatment plan due dates)"
+msgstr "Planned (treatment plan due dates)"
+
+msgid "Progress of the plan"
+msgstr "Progress of the plan"
+
+msgid "Projected trajectory"
+msgstr "Projected trajectory"
+
+msgid "Projected trajectory of the register"
+msgstr "Projected trajectory of the register"
+
+msgid "Risk score (probability x impact)"
+msgstr "Risk score (probability x impact)"
+
+msgid ""
+"Some actions are past their due date: the risk is higher than planned today."
+msgstr ""
+"Some actions are past their due date: the risk is higher than planned today."
+
+msgid "Target level after treatment"
+msgstr "Target level after treatment"
+
+msgid "Target level missing"
+msgstr "Target level missing"
+
+msgid "The actions due so far are completed."
+msgstr "The actions due so far are completed."
+
+msgid ""
+"The expected level between two milestones is an estimate from the score; the "
+"level actually reached is the one you reassess on the risk form."
+msgstr ""
+"The expected level between two milestones is an estimate from the score; the "
+"level actually reached is the one you reassess on the risk form."
+
+msgid ""
+"The target level is not lower than the current level: there is no trajectory "
+"to draw."
+msgstr ""
+"The target level is not lower than the current level: there is no trajectory "
+"to draw."
+
+msgid "To come"
+msgstr "To come"
+
+msgid "Today"
+msgstr "Today"
+
+msgid ""
+"Total score of the risks being reduced or transferred (not closed): planned "
+"according to the due dates of their treatment plans, and actual according to "
+"the actions completed. Open a risk to see its own trajectory."
+msgstr ""
+"Total score of the risks being reduced or transferred (not closed): planned "
+"according to the due dates of their treatment plans, and actual according to "
+"the actions completed. Open a risk to see its own trajectory."
+
+msgid "Trajectory incomplete"
+msgstr "Trajectory incomplete"
+
+msgid "Trajectory of the whole register"
+msgstr "Trajectory of the whole register"
+
+msgid "score %s"
+msgstr "score %s"
+
+msgid ""
+"%d action has no due date: the planned curve does not reach the target "
+"level. Give it a due date."
+msgid_plural ""
+"%d actions have no due date: the planned curve does not reach the target "
+"level. Give them a due date."
+msgstr[0] ""
+"%d action has no due date: the planned curve does not reach the target "
+"level. Give it a due date."
+msgstr[1] ""
+"%d actions have no due date: the planned curve does not reach the target "
+"level. Give them a due date."
+
+msgid "%d more items in My GRC space."
+msgstr "%d more items in My GRC space."
+
+msgid "(%s)"
+msgstr "(%s)"
+
+msgid "Choose how often you want to receive your summary."
+msgstr "Choose how often you want to receive your summary."
+
+msgid "Delay"
+msgstr "Delay"
+
+msgid "GRC summary by email"
+msgstr "GRC summary by email"
+
+msgid "How to change the frequency"
+msgstr "How to change the frequency"
+
+msgid ""
+"Instead of waiting for separate notifications, you can receive one email "
+"that lists everything shown on this page. It is only sent when something is "
+"waiting for you, it only lists what you are allowed to see, and it is "
+"written in your language."
+msgstr ""
+"Instead of waiting for separate notifications, you can receive one email "
+"that lists everything shown on this page. It is only sent when something is "
+"waiting for you, it only lists what you are allowed to see, and it is "
+"written in your language."
+
+msgid "Items not listed"
+msgstr "Items not listed"
+
+msgid "Last summary sent: %s"
+msgstr "Last summary sent: %s"
+
+msgid "My GRC space page URL"
+msgstr "My GRC space page URL"
+
+msgid "No summary"
+msgstr "No summary"
+
+msgid "No summary (only the usual notifications, as they happen)"
+msgstr "No summary (only the usual notifications, as they happen)"
+
+msgid "No summary has been sent to you yet."
+msgstr "No summary has been sent to you yet."
+
+msgid "Nothing is waiting for you: no email has been sent."
+msgstr "Nothing is waiting for you: no email has been sent."
+
+msgid "Overdue items"
+msgstr "Overdue items"
+
+msgid "Person to whom the summary is addressed"
+msgstr "Person to whom the summary is addressed"
+
+msgid "Receive my summary"
+msgstr "Receive my summary"
+
+msgid "Send me my summary now"
+msgstr "Send me my summary now"
+
+msgid ""
+"Summaries are not sent on this GLPI yet: ask your GLPI administrator to "
+"enable the \"personaldigest\" automatic task and email notifications. Your "
+"choice is kept in the meantime."
+msgstr ""
+"Summaries are not sent on this GLPI yet: ask your GLPI administrator to "
+"enable the \"personaldigest\" automatic task and email notifications. Your "
+"choice is kept in the meantime."
+
+msgid "Summary by email"
+msgstr "Summary by email"
+
+msgid "Summary by email of what is waiting for each person"
+msgstr "Summary by email of what is waiting for each person"
+
+msgid ""
+"This summary lists what is waiting for you in GRC Manager, the most urgent "
+"first. It only shows what you are allowed to see. Nothing is changed "
+"automatically."
+msgstr ""
+"This summary lists what is waiting for you in GRC Manager, the most urgent "
+"first. It only shows what you are allowed to see. Nothing is changed "
+"automatically."
+
+msgid "To receive it every day, every week or not at all, open My GRC space."
+msgstr "To receive it every day, every week or not at all, open My GRC space."
+
+msgid "What this summary contains"
+msgstr "What this summary contains"
+
+msgid "Your GRC summary"
+msgstr "Your GRC summary"
+
+msgid "Your choice has been saved."
+msgstr "Your choice has been saved."
+
+msgid "Your daily GRC summary"
+msgstr "Your daily GRC summary"
+
+msgid ""
+"Your summary could not be sent: check that you have an email address, or ask "
+"your GLPI administrator."
+msgstr ""
+"Your summary could not be sent: check that you have an email address, or ask "
+"your GLPI administrator."
+
+msgid "Your summary has been sent to your email address."
+msgstr "Your summary has been sent to your email address."
+
+msgid "Your weekly GRC summary"
+msgstr "Your weekly GRC summary"
+
+msgid "%d item is waiting for you"
+msgid_plural "%d items are waiting for you"
+msgstr[0] "%d item is waiting for you"
+msgstr[1] "%d items are waiting for you"
+
+msgid "version %s"
+msgstr "version %s"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -42119,10 +44301,6 @@ msgstr "Rejected with a reason"
 
 #~ msgid "View the policy"
 #~ msgstr "View the policy"
-
-#, php-format
-#~ msgid "version %s"
-#~ msgstr "version %s"
 
 #, php-format
 #~ msgid ""

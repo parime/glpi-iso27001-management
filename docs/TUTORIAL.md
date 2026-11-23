@@ -24,9 +24,10 @@ fois l'installation et l'activation terminées.
 
 ![Liste des plugins avec GLPI GRC Manager activé](screenshots/tutorial/01-plugin-list.png)
 
-Le plugin ajoute son propre menu **GRC & Conformité**, en six rubriques (Tableau de bord, Risques,
-Conformité, Audits et amélioration, Opérations, Sécurité technique) ; les écrans d'une même rubrique
-sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
+Le plugin ajoute son propre menu **GRC & Conformité**, en rubriques aux noms parlants (Tableau de
+bord, Mon espace GRC, Risques, Mesures de sécurité (SoA), Politiques et procédures, Audits et preuves,
+Non-conformités et amélioration, Réglementations, Vie privée (RGPD), etc.) ; les écrans d'une même
+rubrique sont réunis par une barre d'onglets. Les incidents de sécurité sont dans le menu **Assistance**.
 
 ![Menu du plugin](screenshots/tutorial/02-menu-outils.png)
 
@@ -137,7 +138,7 @@ approuvée n'est pas modifiée : ce que vous ajoutez entre dans la version suiva
 
 ### Étape 5 : Créer un audit et une non-conformité, jusqu'à la clôture CAPA
 
-Depuis **GRC & Conformité > Audits et amélioration**, la liste est vide tant qu'aucun audit n'existe.
+Depuis **GRC & Conformité > Audits et preuves**, la liste est vide tant qu'aucun audit n'existe.
 
 ![Liste des audits internes vide](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -229,7 +230,7 @@ pour une non-conformité interne (cause, action corrective, responsable, échéa
 l'onglet **Documents**, vérification) ; l'action corrective n'est obligatoire que pour une
 non-conformité.
 
-L'écran **Audits et amélioration > Constats des audits précédents** liste les constats de chaque
+L'écran **Audits et preuves > Constats des audits précédents** liste les constats de chaque
 audit de certification avec leur état de levée (non levé, action en cours, action réalisée à
 vérifier, levé) et leurs preuves. Il se filtre par audit ou sur les seuls constats non levés, et
 s'exporte en PDF : c'est le document à remettre à l'auditeur à la réunion d'ouverture de l'audit
@@ -255,7 +256,7 @@ registre.
 
 ### Étape 7 : Créer un risque dans le registre fournisseurs/tiers
 
-Depuis **GRC & Conformité > Risques > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
+Depuis **Gestion > Sécurité des fournisseurs > Risques fournisseurs**, la liste affiche les risques fournisseurs déjà
 enregistrés sur cette instance.
 
 ![Registre de risques fournisseurs](screenshots/tutorial/28-supplierrisk-list.png)
@@ -344,7 +345,7 @@ affiché au tableau de bord (voir étape 11).
 
 ### Étape 10 : Enregistrer une revue de direction
 
-Depuis **GRC & Conformité > Audits et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
+Depuis **GRC & Conformité > Non-conformités et amélioration > Revues de direction**, la liste affiche les revues déjà enregistrées.
 
 ![Liste des revues de direction](screenshots/tutorial/38-managementreview-list.png)
 
@@ -635,7 +636,8 @@ natifs de lecture des logiciels et des licences.
 2. En bas de la page, vérifiez la liste des **éditeurs commerciaux surveillés** (Microsoft, Adobe,
    Oracle, Autodesk...) : c'est le champ « Fabricant » du logiciel dans GLPI. La seconde liste
    écarte les outils gratuits de ces éditeurs (« Redistributable », « Acrobat Reader »...). Seule
-   une personne qui peut modifier la configuration du plugin change ces listes.
+   une personne qui peut modifier la configuration du plugin change ces listes, avec le bouton
+   **Modifier dans la configuration** (Configuration > Plugins > GRC Manager, onglet **Parc**).
 3. Les compteurs donnent le nombre de constats, regroupés ensuite par entité :
    - **Logiciel commercial sans licence** : un logiciel d'un éditeur surveillé est installé, et
      aucune licence ne compte pour cette entité. Une licence compte pour une entité si elle lui
@@ -650,8 +652,8 @@ natifs de lecture des logiciels et des licences.
    - **Licence expirée encore utilisée** : des ordinateurs y sont encore affectés, ou le logiciel
      reste installé sans autre licence valable.
    - **Licence arrivant à échéance** (rappel, pas un écart) : une licence utilisée expire dans les
-     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai en bas de la page
-     (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
+     60 prochains jours et aucun renouvellement n'est saisi. Réglez ce délai dans l'onglet Parc de
+     la configuration (« Alerter avant l'échéance d'une licence », 0 pour désactiver).
 
    Le badge **Dépassement autorisé** signale un surdéploiement sur une licence qui l'autorise : il
    reste à régulariser auprès de l'éditeur. Au-dessus des constats, la **couverture des licences**
@@ -819,9 +821,8 @@ type de matériel.
 
 ### Étape 29 : Préparer la communication de crise (mesure A.5.26, article 7.4)
 
-1. Dans l'en-tête de la liste des incidents de sécurité, cliquez sur **Modèles de messages de
-   crise**. Cinq modèles sont fournis : incident majeur (premier message interne et fin de crise),
-   violation de données (information des personnes concernées), indisponibilité (message aux
+1. Menu **Assistance > Crise et continuité**, onglet **Modèles de messages de crise**. Cinq
+   modèles sont fournis : incident majeur (premier message interne et fin de crise), violation de données (information des personnes concernées), indisponibilité (message aux
    utilisateurs et aux clients) et rançongiciel (consignes au personnel). Adaptez-les à votre
    organisation : objet, texte, situation, étape et public.
 2. Les **variables** s'écrivent entre accolades, par exemple `{reference}`, `{title}`,
@@ -905,7 +906,7 @@ Le plan de continuité décrit la restauration technique de chaque processus (st
 RTO). Cette étape y ajoute la sécurité de l'information pendant la crise : comment continuer à
 travailler sans baisser la sécurité quand la crise est elle-même une attaque.
 
-1. Menu **GRC & Conformité > Opérations**, onglet **Scénarios de crise sécurité** (à côté des
+1. Menu **Assistance > Crise et continuité**, onglet **Scénarios de crise sécurité** (à côté des
    processus métier). Il faut le droit **Continuité d'activité** du profil.
 2. Cliquez sur **Ajouter les scénarios par défaut** : cinq scénarios sont ajoutés dans l'entité
    active, prêts à adapter : attaque par rançongiciel, fuite de données, compromission de comptes à
@@ -1074,7 +1075,7 @@ GRC Manager du profil, attribué au Super-Admin à l'installation).
 ### Étape 35 : Préparer l'audit avec le plan d'audit de l'organisme
 
 L'organisme de certification n'audite pas tous les processus chaque année : il les échantillonne
-sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et amélioration >
+sur son cycle de trois ans et l'annonce dans son plan d'audit. L'écran **Audits et preuves >
 Plan d'audit de l'organisme** reprend ce programme : les processus en lignes, une colonne par audit
 de certification de chaque année du cycle (le cycle par défaut se règle dans le programme d'audit
 pluriannuel).
@@ -1171,7 +1172,8 @@ plugin et le droit natif de lecture des ordinateurs.
    (par défaut), les portables et tablettes seulement (type d'ordinateur remonté par l'agent :
    Laptop, Notebook, Tablet...), ou les types choisis. Vous pouvez y ajouter tout ordinateur classé
    en confidentialité moyenne ou élevée (classification C/I/D, onglet de la fiche de l'ordinateur).
-   Il faut le droit de modifier le plugin.
+   Cette règle se règle une fois dans Configuration > Plugins > GRC Manager, onglet **Parc** (bouton
+   **Modifier dans la configuration** de la page) ; il faut le droit de modifier le plugin.
 3. Les compteurs donnent le taux d'ordinateurs concernés entièrement chiffrés, le taux des
    portables, les algorithmes faibles (DES, RC4...) et anciens (BitLocker avec diffuseur, mode CBC),
    puis le nombre d'ordinateurs entièrement chiffrés, partiellement chiffrés, non chiffrés ou d'état
@@ -1201,7 +1203,9 @@ faut le droit du plugin et le droit natif de lecture des ordinateurs.
 2. Dans **Délais cibles par criticité**, réglez le nombre de jours admis depuis le dernier correctif
    pour les ordinateurs critiques, importants et standard (15, 30 et 60 jours par défaut). La
    criticité vient de la classification C/I/D de l'ordinateur ; un ordinateur publié sur Internet par
-   un flux réseau déclaré est critique. Il faut le droit de modifier le plugin.
+   un flux réseau déclaré est critique. Ces délais se règlent dans Configuration > Plugins > GRC
+   Manager, onglet **Parc** (bouton **Modifier dans la configuration**) ; il faut le droit de modifier
+   le plugin.
 3. Les compteurs donnent le taux d'ordinateurs dans les délais, le nombre en retard et d'état
    inconnu (aucune mise à jour datée : pas d'agent, ou un système dont l'agent ne remonte pas les
    mises à jour), les serveurs critiques et les ordinateurs publiés sur Internet en retard.
@@ -1234,14 +1238,18 @@ jamais de secret. Il faut le droit du plugin et la lecture native des utilisateu
    `methods` (ou `mfa` oui/non), et au choix `admin`, `remote_access`, `excluded`,
    `exclusion_reason`. Les comptes sont rapprochés par identifiant, adresse e-mail ou partie de
    l'UPN avant le @ ; ceux qui ne correspondent à aucun compte GLPI sont listés à part.
-   Pour Entra ID, vous pouvez aussi remplir **Lire directement Microsoft Entra ID (Microsoft
-   Graph)** : inscrivez une application dans le centre d'administration Entra, donnez-lui la
-   permission d'application AuditLog.Read.All avec le consentement de l'administrateur, créez un
-   secret client, puis saisissez le locataire, l'identifiant d'application et le secret.
+   Pour Entra ID, vous pouvez aussi lire le rapport directement : inscrivez une application dans
+   le centre d'administration Entra, donnez-lui la permission d'application AuditLog.Read.All avec
+   le consentement de l'administrateur et créez un secret client. Ouvrez ensuite Configuration >
+   Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la connexion** du cadre
+   **Lire directement Microsoft Entra ID (Microsoft Graph)**), saisissez le locataire,
+   l'identifiant d'application et le secret dans **Microsoft Entra ID et Microsoft Graph** puis
+   enregistrez ; **Tester la connexion** les vérifie sans rien lire. De retour sur la page,
    **Lire maintenant dans Microsoft Graph** remplace l'import Entra ID de l'entité ; rien n'est
    écrit dans Entra ID.
-4. Dans **Quels comptes ont un accès distant ?**, choisissez les groupes GLPI des utilisateurs du
-   VPN ou du bureau à distance.
+4. Choisissez les groupes GLPI des utilisateurs du VPN ou du bureau à distance dans Configuration >
+   Plugins > GRC Manager, onglet **Personnes et politiques**, cadre **Quels comptes ont un accès
+   distant ?** (le bouton **Modifier les réglages** de la page y mène).
 5. La liste commence par les **écarts** : administrateur sans MFA, accès distant sans MFA, SMS,
    appel ou e-mail seul, compte exclu sans justification. Traitez-les dans votre fournisseur
    d'identité, puis importez un nouvel export.
@@ -1262,7 +1270,9 @@ dans GLPI. Il faut le droit du plugin et le droit natif de lecture des ordinateu
    défaut les actifs critiques, les serveurs et les matériels réseau), le nombre de jours sans
    événement au-delà duquel les journaux sont dits interrompus (7 par défaut) et la conservation
    exigée par votre politique (180 jours par défaut). Un actif est critique quand un axe de sa
-   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet.
+   classification C/I/D est élevé ou qu'un flux réseau le publie sur Internet. Ces réglages se font
+   dans Configuration > Plugins > GRC Manager, onglet **Parc** (bouton **Modifier dans la
+   configuration** de la page).
 3. Dans **Sources de journaux**, importez la liste des hôtes de chaque plateforme : par exemple, dans
    Splunk, la recherche `| metadata type=hosts index=*` exportée en CSV (colonnes `host`,
    `lastTime`) ; dans Graylog, Elastic ou OpenSearch, un tableau des sources avec leur dernier
@@ -1440,17 +1450,19 @@ dans l'outil ni dans GLPI. Il faut le droit du plugin et le droit natif de lectu
 
 1. Ouvrez Sécurité technique > **Couverture des sauvegardes**. L'encadré « À quoi sert cette page ? »
    rappelle ce qui est attendu.
-2. Dans **Quels actifs doivent être sauvegardés, et à quelle fréquence ?**, choisissez les actifs
+2. Avec le bouton **Modifier les réglages** (Configuration > Plugins > GRC Manager, onglet **Parc**),
+   cadre **Quels actifs doivent être sauvegardés, et à quelle fréquence ?**, choisissez les actifs
    concernés (par défaut les actifs critiques et les serveurs), l'ancienneté maximale par défaut de
    la dernière sauvegarde réussie (48 heures) et la fréquence attendue des tests de restauration
    (12 mois). L'ancienneté admise d'un actif est le plus petit RPO entre celui de l'actif (onglet de
    classification C/I/D) et ceux des processus métier qui l'utilisent ; sans RPO, la valeur par
    défaut s'applique.
 3. Pour **Veeam Backup & Replication**, créez dans la console Veeam un compte dédié avec le rôle
-   « Veeam Backup Viewer » (lecture seule), puis saisissez l'adresse du serveur (par exemple
+   « Veeam Backup Viewer » (lecture seule), puis, avec le bouton **Régler la connexion** (onglet **Connecteurs** de la
+   configuration), saisissez l'adresse du serveur (par exemple
    `https://veeam.exemple.test:9419`), le compte, son mot de passe et la révision de l'API REST.
-   Le mot de passe est chiffré avec la clé de GLPI et n'est jamais réaffiché. **Lire maintenant
-   depuis Veeam** lit, sur votre clic seulement, les points de restauration des 31 derniers jours et
+   Le mot de passe est chiffré avec la clé de GLPI et n'est jamais réaffiché ; **Tester la connexion**
+   vérifie le compte sans rien lire. Sur la page des sauvegardes, **Lire maintenant depuis Veeam** lit, sur votre clic seulement, les points de restauration des 31 derniers jours et
    le dernier résultat de chaque travail. Une lecture refusée ou incomplète ne remplace rien. Un
    serveur à adresse interne demande à un administrateur d'autoriser les adresses internes dans la
    page de configuration du plugin, et son certificat doit être reconnu par le serveur GLPI.
@@ -1508,13 +1520,15 @@ Zabbix. Il faut le droit du plugin et la lecture native des ordinateurs.
    Utilisateur dont l'API est limitée à host.get, problem.get, event.get, service.get, sla.get et
    sla.getsli ; Utilisateurs > Utilisateurs, un utilisateur de ce rôle dans un groupe qui a la
    lecture des groupes d'hôtes à superviser ; Utilisateurs > Jetons d'API, un jeton pour lui.
-2. Ouvrez Sécurité technique > **Supervision Zabbix**. Dans **Connexion à Zabbix (lecture
+2. Ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la
+   connexion** de Sécurité technique > **Supervision Zabbix**). Dans **Connexion à Zabbix (lecture
    seule)**, saisissez l'adresse de l'interface Zabbix (par exemple
    `https://zabbix.exemple.test/zabbix`) et le jeton, choisissez l'entité des lectures puis
-   enregistrez. Le jeton est chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
+   enregistrez ; **Tester la connexion** vérifie l'adresse et le jeton sans rien lire. Le jeton est
+   chiffré par GLPI et n'est jamais réaffiché. Un serveur sur une adresse
    interne demande d'autoriser les adresses internes (Configuration du plugin > Connexions
    sortantes).
-3. Cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
+3. Sur la page **Supervision Zabbix**, cliquez sur **Lire maintenant**. Une lecture en échec ne remplace pas la précédente ; la case
    « Lire automatiquement chaque jour » active la tâche automatique « zabbix », désactivée par
    défaut.
 4. Dans **Quels actifs doivent être supervisés ?**, choisissez les actifs concernés (actifs
@@ -1585,8 +1599,9 @@ liens de partage et les invités de Microsoft 365. Le plugin lit les droits par 
 lecture seule, et ne modifie rien dans Microsoft 365. Il faut le droit du plugin et le droit des
 registres sensibles (en modification pour lire ou importer).
 
-1. Réglez une fois l'application Microsoft Graph sur la page **Couverture MFA** (locataire,
-   identifiant d'application, secret)  (voir étape 41). Accordez-lui en
+1. Réglez une fois l'application Microsoft Graph dans Configuration > Plugins > GRC Manager, onglet
+   **Connecteurs**, cadre **Microsoft Entra ID et Microsoft Graph** (locataire, identifiant
+   d'application, secret) (voir étape 41). Accordez-lui en
    plus, avec le consentement de l'administrateur, les permissions d'application
    `Sites.Read.All`, `Files.Read.All`, `User.Read.All` et `GroupMember.Read.All`.
 2. Ouvrez Revue des accès > **Droits sur les partages de fichiers**, cadre **Lire les droits
@@ -1964,7 +1979,8 @@ serveur de messagerie. Tant qu'aucun domaine n'est saisi, il ne fait aucune requ
 
 Si la colonne DNSSEC reste « Inconnu », le serveur DNS du serveur GLPI ne relaie pas les
 enregistrements DNSSEC (c'est le cas dans Docker) : saisissez l'adresse IP d'un autre serveur DNS de
-l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC**, puis vérifiez de
+l'organisation ou du fournisseur dans le cadre **Serveur DNS utilisé pour DNSSEC** (bouton **Régler la connexion** : onglet
+**Connecteurs** de la configuration), **Tester la connexion**, puis vérifiez de
 nouveau.
 
 ### Étape 68 : Suivre la disponibilité des services exposés et leurs certificats avec Uptime Kuma (mesures A.8.16, A.5.30 et A.8.24)
@@ -1975,10 +1991,11 @@ Uptime Kuma et aucun certificat n'est renouvelé.
 
 1. Dans Uptime Kuma, menu **Settings > API Keys**, créez une clé (elle ne donne accès qu'à la page
    `/metrics`, en lecture). Vous pouvez aussi, ou à la place, lister des pages de statut publiques.
-2. Dans GLPI, ouvrez **Sécurité technique > Services exposés (Uptime Kuma)**, cadre **Connexion à
-   Uptime Kuma** : saisissez l'adresse (par exemple `https://status.example.test`), la clé d'API et,
+2. Dans GLPI, ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton
+   **Régler la connexion** de **Sécurité technique > Services exposés (Uptime Kuma)**), cadre
+   **Connexion à Uptime Kuma** : saisissez l'adresse (par exemple `https://status.example.test`), la clé d'API et,
    si besoin, les pages de statut (fin de leur adresse, par exemple `clients`), puis **Enregistrer** et
-   **Lire maintenant**. Un serveur sur une adresse interne doit être autorisé dans la configuration du
+   **Tester la connexion** ; de retour sur la page Services exposés, cliquez sur **Lire maintenant**. Un serveur sur une adresse interne doit être autorisé dans la configuration du
    plugin (**Connexions sortantes**).
 3. Le tableau **Services surveillés** montre chaque sonde : son état, sa disponibilité sur la période,
    l'actif GLPI reconnu (ordinateur, matériel réseau ou application, par le nom d'hôte surveillé) et la
@@ -2036,9 +2053,11 @@ d'un secret exposé n'est jamais demandée.
      alerts » ;
    - GitLab : un jeton d'accès de projet ou de groupe avec la portée `read_api` (le rapport de
      vulnérabilités nécessite GitLab Ultimate).
-3. Ouvrez **Mesures > Sécurité du code**, cadre **Connexion à GitHub et GitLab** : collez le jeton
-   (et, si besoin, l'adresse de votre serveur GitHub Enterprise ou GitLab), puis **Enregistrer** et
-   **Lire maintenant**.
+3. Ouvrez Configuration > Plugins > GRC Manager, onglet **Connecteurs** (ou le bouton **Régler la
+   connexion** de **Sécurité du code**), cadre **Connexion à GitHub et GitLab** : collez le jeton
+   (et, si besoin, l'adresse de votre serveur GitHub Enterprise ou GitLab), puis **Enregistrer** ;
+   **Tester la connexion** vérifie le jeton sans lire aucune alerte. Cliquez ensuite sur **Lire
+   maintenant** sur la page **Sécurité du code**.
 4. Le cadre **Applications et leurs dépôts** montre, pour chaque application, le nombre d'alertes par
    famille (secrets exposés, dépendances vulnérables, analyse du code) et le badge **Non activée**
    quand une analyse ne tourne pas sur le dépôt : c'est déjà un écart à la mesure A.8.29.
@@ -2049,7 +2068,8 @@ d'un secret exposé n'est jamais demandée.
 6. L'onglet **Sécurité du code** de chaque application résume ses alertes ; la fiche des mesures
    A.8.28 et A.8.29 affiche le bilan comme preuve. Pour être prévenu, créez un indicateur de risque
    « Secrets exposés non révoqués dans le code » ou « Alertes de sécurité du code hors délai ».
-7. Pour une lecture chaque jour, cochez **Lire automatiquement chaque jour** : la tâche automatique
+7. Pour une lecture chaque jour, cochez **Lire automatiquement chaque jour** dans le même cadre de
+   la configuration : la tâche automatique
    `codesecurity` est désactivée après l'installation.
 
 ### Étape 71 : Ajuster le niveau des vulnérabilités à l'environnement et à l'exposition
@@ -2124,6 +2144,351 @@ chaque risque montre à l'auditeur les signalements qui l'ont fait naître ou qu
 rattachés. La file ne demande que la lecture du registre des risques ; trier demande le droit de
 créer et de modifier les risques.
 
+### Étape 74 : Recevoir un récapitulatif de ce qui vous attend
+
+Plutôt que des notifications séparées pour chaque revue, action ou preuve, chacun peut recevoir un
+seul e-mail qui reprend la page **Mon espace GRC** (article 7.4, communication) :
+
+1. Ouvrez **Mon espace GRC** depuis le menu.
+2. Sous la liste, dans l'encadré **Récapitulatif par e-mail**, choisissez **Tous les jours**,
+   **Toutes les semaines** (choix par défaut) ou **Pas de récapitulatif** (vous ne recevez alors
+   que les notifications habituelles, au fil de l'eau), puis cliquez sur **Sauvegarder**.
+3. Le bouton **M'envoyer mon récapitulatif maintenant** permet de vérifier que l'e-mail arrive.
+
+Le récapitulatif liste les éléments du plus urgent au moins urgent, avec leur échéance, leur
+retard éventuel et un lien vers chacun. Il ne montre que ce que la personne a le droit de voir, il
+est écrit dans sa langue, et il n'est pas envoyé quand rien ne l'attend.
+
+Pour l'administrateur : les envois sont désactivés à l'installation. Activez la tâche
+automatique **personaldigest** (Configuration > Actions automatiques) et les notifications par
+e-mail de GLPI ; la notification **GRC Manager - Votre récapitulatif GRC** peut être modifiée
+comme les autres. Tant que ce n'est pas fait, l'encadré prévient chaque personne que les
+récapitulatifs ne partent pas encore.
+
+### Étape 75 : Faire décider un suppléant pendant une absence
+
+Quand l'approbateur de la SoA ou le responsable d'une revue des accès est en congé, ses décisions
+peuvent être prises par son suppléant, sans changer le responsable ni donner de droits
+(article 5.3, rôles et responsabilités) :
+
+1. L'administrateur ouvre **Configuration** de GRC Manager et, dans l'encadré **Délégation
+   pendant une absence**, coche les décisions délégables (revue des accès, approbation de la SoA,
+   approbation des politiques), puis clique sur **Sauvegarder**. Aucune ne l'est par défaut.
+2. Avant de partir, la personne absente ouvre ses **Préférences** dans GLPI, onglet
+   **Suppléants autorisés**, choisit son suppléant et indique la **Date de début de substitution**
+   et la **Date de fin de substitution**. Sans date de fin, rien n'est délégué.
+3. Pendant l'absence, le suppléant trouve dans **Mon espace GRC** l'encadré **Vous remplacez** et
+   les décisions qui attendent l'absent, marquées **Pour le compte de ...**. Il décide depuis
+   **Mes revues d'accès** ou les pages d'approbation, comme pour ses propres décisions.
+
+Exemple fictif : Marie Exemple, responsable des achats, est absente du 1er au 15 août ; Paul Test,
+son suppléant, revoit à sa place les comptes du logiciel de comptabilité. L'historique et le
+rapport de la revue indiquent « Paul Test pour le compte de Marie Exemple ».
+
+Le suppléant ne voit rien d'autre, ne décide jamais de son propre compte et ne répond pas pour
+l'absent à une version qu'il approuve lui-même. À la fin de l'absence, les décisions disparaissent
+de son espace. La page **Décisions déléguées** (lien depuis l'encadré de la configuration) liste
+chaque décision prise par un suppléant, avec la période d'absence déclarée : une preuve à montrer
+en audit.
+
+### Étape 76 : Dire quelles applications et quels services en ligne sont autorisés (mesure A.5.23)
+
+Le registre des risques fournisseurs évalue un éditeur dans son ensemble ; la mesure A.5.23 demande
+en plus de savoir quels services en ligne sont utilisés, pour quoi faire et avec quelles données.
+Le plugin enregistre cette décision sur les applications de GLPI, celles déjà utilisées par le
+développement sécurisé : aucune application n'est saisie deux fois.
+
+1. Ouvrez une application de GLPI (**Parc > Applications**, ou créez-la), par exemple « Outil de
+   partage de fichiers en ligne », puis son onglet **Usage autorisé**.
+2. Choisissez le **statut** : *En évaluation* tant que l'équipe sécurité l'étudie, *Approuvée*,
+   *Approuvée avec restrictions* ou *Refusée*. Renseignez le fournisseur et le logiciel de GLPI
+   correspondants, le responsable, les services utilisateurs et l'hébergement (en ligne ou sur site).
+3. Décrivez les **cas d'usage autorisés** (« partage de fichiers avec les clients et partenaires »),
+   les **restrictions** (« aucune donnée personnelle de client, liens limités à 30 jours ») et les
+   **données les plus sensibles autorisées** (« Faible : données publiques ou internes seulement »).
+   Un badge rouge prévient si la classification C/I/D de l'application dépasse ce niveau. Ajoutez
+   les dérogations accordées, issues du registre des dérogations.
+4. Gardez la **revue tous les 12 mois** (0 pour aucune revue). Quand elle est échue, la tâche
+   automatique « approvedappreview » ouvre un ticket de réévaluation pour le responsable ; après la
+   revue, cochez **Revue faite aujourd'hui** et enregistrez.
+
+La page **Risques > Applications approuvées** donne le registre complet avec ses badges, les revues
+en retard et les fiches à compléter, puis le **rapprochement avec l'inventaire logiciel** : logiciels
+installés qui correspondent à une application refusée ou encore en évaluation, et logiciels absents
+du registre (filtrez par catégorie de logiciels pour réduire la liste). Rien n'est désinstallé ni
+modifié : ouvrez un ticket s'il faut agir.
+
+Chaque utilisateur, même sans droit sur le plugin, retrouve la liste dans **Mes préférences**, onglet
+**Applications autorisées** : ce qu'il peut utiliser, pour quoi faire, avec quelles données, et les
+applications à ne pas utiliser. La fiche de la mesure A.5.23 reprend ces chiffres comme preuve.
+
+### Étape 77 : Suivre la trajectoire prévue d'un risque traité
+
+Un auditeur demande souvent si le plan de traitement des risques avance comme prévu (articles 6.1.3
+et 8.3). L'onglet **Trajectoire projetée** de chaque risque y répond d'un coup d'œil :
+
+1. Sur la fiche du risque, choisissez le traitement **Mitiger** ou **Transférer**, renseignez la
+   **probabilité résiduelle** et l'**impact résiduel** (le niveau visé une fois le traitement
+   terminé), puis ajoutez les actions du plan de traitement, chacune avec une **échéance**.
+2. Ouvrez l'onglet **Trajectoire projetée**. La courbe en pointillés bleus part du niveau actuel et
+   baisse à chaque échéance jusqu'au niveau visé (chaque action compte pour une part égale) ; la
+   courbe rouge baisse quand une action est réellement terminée. La ligne verte rappelle le niveau
+   visé, la ligne grise la date du jour.
+3. Le badge **Avancement du plan** résume la situation : **Dans les temps**, **En retard** (une
+   action a dépassé son échéance), **En avance** ou **Plan terminé** (réévaluez alors le risque pour
+   confirmer le niveau atteint). Le tableau **Jalons du plan** liste chaque échéance avec le niveau
+   attendu ensuite.
+
+Une action sans échéance est signalée : la courbe prévue n'atteint pas le niveau visé tant qu'elle
+n'en a pas. Pour une vue d'ensemble, la **Cartographie des risques** affiche en bas la carte
+**Trajectoire projetée du registre** : la somme des scores des risques en traitement, prévue et
+réelle, puis la liste des risques avec l'état de leur plan, les retards en premier. Tout est en
+lecture seule : rien n'est modifié automatiquement.
+
+### Étape 78 : Choisir ses référentiels par famille (NIS2 et ses déclinaisons, bloc ANSSI)
+
+Dans la configuration du plugin, onglet **Référentiels**, les référentiels sont rangés en six
+familles repliables : normes ISO, réglementations européennes, guides nationaux, sectoriels,
+catalogues de mesures et personnalisés. Chaque famille affiche le nombre de référentiels actifs
+(« 2 sur 5 actifs »).
+
+1. Ouvrez **Réglementations européennes** et cochez **NIS2**. Dessous apparaît la
+   **Déclinaison nationale** : cochez **France (ReCyF)** ou **Italie (ACN)** selon les pays où vos
+   entités sont soumises à NIS2, puis cliquez sur **Sauvegarder**. Une déclinaison n'est active
+   qu'avec NIS2 : décocher NIS2 la met en pause, sans rien effacer.
+2. Ouvrez **Guides nationaux** : le bloc **ANSSI** regroupe le guide d'hygiène informatique,
+   MonServiceSécurisé et ReCyF. ReCyF est le même réglage qu'à l'étape 1 : coché ici, il l'est aussi
+   sous NIS2.
+3. Classez ensuite vos entités (cadres **ReCyF** et **NIS2 Italia** plus bas dans l'onglet) pour
+   créer leurs registres.
+
+Chaque référentiel garde ses propres données et son propre score. L'évaluation par référentiel et
+la fiche d'une mesure de l'Annexe A reprennent les mêmes familles, la déclinaison Italie étant
+présentée sous NIS2.
+
+### Étape 79 : Suivre la liste de démarrage de la configuration
+
+Juste après l'installation, ouvrez **Configuration > Plugins > GRC Manager** : l'onglet **Général**
+commence par la **liste de démarrage**. Elle résume les réglages à faire avant d'utiliser le plugin,
+avec un pourcentage d'avancement :
+
+1. **Choisir les référentiels** : cochez ceux que suit votre organisation et enregistrez.
+2. **Valider la matrice des risques** : relisez la grille probabilité x impact, sa taille et ses
+   libellés, puis enregistrez-la, même sans changement.
+3. **Donner les droits à un profil** : seul Super-Admin utilise le plugin après l'installation ;
+   ouvrez un profil, puis son onglet GRC Manager.
+4. **Choisir le groupe RSSI** : ses membres voient tous les audits et leurs documents.
+5. **Tester au moins un connecteur** (SentinelOne, Zabbix, Uptime Kuma, GitHub ou GitLab,
+   endoflife.date) : l'étape est faite après une première lecture réussie.
+6. **Cadrer la SoA** : répondez à toutes les questions de l'écran **Cadrage de la SoA**, dans le
+   menu GRC.
+
+Chaque étape est lue dans l'existant : la liste ne modifie rien. Le bouton **Ouvrir le réglage**
+mène à l'onglet concerné. Une fois tout fait, la liste se replie sur une ligne. La page de
+configuration ne contient que des réglages : les registres et tableaux de bord sont dans le menu.
+
+### Étape 80 : Importer un référentiel personnalisé depuis un tableur
+
+Un référentiel que le plugin ne propose pas (exigences de sécurité d'un groupe, référentiel
+sectoriel ou contractuel, plan d'assurance sécurité d'un client) se définit dans la configuration :
+c'est un réglage.
+
+1. Ouvrez **Configuration > Plugins > GRC Manager**, onglet **Référentiels**. Sous la famille
+   **Référentiels personnalisés**, le cadre **Créer ou importer un référentiel personnalisé** liste
+   les référentiels déjà importés.
+2. Cliquez sur **Télécharger le modèle**, remplissez une ligne par exigence (code, thème, titre,
+   description, mesures de l'Annexe A qui y répondent), puis enregistrez le fichier en CSV.
+3. Donnez un nom au référentiel, choisissez le fichier et cliquez sur **Analyser le fichier**. Rien
+   n'est encore enregistré : l'analyse montre les lignes rejetées et ce qui va changer.
+4. Cliquez sur **Confirmer l'import**. La fiche du référentiel s'ouvre, avec ses exigences.
+5. Pour une nouvelle version du même référentiel, cliquez sur **Nouvelle version** dans la liste :
+   les exigences absentes du nouveau fichier sont marquées comme retirées, sans rien effacer.
+
+L'évaluation se fait ensuite dans **GRC & Conformité > Réglementations > Évaluation par
+référentiel**, une fois le référentiel activé dans sa famille. L'ancienne page « Référentiels
+personnalisés » du menu mène désormais à ce cadre de la configuration.
+
+### Étape 81 : Retrouver les incidents de sécurité et la crise dans Assistance
+
+Tout ce qui sert à traiter un incident ou une crise se trouve dans le menu **Assistance**, à côté
+des tickets, des problèmes et des changements :
+
+1. **Assistance > Incidents de sécurité**, juste après **Changements**. Les onglets en tête de la
+   liste ouvrent les outils de l'incident : **Playbooks de remédiation**, **Import des alertes EDR**
+   (fichier CSV d'une console EDR ou XDR, et revue des alertes SentinelOne) et **Journal d'audit de
+   sécurité**. Les notifications aux autorités se font depuis la fiche de l'incident.
+2. **Assistance > Crise et continuité** s'ouvre sur une page d'accueil à cartes groupées :
+   **Se préparer** (processus métier et BIA, scénarios de crise), **S'entraîner** (exercices de
+   crise, programme des tests de reprise, avec les tests en retard ou en échec) et **Communiquer**
+   (modèles de messages de crise). Chaque carte n'apparaît qu'avec le droit de son écran.
+3. Connecteur SentinelOne : l'adresse de la console, le jeton et **Tester la connexion** restent dans
+   **Configuration > Plugins > GRC Manager**, onglet **Connecteurs**. Le bouton **Lire
+   maintenant**, le résultat de la dernière lecture et les agents sans ordinateur GLPI sont sur la
+   page **Import des alertes EDR**, au-dessus des alertes à examiner.
+
+Le menu est gardé dans la session : la nouvelle organisation apparaît à la connexion suivante.
+
+### Étape 82 : Trouver la sécurité du parc dans le menu Parc
+
+Les écrans de sécurité technique sont rangés dans **Parc > Sécurité du parc**, à côté des
+ordinateurs et des matériels réseau.
+
+1. Ouvrez **Parc > Sécurité du parc**. La page d'accueil range les écrans en cartes, par thème :
+   - **Vulnérabilités** : vulnérabilités du parc, machines les plus exposées, produits suivis ;
+   - **Fin de vie et correctifs** : logiciels à surveiller (fin de support lue sur endoflife.date),
+     fin de vie des matériels, retard des correctifs, licences ;
+   - **Durcissement** : contrôles techniques automatiques, conformité de configuration, chiffrement
+     des disques (l'audit de l'Active Directory est dans **GRC & Conformité > Accès et comptes**) ;
+   - **Supervision** : journalisation, Zabbix, Uptime Kuma, contrôleurs de serveurs ;
+   - **Sauvegardes et réseau** : sauvegardes, messagerie et domaines, matrice des flux ;
+   - **Sites et développement** : sécurité physique, développement sécurisé, sécurité du code.
+2. La barre d'onglets en haut de chaque page montre un onglet par thème ; la seconde barre montre les
+   pages du thème ouvert. Le fil d'Ariane indique où vous êtes : « Parc > Sécurité du parc > … ».
+3. Pour la **fin de vie annoncée par le constructeur** d'un modèle, ouvrez la fiche du modèle
+   (par exemple Configuration > Intitulés > Modèles d'ordinateurs), onglet **Fin de vie
+   constructeur**, et saisissez la date. Pour dater tous les modèles en service d'un coup : **Parc >
+   Sécurité du parc > Fin de vie des matériels**. Le seuil d'alerte (« fin de vie proche ») est celui
+   de la fin de support, dans la configuration du plugin, onglet Connecteurs.
+4. Les boutons d'action ont quitté la configuration : **Mettre à jour maintenant** (endoflife.date)
+   et les correspondances entre un nom de GLPI et un produit sont sur **Logiciels à surveiller** ;
+   **Envoyer le rapport maintenant** est sur **Vulnérabilités du parc**.
+
+Le nouveau menu apparaît à la connexion suivante.
+
+### Étape 83 : Rédiger, faire approuver et tester les plans de continuité et de reprise
+
+Les plans de continuité et de reprise répondent aux mesures A.5.29 et A.5.30 de l'ISO 27001 :
+**Assistance > Crise et continuité > Plans de continuité et de reprise**.
+
+1. Créez un plan avec l'un des quatre boutons : **PCA** et **PRA** pour une activité métier,
+   **PCI** et **PRI** pour un système informatique. Le plan démarre avec une trame à remplacer
+   (réglable dans **Configuration > Plugins > GRC Manager**, onglet **Incidents et continuité**).
+2. Choisissez le responsable, l'approbateur (en général un membre de la direction), la cellule de
+   crise et l'astreinte (groupes GLPI), puis les **processus couverts** : leurs DMIA/PDMA (RTO/RPO)
+   viennent de leur BIA, avec le dernier test de reprise de chacun.
+3. Complétez le contenu : déclenchement, rôles et contacts, étapes, repli, dépendances,
+   communication.
+4. Onglet **Versions et approbation** : **Figer et envoyer pour approbation**. L'approbateur
+   approuve ou refuse depuis le même onglet ; une fois approuvé, le plan n'est plus modifiable et
+   sa prochaine revue est datée. Pour le changer, préparez une nouvelle version.
+5. Onglet **Tests du plan** : enregistrez chaque exercice (date, type, résultat, écarts). Un écart
+   devient une non-conformité avec **Créer une non-conformité**.
+6. **Imprimer le plan (PDF)** pour en garder une copie hors de GLPI.
+
+La page d'accueil de la rubrique et la fiche des mesures A.5.29 et A.5.30 montrent les plans non
+approuvés, les revues dépassées, les plans non testés dans l'année et les processus critiques sans
+plan.
+
+### Étape 84 : Retrouver la sécurité des fournisseurs dans Gestion
+
+L'évaluation des fournisseurs et des prestataires se trouve dans le menu **Gestion**, là où sont
+déjà les fournisseurs et les contrats :
+
+1. **Gestion > Sécurité des fournisseurs**, juste après **Fournisseurs**, s'ouvre sur une page
+   d'accueil : les risques fournisseurs à réévaluer qui vous attendent, puis les écrans en cartes.
+   Les onglets mènent au registre des **Risques fournisseurs**, aux **Modèles de questionnaire
+   fournisseur** et, si le référentiel DORA est activé, au **Registre d'informations DORA**.
+2. Sur la fiche d'un fournisseur (**Gestion > Fournisseurs**), l'onglet **Sécurité** résume son
+   évaluation : ses risques fournisseurs avec leur niveau, la dernière évaluation (score et
+   statut), la date de la prochaine réévaluation, en rouge si elle est dépassée. Le bouton
+   **Évaluer ce fournisseur** crée un risque fournisseur déjà rattaché à ce fournisseur ; le bouton
+   des questionnaires de chaque ligne ouvre ses évaluations. L'onglet n'apparaît qu'avec le droit
+   des risques fournisseurs et ne montre que ceux de vos entités.
+3. Le lien sécurisé de réponse et le fichier de réponses restent des onglets de chaque
+   évaluation. L'autorisation de répondre par lien sécurisé se règle uniquement dans
+   **Configuration > Plugins > GRC Manager**, onglet **Général**.
+
+Le menu est gardé dans la session : la nouvelle organisation apparaît à la connexion suivante.
+
+### Étape 85 : Lier un fournisseur à un risque du registre
+
+Un risque du registre général peut concerner un fournisseur sans demander une évaluation par
+questionnaire (par exemple « Panne prolongée de l'hébergeur » ou « Départ du seul prestataire qui
+maintient l'application de paie ») :
+
+1. Ouvrez le risque (**Risques > Registre des risques**) ou créez-en un.
+2. Dans la rubrique **Fournisseurs liés**, sous les actifs de la CMDB, choisissez un ou plusieurs
+   fournisseurs, puis enregistrez. Seuls les fournisseurs que vous pouvez lire (droit
+   **Fournisseurs**, vos entités) sont proposés.
+3. Sur la fiche du fournisseur (**Gestion > Fournisseurs**), l'onglet **Sécurité** montre ces
+   risques dans la section **Risques généraux liés à ce fournisseur**, séparée de ses risques
+   fournisseurs, avec leur niveau et un lien vers chacun.
+
+Pour évaluer le fournisseur lui-même (questionnaire, score, réévaluation), utilisez plutôt le
+registre des risques fournisseurs (84). Un fournisseur
+supprimé définitivement n'est plus lié à aucun risque.
+
+### Étape 86 : Où est passé… ? Retrouver un écran après la nouvelle navigation
+
+La navigation du plugin a été réorganisée pour qu'on trouve chaque écran là où on le cherche
+naturellement : les réglages dans la page de configuration du plugin, l'exploitation dans le menu
+de GLPI qui lui correspond (Assistance, Parc, Gestion) ou dans une rubrique au nom parlant du menu
+**GRC & Conformité**. Les adresses des écrans et les droits ne changent pas : vos favoris et vos
+liens fonctionnent toujours, et le fil d'Ariane en haut de chaque page indique le nouvel
+emplacement.
+
+**Déconnectez-vous puis reconnectez-vous** une fois : GLPI garde le menu en mémoire pendant la
+session.
+
+#### Écrans d'exploitation
+
+| Écran | Ancien emplacement | Nouvel emplacement |
+|---|---|---|
+| Évaluation par référentiel | GRC > Tableau de bord | GRC > Réglementations |
+| Score de maturité, maturité par mesure, calendrier de conformité, contrôles de cohérence, préparation à la certification | GRC > Tableau de bord | GRC > Tableau de bord (inchangé) |
+| Points de défaillance uniques (analyses d'impact), effet domino, études EBIOS RM, indicateurs de risque (KRI) | GRC > Risques | GRC > Analyses de risques |
+| Risques fournisseurs | GRC > Risques | Gestion > Sécurité des fournisseurs (et onglet **Sécurité** de la fiche du fournisseur) |
+| Modèles de questionnaire fournisseur | lien de la page des risques fournisseurs | Gestion > Sécurité des fournisseurs |
+| Registre d'informations DORA | GRC > Conformité | Gestion > Sécurité des fournisseurs, si DORA est activé |
+| Cartographie des risques, catalogue de risques types | hors menu (liens de la liste des risques) | GRC > Risques, onglets |
+| Import et export des risques | Outils | GRC > Risques, onglet **Import et export** |
+| Applications approuvées | GRC > Risques | GRC > Politiques et procédures |
+| Cadrage de la SoA, mesures bloquées, tests d'efficacité | GRC > Conformité | GRC > Mesures de sécurité (SoA) |
+| Référentiels | GRC > Conformité | GRC > Réglementations (activation : Configuration, onglet Référentiels) |
+| Mesures ReCyF, exigences NIS2 Italie (ACN) | hors menu (lien de la configuration) | GRC > Réglementations, si le référentiel est activé |
+| Exigences SMSI, enjeux et parties intéressées, matrice des responsabilités, contacts officiels, obligations | GRC > Conformité | GRC > Organisation du SMSI |
+| Décisions déléguées | Outils | GRC > Organisation du SMSI |
+| Registre des traitements, demandes d'exercice des droits, registre des violations | GRC > Conformité | GRC > Vie privée (RGPD) |
+| Politiques, modèles de politiques, procédures d'exploitation, couverture des mesures par les politiques | GRC > Conformité | GRC > Politiques et procédures |
+| Preuves, dossier de preuves, couverture des preuves | GRC > Conformité | GRC > Audits et preuves |
+| Audits internes, programme d'audit, constats des audits précédents, plan d'audit de l'organisme | GRC > Audits et amélioration | GRC > Audits et preuves |
+| Non-conformités, stock des écarts, objectifs, revues de direction | GRC > Audits et amélioration | GRC > Non-conformités et amélioration |
+| Revues des accès, revues périodiques, hygiène des comptes, couverture MFA, droits sur les partages | GRC > Opérations | GRC > Accès et comptes |
+| Conformité sécurité du personnel, formations, simulations d'hameçonnage, compétences | GRC > Opérations | GRC > Personnel et sensibilisation |
+| Expositions à des fuites de données | GRC > Sécurité technique | GRC > Personnel et sensibilisation |
+| Audit de sécurité de l'Active Directory | GRC > Sécurité technique | GRC > Accès et comptes |
+| Vulnérabilités du parc, machines les plus exposées, produits, logiciels à surveiller, licences, correctifs, contrôles techniques, conformité de configuration, chiffrement, journalisation, Zabbix, Uptime Kuma, contrôleurs de serveurs, sauvegardes, messagerie et domaines, matrice des flux | GRC > Sécurité technique | Parc > Sécurité du parc |
+| Sécurité physique, développement sécurisé, sécurité du code | GRC > Conformité | Parc > Sécurité du parc, groupe **Sites et développement** |
+| Fin de vie constructeur des modèles | Configuration du plugin | onglet **Fin de vie constructeur** de la fiche du modèle, ou Parc > Sécurité du parc > Fin de vie des matériels |
+| Incidents de sécurité | Assistance, après Changements récurrents | Assistance, juste après Changements |
+| Procédures de remédiation, import des alertes EDR, journal d'audit de sécurité | liens de la liste des incidents | Assistance > Incidents de sécurité, onglets |
+| Processus métier (BIA), scénarios de crise, exercices de crise, programme des tests de reprise | GRC > Opérations | Assistance > Crise et continuité |
+| Modèles de messages de crise | lien de la liste des incidents | Assistance > Crise et continuité |
+
+#### Réglages et boutons d'action
+
+| Réglage ou bouton | Ancien emplacement | Nouvel emplacement |
+|---|---|---|
+| Page de configuration du plugin | Outils > GRC Manager (une seule longue page) | Configuration > Plugins > GRC Manager, en huit onglets |
+| Changement de taille de la matrice des risques | Outils | Configuration > Plugins > GRC Manager, onglet Risques |
+| Création et import de référentiels personnalisés | GRC > Conformité > Référentiels personnalisés | Configuration, onglet **Référentiels** |
+| Connexion à Zabbix, Uptime Kuma, Veeam, serveur DNS de la messagerie | page de chaque écran | Configuration, onglet **Connecteurs** |
+| Connexion à Microsoft Entra ID (Graph), GitHub et GitLab | page de chaque écran | Configuration, onglet **Connecteurs** |
+| Groupes d'accès distant de la couverture MFA | Couverture MFA | Configuration, onglet **Personnes et politiques** |
+| Ordinateurs à chiffrer, délais des correctifs, éditeurs de logiciels suivis, journalisation attendue, actifs à sauvegarder | page de chaque écran | Configuration, onglet **Parc** |
+| Programme d'audit, préparation à la certification, taille du dossier de preuves | page de chaque écran | Configuration, onglet **Mesures, audits et preuves** |
+| Entité qui tient le registre DORA | Registre DORA | Configuration, onglet **Référentiels** (si DORA est activé) |
+| Réponse des fournisseurs par lien sécurisé | Configuration (page unique) | Configuration, onglet **Général** |
+| Décisions délégables pendant une absence | Configuration (page unique) | Configuration, onglet **Personnes et politiques** |
+| **Mettre à jour maintenant** (endoflife.date) et correspondances de produits | Configuration du plugin | Parc > Sécurité du parc > Logiciels à surveiller |
+| **Envoyer le rapport maintenant** (vulnérabilités) | Configuration du plugin | Parc > Sécurité du parc > Vulnérabilités du parc |
+| **Lire maintenant** (SentinelOne) | Configuration du plugin | Assistance > Incidents de sécurité > Import des alertes EDR |
+
+Un ancien lien vers un bloc de la configuration (`config.php#…`) ouvre le bon onglet, ou l'écran
+qui accueille désormais l'action. Un ancien formulaire de réglage envoyé depuis une page
+d'exploitation reste accepté pendant une version : il enregistre, puis vous amène sur l'onglet de
+la configuration avec un message.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -2143,8 +2508,9 @@ Manager" row shows an "Activé" status once installation and activation are comp
 
 ![Plugin list with GLPI GRC Manager activated](screenshots/tutorial/01-plugin-list.png)
 
-The plugin adds its own **GRC & Conformité** menu, with six sections (Dashboard, Risks, Compliance,
-Audits and improvement, Operations, Technical security); the screens of a section share a tab bar.
+The plugin adds its own **GRC & Compliance** menu, in sections with plain names (Dashboard, My GRC
+space, Risks, Security controls (SoA), Policies and procedures, Audits and evidence, Nonconformities
+and improvement, Regulations, Privacy (GDPR), etc.); the screens of a section share a tab bar.
 Security incidents are in the **Assistance** menu.
 
 ![The plugin's menu](screenshots/tutorial/02-menu-outils.png)
@@ -2253,7 +2619,7 @@ approve.
 
 ### Step 5: Create an audit and a non-conformity, through to CAPA closure
 
-From **GRC & Conformité > Audits et amélioration**, the list is empty until an audit exists.
+From **GRC & Compliance > Audits and evidence**, the list is empty until an audit exists.
 
 ![Empty internal audit list](screenshots/tutorial/17-audit-list-empty.png)
 
@@ -2344,7 +2710,7 @@ Once added, the card shows the real data, here the number of open risks in the r
 
 ### Step 7: Create a risk in the supplier/third-party register
 
-From **GRC & Conformité > Risques > Risques fournisseurs**, the list shows the supplier risks already recorded on
+From **Management > Supplier security > Supplier risks**, the list shows the supplier risks already recorded on
 this instance.
 
 ![Supplier risk register](screenshots/tutorial/28-supplierrisk-list.png)
@@ -2431,7 +2797,7 @@ the completion rate shown on the dashboard (see step 11).
 
 ### Step 10: Record a management review
 
-From **GRC & Conformité > Audits et amélioration > Revues de direction**, the list shows the reviews already recorded.
+From **GRC & Compliance > Nonconformities and improvement > Management reviews**, the list shows the reviews already recorded.
 
 ![Management review list](screenshots/tutorial/38-managementreview-list.png)
 
@@ -2708,7 +3074,8 @@ rights to read software and licenses.
 2. At the bottom of the page, check the list of **watched commercial publishers** (Microsoft, Adobe,
    Oracle, Autodesk...): it is the "Manufacturer" field of the software in GLPI. The second list
    leaves out the free tools of these publishers ("Redistributable", "Acrobat Reader"...). Only a
-   person who can change the plugin configuration can edit these lists.
+   person who can change the plugin configuration can edit these lists, with the **Change in the
+   configuration** button (Setup > Plugins > GRC Manager, **Fleet** tab).
 3. The counters give the number of findings, then grouped by entity:
    - **Commercial software without a license**: software from a watched publisher is installed, and
      no license counts for this entity. A license counts for an entity when it belongs to it, or when
@@ -2722,8 +3089,8 @@ rights to read software and licenses.
    - **Expired license still in use**: computers are still assigned to it, or the software is still
      installed with no other valid license.
    - **License expiring soon** (a reminder, not a gap): a license in use expires within the next 60
-     days and no renewal is recorded. Change this delay at the bottom of the page ("Warn before a
-     license expires", 0 to turn off).
+     days and no renewal is recorded. Change this delay in the Fleet tab of the configuration ("Warn
+     before a license expires", 0 to turn off).
 
    The **Over-quota allowed** badge marks an over-deployment on a license that allows it: it still
    has to be settled with the publisher. Above the findings, the **license coverage** gives the share
@@ -2880,7 +3247,7 @@ hardware.
 
 ### Step 29: Prepare crisis communication (control A.5.26, clause 7.4)
 
-1. In the header of the security incident list, click **Crisis message templates**. Five templates
+1. Menu **Assistance > Crisis and continuity**, **Crisis message templates** tab. Five templates
    are provided: major incident (first internal message and end of crisis), data breach
    (information of the people concerned), unavailability (message to users and customers) and
    ransomware (instructions to staff). Adapt them to your organization: subject, text, situation,
@@ -2959,7 +3326,7 @@ The continuity plan describes the technical recovery of each process (recovery s
 step adds information security during the crisis: how to keep working without lowering security
 when the crisis is itself an attack.
 
-1. Menu **GRC & Compliance > Operations**, **Security crisis scenarios** tab (next to the
+1. Menu **Assistance > Crisis and continuity**, **Security crisis scenarios** tab (next to the
    business processes). The **Business continuity** right of the profile is required.
 2. Click **Add the default scenarios**: five scenarios are added to the active entity, ready to
    adapt: ransomware attack, data leak, compromise of privileged accounts, unavailability of a
@@ -3120,7 +3487,7 @@ Super-Admin at installation).
 ### Step 35: Prepare the audit with the audit plan of the certification body
 
 The certification body does not audit every process each year: it samples them over its three-year
-cycle and announces them in its audit plan. The screen **Audits and improvement > Audit plan of the
+cycle and announces them in its audit plan. The screen **Audits and evidence > Audit plan of the
 certification body** copies this programme: processes in rows, one column per certification audit
 of each year of the cycle (the default cycle is set in the multi-year audit programme).
 
@@ -3214,7 +3581,8 @@ native right to read computers.
 2. In **Which computers must be encrypted?**, choose the computers concerned: all of them (default),
    laptops and tablets only (computer type reported by the agent: Laptop, Notebook, Tablet...), or
    the selected types. You can add any computer classified with a medium or high confidentiality
-   (C/I/A classification, tab of the computer form). This requires the right to update the plugin.
+   (C/I/A classification, tab of the computer form). This rule is set once in Setup > Plugins > GRC Manager, **Fleet** tab (**Change in the
+   configuration** button of the page); it requires the right to update the plugin.
 3. The counters give the rate of computers concerned that are fully encrypted, the rate of laptops,
    the weak (DES, RC4...) and older (BitLocker with diffuser, CBC mode) algorithms, then the number
    of computers fully encrypted, partially encrypted, not encrypted or of unknown state (no volume
@@ -3243,7 +3611,8 @@ plugin right and the native right to read computers.
 2. In **Target delays by criticality**, set the number of days allowed since the last patch for
    critical, important and standard computers (15, 30 and 60 days by default). The criticality comes
    from the C/I/A classification of the computer; a computer that a declared network flow publishes
-   on the Internet is critical. This requires the right to update the plugin.
+   on the Internet is critical. These delays are set in Setup > Plugins > GRC Manager, **Fleet** tab
+   (**Change in the configuration** button); it requires the right to update the plugin.
 3. The counters give the rate of computers on time, the number late and of unknown state (no dated
    update: no agent, or a system whose agent does not report updates), and the critical servers and
    computers published on the Internet that are late.
@@ -3272,13 +3641,17 @@ secret. You need the plugin right and the native right to read users.
    one line per account with the columns `login` or `email`, `methods` (or `mfa` yes/no), and
    optionally `admin`, `remote_access`, `excluded`, `exclusion_reason`. Accounts are matched on the
    login, the email address or the part of the UPN before the @; those that match no GLPI account
-   are listed separately. For Entra ID, you can also fill in **Read Microsoft Entra ID directly
-   (Microsoft Graph)**: register an application in the Entra admin center, grant it the
-   AuditLog.Read.All application permission with admin consent, create a client secret, then
-   enter the tenant, the application ID and the secret. **Read now from Microsoft Graph** replaces
-   the Entra ID import of the entity; nothing is written in Entra ID.
-4. In **Which accounts have remote access?**, choose the GLPI groups of the VPN or remote desktop
-   users.
+   are listed separately. For Entra ID, you can also read the report directly: register an
+   application in the Entra admin center, grant it the AuditLog.Read.All application permission
+   with admin consent and create a client secret. Then open Setup > Plugins > GRC Manager, tab
+   **Connectors** (or the **Set up the connection** button of the **Read Microsoft Entra ID
+   directly (Microsoft Graph)** box), enter the tenant, the application ID and the secret in
+   **Microsoft Entra ID and Microsoft Graph** and save; **Test the connection** checks them without
+   reading anything. Back on the page, **Read now from Microsoft Graph** replaces the Entra ID
+   import of the entity; nothing is written in Entra ID.
+4. Choose the GLPI groups of the VPN or remote desktop users in Setup > Plugins > GRC Manager, tab
+   **People and policies**, box **Which accounts have remote access?** (the **Change the
+   settings** button of the page leads there).
 5. The list starts with the **gaps**: administrator without MFA, remote access without MFA, SMS,
    call or email only, account excluded without justification. Fix them in your identity provider,
    then import a new export.
@@ -3299,7 +3672,8 @@ need the plugin right and the native right to read computers.
    assets, servers and network devices), the number of days without event after which the logs are
    considered stopped (7 by default) and the retention required by your policy (180 days by
    default). An asset is critical when one axis of its C/I/A classification is high or when a
-   network flow publishes it on the Internet.
+   network flow publishes it on the Internet. These settings are made in Setup > Plugins > GRC
+   Manager, **Fleet** tab (**Change in the configuration** button of the page).
 3. In **Log sources**, import the list of hosts of each platform: for example, in Splunk, the search
    `| metadata type=hosts index=*` exported as CSV (columns `host`, `lastTime`); in Graylog, Elastic
    or OpenSearch, a table of the sources with their last timestamp. When the Wazuh plugin is active,
@@ -3467,15 +3841,18 @@ GLPI. You need the plugin right and the native right to read computers.
 
 1. Open Technical security > **Backup coverage**. The "What is this page for?" box recalls what is
    expected.
-2. In **Which assets must be backed up, and how often?**, choose the assets concerned (by default
+2. With the **Change the settings** button (Setup > Plugins > GRC Manager, **Fleet** tab), frame
+   **Which assets must be backed up, and how often?**, choose the assets concerned (by default
    critical assets and servers), the default maximum age of the last successful backup (48 hours)
    and how often restores must be tested (12 months). The maximum age of an asset is the smallest
    RPO among the asset (C/I/A classification tab) and the business processes that use it; without
    any RPO, the default value applies.
 3. For **Veeam Backup & Replication**, create a dedicated account with the "Veeam Backup Viewer"
-   role (read only) in the Veeam console, then enter the address of the server (for example
+   role (read only) in the Veeam console, then, with the **Set up the connection** button (**Connectors** tab of the
+   configuration), enter the address of the server (for example
    `https://veeam.example.test:9419`), the account, its password and the REST API revision. The
-   password is encrypted with the GLPI key and never displayed again. **Read now from Veeam** reads,
+   password is encrypted with the GLPI key and never displayed again; **Test the connection** checks the account without reading anything. On
+   the backups page, **Read now from Veeam** reads,
    on your click only, the restore points of the last 31 days and the last result of each job. A
    refused or incomplete reading replaces nothing. A server with an internal address requires an
    administrator to allow internal addresses in the configuration page of the plugin, and its
@@ -3532,12 +3909,14 @@ Zabbix. You need the plugin right and the native read right on computers.
    limited to host.get, problem.get, event.get, service.get, sla.get and sla.getsli; Users > Users,
    a user with this role in a group that can read the host groups to monitor; Users > API tokens, a
    token for this user.
-2. Open Technical security > **Zabbix monitoring**. In **Connection to Zabbix (read only)**, enter
+2. Open Setup > Plugins > GRC Manager, **Connectors** tab (or the **Set up the connection** button of
+   Technical security > **Zabbix monitoring**). In **Connection to Zabbix (read only)**, enter
    the address of the Zabbix interface (for example `https://zabbix.example.test/zabbix`) and the
-   token, choose the entity of the readings and save. The token is encrypted by GLPI and never
+   token, choose the entity of the readings and save; **Test the connection** checks the address and
+   the token without reading anything. The token is encrypted by GLPI and never
    displayed again. A server on an internal address requires allowing internal addresses (plugin
    configuration > Outgoing connections).
-3. Click **Read now**. A failed reading does not replace the previous one; the box "Read
+3. On the **Zabbix monitoring** page, click **Read now**. A failed reading does not replace the previous one; the box "Read
    automatically every day" enables the automatic action "zabbix", disabled by default.
 4. In **Which assets must be monitored?**, choose the concerned assets (critical assets, servers
    and network devices, by default) and the period of the problems.
@@ -3603,8 +3982,9 @@ guests of Microsoft 365. The plugin reads the rights through Microsoft Graph, re
 changes anything in Microsoft 365. You need the plugin right and the right on the sensitive
 registers (with modification to read or import).
 
-1. Set up the Microsoft Graph application once on the **MFA coverage** page (tenant, application ID,
-   secret) (see step 41). Also grant it, with
+1. Set up the Microsoft Graph application once in Setup > Plugins > GRC Manager, tab
+   **Connectors**, box **Microsoft Entra ID and Microsoft Graph** (tenant, application ID, secret)
+   (see step 41). Also grant it, with
    admin consent, the `Sites.Read.All`, `Files.Read.All`, `User.Read.All` and `GroupMember.Read.All`
    application permissions.
 2. Open Access review > **File share access rights**, box **Read SharePoint, OneDrive and Teams
@@ -3966,7 +4346,8 @@ no query.
 
 If the DNSSEC column stays "Unknown", the DNS server of the GLPI server does not relay the DNSSEC
 records (this is the case inside Docker): enter the IP address of another DNS server of the
-organisation or of the provider in the **DNS server used for DNSSEC** frame, then check again.
+organisation or of the provider in the **DNS server used for DNSSEC** frame (**Set up the connection** button: **Connectors** tab of
+the configuration), **Test the connection**, then check again.
 
 ### Step 68: Follow the availability of the exposed services and their certificates with Uptime Kuma (controls A.8.16, A.5.30 and A.8.24)
 
@@ -3976,10 +4357,11 @@ certificate is renewed.
 
 1. In Uptime Kuma, menu **Settings > API Keys**, create a key (it only gives access to the `/metrics`
    page, to read). You can also, or instead, list public status pages.
-2. In GLPI, open **Technical security > Exposed services (Uptime Kuma)**, frame **Connection to Uptime
+2. In GLPI, open Setup > Plugins > GRC Manager, **Connectors** tab (or the **Set up the connection**
+   button of **Technical security > Exposed services (Uptime Kuma)**), frame **Connection to Uptime
    Kuma (read only)**: enter the address (for example `https://status.example.test`), the API key and,
    if needed, the status pages (end of their address, for example `customers`), then **Save** and
-   **Read now**. A server on an internal address must be allowed in the plugin configuration
+   **Test the connection**; back on the Exposed services page, click **Read now**. A server on an internal address must be allowed in the plugin configuration
    (**Outgoing connections**).
 3. The **Monitored services** table shows each monitor: its status, its availability over the period,
    the GLPI asset recognised (computer, network device or appliance, by the monitored host name) and the
@@ -4035,9 +4417,11 @@ secret is never requested.
      read permissions "Dependabot alerts", "Secret scanning alerts" and "Code scanning alerts";
    - GitLab: a project or group access token with the `read_api` scope (the vulnerability report
      requires GitLab Ultimate).
-3. Open **Controls > Code security**, frame **Connection to GitHub and GitLab**: paste the token
-   (and, if needed, the address of your GitHub Enterprise or GitLab server), then **Save** and
-   **Read now**.
+3. Open Setup > Plugins > GRC Manager, tab **Connectors** (or the **Set up the connection** button
+   of **Code security**), box **Connection to GitHub and GitLab**: paste the token (and, if
+   needed, the address of your GitHub Enterprise or GitLab server), then **Save**; **Test the
+   connection** checks the token without reading any alert. Then click **Read now** on the
+   **Code security** page.
 4. The **Applications and their repositories** frame shows, for each application, the number of
    alerts per family (exposed secrets, vulnerable dependencies, code analysis) and the **Not
    enabled** badge when an analysis does not run on the repository: this is already a gap for
@@ -4049,7 +4433,8 @@ secret is never requested.
 6. The **Code security** tab of each application sums up its alerts; the sheet of controls A.8.28
    and A.8.29 shows the summary as evidence. To be warned, create a risk indicator "Exposed secrets
    not revoked in the code" or "Code security alerts past their deadline".
-7. For a daily reading, tick **Read automatically every day**: the automatic action
+7. For a daily reading, tick **Read automatically every day** in the same box of the
+   configuration: the automatic action
    `codesecurity` is disabled after installation.
 
 ### Step 71: Adjust the level of vulnerabilities to environment and exposure
@@ -4121,3 +4506,336 @@ most serious ones on top. For each one:
 The decision is final. The author receives a notification, and the **Reported risks** tab of each
 risk shows the auditor the reports that created it or were linked to it. The queue only requires
 reading the risk register; triaging requires the right to create and update risks.
+
+### Step 74: Receive a summary of what is waiting for you
+
+Instead of separate notifications for each review, action or piece of evidence, everyone can
+receive a single email that repeats the **My GRC space** page (clause 7.4, communication):
+
+1. Open **My GRC space** from the menu.
+2. Below the list, in the **Summary by email** box, choose **Every day**, **Every week** (the
+   default) or **No summary** (you then only receive the usual notifications, as they happen),
+   then click **Save**.
+3. The **Send me my summary now** button lets you check that the email arrives.
+
+The summary lists the items from the most urgent to the least urgent, with their due date, any
+delay and a link to each one. It only shows what the person is allowed to see, it is written in
+their language, and it is not sent when nothing is waiting for them.
+
+For the administrator: sending is disabled at installation. Enable the **personaldigest**
+automatic action (Setup > Automatic actions) and GLPI email notifications; the **GRC Manager -
+Your GRC summary** notification can be edited like the others. Until then, the box tells each
+person that summaries are not sent yet.
+
+### Step 75: Let a substitute decide during an absence
+
+When the SoA approver or the reviewer of an access review is on leave, their decisions can be
+taken by their substitute, without changing the owner or granting any right (clause 5.3, roles
+and responsibilities):
+
+1. The administrator opens the GRC Manager **Configuration** and, in the **Delegation during an
+   absence** box, ticks the delegable decisions (access review, SoA approval, policy approval),
+   then clicks **Save**. None is delegable by default.
+2. Before leaving, the absent person opens their **Preferences** in GLPI,
+   **Authorized substitutes** tab, chooses a substitute and enters the **Substitution start date**
+   and **Substitution end date**. Without an end date, nothing is delegated.
+3. During the absence, the substitute finds in **My GRC space** the **You are standing in for**
+   box and the decisions waiting for the absent person, marked **On behalf of ...**. They decide
+   from **My access reviews** or the approval pages, as for their own decisions.
+
+Fictitious example: Marie Exemple, purchasing manager, is away from 1 to 15 August; Paul Test, her
+substitute, reviews the accounts of the accounting software in her place. The history and the
+review report show "Paul Test on behalf of Marie Exemple".
+
+The substitute sees nothing else, never decides on their own account and does not answer for the
+absent person on a version they approve themselves. At the end of the absence, the decisions
+disappear from their space. The **Delegated decisions** page (link from the configuration box)
+lists each decision taken by a substitute, with the declared absence period: evidence to show in
+an audit.
+
+### Step 76: Say which applications and online services are allowed (control A.5.23)
+
+The supplier risk register assesses a vendor as a whole; control A.5.23 also asks you to know which
+online services are used, what for and with which data. The plugin records this decision on the
+appliances of GLPI, the same ones used by secure development: no application is entered twice.
+
+1. Open an appliance of GLPI (**Assets > Appliances**, or create it), for example "Online file
+   sharing tool", then its **Approved use** tab.
+2. Choose the **status**: *Under evaluation* while the security team studies it, *Approved*,
+   *Approved with restrictions* or *Refused*. Fill in the matching supplier and software of GLPI,
+   the owner, the user departments and the hosting (online or on premises).
+3. Describe the **allowed uses** ("sharing files with customers and partners"), the
+   **restrictions** ("no customer personal data, links limited to 30 days") and the **most
+   sensitive data allowed** ("Low: public or internal data only"). A red badge warns when the C/I/D
+   classification of the appliance is above this level. Add the waivers granted, from the waiver
+   register.
+4. Keep the **review every 12 months** (0 for no review). When it is due, the automatic action
+   "approvedappreview" opens a reassessment ticket for the owner; after the review, tick **Review
+   done today** and save.
+
+The **Risks > Approved applications** page gives the full register with its badges, the overdue
+reviews and the sheets to complete, then the **comparison with the software inventory**: installed
+software that matches a refused application or one still under evaluation, and software missing
+from the register (filter by software category to narrow the list). Nothing is uninstalled or
+changed: open a ticket if action is needed.
+
+Every user, even without any right on the plugin, finds the list in **My settings**, **Authorised
+applications** tab: what they may use, what for, with which data, and the applications not to use.
+The sheet of control A.5.23 shows these figures as evidence.
+
+### Step 77: Follow the planned trajectory of a treated risk
+
+An auditor often asks whether the risk treatment plan is progressing as planned (clauses 6.1.3 and
+8.3). The **Projected trajectory** tab of each risk answers at a glance:
+
+1. On the risk form, choose the **Mitigate** or **Transfer** treatment, fill in the **residual
+   probability** and **residual impact** (the level aimed for once the treatment is finished), then
+   add the actions of the treatment plan, each with a **due date**.
+2. Open the **Projected trajectory** tab. The dashed blue curve starts from the current level and
+   goes down at each due date until the target level (each action counts for an equal share); the
+   red curve goes down when an action is actually completed. The green line shows the target level,
+   the grey line today's date.
+3. The **Progress of the plan** badge sums up the situation: **On schedule**, **Behind schedule**
+   (an action is past its due date), **Ahead of schedule** or **Plan completed** (then reassess the
+   risk to confirm the level reached). The **Milestones of the plan** table lists each due date
+   with the level expected afterwards.
+
+An action without a due date is pointed out: the planned curve does not reach the target level
+until it has one. For an overview, the **Risk heatmap** shows the **Projected trajectory of the
+register** card at the bottom: the total score of the risks being treated, planned and actual,
+then the list of risks with the state of their plan, delays first. Everything is read-only: nothing
+is changed automatically.
+
+### Step 78: Choose your frameworks by family (NIS2 and its national implementations, ANSSI block)
+
+In the plugin configuration, **Frameworks** tab, the frameworks are grouped into six collapsible
+families: ISO standards, European regulations, national guides, sector frameworks, control catalogs
+and custom frameworks. Each family shows how many of its frameworks are active ("2 of 5 active").
+
+1. Open **European regulations** and tick **NIS2**. Below it, **National implementation** appears:
+   tick **France (ReCyF)** or **Italy (ACN)** depending on the countries where your entities are
+   subject to NIS2, then click **Save**. A national implementation is active only with NIS2:
+   unticking NIS2 pauses it, without deleting anything.
+2. Open **National guides**: the **ANSSI** block groups the IT hygiene guide, MonServiceSécurisé
+   and ReCyF. ReCyF is the same setting as in step 1: ticked here, it is ticked under NIS2 too.
+3. Then classify your entities (**ReCyF** and **NIS2 Italia** frames further down the tab) to create
+   their registers.
+
+Each framework keeps its own data and its own score. The assessment by framework and the form of an
+Annex A control use the same families, the Italian implementation being shown under NIS2.
+
+### Step 79: Follow the getting-started checklist of the configuration
+
+Right after installation, open **Setup > Plugins > GRC Manager**: the **General** tab starts with
+the **getting-started checklist**. It sums up the settings to make before using the plugin, with a
+completion percentage:
+
+1. **Choose the frameworks**: tick the ones your organisation follows and save.
+2. **Validate the risk matrix**: check the probability x impact grid, its size and its labels,
+   then save it, even unchanged.
+3. **Give the rights to a profile**: after installation, only Super-Admin can use the plugin;
+   open a profile, then its GRC Manager tab.
+4. **Choose the CISO group**: its members can see every audit and its documents.
+5. **Test at least one connector** (SentinelOne, Zabbix, Uptime Kuma, GitHub or GitLab,
+   endoflife.date): the step is done after a first successful read.
+6. **Scope the Statement of Applicability**: answer every question of the **SoA scoping** screen,
+   in the GRC menu.
+
+Each step is read from what is already set up: the checklist changes nothing. The **Open the
+setting** button leads to the relevant tab. Once everything is done, the checklist folds into one
+line. The configuration page only holds settings: registers and dashboards are in the menu.
+
+### Step 80: Import a custom framework from a spreadsheet
+
+A framework the plugin does not offer (group security requirements, a sector or contractual
+framework, a customer security assurance plan) is defined in the configuration: it is a setting.
+
+1. Open **Setup > Plugins > GRC Manager**, **Frameworks** tab. Below the **Custom frameworks**
+   family, the **Create or import a custom framework** frame lists the frameworks already imported.
+2. Click **Download the template**, fill in one line per requirement (code, theme, title,
+   description, Annex A controls that meet it), then save the file as CSV.
+3. Name the framework, choose the file and click **Analyse the file**. Nothing is saved yet: the
+   analysis shows the rejected lines and what will change.
+4. Click **Confirm the import**. The page of the framework opens, with its requirements.
+5. For a new version of the same framework, click **New version** in the list: requirements
+   missing from the new file are marked as removed, nothing is deleted.
+
+The assessment is then done in **GRC & Compliance > Regulations > Assessment by framework**, once
+the framework is enabled in its family. The former "Custom frameworks" page of the menu now leads
+to this frame of the configuration.
+
+### Step 81: Find security incidents and crisis management in Assistance
+
+Everything used to handle an incident or a crisis is in the **Assistance** menu, next to tickets,
+problems and changes:
+
+1. **Assistance > Security incidents**, right after **Changes**. The tabs at the top of the list
+   open the incident tools: **Remediation playbooks**, **EDR alerts import** (CSV file from an EDR
+   or XDR console, and review of the SentinelOne alerts) and **Security audit log**. Notifications
+   to the authorities are made from the incident form.
+2. **Assistance > Crisis and continuity** opens on an overview page with grouped cards:
+   **Prepare** (business processes and BIA, crisis scenarios), **Train** (crisis exercises, recovery
+   test programme, with the tests overdue or failed) and **Communicate** (crisis message
+   templates). Each card only appears with the right of its screen.
+3. SentinelOne connector: the console address, the token and **Test the connection** stay in
+   **Setup > Plugins > GRC Manager**, **Connectors** tab. The **Fetch now** button, the result of
+   the last read and the agents without a GLPI computer are on the **EDR alerts import** page,
+   above the alerts to review.
+
+The menu is kept in the session: the new organization appears at the next login.
+
+### Step 82: Find asset security in the Assets menu
+
+The technical security screens are in **Assets > Asset security**, next to computers and network
+devices.
+
+1. Open **Assets > Asset security**. The home page shows the screens as cards, by theme:
+   - **Vulnerabilities**: fleet vulnerabilities, most exposed machines, watched products;
+   - **End of life and patches**: software to watch (end of support read on endoflife.date), hardware
+     end of life, late patches, licences;
+   - **Hardening**: automated technical checks, configuration compliance, disk encryption (the Active
+     Directory audit is in **GRC & Compliance > Access and accounts**);
+   - **Monitoring**: logging, Zabbix, Uptime Kuma, server management controllers;
+   - **Backups and network**: backups, mail and domains, network flow matrix;
+   - **Sites and development**: physical security, secure development, code security.
+2. The tab bar at the top of each page shows one tab per theme; the second bar shows the pages of the
+   open theme. The breadcrumb tells you where you are: "Assets > Asset security > …".
+3. For the **end of life announced by the manufacturer** of a model, open the form of the model (for
+   instance Setup > Dropdowns > Computer models), tab **Manufacturer end of life**, and enter the
+   date. To date all the models in service at once: **Assets > Asset security > Hardware end of
+   life**. The warning threshold ("end of life soon") is the one of the end of support, in the plugin
+   configuration, Connectors tab.
+4. The action buttons left the configuration: **Update now** (endoflife.date) and the links between a
+   GLPI name and a product are on **Software to watch**; **Send the report now** is on **Fleet
+   vulnerabilities**.
+
+The new menu appears at your next login.
+
+### Step 83: Write, approve and test the continuity and recovery plans
+
+The continuity and recovery plans answer controls A.5.29 and A.5.30 of ISO 27001:
+**Assistance > Crisis and continuity > Continuity and recovery plans**.
+
+1. Create a plan with one of the four buttons: **BCP** and **BRP** for a business activity, **ITCP**
+   and **DRP** for an IT system. The plan starts from a short model to replace (set in
+   **Setup > Plugins > GRC Manager**, **Incidents and continuity** tab).
+2. Choose the owner, the approver (usually a member of management), the crisis team and the
+   on-call team (GLPI groups), then the **covered processes**: their RTO and RPO come from their
+   BIA, with the last recovery test of each one.
+3. Fill in the content: activation, roles and contacts, steps, fallback, dependencies,
+   communication.
+4. **Versions and approval** tab: **Freeze and send for approval**. The approver approves or
+   rejects from the same tab; once approved, the plan can no longer be changed and its next review
+   is dated. To change it, prepare a new version.
+5. **Plan tests** tab: record each exercise (date, type, result, gaps). A gap becomes a
+   nonconformity with **Create a nonconformity**.
+6. **Print the plan (PDF)** to keep a copy outside GLPI.
+
+The home page of the section and the sheet of controls A.5.29 and A.5.30 show the plans not
+approved, the reviews overdue, the plans not tested within a year and the critical processes
+without plan.
+
+### Step 84: Find supplier security in Management
+
+The assessment of suppliers and service providers is in the **Management** menu, where the
+suppliers and the contracts already are:
+
+1. **Management > Supplier security**, right after **Suppliers**, opens on a home page: the supplier
+   risks waiting for your review, then the screens as cards. The tabs lead to the **Supplier risks**
+   register, to the **Supplier questionnaire templates** and, when the DORA framework is enabled, to
+   the **DORA register of information**.
+2. On a supplier form (**Management > Suppliers**), the **Security** tab sums up its assessment: its
+   supplier risks with their level, the last evaluation (score and status), the date of the next
+   reassessment, in red when it is overdue. The **Assess this supplier** button creates a supplier
+   risk already linked to this supplier; the questionnaires button of each row opens its
+   evaluations. The tab only appears with the supplier risk right and only shows the risks of your
+   entities.
+3. The secure answer link and the answer file remain tabs of each evaluation. Allowing suppliers to
+   answer by secure link is set only in **Setup > Plugins > GRC Manager**, **General** tab.
+
+The menu is kept in the session: the new layout appears at the next login.
+
+### Step 85: Link a supplier to a risk of the register
+
+A risk of the general register may concern a supplier without calling for an assessment by
+questionnaire (for example "Extended outage of the hosting provider" or "Departure of the only
+contractor who maintains the payroll application"):
+
+1. Open the risk (**Risks > Risk register**) or create one.
+2. In the **Linked suppliers** section, below the CMDB assets, choose one or more suppliers, then
+   save. Only the suppliers you can read (**Suppliers** right, your entities) are offered.
+3. On the supplier's record (**Management > Suppliers**), the **Security** tab shows these risks in
+   the **General risks linked to this supplier** section, separate from its supplier risks, with
+   their level and a link to each one.
+
+To assess the supplier itself (questionnaire, score, reassessment), use the supplier risk register
+instead (84). A supplier deleted permanently is no
+longer linked to any risk.
+
+### Step 86: Where has it gone? Finding a screen after the new navigation
+
+The navigation of the plugin was reorganised so that each screen is where you would naturally look
+for it: the settings in the configuration page of the plugin, the daily work in the matching GLPI
+menu (Assistance, Assets, Management) or in a clearly named section of the **GRC & Compliance**
+menu. The addresses of the screens and the rights do not change: your bookmarks and links still
+work, and the breadcrumb at the top of each page shows the new location.
+
+**Log out and log in again** once: GLPI keeps the menu in memory during the session.
+
+#### Daily work screens
+
+| Screen | Former location | New location |
+|---|---|---|
+| Assessment by framework | GRC > Dashboard | GRC > Regulations |
+| Maturity score, maturity by control, compliance calendar, consistency checks, certification readiness | GRC > Dashboard | GRC > Dashboard (unchanged) |
+| Single points of failure (impact analyses), domino effect, EBIOS RM studies, risk indicators (KRI) | GRC > Risks | GRC > Risk analyses |
+| Supplier risks | GRC > Risks | Management > Supplier security (and the **Security** tab of the supplier form) |
+| Supplier questionnaire templates | link of the supplier risks page | Management > Supplier security |
+| DORA register of information | GRC > Compliance | Management > Supplier security, when DORA is enabled |
+| Risk heatmap, catalog of typical risks | outside the menu (links of the risk list) | GRC > Risks, tabs |
+| Risk import and export | Tools | GRC > Risks, **Import and export** tab |
+| Approved applications | GRC > Risks | GRC > Policies and procedures |
+| SoA scoping, blocked controls, effectiveness tests | GRC > Compliance | GRC > Security controls (SoA) |
+| Frameworks | GRC > Compliance | GRC > Regulations (enabling them: Setup, Frameworks tab) |
+| ReCyF measures, NIS2 Italy requirements (ACN) | outside the menu (link of the configuration) | GRC > Regulations, when the framework is enabled |
+| ISMS requirements, issues and interested parties, responsibility matrix, official contacts, obligations | GRC > Compliance | GRC > ISMS organisation |
+| Delegated decisions | Tools | GRC > ISMS organisation |
+| Record of processing activities, data subject requests, breach register | GRC > Compliance | GRC > Privacy (GDPR) |
+| Policies, policy templates, operating procedures, control coverage by policies | GRC > Compliance | GRC > Policies and procedures |
+| Evidence, evidence pack, evidence coverage | GRC > Compliance | GRC > Audits and evidence |
+| Internal audits, audit programme, findings of previous audits, audit plan of the certification body | GRC > Audits and improvement | GRC > Audits and evidence |
+| Nonconformities, gap backlog, objectives, management reviews | GRC > Audits and improvement | GRC > Nonconformities and improvement |
+| Access reviews, periodic reviews, account hygiene, MFA coverage, file share access rights | GRC > Operations | GRC > Access and accounts |
+| Personnel security compliance, trainings, phishing simulations, competences | GRC > Operations | GRC > People and awareness |
+| Data breach exposures | GRC > Technical security | GRC > People and awareness |
+| Active Directory security audit | GRC > Technical security | GRC > Access and accounts |
+| Fleet vulnerabilities, most exposed machines, products, software to watch, licences, patches, technical checks, configuration compliance, encryption, logging, Zabbix, Uptime Kuma, server controllers, backups, mail and domains, network flow matrix | GRC > Technical security | Assets > Asset security |
+| Physical security, secure development, code security | GRC > Compliance | Assets > Asset security, **Sites and development** group |
+| Manufacturer end of life of models | plugin configuration | **Manufacturer end of life** tab of the model form, or Assets > Asset security > Hardware end of life |
+| Security incidents | Assistance, after Recurrent changes | Assistance, right after Changes |
+| Remediation playbooks, EDR alerts import, security audit log | links of the incident list | Assistance > Security incidents, tabs |
+| Business processes (BIA), crisis scenarios, crisis exercises, recovery test programme | GRC > Operations | Assistance > Crisis and continuity |
+| Crisis message templates | link of the incident list | Assistance > Crisis and continuity |
+
+#### Settings and action buttons
+
+| Setting or button | Former location | New location |
+|---|---|---|
+| Configuration page of the plugin | Tools > GRC Manager (one long page) | Setup > Plugins > GRC Manager, in eight tabs |
+| Change of the risk matrix size | Tools | Setup > Plugins > GRC Manager, Risks tab |
+| Creation and import of custom frameworks | GRC > Compliance > Custom frameworks | Setup, **Frameworks** tab |
+| Connection to Zabbix, Uptime Kuma, Veeam, DNS server of the mail checks | page of each screen | Setup, **Connectors** tab |
+| Connection to Microsoft Entra ID (Graph), GitHub and GitLab | page of each screen | Setup, **Connectors** tab |
+| Remote access groups of the MFA coverage | MFA coverage | Setup, **People and policies** tab |
+| Computers to encrypt, patch deadlines, watched software publishers, expected logging, assets to back up | page of each screen | Setup, **Fleet** tab |
+| Audit programme, certification readiness, evidence pack size | page of each screen | Setup, **Controls, audits and evidence** tab |
+| Entity that keeps the DORA register | DORA register | Setup, **Frameworks** tab (when DORA is enabled) |
+| Supplier answer by secure link | configuration (single page) | Setup, **General** tab |
+| Decisions that can be delegated during an absence | configuration (single page) | Setup, **People and policies** tab |
+| **Update now** (endoflife.date) and product links | plugin configuration | Assets > Asset security > Software to watch |
+| **Send the report now** (vulnerabilities) | plugin configuration | Assets > Asset security > Fleet vulnerabilities |
+| **Read now** (SentinelOne) | plugin configuration | Assistance > Security incidents > EDR alerts import |
+
+A former link to a block of the configuration (`config.php#…`) opens the right tab, or the screen
+that now hosts the action. A former settings form sent from a daily work page is still accepted for
+one version: it saves, then takes you to the configuration tab with a message.

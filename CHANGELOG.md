@@ -7,6 +7,343 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.85.0] - 2026-11-23
+
+### Added
+
+- **Onglet Sécurité sur la fiche Fournisseur** (#1040) : les risques fournisseurs du fournisseur,
+  leur niveau, la dernière évaluation (score et statut), la prochaine réévaluation (signalée si
+  elle est dépassée), un bouton **Évaluer ce fournisseur** (risque prérempli) et l'accès à ses
+  questionnaires. Lecture avec le droit des risques fournisseurs, dans les entités de la session.
+
+- **Liste de démarrage dans l'onglet Général de la configuration** (#1046) : six étapes de mise
+  en route (référentiels choisis, matrice des risques validée, droits donnés à un profil, groupe
+  RSSI choisi, un connecteur lu avec succès, SoA cadrée), avec un pourcentage d'avancement et,
+  pour chaque étape, un bouton vers le réglage concerné. Chaque étape est lue dans l'existant,
+  rien n'est modifié. Une fois tout fait, la liste se replie sur une ligne. Réservée aux
+  personnes qui peuvent modifier la configuration du plugin.
+
+- **Plans de continuité et de reprise** (#1083, mesures A.5.29 et A.5.30, ISO 22301) : nouvel
+  onglet **Assistance > Crise et continuité > Plans de continuité et de reprise**, dans le groupe
+  « Se préparer », juste après les scénarios de crise.
+  - Quatre types : PCA et PRA (activités métier), PCI et PRI (systèmes informatiques). Chaque plan
+    réunit son périmètre, ses critères et son autorité de déclenchement, ses rôles et contacts, ses
+    étapes, ses solutions de repli, ses dépendances et ordre de reprise, sa communication, sa
+    cellule de crise et son astreinte (groupes GLPI).
+  - Le plan est lié aux processus métier qu'il couvre, avec leurs DMIA/PDMA (RTO/RPO) et leur durée
+    maximale d'interruption issues du BIA, et le dernier test de reprise de chaque processus (écart
+    signalé au-delà du RTO), ainsi qu'aux scénarios de crise et aux fournisseurs concernés. Un
+    nouvel onglet sur la fiche d'un processus liste les plans qui le couvrent.
+  - Versions et approbation : la demande fige la version (contenu et empreinte SHA-256, gardés
+    dans l'historique et imprimables) ; l'approbateur désigné sur le plan, sinon les approbateurs
+    par défaut des politiques, approuve ou refuse (commentaire obligatoire). Le contenu reste figé
+    pendant l'approbation et après ; une nouvelle version le rouvre, la version approuvée restant
+    en vigueur jusque-là. La date de revue est calculée à l'approbation.
+  - Tests du plan : date, type d'exercice, résultat, exercice de crise du plugin, écarts constatés,
+    transformés à la demande en non-conformité (A.5.30) rattachée au test.
+  - Impression en PDF (version actuelle ou version figée) pour consulter le plan quand GLPI est
+    indisponible, avec les contacts officiels à prévenir.
+  - Indicateurs sur la page d'accueil de la rubrique et dans la liste : plans non approuvés, revue
+    dépassée, plans jamais testés ou testés il y a plus d'un an, processus critiques sans plan.
+    La fiche signale aussi un responsable ou un approbateur parti (compte inactif).
+  - Preuve sur les mesures A.5.29 et A.5.30 de la SoA : plans par type, approuvés, testés dans
+    l'année, revues dépassées.
+  - Réglages dans **Configuration > Plugins > GRC Manager**, onglet **Incidents et continuité** :
+    périodicité de revue par défaut, rappel avant la date de revue, modèle proposé pour un nouveau
+    plan. Le menu étant gardé dans la session, l'onglet apparaît à la connexion suivante.
+
+- **Fournisseurs liés à un risque général** (#1095) : sur la fiche d'un risque (Risques >
+  Registre des risques), la nouvelle rubrique « Fournisseurs liés » permet de choisir un ou
+  plusieurs fournisseurs GLPI concernés, en plus des actifs de la CMDB, par la même liaison.
+  Seuls les fournisseurs que la personne peut lire (droit Fournisseurs, entités de la session)
+  sont proposés et affichés ; un lien qu'elle ne voit pas est conservé à l'enregistrement. Sur
+  la fiche du fournisseur (Gestion > Fournisseurs), l'onglet « Sécurité » montre ces risques dans
+  une section séparée, « Risques généraux liés à ce fournisseur », avec leur niveau. Un
+  fournisseur supprimé définitivement n'est plus lié à aucun risque. Le registre des risques
+  fournisseurs (évaluation par questionnaire) reste inchangé.
+
+- **Délégation des décisions du SMSI pendant une absence** (#618, 5.3, A.5.3) : le suppléant
+  qu'une personne déclare dans GLPI (préférences, onglet « Suppléants », avec une date de début et
+  une date de fin) prend pour son compte, pendant cette période seulement, les décisions qui lui
+  sont confiées nommément : lignes d'une revue des accès, approbation d'une version de la SoA ou
+  d'une politique. Les types délégables se choisissent dans la configuration (encadré
+  « Délégation pendant une absence ») ; aucun ne l'est par défaut, et les dérogations et
+  acceptations de risque, qui tiennent à un droit, ne le sont jamais. Le suppléant n'obtient aucun
+  droit : il voit dans « Mon espace GRC », « Mes revues d'accès » et les pages d'approbation les
+  seules décisions qui attendent l'absent, jamais son propre compte, et ne vote pas deux fois sur
+  une version qu'il approuve lui-même. Une période sans date de fin ne délègue rien ; la
+  délégation cesse d'elle-même à la fin de l'absence. Chaque décision s'affiche « X pour le compte
+  de Y » (historique, procès-verbal et rapport PDF, notifications) et figure dans le journal des
+  décisions déléguées (qui, pour le compte de qui, quand, sur quoi, période d'absence) et dans le
+  journal d'audit.
+
+- **Applications et services en ligne approuvés** (#622, mesure A.5.23) : sur chaque application de
+  GLPI (Parc > Applications), un onglet « Usage autorisé » à côté de la fiche « Développement
+  sécurisé » (#777), sans registre en double : statut (en évaluation, approuvée, approuvée avec
+  restrictions, refusée), fournisseur et logiciel de GLPI liés, responsable, services utilisateurs,
+  hébergement (en ligne ou sur site), dates de début et de fin d'usage, cas d'usage autorisés et
+  restrictions, données les plus sensibles autorisées (échelle de confidentialité de la
+  classification C/I/D, avec alerte si la classification de l'application la dépasse), dérogations
+  accordées (registre des dérogations) et revue tous les N mois (12 par défaut). Nouvelle page
+  « Applications approuvées » de la rubrique Risques : registre avec badges, indicateurs (décisions,
+  revues en retard, fiches à compléter) et rapprochement avec l'inventaire logiciel (logiciels
+  installés refusés ou encore en évaluation, logiciels hors registre les plus installés, filtre par
+  catégorie), en lecture seule. Onglet « Applications autorisées » des préférences : la liste des
+  applications approuvées et de celles à ne pas utiliser, lisible par tous les utilisateurs, même
+  sans droit sur le plugin. Tâche automatique « approvedappreview » : à l'échéance de la revue, un
+  ticket de réévaluation pour le responsable (un seul tant qu'il reste ouvert) ; aucun statut n'est
+  changé automatiquement. Preuve sur la fiche de la mesure A.5.23.
+
+- Test d'accessibilité de bout en bout (#663) : axe-core sur quinze pages clés, en thème clair et
+  sombre ; la CI échoue si une violation grave d'une règle déjà corrigée revient.
+
+- **Trajectoire projetée du risque** (#871, 6.1.3 et 8.3) : nouvel onglet « Trajectoire projetée »
+  sur chaque risque. Un graphique montre le niveau prévu dans le temps d'après les échéances du plan
+  de traitement (du niveau actuel au niveau visé après traitement, chaque action comptant pour une
+  part égale), comparé au niveau réel d'après les actions terminées, avec la date du jour et le
+  niveau visé. Badges du niveau actuel et visé, de l'avancement (dans les temps, en retard, en
+  avance, plan terminé), du nombre d'actions terminées et de la dernière échéance ; tableau des
+  jalons avec le niveau attendu après chacun ; alerte pour les actions sans échéance. La
+  cartographie des risques gagne une carte « Trajectoire projetée du registre » : somme des scores
+  des risques à réduire ou à transférer (non clos), prévue et réelle, et l'état du plan de chaque
+  risque, les retards en premier. Lecture seule, dans les entités de la session, à partir des
+  données existantes (cotation, risque résiduel, actions du plan) : rien n'est enregistré ni
+  modifié.
+
+- **Récapitulatif par e-mail de ce qui attend chaque personne** (#877, 7.4) : un seul e-mail
+  reprend ce qu'affiche « Mon espace GRC » (actions, revues, tests, preuves, politiques à lire,
+  formations, audits...), du plus urgent au moins urgent, au lieu de notifications isolées.
+  Chacun choisit dans l'encadré « Récapitulatif par e-mail » de « Mon espace GRC » : chaque jour,
+  chaque semaine (par défaut) ou aucun récapitulatif (seulement les notifications habituelles, au
+  fil de l'eau), et peut se l'envoyer tout de suite. Le contenu est lu avec les droits, les
+  entités et la langue de la personne ; un récapitulatif vide n'est jamais envoyé, et le message
+  ne part qu'à la personne concernée. Tâche automatique « personaldigest » désactivée à
+  l'installation ; notification modifiable « GRC Manager - Votre récapitulatif GRC », traduite
+  dans les langues du plugin, supprimée avec son modèle à la désinstallation.
+
+### Changed
+
+- **Page de configuration du plugin en onglets** (#1036) : les réglages, jusqu'ici sur une seule
+  longue page, sont rangés en huit onglets (Général, Référentiels, Risques, Mesures, audits et
+  preuves, Personnes et politiques, Incidents et continuité, Connecteurs, Parc). Aucun réglage
+  ne change. L'onglet ouvert est dans l'adresse (`front/config.php?tab=risks`...) et seul cet
+  onglet est chargé : la page s'ouvre bien plus vite. Les anciens liens vers un bloc
+  (`config.php#grcmanager-recyf`...) ouvrent le bon onglet. La page est rangée sous
+  Configuration > Plugins (et plus sous « Outils »). Un onglet n'apparaît que si l'on a le droit
+  d'au moins un de ses réglages ; en lecture seule, les boutons d'enregistrement ne sont plus
+  affichés (groupe RSSI des audits, module des incidents, enrichissement NVD, matrice des
+  risques).
+
+- **Rubriques de menu déclarées par fichier** (#1037, fondation de la navigation simplifiée #1035) :
+  chaque rubrique du menu (son secteur GLPI, sa place, son droit et ses sous-pages) est décrite
+  dans son propre fichier, et les pages en tirent leur fil d'Ariane et leur barre d'onglets. Le
+  menu, les fils d'Ariane et les barres d'onglets restent identiques ; les prochaines versions
+  pourront ainsi ranger des écrans dans Assistance, Parc ou Gestion sans changer leurs adresses.
+- **Barre d'onglets des rubriques accessible au clavier** (#1037) : onglet courant annoncé aux
+  lecteurs d'écran et focus visible.
+
+- **Menu GRC en rubriques aux noms parlants** (#1038, navigation simplifiée #1035). Les grandes
+  rubriques fourre-tout (« Conformité » et ses 25 onglets, « Opérations », « Audits et
+  amélioration ») sont découpées en rubriques de 7 écrans au plus, compréhensibles sans connaître la
+  norme : Tableau de bord, Mon espace GRC, Risques, Analyses de risques, Mesures de sécurité (SoA),
+  Politiques et procédures, Audits et preuves, Non-conformités et amélioration, Réglementations, Vie privée
+  (RGPD), Accès et comptes, Personnel et sensibilisation, Organisation du SMSI. Les adresses des
+  écrans et les droits ne changent pas ; le fil d'Ariane suit le nouvel emplacement.
+- **Page d'accueil de chaque rubrique** (#1038) : en cliquant sur une rubrique du menu, on voit
+  d'abord ce qui vous attend dans cette rubrique (retards en tête, repris de « Mon espace »), puis
+  ses écrans en cartes groupées par thème. Seuls les écrans que votre profil peut ouvrir sont
+  montrés ; un référentiel désactivé n'apparaît pas. L'onglet de la page principale de la rubrique
+  (par exemple la liste des risques) reste dans la barre d'onglets.
+- **Écrans désormais joignables par le menu** (#1038) : la carte des risques, le catalogue de
+  risques types et l'import des risques (onglets de Risques, l'import n'est plus rangé dans
+  « Outils ») ; les registres ReCyF et ACN (Réglementations, seulement si leur référentiel est
+  activé) ; les décisions déléguées (Organisation du SMSI, plus dans « Outils »). Le bouton
+  « Décisions déléguées » de la configuration est retiré : la configuration ne garde que le réglage.
+- **Applications approuvées** (#1038) passent de Risques à Politiques et procédures (politique
+  d'usage des services en ligne, A.5.23) ; les expositions à des fuites de données passent de
+  Sécurité technique à Personnel et sensibilisation.
+
+- **Parc > Sécurité du parc** (#1039, navigation simplifiée #1035) : les écrans de sécurité technique
+  quittent le menu GRC pour le menu Parc, là où l'on cherche la sécurité d'un actif. Une page
+  d'accueil range en cartes les 20 écrans, en six groupes : Vulnérabilités, Fin de vie et correctifs,
+  Durcissement, Supervision, Sauvegardes et réseau, Sites et développement (sécurité physique,
+  développement sécurisé et sécurité du code, venus de la rubrique des mesures). La barre d'onglets
+  montre l'accueil et un onglet par groupe ; une seconde barre montre les pages du groupe ouvert. Le
+  fil d'Ariane suit : « Parc > Sécurité du parc > … ». Les adresses des pages ne changent pas.
+- **Fin de vie constructeur des modèles de matériel** (#1039) : ce n'est plus un réglage de la
+  configuration, mais une donnée du parc. Elle se saisit dans un nouvel onglet « Fin de vie
+  constructeur » des fiches de modèles de GLPI (ordinateurs, écrans, matériels réseau, imprimantes,
+  téléphones, périphériques…), ou pour tous les modèles en service dans Parc > Sécurité du parc >
+  Fin de vie des matériels. La configuration garde le seuil d'alerte, commun avec la fin de support ;
+  l'ancien lien et l'ancien formulaire de la configuration mènent à la nouvelle page.
+- **Actions « … maintenant » hors de la configuration** (#1039) : « Mettre à jour maintenant » et les
+  correspondances avec les produits d'endoflife.date sont sur « Logiciels à surveiller » ; « Envoyer
+  le rapport maintenant » est sur « Vulnérabilités du parc ». La configuration ne garde que les
+  réglages (activation, seuil, fréquence et destinataires) ; les anciens envois restent acceptés
+  pendant une version et mènent au nouvel écran. Les droits ne changent pas.
+
+- **Sécurité des fournisseurs rangée dans Gestion** (#1040) : nouvelle rubrique **Gestion >
+  Sécurité des fournisseurs**, juste après Fournisseurs, avec sa page d'accueil (risques
+  fournisseurs à réévaluer, écrans en cartes). Elle regroupe le registre des risques fournisseurs
+  (venu de la rubrique Risques du menu GRC), les modèles de questionnaire fournisseur (autrefois
+  sans entrée de menu) et le registre d'informations DORA (venu des mesures de sécurité, montré
+  seulement si le référentiel DORA est activé). Les adresses des pages ne changent pas, les droits
+  non plus.
+- **Lien sécurisé du fournisseur réglé dans la configuration seulement** (#1040) : l'autorisation
+  de répondre par lien sécurisé s'enregistre depuis Configuration > Plugins > GRC Manager, onglet
+  Général ; la page de relecture des réponses ne l'enregistre plus elle-même. Un ancien envoi
+  reste accepté pendant une version et mène à l'onglet.
+
+- **Assistance > Incidents de sécurité et Crise et continuité** (#1041) : tout ce qui sert à
+  traiter un incident ou une crise est dans le menu Assistance, à côté des tickets, des problèmes
+  et des changements.
+  - « Incidents de sécurité » est placé juste après « Changements » (et non plus après
+    « Changements récurrents »). Ses liens d'en-tête deviennent des onglets de rubrique :
+    Playbooks de remédiation, Import des alertes EDR, Journal d'audit de sécurité.
+  - Nouvelle entrée « Crise et continuité », juste après : page d'accueil à cartes groupées
+    (Se préparer, S'entraîner, Communiquer) et onglets Processus métier, Scénarios de crise
+    sécurité, Exercices de crise, Programme des tests de reprise, Modèles de messages de crise.
+    Les exercices, processus et scénarios quittent la rubrique « Opérations » du menu GRC ; les
+    modèles de messages, l'en-tête des incidents. Fil d'Ariane « Assistance > … ».
+  - SentinelOne : le bouton « Lire maintenant », le résultat de la dernière lecture et les agents
+    sans ordinateur GLPI passent de la configuration à la page Import des alertes EDR, avec les
+    alertes à examiner. L'onglet Connecteurs garde l'adresse, le jeton, l'entité, le test de
+    connexion et la date de la dernière lecture. Un ancien envoi « Lire maintenant » depuis
+    la configuration reste accepté pendant une version et ouvre la nouvelle page.
+  - Les adresses des pages et les droits ne changent pas.
+
+- **Connecteurs de supervision réglés dans la configuration** (#1042) : la connexion à Zabbix,
+  à Uptime Kuma et à Veeam Backup & Replication, ainsi que le serveur DNS des contrôles de
+  messagerie, se règlent désormais dans Configuration > Plugins > GRC Manager, onglet
+  **Connecteurs** : un bloc par connecteur avec l'adresse, le secret (chiffré par GLPI, jamais
+  réaffiché), **Tester la connexion** et la date de la dernière lecture. Les actifs à superviser
+  (Zabbix) et les seuils (Uptime Kuma) suivent leur connecteur ; les actifs à sauvegarder et les
+  fréquences attendues passent dans l'onglet **Parc**. Les pages d'exploitation gardent les
+  résultats, le bouton « Lire maintenant » et un bouton **Régler la connexion**. Un ancien envoi
+  de réglage depuis ces pages reste accepté pendant une version et mène au bon onglet. Les droits
+  ne changent pas.
+
+- **Connecteurs d'identité et de code réglés dans la configuration** (#1043) : l'application
+  Microsoft Entra ID / Microsoft Graph (locataire, identifiant, secret) et la connexion à GitHub et
+  GitLab (jetons, serveurs, lecture automatique) se règlent désormais dans Configuration > Plugins >
+  GRC Manager, onglet **Connecteurs** : un bloc par connecteur avec les secrets chiffrés par GLPI et
+  jamais réaffichés, **Tester la connexion** (une demande de jeton pour Graph, une lecture sans
+  donnée pour GitHub et GitLab) et la date de la dernière lecture. Les groupes d'accès distant de la
+  couverture MFA passent dans l'onglet **Personnes et politiques**. Les pages Couverture MFA, Droits
+  sur les partages et Sécurité du code gardent les résultats, la lecture sur clic et un bouton
+  **Régler la connexion**. Un ancien envoi de réglage depuis ces pages reste accepté pendant une
+  version et mène au bon onglet. Les droits ne changent pas.
+
+- **Règles et seuils du parc dans l'onglet Parc de la configuration** (#1044) : la règle « quels
+  ordinateurs doivent être chiffrés », les délais cibles des correctifs par criticité, les
+  éditeurs de logiciels surveillés (et l'alerte avant l'échéance des licences) et la
+  journalisation attendue se règlent désormais dans Configuration > Plugins > GRC Manager > Parc.
+  Les pages Chiffrement des disques, Correctifs de sécurité, Licences logicielles et Couverture de
+  la journalisation gardent le résumé de la règle en vigueur et un bouton « Modifier dans la
+  configuration ». La déclaration des clés de récupération, les imports de journaux et les
+  déclarations de plateforme restent sur leur page. Les droits ne changent pas. Un ancien
+  formulaire envoyé depuis ces pages est encore accepté pendant une version : le réglage est
+  enregistré et l'on arrive sur l'onglet Parc avec un message.
+
+- **Réglages des audits et des preuves dans la configuration du plugin** (#1045) : les
+  réglages du programme d'audit (cycle par défaut, formations qualifiantes des auditeurs), de la
+  préparation à la certification (dates, responsable, seuils, délais conseillés) et du dossier de
+  preuves (taille maximale de l'archive) sont dans Configuration > Plugins > GRC Manager >
+  Mesures, audits et preuves. L'entité financière qui tient le registre DORA (LEI, nom, autorité…)
+  est dans l'onglet Référentiels, à côté de l'activation de DORA, et n'apparaît que si DORA est
+  activé. Chaque page d'exploitation garde un cadre « Régler » qui mène au bon onglet ; le
+  registre DORA affiche un résumé de l'entité et ce qui manque. Les droits ne changent pas. Un
+  ancien formulaire envoyé depuis la page est encore accepté pendant une version : il enregistre
+  et ouvre le nouvel emplacement avec un message.
+
+- **La configuration ne sert plus de porte d'entrée vers l'exploitation** (#1046) : les liens
+  « Ouvrir le registre ReCyF / ACN », « Ouvrir les contrôles de cohérence », « Ouvrir les
+  campagnes de maturité », « Voir la liste du personnel », « Voir les simulations
+  d'hameçonnage » et le lien vers l'appétence au risque sont retirés des blocs de réglage. Ces écrans restent dans le menu GRC.
+- L'écran de changement de taille de la matrice des risques est rangé dans Configuration >
+  Plugins (fil d'Ariane de la page de configuration, et plus « Outils ») ; le retour mène à
+  l'onglet Risques, sur le bloc de la matrice (#1046).
+
+- **Rubrique « Non-conformités et amélioration »** (#1047, navigation simplifiée #1035) : la rubrique
+  « Amélioration continue » du menu GRC change de nom, pour qu'on sache sans connaître la norme
+  qu'on y trouve les non-conformités (avec le stock des écarts, les objectifs et les revues de
+  direction). Les adresses des écrans et les droits ne changent pas.
+- **Création et import des référentiels personnalisés dans la configuration** (#1047) : définir un
+  référentiel est un réglage. Le modèle de fichier, l'analyse d'un fichier, l'import confirmé, la
+  nouvelle version et la liste des référentiels importés sont désormais dans Configuration >
+  Plugins > GRC Manager, onglet Référentiels, juste après la famille « Référentiels
+  personnalisés ». L'évaluation reste dans GRC & Conformité > Réglementations : la page
+  d'évaluation et l'auto-évaluation des exigences d'un référentiel importé (rangée avec elle),
+  avec un lien vers la configuration pour les profils qui peuvent créer ou modifier un
+  référentiel. L'ancienne adresse `front/customframework.php` mène au nouveau bloc ; l'ancien envoi
+  de son formulaire reste accepté pendant une version. Les droits ne changent pas.
+
+- **Nouveau menu : déconnectez-vous puis reconnectez-vous** (navigation simplifiée #1035, #1047).
+  GLPI garde le menu en mémoire pendant la session : les nouvelles rubriques du menu GRC et les
+  entrées ajoutées aux menus Assistance, Parc et Gestion n'apparaissent qu'à la connexion suivante.
+  Les adresses des écrans et les droits ne changent pas.
+- **Audit de l'Active Directory dans « Accès et comptes »** (#1047) : l'audit de l'Active Directory
+  et d'Entra ID (rapports PingCastle, chemins d'attaque) porte sur les comptes et leurs droits ; il
+  quitte Parc > Sécurité du parc pour la rubrique GRC & Conformité > Accès et comptes. Son adresse ne
+  change pas.
+- **Délégation pendant une absence : réglage enregistré par la configuration** (#1047) : le choix
+  des décisions délégables (Configuration > Plugins > GRC Manager, onglet Personnes et politiques)
+  est enregistré par la page de configuration et non plus par la page du journal des décisions
+  déléguées. L'ancien envoi reste accepté pendant une version.
+
+- **Référentiels rangés par famille** (issue #1053). L'onglet Référentiels de la configuration range les référentiels en six familles repliables, chacune avec le nombre de référentiels actifs : normes ISO, réglementations européennes, guides nationaux, sectoriels, catalogues de mesures et personnalisés (avec le lien d'import). **NIS2** n'a plus qu'un interrupteur, avec dessous ses déclinaisons nationales, France (ReCyF) et Italie (ACN), actives seulement avec NIS2. Les publications de l'**ANSSI** (guide d'hygiène, MonServiceSécurisé, ReCyF) forment un seul bloc ; ReCyF coché à un endroit l'est aussi à l'autre. L'évaluation par référentiel et les correspondances de la fiche d'une mesure suivent les mêmes familles. Les données et les scores de chaque référentiel restent distincts. Mise à jour sans perte : une instance où NIS2 était actif (ou qui a des données ReCyF) garde la déclinaison France et son registre, et « NIS2 Italia – ACN » activé garde NIS2 avec la déclinaison Italie ; une nouvelle installation ne coche aucune déclinaison.
+
+- **CI plus rapide** (#1099) : une pull request qui ne touche que la documentation (`docs/`,
+  `changes/`, fichiers `.md`, images) ne démarre plus aucun GLPI (environ 8 min au lieu de 30 à
+  40) ; un nouveau commit sur une PR annule l'exécution précédente. Les push sur `dev` et `main`
+  et les publications lancent toujours tous les contrôles. Contrôles de sécurité communs v1.11.1.
+
+### Fixed
+
+- Bouton « Enregistrer » du réglage de fin de vie (endoflife.date) traduit dans toutes les
+  langues (#1036).
+
+- **Fil d'Ariane de la configuration** (#1047) : il affichait « Configuration > Plugins » deux fois
+  (celui de l'en-tête de GLPI, puis le sien) ; il se lit maintenant « Configuration > Plugins >
+  GRC Manager > <onglet> ».
+
+- **Applications approuvées : erreur 500 pour un profil limité à certaines entités** (#1057) : le
+  rapprochement avec l'inventaire logiciel restreignait les installations sur une colonne
+  `is_recursive` que leur table n'a pas ; la restriction porte maintenant sur l'entité seule. Test
+  d'intégration ajouté avec un profil en lecture limité à une entité (page, inventaire, onglet
+  « Applications autorisées » des préférences, tâche de revue).
+
+- **Recherche et recherches enregistrées des registres du plugin** (#1093) : sur la liste des
+  processus métier et sur les 28 autres registres (risques, mesures, audits, non-conformités,
+  politiques, traitements RGPD...), la recherche ne fonctionnait pas quand la préférence
+  « Afficher le formulaire de recherche au-dessus des résultats » était active, et le bouton
+  « Enregistrer la recherche » ne faisait rien. Le panneau des recherches enregistrées et la case
+  « Éléments supprimés » sont aussi rétablis. Ces listes s'affichent désormais dans la même
+  enveloppe que les listes du cœur de GLPI (GLPI 11 et 12).
+
+- L'onglet « lien sécurisé » d'une évaluation de fournisseur n'apparaît plus quand le portail
+  fournisseur est désactivé (#1099).
+
+- **Accessibilité, premier lot commun** (#663, niveau AA du RGAA 4.1 et des WCAG 2.2) :
+  - les badges de couleur pâle (`bg-*-lt`), présents dans la plupart des listes et des fiches,
+    atteignent un contraste d'au moins 7:1 au lieu d'environ 3:1, en thème clair comme sombre ;
+  - le titre de l'encadré « À quoi sert cette page ? » reste lisible en thème sombre, avec un
+    focus visible au clavier ;
+  - les barres de progression (référentiels, SoA, évaluation de conformité, playbooks) ont un nom
+    lu par les lecteurs d'écran ; les badges qui n'affichent qu'une icône (programme d'audit,
+    sécurité physique) sont annoncés comme des images avec leur libellé ;
+  - les colonnes de boutons des tableaux ont un en-tête lu par les lecteurs d'écran (« Actions »,
+    « Sélection ») ;
+  - le champ d'import du CSV de la SoA a un libellé et son aide lui est reliée ;
+  - les onglets de la synthèse par attribut de la SoA sont reliés à leur panneau et se parcourent
+    aux flèches, avec un focus visible.
+
+### Documentation
+
+- **Tutoriel « Où est passé… ? »** (#1047) : un tableau, en français et en anglais, de l'ancien et du
+  nouvel emplacement de chaque écran déplacé par la nouvelle navigation (menu GRC, Assistance, Parc,
+  Gestion et configuration du plugin en onglets).
+
 ## [2.84.0] - 2026-11-22
 
 ### Added
