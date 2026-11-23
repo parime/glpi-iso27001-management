@@ -26,14 +26,14 @@ namespace GlpiPlugin\Grcmanager\Services\Cartography;
  */
 final class LayeredLayout
 {
-    public const WIDTH = 1000;
+    public const WIDTH = 1100;
     public const PER_ROW = 6;
     public const MAX_DRAWN = 12;
-    public const NODE_WIDTH = 150;
+    public const NODE_WIDTH = 148;
     public const NODE_HEIGHT = 40;
     public const ROW_HEIGHT = 60;
     public const BAND_PADDING = 30;
-    public const LEFT = 160;
+    public const LEFT = 170;
 
     /**
      * @param array<int, list<string>> $layers couche => clés, dans l'ordre d'affichage
@@ -73,7 +73,7 @@ final class LayeredLayout
     /**
      * Libellé court pour une case du schéma (le libellé complet est dans l'infobulle et la liste).
      */
-    public static function shortLabel(string $label, int $width = 22): string
+    public static function shortLabel(string $label, int $width = 20): string
     {
         return mb_strlen($label) > $width ? rtrim(mb_substr($label, 0, $width - 1)) . '…' : $label;
     }

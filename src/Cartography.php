@@ -246,13 +246,13 @@ class Cartography extends CommonGLPI
     {
         $dbu = new DbUtils();
         $out = ['processes' => [], 'network' => []];
-        if (BusinessProcess::canView()) {
+        if ((bool) BusinessProcess::canView()) {
             $where = $dbu->getEntitiesRestrictCriteria(BusinessProcess::getTable(), '', '', true);
             foreach ((new BusinessProcess())->find($where, ['name'], $limit) as $row) {
                 $out['processes'][] = self::describe(ImpactGraph::key(BusinessProcess::class, (int) $row['id']));
             }
         }
-        if (NetworkEquipment::canView()) {
+        if ((bool) NetworkEquipment::canView()) {
             $where = ['is_deleted' => 0, 'is_template' => 0]
                 + $dbu->getEntitiesRestrictCriteria(NetworkEquipment::getTable(), '', '', true);
             foreach ((new NetworkEquipment())->find($where, ['name'], $limit) as $row) {
