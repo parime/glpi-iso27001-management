@@ -1,0 +1,7 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#, php-format
+msgid "Results in the menu: %s"
+msgstr "Wyniki w menu: %s"

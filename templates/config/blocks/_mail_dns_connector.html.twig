@@ -27,7 +27,7 @@
     </h4>
     <p class="text-muted small">
       {{ __('By default, the DNS server of the GLPI server is asked. Some of them (inside Docker, for example) do not relay the DNSSEC records: DNSSEC then shows "Unknown". Enter the IP address of another DNS server of your organisation or of your provider to fix it.', 'grcmanager') }}
-      <a href="{{ d.page_url }}" class="ms-1"><i class="ti ti-arrow-right me-1"></i>{{ __('See the results', 'grcmanager') }}</a>
+      <span class="ms-1 text-secondary"><i class="ti ti-arrow-right me-1"></i>{{ __('Results in the menu: %s', 'grcmanager')|format(d.page_path) }}</span>
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php" class="row g-2 align-items-end">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
