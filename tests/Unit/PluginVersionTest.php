@@ -22,8 +22,6 @@ namespace GlpiPlugin\Grcmanager\Tests\Unit;
 use GlpiPlugin\Grcmanager\PluginVersion;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../../src/PluginVersion.php';
-
 /**
  * Common "Plugin version" component (charter section 9 bis, parime/glpi-plugin-template#12):
  * version comparison, 12-hour cache, ETag, failures with their reason and reuse of the last
