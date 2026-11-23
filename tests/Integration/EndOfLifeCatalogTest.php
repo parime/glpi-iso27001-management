@@ -133,7 +133,11 @@ final class EndOfLifeCatalogTest extends GrcmanagerIntegrationTestCase
 
         $report = EndOfLife::refresh(5, $this->client());
         $this->assertSame(EndOfLifeCatalogStore::UPDATED, $report['catalog']);
-        $this->assertStringContainsString('catalogue', EndOfLife::refreshMessage($report));
+        $this->assertNotSame(
+            EndOfLife::refreshMessage(['catalog' => ''] + $report),
+            EndOfLife::refreshMessage($report),
+            'Le compte rendu signale le catalogue relu.'
+        );
         $catalogCalls = array_filter($this->calls, static fn (string $u): bool => !str_contains($u, '/products/'));
         $this->assertCount(3, $catalogCalls, 'Trois listes lues : produits, CPE, purl.');
         $this->assertArrayHasKey('ubuntu', EndOfLifeCatalogStore::catalog());
