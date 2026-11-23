@@ -23,6 +23,7 @@ découverts et assemblés automatiquement, sans modifier les listes centrales.
 | ses traductions | `locales/unreleased/<issue>-<sujet>.<langue>.po`, une par langue de base | `locales/*.po`, `locales/grcmanager.pot`, `locales/*.mo` (non versionnés) |
 | une rubrique de menu, dans le menu GRC ou un secteur de GLPI (Assistance, Parc, Gestion, Outils) | `src/Navigation/Section/<Rubrique>Section.php` qui étend `AbstractSection` | `src/Menu.php` (`sections()`), `setup.php` (`menu_toadd`) |
 | un écran en onglet d'une rubrique existante | le descripteur `src/Feature/<Fonctionnalité>Feature.php`, `MenuPagesProvider` | le fichier de la rubrique, `src/Menu.php` |
+| une exception justifiée d'un contrôle de sécurité commun | `.glpi-security-exceptions.d/<issue>-<sujet>` (même syntaxe, une ligne par exception, avec sa raison) | `.glpi-security-exceptions` |
 
 Restent des listes partagées, à toucher le moins possible et seulement en ajoutant des lignes :
 `setup.php` (enregistrement des classes, droits), `grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`. Les fichiers propres à la fonctionnalité (sa classe, sa page `front/`,
@@ -260,6 +261,7 @@ without changing the central lists.
 | its translations | `locales/unreleased/<issue>-<topic>.<language>.po`, one per base language | `locales/*.po`, `locales/grcmanager.pot`, `locales/*.mo` (not versioned) |
 | a menu section, in the GRC menu or a GLPI sector (Assistance, Assets, Management, Tools) | `src/Navigation/Section/<Section>Section.php` extending `AbstractSection` | `src/Menu.php` (`sections()`), `setup.php` (`menu_toadd`) |
 | a screen as a tab of an existing section | the descriptor `src/Feature/<Feature>Feature.php`, `MenuPagesProvider` | the section file, `src/Menu.php` |
+| a justified exception to a common security check | `.glpi-security-exceptions.d/<issue>-<topic>` (same syntax, one exception per line, with its reason) | `.glpi-security-exceptions` |
 
 Shared lists remain, to be touched as little as possible and only by adding lines: `setup.php`
 (class registration, rights), `grcmanager.xml`, `README.md` / `README.en.md`, `phpstan.neon.dist`. The feature's own files (its class, its `front/` page, its templates, its unit and

@@ -27,7 +27,7 @@ use PHPUnit\Framework\Attributes\Before;
  * (issue #1078). Pour les tests qui vérifient un libellé d'interface : ils donnent le même résultat
  * en CI (anglais) et sur l'instance de développement (français), y compris les notifications envoyées
  * dans la langue par défaut de GLPI. Chaque méthode concernée est
- * déclarée « translated-assertion » dans .glpi-security-exceptions.
+ * déclarée « translated-assertion » dans .glpi-security-exceptions.d/1078-assertions-traduites.
  */
 trait ForcesEnglishLanguage
 {
