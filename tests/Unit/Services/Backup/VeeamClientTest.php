@@ -236,5 +236,9 @@ final class VeeamClientTest extends TestCase
         self::assertNull(VeeamClient::normalizeUrl('https://<script>/'));
         self::assertTrue(VeeamClient::isValidApiVersion('1.1-rev2'));
         self::assertFalse(VeeamClient::isValidApiVersion('9.9'));
+        // Issue #1087 : révision de la documentation actuelle (VBR 13) acceptée ; une révision sans
+        // source dans la documentation officielle reste refusée.
+        self::assertTrue(VeeamClient::isValidApiVersion('1.3-rev2'));
+        self::assertFalse(VeeamClient::isValidApiVersion('1.3-rev1'));
     }
 }
