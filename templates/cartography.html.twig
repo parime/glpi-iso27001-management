@@ -1,0 +1,210 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1082 : cartographie du SI par couches, du switch au processus métier. Schéma SVG dessiné ici,
+   sans bibliothèque externe ; chaque case est un lien joignable au clavier, et la liste par couche
+   sous le schéma en est l'équivalent textuel. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% set layer_badges = {1: 'bg-azure-subtle text-azure-emphasis', 2: 'bg-indigo-subtle text-indigo-emphasis', 3: 'bg-teal-subtle text-teal-emphasis', 4: 'bg-orange-subtle text-orange-emphasis'} %}
+<style>
+  .grcmanager-map-svg { width: 100%; height: auto; max-width: 1100px; }
+  .grcmanager-map-band { fill: var(--tblr-bg-surface-secondary, #f6f8fb); stroke: var(--tblr-border-color, #dce1e7); }
+  .grcmanager-map-band-label { fill: var(--tblr-secondary, #667382); font-size: 13px; font-weight: 600; }
+  .grcmanager-map-edge { stroke: var(--tblr-border-color-dark, #9aa5b1); stroke-width: 1.5; }
+  .grcmanager-map-node rect { fill: var(--tblr-bg-surface, #fff); stroke: var(--tblr-primary, #206bc4); stroke-width: 1.5; }
+  .grcmanager-map-node.is-start rect { stroke-width: 3; }
+  .grcmanager-map-node.is-hidden rect { stroke-dasharray: 4 3; stroke: var(--tblr-secondary, #667382); }
+  .grcmanager-map-node text { fill: var(--tblr-body-color, #1d273b); font-size: 12px; }
+  .grcmanager-map-node .grcmanager-map-type { fill: var(--tblr-secondary, #667382); font-size: 11px; }
+  .grcmanager-map-node .grcmanager-map-rto { fill: var(--tblr-orange, #f76707); font-weight: 600; }
+  .grcmanager-map-node:focus { outline: none; }
+  .grcmanager-map-node:focus rect, .grcmanager-map-node:hover rect { stroke: var(--tblr-orange, #f76707); stroke-width: 3; }
+</style>
+<div class="container-fluid">
+   <h2 class="mb-3"><i class="ti ti-stack-2 me-1"></i>{{ __('IT system map', 'grcmanager') }}</h2>
+
+   <form method="get" action="{{ action }}" class="card mb-3" aria-label="{{ __('Choose the item to map', 'grcmanager') }}">
+      <div class="card-body">
+         <div class="row g-3 align-items-end">
+            <div class="col-lg-6">
+               {{ fields.dropdownItemsFromItemtypes('items_id', __('Starting item', 'grcmanager'), {
+                  'itemtypes': itemtypes,
+                  'itemtype_name': 'itemtype',
+                  'items_id_name': 'items_id',
+                  'default_itemtype': itemtype,
+                  'default_items_id': items_id > 0 ? items_id : -1,
+                  'entity_restrict': -1,
+                  'checkright': true,
+                  'is_horizontal': false,
+                  'full_width': true,
+               }) }}
+            </div>
+            <fieldset class="col-lg-4">
+               <legend class="form-label">{{ __('Question', 'grcmanager') }}</legend>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="direction" id="grc-map-up" value="up" {{ direction == 'up' ? 'checked' }}>
+                  <label class="form-check-label" for="grc-map-up"><i class="ti ti-arrow-up me-1"></i>{{ __('What does its failure affect?', 'grcmanager') }}</label>
+               </div>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="direction" id="grc-map-down" value="down" {{ direction == 'down' ? 'checked' }}>
+                  <label class="form-check-label" for="grc-map-down"><i class="ti ti-arrow-down me-1"></i>{{ __('What does it depend on?', 'grcmanager') }}</label>
+               </div>
+            </fieldset>
+            <div class="col-lg-2">
+               <button type="submit" class="btn btn-primary w-100"><i class="ti ti-route me-1"></i>{{ __('Show the map', 'grcmanager') }}</button>
+            </div>
+         </div>
+      </div>
+   </form>
+
+   {% if not_found %}
+      <div class="alert alert-warning" role="alert"><i class="ti ti-alert-triangle me-1"></i>{{ __('This item does not exist or you cannot see it.', 'grcmanager') }}</div>
+   {% endif %}
+
+   {% if map %}
+      {% set start = map.start %}
+      <div class="card mb-3">
+         <div class="card-body">
+            <p class="mb-2">
+               {% if map.direction == 'up' %}
+                  <i class="ti ti-arrow-up me-1"></i>{{ __('Items affected by a failure of:', 'grcmanager') }}
+               {% else %}
+                  <i class="ti ti-arrow-down me-1"></i>{{ __('Items this one depends on:', 'grcmanager') }}
+               {% endif %}
+               {% if start.url %}<a href="{{ start.url }}" class="fw-bold">{{ start.label }}</a>{% else %}<strong>{{ start.label }}</strong>{% endif %}
+               <span class="badge {{ layer_badges[start.layer] }} ms-1">{{ map.start_layer }}</span>
+            </p>
+            <span class="badge bg-blue-subtle text-blue-emphasis me-1"><i class="ti ti-hierarchy-3 me-1"></i>{{ _n('%d linked item', '%d linked items', map.count, 'grcmanager')|format(map.count) }}</span>
+            {% for l in map.layers %}
+               <span class="badge {{ layer_badges[l.layer] }} me-1"><i class="ti {{ l.icon }} me-1"></i>{{ l.label }} : {{ l.nodes|length }}</span>
+            {% endfor %}
+            {% if map.truncated %}
+               <div class="alert alert-warning mt-3 mb-0" role="alert"><i class="ti ti-alert-triangle me-1"></i>{{ __('The map is limited to %d items: start from a more precise item to see the rest.', 'grcmanager')|format(max_nodes) }}</div>
+            {% endif %}
+         </div>
+      </div>
+
+      {% if map.direction == 'up' %}
+         <div class="card mb-3">
+            <div class="card-header"><h3 class="card-title"><i class="ti ti-building me-1"></i>{{ __('Business processes affected, most urgent first', 'grcmanager') }}</h3></div>
+            {% if map.processes is empty %}
+               <div class="card-body text-muted"><i class="ti ti-info-circle me-1"></i>{{ __('No business process depends on this item according to what GLPI and GRC know. Link the assets to the processes in the business impact analysis to see the business impact.', 'grcmanager') }}</div>
+            {% else %}
+               <table class="table table-vcenter card-table">
+                  <thead><tr><th>{{ __('Business process', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Distance', 'grcmanager') }}</th></tr></thead>
+                  <tbody>
+                  {% for p in map.processes %}
+                     <tr>
+                        <td>{% if p.url %}<a href="{{ p.url }}">{{ p.label }}</a>{% else %}<span class="text-muted">{{ p.label }}</span>{% endif %}</td>
+                        <td>{% if p.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis"><i class="ti ti-clock me-1"></i>{{ p.rto_label }}</span>{% elseif p.visible %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not set', 'grcmanager') }}</span>{% endif %}</td>
+                        <td>{{ _n('%d step', '%d steps', p.depth, 'grcmanager')|format(p.depth) }}</td>
+                     </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+            {% endif %}
+         </div>
+      {% endif %}
+
+      <div class="card mb-3">
+         <div class="card-header"><h3 class="card-title"><i class="ti ti-stack-2 me-1"></i>{{ __('Map by layer', 'grcmanager') }}</h3></div>
+         <div class="card-body">
+            {% set d = map.drawing %}
+            <svg class="grcmanager-map-svg" viewBox="0 0 {{ d.width }} {{ d.height }}" role="group" aria-label="{{ __('Map by layer', 'grcmanager') }}" xmlns="http://www.w3.org/2000/svg">
+               {% for b in d.bands %}
+                  <rect class="grcmanager-map-band" x="0" y="{{ b.y }}" width="{{ d.width }}" height="{{ b.height }}"></rect>
+                  <text class="grcmanager-map-band-label" x="10" y="{{ b.y + 22 }}">{{ b.short }}</text>
+                  {% if b.hidden > 0 %}
+                     <text class="grcmanager-map-band-label" x="10" y="{{ b.y + 42 }}">{{ __('+ %d in the list', 'grcmanager')|format(b.hidden) }}</text>
+                  {% endif %}
+               {% endfor %}
+               {% for e in d.edges %}
+                  <line class="grcmanager-map-edge" x1="{{ e.from.cx }}" y1="{{ e.from.cy }}" x2="{{ e.to.cx }}" y2="{{ e.to.cy }}"></line>
+               {% endfor %}
+               {% for n in d.nodes %}
+                  {% set classes = 'grcmanager-map-node' ~ (n.start ? ' is-start') ~ (n.visible ? '' : ' is-hidden') %}
+                  {% if n.url %}<a href="{{ n.url }}" class="{{ classes }}" aria-label="{{ n.label }}{{ n.rto_label ? ', RTO ' ~ n.rto_label }}">{% else %}<g class="{{ classes }}">{% endif %}
+                     <title>{{ n.label }}{{ n.rto_label ? ' (RTO ' ~ n.rto_label ~ ')' }}</title>
+                     <rect x="{{ n.x }}" y="{{ n.y }}" width="{{ d.node_w }}" height="{{ d.node_h }}" rx="6"></rect>
+                     <text x="{{ n.x + 8 }}" y="{{ n.y + 18 }}">{{ n.short }}</text>
+                     {% if n.rto_label %}
+                        <text class="grcmanager-map-rto" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">RTO {{ n.rto_short }}</text>
+                     {% elseif n.type %}
+                        <text class="grcmanager-map-type" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">{{ n.type_short }}</text>
+                     {% endif %}
+                  {% if n.url %}</a>{% else %}</g>{% endif %}
+               {% endfor %}
+            </svg>
+         </div>
+      </div>
+
+      <div class="row g-3">
+         {% for l in map.layers %}
+            <div class="col-md-6 col-xl-3">
+               <div class="card h-100">
+                  <div class="card-header"><h3 class="card-title"><span class="badge {{ layer_badges[l.layer] }} me-1"><i class="ti {{ l.icon }}"></i></span>{{ l.label }}</h3></div>
+                  {% if l.nodes is empty %}
+                     <div class="card-body text-muted">{{ __('Nothing in this layer.', 'grcmanager') }}</div>
+                  {% else %}
+                     <ul class="list-group list-group-flush">
+                        {% for n in l.nodes %}
+                           <li class="list-group-item">
+                              {% if n.url %}<a href="{{ n.url }}" class="{{ n.start ? 'fw-bold' }}">{{ n.name }}</a>{% else %}<span class="text-muted">{{ n.name }}</span>{% endif %}
+                              {% if n.type %}<span class="text-muted small ms-1">{{ n.type }}</span>{% endif %}
+                              {% if n.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1">RTO {{ n.rto_label }}</span>{% endif %}
+                              {% if n.start %}<span class="badge bg-primary-subtle text-primary-emphasis ms-1">{{ __('Starting item', 'grcmanager') }}</span>{% endif %}
+                           </li>
+                        {% endfor %}
+                     </ul>
+                  {% endif %}
+               </div>
+            </div>
+         {% endfor %}
+      </div>
+   {% elseif entry %}
+      <div class="row g-3">
+         <div class="col-lg-6">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-building me-1"></i>{{ __('What does this process depend on?', 'grcmanager') }}</h3></div>
+               {% if entry.processes is empty %}
+                  <div class="card-body text-muted">{{ __('No business process yet: describe them in the business impact analysis.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for p in entry.processes %}
+                        <li class="list-group-item d-flex align-items-center">
+                           <a href="{{ action }}?itemtype={{ process_type|url_encode }}&amp;items_id={{ p.key|split(':')|last }}&amp;direction=down">{{ p.name }}</a>
+                           {% if p.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-auto">RTO {{ p.rto_label }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-network me-1"></i>{{ __('What does the failure of this equipment affect?', 'grcmanager') }}</h3></div>
+               {% if entry.network is empty %}
+                  <div class="card-body text-muted">{{ __('No network equipment in the inventory.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for n in entry.network %}
+                        <li class="list-group-item"><a href="{{ action }}?itemtype=NetworkEquipment&amp;items_id={{ n.key|split(':')|last }}&amp;direction=up">{{ n.name }}</a></li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   {% endif %}
+</div>
