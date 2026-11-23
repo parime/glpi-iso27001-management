@@ -76,7 +76,7 @@
                {% if role.members is not empty %}
                   <div class="text-secondary small mt-1">{{ __('%1$s: %2$s')|format(_n('Member', 'Members', 2), role.members|join(', ')) }}</div>
                {% elseif role.group_id > 0 %}
-                  <div class="text-warning small mt-1">{{ __('The group has no active member.', 'grcmanager') }}</div>
+                  <div class="text-warning-emphasis small mt-1">{{ __('The group has no active member.', 'grcmanager') }}</div>
                {% endif %}
                {% if role.note is not empty %}
                   <div class="small mt-1"><span class="badge bg-warning-subtle text-warning-emphasis"><i class="ti ti-pencil-exclamation me-1"></i>{{ __('To be reworked', 'grcmanager') }}</span> {{ role.note }}</div>
@@ -125,7 +125,7 @@
                            <span class="badge bg-danger-subtle text-danger-emphasis ms-1" title="{{ __('Segregation of duties is checked on this activity.', 'grcmanager') }}"><i class="ti ti-lock me-1"></i>{{ __('Sensitive', 'grcmanager') }}</span>
                         {% endif %}
                         {% for alert in row.alerts %}
-                           <i class="ti {{ alert.severity == 'high' ? 'ti-alert-octagon text-danger' : 'ti-alert-triangle text-warning' }} ms-1" title="{{ alert.message }}"></i>
+                           <i class="ti {{ alert.severity == 'high' ? 'ti-alert-octagon text-danger' : 'ti-alert-triangle text-warning-emphasis' }} ms-1" title="{{ alert.message }}"></i>
                         {% endfor %}
                         {% if row.codes is not empty %}
                            <div class="mt-1">

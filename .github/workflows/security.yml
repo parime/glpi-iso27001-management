@@ -38,11 +38,8 @@ jobs:
       # Passe des tests d'intégration en français : même commande que ci.yml, avec la mémoire que la
       # génération des PDF (dompdf) demande ; l'image GLPI du workflow commun s'arrête à 256 Mo.
       integration-command: php -d memory_limit=1G vendor/bin/phpunit -c phpunit-integration.xml.dist
-      # Contrôle d'ergonomie (réglages, menus, en-têtes) et parcours de toutes les pages en
-      # avertissement, le temps de l'issue de navigation #1035 ; la PR qui la ferme retire ces deux
-      # lignes.
-      navigation-mode: warning
-      pages-mode: warning
+      # Contrôle d'ergonomie (réglages, menus, en-têtes) et parcours de toutes les pages : bloquants
+      # (valeur par défaut du workflow commun) depuis la fin de la refonte de la navigation (#1114).
       translated-assertions-mode: error
       # Administrateur, puis le lecteur de l'entité A créé par tests/security/setup.php
       # (SECURITY_TEST_PASSWORD).

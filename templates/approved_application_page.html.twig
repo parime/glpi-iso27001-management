@@ -42,13 +42,13 @@
          <div class="card card-sm"><div class="card-body">
             <div class="text-muted"><i class="ti ti-calendar-repeat me-1"></i>{{ __('Reviews overdue', 'grcmanager') }}</div>
             <div class="h1 mb-0 {{ i.review_overdue > 0 ? 'text-danger' : 'text-success' }}" id="grc-aa-overdue">{{ i.review_overdue }}</div>
-            {% if i.review_soon > 0 %}<div class="small text-warning">{{ __('%d due within 30 days', 'grcmanager')|format(i.review_soon) }}</div>{% endif %}
+            {% if i.review_soon > 0 %}<div class="small text-warning-emphasis">{{ __('%d due within 30 days', 'grcmanager')|format(i.review_soon) }}</div>{% endif %}
          </div></div>
       </div>
       <div class="col-sm-6 col-lg-3">
          <div class="card card-sm"><div class="card-body">
             <div class="text-muted"><i class="ti ti-alert-triangle me-1"></i>{{ __('Approved applications to complete', 'grcmanager') }}</div>
-            <div class="h1 mb-0 {{ i.with_gaps > 0 ? 'text-warning' : 'text-success' }}" id="grc-aa-gaps">{{ i.with_gaps }}</div>
+            <div class="h1 mb-0 {{ i.with_gaps > 0 ? 'text-warning-emphasis' : 'text-success' }}" id="grc-aa-gaps">{{ i.with_gaps }}</div>
             <div class="small text-muted">{{ __('Owner, allowed uses or data level missing', 'grcmanager') }}</div>
          </div></div>
       </div>
