@@ -12812,10 +12812,6 @@ msgid "View the policy"
 msgstr "Zobacz politykę"
 
 #, php-format
-msgid "version %s"
-msgstr "wersja %s"
-
-#, php-format
 msgid ""
 "%1$s asks you to approve version %2$s of the Statement of Applicability "
 "(%3$s)."
@@ -37914,3 +37910,2215 @@ msgstr[2] "Zgłoszonych ryzyk"
 
 msgid "Rejected with a reason"
 msgstr "Odrzucono z podaniem powodu"
+
+msgid "Connectors"
+msgstr "Konektory"
+
+msgid "Controls, audits and evidence"
+msgstr "Zabezpieczenia, audyty i dowody"
+
+msgid "Fleet"
+msgstr "Zasoby"
+
+msgid "Frameworks"
+msgstr "Ramy odniesienia"
+
+msgid ""
+"Gathers the settings of the plugin, by tab: frameworks, risk method, audits "
+"and evidence, people and policies, incidents, connectors and fleet. Daily "
+"work stays in the menus."
+msgstr ""
+"Zbiera ustawienia wtyczki według kart: ramy odniesienia, metoda ryzyka, "
+"audyty i dowody, osoby i polityki, incydenty, konektory i zasoby. Codzienna "
+"praca pozostaje w menu."
+
+msgid ""
+"Go through each tab once when you set up the plugin, then come back only to "
+"change a setting. A tab is shown when you have the right to at least one of "
+"its settings."
+msgstr ""
+"Przejrzyj każdą kartę raz podczas konfiguracji wtyczki, a potem wracaj "
+"tylko, aby zmienić ustawienie. Karta jest widoczna, jeśli masz uprawnienie "
+"do co najmniej jednego z jej ustawień."
+
+msgid "Incidents and continuity"
+msgstr "Incydenty i ciągłość"
+
+msgid "People and policies"
+msgstr "Osoby i polityki"
+
+msgid ""
+"Identify, assess and treat the risks of the organisation: the register, the "
+"risks reported by staff, the heatmap, the catalogue of typical risks and the "
+"accepted risks."
+msgstr ""
+"Identyfikuj, oceniaj i postępuj z ryzykami organizacji: rejestr, ryzyka "
+"zgłoszone przez pracowników, mapa ciepła, katalog typowych ryzyk i ryzyka "
+"zaakceptowane."
+
+msgid "Map and library"
+msgstr "Mapa i biblioteka"
+
+msgid "Import and export"
+msgstr "Import i eksport"
+
+msgid "Risk analyses"
+msgstr "Analizy ryzyka"
+
+msgid ""
+"Go deeper into the risks: impact analyses, domino effects between risks, "
+"EBIOS Risk Manager studies and key risk indicators."
+msgstr ""
+"Pogłębiona analiza ryzyk: analizy wpływu, efekty domina między ryzykami, "
+"badania EBIOS Risk Manager i kluczowe wskaźniki ryzyka."
+
+msgid "Security controls (SoA)"
+msgstr "Zabezpieczenia (SoA)"
+
+msgid ""
+"The security measures of Annex A and the Statement of Applicability: which "
+"measures apply, what blocks them and whether they work."
+msgstr ""
+"Zabezpieczenia z Załącznika A i Deklaracja stosowania: które zabezpieczenia "
+"mają zastosowanie, co je blokuje i czy działają."
+
+msgid "Policies and procedures"
+msgstr "Polityki i procedury"
+
+msgid ""
+"The written rules of the organisation: policies, ready-to-adapt templates, "
+"operating procedures and the online services approved for use."
+msgstr ""
+"Spisane zasady organizacji: polityki, gotowe do dostosowania szablony, "
+"procedury eksploatacyjne i usługi online zatwierdzone do użytku."
+
+msgid "Audits and evidence"
+msgstr "Audyty i dowody"
+
+msgid ""
+"Prepare and follow the audits, and keep the evidence that the security "
+"measures are applied."
+msgstr ""
+"Przygotowuj i śledź audyty oraz przechowuj dowody stosowania zabezpieczeń."
+
+msgid ""
+"Handle what does not work and follow the progress: nonconformities, open "
+"gaps, security objectives and management reviews."
+msgstr ""
+"Zajmuj się tym, co nie działa, i śledź postępy: niezgodności, otwarte luki, "
+"cele bezpieczeństwa i przeglądy zarządzania."
+
+msgid "Regulations"
+msgstr "Regulacje"
+
+msgid ""
+"The laws and standards that apply besides ISO 27001 (NIS2 and its national "
+"versions, DORA, other frameworks) and how far you comply with them."
+msgstr ""
+"Przepisy i normy obowiązujące obok ISO 27001 (NIS2 i jej wersje krajowe, "
+"DORA, inne ramy) oraz stopień ich spełnienia."
+
+msgid "Privacy (GDPR)"
+msgstr "Prywatność (RODO)"
+
+msgid ""
+"Personal data: the record of processing activities, the requests from the "
+"people concerned and the data breaches."
+msgstr ""
+"Dane osobowe: rejestr czynności przetwarzania, żądania osób, których dane "
+"dotyczą, i naruszenia ochrony danych."
+
+msgid "Access and accounts"
+msgstr "Dostępy i konta"
+
+msgid ""
+"Who has access to what: access reviews, periodic reviews, account hygiene, "
+"multi-factor authentication, file share permissions and the Active Directory "
+"audit."
+msgstr ""
+"Kto ma dostęp do czego: przeglądy dostępów, przeglądy okresowe, higiena "
+"kont, uwierzytelnianie wieloskładnikowe, uprawnienia do udziałów plików i "
+"audyt Active Directory."
+
+msgid "People and awareness"
+msgstr "Ludzie i świadomość"
+
+msgid ""
+"The staff side of security: the compliance of each person, training, "
+"phishing simulations, skills and the accounts exposed in data leaks."
+msgstr ""
+"Ludzki wymiar bezpieczeństwa: zgodność każdej osoby, szkolenia, symulacje "
+"phishingu, kompetencje i konta ujawnione w wyciekach danych."
+
+msgid "ISMS organisation"
+msgstr "Organizacja SZBI"
+
+msgid ""
+"How the management system is organised: the requirements of clauses 4 to 10, "
+"the context, the responsibilities, the decisions delegated during an "
+"absence, the official contacts and the obligations."
+msgstr ""
+"Jak zorganizowany jest system zarządzania: wymagania rozdziałów od 4 do 10, "
+"kontekst, odpowiedzialności, decyzje delegowane podczas nieobecności, "
+"oficjalne kontakty i obowiązki."
+
+msgid ""
+"Start with what is overdue, then open the screen you need from the cards "
+"below."
+msgstr ""
+"Zacznij od zaległości, a następnie otwórz potrzebny ekran z kart poniżej."
+
+msgid "What is waiting for you"
+msgstr "Co na Ciebie czeka"
+
+msgid "All my tasks"
+msgstr "Wszystkie moje zadania"
+
+msgid "Screens"
+msgstr "Ekrany"
+
+msgid "Asset security"
+msgstr "Bezpieczeństwo zasobów"
+
+msgid "Overview"
+msgstr "Przegląd"
+
+msgid "Other screens"
+msgstr "Inne ekrany"
+
+msgid "This is now done in Assets > Asset security > %s."
+msgstr "Teraz odbywa się to w Zasoby > Bezpieczeństwo zasobów > %s."
+
+msgid "No screen of this section is available with your profile."
+msgstr "Żaden ekran tej sekcji nie jest dostępny dla Twojego profilu."
+
+msgid "Known flaws of the installed software and the most exposed machines."
+msgstr ""
+"Znane luki zainstalowanego oprogramowania i najbardziej narażone maszyny."
+
+msgid "End of life and patches"
+msgstr "Koniec życia i poprawki"
+
+msgid ""
+"Software and hardware that no longer receive fixes, late patches and "
+"licences."
+msgstr "Oprogramowanie i sprzęt bez poprawek, opóźnione poprawki i licencje."
+
+msgid "Hardening"
+msgstr "Utwardzanie"
+
+msgid ""
+"Automated checks of the inventory, secure configuration and disk encryption."
+msgstr ""
+"Automatyczne kontrole inwentarza, bezpieczna konfiguracja i szyfrowanie "
+"dysków."
+
+msgid "Logs, supervision, exposed services and server management controllers."
+msgstr ""
+"Dzienniki, nadzór, wystawione usługi i kontrolery zarządzania serwerami."
+
+msgid "Backups and network"
+msgstr "Kopie zapasowe i sieć"
+
+msgid "Backup coverage, mail and domain security, network flows."
+msgstr ""
+"Pokrycie kopiami zapasowymi, bezpieczeństwo poczty i domen, przepływy "
+"sieciowe."
+
+msgid "Sites and development"
+msgstr "Lokalizacje i rozwój"
+
+msgid "Physical security of the sites, secure development and code security."
+msgstr ""
+"Bezpieczeństwo fizyczne lokalizacji, bezpieczny rozwój i bezpieczeństwo kodu."
+
+msgid "Hardware end of life"
+msgstr "Koniec życia sprzętu"
+
+msgid "End of life dates saved."
+msgstr "Zapisano daty końca życia."
+
+msgid ""
+"Same threshold as the end of support of software, set in the plugin "
+"configuration."
+msgstr ""
+"Ten sam próg co koniec wsparcia oprogramowania, ustawiany w konfiguracji "
+"wtyczki."
+
+msgid "\"End of life soon\": within %d days."
+msgstr "„Koniec życia wkrótce”: w ciągu %d dni."
+
+msgid ""
+"Enter the date announced by the manufacturer when you know it (optional, "
+"leave empty otherwise). You can also enter it on the form of each model, tab "
+"\"Manufacturer end of life\"."
+msgstr ""
+"Wpisz datę ogłoszoną przez producenta, jeśli ją znasz (opcjonalnie, w "
+"przeciwnym razie pozostaw puste). Możesz ją też wpisać w formularzu każdego "
+"modelu, karta „Koniec życia według producenta”."
+
+msgid "See the hardware concerned"
+msgstr "Zobacz sprzęt, którego to dotyczy"
+
+msgid ""
+"The date after which the manufacturer no longer provides repairs, spare "
+"parts or firmware updates for this model (optional). The hardware of this "
+"model is then shown as \"end of life reached\" or \"soon\" in Assets > Asset "
+"security (ISO 27001 A.7.13 and A.8.9)."
+msgstr ""
+"Data, po której producent nie zapewnia już napraw, części zamiennych ani "
+"aktualizacji firmware dla tego modelu (opcjonalnie). Sprzęt tego modelu jest "
+"wtedy oznaczany jako „koniec życia osiągnięty” lub „wkrótce” w Zasoby > "
+"Bezpieczeństwo zasobów (ISO 27001 A.7.13 i A.8.9)."
+
+msgid "Hardware of this model in your entities"
+msgstr "Sprzęt tego modelu w Twoich jednostkach"
+
+msgid "All the models"
+msgstr "Wszystkie modele"
+
+msgid ""
+"No manufacturer end of life date entered for this model (optional, on the "
+"form of the model)."
+msgstr ""
+"Nie wpisano daty końca życia według producenta dla tego modelu (opcjonalnie, "
+"w formularzu modelu)."
+
+msgid "Links and reading"
+msgstr "Powiązania i odczyt"
+
+msgid ""
+"The end of support dates have not been read yet: they arrive with the next "
+"daily task, or with the button \"Update now\" of the page \"Software to "
+"watch\"."
+msgstr ""
+"Daty końca wsparcia nie zostały jeszcze odczytane: pojawią się przy "
+"następnym zadaniu dziennym lub po użyciu przycisku „Aktualizuj teraz” na "
+"stronie „Oprogramowanie do obserwacji”."
+
+msgid "It also applies to the manufacturer end of life of hardware models."
+msgstr "Dotyczy także końca życia modeli sprzętu według producenta."
+
+msgid ""
+"Everything about the security of your assets in one place: vulnerabilities, "
+"end of life, patches, hardening, monitoring, backups, sites and development. "
+"Each card opens a screen; only the screens your profile can open are shown."
+msgstr ""
+"Wszystko o bezpieczeństwie Twoich zasobów w jednym miejscu: podatności, "
+"koniec życia, poprawki, utwardzanie, nadzór, kopie zapasowe, lokalizacje i "
+"rozwój. Każda karta otwiera ekran; widoczne są tylko ekrany, które Twój "
+"profil może otworzyć."
+
+msgid ""
+"Start with the vulnerabilities and the end of life of software and hardware, "
+"then check that the expected protections (encryption, patches, logs, "
+"backups) cover the whole fleet."
+msgstr ""
+"Zacznij od podatności i końca życia oprogramowania i sprzętu, a następnie "
+"sprawdź, czy oczekiwane zabezpieczenia (szyfrowanie, poprawki, dzienniki, "
+"kopie zapasowe) obejmują cały park."
+
+msgid ""
+"Some manufacturers announce the date after which a model no longer receives "
+"repairs, spare parts or firmware updates. Enter it here for all the models "
+"in service, or on the form of each model (tab \"Manufacturer end of life\")."
+msgstr ""
+"Niektórzy producenci ogłaszają datę, po której model nie otrzymuje już "
+"napraw, części zamiennych ani aktualizacji firmware. Wpisz ją tutaj dla "
+"wszystkich używanych modeli lub w formularzu każdego modelu (karta „Koniec "
+"życia według producenta”)."
+
+msgid ""
+"Enter the known dates, then follow the hardware whose end of life is reached "
+"or near in the \"Hardware warranty\" card of the fleet vulnerabilities. "
+"Nothing is changed in the GLPI models."
+msgstr ""
+"Wpisz znane daty, a następnie śledź sprzęt, którego koniec życia został "
+"osiągnięty lub jest bliski, na karcie „Gwarancja sprzętu” podatności parku. "
+"W modelach GLPI nic nie jest zmieniane."
+
+msgid "ISO/IEC 27001, controls A.7.13 and A.8.9"
+msgstr "ISO/IEC 27001, zabezpieczenia A.7.13 i A.8.9"
+
+msgid "Supplier security"
+msgstr "Bezpieczeństwo dostawców"
+
+msgid ""
+"Assess the security of your suppliers and service providers: the supplier "
+"risks, the security questionnaires they answer and, when DORA applies, the "
+"register of information."
+msgstr ""
+"Oceniaj bezpieczeństwo swoich dostawców i usługodawców: ryzyka dostawców, "
+"kwestionariusze bezpieczeństwa, na które odpowiadają, oraz, jeśli ma "
+"zastosowanie DORA, rejestr informacji."
+
+msgid "Assess this supplier"
+msgstr "Oceń tego dostawcę"
+
+msgid "Last evaluation"
+msgstr "Ostatnia ocena"
+
+msgid "Next reassessment: %s"
+msgstr "Następna ponowna ocena: %s"
+
+msgid "No evaluation yet"
+msgstr "Brak oceny"
+
+msgid "No reassessment date planned"
+msgstr "Nie zaplanowano daty ponownej oceny"
+
+msgid "Reassessment overdue since %s"
+msgstr "Ponowna ocena zaległa od %s"
+
+msgid "Supplier risk register"
+msgstr "Rejestr ryzyk dostawców"
+
+msgid ""
+"The security assessment of this supplier: its supplier risks, their level, "
+"the last questionnaire it answered and the next reassessment. The full "
+"register is in Management > Supplier security."
+msgstr ""
+"Ocena bezpieczeństwa tego dostawcy: jego ryzyka dostawcy, ich poziom, "
+"ostatni kwestionariusz, na który odpowiedział, i następna ponowna ocena. "
+"Pełny rejestr znajduje się w Zarządzanie > Bezpieczeństwo dostawców."
+
+msgid ""
+"This supplier has not been assessed yet: no supplier risk is recorded for it "
+"in your entities."
+msgstr ""
+"Ten dostawca nie został jeszcze oceniony: w Twoich jednostkach nie "
+"zarejestrowano dla niego żadnego ryzyka dostawcy."
+
+msgid "%d questionnaire"
+msgid_plural "%d questionnaires"
+msgstr[0] "%d kwestionariusz"
+msgstr[1] "%d kwestionariusze"
+msgstr[2] "%d kwestionariuszy"
+
+msgid "Communicate"
+msgstr "Komunikacja"
+
+msgid "Crisis and continuity"
+msgstr "Kryzys i ciągłość działania"
+
+msgid ""
+"Crisis exercises and real crisis teams: timeline, decisions and lessons "
+"learned."
+msgstr ""
+"Ćwiczenia kryzysowe i rzeczywiste sztaby kryzysowe: przebieg, decyzje i "
+"wnioski."
+
+msgid ""
+"Crisis scenarios of the continuity plan and how ready you are for each one."
+msgstr ""
+"Scenariusze kryzysowe planu ciągłości działania i stopień przygotowania do "
+"każdego z nich."
+
+msgid ""
+"Critical activities, their business impact analysis (BIA) and recovery "
+"objectives."
+msgstr ""
+"Krytyczne działania, ich analiza wpływu na działalność (BIA) i cele "
+"odtworzenia."
+
+msgid "EDR alerts import"
+msgstr "Import alertów EDR"
+
+msgid ""
+"Everything needed to prepare for a crisis and keep the activity going: "
+"business processes and their impact analysis, crisis scenarios, crisis "
+"exercises, recovery tests and ready-to-use crisis messages."
+msgstr ""
+"Wszystko, czego potrzeba, by przygotować się na kryzys i utrzymać "
+"działalność: procesy biznesowe i ich analiza wpływu, scenariusze kryzysowe, "
+"ćwiczenia kryzysowe, testy odtworzenia i gotowe komunikaty kryzysowe."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30"
+msgstr "ISO/IEC 27001, zabezpieczenia A.5.29 i A.5.30"
+
+msgid "Last read"
+msgstr "Ostatni odczyt"
+
+msgid "No error"
+msgstr "Brak błędów"
+
+msgid "Prepare"
+msgstr "Przygotowanie"
+
+msgid ""
+"Reading SentinelOne now and reviewing its alerts is done in Assistance > "
+"Security incidents > EDR alerts import."
+msgstr ""
+"Natychmiastowy odczyt SentinelOne i przegląd jego alertów odbywają się w "
+"Wsparcie > Incydenty bezpieczeństwa > Import alertów EDR."
+
+msgid "Ready-to-use crisis messages and their distribution lists."
+msgstr "Gotowe komunikaty kryzysowe i ich listy dystrybucyjne."
+
+msgid ""
+"Start with the cards that show something to do (recovery tests overdue or "
+"failed), then keep each list up to date. Each card only appears if your "
+"profile can open its screen."
+msgstr ""
+"Zacznij od kart, które wskazują coś do zrobienia (zaległe lub nieudane testy "
+"odtworzenia), a następnie aktualizuj każdą listę. Karta pojawia się tylko "
+"wtedy, gdy Twój profil może otworzyć jej ekran."
+
+msgid ""
+"The alerts read from SentinelOne are reviewed, and a reading can be started "
+"at any time, in Assistance > Security incidents > EDR alerts import."
+msgstr ""
+"Alerty odczytane z SentinelOne przegląda się, a odczyt można uruchomić w "
+"dowolnej chwili, w Wsparcie > Incydenty bezpieczeństwa > Import alertów EDR."
+
+msgid ""
+"The automatic reading is disabled: enable it in the Connectors tab of the "
+"plugin configuration, or use the button \"Fetch now\"."
+msgstr ""
+"Automatyczny odczyt jest wyłączony: włącz go w karcie Konektory konfiguracji "
+"wtyczki lub użyj przycisku „Pobierz teraz”."
+
+msgid "Train"
+msgstr "Ćwiczenia"
+
+msgid "When each critical process was last tested and which tests are due."
+msgstr ""
+"Kiedy każdy krytyczny proces był ostatnio testowany i które testy są "
+"wymagane."
+
+msgid "%d last test failed"
+msgid_plural "%d last tests failed"
+msgstr[0] "%d ostatni test nieudany"
+msgstr[1] "%d ostatnie testy nieudane"
+msgstr[2] "%d ostatnich testów nieudanych"
+
+msgid "%d process not tested this year"
+msgid_plural "%d processes not tested this year"
+msgstr[0] "%d proces nietestowany w tym roku"
+msgstr[1] "%d procesy nietestowane w tym roku"
+msgstr[2] "%d procesów nietestowanych w tym roku"
+
+msgid "%d test overdue"
+msgid_plural "%d tests overdue"
+msgstr[0] "%d zaległy test"
+msgstr[1] "%d zaległe testy"
+msgstr[2] "%d zaległych testów"
+
+msgid "These settings are now in Setup > Plugins > GRC Manager, %s tab."
+msgstr ""
+"Te ustawienia znajdują się teraz w Konfiguracja > Wtyczki > GRC Manager, "
+"karta %s."
+
+msgid "Connection to Zabbix %s succeeded."
+msgstr "Połączenie z Zabbix %s powiodło się."
+
+msgid "Connection to Uptime Kuma succeeded."
+msgstr "Połączenie z Uptime Kuma powiodło się."
+
+msgid "Connection to Veeam succeeded."
+msgstr "Połączenie z Veeam powiodło się."
+
+msgid "The DNS server answers the DNSSEC questions."
+msgstr "Serwer DNS odpowiada na zapytania DNSSEC."
+
+msgid ""
+"The DNS server did not answer the DNSSEC question: DNSSEC will show "
+"\"Unknown\". Enter another DNS server."
+msgstr ""
+"Serwer DNS nie odpowiedział na zapytanie DNSSEC: DNSSEC pokaże „Nieznany”. "
+"Wprowadź inny serwer DNS."
+
+msgid "See the results"
+msgstr "Zobacz wyniki"
+
+msgid "Set up the connection"
+msgstr "Skonfiguruj połączenie"
+
+msgid "Change the settings"
+msgstr "Zmień ustawienia"
+
+msgid "Read automatically every day"
+msgstr "Odczyt automatyczny codziennie"
+
+msgid "Read automatically every hour"
+msgstr "Odczyt automatyczny co godzinę"
+
+msgid "Read on click only"
+msgstr "Odczyt tylko po kliknięciu"
+
+msgid ""
+"Nothing has been read from Zabbix yet: set up the connection in the "
+"configuration, then click \"Read now\". Until then, every asset concerned is "
+"shown as not monitored."
+msgstr ""
+"Z Zabbix nic jeszcze nie odczytano: skonfiguruj połączenie w konfiguracji, a "
+"następnie kliknij „Odczytaj teraz”. Do tego czasu każdy objęty zasób jest "
+"pokazywany jako niemonitorowany."
+
+msgid ""
+"Nothing has been read from Uptime Kuma yet: set up the connection in the "
+"configuration, then click \"Read now\"."
+msgstr ""
+"Z Uptime Kuma nic jeszcze nie odczytano: skonfiguruj połączenie w "
+"konfiguracji, a następnie kliknij „Odczytaj teraz”."
+
+msgid "Connection to Microsoft Graph succeeded."
+msgstr "Połączenie z Microsoft Graph powiodło się."
+
+msgid "Connection to %s succeeded."
+msgstr "Połączenie z %s powiodło się."
+
+msgid "Microsoft Entra ID and Microsoft Graph"
+msgstr "Microsoft Entra ID i Microsoft Graph"
+
+msgid ""
+"The same application reads the MFA methods of the accounts and the sharing "
+"rights of SharePoint, OneDrive and Teams, when you click the button on these "
+"pages. Nothing is ever written in Entra ID or Microsoft 365 and nothing runs "
+"automatically."
+msgstr ""
+"Ta sama aplikacja odczytuje metody MFA kont oraz uprawnienia udostępniania "
+"SharePoint, OneDrive i Teams po kliknięciu przycisku na tych stronach. Nic "
+"nie jest nigdy zapisywane w Entra ID ani w Microsoft 365 i nic nie działa "
+"automatycznie."
+
+msgid ""
+"For the sharing rights, also grant Sites.Read.All, Files.Read.All, "
+"User.Read.All and GroupMember.Read.All."
+msgstr ""
+"Dla uprawnień udostępniania przyznaj także Sites.Read.All, Files.Read.All, "
+"User.Read.All i GroupMember.Read.All."
+
+msgid ""
+"The tenant, the application ID and the client secret are entered in the "
+"plugin configuration, Connectors tab."
+msgstr ""
+"Dzierżawę, identyfikator aplikacji i klucz tajny klienta wprowadza się w "
+"konfiguracji wtyczki, karta Konektory."
+
+msgid ""
+"The GitHub and GitLab tokens are entered in the plugin configuration, "
+"Connectors tab."
+msgstr ""
+"Tokeny GitHub i GitLab wprowadza się w konfiguracji wtyczki, karta Konektory."
+
+msgid ""
+"Microsoft Graph is not set up yet. Enter the tenant, the application ID and "
+"the client secret in the plugin configuration (Connectors tab), or import a "
+"CSV export below."
+msgstr ""
+"Microsoft Graph nie jest jeszcze skonfigurowany. Wprowadź dzierżawę, "
+"identyfikator aplikacji i klucz tajny klienta w konfiguracji wtyczki (karta "
+"Konektory) albo zaimportuj poniżej eksport CSV."
+
+msgid ""
+"Nothing has been read yet. 1. Enter the code repository of each application "
+"in its \"Secure development\" tab. 2. Enter a read-only token in the plugin "
+"configuration, Connectors tab. 3. Click \"Read now\"."
+msgstr ""
+"Nic jeszcze nie odczytano. 1. Podaj repozytorium kodu każdej aplikacji na "
+"jej karcie „Bezpieczne wytwarzanie oprogramowania”. 2. Wprowadź token tylko "
+"do odczytu w konfiguracji wtyczki, karta Konektory. 3. Kliknij „Odczytaj "
+"teraz”."
+
+msgid "Change in the configuration"
+msgstr "Zmień w konfiguracji"
+
+msgid "Current rule"
+msgstr "Obowiązująca reguła"
+
+msgid "This setting is now in the plugin configuration, tab %s."
+msgstr "To ustawienie znajduje się teraz w konfiguracji wtyczki, karta %s."
+
+msgid "Adjust"
+msgstr "Dostosuj"
+
+msgid ""
+"Certification cycle shown by default in the internal audit programme, and "
+"the trainings that make an auditor qualified."
+msgstr ""
+"Cykl certyfikacji wyświetlany domyślnie w programie audytów wewnętrznych "
+"oraz szkolenia kwalifikujące audytora."
+
+msgid "Settings saved. They are now in %s."
+msgstr "Ustawienia zapisane. Znajdują się teraz w %s."
+
+msgid "These settings are in %s."
+msgstr "Te ustawienia znajdują się w %s."
+
+msgid "Getting started"
+msgstr "Pierwsze kroki"
+
+msgid "All steps done"
+msgstr "Wszystkie kroki wykonane"
+
+#, php-format
+msgid "%1$d of %2$d steps done"
+msgstr "Wykonano %1$d z %2$d kroków"
+
+msgid ""
+"The main settings to make before using the plugin. Each step is checked from "
+"what is already set up; nothing is changed from here."
+msgstr ""
+"Najważniejsze ustawienia przed rozpoczęciem pracy z wtyczką. Każdy krok jest "
+"sprawdzany na podstawie istniejącej konfiguracji; tutaj nic nie jest "
+"zmieniane."
+
+msgid "Open the setting"
+msgstr "Otwórz ustawienie"
+
+msgid "Choose the frameworks"
+msgstr "Wybierz ramy odniesienia"
+
+msgid ""
+"Tick the frameworks your organisation follows and save the choice: the other "
+"ones disappear from the screens."
+msgstr ""
+"Zaznacz ramy odniesienia stosowane w organizacji i zapisz wybór: pozostałe "
+"znikną z ekranów."
+
+msgid "Validate the risk matrix"
+msgstr "Zatwierdź macierz ryzyka"
+
+msgid ""
+"Check the probability x impact grid, its size and its labels, then save it, "
+"even unchanged."
+msgstr ""
+"Sprawdź siatkę prawdopodobieństwo x wpływ, jej rozmiar i etykiety, a "
+"następnie zapisz ją, nawet bez zmian."
+
+msgid "Give the rights to a profile"
+msgstr "Nadaj uprawnienia profilowi"
+
+msgid ""
+"After installation, only the Super-Admin profile can use the plugin. Open a "
+"profile, then its GRC Manager tab, to give the rights to the people who work "
+"on the ISMS."
+msgstr ""
+"Po instalacji tylko profil Super-Admin może korzystać z wtyczki. Otwórz "
+"profil, a następnie jego kartę GRC Manager, aby nadać uprawnienia osobom "
+"pracującym nad SZBI."
+
+msgid "Open the profiles"
+msgstr "Otwórz profile"
+
+msgid "Choose the CISO group"
+msgstr "Wybierz grupę CISO"
+
+msgid "The members of this group can see every audit and its documents."
+msgstr "Członkowie tej grupy widzą wszystkie audyty i ich dokumenty."
+
+msgid "Test at least one connector"
+msgstr "Przetestuj co najmniej jeden łącznik"
+
+msgid ""
+"Enter the address and the key of a tool you use (SentinelOne, Zabbix, Uptime "
+"Kuma, GitHub or GitLab, endoflife.date): the step is done after a first "
+"successful read."
+msgstr ""
+"Wpisz adres i klucz używanego narzędzia (SentinelOne, Zabbix, Uptime Kuma, "
+"GitHub lub GitLab, endoflife.date): krok jest wykonany po pierwszym udanym "
+"odczycie."
+
+msgid "Scope the Statement of Applicability"
+msgstr "Określ zakres deklaracji stosowania (SoA)"
+
+#, php-format
+msgid ""
+"Answer every question of the \"%s\" screen, in the GRC menu: the answers "
+"suggest which controls apply."
+msgstr ""
+"Odpowiedz na wszystkie pytania ekranu „%s” w menu GRC: odpowiedzi proponują "
+"mające zastosowanie zabezpieczenia."
+
+msgid "Nonconformities and improvement"
+msgstr "Niezgodności i doskonalenie"
+
+msgid "Create or import a custom framework"
+msgstr "Utwórz lub zaimportuj własne ramy odniesienia"
+
+msgid "What is this block for?"
+msgstr "Do czego służy ten blok?"
+
+msgid ""
+"Defining a framework is a setting: it is done here. Its assessment stays in "
+"GRC & Compliance > Regulations."
+msgstr ""
+"Zdefiniowanie ram odniesienia to ustawienie: robi się to tutaj. Ich ocena "
+"pozostaje w GRC i zgodność > Regulacje."
+
+msgid "No custom framework yet."
+msgstr "Nie ma jeszcze własnych ram odniesienia."
+
+msgid "ISO standards"
+msgstr "Normy ISO"
+
+msgid "European regulations"
+msgstr "Regulacje europejskie"
+
+msgid "National guides"
+msgstr "Przewodniki krajowe"
+
+msgid "Sector frameworks"
+msgstr "Standardy sektorowe"
+
+msgid "Control catalogs"
+msgstr "Katalogi zabezpieczeń"
+
+msgid ""
+"European directive (EU) 2022/2555: the common obligations. A national "
+"implementation adds its own measures, register and score, shown under NIS2; "
+"it is active only while NIS2 is."
+msgstr ""
+"Dyrektywa europejska (UE) 2022/2555: wspólne obowiązki. Wdrożenie krajowe "
+"dodaje własne środki, rejestr i wynik, pokazane pod NIS2; jest aktywne tylko "
+"wtedy, gdy aktywna jest NIS2."
+
+msgid "National implementation"
+msgstr "Wdrożenie krajowe"
+
+msgid "France (ReCyF)"
+msgstr "Francja (ReCyF)"
+
+msgid "Italy (ACN)"
+msgstr "Włochy (ACN)"
+
+msgid ""
+"Complementary publications of the French cybersecurity agency, each with its "
+"own measures and score. ReCyF is also the French implementation of NIS2: "
+"ticking it here or under NIS2 is the same setting."
+msgstr ""
+"Uzupełniające się publikacje francuskiej agencji cyberbezpieczeństwa, każda "
+"z własnymi środkami i wynikiem. ReCyF jest też francuskim wdrożeniem NIS2: "
+"zaznaczenie go tutaj lub pod NIS2 to to samo ustawienie."
+
+msgid "IT hygiene guide"
+msgstr "Przewodnik higieny IT"
+
+msgid ""
+"French NIS2 framework of ANSSI (ReCyF): a register with one record per "
+"measure, per GLPI entity set as important or essential below; NIS2 is then "
+"assessed on these measures. Requires NIS2."
+msgstr ""
+"Francuskie ramy NIS2 agencji ANSSI (ReCyF): rejestr z jednym wpisem na "
+"środek, dla każdej jednostki GLPI oznaczonej poniżej jako ważna lub "
+"kluczowa; NIS2 jest wtedy oceniana na podstawie tych środków. Wymaga NIS2."
+
+msgid ""
+"Frameworks are grouped by family: open a family to tick its frameworks, then "
+"save it."
+msgstr ""
+"Standardy są pogrupowane w rodziny: otwórz rodzinę, zaznacz jej standardy, a "
+"następnie ją zapisz."
+
+msgid "Inactive: requires %s"
+msgstr "Nieaktywne: wymaga %s"
+
+msgid "Enable %s first, in the European regulations family."
+msgstr "Najpierw włącz %s w rodzinie Regulacje europejskie."
+
+msgid "%1$d of %2$d active"
+msgstr "Aktywne: %1$d z %2$d"
+
+msgid "No framework in this family yet."
+msgstr "W tej rodzinie nie ma jeszcze żadnego standardu."
+
+msgid ""
+"In France, NIS2 can be assessed on the measures of ReCyF, the framework of "
+"ANSSI: tick France (ReCyF) under NIS2 in the configuration, then classify "
+"your entity as important or essential."
+msgstr ""
+"We Francji NIS2 można oceniać na podstawie środków ReCyF, ram agencji ANSSI: "
+"zaznacz Francja (ReCyF) pod NIS2 w konfiguracji, a następnie sklasyfikuj "
+"swoją jednostkę jako ważną lub kluczową."
+
+msgid ""
+"Frozen version %1$s, submitted on %2$s. SHA-256 fingerprint of the content: "
+"%3$s"
+msgstr "Zamrożona wersja %1$s, przesłana %2$s. Odcisk SHA-256 treści: %3$s"
+
+msgid "On-call team"
+msgstr "Zespół dyżurny"
+
+msgid "Covered processes and recovery objectives"
+msgstr "Objęte procesy i cele odtworzenia"
+
+msgid "Crisis scenarios"
+msgstr "Scenariusze kryzysowe"
+
+msgid "Content of the plan"
+msgstr "Treść planu"
+
+msgid "Plan test"
+msgid_plural "Plan tests"
+msgstr[0] "Test planu"
+msgstr[1] "Testy planu"
+msgstr[2] "Testów planu"
+
+msgid "No test recorded yet."
+msgstr "Nie zarejestrowano jeszcze żadnego testu."
+
+msgid "Gaps found"
+msgstr "Stwierdzone odchylenia"
+
+msgid "History of versions"
+msgstr "Historia wersji"
+
+msgid "Continuity and recovery plans"
+msgstr "Plany ciągłości i odtworzenia"
+
+msgid ""
+"The plans themselves are managed in Assistance > Crisis and continuity. "
+"Here: how often they are reviewed and what a new plan starts with."
+msgstr ""
+"Same plany są zarządzane w menu Pomoc > Kryzys i ciągłość. Tutaj: jak często "
+"są przeglądane i od czego zaczyna się nowy plan."
+
+msgid "Default review period (months)"
+msgstr "Domyślny okres przeglądu (miesiące)"
+
+msgid ""
+"Used when a plan does not set its own period. The next review date is "
+"computed when the plan is approved."
+msgstr ""
+"Używany, gdy plan nie ustala własnego okresu. Data następnego przeglądu jest "
+"obliczana przy zatwierdzeniu planu."
+
+msgid "Review reminder (days before)"
+msgstr "Przypomnienie o przeglądzie (dni wcześniej)"
+
+msgid "From this many days before the date, the review is shown as due soon."
+msgstr "Od tylu dni przed datą przegląd jest oznaczany jako zbliżający się."
+
+msgid "Start a new plan from the model"
+msgstr "Zaczynaj nowy plan od szablonu"
+
+msgid ""
+"Pre-fills the scope, activation, steps, fallback and communication with "
+"short guidance to replace."
+msgstr ""
+"Wstępnie wypełnia zakres, uruchomienie, kroki, rozwiązania zastępcze i "
+"komunikację krótkimi wskazówkami do zastąpienia."
+
+msgid ""
+"Version %s has been sent to the approvers; its content is frozen until their "
+"decision."
+msgstr ""
+"Wersja %s została wysłana do zatwierdzających; jej treść jest zamrożona do "
+"czasu ich decyzji."
+
+msgid "Version %s is approved and in force."
+msgstr "Wersja %s jest zatwierdzona i obowiązuje."
+
+msgid ""
+"Version %1$s is being prepared; the version approved on %2$s stays in force "
+"until then."
+msgstr ""
+"Wersja %1$s jest w przygotowaniu; do tego czasu obowiązuje wersja "
+"zatwierdzona %2$s."
+
+msgid "Version %s is a draft: send it for approval once it is ready."
+msgstr "Wersja %s jest szkicem: wyślij ją do zatwierdzenia, gdy będzie gotowa."
+
+msgid "Next review: %s"
+msgstr "Następny przegląd: %s"
+
+msgid "Your decision"
+msgstr "Twoja decyzja"
+
+msgid ""
+"Version %s awaits your decision. Read the plan (Plan tab or PDF) before "
+"answering."
+msgstr ""
+"Wersja %s czeka na Twoją decyzję. Przeczytaj plan (karta planu lub PDF) "
+"przed udzieleniem odpowiedzi."
+
+msgid ""
+"No approver: choose one on the plan, or set the default approvers of "
+"policies in the configuration."
+msgstr ""
+"Brak zatwierdzającego: wybierz go w planie lub ustaw domyślnych "
+"zatwierdzających polityk w konfiguracji."
+
+msgid "Default approvers of policies (configuration)."
+msgstr "Domyślni zatwierdzający polityk (konfiguracja)."
+
+msgid "Approver designated on the plan."
+msgstr "Zatwierdzający wskazany w planie."
+
+msgid "Have this plan approved"
+msgstr "Przekaż plan do zatwierdzenia"
+
+msgid ""
+"Freezes version %s (content and SHA-256 fingerprint, kept in the history and "
+"printable) and sends it to the approvers. The content can no longer be "
+"changed until their decision."
+msgstr ""
+"Zamraża wersję %s (treść i odcisk SHA-256, zachowane w historii i do "
+"wydruku) i wysyła ją do zatwierdzających. Treści nie można zmienić do czasu "
+"ich decyzji."
+
+msgid ""
+"An approved plan can no longer be changed. Prepare a new version: it goes "
+"back to draft, and the approved version stays in force and in the history "
+"until the new one is approved."
+msgstr ""
+"Zatwierdzonego planu nie można już zmieniać. Przygotuj nową wersję: wraca do "
+"szkicu, a zatwierdzona wersja obowiązuje i pozostaje w historii do "
+"zatwierdzenia nowej."
+
+msgid "You do not have the right to modify this plan."
+msgstr "Nie masz uprawnień do zmiany tego planu."
+
+msgid "Print the current plan (PDF)"
+msgstr "Drukuj bieżący plan (PDF)"
+
+msgid ""
+"This critical process is not covered by any continuity or recovery plan."
+msgstr ""
+"Ten krytyczny proces nie jest objęty żadnym planem ciągłości ani odtworzenia."
+
+msgid "No continuity or recovery plan covers this process yet."
+msgstr ""
+"Żaden plan ciągłości ani odtworzenia nie obejmuje jeszcze tego procesu."
+
+msgid "All continuity and recovery plans"
+msgstr "Wszystkie plany ciągłości i odtworzenia"
+
+msgid ""
+"This plan has never been tested. A plan that has not been tested gives no "
+"assurance that it works."
+msgstr ""
+"Ten plan nigdy nie był testowany. Nieprzetestowany plan nie daje pewności, "
+"że działa."
+
+msgid "The last test is more than a year old: plan a new exercise."
+msgstr "Ostatni test ma ponad rok: zaplanuj nowe ćwiczenie."
+
+msgid "This plan has been tested within the year."
+msgstr "Ten plan był testowany w ciągu roku."
+
+msgid "Action created"
+msgstr "Utworzono działanie"
+
+msgid "Create a nonconformity"
+msgstr "Utwórz niezgodność"
+
+msgid "Remove this test"
+msgstr "Usuń ten test"
+
+msgid "Record a test of the plan"
+msgstr "Zarejestruj test planu"
+
+msgid ""
+"What was tested, who took part, the times measured against the objectives."
+msgstr "Co testowano, kto brał udział, czasy zmierzone względem celów."
+
+msgid ""
+"Each gap can then become a nonconformity to follow up in the improvement "
+"section."
+msgstr ""
+"Każde odchylenie może następnie stać się niezgodnością śledzoną w sekcji "
+"doskonalenia."
+
+msgid "Recovery tests of the covered processes"
+msgstr "Testy odtworzenia objętych procesów"
+
+msgid ""
+"Recovery tests are recorded on each process (Recovery strategy tab) and in "
+"the recovery test programme."
+msgstr ""
+"Testy odtworzenia rejestruje się przy każdym procesie (karta Strategia "
+"odtworzenia) i w programie testów odtworzenia."
+
+msgid "%d plan"
+msgid_plural "%d plans"
+msgstr[0] "%d plan"
+msgstr[1] "%d plany"
+msgstr[2] "%d planów"
+
+msgid "%d plan not approved"
+msgid_plural "%d plans not approved"
+msgstr[0] "%d plan niezatwierdzony"
+msgstr[1] "%d plany niezatwierdzone"
+msgstr[2] "%d planów niezatwierdzonych"
+
+msgid "%d review overdue"
+msgid_plural "%d reviews overdue"
+msgstr[0] "%d zaległy przegląd"
+msgstr[1] "%d zaległe przeglądy"
+msgstr[2] "%d zaległych przeglądów"
+
+msgid "%d plan not tested within a year"
+msgid_plural "%d plans not tested within a year"
+msgstr[0] "%d plan nietestowany w ciągu roku"
+msgstr[1] "%d plany nietestowane w ciągu roku"
+msgstr[2] "%d planów nietestowanych w ciągu roku"
+
+msgid "%d critical process without plan"
+msgid_plural "%d critical processes without plan"
+msgstr[0] "%d proces krytyczny bez planu"
+msgstr[1] "%d procesy krytyczne bez planu"
+msgstr[2] "%d procesów krytycznych bez planu"
+
+msgid "Plans awaiting your approval"
+msgstr "Plany oczekujące na Twoje zatwierdzenie"
+
+msgid "Critical processes not covered by any plan"
+msgstr "Procesy krytyczne nieobjęte żadnym planem"
+
+msgid ""
+"No plan yet. Start with the continuity plan of your most critical activity, "
+"then the IT recovery plan it relies on."
+msgstr ""
+"Nie ma jeszcze planu. Zacznij od planu ciągłości najbardziej krytycznej "
+"działalności, a potem od planu odtworzenia IT, od którego ona zależy."
+
+msgid "Approved: %1$d / %2$d"
+msgstr "Zatwierdzone: %1$d / %2$d"
+
+msgid "Tested within a year: %1$d / %2$d"
+msgstr "Testowane w ciągu roku: %1$d / %2$d"
+
+msgid "Print the plan (PDF)"
+msgstr "Drukuj plan (PDF)"
+
+msgid "This plan is approved, reviewed on time and tested within the year."
+msgstr ""
+"Ten plan jest zatwierdzony, przeglądany na czas i testowany w ciągu roku."
+
+msgid ""
+"The content of this plan is frozen while it is awaiting approval or "
+"approved. To change it, prepare a new version in the Versions and approval "
+"tab."
+msgstr ""
+"Treść tego planu jest zamrożona podczas zatwierdzania i po zatwierdzeniu. "
+"Aby ją zmienić, przygotuj nową wersję na karcie Wersje i zatwierdzanie."
+
+msgid ""
+"For example \"Recovery plan of the main data centre\" or \"Continuity plan "
+"of order taking\"."
+msgstr ""
+"Na przykład „Plan odtworzenia głównego centrum danych” lub „Plan ciągłości "
+"przyjmowania zamówień”."
+
+msgid ""
+"BCP and BRP keep or restart business activities; ITCP and DRP keep or "
+"restore IT systems and data."
+msgstr ""
+"BCP i BRP utrzymują lub wznawiają działalność biznesową; ITCP i DRP "
+"utrzymują lub odtwarzają systemy i dane IT."
+
+msgid ""
+"The version number changes when a new version is prepared after an approval."
+msgstr ""
+"Numer wersji zmienia się, gdy po zatwierdzeniu przygotowuje się nową wersję."
+
+msgid ""
+"0 uses the default period of the configuration (%d months). The next review "
+"date is computed at approval."
+msgstr ""
+"0 oznacza domyślny okres z konfiguracji (%d mies.). Data następnego "
+"przeglądu jest obliczana przy zatwierdzeniu."
+
+msgid "People in charge"
+msgstr "Osoby odpowiedzialne"
+
+msgid ""
+"Usually a member of management. Empty: the default approvers of policies "
+"(configuration) are asked."
+msgstr ""
+"Zwykle członek kierownictwa. Puste: pytani są domyślni zatwierdzający "
+"polityk (konfiguracja)."
+
+msgid "GLPI group gathered when the plan is activated."
+msgstr "Grupa GLPI zwoływana po uruchomieniu planu."
+
+msgid ""
+"GLPI group reachable outside working hours. Its active members are printed "
+"in the plan."
+msgstr ""
+"Grupa GLPI osiągalna poza godzinami pracy. Jej aktywni członkowie są "
+"drukowani w planie."
+
+msgid "What the plan covers"
+msgstr "Co obejmuje plan"
+
+msgid "Covered processes"
+msgstr "Objęte procesy"
+
+msgid ""
+"Business processes kept or restarted by the plan. Their RTO and RPO come "
+"from their business impact analysis."
+msgstr ""
+"Procesy biznesowe utrzymywane lub wznawiane przez plan. Ich RTO i RPO "
+"pochodzą z analizy wpływu na działalność."
+
+msgid "Crisis scenarios handled by this plan."
+msgstr "Scenariusze kryzysowe obsługiwane przez ten plan."
+
+msgid "Suppliers needed for the recovery or to call during the crisis."
+msgstr "Dostawcy potrzebni do odtworzenia lub do kontaktu w czasie kryzysu."
+
+msgid "Only the elements visible from the entity of the plan are offered."
+msgstr "Proponowane są tylko elementy widoczne z jednostki planu."
+
+msgid "Recovery objectives from the BIA"
+msgstr "Cele odtworzenia z BIA"
+
+msgid "The plan has been frozen and sent for approval."
+msgstr "Plan został zamrożony i wysłany do zatwierdzenia."
+
+msgid "Your answer was not recorded: a rejection needs a comment."
+msgstr "Twoja odpowiedź nie została zapisana: odrzucenie wymaga komentarza."
+
+msgid "Test recorded."
+msgstr "Test zarejestrowany."
+
+msgid "Nonconformity created from the gaps of the test."
+msgstr "Utworzono niezgodność na podstawie odchyleń z testu."
+
+msgid "Settings of the continuity and recovery plans saved."
+msgstr "Zapisano ustawienia planów ciągłości i odtworzenia."
+
+msgid "Continuity or recovery plan"
+msgid_plural "Continuity and recovery plans"
+msgstr[0] "Plan ciągłości lub odtworzenia"
+msgstr[1] "Plany ciągłości i odtworzenia"
+msgstr[2] "Planów ciągłości i odtworzenia"
+
+msgid "Business continuity plan (BCP)"
+msgstr "Plan ciągłości działania (BCP)"
+
+msgid "Business recovery plan (BRP)"
+msgstr "Plan wznowienia działalności (BRP)"
+
+msgid "IT continuity plan (ITCP)"
+msgstr "Plan ciągłości IT (ITCP)"
+
+msgid "IT disaster recovery plan (DRP)"
+msgstr "Plan odtworzenia IT po awarii (DRP)"
+
+msgctxt "plan type"
+msgid "BCP"
+msgstr "BCP"
+
+msgctxt "plan type"
+msgid "BRP"
+msgstr "BRP"
+
+msgctxt "plan type"
+msgid "ITCP"
+msgstr "ITCP"
+
+msgctxt "plan type"
+msgid "DRP"
+msgstr "DRP"
+
+msgid "Not tested for more than a year"
+msgstr "Nietestowany od ponad roku"
+
+msgid "Last test failed"
+msgstr "Ostatni test nieudany"
+
+msgid "No covered process"
+msgstr "Brak objętego procesu"
+
+msgid "No crisis team"
+msgstr "Brak sztabu kryzysowego"
+
+msgid "No recovery steps"
+msgstr "Brak kroków odtworzenia"
+
+msgid "A named person has left (inactive account)"
+msgstr "Wskazana osoba odeszła (nieaktywne konto)"
+
+msgid "Entities, services, sites and activities covered by the plan."
+msgstr "Jednostki, usługi, lokalizacje i działania objęte planem."
+
+msgid "Activation criteria"
+msgstr "Kryteria uruchomienia"
+
+msgid ""
+"Situations that trigger the plan, for example an unavailability longer than "
+"the RTO of a critical process."
+msgstr ""
+"Sytuacje uruchamiające plan, na przykład niedostępność dłuższa niż RTO "
+"procesu krytycznego."
+
+msgid "Who activates the plan"
+msgstr "Kto uruchamia plan"
+
+msgid "Person or role allowed to activate the plan, and their deputy."
+msgstr "Osoba lub funkcja uprawniona do uruchomienia planu oraz jej zastępca."
+
+msgid "Recovery objectives"
+msgstr "Cele odtworzenia"
+
+msgid ""
+"The RTO and RPO of the covered processes come from their business impact "
+"analysis; add here the objectives of services that are not processes."
+msgstr ""
+"RTO i RPO objętych procesów pochodzą z analizy wpływu; dodaj tu cele usług, "
+"które nie są procesami."
+
+msgid "Roles and contacts"
+msgstr "Role i kontakty"
+
+msgid ""
+"Who does what during the crisis, with internal and external contacts "
+"(suppliers, insurer, authorities)."
+msgstr ""
+"Kto co robi w czasie kryzysu, wraz z kontaktami wewnętrznymi i zewnętrznymi "
+"(dostawcy, ubezpieczyciel, organy)."
+
+msgid "Steps of the plan"
+msgstr "Kroki planu"
+
+msgid ""
+"Numbered steps from activation to return to normal. Cite the response "
+"playbooks to follow."
+msgstr ""
+"Ponumerowane kroki od uruchomienia do powrotu do normalnego stanu. Wskaż "
+"procedury reagowania do zastosowania."
+
+msgid "Fallback solutions"
+msgstr "Rozwiązania zastępcze"
+
+msgid "Backup site, degraded mode, manual workarounds."
+msgstr "Lokalizacja zapasowa, tryb awaryjny, obejścia ręczne."
+
+msgid "Dependencies and recovery order"
+msgstr "Zależności i kolejność odtwarzania"
+
+msgid ""
+"Applications, infrastructure and suppliers needed, in the order in which "
+"they are restored."
+msgstr ""
+"Potrzebne aplikacje, infrastruktura i dostawcy, w kolejności ich odtwarzania."
+
+msgid ""
+"Who informs staff, customers, partners and authorities, and with which "
+"crisis message templates."
+msgstr ""
+"Kto informuje personel, klientów, partnerów i organy, i za pomocą jakich "
+"szablonów komunikatów kryzysowych."
+
+msgid ""
+"This plan is awaiting approval or approved: its content is frozen. Prepare a "
+"new version in the Versions and approval tab to change it."
+msgstr ""
+"Ten plan oczekuje na zatwierdzenie lub jest zatwierdzony: jego treść jest "
+"zamrożona. Aby ją zmienić, przygotuj nową wersję na karcie Wersje i "
+"zatwierdzanie."
+
+msgid "The plan name is required."
+msgstr "Nazwa planu jest wymagana."
+
+msgid "An element outside the entity of the plan was not linked."
+msgstr "Element spoza jednostki planu nie został powiązany."
+
+msgid "Partially met"
+msgstr "Częściowo osiągnięte"
+
+msgid "Give the date of the test (today or earlier)."
+msgstr "Podaj datę testu (dziś lub wcześniej)."
+
+msgid "Gap found when testing the plan \"%1$s\" on %2$s"
+msgstr "Odchylenie stwierdzone w teście planu „%1$s” dnia %2$s"
+
+msgid "Versions and approval"
+msgstr "Wersje i zatwierdzanie"
+
+msgid "Only a draft plan can be submitted for approval."
+msgstr "Do zatwierdzenia można przesłać tylko szkic planu."
+
+msgid ""
+"This version number has already been approved: give the plan a new version "
+"number."
+msgstr ""
+"Ten numer wersji został już zatwierdzony: nadaj planowi nowy numer wersji."
+
+msgid ""
+"No active approver: designate one on the plan, or set the default approvers "
+"of policies in the configuration."
+msgstr ""
+"Brak aktywnego zatwierdzającego: wskaż go w planie lub ustaw domyślnych "
+"zatwierdzających polityk w konfiguracji."
+
+msgid "Give a version number that has not been approved yet."
+msgstr "Podaj numer wersji, który nie został jeszcze zatwierdzony."
+
+msgid ""
+"Business continuity and recovery plans (BCP, BRP) and IT continuity and "
+"recovery plans (ITCP, DRP): approval, review and tests."
+msgstr ""
+"Plany ciągłości i wznowienia działalności (BCP, BRP) oraz plany ciągłości i "
+"odtworzenia IT (ITCP, DRP): zatwierdzanie, przegląd i testy."
+
+msgid ""
+"The continuity and recovery plans of the organisation: business continuity "
+"and recovery plans (BCP, BRP) for activities, IT continuity and disaster "
+"recovery plans (ITCP, DRP) for systems. Each plan gathers the covered "
+"processes with their recovery objectives, the crisis team, the steps, the "
+"fallback solutions and the communication."
+msgstr ""
+"Plany ciągłości i odtworzenia organizacji: plany ciągłości i wznowienia "
+"działalności (BCP, BRP) dla działań, plany ciągłości i odtworzenia IT (ITCP, "
+"DRP) dla systemów. Każdy plan łączy objęte procesy z ich celami odtworzenia, "
+"sztab kryzysowy, kroki, rozwiązania zastępcze i komunikację."
+
+msgid ""
+"Create one plan per critical activity or system, link the covered processes, "
+"then have it approved by management (Versions and approval tab) and test it "
+"at least once a year (Plan tests tab). Print the approved plan in PDF to "
+"keep a copy outside GLPI."
+msgstr ""
+"Utwórz jeden plan na każdą krytyczną działalność lub system, powiąż objęte "
+"procesy, a następnie przekaż go do zatwierdzenia kierownictwu (karta Wersje "
+"i zatwierdzanie) i testuj co najmniej raz w roku (karta Testy planu). "
+"Wydrukuj zatwierdzony plan w PDF, aby mieć kopię poza GLPI."
+
+msgid "ISO/IEC 27001, controls A.5.29 and A.5.30; ISO 22301"
+msgstr "ISO/IEC 27001, zabezpieczenia A.5.29 i A.5.30; ISO 22301"
+
+msgid "Systems, applications and data covered; hosting sites; entities served."
+msgstr ""
+"Objęte systemy, aplikacje i dane; lokalizacje hostingu; obsługiwane "
+"jednostki."
+
+msgid "Activities, teams and sites covered; entities concerned."
+msgstr "Objęte działania, zespoły i lokalizacje; jednostki, których dotyczy."
+
+msgid ""
+"Loss of a site, a system or a supplier expected to last longer than the RTO "
+"of a covered process."
+msgstr ""
+"Utrata lokalizacji, systemu lub dostawcy, która może trwać dłużej niż RTO "
+"objętego procesu."
+
+msgid ""
+"Disruption that threatens a critical activity: unavailability, cyberattack, "
+"loss of staff or premises."
+msgstr ""
+"Zakłócenie zagrażające krytycznej działalności: niedostępność, cyberatak, "
+"utrata personelu lub pomieszczeń."
+
+msgid ""
+"Crisis manager (and deputy), after an assessment with the CISO and the IT "
+"department."
+msgstr "Kierownik kryzysowy (i zastępca), po ocenie z CISO i działem IT."
+
+msgid ""
+"1. Assess the incident and activate the plan.\n"
+"2. Isolate the affected systems.\n"
+"3. Restore in the recovery order, from verified backups.\n"
+"4. Check integrity and security before reopening.\n"
+"5. Return to normal and hold the lessons learned review."
+msgstr ""
+"1. Ocenić incydent i uruchomić plan.\n"
+"2. Odizolować dotknięte systemy.\n"
+"3. Odtwarzać w ustalonej kolejności ze zweryfikowanych kopii zapasowych.\n"
+"4. Sprawdzić integralność i bezpieczeństwo przed ponownym uruchomieniem.\n"
+"5. Wrócić do normalnego stanu i przeprowadzić przegląd wniosków."
+
+msgid ""
+"1. Activate the plan and gather the crisis team.\n"
+"2. Switch the critical activities to degraded mode.\n"
+"3. Inform staff, customers and partners.\n"
+"4. Follow the recovery and check the objectives.\n"
+"5. Return to normal and hold the lessons learned review."
+msgstr ""
+"1. Uruchomić plan i zwołać sztab kryzysowy.\n"
+"2. Przełączyć krytyczne działania w tryb awaryjny.\n"
+"3. Poinformować personel, klientów i partnerów.\n"
+"4. Śledzić odtwarzanie i sprawdzać cele.\n"
+"5. Wrócić do normalnego stanu i przeprowadzić przegląd wniosków."
+
+msgid ""
+"Backup site or cloud environment, spare equipment, degraded mode for users."
+msgstr ""
+"Lokalizacja zapasowa lub środowisko chmurowe, sprzęt zapasowy, tryb awaryjny "
+"dla użytkowników."
+
+msgid "Alternative premises, remote work, manual procedures, temporary staff."
+msgstr ""
+"Pomieszczenia zastępcze, praca zdalna, procedury ręczne, personel tymczasowy."
+
+msgid ""
+"Who informs whom, through which channel, with which crisis message template."
+msgstr ""
+"Kto informuje kogo, jakim kanałem i za pomocą jakiego szablonu komunikatu "
+"kryzysowego."
+
+msgid "Linked suppliers"
+msgstr "Powiązani dostawcy"
+
+msgid ""
+"The risk also appears in the Security tab of each linked supplier. For a "
+"risk assessed with a questionnaire, use the supplier risk register instead."
+msgstr ""
+"Ryzyko pojawia się także w zakładce Bezpieczeństwo każdego powiązanego "
+"dostawcy. W przypadku ryzyka ocenianego kwestionariuszem należy zamiast tego "
+"użyć rejestru ryzyk dostawców."
+
+msgid "General risks linked to this supplier"
+msgstr "Ryzyka ogólne powiązane z tym dostawcą"
+
+msgid ""
+"Risks of the risk register that concern this supplier. To link one, open the "
+"risk and choose this supplier under \"Linked suppliers\"."
+msgstr ""
+"Ryzyka z rejestru ryzyk dotyczące tego dostawcy. Aby powiązać ryzyko, otwórz "
+"je i wybierz tego dostawcę w sekcji „Powiązani dostawcy”."
+
+msgid ""
+"No risk of the risk register is linked to this supplier in your entities."
+msgstr ""
+"W Twoich jednostkach żadne ryzyko z rejestru ryzyk nie jest powiązane z tym "
+"dostawcą."
+
+msgid "%1$s on behalf of %2$s"
+msgstr "%1$s w imieniu %2$s"
+
+msgid "%1$s, absent until %2$s:"
+msgstr "%1$s, nieobecny do %2$s:"
+
+msgid ""
+"Check that each delegated decision fits the absence and the delegable "
+"decision types. The substitute gets no right: he only sees the decisions "
+"entrusted to the absent person, and only until the end of the declared "
+"absence."
+msgstr ""
+"Sprawdź, czy każda delegowana decyzja odpowiada nieobecności i typom "
+"decyzji, które można delegować. Zastępca nie otrzymuje żadnych uprawnień: "
+"widzi tylko decyzje powierzone nieobecnej osobie i tylko do końca zgłoszonej "
+"nieobecności."
+
+msgid ""
+"Decision delegated for the declared absence period: it will be recorded as "
+"yours, on behalf of the absent person."
+msgstr ""
+"Decyzja delegowana na zgłoszony okres nieobecności: zostanie zapisana jako "
+"Twoja, w imieniu nieobecnej osoby."
+
+msgid "Decision type"
+msgstr "Typ decyzji"
+
+msgid "Declared absence"
+msgstr "Zgłoszona nieobecność"
+
+msgid "Delegable decisions"
+msgstr "Decyzje do delegowania"
+
+msgid "Delegated decisions"
+msgstr "Decyzje delegowane"
+
+msgid "Delegation during an absence"
+msgstr "Delegowanie podczas nieobecności"
+
+msgid ""
+"Lets the substitute declared in GLPI (user preferences, \"Authorized "
+"substitutes\" tab, with a substitution start date and end date) take the "
+"decisions waiting for an absent person, during the declared period only. A "
+"period without an end date delegates nothing. Each decision is recorded as "
+"taken by the substitute on behalf of the absent person. Waivers and risk "
+"acceptances are never delegated: they depend on a right, not on a person."
+msgstr ""
+"Pozwala zastępcy zgłoszonemu w GLPI (preferencje użytkownika, karta "
+"„Upoważnieni zastępcy”, z datą początku i końca zastępstwa) podejmować "
+"decyzje oczekujące na nieobecną osobę, wyłącznie w zgłoszonym okresie. Okres "
+"bez daty końca niczego nie deleguje. Każda decyzja jest zapisywana jako "
+"podjęta przez zastępcę w imieniu nieobecnej osoby. Odstępstwa i akceptacje "
+"ryzyka nigdy nie są delegowane: zależą od uprawnienia, a nie od osoby."
+
+msgid ""
+"Lists the decisions taken by a substitute on behalf of an absent person: who "
+"decided, for whom, when, on what, and the absence period declared in GLPI at "
+"that moment."
+msgstr ""
+"Wyświetla decyzje podjęte przez zastępcę w imieniu nieobecnej osoby: kto "
+"zdecydował, za kogo, kiedy, w jakiej sprawie oraz okres nieobecności "
+"zgłoszony wtedy w GLPI."
+
+msgid "No decision has been taken by a substitute yet."
+msgstr "Żaden zastępca nie podjął jeszcze decyzji."
+
+msgid "Not delegable"
+msgstr "Nie podlega delegowaniu"
+
+msgid "On behalf of"
+msgstr "W imieniu"
+
+msgid "On behalf of %1$s, absent until %2$s"
+msgstr "W imieniu %1$s, nieobecny do %2$s"
+
+msgid "Taken by"
+msgstr "Podjęta przez"
+
+msgid ""
+"The substitute answers for the absent approver, unless he is himself an "
+"approver of the same version."
+msgstr ""
+"Zastępca odpowiada za nieobecnego zatwierdzającego, chyba że sam zatwierdza "
+"tę samą wersję."
+
+msgid ""
+"The substitute decides the accounts entrusted to the absent reviewer (never "
+"his own account)."
+msgstr ""
+"Zastępca decyduje o kontach powierzonych nieobecnemu weryfikującemu (nigdy o "
+"własnym koncie)."
+
+msgid "You are standing in for"
+msgstr "Zastępujesz"
+
+msgid ""
+"Your decisions are recorded as yours, on behalf of the absent person, and "
+"stop being possible at the end of the declared absence."
+msgstr ""
+"Twoje decyzje są zapisywane jako Twoje, w imieniu nieobecnej osoby, i nie są "
+"już możliwe po zakończeniu zgłoszonej nieobecności."
+
+msgid "Delegated decision"
+msgid_plural "Delegated decisions"
+msgstr[0] "Decyzja delegowana"
+msgstr[1] "Decyzje delegowane"
+msgstr[2] "Decyzji delegowanych"
+
+msgid "%1$d application(s) to review, %2$d ticket(s) opened."
+msgstr "Aplikacje do przeglądu: %1$d, otwarte zgłoszenia: %2$d."
+
+msgid ""
+"%1$d software not in the register; the %2$d most installed are shown. Choose "
+"a software category (for example online services) to narrow the list."
+msgstr ""
+"Oprogramowanie spoza rejestru: %1$d; pokazano %2$d najczęściej "
+"instalowanych. Wybierz kategorię oprogramowania (na przykład usługi online), "
+"aby zawęzić listę."
+
+msgid "%d due within 30 days"
+msgstr "Do wykonania w ciągu 30 dni: %d"
+
+msgid "%d online service(s)"
+msgstr "Usługi online: %d"
+
+msgid ""
+"0: no periodic review. When the review is due, a reassessment ticket is "
+"opened for the owner."
+msgstr ""
+"0: brak przeglądu okresowego. W terminie przeglądu otwierane jest zgłoszenie "
+"ponownej oceny dla właściciela."
+
+msgid "Allowed data level not set"
+msgstr "Nie określono dozwolonego poziomu danych"
+
+msgid "Allowed uses"
+msgstr "Dozwolone zastosowania"
+
+msgid "Allowed uses not described"
+msgstr "Nie opisano dozwolonych zastosowań"
+
+msgid "Application owner"
+msgstr "Właściciel aplikacji"
+
+msgid ""
+"Applications and online services you may use for your work, with what they "
+"may be used for and the most sensitive data you may put in them. For any "
+"other application, ask the IT department before using it."
+msgstr ""
+"Aplikacje i usługi online, z których możesz korzystać w pracy, do czego mogą "
+"służyć i jakie najbardziej wrażliwe dane możesz w nich umieszczać. W "
+"przypadku każdej innej aplikacji zapytaj dział IT przed jej użyciem."
+
+msgid "Applications in the register: %d"
+msgstr "Aplikacje w rejestrze: %d"
+
+msgid "Applications not to use"
+msgstr "Aplikacje, których nie należy używać"
+
+msgid "Approved applications and online services"
+msgstr "Zatwierdzone aplikacje i usługi online"
+
+msgid "Approved applications to complete"
+msgstr "Zatwierdzone aplikacje do uzupełnienia"
+
+msgid "Approved use"
+msgstr "Dozwolone użycie"
+
+msgid "Approved use sheet saved."
+msgstr "Zapisano kartę dozwolonego użycia."
+
+msgid "Approved with restrictions"
+msgstr "Zatwierdzona z ograniczeniami"
+
+msgid "Approved: %d"
+msgstr "Zatwierdzone: %d"
+
+msgid "Authorised applications"
+msgstr "Dozwolone aplikacje"
+
+msgid ""
+"Check that the allowed uses, the data level and the supplier are still "
+"right, then record the review in the \"Approved use\" tab of the application."
+msgstr ""
+"Sprawdź, czy dozwolone zastosowania, poziom danych i dostawca są nadal "
+"właściwe, a następnie zapisz przegląd na karcie „Dozwolone użycie” aplikacji."
+
+msgid "Classification above the allowed level"
+msgstr "Klasyfikacja powyżej dozwolonego poziomu"
+
+msgid "Comparison with the software inventory"
+msgstr "Porównanie z inwentarzem oprogramowania"
+
+msgid ""
+"Complete the approved applications (owner, allowed uses, data level), review "
+"them when due (a reassessment ticket is opened for the owner), and check the "
+"installed software that is refused or missing from the register. Nothing is "
+"uninstalled or changed automatically."
+msgstr ""
+"Uzupełnij zatwierdzone aplikacje (właściciel, dozwolone zastosowania, poziom "
+"danych), przeglądaj je w terminie (dla właściciela otwierane jest zgłoszenie "
+"ponownej oceny) i sprawdź zainstalowane oprogramowanie odrzucone lub "
+"nieobecne w rejestrze. Nic nie jest automatycznie odinstalowywane ani "
+"zmieniane."
+
+msgid "Departments or teams that use it, for example: Sales, Human resources."
+msgstr ""
+"Działy lub zespoły, które z niej korzystają, na przykład: Sprzedaż, Kadry."
+
+msgid "End of use"
+msgstr "Koniec użytkowania"
+
+msgid "Exceptions accepted for this application, from the waiver register."
+msgstr "Wyjątki zaakceptowane dla tej aplikacji, z rejestru odstępstw."
+
+msgid ""
+"For example: sharing files with customers and partners, team chat. Shown to "
+"users."
+msgstr ""
+"Na przykład: udostępnianie plików klientom i partnerom, czat zespołowy. "
+"Widoczne dla użytkowników."
+
+msgid "High: confidential data allowed"
+msgstr "Wysoki: dozwolone dane poufne"
+
+msgid "Hosting"
+msgstr "Hosting"
+
+msgid "ISO/IEC 27001, control A.5.23"
+msgstr "ISO/IEC 27001, zabezpieczenie A.5.23"
+
+msgid "Installed software not in the register"
+msgstr "Zainstalowane oprogramowanie spoza rejestru"
+
+msgid "Installed software that is refused or not yet approved"
+msgstr "Zainstalowane oprogramowanie odrzucone lub jeszcze niezatwierdzone"
+
+msgid "Leave empty while the application is in use."
+msgstr "Pozostaw puste, dopóki aplikacja jest używana."
+
+msgid ""
+"Lists the applications and online services that may be used, what for and "
+"with which data: approved, approved with restrictions, under evaluation or "
+"refused. Each decision is recorded in the \"Approved use\" tab of an "
+"appliance of GLPI, next to its secure development sheet. Users see the "
+"approved ones in their preferences, without any right on the plugin."
+msgstr ""
+"Wyświetla aplikacje i usługi online, z których można korzystać, do czego i z "
+"jakimi danymi: zatwierdzone, zatwierdzone z ograniczeniami, w ocenie lub "
+"odrzucone. Każda decyzja jest zapisywana na karcie „Dozwolone użycie” "
+"aplikacji GLPI, obok jej karty bezpiecznego rozwoju. Użytkownicy widzą "
+"zatwierdzone w swoich preferencjach, bez żadnych uprawnień do wtyczki."
+
+msgid "Low: public or internal data only"
+msgstr "Niski: tylko dane publiczne lub wewnętrzne"
+
+msgid "Medium: up to restricted data (customers, staff)"
+msgstr "Średni: do danych o ograniczonym dostępie (klienci, pracownicy)"
+
+msgid "Most sensitive data allowed"
+msgstr "Najbardziej wrażliwe dozwolone dane"
+
+msgid "No application has been published yet."
+msgstr "Nie opublikowano jeszcze żadnej aplikacji."
+
+msgid ""
+"No application in the register yet. Open an appliance of GLPI (Assets > "
+"Appliances) and fill in its \"Approved use\" tab."
+msgstr ""
+"Brak aplikacji w rejestrze. Otwórz aplikację w GLPI (Zasoby > Aplikacje) i "
+"wypełnij jej kartę „Dozwolone użycie”."
+
+msgid "No decision has been recorded yet for the use of this application."
+msgstr "Nie zapisano jeszcze żadnej decyzji dotyczącej użycia tej aplikacji."
+
+msgid "No periodic review"
+msgstr "Brak przeglądu okresowego"
+
+msgid "None found"
+msgstr "Nie znaleziono"
+
+msgid "On premises (our own servers)"
+msgstr "Lokalnie (własne serwery)"
+
+msgid "Online (cloud service, SaaS)"
+msgstr "Online (usługa w chmurze, SaaS)"
+
+msgid ""
+"Only for \"Approved with restrictions\": what is not allowed, for example no "
+"customer personal data, links limited to 30 days. Shown to users."
+msgstr ""
+"Tylko dla „Zatwierdzona z ograniczeniami”: czego nie wolno, na przykład "
+"żadnych danych osobowych klientów, linki ograniczone do 30 dni. Widoczne dla "
+"użytkowników."
+
+msgid "Open the application"
+msgstr "Otwórz aplikację"
+
+msgid ""
+"Opens a reassessment ticket for each approved application whose review is due"
+msgstr ""
+"Otwiera zgłoszenie ponownej oceny dla każdej zatwierdzonej aplikacji, której "
+"termin przeglądu minął"
+
+msgid "Owner, allowed uses or data level missing"
+msgstr "Brak właściciela, dozwolonych zastosowań lub poziomu danych"
+
+msgid "Reassess the approved application %s"
+msgstr "Ponownie oceń zatwierdzoną aplikację %s"
+
+msgid "Reassessment ticket #%d"
+msgstr "Zgłoszenie ponownej oceny nr %d"
+
+msgid ""
+"Receives the reassessment ticket. Empty: the technical owner of the "
+"application."
+msgstr ""
+"Otrzymuje zgłoszenie ponownej oceny. Puste: właściciel techniczny aplikacji."
+
+msgid "Refused: %d"
+msgstr "Odrzucone: %d"
+
+msgid "Register of approved applications and online services"
+msgstr "Rejestr zatwierdzonych aplikacji i usług online"
+
+msgid "Requires the right to read the software of GLPI."
+msgstr "Wymaga uprawnienia do odczytu oprogramowania w GLPI."
+
+msgid "Restrictions"
+msgstr "Ograniczenia"
+
+msgid "Restrictions not described"
+msgstr "Nie opisano ograniczeń"
+
+msgid "Review done today"
+msgstr "Przegląd wykonany dzisiaj"
+
+msgid "Review due soon"
+msgstr "Zbliża się termin przeglądu"
+
+msgid "Review every (months)"
+msgstr "Przegląd co (miesiące)"
+
+msgid "Review up to date"
+msgstr "Przegląd aktualny"
+
+msgid "Reviews overdue"
+msgstr "Zaległe przeglądy"
+
+msgid ""
+"Same scale as the confidentiality of the C/I/D classification of the plugin."
+msgstr "Ta sama skala co poufność w klasyfikacji C/I/D wtyczki."
+
+msgid ""
+"Say whether this application or online service may be used, for what and "
+"with which data. Approved applications are listed for every user in their "
+"preferences (\"Authorised applications\" tab)."
+msgstr ""
+"Określ, czy z tej aplikacji lub usługi online można korzystać, do czego i z "
+"jakimi danymi. Zatwierdzone aplikacje są wyświetlane każdemu użytkownikowi w "
+"jego preferencjach (karta „Dozwolone aplikacje”)."
+
+msgid "Software category"
+msgstr "Kategoria oprogramowania"
+
+msgid ""
+"Software found by the GLPI inventory, matched with the register through the "
+"linked software or the name of the application. Nothing is uninstalled or "
+"changed: open a ticket if action is needed."
+msgstr ""
+"Oprogramowanie znalezione przez inwentarz GLPI, porównane z rejestrem przez "
+"powiązane oprogramowanie lub nazwę aplikacji. Nic nie jest odinstalowywane "
+"ani zmieniane: otwórz zgłoszenie, jeśli trzeba działać."
+
+msgid ""
+"Software of the GLPI inventory that corresponds to this application: used to "
+"find where it is installed."
+msgstr ""
+"Oprogramowanie z inwentarza GLPI odpowiadające tej aplikacji: służy do "
+"znalezienia jej instalacji."
+
+msgid "Start of use"
+msgstr "Początek użytkowania"
+
+msgid ""
+"Supplier of GLPI (Management > Suppliers): its overall risk is assessed in "
+"the supplier risk register."
+msgstr ""
+"Dostawca w GLPI (Zarządzanie > Dostawcy): jego ogólne ryzyko jest oceniane w "
+"rejestrze ryzyk dostawców."
+
+msgid "The approved use sheet could not be saved."
+msgstr "Nie udało się zapisać karty dozwolonego użycia."
+
+msgid ""
+"The confidentiality of this application (%s) is higher than the allowed data "
+"level"
+msgstr "Poufność tej aplikacji (%s) przekracza dozwolony poziom danych"
+
+msgid "The periodic review of the application \"%1$s\" was due on %2$s."
+msgstr "Przegląd okresowy aplikacji „%1$s” przypadał na %2$s."
+
+msgid "To complete: %d"
+msgstr "Do uzupełnienia: %d"
+
+msgid "Under evaluation"
+msgstr "W ocenie"
+
+msgid ""
+"Under evaluation while the security team studies it; refused applications "
+"are shown to users as not to be used."
+msgstr ""
+"W ocenie, dopóki zespół bezpieczeństwa ją analizuje; odrzucone aplikacje są "
+"pokazywane użytkownikom jako niedozwolone."
+
+msgid "Use ended"
+msgstr "Użytkowanie zakończone"
+
+msgid "User departments"
+msgstr "Działy użytkowników"
+
+msgid "Waivers granted"
+msgstr "Przyznane odstępstwa"
+
+msgid "Waivers granted:"
+msgstr "Przyznane odstępstwa:"
+
+msgid "What is allowed"
+msgstr "Co jest dozwolone"
+
+msgid "matched by name"
+msgstr "dopasowano po nazwie"
+
+msgid "Approved application"
+msgid_plural "Approved applications"
+msgstr[0] "Zatwierdzona aplikacja"
+msgstr[1] "Zatwierdzone aplikacje"
+msgstr[2] "Zatwierdzone aplikacje"
+
+msgid "%d waiver"
+msgid_plural "%d waivers"
+msgstr[0] "%d odstępstwo"
+msgstr[1] "%d odstępstwa"
+msgstr[2] "%d odstępstw"
+
+msgid "Selection"
+msgstr "Wybór"
+
+msgid "%1$d of %2$d"
+msgstr "%1$d z %2$d"
+
+msgid ""
+"A trajectory is drawn for risks whose treatment is to reduce or to transfer, "
+"which have a treatment plan."
+msgstr ""
+"Trajektoria jest rysowana dla ryzyk do ograniczenia lub przeniesienia, które "
+"mają plan postępowania."
+
+msgid "Actions completed"
+msgstr "Zakończone działania"
+
+msgid "Actions due"
+msgstr "Zaplanowane działania"
+
+msgid ""
+"Actions were completed before their due date: the risk is lower than planned "
+"today."
+msgstr ""
+"Działania zakończono przed terminem: ryzyko jest dziś niższe niż planowano."
+
+msgid "Actual (actions completed)"
+msgstr "Rzeczywisty (zakończone działania)"
+
+msgid ""
+"Add the actions of the treatment plan, with a due date, on the risk form."
+msgstr "Dodaj działania planu postępowania, z terminem, w formularzu ryzyka."
+
+msgid "Ahead of schedule"
+msgstr "Przed terminem"
+
+msgid "Behind schedule"
+msgstr "Opóźniony"
+
+msgid ""
+"Every action of the treatment plan is completed: reassess the risk to "
+"confirm the residual level."
+msgstr ""
+"Wszystkie działania planu postępowania są zakończone: oceń ryzyko ponownie, "
+"aby potwierdzić poziom rezydualny."
+
+msgid "Expected level afterwards"
+msgstr "Oczekiwany poziom potem"
+
+msgid ""
+"Fill in the residual probability and impact (the level aimed for after "
+"treatment) on the risk form."
+msgstr ""
+"Uzupełnij w formularzu ryzyka prawdopodobieństwo i wpływ rezydualne (poziom "
+"docelowy po postępowaniu)."
+
+msgid ""
+"It shows how the level of this risk should go down as the treatment plan is "
+"carried out, and compares it with what has actually been done. The curve "
+"starts from the current level and reaches the target level once every action "
+"is completed; each action counts for an equal share. Useful to show an "
+"auditor that the treatment plan is followed (ISO/IEC 27001, clauses 6.1.3 "
+"and 8.3)."
+msgstr ""
+"Pokazuje, jak poziom tego ryzyka powinien spadać w miarę realizacji planu "
+"postępowania, i porównuje go z tym, co faktycznie zrobiono. Krzywa zaczyna "
+"się od bieżącego poziomu i osiąga poziom docelowy, gdy wszystkie działania "
+"są zakończone; każde działanie liczy się w równej części. Przydatne, aby "
+"pokazać audytorowi, że plan postępowania jest realizowany (ISO/IEC 27001, "
+"punkty 6.1.3 i 8.3)."
+
+msgid "Last due date of the plan"
+msgstr "Ostatni termin planu"
+
+msgid "Milestones of the plan"
+msgstr "Kamienie milowe planu"
+
+msgid "No reduction planned"
+msgstr "Brak planowanego obniżenia"
+
+msgid "No risk is being reduced or transferred yet."
+msgstr "Żadne ryzyko nie jest jeszcze ograniczane ani przenoszone."
+
+msgid "No treatment action"
+msgstr "Brak działań postępowania"
+
+msgid "On schedule"
+msgstr "Zgodnie z planem"
+
+msgid "Plan completed"
+msgstr "Plan zakończony"
+
+msgid "Planned (treatment plan due dates)"
+msgstr "Planowany (terminy planu postępowania)"
+
+msgid "Progress of the plan"
+msgstr "Postęp planu"
+
+msgid "Projected trajectory"
+msgstr "Prognozowana trajektoria"
+
+msgid "Projected trajectory of the register"
+msgstr "Prognozowana trajektoria rejestru"
+
+msgid "Risk score (probability x impact)"
+msgstr "Wynik ryzyka (prawdopodobieństwo x wpływ)"
+
+msgid ""
+"Some actions are past their due date: the risk is higher than planned today."
+msgstr ""
+"Niektóre działania przekroczyły termin: ryzyko jest dziś wyższe niż "
+"planowano."
+
+msgid "Target level after treatment"
+msgstr "Poziom docelowy po postępowaniu"
+
+msgid "Target level missing"
+msgstr "Brak poziomu docelowego"
+
+msgid "The actions due so far are completed."
+msgstr "Działania, których termin już minął, są zakończone."
+
+msgid ""
+"The expected level between two milestones is an estimate from the score; the "
+"level actually reached is the one you reassess on the risk form."
+msgstr ""
+"Oczekiwany poziom między dwoma kamieniami milowymi jest szacunkiem na "
+"podstawie wyniku; faktycznie osiągnięty poziom to ten, który ponownie "
+"oceniasz w formularzu ryzyka."
+
+msgid ""
+"The target level is not lower than the current level: there is no trajectory "
+"to draw."
+msgstr ""
+"Poziom docelowy nie jest niższy od bieżącego: nie ma trajektorii do "
+"narysowania."
+
+msgid "To come"
+msgstr "Nadchodzące"
+
+msgid "Today"
+msgstr "Dziś"
+
+msgid ""
+"Total score of the risks being reduced or transferred (not closed): planned "
+"according to the due dates of their treatment plans, and actual according to "
+"the actions completed. Open a risk to see its own trajectory."
+msgstr ""
+"Łączny wynik ryzyk do ograniczenia lub przeniesienia (niezamkniętych): "
+"planowany według terminów ich planów postępowania i rzeczywisty według "
+"zakończonych działań. Otwórz ryzyko, aby zobaczyć jego własną trajektorię."
+
+msgid "Trajectory incomplete"
+msgstr "Niepełna trajektoria"
+
+msgid "Trajectory of the whole register"
+msgstr "Trajektoria całego rejestru"
+
+msgid "score %s"
+msgstr "wynik %s"
+
+msgid ""
+"%d action has no due date: the planned curve does not reach the target "
+"level. Give it a due date."
+msgid_plural ""
+"%d actions have no due date: the planned curve does not reach the target "
+"level. Give them a due date."
+msgstr[0] ""
+"%d działanie nie ma terminu: planowana krzywa nie osiąga poziomu docelowego. "
+"Nadaj mu termin."
+msgstr[1] ""
+"%d działania nie mają terminu: planowana krzywa nie osiąga poziomu "
+"docelowego. Nadaj im termin."
+msgstr[2] ""
+"%d działań nie ma terminu: planowana krzywa nie osiąga poziomu docelowego. "
+"Nadaj im termin."
+
+msgid "%d more items in My GRC space."
+msgstr "Kolejne elementy (%d) w Moja przestrzeń GRC."
+
+msgid "(%s)"
+msgstr "(%s)"
+
+msgid "Choose how often you want to receive your summary."
+msgstr "Wybierz, jak często chcesz otrzymywać podsumowanie."
+
+msgid "Delay"
+msgstr "Opóźnienie"
+
+msgid "GRC summary by email"
+msgstr "Podsumowanie GRC e-mailem"
+
+msgid "How to change the frequency"
+msgstr "Jak zmienić częstotliwość"
+
+msgid ""
+"Instead of waiting for separate notifications, you can receive one email "
+"that lists everything shown on this page. It is only sent when something is "
+"waiting for you, it only lists what you are allowed to see, and it is "
+"written in your language."
+msgstr ""
+"Zamiast osobnych powiadomień możesz otrzymywać jeden e-mail z wszystkim, co "
+"pokazuje ta strona. Jest wysyłany tylko wtedy, gdy coś na Ciebie czeka, "
+"pokazuje tylko to, co możesz zobaczyć, i jest napisany w Twoim języku."
+
+msgid "Items not listed"
+msgstr "Elementy niewymienione"
+
+msgid "Last summary sent: %s"
+msgstr "Ostatnie wysłane podsumowanie: %s"
+
+msgid "My GRC space page URL"
+msgstr "Adres strony Moja przestrzeń GRC"
+
+msgid "No summary"
+msgstr "Bez podsumowania"
+
+msgid "No summary (only the usual notifications, as they happen)"
+msgstr "Bez podsumowania (tylko zwykłe powiadomienia, na bieżąco)"
+
+msgid "No summary has been sent to you yet."
+msgstr "Nie wysłano Ci jeszcze żadnego podsumowania."
+
+msgid "Nothing is waiting for you: no email has been sent."
+msgstr "Nic na Ciebie nie czeka: nie wysłano żadnego e-maila."
+
+msgid "Overdue items"
+msgstr "Elementy po terminie"
+
+msgid "Person to whom the summary is addressed"
+msgstr "Osoba, do której jest skierowane podsumowanie"
+
+msgid "Receive my summary"
+msgstr "Otrzymuj moje podsumowanie"
+
+msgid "Send me my summary now"
+msgstr "Wyślij mi teraz podsumowanie"
+
+msgid ""
+"Summaries are not sent on this GLPI yet: ask your GLPI administrator to "
+"enable the \"personaldigest\" automatic task and email notifications. Your "
+"choice is kept in the meantime."
+msgstr ""
+"Podsumowania nie są jeszcze wysyłane w tym GLPI: poproś administratora GLPI "
+"o włączenie akcji automatycznej „personaldigest” i powiadomień e-mail. Twój "
+"wybór zostanie zachowany do tego czasu."
+
+msgid "Summary by email"
+msgstr "Podsumowanie e-mailem"
+
+msgid "Summary by email of what is waiting for each person"
+msgstr "Podsumowanie e-mailem tego, co czeka na każdą osobę"
+
+msgid ""
+"This summary lists what is waiting for you in GRC Manager, the most urgent "
+"first. It only shows what you are allowed to see. Nothing is changed "
+"automatically."
+msgstr ""
+"To podsumowanie zawiera to, co czeka na Ciebie w GRC Manager, od "
+"najpilniejszych. Pokazuje tylko to, co możesz zobaczyć. Nic nie jest "
+"zmieniane automatycznie."
+
+msgid "To receive it every day, every week or not at all, open My GRC space."
+msgstr ""
+"Aby otrzymywać je codziennie, co tydzień lub wcale, otwórz Moja przestrzeń "
+"GRC."
+
+msgid "What this summary contains"
+msgstr "Co zawiera to podsumowanie"
+
+msgid "Your GRC summary"
+msgstr "Twoje podsumowanie GRC"
+
+msgid "Your choice has been saved."
+msgstr "Twój wybór został zapisany."
+
+msgid "Your daily GRC summary"
+msgstr "Twoje dzienne podsumowanie GRC"
+
+msgid ""
+"Your summary could not be sent: check that you have an email address, or ask "
+"your GLPI administrator."
+msgstr ""
+"Nie udało się wysłać podsumowania: sprawdź, czy masz adres e-mail, lub "
+"zapytaj administratora GLPI."
+
+msgid "Your summary has been sent to your email address."
+msgstr "Podsumowanie zostało wysłane na Twój adres e-mail."
+
+msgid "Your weekly GRC summary"
+msgstr "Twoje tygodniowe podsumowanie GRC"
+
+msgid "%d item is waiting for you"
+msgid_plural "%d items are waiting for you"
+msgstr[0] "%d element czeka na Ciebie"
+msgstr[1] "%d elementy czekają na Ciebie"
+msgstr[2] "%d elementów czeka na Ciebie"
+
+msgid "version %s"
+msgstr "wersja %s"
