@@ -1,0 +1,21 @@
+### Map the information system by layer, from the switch to the business process
+
+The map links what GLPI and GRC already know, without drawing anything by hand:
+
+1. Open **Risk analyses > IT system map**.
+2. With nothing chosen, the page offers two starting points: your **business processes** ("What
+   does this process depend on?") and your **network equipment** ("What does the failure of this
+   equipment affect?"). Click one of them, or choose another starting item (computer, software,
+   appliance, database instance) and the question, then **Show the map**.
+3. Upwards, the page first lists the **business processes affected, most urgent first** (RTO of
+   the business impact analysis), then the drawing: one band per layer, processes at the top and
+   the network at the bottom. Each box links to the item; the list by layer below the drawing
+   repeats every item.
+4. A link is missing? Complete it where it is described: cable between two ports (item form,
+   **Network ports** tab), virtual machine (same UUID as the computer), installed software, item of
+   an appliance, dependency of a process (**Dependencies** tab of the process) or GLPI impact
+   analysis.
+
+Two connected switches do not spread the impact (the plugin does not know about redundancy):
+declare the dependency in the GLPI impact analysis if it exists. An item you cannot see (other
+entity, missing right) is counted without being named.

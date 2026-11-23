@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "IT system map"
+msgstr "Cartographie du SI"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, servers, workstations and virtual machines, installed software and applications, then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Montre le système d'information couche par couche, du réseau aux processus métier : matériels réseau et câbles, serveurs, postes et machines virtuelles, logiciels installés et applications, puis les processus du BIA. Choisissez un élément pour voir ce que sa panne touche, jusqu'aux processus et à leur RTO, ou ce dont un processus dépend, jusqu'au réseau."
+
+msgid "Nothing is drawn by hand: the map reads what GLPI and GRC already know (network connections, virtual machines, installed software, appliances, GLPI impact analysis, dependencies of the business processes). A missing link is completed in GLPI or on the process; two connected switches do not spread the impact, declare it in the GLPI impact analysis."
+msgstr "Rien n'est dessiné à la main : la carte lit ce que GLPI et GRC connaissent déjà (connexions réseau, machines virtuelles, logiciels installés, applications, analyse d'impact de GLPI, dépendances des processus métier). Un lien manquant se complète dans GLPI ou sur le processus ; deux switchs reliés ne propagent pas l'impact, déclarez-le dans l'analyse d'impact de GLPI."
+
+msgid "ISO/IEC 27001, controls A.5.9 and A.5.30"
+msgstr "ISO/IEC 27001, mesures A.5.9 et A.5.30"
+
+msgid "Servers, workstations and virtualisation"
+msgstr "Serveurs, postes et virtualisation"
+
+msgid "Choose the item to map"
+msgstr "Choisir l'élément à cartographier"
+
+msgid "Starting item"
+msgstr "Élément de départ"
+
+msgid "What does its failure affect?"
+msgstr "Que touche sa panne ?"
+
+msgid "What does it depend on?"
+msgstr "De quoi dépend-il ?"
+
+msgid "Show the map"
+msgstr "Afficher la carte"
+
+msgid "This item does not exist or you cannot see it."
+msgstr "Cet élément n'existe pas ou vous ne pouvez pas le voir."
+
+msgid "Items affected by a failure of:"
+msgstr "Éléments touchés par une panne de :"
+
+msgid "Items this one depends on:"
+msgstr "Éléments dont dépend :"
+
+msgid "The map is limited to %d items: start from a more precise item to see the rest."
+msgstr "La carte est limitée à %d éléments : partez d'un élément plus précis pour voir le reste."
+
+msgid "Business processes affected, most urgent first"
+msgstr "Processus métier touchés, du plus urgent au moins urgent"
+
+msgid "No business process depends on this item according to what GLPI and GRC know. Link the assets to the processes in the business impact analysis to see the business impact."
+msgstr "Aucun processus métier ne dépend de cet élément d'après ce que GLPI et GRC connaissent. Liez les actifs aux processus dans l'analyse d'impact sur l'activité (BIA) pour voir l'impact métier."
+
+msgid "Distance"
+msgstr "Distance"
+
+msgid "Map by layer"
+msgstr "Carte par couche"
+
+msgid "+ %d in the list"
+msgstr "+ %d dans la liste"
+
+msgid "Nothing in this layer."
+msgstr "Rien dans cette couche."
+
+msgid "What does this process depend on?"
+msgstr "De quoi dépend ce processus ?"
+
+msgid "No business process yet: describe them in the business impact analysis."
+msgstr "Aucun processus métier pour l'instant : décrivez-les dans l'analyse d'impact sur l'activité (BIA)."
+
+msgid "What does the failure of this equipment affect?"
+msgstr "Que touche la panne de cet équipement ?"
+
+msgid "No network equipment in the inventory."
+msgstr "Aucun matériel réseau dans l'inventaire."
+
+msgid "%d linked item"
+msgid_plural "%d linked items"
+msgstr[0] "%d élément lié"
+msgstr[1] "%d éléments liés"
+
+msgid "%d step"
+msgid_plural "%d steps"
+msgstr[0] "%d étape"
+msgstr[1] "%d étapes"
