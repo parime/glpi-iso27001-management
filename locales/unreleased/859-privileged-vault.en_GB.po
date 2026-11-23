@@ -92,6 +92,9 @@ msgstr "Expected change delay (months)"
 msgid "Expected change delay: %d months"
 msgstr "Expected change delay: %d months"
 
+msgid "GLPI reads the members of your Bitwarden organization from the privileged accounts page, on request: email address, role, status, two-step login and accessible collections. Never an item, a password or a note."
+msgstr "GLPI reads the members of your Bitwarden organization from the privileged accounts page, on request: email address, role, status, two-step login and accessible collections. Never an item, a password or a note."
+
 msgid "How often must shared passwords be changed?"
 msgstr "How often must shared passwords be changed?"
 
@@ -215,9 +218,6 @@ msgstr "Read now from Bitwarden"
 
 msgid "Read the members from Bitwarden"
 msgstr "Read the members from Bitwarden"
-
-msgid "Reads the members of your Bitwarden organization when you click \"Read now\": email address, role, status, two-step login and accessible collections. Never an item, a password or a note."
-msgstr "Reads the members of your Bitwarden organization when you click \"Read now\": email address, role, status, two-step login and accessible collections. Never an item, a password or a note."
 
 msgid "Self-hosted Bitwarden server"
 msgstr "Self-hosted Bitwarden server"
