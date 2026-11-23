@@ -117,9 +117,9 @@ final class BitwardenConnectorBlock extends ConfigBlock
         );
         if (!$saved['saved']) {
             Session::addMessageAfterRedirect(htmlescape(__(
-                'Not saved: the client ID must look like organization.<identifier>, and the address of a '
-                    . 'self-hosted server must start with https:// (or http:// when internal addresses are '
-                    . 'allowed), without user name, password or parameters.',
+                'Not saved: the client ID must start with organization. followed by an identifier, and the '
+                    . 'address of a self-hosted server must start with https:// (or http:// when internal '
+                    . 'addresses are allowed), without user name, password or parameters.',
                 'grcmanager'
             )), false, ERROR);
 

@@ -52,7 +52,7 @@
       <div class="col-md-8">
         <label class="form-label" for="grc-bitwarden-url">{{ __('Address of the self-hosted server', 'grcmanager') }}</label>
         <input type="url" class="form-control" id="grc-bitwarden-url" name="bitwarden_url" value="{{ bw.url }}" maxlength="255" placeholder="https://vault.example.test" autocomplete="off" {{ disabled }}>
-        <div class="form-hint">{{ __('Only for a self-hosted server: GLPI calls <address>/identity and <address>/api.', 'grcmanager') }}</div>
+        <div class="form-hint">{{ __('Only for a self-hosted server: GLPI calls its /identity and /api paths.', 'grcmanager') }}</div>
       </div>
       <div class="col-md-6">
         <label class="form-label" for="grc-bitwarden-client">{{ __('Client ID', 'grcmanager') }}</label>

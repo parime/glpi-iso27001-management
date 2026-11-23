@@ -79,7 +79,7 @@
                      <td class="small">{{ row.collections is empty ? '-' : row.collections|join(', ') }}</td>
                      <td>{{ row.date_label ?: '-' }}</td>
                      <td class="small">
-                        {% if row.holders is empty %}<span class="text-muted">{{ __('Not known', 'grcmanager') }}</span>{% else %}{{ _n('%d person', '%d persons', row.holders|length, 'grcmanager')|format(row.holders|length) }}{% endif %}
+                        {% if row.holders is empty %}<span class="text-muted">{{ __('Not known', 'grcmanager') }}</span>{% else %}{{ _n('%d person', '%d people', row.holders|length, 'grcmanager')|format(row.holders|length) }}{% endif %}
                         {% for holder in row.departed %}<div><span class="badge bg-danger-subtle text-danger-emphasis"><i class="ti ti-user-x me-1"></i>{{ holder }}</span></div>{% endfor %}
                      </td>
                      <td>{{ vault.gaps(row.gaps, gap_infos) }}</td>
