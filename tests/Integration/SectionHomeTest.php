@@ -139,7 +139,11 @@ final class SectionHomeTest extends GrcmanagerIntegrationTestCase
         $this->assertNotSame('', $register['description'], 'Sous-titre du registre.');
         $this->assertNotSame('', $reported['description'], 'Sous-titre des signalements.');
         $this->assertNotSame($register['title'], $reported['title']);
-        $this->assertStringNotContainsString($register['title'], $reported['title'], 'Titres qui ne se recoupent plus.');
+        $this->assertStringNotContainsString(
+            $register['title'],
+            $reported['title'],
+            'Titres qui ne se recoupent plus.'
+        );
 
         // Les autres rubriques gardent leurs cartes sans sous-titre imposé.
         foreach ($cards as $card) {
