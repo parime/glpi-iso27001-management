@@ -547,7 +547,7 @@ class ScannerImport extends CommonGLPI
             static fn (array $a, array $b): int => [$b['severity'], $a['host']] <=> [$a['severity'], $b['host']]
         );
 
-        return array_slice(array_values($hosts), 0, self::MAX_ROWS);
+        return array_slice($hosts, 0, self::MAX_ROWS);
     }
 
     /**
