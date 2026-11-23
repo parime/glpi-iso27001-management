@@ -327,6 +327,11 @@ function plugin_init_grcmanager(): void
         'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
     ]);
 
+    // Issue #1082 : onglet « Cartographie du SI » sur les ordinateurs, matériels réseau et processus.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Cartography::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Cartography::tabItemtypes(),
+    ]);
+
     // Issue #377 : onglet « Processus métier » sur les éléments dont un processus peut dépendre
     // (applications et instances de bases de données du cœur, actifs, fournisseurs), et onglets
     // « BIA » et « Dépendances » du processus.

@@ -1,0 +1,73 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1082, lot 2 : carte d'un élément en PDF, pour le PCA/PRA et la documentation d'audit (A.5.9,
+   A.5.30). Les éléments que la personne ne peut pas voir restent comptés sans être nommés. #}
+{% include '@grcmanager/pdf/_pdf_style.html.twig' %}
+
+<h2>{{ __('Summary', 'grcmanager') }}</h2>
+<table class="grcmanager-pdf-summary">
+  <tr><td>{{ map.direction == 'up' ? __('Items affected by a failure of:', 'grcmanager') : __('Items this one depends on:', 'grcmanager') }}</td><td>{{ map.start.label }}</td></tr>
+  <tr><td>{{ __('Linked items', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ map.count }}</td></tr>
+  {% for l in map.layers|filter(l => l.shown) %}
+    <tr><td>{{ l.label }}</td><td class="grcmanager-pdf-summary-number">{{ l.nodes|length }}</td></tr>
+  {% endfor %}
+</table>
+{% if map.truncated %}
+  <p>{{ __('The map is limited to %d items: start from a more precise item to see the rest.', 'grcmanager')|format(map.max_nodes) }}</p>
+{% endif %}
+
+{% if map.direction == 'up' and 4 in map.shown %}
+  <h2>{{ __('Business processes affected, most urgent first', 'grcmanager') }}</h2>
+  {% if map.processes is empty %}
+    <p>{{ __('No business process depends on this item according to what GLPI and GRC know. Link the assets to the processes in the business impact analysis to see the business impact.', 'grcmanager') }}</p>
+  {% else %}
+    <table>
+      <thead><tr><th>{{ __('Business process', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Distance', 'grcmanager') }}</th></tr></thead>
+      <tbody>
+      {% for p in map.processes %}
+        <tr><td>{{ p.name }}</td><td>{{ p.rto_label ?: __('Not set', 'grcmanager') }}</td><td>{{ p.depth }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endif %}
+
+{% for l in map.layers|filter(l => l.shown) %}
+  <h2>{{ l.label }}</h2>
+  {% if l.nodes is empty %}
+    <p>{{ __('Nothing in this layer.', 'grcmanager') }}</p>
+  {% else %}
+    <table>
+      <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Distance', 'grcmanager') }}</th><th>RTO</th></tr></thead>
+      <tbody>
+      {% for n in l.nodes %}
+        <tr><td>{{ n.name }}</td><td>{{ n.type }}</td><td>{{ n.depth }}</td><td>{{ n.rto_label }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endfor %}
+
+{% if map.flows and map.flow_list is not empty %}
+  <h2>{{ __('Application flows', 'grcmanager') }}</h2>
+  <table>
+    <thead><tr><th>{{ __('Source', 'grcmanager') }}</th><th>{{ __('Destination', 'grcmanager') }}</th><th>{{ __('Protocol', 'grcmanager') }}</th><th>{{ __('Ports', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+    {% for f in map.flow_list %}
+      <tr><td>{{ f.from.name }}</td><td>{{ f.to.name }}</td><td>{{ f.protocol }}</td><td>{{ f.ports }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
