@@ -3,6 +3,7 @@
 # l'analyse d'impact : refusee sans droit et sans le droit des registres sensibles. Un element hors
 # des entites ou sans droit de lecture n'est jamais nomme (switch sans le droit du reseau, PC et
 # processus de B pour un profil limite a A).
+# Lot 2 : exports CSV et PDF, onglet des fiches, calque des flux (flux du PC de A vers le PC de B).
 # Page : front/cartography.php.
 # Fragment charge par tests/security/access-matrix.sh (memes fonctions et variables).
 readable front/cartography.php
@@ -10,11 +11,16 @@ map() { # type, id, sens
   body "$P/cartography.php?itemtype=$1&items_id=$2&direction=$3"
 }
 PROCESS_TYPE=GlpiPlugin%5CGrcmanager%5CBusinessProcess
+map_tab() { # type, id
+  tab "$1" 'GlpiPlugin%5CGrcmanager%5CCartography$1' "$2"
+}
 case $ROLE in
   none|general)
     expect "front/cartography.php : sans le droit des registres sensibles" 403 "$(code "$P/cartography.php")"
     expect "cartographie d'un processus : sans le droit des registres sensibles" 403 \
       "$(code "$P/cartography.php?itemtype=$PROCESS_TYPE&items_id=$(id process_A)&direction=down")"
+    expect "export CSV de la carte : sans le droit des registres sensibles" 403       "$(code "$P/cartography.php?itemtype=Computer&items_id=$(id computer_A)&direction=up&export=csv")"
+    contains "onglet Cartographie du PC de A : rien sans le droit" "Processus securite A" non       "$(map_tab Computer "$(id computer_A)")"
     ;;
   reader|limited)
     up=$(map Computer "$(id computer_A)" up)
@@ -27,6 +33,12 @@ case $ROLE in
     contains "cartographie depuis le PC de B : rien de B" "Processus securite B" non \
       "$(map Computer "$(id computer_B)" up)"
     contains "cartographie : type hors liste blanche" "Processus securite" non "$(map User 2 up)"
+    csv=$(body "$P/cartography.php?itemtype=$PROCESS_TYPE&items_id=$(id process_A)&direction=down&export=csv")
+    contains "export CSV du processus de A : PC de A" "PC securite A" oui "$csv"
+    contains "export CSV du processus de A : PC de B jamais nomme" "PC securite B" non "$csv"
+    expect "export PDF du processus de A" 200       "$(code "$P/cartography.php?itemtype=$PROCESS_TYPE&items_id=$(id process_A)&direction=down&export=pdf")"
+    contains "onglet Cartographie du PC de A" "Processus securite A" oui "$(map_tab Computer "$(id computer_A)")"
+    contains "calque des flux depuis le PC de A : PC de B jamais nomme" "PC securite B" non       "$(map Computer "$(id computer_A)" "down&flows=1")"
     ;;
   admin)
     up=$(map NetworkEquipment "$(id switch_A)" up)
@@ -35,6 +47,10 @@ case $ROLE in
     down=$(map "$PROCESS_TYPE" "$(id process_A)" down)
     contains "cartographie du processus de A : processus amont de B" "Processus securite B" oui "$down"
     contains "cartographie du processus de A : jusqu'au switch de A" "Switch securite A" oui "$down"
+    contains "calque des flux : le PC de A depend du PC de B" "PC securite B" oui       "$(map Computer "$(id computer_A)" "down&flows=1")"
+    contains "sans le calque des flux : rien du PC de B" "PC securite B" non       "$(map Computer "$(id computer_A)" down)"
+    contains "filtre des couches : processus masques" "Processus securite A" non       "$(map Computer "$(id computer_A)" "up&layers%5B%5D=1&layers%5B%5D=2")"
+    contains "onglet Cartographie du processus de A" "Switch securite A" oui       "$(map_tab "$PROCESS_TYPE" "$(id process_A)")"
     contains "cartographie : points de depart, processus" "Processus securite A" oui "$(body "$P/cartography.php")"
     contains "analyses de risques : onglet de la cartographie" "front/cartography.php" oui \
       "$(body "$P/impactanalysis.php")"

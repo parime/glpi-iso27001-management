@@ -23,3 +23,11 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'networkports_id_1' => $switchPort, 'networkports_id_2' => $computerPort,
     ]);
 }
+// Issue #1082, lot 2 : flux applicatif actif du PC de A vers le PC de B (le PC de A en dépend), lu par
+// le calque des flux de la cartographie ; un profil limité à A ne doit jamais voir le PC de B nommé.
+$insertOnce('glpi_plugin_grcmanager_networkflows', [
+    'name' => 'Flux cartographie securite', 'flow_type' => 'internal',
+    'source_itemtype' => 'Computer', 'source_items_id' => $ids['computer_A'],
+    'destination_itemtype' => 'Computer', 'destination_items_id' => $ids['computer_B'],
+    'protocol' => 'tcp', 'ports' => '5432', 'is_active' => 1,
+]);
