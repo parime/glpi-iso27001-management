@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use Computer;
 use GlpiPlugin\Grcmanager\AuditLog;
 use GlpiPlugin\Grcmanager\Compat\Http;
@@ -81,7 +82,7 @@ final class ZabbixConnectorBlock extends ConfigBlock
                 'scopes'        => ZabbixMonitoring::scopeLabels(),
                 'last_read'     => $lastRead['date'] !== '' ? (string) Html::convDateTime($lastRead['date']) : '',
                 'last_error'    => $lastRead['error'] !== '' ? ZabbixMonitoring::errorMessage($lastRead['error']) : '',
-                'page_url'      => ZabbixMonitoring::getSearchURL(),
+                'page_path'     => AssetSecurity::menuPath(ZabbixMonitoring::getTypeName(2)),
             ],
         ];
     }
