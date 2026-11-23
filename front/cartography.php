@@ -18,7 +18,9 @@
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\BusinessProcess;
 use GlpiPlugin\Grcmanager\Cartography;
+use GlpiPlugin\Grcmanager\Pdf\PdfRenderer;
 use GlpiPlugin\Grcmanager\Services\Cartography\DependencyWalker;
+use GlpiPlugin\Grcmanager\Services\Cartography\Layers;
 
 // Issue #1082 : cartographie du SI par couches, du switch au processus métier.
 Session::checkRight(Cartography::RIGHTNAME, READ);
@@ -31,16 +33,50 @@ $direction = in_array($requested, [DependencyWalker::UP, DependencyWalker::DOWN]
     ? $requested
     : ($itemtype === BusinessProcess::class ? DependencyWalker::DOWN : DependencyWalker::UP);
 
+// Issue #1082, lot 2 : calque des flux (coché par défaut à la première ouverture) et couches affichées.
+$flows = $itemtype === '' || isset($_GET['flows']);
+$layers = array_values(array_intersect(
+    Layers::ALL,
+    array_map('intval', is_array($_GET['layers'] ?? null) ? $_GET['layers'] : [])
+));
+$layers = $layers === [] ? Layers::ALL : $layers;
+
 $map = null;
 $notFound = false;
 if ($itemtype !== '' && $itemsId > 0) {
     // Le type est borné par la liste blanche des points de départ avant toute instanciation.
     $item = in_array($itemtype, Cartography::startItemtypes(), true) ? getItemForItemtype($itemtype) : false;
     if ($item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()) {
-        $map = Cartography::map($item, $direction);
+        $map = Cartography::map($item, $direction, ['flows' => $flows, 'layers' => $layers]);
     } else {
         $notFound = true;
     }
+}
+
+// Issue #1082, lot 2 : export de la carte pour le PCA/PRA et la documentation d'audit.
+$export = (string) ($_GET['export'] ?? '');
+if ($map !== null && $export === 'pdf') {
+    $pdf = PdfRenderer::renderHtmlToPdf(Cartography::pdfHtml($map));
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="cartographie-' . date('Y-m-d') . '.pdf"');
+    header('Content-Length: ' . strlen($pdf));
+    echo $pdf;
+    exit;
+}
+if ($map !== null && $export === 'csv') {
+    header('Content-Type: text/csv; charset=UTF-8');
+    header('Content-Disposition: attachment; filename="cartographie-' . date('Y-m-d') . '.csv"');
+    $out = fopen('php://output', 'w');
+    fwrite($out, "\xEF\xBB\xBF");
+    foreach (Cartography::exportRows($map) as $line) {
+        // Une cellule commençant par = + - @ serait interprétée comme une formule par le tableur.
+        fputcsv($out, array_map(
+            static fn (string $cell): string => preg_match('/^[=+\-@\t\r]/', $cell) === 1 ? "'" . $cell : $cell,
+            $line
+        ), ';', '"', '');
+    }
+    fclose($out);
+    exit;
 }
 
 \GlpiPlugin\Grcmanager\Menu::header(Cartography::class, Cartography::getTypeName(), Cartography::getSearchURL());
@@ -59,6 +95,9 @@ TemplateRenderer::getInstance()->display('@grcmanager/cartography.html.twig', [
     'entry'        => $map === null && !$notFound ? Cartography::entryPoints() : null,
     'process_type' => BusinessProcess::class,
     'max_nodes'    => DependencyWalker::MAX_NODES,
+    'flows'        => $flows,
+    'layers'       => $layers,
+    'layer_labels' => Layers::labels(),
 ]);
 
 Html::footer();

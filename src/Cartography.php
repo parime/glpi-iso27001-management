@@ -22,6 +22,7 @@ namespace GlpiPlugin\Grcmanager;
 use CommonDBTM;
 use CommonGLPI;
 use DbUtils;
+use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Feature\CartographySourcesProvider;
 use GlpiPlugin\Grcmanager\Feature\FeatureRegistry;
 use GlpiPlugin\Grcmanager\Services\Cartography\DependencyWalker;
@@ -29,9 +30,11 @@ use GlpiPlugin\Grcmanager\Services\Cartography\EdgeSource;
 use GlpiPlugin\Grcmanager\Services\Cartography\LayeredLayout;
 use GlpiPlugin\Grcmanager\Services\Cartography\Layers;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\DockerSource;
+use GlpiPlugin\Grcmanager\Services\Cartography\Source\FlowSource;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\InventorySource;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\RelationSource;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
+use Html;
 use NetworkEquipment;
 use Session;
 
@@ -91,6 +94,45 @@ class Cartography extends CommonGLPI
     }
 
     /**
+     * Issue #1082, lot 2 : fiches qui portent l'onglet « Cartographie du SI ».
+     *
+     * @return list<string>
+     */
+    public static function tabItemtypes(): array
+    {
+        return ['Computer', 'NetworkEquipment', BusinessProcess::class];
+    }
+
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
+    {
+        if (
+            !$item instanceof CommonDBTM || $item->isNewItem() || !self::canView()
+            || !in_array($item::class, self::tabItemtypes(), true)
+        ) {
+            return '';
+        }
+
+        return self::createTabEntry(self::getTypeName());
+    }
+
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
+    {
+        // ajax/common.tabs.php sert le contenu sans passer par getTabNameForItem().
+        if (!$item instanceof CommonDBTM || !self::canView() || !$item->canViewItem()) {
+            return false;
+        }
+        // Une panne d'équipement se lit vers le haut, un processus vers le bas.
+        $direction = $item instanceof BusinessProcess ? DependencyWalker::DOWN : DependencyWalker::UP;
+        TemplateRenderer::getInstance()->display('@grcmanager/_cartography_map.html.twig', [
+            'map'       => self::map($item, $direction, ['flows' => true]),
+            'max_nodes' => DependencyWalker::MAX_NODES,
+            'in_tab'    => true,
+        ]);
+
+        return true;
+    }
+
+    /**
      * Sources de liens : celles du plugin, puis celles des fonctionnalités (point d'extension).
      *
      * @return list<class-string<EdgeSource>>
@@ -121,12 +163,21 @@ class Cartography extends CommonGLPI
     }
 
     /**
+     * @param array{flows?: bool, layers?: list<int>} $options flows : calque des flux inter-applicatifs ;
+     *     layers : couches affichées (toutes par défaut), le parcours les traverse toutes
      * @return array<string, mixed>
      */
-    public static function map(CommonDBTM $item, string $direction): array
+    public static function map(CommonDBTM $item, string $direction, array $options = []): array
     {
+        $flows = (bool) ($options['flows'] ?? false);
+        $shown = array_values(array_intersect(Layers::ALL, $options['layers'] ?? Layers::ALL));
+        $shown = $shown === [] ? Layers::ALL : $shown;
         $sources = self::sources();
+        if ($flows) {
+            $sources[] = FlowSource::class;
+        }
         $down = $direction === DependencyWalker::DOWN;
+        $direction = $down ? DependencyWalker::DOWN : DependencyWalker::UP;
         $next = static function (string $key) use ($sources, $down): array {
             [$itemtype, $itemsId] = ImpactGraph::split($key);
             $keys = [];
@@ -140,25 +191,52 @@ class Cartography extends CommonGLPI
             return array_values(array_unique($keys));
         };
         $start = ImpactGraph::key($item::class, (int) $item->getID());
-        $walk = DependencyWalker::walk($start, $down ? DependencyWalker::DOWN : DependencyWalker::UP, $next);
+        $walk = DependencyWalker::walk($start, $direction, $next);
+        $startTypes = self::startItemtypes();
+        $state = ['direction' => $direction, 'flows' => $flows, 'layers' => $shown];
 
         $nodes = [];
         $rto = [];
         foreach ($walk['nodes'] as $key => $depth) {
-            $nodes[$key] = self::describe($key) + ['depth' => $depth, 'start' => $key === $start];
-            if ($nodes[$key]['layer'] === Layers::BUSINESS && $key !== $start) {
-                $rto[$key] = $nodes[$key]['rto'];
+            [$itemtype, $itemsId] = ImpactGraph::split($key);
+            $node = self::describe($key) + ['depth' => $depth, 'start' => $key === $start];
+            // Issue #1082, lot 2 : repartir de cette case en un clic.
+            $recenter = $node['visible'] && $key !== $start && in_array($itemtype, $startTypes, true);
+            $node['recenter'] = $recenter ? self::mapUrl($itemtype, $itemsId, $state) : '';
+            $nodes[$key] = $node;
+            if ($node['layer'] === Layers::BUSINESS && $key !== $start) {
+                $rto[$key] = $node['rto'];
             }
         }
         $layers = DependencyWalker::byLayer(
             $walk['nodes'],
             static fn (string $key): int => $nodes[$key]['layer']
         );
-        $layout = LayeredLayout::place($layers);
+        $drawnLayers = [];
+        foreach (Layers::ALL as $layer) {
+            $drawnLayers[$layer] = in_array($layer, $shown, true) ? $layers[$layer] : [];
+        }
+        $layout = LayeredLayout::place($drawnLayers, $shown);
+
+        // Flux de la matrice entre deux éléments visibles : tracés en pointillés et listés.
+        $flowList = [];
+        $flowPairs = [];
+        if ($flows) {
+            foreach (FlowSource::between(array_keys($walk['nodes'])) as $flow) {
+                if ($nodes[$flow['supporter']]['visible'] && $nodes[$flow['dependent']]['visible']) {
+                    $flowPairs[$flow['supporter'] . '>' . $flow['dependent']] = true;
+                    $flowList[] = $flow + ['from' => $nodes[$flow['dependent']], 'to' => $nodes[$flow['supporter']]];
+                }
+            }
+        }
         $edges = [];
         foreach ($walk['edges'] as [$supporter, $dependent]) {
             if (isset($layout['nodes'][$supporter], $layout['nodes'][$dependent])) {
-                $edges[] = ['from' => $layout['nodes'][$supporter], 'to' => $layout['nodes'][$dependent]];
+                $edges[] = [
+                    'from' => $layout['nodes'][$supporter],
+                    'to'   => $layout['nodes'][$dependent],
+                    'flow' => isset($flowPairs[$supporter . '>' . $dependent]),
+                ];
             }
         }
         $processes = [];
@@ -173,6 +251,7 @@ class Cartography extends CommonGLPI
                 'layer' => $layer,
                 'label' => $labels[$layer],
                 'icon'  => $icons[$layer],
+                'shown' => in_array($layer, $shown, true),
                 'nodes' => array_map(static fn (string $key): array => $nodes[$key], $layers[$layer]),
             ];
         }
@@ -184,15 +263,21 @@ class Cartography extends CommonGLPI
         foreach ($layout['nodes'] as $key => $position) {
             $drawn[] = $nodes[$key] + $position;
         }
+        [$startType, $startId] = ImpactGraph::split($start);
 
         return [
             'start'       => $nodes[$start],
             'start_layer' => $labels[$nodes[$start]['layer']],
-            'direction'   => $down ? DependencyWalker::DOWN : DependencyWalker::UP,
+            'direction'   => $direction,
+            'flows'       => $flows,
+            'shown'       => $shown,
             'count'       => count($walk['nodes']) - 1,
             'truncated'   => $walk['truncated'],
+            'max_nodes'   => DependencyWalker::MAX_NODES,
             'processes'   => $processes,
             'layers'      => $byLayer,
+            'flow_list'   => $flowList,
+            'url'         => self::mapUrl($startType, $startId, $state),
             'drawing'     => [
                 'width'  => $layout['width'],
                 'height' => $layout['height'],
@@ -203,6 +288,75 @@ class Cartography extends CommonGLPI
                 'node_h' => LayeredLayout::NODE_HEIGHT,
             ],
         ];
+    }
+
+    /**
+     * Adresse de la carte d'un élément, avec le sens, le calque des flux et les couches affichées.
+     *
+     * @param array{direction: string, flows: bool, layers: list<int>} $state
+     */
+    public static function mapUrl(string $itemtype, int $itemsId, array $state): string
+    {
+        $query = ['itemtype' => $itemtype, 'items_id' => $itemsId, 'direction' => $state['direction']];
+        if ($state['flows']) {
+            $query['flows'] = 1;
+        }
+        if (count($state['layers']) < count(Layers::ALL)) {
+            $query['layers'] = $state['layers'];
+        }
+
+        return self::getSearchURL() . '?' . http_build_query($query);
+    }
+
+    /**
+     * Issue #1082, lot 2 : la carte en tableau, pour l'export CSV (PCA/PRA, documentation d'audit).
+     *
+     * @param array<string, mixed> $map résultat de map()
+     * @return list<list<string>>
+     */
+    public static function exportRows(array $map): array
+    {
+        $rows = [[
+            __('Layer', 'grcmanager'),
+            __('Item', 'grcmanager'),
+            __('Type', 'grcmanager'),
+            __('Distance', 'grcmanager'),
+            'RTO',
+        ]];
+        foreach ($map['layers'] as $layer) {
+            if (!$layer['shown']) {
+                continue;
+            }
+            foreach ($layer['nodes'] as $node) {
+                $rows[] = [
+                    (string) $layer['label'],
+                    (string) $node['name'],
+                    (string) $node['type'],
+                    (string) $node['depth'],
+                    (string) $node['rto_label'],
+                ];
+            }
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Issue #1082, lot 2 : la carte en PDF (HTML pour PdfRenderer).
+     *
+     * @param array<string, mixed> $map résultat de map()
+     */
+    public static function pdfHtml(array $map): string
+    {
+        return TemplateRenderer::getInstance()->render('@grcmanager/pdf/cartography_report.html.twig', [
+            'report_title'       => sprintf('%s : %s', self::getTypeName(), $map['start']['label']),
+            'generated_at_label' => sprintf(
+                __('Generated on %1$s by %2$s', 'grcmanager'),
+                Html::convDateTime($_SESSION['glpi_currenttime'] ?? date('Y-m-d H:i:s')),
+                getUserName((int) Session::getLoginUserID())
+            ),
+            'map'                => $map,
+        ]);
     }
 
     /**
