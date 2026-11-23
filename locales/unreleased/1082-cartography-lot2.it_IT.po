@@ -15,6 +15,12 @@ msgstr "Fate clic su una casella per ripartire da quell'elemento."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Linea tratteggiata: flusso applicativo della matrice dei flussi (la sorgente dipende dalla destinazione)."
 
+msgid "Export the map (CSV)"
+msgstr "Esporta la mappa (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Esporta la mappa (PDF)"
+
 msgid "Layer"
 msgstr "Strato"
 

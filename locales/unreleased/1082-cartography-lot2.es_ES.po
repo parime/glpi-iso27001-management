@@ -15,6 +15,12 @@ msgstr "Haga clic en una casilla para volver a partir de ese elemento."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Línea discontinua: flujo de aplicación de la matriz de flujos (el origen depende del destino)."
 
+msgid "Export the map (CSV)"
+msgstr "Exportar el mapa (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Exportar el mapa (PDF)"
+
 msgid "Layer"
 msgstr "Capa"
 

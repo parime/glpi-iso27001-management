@@ -15,6 +15,12 @@ msgstr "Klicken Sie auf ein Feld, um die Karte von dort neu zu beginnen."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Gestrichelte Linie: Anwendungsfluss aus der Flussmatrix (die Quelle hängt vom Ziel ab)."
 
+msgid "Export the map (CSV)"
+msgstr "Karte exportieren (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Karte exportieren (PDF)"
+
 msgid "Layer"
 msgstr "Schicht"
 

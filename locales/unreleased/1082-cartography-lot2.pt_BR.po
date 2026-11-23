@@ -15,6 +15,12 @@ msgstr "Clique em uma caixa para recomeçar o mapa a partir dela."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Linha tracejada: fluxo de aplicação da matriz de fluxos (a origem depende do destino)."
 
+msgid "Export the map (CSV)"
+msgstr "Exportar o mapa (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Exportar o mapa (PDF)"
+
 msgid "Layer"
 msgstr "Camada"
 

@@ -47,8 +47,8 @@
          {% if in_tab|default(false) %}
             <a class="btn btn-sm btn-outline-primary" href="{{ map.url }}"><i class="ti ti-stack-2 me-1"></i>{{ __('Open the full map', 'grcmanager') }}</a>
          {% endif %}
-         <a class="btn btn-sm btn-outline-secondary" href="{{ map.url }}&amp;export=csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export (CSV)', 'grcmanager') }}</a>
-         <a class="btn btn-sm btn-outline-secondary" href="{{ map.url }}&amp;export=pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export (PDF)', 'grcmanager') }}</a>
+         <a class="btn btn-sm btn-outline-secondary" href="{{ map.url }}&amp;export=csv"><i class="ti ti-file-spreadsheet me-1"></i>{{ __('Export the map (CSV)', 'grcmanager') }}</a>
+         <a class="btn btn-sm btn-outline-secondary" href="{{ map.url }}&amp;export=pdf"><i class="ti ti-file-type-pdf me-1"></i>{{ __('Export the map (PDF)', 'grcmanager') }}</a>
       </div>
       <span class="badge bg-blue-subtle text-blue-emphasis me-1"><i class="ti ti-hierarchy-3 me-1"></i>{{ _n('%d linked item', '%d linked items', map.count, 'grcmanager')|format(map.count) }}</span>
       {% for l in map.layers %}
@@ -99,7 +99,13 @@
             {% endif %}
          {% endfor %}
          {% for e in d.edges %}
-            <line class="grcmanager-map-edge{{ e.flow ? ' is-flow' }}" x1="{{ e.from.cx }}" y1="{{ e.from.cy }}" x2="{{ e.to.cx }}" y2="{{ e.to.cy }}"></line>
+            {% if e.from.y == e.to.y %}
+               {# Deux cases de la même rangée : arc sous les cases, sinon le trait serait caché. #}
+               {% set bottom = e.from.y + d.node_h %}
+               <path class="grcmanager-map-edge{{ e.flow ? ' is-flow' }}" fill="none" d="M {{ e.from.cx }} {{ bottom }} Q {{ (e.from.cx + e.to.cx) / 2 }} {{ bottom + 22 }} {{ e.to.cx }} {{ bottom }}"></path>
+            {% else %}
+               <line class="grcmanager-map-edge{{ e.flow ? ' is-flow' }}" x1="{{ e.from.cx }}" y1="{{ e.from.cy }}" x2="{{ e.to.cx }}" y2="{{ e.to.cy }}"></line>
+            {% endif %}
          {% endfor %}
          {% for n in d.nodes %}
             {% set classes = 'grcmanager-map-node' ~ (n.start ? ' is-start') ~ (n.visible ? '' : ' is-hidden') %}

@@ -15,6 +15,12 @@ msgstr "Cliquez sur une case pour repartir de cet élément."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Trait pointillé : flux applicatif de la matrice des flux (la source dépend de la destination)."
 
+msgid "Export the map (CSV)"
+msgstr "Exporter la carte (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Exporter la carte (PDF)"
+
 msgid "Layer"
 msgstr "Couche"
 

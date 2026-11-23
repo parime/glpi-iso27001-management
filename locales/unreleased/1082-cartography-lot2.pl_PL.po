@@ -15,6 +15,12 @@ msgstr "Kliknij pole, aby zacząć mapę od tego elementu."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Linia przerywana: przepływ aplikacyjny z macierzy przepływów (źródło zależy od celu)."
 
+msgid "Export the map (CSV)"
+msgstr "Eksportuj mapę (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Eksportuj mapę (PDF)"
+
 msgid "Layer"
 msgstr "Warstwa"
 

@@ -15,6 +15,12 @@ msgstr "Click a box to start the map again from it."
 msgid "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 msgstr "Dashed line: application flow from the flow matrix (the source depends on the destination)."
 
+msgid "Export the map (CSV)"
+msgstr "Export the map (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Export the map (PDF)"
+
 msgid "Layer"
 msgstr "Layer"
 
