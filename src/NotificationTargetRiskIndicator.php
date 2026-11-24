@@ -37,6 +37,8 @@ use Override;
  */
 class NotificationTargetRiskIndicator extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     // Hors de la plage des cibles du cœur : sinon GLPI n'appelle jamais addSpecificTargets().
     public const TARGET_OWNER = 1378;
     public const TARGET_CISO_GROUP = 1832;

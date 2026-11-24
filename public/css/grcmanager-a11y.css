@@ -150,6 +150,6 @@
  *    du plugin). Boutons, onglets, badges, menus et listes de liens gardent leur apparence.
  */
 main#page:has(.grcmanager-section-nav, .grcmanager-page-help-toggle, [class*="grcmanager-"], [id^="grc-"], [id^="grcmanager-"])
-    :is(p, li, td, dd, small, span, label, .card-body, .card-footer, .form-text, .text-muted, .alert, .small) > a:not(.btn, .nav-link, .dropdown-item, .badge, .list-group-item, .page-link, .card-link, .stretched-link, [role="button"], [role="tab"]) {
+    :is(p, li, td, dd, small, span, label, .card-body, .card-footer, .form-text, .text-muted, .alert, .small) a:not(.btn, .nav-link, .dropdown-item, .badge, .list-group-item, .page-link, .card-link, .stretched-link, [role="button"], [role="tab"]) {
     text-decoration: underline;
 }

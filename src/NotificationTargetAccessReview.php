@@ -30,6 +30,8 @@ use User;
  */
 class NotificationTargetAccessReview extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     /** Identifiant de la cible (hors plage des constantes de Notification). */
     public const REVIEWERS_TARGET = 1130;
 

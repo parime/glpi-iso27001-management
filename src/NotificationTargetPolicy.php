@@ -34,6 +34,8 @@ use User;
  */
 class NotificationTargetPolicy extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     /**
      * Issue #535 : personnes du public cible qui n'ont pas encore pris connaissance de la politique
      * (pour une relance, seulement celles que la tâche planifiée a désignées, option « users »).

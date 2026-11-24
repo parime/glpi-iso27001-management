@@ -30,6 +30,8 @@ use Override;
  */
 class NotificationTargetReadinessAlert extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     #[Override]
     public function getEvents()
     {

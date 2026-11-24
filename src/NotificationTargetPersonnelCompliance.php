@@ -28,6 +28,8 @@ use User;
  */
 class NotificationTargetPersonnelCompliance extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     /** Identifiant de la cible (hors plage des constantes de Notification). */
     public const SUPERVISOR_TARGET = 1230;
 

@@ -33,6 +33,8 @@ use Override;
  */
 class NotificationTargetBreachExposure extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     use IsmsRoleTargets;
 
     public const TARGET_CISO_GROUP = 1830;

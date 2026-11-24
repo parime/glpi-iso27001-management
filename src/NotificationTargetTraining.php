@@ -43,6 +43,8 @@ use UserEmail;
  */
 class NotificationTargetTraining extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     public const TARGET_OVERDUE_PARTICIPANTS = 1170;
 
     #[Override]
