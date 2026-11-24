@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All environments"
+msgstr "Tutti gli ambienti"
+
+msgid "Application environment"
+msgstr "Ambiente delle applicazioni"
+
+msgid "Applications by environment"
+msgstr "Applicazioni per ambiente"
+
+msgid "Applications of the environment: %s"
+msgstr "Applicazioni dell'ambiente: %s"
+
+msgid "No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers."
+msgstr "Ancora nessuna applicazione in GLPI: dichiaratele in Inventario > Applicazioni, con il loro ambiente e i loro server."
+
+msgid "No server or instance linked to this application in GLPI."
+msgstr "Nessun server né istanza collegati a questa applicazione in GLPI."
+
+msgid "Physical network"
+msgstr "Rete fisica"
+
+msgid "Servers and instances"
+msgstr "Server e istanze"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, VLAN and IP networks, servers, workstations and virtual machines, installed software and applications with their environment (production, test, pre-production), then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Mostra il sistema informativo strato per strato, dalla rete ai processi aziendali: apparati di rete e cavi, VLAN e reti IP, server, postazioni e macchine virtuali, software installato e applicazioni con il loro ambiente (produzione, collaudo, preproduzione), poi i processi dell'analisi d'impatto sul business. Scegliete un elemento per vedere cosa colpisce il suo guasto, fino ai processi e al loro RTO, o da cosa dipende un processo, fino alla rete."
+
+msgid "VLAN and IP networks"
+msgstr "VLAN e reti IP"
+
+msgid "What does this application run on?"
+msgstr "Su cosa gira questa applicazione?"
+
+msgid "+ %d item not visible"
+msgid_plural "+ %d items not visible"
+msgstr[0] "+ %d elemento non visibile"
+msgstr[1] "+ %d elementi non visibili"

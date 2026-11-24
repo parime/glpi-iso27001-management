@@ -27,5 +27,14 @@ To go further:
 - tick **Application flows (flow matrix)** to add the flows between applications and servers
   (dashed lines): the client depends on the server it calls;
 - **Export (CSV)** and **Export (PDF)** give the map to attach to the BCP/DRP or to the audit file;
-- the same map is in the **IT system map** tab of each computer, network equipment and business
-  process.
+- the same map is in the **IT system map** tab of each computer, network equipment, application and
+  business process;
+- the **VLAN and IP networks** band shows the logical network, read in GLPI: VLAN of the network
+  ports, IP networks of the addresses, **Network** field of the assets and of the items of an
+  application. A VLAN or an IP network can also be the starting item ("What does the failure of this
+  VLAN affect?");
+- fill in the **environment** of each application in GLPI (Assets > Appliances: production, test,
+  pre-production) with its servers and instances (**Items** tab): the map sorts them in the
+  **Applications by environment** table, and the **Application environment** choice keeps only the
+  applications of that environment, for instance to see the impact of a failure on production
+  alone.

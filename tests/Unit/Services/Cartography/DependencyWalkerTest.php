@@ -167,7 +167,7 @@ final class DependencyWalkerTest extends TestCase
         ]);
 
         $this->assertSame(Layers::BUSINESS, $layout['bands'][0]['layer']);
-        $this->assertSame(Layers::NETWORK, $layout['bands'][3]['layer']);
+        $this->assertSame(Layers::NETWORK, $layout['bands'][4]['layer']);
         $this->assertSame(15 - LayeredLayout::MAX_DRAWN, $layout['bands'][2]['hidden']);
         $this->assertArrayNotHasKey('Computer:15', $layout['nodes']);
         $this->assertLessThan(

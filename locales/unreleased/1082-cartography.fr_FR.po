@@ -6,9 +6,6 @@ msgstr ""
 msgid "IT system map"
 msgstr "Cartographie du SI"
 
-msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, servers, workstations and virtual machines, installed software and applications, then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
-msgstr "Montre le système d'information couche par couche, du réseau aux processus métier : matériels réseau et câbles, serveurs, postes et machines virtuelles, logiciels installés et applications, puis les processus du BIA. Choisissez un élément pour voir ce que sa panne touche, jusqu'aux processus et à leur RTO, ou ce dont un processus dépend, jusqu'au réseau."
-
 msgid "Nothing is drawn by hand: the map reads what GLPI and GRC already know (network connections, virtual machines, installed software, appliances, GLPI impact analysis, dependencies of the business processes). A missing link is completed in GLPI or on the process; two connected switches do not spread the impact, declare it in the GLPI impact analysis."
 msgstr "Rien n'est dessiné à la main : la carte lit ce que GLPI et GRC connaissent déjà (connexions réseau, machines virtuelles, logiciels installés, applications, analyse d'impact de GLPI, dépendances des processus métier). Un lien manquant se complète dans GLPI ou sur le processus ; deux switchs reliés ne propagent pas l'impact, déclarez-le dans l'analyse d'impact de GLPI."
 

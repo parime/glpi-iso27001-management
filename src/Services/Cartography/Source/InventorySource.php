@@ -61,7 +61,7 @@ final class InventorySource implements EdgeSource
         if ($itemtype === 'Computer') {
             $keys = array_merge($keys, self::virtualMachines($itemsId));
         }
-        if (Layers::of($itemtype) < Layers::APPLICATION) {
+        if (in_array(Layers::of($itemtype), [Layers::NETWORK, Layers::INFRASTRUCTURE], true)) {
             $keys = array_merge(
                 $keys,
                 self::installedSoftware($itemtype, $itemsId),

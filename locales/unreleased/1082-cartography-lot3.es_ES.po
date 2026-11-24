@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All environments"
+msgstr "Todos los entornos"
+
+msgid "Application environment"
+msgstr "Entorno de las aplicaciones"
+
+msgid "Applications by environment"
+msgstr "Aplicaciones por entorno"
+
+msgid "Applications of the environment: %s"
+msgstr "Aplicaciones del entorno: %s"
+
+msgid "No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers."
+msgstr "Todavía no hay ninguna aplicación en GLPI: declárelas en Inventario > Aplicaciones, con su entorno y sus servidores."
+
+msgid "No server or instance linked to this application in GLPI."
+msgstr "Ningún servidor ni instancia vinculado a esta aplicación en GLPI."
+
+msgid "Physical network"
+msgstr "Red física"
+
+msgid "Servers and instances"
+msgstr "Servidores e instancias"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, VLAN and IP networks, servers, workstations and virtual machines, installed software and applications with their environment (production, test, pre-production), then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Muestra el sistema de información capa por capa, de la red a los procesos de negocio: equipos de red y cables, VLAN y redes IP, servidores, puestos y máquinas virtuales, software instalado y aplicaciones con su entorno (producción, pruebas, preproducción), y luego los procesos del análisis de impacto en el negocio. Elija un elemento para ver lo que afecta su avería, hasta los procesos y su RTO, o de qué depende un proceso, hasta la red."
+
+msgid "VLAN and IP networks"
+msgstr "VLAN y redes IP"
+
+msgid "What does this application run on?"
+msgstr "¿Sobre qué funciona esta aplicación?"
+
+msgid "+ %d item not visible"
+msgid_plural "+ %d items not visible"
+msgstr[0] "+ %d elemento no visible"
+msgstr[1] "+ %d elementos no visibles"

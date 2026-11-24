@@ -28,10 +28,11 @@ Session::checkRight(Cartography::RIGHTNAME, READ);
 $itemtype = (string) ($_GET['itemtype'] ?? '');
 $itemsId = (int) ($_GET['items_id'] ?? 0);
 $requested = (string) ($_GET['direction'] ?? '');
-// Par défaut : l'impact vers le haut pour un équipement, les dépendances vers le bas pour un processus.
+// Par défaut : l'impact vers le haut pour un équipement, les dépendances vers le bas pour un processus
+// ou une application.
 $direction = in_array($requested, [DependencyWalker::UP, DependencyWalker::DOWN], true)
     ? $requested
-    : ($itemtype === BusinessProcess::class ? DependencyWalker::DOWN : DependencyWalker::UP);
+    : Cartography::defaultDirection($itemtype);
 
 // Issue #1082, lot 2 : calque des flux (coché par défaut à la première ouverture) et couches affichées.
 $flows = $itemtype === '' || isset($_GET['flows']);
@@ -40,6 +41,8 @@ $layers = array_values(array_intersect(
     array_map('intval', is_array($_GET['layers'] ?? null) ? $_GET['layers'] : [])
 ));
 $layers = $layers === [] ? Layers::ALL : $layers;
+// Issue #1082, lot 3 : environnement des applications (production, recette...), 0 pour tous.
+$environment = max(0, (int) ($_GET['environment'] ?? 0));
 
 $map = null;
 $notFound = false;
@@ -47,7 +50,11 @@ if ($itemtype !== '' && $itemsId > 0) {
     // Le type est borné par la liste blanche des points de départ avant toute instanciation.
     $item = in_array($itemtype, Cartography::startItemtypes(), true) ? getItemForItemtype($itemtype) : false;
     if ($item instanceof CommonDBTM && $item->getFromDB($itemsId) && $item->canViewItem()) {
-        $map = Cartography::map($item, $direction, ['flows' => $flows, 'layers' => $layers]);
+        $map = Cartography::map($item, $direction, [
+            'flows'       => $flows,
+            'layers'      => $layers,
+            'environment' => $environment,
+        ]);
     } else {
         $notFound = true;
     }
@@ -98,6 +105,7 @@ TemplateRenderer::getInstance()->display('@grcmanager/cartography.html.twig', [
     'flows'        => $flows,
     'layers'       => $layers,
     'layer_labels' => Layers::labels(),
+    'environment'  => $environment,
 ]);
 
 Html::footer();

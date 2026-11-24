@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "All environments"
+msgstr "Wszystkie środowiska"
+
+msgid "Application environment"
+msgstr "Środowisko aplikacji"
+
+msgid "Applications by environment"
+msgstr "Aplikacje według środowiska"
+
+msgid "Applications of the environment: %s"
+msgstr "Aplikacje środowiska: %s"
+
+msgid "No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers."
+msgstr "W GLPI nie ma jeszcze żadnej aplikacji: zadeklaruj je w Zasoby > Aplikacje, z ich środowiskiem i serwerami."
+
+msgid "No server or instance linked to this application in GLPI."
+msgstr "W GLPI z tą aplikacją nie jest powiązany żaden serwer ani instancja."
+
+msgid "Physical network"
+msgstr "Sieć fizyczna"
+
+msgid "Servers and instances"
+msgstr "Serwery i instancje"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, VLAN and IP networks, servers, workstations and virtual machines, installed software and applications with their environment (production, test, pre-production), then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Pokazuje system informacyjny warstwa po warstwie, od sieci po procesy biznesowe: urządzenia sieciowe i kable, VLAN i sieci IP, serwery, stacje robocze i maszyny wirtualne, zainstalowane oprogramowanie i aplikacje z ich środowiskiem (produkcja, testy, preprodukcja), a następnie procesy analizy wpływu na biznes. Wybierz element, aby zobaczyć, na co wpływa jego awaria, aż po procesy i ich RTO, lub od czego zależy proces, aż po sieć."
+
+msgid "VLAN and IP networks"
+msgstr "VLAN i sieci IP"
+
+msgid "What does this application run on?"
+msgstr "Na czym działa ta aplikacja?"
+
+msgid "+ %d item not visible"
+msgid_plural "+ %d items not visible"
+msgstr[0] "+ %d niewidoczny element"
+msgstr[1] "+ %d niewidoczne elementy"
+msgstr[2] "+ %d niewidocznych elementów"

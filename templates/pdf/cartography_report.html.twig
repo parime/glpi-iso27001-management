@@ -20,6 +20,9 @@
 <table class="grcmanager-pdf-summary">
   <tr><td>{{ map.direction == 'up' ? __('Items affected by a failure of:', 'grcmanager') : __('Items this one depends on:', 'grcmanager') }}</td><td>{{ map.start.label }}</td></tr>
   <tr><td>{{ __('Linked items', 'grcmanager') }}</td><td class="grcmanager-pdf-summary-number">{{ map.count }}</td></tr>
+  {% if map.environment_label %}
+    <tr><td>{{ __('Application environment', 'grcmanager') }}</td><td>{{ map.environment_label }}</td></tr>
+  {% endif %}
   {% for l in map.layers|filter(l => l.shown) %}
     <tr><td>{{ l.label }}</td><td class="grcmanager-pdf-summary-number">{{ l.nodes|length }}</td></tr>
   {% endfor %}
@@ -50,15 +53,29 @@
     <p>{{ __('Nothing in this layer.', 'grcmanager') }}</p>
   {% else %}
     <table>
-      <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Distance', 'grcmanager') }}</th><th>RTO</th></tr></thead>
+      <thead><tr><th>{{ __('Item', 'grcmanager') }}</th><th>{{ __('Type', 'grcmanager') }}</th><th>{{ __('Distance', 'grcmanager') }}</th><th>RTO</th><th>{{ __('Environment', 'grcmanager') }}</th></tr></thead>
       <tbody>
       {% for n in l.nodes %}
-        <tr><td>{{ n.name }}</td><td>{{ n.type }}</td><td>{{ n.depth }}</td><td>{{ n.rto_label }}</td></tr>
+        <tr><td>{{ n.name }}</td><td>{{ n.type }}</td><td>{{ n.depth }}</td><td>{{ n.rto_label }}</td><td>{{ n.environment }}</td></tr>
       {% endfor %}
       </tbody>
     </table>
   {% endif %}
 {% endfor %}
+
+{% if map.applications is not empty %}
+  <h2>{{ __('Applications by environment', 'grcmanager') }}</h2>
+  <table>
+    <thead><tr><th>{{ __('Environment', 'grcmanager') }}</th><th>{{ __('Application', 'grcmanager') }}</th><th>{{ __('Servers and instances', 'grcmanager') }}</th></tr></thead>
+    <tbody>
+    {% for g in map.applications %}
+      {% for a in g.applications %}
+        <tr><td>{{ g.environment ?: __('Not set', 'grcmanager') }}</td><td>{{ a.name }}</td><td>{{ a.servers|map(s => s.name)|join(', ') }}</td></tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 
 {% if map.flows and map.flow_list is not empty %}
   <h2>{{ __('Application flows', 'grcmanager') }}</h2>
