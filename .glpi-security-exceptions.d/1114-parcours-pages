@@ -197,3 +197,8 @@ crawl axe:aria-allowed-attr front/processingactivity.form.php : champ de date du
 crawl axe:aria-input-field-name front/processingactivity.form.php : listes déroulantes select2 du cœur GLPI sans nom accessible (glpi-plugin-security#50)
 crawl axe:color-contrast front/supplierevaluation.form.php : couleurs de la palette par défaut « auror » de GLPI pour les classes standard de Tabler (sous-titre de section du formulaire du cœur) ; choix de couleurs propres au plugin suivi dans #1149
 crawl axe:link-in-text-block front/contextitem.form.php : page de refus du cœur GLPI (lien de retour sans soulignement) atteinte par les liens masqués id=-1 de l'en-tête de navigation des fiches (glpi-plugin-security#50)
+crawl axe:aria-input-field-name front/controltest.form.php : listes déroulantes select2 du cœur GLPI sans nom accessible (glpi-plugin-security#50)
+crawl axe:aria-input-field-name front/responsibilityactivity.form.php : listes déroulantes select2 du cœur GLPI sans nom accessible (glpi-plugin-security#50)
+crawl axe:aria-input-field-name front/waiver.form.php : listes déroulantes select2 du cœur GLPI sans nom accessible (glpi-plugin-security#50)
+crawl axe:aria-input-field-name front/policy.form.php : listes déroulantes select2 du cœur GLPI sans nom accessible (glpi-plugin-security#50)
+crawl axe:aria-allowed-attr front/waiver.form.php : champ de date du cœur GLPI 12 (aria-label posé par GLPI sur un champ qui ne l'admet pas) (glpi-plugin-security#50)
