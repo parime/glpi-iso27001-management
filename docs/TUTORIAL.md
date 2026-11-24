@@ -2362,7 +2362,7 @@ Les plans de continuité et de reprise répondent aux mesures A.5.29 et A.5.30 d
 
 1. Créez un plan avec l'un des quatre boutons : **PCA** et **PRA** pour une activité métier,
    **PCI** et **PRI** pour un système informatique. Le plan démarre avec une trame à remplacer
-   (réglable dans **Configuration > Plugins > GRC Manager**, onglet **Incidents et continuité**).
+   (réglable dans **Configuration > Plugins > GRC Manager**, onglet **Risques et incidents**).
 2. Choisissez le responsable, l'approbateur (en général un membre de la direction), la cellule de
    crise et l'astreinte (groupes GLPI), puis les **processus couverts** : leurs DMIA/PDMA (RTO/RPO)
    viennent de leur BIA, avec le dernier test de reprise de chacun.
@@ -2488,6 +2488,173 @@ Un ancien lien vers un bloc de la configuration (`config.php#…`) ouvre le bon 
 qui accueille désormais l'action. Un ancien formulaire de réglage envoyé depuis une page
 d'exploitation reste accepté pendant une version : il enregistre, puis vous amène sur l'onglet de
 la configuration avec un message.
+
+### Étape 87 : Relire les correspondances de fin de support proposées
+
+Les logiciels, systèmes et firmwares dont le nom n'est pas reconnu ne sont pas suivis par
+endoflife.date. Plutôt que de chercher chaque produit à la main, GRC en propose un.
+
+1. Ouvrez **Parc > Sécurité du parc > Fin de vie et correctifs > Logiciels à surveiller**, bloc
+   **Fin de support (endoflife.date)**.
+2. Si le catalogue n'a jamais été lu, cliquez sur **Mettre à jour maintenant** (droit de modifier la
+   configuration du plugin). Il est ensuite relu une fois par semaine par la tâche quotidienne.
+3. Le cadre **Correspondances proposées, à relire** liste chaque nom non relié avec le produit
+   proposé et la raison : nom ou alias du produit, identifiant CPE ou identifiant de paquet (purl).
+   Quand deux ou trois produits conviennent, choisissez le bon dans la liste.
+4. Cochez les propositions justes, puis **Accepter les propositions cochées** : elles deviennent des
+   correspondances manuelles, visibles dans le tableau en dessous et modifiables comme les autres.
+5. Cochez les propositions fausses, puis **Refuser les propositions cochées** : elles ne sont plus
+   proposées pour ce nom.
+
+Rien n'est appliqué sans votre validation, et un nom approchant n'est jamais proposé : seule
+l'égalité exacte compte (version et précisions entre parenthèses mises à part).
+
+### Étape 88 : Importer les rapports d'un scanner de vulnérabilités
+
+Les vulnérabilités du parc viennent d'abord des logiciels inventoriés. Un scanner réseau gratuit
+comme Greenbone Community Edition (OpenVAS) en trouve d'autres : services exposés, protocoles
+obsolètes, fichiers sensibles. Pour en faire une preuve de la mesure A.8.8 :
+
+1. Dans Greenbone, ouvrez le rapport d'une analyse terminée, choisissez **Télécharger** et le
+   format **XML**.
+2. Dans GLPI, ouvrez **Parc > Sécurité du parc**, carte **Vulnérabilités**, puis **Rapports des
+   scanners de vulnérabilités**. Le lien **Télécharger un fichier d'exemple** donne un rapport
+   fictif pour essayer.
+3. Choisissez le fichier et cliquez sur **Importer**. Chaque constat est rattaché à l'ordinateur
+   GLPI de même nom ou de même adresse IP. Les hôtes non reconnus sont listés dans **Hôtes analysés
+   non rattachés à un ordinateur** : choisissez l'ordinateur et cliquez sur **Rattacher**, les
+   imports suivants reprendront ce choix.
+4. Traitez d'abord les constats critiques et élevés : le bouton **Proposer un ticket** crée un
+   ticket lié à l'ordinateur, avec le constat et sa solution. Rien n'est créé sans ce clic.
+5. Après l'analyse suivante, importez le nouveau rapport : les constats encore présents sont mis à
+   jour sans doublon, ceux qui ont disparu passent **Corrigé**. L'**Historique des imports** montre
+   l'évolution d'une analyse à l'autre.
+
+Les constats ouverts apparaissent aussi sur la fiche de la mesure A.8.8 et dans l'onglet
+**Sécurité 360°** de l'ordinateur ; le KRI « Constats critiques ou élevés ouverts (scanner) » suit
+leur nombre dans le temps.
+
+### Étape 89 : Cartographier le SI par couches, du switch au processus métier
+
+La cartographie relie ce que GLPI et GRC connaissent déjà, sans rien dessiner à la main :
+
+1. Ouvrez **Analyses de risques > Cartographie du SI**.
+2. Sans rien choisir, la page propose deux points de départ : vos **processus métier** (« De quoi
+   dépend ce processus ? ») et vos **matériels réseau** (« Que touche la panne de cet
+   équipement ? »). Cliquez sur l'un d'eux, ou choisissez un autre élément de départ (ordinateur,
+   logiciel, application, instance de base de données) et la question, puis **Afficher la carte**.
+3. Vers le haut, la page liste d'abord les **processus métier touchés, du plus urgent au moins
+   urgent** (RTO du BIA), puis le schéma : une bande par couche, les processus en haut et le réseau
+   en bas. Chaque case est un lien vers la fiche de l'élément ; la liste par couche sous le schéma
+   reprend tous les éléments.
+4. Un lien manque ? Complétez-le là où il se décrit : câble entre deux ports (fiche du matériel,
+   onglet **Ports réseau**), machine virtuelle (même UUID que l'ordinateur), logiciel installé,
+   élément d'une application, dépendance d'un processus (onglet **Dépendances** du processus) ou
+   analyse d'impact de GLPI.
+
+Deux switchs reliés entre eux ne propagent pas l'impact (le plugin ne connaît pas la redondance) :
+déclarez la dépendance dans l'analyse d'impact de GLPI si elle existe. Un élément que vous ne pouvez
+pas voir (autre entité, droit manquant) est compté sans être nommé.
+
+Pour aller plus loin :
+
+- cliquez sur une case du schéma pour **repartir de cet élément** ; décochez des **couches** pour
+  alléger la carte ;
+- cochez **Flux applicatifs (matrice des flux)** pour ajouter les flux entre applications et serveurs
+  (traits pointillés) : le client dépend du serveur qu'il appelle ;
+- **Export (CSV)** et **Export (PDF)** donnent la carte à joindre au PCA/PRA ou au dossier d'audit ;
+- la même carte est dans l'onglet **Cartographie du SI** de chaque ordinateur, matériel réseau,
+  application et processus métier ;
+- la bande **VLAN et réseaux IP** montre le réseau logique, lu dans GLPI : VLAN des ports réseau,
+  réseaux IP des adresses, champ **Réseau** des matériels et des éléments d'une application. Un VLAN
+  ou un réseau IP peut aussi servir de point de départ (« Que touche la panne de ce VLAN ? ») ;
+- renseignez l'**environnement** de chaque application dans GLPI (Parc > Applicatifs : production,
+  recette, préproduction) avec ses serveurs et instances (onglet **Éléments**) : la carte les range
+  dans le tableau **Applications par environnement**, et le choix **Environnement des applications**
+  ne garde que les applications de cet environnement, par exemple pour l'impact d'une panne sur la
+  production seule.
+
+### Étape 90 : Désigner le RSSI et le DPO (rôles du SMSI)
+
+La mesure A.5.2 demande que les rôles de la sécurité de l'information soient définis et attribués.
+Le plugin connaît deux rôles clés, le **RSSI** et le **DPO** ; pour chacun, il garde un groupe GLPI
+et une adresse e-mail générique.
+
+1. Créez dans GLPI (**Administration > Groupes**) un groupe par rôle, par exemple « RSSI » et
+   « DPO », et ajoutez-y le titulaire et son suppléant. Laissez **Peut être notifié** à Oui sur le
+   groupe (valeur par défaut) pour qu'il reçoive les e-mails.
+2. Ouvrez **Configuration > Plugins > GRC Manager**, onglet **Personnes et politiques**, bloc
+   **Rôles du SMSI**. Pour chaque rôle, choisissez le groupe et saisissez l'adresse générique
+   (une boîte partagée ou une liste, par exemple `dpo@example.org`, jamais une adresse
+   personnelle), puis **Sauvegarder**. Une adresse au format invalide est refusée.
+3. Si vous aviez saisi le DPO dans l'ancien champ texte, la mise à jour l'a repris : l'adresse
+   trouvée est devenue l'adresse générique, le reste (nom, téléphone) apparaît dans une note
+   **À reprendre**. Choisissez le groupe, puis cochez **La note a été reprise : la supprimer**.
+4. Vérifiez le résultat dans **GRC & Conformité > Organisation du SMSI > Matrice des
+   responsabilités** : les deux rôles, les membres actifs de leur groupe et leurs adresses sont en
+   tête de la page et dans le PDF de la matrice, à présenter à l'auditeur.
+
+Le groupe RSSI lit les documents de tous les audits internes ; le registre des traitements et le
+registre des violations affichent le groupe DPO, ses membres et l'adresse générique. Pour la
+notification **Nouvelles expositions à des fuites de données** (**Configuration >
+Notifications**), ajoutez si besoin les destinataires **Groupe DPO (GRC Manager)**, **Adresse
+générique du DPO (GRC Manager)** ou **Adresse générique du RSSI (GRC Manager)**.
+
+### Étape 91 : Surveiller les fuites de données des adresses professionnelles sans abonnement
+
+La surveillance des fuites cherche chaque jour les adresses professionnelles de vos utilisateurs
+dans les fuites de données connues (mesure A.5.7, renseignement sur les menaces). Elle fonctionne
+avec **XposedOrNot**, service gratuit, ou avec **Have I Been Pwned**, dont la clé est payante.
+
+1. Ouvrez **Configuration > Plugins > GRC Manager**, onglet **Connecteurs**, bloc
+   **Surveillance des fuites de données** (il faut le droit de configurer le plugin et le droit des
+   registres sensibles).
+2. Saisissez les **domaines professionnels** à surveiller (par exemple `example.com`) : seules les
+   adresses de ces domaines sont envoyées au fournisseur, jamais une adresse personnelle.
+3. Choisissez **XposedOrNot** (badge « Gratuit, sans clé »), cochez **Activer la surveillance**,
+   puis **Enregistrer**. Le bouton **Tester la connexion** vérifie que le service répond, avec
+   l'adresse d'exemple de sa documentation : aucune adresse réelle n'est envoyée.
+4. Sans clé, XposedOrNot vérifie 20 adresses au plus par passage (le service en accepte 25 par heure
+   et 100 par jour) ; le passage suivant reprend là où le précédent s'est arrêté. Pour couvrir plus
+   vite un grand nombre d'utilisateurs, réglez l'action automatique **breachmonitor**
+   (Configuration > Actions automatiques) pour qu'elle s'exécute toutes les heures.
+5. Si vous avez vérifié votre domaine sur le tableau de bord de XposedOrNot, collez la **clé d'API de
+   domaine** qu'il vous remet : tout le domaine est alors vérifié en une seule requête. La clé est
+   chiffrée par GLPI et n'est jamais réaffichée.
+6. Les expositions trouvées apparaissent dans **GRC > Personnel et sensibilisation > Expositions à
+   des fuites de données** et le groupe RSSI est prévenu. Pour chacune, faites changer le mot de passe si des
+   mots de passe ont fuité, puis passez-la à **Prise en compte (mot de passe changé…)**.
+
+Les adresses vérifiées sont envoyées à un tiers (le fournisseur choisi) : mentionnez-le dans votre
+registre des traitements.
+
+### Étape 92 : Suivre les comptes à privilèges du coffre-fort de mots de passe
+
+Les comptes partagés et les mots de passe des équipements doivent être rangés dans un coffre-fort,
+partagés au strict besoin et renouvelés (mesures A.5.17 et A.8.2). La page **GRC > Accès et
+comptes > Comptes à privilèges** rapproche votre coffre (Bitwarden, Vaultwarden ou une solution de
+gestion des accès à privilèges) des comptes GLPI. Seules des **métadonnées** sont lues : jamais un
+mot de passe.
+
+1. Dans **Configuration > Plugins > GRC Manager**, onglet **Personnes et politiques**, choisissez le
+   **délai de changement attendu** des mots de passe partagés (12 mois par défaut).
+2. Avec Bitwarden Teams ou Enterprise, onglet **Connecteurs**, bloc **Connexion à Bitwarden** :
+   choisissez le serveur, collez l'identifiant du client (`organization.…`) et le secret de la clé
+   d'API de l'organisation, puis **Tester la connexion**. Sur la page, **Lire maintenant dans
+   Bitwarden** récupère les membres, leur rôle, leur connexion en deux étapes et leurs collections.
+3. Avec Vaultwarden ou une solution PAM, importez les membres en CSV (colonnes `email`, `type`,
+   `status`, `collections`, `twoFactorEnabled`).
+4. Importez les éléments du coffre en CSV **sans les mots de passe** : `name`, `collectionIds`,
+   `username`, `uri`, `passwordRevisionDate`, `creationDate` (date retenue pour un mot de passe
+   jamais changé, dont `passwordRevisionDate` est vide). Avec Bitwarden ou Vaultwarden, l'interface en ligne
+   de commande `bw list items` donne ces champs ; ne gardez que ces colonnes. Un fichier qui contient
+   une colonne de mot de passe, de code, de note ou de champ personnalisé est refusé en entier.
+5. Traitez les écarts signalés : mot de passe non changé dans le délai, personne partie qui a encore
+   accès, membre inconnu de GLPI, administrateur du coffre sans connexion en deux étapes, compte
+   d'administration d'un contrôleur de serveur (iLO, iDRAC) absent du coffre. Les corrections se
+   font dans le coffre ; le plugin ne modifie rien.
+6. Les mêmes écarts apparaissent dans l'onglet **Comptes à privilèges** de chaque campagne de revue
+   des accès, et en preuve sur les mesures A.5.17 et A.8.2.
 
 ## 🇬🇧 English
 
@@ -4718,7 +4885,7 @@ The continuity and recovery plans answer controls A.5.29 and A.5.30 of ISO 27001
 
 1. Create a plan with one of the four buttons: **BCP** and **BRP** for a business activity, **ITCP**
    and **DRP** for an IT system. The plan starts from a short model to replace (set in
-   **Setup > Plugins > GRC Manager**, **Incidents and continuity** tab).
+   **Setup > Plugins > GRC Manager**, **Risks and incidents** tab).
 2. Choose the owner, the approver (usually a member of management), the crisis team and the
    on-call team (GLPI groups), then the **covered processes**: their RTO and RPO come from their
    BIA, with the last recovery test of each one.
@@ -4839,3 +5006,164 @@ work, and the breadcrumb at the top of each page shows the new location.
 A former link to a block of the configuration (`config.php#…`) opens the right tab, or the screen
 that now hosts the action. A former settings form sent from a daily work page is still accepted for
 one version: it saves, then takes you to the configuration tab with a message.
+
+### Step 87: Review the proposed end of support links
+
+Software, systems and firmwares whose name is not recognised are not followed by endoflife.date.
+Instead of looking up each product by hand, GRC proposes one.
+
+1. Open **Assets > Asset security > End of life and patches > Software to watch**, block **End of
+   support (endoflife.date)**.
+2. If the catalogue has never been read, click **Update now** (right to update the plugin
+   configuration). It is then read again once a week by the daily task.
+3. The **Proposed links, to review** frame lists each unlinked name with the proposed product and
+   the reason: name or alias of the product, CPE identifier or package identifier (purl). When two or
+   three products fit, pick the right one in the list.
+4. Check the right proposals, then **Accept the checked proposals**: they become manual links, shown
+   in the table below and editable like the others.
+5. Check the wrong proposals, then **Reject the checked proposals**: they are no longer proposed for
+   that name.
+
+Nothing is applied without your approval, and a similar name is never proposed: only an exact match
+counts (version and details in brackets aside).
+
+### Step 88: Import the reports of a vulnerability scanner
+
+The vulnerabilities of the fleet first come from the inventoried software. A free network scanner
+such as Greenbone Community Edition (OpenVAS) finds others: exposed services, obsolete protocols,
+sensitive files. To turn them into evidence for control A.8.8:
+
+1. In Greenbone, open the report of a finished scan, choose **Download** and the **XML** format.
+2. In GLPI, open **Assets > Asset security**, card **Vulnerabilities**, then **Vulnerability scanner
+   reports**. The **Download an example file** link gives a fictitious report to try.
+3. Choose the file and click **Import**. Each finding is matched to the GLPI computer with the same
+   name or IP address. Hosts that are not recognised are listed in **Scanned hosts not matched to a
+   computer**: choose the computer and click **Match**; the next imports reuse this choice.
+4. Handle the critical and high findings first: the **Propose a ticket** button creates a ticket
+   linked to the computer, with the finding and its solution. Nothing is created without this click.
+5. After the next scan, import the new report: findings still present are updated without
+   duplicates, those that disappeared become **Fixed**. The **Import history** shows the change from
+   one scan to the next.
+
+Open findings also appear on the form of control A.8.8 and in the **Security 360°** tab of the
+computer; the KRI "Open critical or high scanner findings" tracks their number over time.
+
+### Step 89: Map the information system by layer, from the switch to the business process
+
+The map links what GLPI and GRC already know, without drawing anything by hand:
+
+1. Open **Risk analyses > IT system map**.
+2. With nothing chosen, the page offers two starting points: your **business processes** ("What
+   does this process depend on?") and your **network equipment** ("What does the failure of this
+   equipment affect?"). Click one of them, or choose another starting item (computer, software,
+   appliance, database instance) and the question, then **Show the map**.
+3. Upwards, the page first lists the **business processes affected, most urgent first** (RTO of
+   the business impact analysis), then the drawing: one band per layer, processes at the top and
+   the network at the bottom. Each box links to the item; the list by layer below the drawing
+   repeats every item.
+4. A link is missing? Complete it where it is described: cable between two ports (item form,
+   **Network ports** tab), virtual machine (same UUID as the computer), installed software, item of
+   an appliance, dependency of a process (**Dependencies** tab of the process) or GLPI impact
+   analysis.
+
+Two connected switches do not spread the impact (the plugin does not know about redundancy):
+declare the dependency in the GLPI impact analysis if it exists. An item you cannot see (other
+entity, missing right) is counted without being named.
+
+To go further:
+
+- click a box of the drawing to **start again from that item**; untick **layers** to lighten the
+  map;
+- tick **Application flows (flow matrix)** to add the flows between applications and servers
+  (dashed lines): the client depends on the server it calls;
+- **Export (CSV)** and **Export (PDF)** give the map to attach to the BCP/DRP or to the audit file;
+- the same map is in the **IT system map** tab of each computer, network equipment, application and
+  business process;
+- the **VLAN and IP networks** band shows the logical network, read in GLPI: VLAN of the network
+  ports, IP networks of the addresses, **Network** field of the assets and of the items of an
+  application. A VLAN or an IP network can also be the starting item ("What does the failure of this
+  VLAN affect?");
+- fill in the **environment** of each application in GLPI (Assets > Appliances: production, test,
+  pre-production) with its servers and instances (**Items** tab): the map sorts them in the
+  **Applications by environment** table, and the **Application environment** choice keeps only the
+  applications of that environment, for instance to see the impact of a failure on production
+  alone.
+
+### Step 90: Appoint the CISO and the DPO (ISMS roles)
+
+Control A.5.2 asks for the information security roles to be defined and allocated. The plugin
+knows two key roles, the **CISO** and the **DPO**; for each one, it keeps a GLPI group and a
+generic e-mail address.
+
+1. Create in GLPI (**Administration > Groups**) one group per role, for example "CISO" and "DPO",
+   and add the holder and their substitute. Leave **Can be notified** set to Yes on the group
+   (the default) so that it receives the e-mails.
+2. Open **Setup > Plugins > GRC Manager**, **People and policies** tab, **ISMS roles** block. For
+   each role, choose the group and enter the generic address (a shared mailbox or a list, for
+   example `dpo@example.org`, never a personal address), then **Save**. An address with an
+   invalid format is refused.
+3. If you had entered the DPO in the former text field, the update took it over: the address found
+   became the generic address, the rest (name, phone) appears in a **To be reworked** note. Choose
+   the group, then tick **The note has been reworked: delete it**.
+4. Check the result in **GRC & Compliance > ISMS organisation > Responsibility matrix**: both
+   roles, the active members of their group and their addresses are at the top of the page and in
+   the PDF of the matrix, to show to the auditor.
+
+The CISO group reads the documents of all internal audits; the record of processing activities
+and the register of data breaches show the DPO group, its members and the generic address. For
+the **New data breach exposures** notification (**Setup > Notifications**), add the **DPO group
+(GRC Manager)**, **DPO generic address (GRC Manager)** or **CISO generic address (GRC Manager)**
+recipients if needed.
+
+### Step 91: Monitor data breaches of work email addresses without a subscription
+
+Data breach monitoring checks every day whether your users' work email addresses appear in known
+data breaches (control A.5.7, threat intelligence). It works with **XposedOrNot**, a free service,
+or with **Have I Been Pwned**, whose API key is paid.
+
+1. Open **Setup > Plugins > GRC Manager**, **Connectors** tab, **Data breach monitoring** block (you
+   need the right to configure the plugin and the right on sensitive registers).
+2. Enter the **work email domains** to monitor (for example `example.com`): only addresses on these
+   domains are sent to the provider, never a personal address.
+3. Choose **XposedOrNot** ("Free, no key needed" badge), tick **Enable data breach monitoring**, then
+   **Save**. The **Test the connection** button checks that the service answers, with the example
+   address of its documentation: no real address is sent.
+4. Without a key, XposedOrNot checks up to 20 addresses per run (the service allows 25 per hour and
+   100 per day); the next run resumes where the previous one stopped. To cover many users faster,
+   set the **breachmonitor** automatic action (Setup > Automatic actions) to run every hour.
+5. If you verified your domain on the XposedOrNot dashboard, paste the **domain API key** it gives
+   you: the whole domain is then checked with a single request. The key is encrypted by GLPI and
+   never displayed again.
+6. Exposures found appear in **GRC > People and awareness > Data breach exposures** and the CISO group
+   is notified. For each one, have the password changed if passwords were exposed, then mark it as
+   **Handled (password changed…)**.
+
+Checked addresses are sent to a third party (the chosen provider): record it in your register of
+processing activities.
+
+### Step 92: Follow the privileged accounts of the password vault
+
+Shared accounts and equipment passwords must be kept in a password vault, shared on a need-to-know
+basis and changed regularly (controls A.5.17 and A.8.2). The page **GRC > Access and accounts >
+Privileged accounts** matches your vault (Bitwarden, Vaultwarden or a privileged access management
+solution) with the GLPI accounts. Only **metadata** is read: never a password.
+
+1. In **Setup > Plugins > GRC Manager**, **People and policies** tab, choose the **expected change
+   delay** of shared passwords (12 months by default).
+2. With Bitwarden Teams or Enterprise, **Connectors** tab, **Connection to Bitwarden** block: choose
+   the server, paste the client ID (`organization.…`) and the client secret of the organization API
+   key, then **Test the connection**. On the page, **Read now from Bitwarden** fetches the members,
+   their role, their two-step login and their collections.
+3. With Vaultwarden or a PAM solution, import the members as CSV (columns `email`, `type`,
+   `status`, `collections`, `twoFactorEnabled`).
+4. Import the vault items as CSV **without the passwords**: `name`, `collectionIds`, `username`,
+   `uri`, `passwordRevisionDate`, `creationDate` (used for a password never changed, whose
+   `passwordRevisionDate` is empty). With Bitwarden or Vaultwarden, the `bw list items` command line
+   gives these fields; keep only these columns. A file with a password, code, note or custom field
+   column is refused as a whole.
+5. Follow up the reported gaps: password not changed within the delay, person who left and still
+   has access, member unknown in GLPI, vault administrator without two-step login, server controller
+   administrator account (iLO, iDRAC) missing from the vault. Fix them in the vault; the plugin
+   changes nothing.
+6. The same gaps appear in the **Privileged accounts** tab of each access review campaign, and as
+   evidence on controls A.5.17 and A.8.2.

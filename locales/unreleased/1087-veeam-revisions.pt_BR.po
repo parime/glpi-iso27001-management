@@ -1,6 +1,0 @@
-msgid ""
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-
-msgid "The password is encrypted with the GLPI key, never displayed again nor logged. Revision 1.1-rev2 works from Veeam 12.2 (1.1-rev1 from 12.1, 1.2 from 12.3, 1.3-rev2 for Veeam 13); an older revision stays accepted by a more recent server."
-msgstr "A senha é criptografada com a chave do GLPI, nunca mais exibida nem registrada. A revisão 1.1-rev2 funciona a partir do Veeam 12.2 (1.1-rev1 a partir do 12.1, 1.2 a partir do 12.3, 1.3-rev2 para o Veeam 13); uma revisão mais antiga continua aceita por um servidor mais recente."

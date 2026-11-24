@@ -1,2 +1,0 @@
-### Changed
-- **Exceptions des contrôles de sécurité en fragments** (issue #1098). Les exceptions justifiées sont rangées par sujet dans `.glpi-security-exceptions.d/` (`1035-menus`, `1078-assertions-traduites`), le fichier racine ne garde qu'un en-tête qui renvoie au dossier. Une nouvelle exception s'ajoute en créant un fichier, ce qui supprime la première source de conflits entre lots. Les contrôles lisent exactement les mêmes 37 exceptions qu'avant. La règle est ajoutée à `docs/ARCHITECTURE.md` (« Ajouter une fonctionnalité sans conflit »).
