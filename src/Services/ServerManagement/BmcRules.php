@@ -277,14 +277,23 @@ final class BmcRules
     }
 
     /**
-     * Certificat auto-signé : émetteur identique au sujet (Redfish « Issuer » et « Subject »).
+     * Certificat auto-signé : émetteur identique au sujet. Certificate DMTF : « Issuer » et
+     * « Subject » sont des objets (Country, CommonName...) ; HPE HpeHttpsCert
+     * (X509CertificateInformation) : des chaînes « C = FR, O = ..., CN = ... ».
      *
      * @param array<mixed> $certificate
      */
     public static function isSelfSigned(array $certificate): bool
     {
-        $issuer = is_array($certificate['Issuer'] ?? null) ? $certificate['Issuer'] : [];
-        $subject = is_array($certificate['Subject'] ?? null) ? $certificate['Subject'] : [];
+        $issuer = $certificate['Issuer'] ?? null;
+        $subject = $certificate['Subject'] ?? null;
+        if (is_string($issuer) && is_string($subject)) {
+            $flat = static fn (string $name): string => (string) preg_replace('/\s+/u', '', mb_strtolower($name));
+
+            return $flat($issuer) !== '' && $flat($issuer) === $flat($subject);
+        }
+        $issuer = is_array($issuer) ? $issuer : [];
+        $subject = is_array($subject) ? $subject : [];
         if ($issuer === [] || $subject === []) {
             return false;
         }
