@@ -763,6 +763,9 @@ class ComplianceEvent extends ComplianceEventBase
             'mine'       => $mine,
             'url'        => self::getCalendarURL(),
             'form_url'   => self::getFormURL(),
+            // Issue #1114 : liste des événements saisis, atteignable depuis le calendrier.
+            'list_url'   => self::getSearchURL(),
+            'list_label' => self::getTypeName(Session::getPluralNumber()),
             'ics_url'    => self::getIcsURL($mine),
             // Issue #664 : lien d'abonnement (jeton dédié), montré une seule fois après sa création.
             'subscription'     => self::subscriptionData(),

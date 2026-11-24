@@ -17,6 +17,12 @@
 
 use GlpiPlugin\Grcmanager\ApprovedApplication;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #622 : enregistre la fiche « usage autorisé » d'une application, depuis l'onglet de
 // l'application (seul écran qui poste ici). Le droit est vérifié avant toute lecture.
 Session::checkRight(ApprovedApplication::$rightname, READ);

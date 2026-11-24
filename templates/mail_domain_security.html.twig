@@ -58,7 +58,7 @@
          {% if domains is empty %}
             <div class="alert alert-info mb-0" id="grc-mail-domains-empty"><i class="ti ti-info-circle me-1"></i>{{ __('No domain entered yet: the module stays inactive and makes no DNS query. Add the domains your organisation uses to send or receive e-mail, and the ones it only owns.', 'grcmanager') }}</div>
          {% else %}
-            <div class="table-responsive">
+            <div class="table-responsive" tabindex="0">
                <table class="table table-sm table-hover align-middle mb-0">
                   <thead><tr>
                      <th>{{ __('Domain', 'grcmanager') }}</th>

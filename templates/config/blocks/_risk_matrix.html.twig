@@ -39,7 +39,7 @@
                 {% for impact_key, impact_label in risk_impacts %}
                   {% set current_level = risk_matrix[probability_key][impact_key]|default('medium') %}
                   <td class="grcmanager-matrix-cell grcmanager-level-{{ current_level }}">
-                    <select name="matrix_{{ probability_key }}_{{ impact_key }}" class="form-select form-select-sm grcmanager-level-select" data-level="{{ current_level }}">
+                    <select name="matrix_{{ probability_key }}_{{ impact_key }}" aria-label="{{ probability_label }} / {{ impact_label }}" class="form-select form-select-sm grcmanager-level-select" data-level="{{ current_level }}">
                       {% for level_key, level_label in risk_levels %}
                         <option value="{{ level_key }}" {{ current_level == level_key ? 'selected' : '' }}>{{ level_label }}</option>
                       {% endfor %}

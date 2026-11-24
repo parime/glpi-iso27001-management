@@ -31,6 +31,11 @@ use Glpi\Dashboard\Dashboard;
  * synthèse qui les relie entre elles. Une 16e carte (« Objectifs ISMS par statut ») a depuis été
  * ajoutée par l'issue #32, suivant exactement ce même principe de report direct dans la grille.
  *
+ * Issue #1114 : couleurs des chiffres clés choisies pour un texte lisible (contraste d'au moins
+ * 4,5:1). GLPI calcule la couleur du texte d'une carte en décalant de 40 % la luminosité de son
+ * fond (Toolbox::getFgColor()) : les rouges et violets foncés d'avant donnaient 2,2 à 3,8:1, et
+ * aucun rouge franc n'atteint 4,5:1 ; les cartes « critiques » passent donc en rouge orangé.
+ *
  * Issue #30 (registre des obligations légales/réglementaires/contractuelles) ajoute 4 nouvelles
  * cartes à ce tableau de bord seedé (2 chiffres clés en rangée 2, 2 répartitions en rangées 4/5),
  * la première évolution de ce tableau de bord depuis le Sprint 7 lui-même.
@@ -169,7 +174,7 @@ final class DefaultDashboardService
             $isms[$item['card_id']] = $item;
         }
         $bigNumber = static function (string $cardId, int $x, int $y, int $width = 4) use ($isms): array {
-            $color = $isms[$cardId]['card_options']['color'] ?? '#0e87a0';
+            $color = $isms[$cardId]['card_options']['color'] ?? '#11afd0';
 
             return [
                 'gridstack_id' => $cardId . '_direction',
@@ -234,10 +239,10 @@ final class DefaultDashboardService
 
         return [
             $bigNumber('securityincidents_bn_open', 0, '#f8911f'),
-            $bigNumber('grcmanager_securityincident_open_critical', 5, '#cc2936'),
-            $bigNumber('grcmanager_securityincident_time_to_contain', 10, '#0e87a0'),
-            $bigNumber('grcmanager_securityincident_time_to_close', 15, '#27ab3c'),
-            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 20, '#b52d30', 6),
+            $bigNumber('grcmanager_securityincident_open_critical', 5, '#fa5f1c'),
+            $bigNumber('grcmanager_securityincident_time_to_contain', 10, '#11afd0'),
+            $bigNumber('grcmanager_securityincident_time_to_close', 15, '#28bd40'),
+            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 20, '#fa5f1c', 6),
             $chart('grcmanager_securityincident_monthly_trend', 'lines', 0, 2, 13, 6),
             $chart('grcmanager_securityincident_regulatory_notifications', 'articleList', 13, 2, 13, 6),
             $chart('grcmanager_security_incidents_by_status', 'hbar', 0, 8, 7, 5),
@@ -299,17 +304,17 @@ final class DefaultDashboardService
 
         return [
             // Rangée 1 (y=0) : chiffres clés appelant à l'action.
-            $bigNumber('grcmanager_open_risks', 0, 0, '#e69393'),
+            $bigNumber('grcmanager_open_risks', 0, 0, '#fa5f1c'),
             $bigNumber('grcmanager_risks_pending_review', 4, 0, '#f8911f'),
-            $bigNumber('grcmanager_open_nonconformities', 8, 0, '#b52d30'),
-            $bigNumber('grcmanager_overdue_capa', 12, 0, '#f08d7b'),
-            $bigNumber('grcmanager_suppliers_with_high_risk', 16, 0, '#8e5ea2'),
-            $bigNumber('grcmanager_training_overdue_renewal', 20, 0, '#ffdc64'),
+            $bigNumber('grcmanager_open_nonconformities', 8, 0, '#fa5f1c'),
+            $bigNumber('grcmanager_overdue_capa', 12, 0, '#f97316'),
+            $bigNumber('grcmanager_suppliers_with_high_risk', 16, 0, '#c4b5fd'),
+            $bigNumber('grcmanager_training_overdue_renewal', 20, 0, '#ffd238'),
             // Rangée 2 (y=2) : progression, complétée par les 2 chiffres clés de l'issue #30
             // (obligations légales/réglementaires/contractuelles).
-            $bigNumber('grcmanager_soa_reviewed', 0, 2, '#0e87a0', 6),
-            $bigNumber('grcmanager_training_completion_rate', 6, 2, '#27ab3c', 6),
-            $bigNumber('grcmanager_obligations_non_compliant', 12, 2, '#cc2936', 6),
+            $bigNumber('grcmanager_soa_reviewed', 0, 2, '#11afd0', 6),
+            $bigNumber('grcmanager_training_completion_rate', 6, 2, '#28bd40', 6),
+            $bigNumber('grcmanager_obligations_non_compliant', 12, 2, '#fa5f1c', 6),
             $bigNumber('grcmanager_obligations_pending_review', 18, 2, '#f8911f', 6),
             // Rangée 3 (y=4) : répartitions, registre de risques et SoA.
             $pie('grcmanager_risks_by_level', 0, 4),
@@ -334,43 +339,43 @@ final class DefaultDashboardService
             // x=0 ; fusionnées côte à côte plutôt que superposées (voir le docblock de cette classe).
             $pie('grcmanager_security_incidents_by_status', 0, 16),
             $pie('grcmanager_security_incidents_by_severity', 6, 16),
-            $bigNumber('grcmanager_overdue_treatment_actions', 12, 16, '#cc2936'),
+            $bigNumber('grcmanager_overdue_treatment_actions', 12, 16, '#fa5f1c'),
             $bigNumber('grcmanager_risks_missing_treatment_plan', 16, 16, '#f8911f'),
             // Issue #614 : écarts de cohérence du SMSI avant un audit (x=20..24 de la rangée 6).
-            $bigNumber('grcmanager_isms_consistency_gaps', 20, 16, '#cc2936'),
+            $bigNumber('grcmanager_isms_consistency_gaps', 20, 16, '#fa5f1c'),
             // Rangée 7 (y=20) : cartes de pilotage (issue #143), conformité par référentiel puis
             // échéances, revue des accès, délais réglementaires et revues périodiques.
             self::chart('grcmanager_compliance_by_framework', 'hbar', 0, 20, 8, 4),
-            $bigNumber('grcmanager_upcoming_compliance_deadlines', 8, 20, '#0e87a0'),
-            $bigNumber('grcmanager_access_review_progress', 12, 20, '#27ab3c'),
-            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 16, 20, '#cc2936'),
+            $bigNumber('grcmanager_upcoming_compliance_deadlines', 8, 20, '#11afd0'),
+            $bigNumber('grcmanager_access_review_progress', 12, 20, '#28bd40'),
+            $bigNumber('grcmanager_security_incident_regulatory_deadlines', 16, 20, '#fa5f1c'),
             $bigNumber('grcmanager_periodic_reviews_overdue', 20, 20, '#f8911f'),
-            $bigNumber('grcmanager_supplier_questionnaire_average', 8, 22, '#8e5ea2'),
-            $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 22, '#cc2936'),
+            $bigNumber('grcmanager_supplier_questionnaire_average', 8, 22, '#c4b5fd'),
+            $bigNumber('grcmanager_critical_suppliers_without_assessment', 12, 22, '#fa5f1c'),
             $bigNumber('grcmanager_access_review_late_reviewers', 16, 22, '#f8911f'),
-            $bigNumber('grcmanager_training_retake_participants', 20, 22, '#ffdc64'),
+            $bigNumber('grcmanager_training_retake_participants', 20, 22, '#ffd238'),
             // Rangée 8 (y=24) : tendance mensuelle pour la revue de direction et réussite par
             // session de formation (issue #143).
             self::chart('grcmanager_monthly_trend', 'lines', 0, 24, 12, 6),
             self::chart('grcmanager_training_pass_rate_by_session', 'hbar', 12, 24, 12, 6),
             // Rangée 9 (y=30) : appétence, tolérance et indicateurs de risque (issue #378).
             $bigNumber('grcmanager_risks_above_appetite', 0, 30, '#f8911f'),
-            $bigNumber('grcmanager_risks_above_tolerance', 4, 30, '#cc2936'),
-            $bigNumber('grcmanager_risk_indicators_red', 8, 30, '#b52d30'),
+            $bigNumber('grcmanager_risks_above_tolerance', 4, 30, '#fa5f1c'),
+            $bigNumber('grcmanager_risk_indicators_red', 8, 30, '#fa5f1c'),
             $pie('grcmanager_risk_indicators_by_status', 12, 30),
             // Issue #380 : tests d'efficacité en retard, à côté des indicateurs de risque.
-            $bigNumber('grcmanager_overdue_control_tests', 18, 30, '#cc2936'),
+            $bigNumber('grcmanager_overdue_control_tests', 18, 30, '#fa5f1c'),
             self::chart('grcmanager_risk_indicators_trend', 'lines', 0, 34, 12, 6),
             // Issue #610 : mise en œuvre par fonction (concepts de cybersécurité), à côté.
             self::chart('grcmanager_soa_implementation_by_concept', 'hbar', 12, 34, 12, 6),
             // Rangée 10 (y=40) : continuité des processus métier (issue #377).
             $bigNumber('grcmanager_business_processes_bia_due', 0, 40, '#f8911f', 6),
-            $bigNumber('grcmanager_business_processes_recovery_above_rto', 6, 40, '#cc2936', 6),
+            $bigNumber('grcmanager_business_processes_recovery_above_rto', 6, 40, '#fa5f1c', 6),
             // Issue #601 : délais de correction des vulnérabilités du parc (x=12..24 de la rangée 10,
             // puis rangée 11 à y=42).
-            $bigNumber('grcmanager_vulnerability_remediation_compliance', 12, 40, '#27ab3c'),
-            $bigNumber('grcmanager_vulnerability_remediation_overdue', 16, 40, '#cc2936'),
-            $bigNumber('grcmanager_vulnerability_remediation_mean_time', 20, 40, '#0e87a0'),
+            $bigNumber('grcmanager_vulnerability_remediation_compliance', 12, 40, '#28bd40'),
+            $bigNumber('grcmanager_vulnerability_remediation_overdue', 16, 40, '#fa5f1c'),
+            $bigNumber('grcmanager_vulnerability_remediation_mean_time', 20, 40, '#11afd0'),
             self::chart('grcmanager_vulnerability_remediation_trend', 'stackedbars', 0, 42, 12, 6),
             self::chart('grcmanager_vulnerability_remediation_overdue_by_level', 'hbar', 12, 42, 12, 6),
         ];

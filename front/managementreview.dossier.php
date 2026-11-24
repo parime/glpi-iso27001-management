@@ -27,7 +27,8 @@ $review = new ManagementReview();
 
 if (!isset($_POST['generate'])) {
     Session::checkRight(ManagementReview::$rightname, READ);
-    Html::redirect(ManagementReview::getSearchURL());
+    // Issue #1114 : sans action (ouverture directe), pas d'écran : requête invalide.
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
 }
 
 Session::checkRight(ManagementReview::$rightname, UPDATE);

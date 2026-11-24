@@ -15,6 +15,12 @@
  * -------------------------------------------------------------------------
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #377, troisième étape : temps de reprise mesuré d'un processus (onglet « Stratégie de
 // reprise », ou salle de crise). Ajouter ou retirer un test exige de pouvoir modifier le processus
 // (droit de la continuité et entité) ; le rattacher à un exercice exige de pouvoir lire son incident.

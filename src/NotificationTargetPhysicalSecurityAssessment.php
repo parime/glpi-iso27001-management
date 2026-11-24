@@ -29,6 +29,8 @@ use Override;
  */
 class NotificationTargetPhysicalSecurityAssessment extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     #[Override]
     public function getEvents()
     {

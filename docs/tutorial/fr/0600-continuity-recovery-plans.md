@@ -5,7 +5,7 @@ Les plans de continuité et de reprise répondent aux mesures A.5.29 et A.5.30 d
 
 1. Créez un plan avec l'un des quatre boutons : **PCA** et **PRA** pour une activité métier,
    **PCI** et **PRI** pour un système informatique. Le plan démarre avec une trame à remplacer
-   (réglable dans **Configuration > Plugins > GRC Manager**, onglet **Incidents et continuité**).
+   (réglable dans **Configuration > Plugins > GRC Manager**, onglet **Risques et incidents**).
 2. Choisissez le responsable, l'approbateur (en général un membre de la direction), la cellule de
    crise et l'astreinte (groupes GLPI), puis les **processus couverts** : leurs DMIA/PDMA (RTO/RPO)
    viennent de leur BIA, avec le dernier test de reprise de chacun.

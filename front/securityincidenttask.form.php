@@ -21,6 +21,12 @@
 // incident's own timeline 404'd. Delegates to GLPI core's shared generic controller, same as every
 // core ITIL task front controller does: no plugin-specific logic needed.
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 $task = new PluginGrcmanagerSecurityIncidentTask();
 
 include(GLPI_ROOT . '/front/commonitiltask.form.php');

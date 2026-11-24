@@ -38,7 +38,7 @@
    }) }}
    {% set source_html %}
       <i class="ti ti-file-text me-1"></i>{{ __('ANSSI, Cyber France framework (ReCyF), working version %s', 'grcmanager')|format(version) }}, {{ reference }}
-      - <a href="{{ source_document }}" target="_blank" rel="noopener noreferrer">messervices.cyber.gouv.fr<i class="ti ti-external-link ms-1"></i></a>
+      - <a href="{{ source_document }}" class="text-decoration-underline" target="_blank" rel="noopener noreferrer">messervices.cyber.gouv.fr<i class="ti ti-external-link ms-1"></i></a>
    {% endset %}
    {{ fields.htmlField('', source_html, __('Official reference', 'grcmanager'), {'full_width': true}) }}
    {% if not in_scope %}

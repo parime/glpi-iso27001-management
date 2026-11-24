@@ -35,6 +35,8 @@ use Supplier;
  */
 class NotificationTargetSupplierRisk extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     #[Override]
     public function getEvents()
     {

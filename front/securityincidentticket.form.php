@@ -20,6 +20,12 @@
  * Issue #372 : « Créer un ticket lié » depuis l'onglet « Tickets liés » de l'incident.
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 if (isset($_POST['create_ticket'])) {
     // Créer un ticket (droit natif de GLPI) et modifier l'incident (le lien s'y ajoute) ; l'entité
     // du ticket est vérifiée par createLinkedTicket().
