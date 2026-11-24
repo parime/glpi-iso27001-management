@@ -1,2 +1,0 @@
-### Fixed
-- **Purge du jeu de données des tests de sécurité** (issue #1125). `tests/security/purge.php` ne cherchait la charge XSS que dans les noms et les titres : le produit canonique piégé (fabricant, produit), sa référence CPE et son alias restaient en base, et le passage suivant de `setup.php xss` échouait sur une instance partagée. Dans les tables du plugin, toute colonne de texte contenant le marqueur `xss-canary` est maintenant purgée, ce qui couvre aussi les fragments `setup-xss.d/`. Le marqueur n'existe dans aucune donnée réelle.

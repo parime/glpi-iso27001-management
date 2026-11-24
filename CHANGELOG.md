@@ -7,6 +7,184 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.86.0] - 2026-11-24
+
+### Added
+
+- **Anciennes adresses vérifiées en CI** (issue #1050). Les pages déplacées (liste versionnée
+  `tests/security/old-urls.txt`) et les anciennes ancres de la page de configuration doivent mener à
+  leur nouvelle place, avec un fil d'Ariane, pour l'administrateur comme pour un lecteur, sous
+  GLPI 11 et 12. Le lancement local du parcours de toutes les pages est documenté dans
+  `tests/security/README.md`.
+
+- **Rôles du SMSI : RSSI et DPO** (issue #1054, mesure A.5.2). Dans **Configuration > Plugins >
+  GRC Manager**, onglet **Personnes et politiques**, le bloc **Rôles du SMSI** donne à chacun des
+  deux rôles un **groupe GLPI** (titulaires et suppléants) et une **adresse e-mail générique**
+  (`rssi@…`, `dpo@…`), stable quand la personne change ; le format de l'adresse est vérifié. Le
+  groupe RSSI est celui qui lisait déjà les documents des audits internes : il ne se choisit plus
+  que dans ce bloc. Les deux rôles, leurs membres actifs et leurs adresses sont affichés en tête de
+  la **matrice des responsabilités** (rubrique **Organisation du SMSI**) et dans son PDF.
+- **Notifications aux rôles du SMSI** (issue #1054). La notification « Nouvelles expositions à des
+  fuites de données » propose les destinataires **Groupe DPO**, **Adresse générique du DPO** et
+  **Adresse générique du RSSI** ; le groupe DPO est ajouté par défaut sur une nouvelle
+  installation.
+
+- **Surveillance des fuites de données avec XposedOrNot, gratuit** (issue #1055, mesure A.5.7). La
+  surveillance n'exige plus de clé payante Have I Been Pwned : dans Configuration > Plugins >
+  GRC Manager > **Connecteurs**, on choisit le fournisseur. XposedOrNot vérifie les adresses
+  professionnelles sans clé, 20 au plus par passage (le service en accepte 25 par heure et 100 par
+  jour), le passage suivant reprenant au même utilisateur ; une clé de domaine XposedOrNot gratuite
+  (domaine vérifié sur leur tableau de bord) vérifie tout le domaine en une requête. Mêmes règles
+  qu'avant : adresses des domaines déclarés seulement, registre sensible, alerte au groupe RSSI, clé
+  chiffrée par GLPI. Le bouton « Tester la connexion » n'envoie aucune adresse réelle. Les résultats
+  restent dans GRC > Personnel et sensibilisation > Expositions à des fuites. Une nouvelle
+  installation sans clé Have I Been Pwned utilise XposedOrNot par défaut ; une installation qui a déjà
+  une clé garde Have I Been Pwned.
+
+- **Fin de support : correspondances proposées** (issue #1056, mesures A.8.8 et A.5.9). Sur
+  **Parc > Sécurité du parc > Fin de vie et correctifs > Logiciels à surveiller**, les noms de
+  l'inventaire qui ne sont reliés à aucun produit endoflife.date reçoivent une proposition, tirée
+  du catalogue de l'API v1 (nom et alias des produits, identifiants CPE et purl). Rien n'est
+  appliqué sans validation : on coche les propositions justes et on les accepte (elles deviennent
+  des correspondances manuelles), on refuse les autres (elles ne sont plus proposées). Égalité
+  exacte uniquement, jamais de ressemblance ; un terme trop vague ne donne rien. Le catalogue est
+  relu au plus une fois par semaine, par « Mettre à jour maintenant » ou la tâche quotidienne.
+
+- **Cartographie du SI, deuxième lot** (issue #1082) :
+  - export de la carte en **CSV** et en **PDF**, pour le PCA/PRA et la documentation d'audit ;
+  - onglet **Cartographie du SI** sur la fiche des ordinateurs, des matériels réseau et des processus
+    métier : ce que touche la panne de l'équipement, ou ce dont dépend le processus ;
+  - choix des **couches affichées**, et un clic sur une case **repart de cet élément**, sans
+    JavaScript ;
+  - calque des **flux inter-applicatifs**, lus dans la matrice des flux (flux actifs entre deux actifs
+    GLPI ; la source dépend de la destination), tracés en pointillés et listés avec leur protocole et
+    leurs ports.
+
+- **Cartographie du SI, troisième lot** (issue #1082) :
+  - nouvelle couche **VLAN et réseaux IP** entre le réseau physique et les serveurs, lue dans les
+    objets natifs de GLPI : VLAN des ports réseau, réseaux IP des adresses, champ « Réseau » des
+    matériels et relation « Réseau » des éléments d'une application. Le switch porte le VLAN, le VLAN
+    porte les machines : la panne d'un switch remonte par ses VLAN. Un VLAN, un réseau IP ou un
+    réseau peut servir de point de départ ;
+  - **environnements des applications** (production, recette, préproduction : champ natif des
+    applicatifs GLPI) : badge sur chaque application, tableau **Applications par environnement**
+    avec leurs serveurs et instances, colonne dans les exports CSV et PDF, et filtre
+    **Environnement des applications** qui ne parcourt que les applications de l'environnement choisi ;
+  - onglet **Cartographie du SI** sur la fiche des applicatifs (ce dont l'application dépend,
+    jusqu'au réseau) et applications proposées comme point de départ.
+
+- **Cartographie du SI par couches, du switch au processus métier** (issue #1082, mesures A.5.9 et
+  A.5.30). Nouvel onglet **Cartographie du SI** de la rubrique **Analyses de risques**, à côté de
+  l'analyse d'impact et de l'effet domino. À partir d'un élément (matériel réseau, ordinateur,
+  logiciel, application, instance de base de données, service Docker, processus métier), la page
+  répond à « que touche la panne de cet équipement ? » (jusqu'aux processus métier du BIA, rangés
+  par RTO) et à « de quoi dépend ce processus ? » (jusqu'au réseau). Quatre couches : réseau ;
+  serveurs, postes et virtualisation ; applications ; processus métier. Rien n'est dessiné à la
+  main : la carte lit les connexions réseau, les machines virtuelles (même UUID), les logiciels
+  installés, les applications et instances de bases de données de GLPI, l'analyse d'impact de GLPI,
+  les services de l'Inventaire Docker s'il est actif, et les dépendances des processus métier.
+  Schéma SVG dessiné par le plugin (aucune bibliothèque externe), chaque case joignable au clavier,
+  avec la liste par couche en équivalent textuel. Un élément que la personne ne peut pas voir est
+  compté sans être nommé. Point d'extension pour d'autres sources de liens
+  (`CartographySourcesProvider`).
+
+- **Rapports des scanners de vulnérabilités** (issue #543, mesure A.8.8) : nouvelle page
+  « Rapports des scanners de vulnérabilités » dans Parc > Sécurité du parc, groupe Vulnérabilités :
+  - import du rapport XML de Greenbone Community Edition / OpenVAS (format « XML » de l'interface ou
+    réponse get_reports du protocole GMP), lu en flux, sans réseau, DTD ni entité ; le fichier
+    n'est pas conservé, et un rapport d'exemple fictif est téléchargeable ;
+  - chaque constat (test, gravité CVSS, port, CVE, solution, qualité de détection) est rattaché à
+    l'ordinateur GLPI visible du même nom, nom court ou adresse IP ; les hôtes non rapprochés sont
+    listés et se rattachent à la main, choix repris aux imports suivants ;
+  - un constat est unique par outil, hôte, port et test : rejouer un rapport ne crée aucun doublon,
+    et un constat absent d'une analyse plus récente du même hôte passe « corrigé » ;
+  - historique par import (constats par gravité, évolution, corrigés depuis l'analyse précédente),
+    filtres par statut, gravité et ordinateur ;
+  - ticket de remédiation lié à l'ordinateur, proposé et créé seulement sur un clic ;
+  - preuve sur la fiche de la mesure A.8.8, source « Constats du scanner réseau » de l'onglet
+    Sécurité 360° de l'ordinateur, KRI « Constats critiques ou élevés ouverts (scanner) ».
+  Cadre commun des formats (Services\Scanner) prêt pour d'autres outils ; les formats du commerce
+  (Nessus, Qualys, Rapid7) restent à l'issue #841.
+
+- **Comptes à privilèges et coffre-fort de mots de passe** (issue #859, mesures A.5.17 et A.8.2).
+  Nouvelle page **GRC > Accès et comptes > Comptes à privilèges** : éléments du coffre (comptes
+  partagés, mots de passe des équipements) et membres, importés en CSV de métadonnées (Bitwarden,
+  Vaultwarden par l'interface `bw`, solution PAM) ou, pour les membres, lus sur clic par l'API
+  publique d'organisation de Bitwarden. Un fichier qui peut contenir un secret (mot de passe, code
+  TOTP, notes, champs personnalisés) est refusé en entier. Écarts signalés : mot de passe non changé
+  dans le délai choisi (onglet Personnes et politiques), personne partie qui a encore accès, membre
+  inconnu de GLPI, administrateur du coffre sans connexion en deux étapes, compte d'administration
+  d'un contrôleur de serveur absent du coffre. Repris dans un onglet des campagnes de revue des
+  accès, en preuve des mesures A.5.17 et A.8.2 et dans la source de KRI « mots de passe partagés non
+  changés ». Connexion à Bitwarden dans l'onglet Connecteurs ; lecture seule, rien n'est modifié.
+
+### Changed
+
+- **Contact du DPO sur les registres** (issue #1054). Le registre des traitements (article 30) et
+  le registre des violations de données affichent le groupe DPO, ses membres et l'adresse
+  générique, à la place du champ texte libre « Délégué à la protection des données », supprimé. La
+  mise à jour reprend sa valeur : une adresse trouvée devient l'adresse générique, le reste est
+  gardé comme note **à reprendre**, affichée sur les registres tant qu'aucun groupe ni adresse
+  n'est choisi.
+
+- **Version du plugin : composant commun** (issue #1064, parime/glpi-plugin-template#12). L'encadré de la configuration affiche la version installée, la dernière release publiée sur GitHub et un badge « À jour », « Mise à jour disponible » (avec liens vers les notes et l'archive) ou « Dernière version inconnue ». Quand la lecture échoue, il donne **la raison** (pas d'accès à GitHub, limite de requêtes, délai de 3 s dépassé, aucune release, réponse illisible) et la date de la dernière vérification réussie, dont le résultat reste affiché jusqu'à 7 jours. Cache de 12 h, nouvel essai une heure après un échec. Comme avant, aucun appel à GitHub tant que l'action automatique « checkupdate » de GLPI est désactivée : l'encadré le dit désormais. Remplace `GithubVersionChecker`.
+
+- **Exceptions des contrôles de sécurité en fragments** (issue #1098). Les exceptions justifiées sont rangées par sujet dans `.glpi-security-exceptions.d/` (`1035-menus`, `1078-assertions-traduites`), le fichier racine ne garde qu'un en-tête qui renvoie au dossier. Une nouvelle exception s'ajoute en créant un fichier, ce qui supprime la première source de conflits entre lots. Les contrôles lisent exactement les mêmes 37 exceptions qu'avant. La règle est ajoutée à `docs/ARCHITECTURE.md` (« Ajouter une fonctionnalité sans conflit »).
+
+- **Page de configuration** (issue #1110) : l'encadré « Version du plugin » est désormais le premier bloc affiché. Dans la liste de démarrage, l'étape « Cadrer la déclaration d'applicabilité » a maintenant un bouton « Ouvrir l'écran » et indique le chemin complet du menu (GRC & Conformité > Mesures de sécurité (SoA) > Cadrage de la SoA).
+
+- **Contrôle de navigation et parcours de toutes les pages bloquants en CI** (issue #1114). La
+  refonte de la navigation (#1035) étant terminée, le contrôle d'ergonomie (réglages, menus,
+  en-têtes) et le parcours de toutes les pages (fil d'Ariane, onglets, accessibilité, pages
+  refusées) ne sont plus de simples avertissements : une régression arrête la CI. Les écarts qui
+  viennent de composants du cœur de GLPI sont listés, avec leur raison, dans
+  `.glpi-security-exceptions.d/1114-parcours-pages`.
+- **Configuration en sept onglets** (issue #1114). Les réglages des incidents de sécurité et des
+  plans de continuité rejoignent l'onglet « Risques et incidents » ; l'ancienne adresse
+  `config.php?tab=incidents` ouvre ce nouvel onglet.
+
+- **Configuration sans porte d'entrée vers l'exploitation** (issue #1121) : les blocs Sauvegardes, Veeam, Messagerie et DNS, Uptime Kuma et Zabbix n'ont plus de lien « Voir les résultats » ; ils indiquent le chemin de l'écran dans le menu (Parc > Sécurité du parc > …).
+
+- **Accueil de la rubrique Risques : cartes parlantes** (issue #1128). « Risques » devient « Registre des risques », « Risques signalés » devient « Signalements à trier », et chaque carte porte un court sous-titre qui dit à quoi elle sert. Les cartes des rubriques acceptent désormais un titre et un sous-titre facultatifs (`parentCard()` de la rubrique, options `card_title` et `card_description` d'une sous-page). Aucun droit ni écran modifié.
+
+### Fixed
+
+- **Tests indépendants de la langue de l'interface** (issue #1078). Les tests qui comparaient un libellé traduit passaient en anglais (CI) et échouaient en français (instance de développement), ou l'inverse. Les données de test qui ressemblaient à un libellé ont été renommées ; les tests qui vérifient un libellé forcent l'anglais pendant leur exécution (`ForcesEnglishLanguage`) et sont déclarés dans `.glpi-security-exceptions`, comme les catalogues testés dans une langue passée explicitement. Le contrôle commun « assertions sur un libellé traduit » bloque désormais la CI.
+
+- **Test de la cartographie indépendant de la langue** (suite de l'issue #1078). Un test du premier lot de la cartographie comparait le libellé d'interface « Serveur » ; depuis que le contrôle des assertions traduites bloque la CI, il faisait échouer `dev` et toutes les PR. Il utilise maintenant une valeur fictive.
+
+- **Contrôleurs de gestion des serveurs (Redfish) : ressources lues aux emplacements documentés** (issue #1085). La politique de sécurité DMTF est lue au bon endroit (`TLS.Server.Allowed.Versions`, avec `Denied.Versions` prioritaire et les valeurs `ALL` et `NONE`) : l'ancien chemin ne trouvait jamais rien et le test reprenait l'erreur. Le mode de sécurité `SecureStandard` d'iLO 7 (équivalent de HighSecurity, mode par défaut) est reconnu comme « TLS 1.2 et plus seulement ». Le certificat HTTPS est aussi cherché dans le service de certificats DMTF (`CertificateLocations`) et, pour HPE iLO, dans `SecurityService/HttpsCert` quand les protocoles réseau ne donnent pas de lien. La santé du châssis lit d'abord `ThermalSubsystem` et `PowerSubsystem`, les ressources `Thermal` et `Power` (dépréciées depuis Chassis v1_15_0) restant lues à défaut. Tests sur une copie partielle de la maquette publique DMTF public-rackmount1. Non vérifié contre un vrai contrôleur HPE, Dell ou Lenovo.
+
+- **Veeam : révisions de l'API d'après la documentation officielle** (issue #1087, lot 1). L'aide de la configuration indiquait à tort que la révision 1.1-rev2 fonctionne à partir de Veeam 12.1 : d'après la table officielle des révisions, elle arrive avec Veeam 12.2 (1.1-rev1 avec 12.1, 1.2 avec 12.3). L'aide est corrigée et la révision 1.3-rev2 de la documentation actuelle (Veeam 13) est proposée. Les sources sont citées dans le code. Non vérifié contre un vrai serveur : la négociation automatique de la révision et la dépréciation éventuelle de 1.1-rev2 en v13 attendent le test sur la VM du laboratoire.
+
+- **Avertissements lisibles** (issue #1114). Les messages d'avertissement écrits en jaune (contrôles
+  d'une violation de données, recette d'une mise en production, matrice des responsabilités,
+  acceptation d'un risque, appétence, import de risques, atelier 5 EBIOS, développement sécurisé,
+  applications approuvées, résumé de contexte) utilisent la variante foncée du jaune : le contraste
+  avec le fond atteint le niveau AA.
+- **Barres d'onglets sur une seule ligne et lisibles** (issue #1114). Les barres des rubriques et
+  de la configuration ne passent plus à la ligne (onglets plus serrés, défilement horizontal si
+  besoin) ; leurs libellés gardent la couleur du texte quelle que soit la palette de GLPI.
+- **Chiffres clés du tableau de bord lisibles** (issue #1114) : couleurs des cartes choisies pour
+  un contraste d'au moins 4,5:1 avec le texte que GLPI y écrit.
+- **Liens reconnaissables sans la couleur** (issue #1114) : les liens placés dans un texte des
+  écrans du plugin sont soulignés.
+- **Pages sans écran propre** (issue #1114). Les points d'envoi des formulaires des onglets, le
+  changement de taille de la matrice des risques, le dossier de revue de direction, les comptes des
+  contrôleurs de serveurs et les réponses fournisseur hors ligne, ouverts directement, répondent
+  « requête invalide » au lieu de renvoyer vers l'accueil ou un autre écran.
+- **Écrans atteignables par le menu** (issue #1114) : la liste des événements de conformité
+  s'ouvre depuis le calendrier, les nomenclatures SBOM depuis le développement sécurisé.
+
+- **Purge du jeu de données des tests de sécurité** (issue #1125). `tests/security/purge.php` ne cherchait la charge XSS que dans les noms et les titres : le produit canonique piégé (fabricant, produit), sa référence CPE et son alias restaient en base, et le passage suivant de `setup.php xss` échouait sur une instance partagée. Dans les tables du plugin, toute colonne de texte contenant le marqueur `xss-canary` est maintenant purgée, ce qui couvre aussi les fragments `setup-xss.d/`. Le marqueur n'existe dans aucune donnée réelle.
+
+- **Tests de sécurité** (issue #1132) : la matrice d'accès ne compte plus la photo mensuelle de maturité, écrite par la tâche automatique de GLPI et non par le profil testé.
+
+- **Comptes à privilèges : élément jamais modifié** (issue #1145). Bitwarden et Vaultwarden laissent
+  `passwordRevisionDate` vide tant que le mot de passe n'a jamais été changé : l'import CSV retient
+  alors la date de création de l'élément (`creationDate`) au lieu de signaler « date inconnue ».
+  Constaté en vrai contre Vaultwarden (brique du laboratoire de test).
+
 ## [2.85.0] - 2026-11-23
 
 ### Added

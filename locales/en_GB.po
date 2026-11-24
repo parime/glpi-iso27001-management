@@ -43658,6 +43658,1187 @@ msgstr[1] "%d items are waiting for you"
 msgid "version %s"
 msgstr "version %s"
 
+msgid "Reports to sort"
+msgstr "Reports to sort"
+
+msgid "Assessed risks, their treatment and their follow-up."
+msgstr "Assessed risks, their treatment and their follow-up."
+
+msgid "Risks raised by staff, to add to the register or to dismiss."
+msgstr "Risks raised by staff, to add to the register or to dismiss."
+
+msgid "ISMS roles"
+msgstr "ISMS roles"
+
+msgid ""
+"For each role, choose the GLPI group of the people who hold it (holders and "
+"substitutes) and a generic e-mail address that does not change when the "
+"person changes. The group receives the notifications and reads the documents "
+"of the internal audits (CISO); the generic address is shown on the registers "
+"and can be chosen as a notification recipient. The roles are shown on the "
+"responsibility matrix (ISMS organisation)."
+msgstr ""
+"For each role, choose the GLPI group of the people who hold it (holders and "
+"substitutes) and a generic e-mail address that does not change when the "
+"person changes. The group receives the notifications and reads the documents "
+"of the internal audits (CISO); the generic address is shown on the registers "
+"and can be chosen as a notification recipient. The roles are shown on the "
+"responsibility matrix (ISMS organisation)."
+
+msgid "%s: the generic e-mail address is not valid, it was not saved."
+msgstr "%s: the generic e-mail address is not valid, it was not saved."
+
+msgid "Generic e-mail address"
+msgstr "Generic e-mail address"
+
+msgid "A shared mailbox or a list, not a personal address."
+msgstr "A shared mailbox or a list, not a personal address."
+
+msgid "To be reworked"
+msgstr "To be reworked"
+
+msgid "Kept from the former \"DPO\" text field:"
+msgstr "Kept from the former \"DPO\" text field:"
+
+msgid ""
+"Shown on the registers as long as no group and no address are chosen. Choose "
+"the group or the address, then delete this note."
+msgstr ""
+"Shown on the registers as long as no group and no address are chosen. Choose "
+"the group or the address, then delete this note."
+
+msgid "The note has been reworked: delete it"
+msgstr "The note has been reworked: delete it"
+
+msgid "Choose it in the ISMS roles"
+msgstr "Choose it in the ISMS roles"
+
+msgid ""
+"No CISO group is set (ISMS roles, People and policies tab, or Configuration "
+"GLPI Auto): only the test plan owner is reminded."
+msgstr ""
+"No CISO group is set (ISMS roles, People and policies tab, or Configuration "
+"GLPI Auto): only the test plan owner is reminded."
+
+msgid "CISO generic address (GRC Manager)"
+msgstr "CISO generic address (GRC Manager)"
+
+msgid "DPO group (GRC Manager)"
+msgstr "DPO group (GRC Manager)"
+
+msgid "DPO generic address (GRC Manager)"
+msgstr "DPO generic address (GRC Manager)"
+
+msgid "Choose the roles"
+msgstr "Choose the roles"
+
+msgid "No generic address"
+msgstr "No generic address"
+
+msgid "The group has no active member."
+msgstr "The group has no active member."
+
+msgid ""
+"Every day, the work email addresses of active users are sent to the chosen "
+"provider to find known data breaches; each exposure is recorded in a "
+"sensitive register and the CISO group is notified. Personal addresses are "
+"never sent. A verified domain needs a single request; otherwise addresses "
+"are checked one by one, within the rate limit of the provider."
+msgstr ""
+"Every day, the work email addresses of active users are sent to the chosen "
+"provider to find known data breaches; each exposure is recorded in a "
+"sensitive register and the CISO group is notified. Personal addresses are "
+"never sent. A verified domain needs a single request; otherwise addresses "
+"are checked one by one, within the rate limit of the provider."
+
+msgid "Breach data provider"
+msgstr "Breach data provider"
+
+msgid "Free, no key needed"
+msgstr "Free, no key needed"
+
+msgid "Paid API key"
+msgstr "Paid API key"
+
+msgid ""
+"Free API: up to %d addresses per run (the provider allows 25 per hour and "
+"100 per day); the next run resumes where the previous one stopped. To go "
+"faster, run the \"breachmonitor\" automatic action every hour."
+msgstr ""
+"Free API: up to %d addresses per run (the provider allows 25 per hour and "
+"100 per day); the next run resumes where the previous one stopped. To go "
+"faster, run the \"breachmonitor\" automatic action every hour."
+
+msgid "API documentation"
+msgstr "API documentation"
+
+msgid "XposedOrNot domain API key (optional)"
+msgstr "XposedOrNot domain API key (optional)"
+
+msgid ""
+"Free key given once your domain is verified on the XposedOrNot dashboard: "
+"the whole domain is then checked with a single request. Encrypted with the "
+"GLPI key and never displayed again."
+msgstr ""
+"Free key given once your domain is verified on the XposedOrNot dashboard: "
+"the whole domain is then checked with a single request. Encrypted with the "
+"GLPI key and never displayed again."
+
+msgid "%s: connection successful."
+msgstr "%s: connection successful."
+
+msgid "%s refused the API key."
+msgstr "%s refused the API key."
+
+msgid "%1$s could not be reached (code %2$d)."
+msgstr "%1$s could not be reached (code %2$d)."
+
+msgid "Published by the breach database"
+msgstr "Published by the breach database"
+
+msgid ""
+"Data breach monitoring: checks work email addresses with the chosen provider "
+"(XposedOrNot or Have I Been Pwned)"
+msgstr ""
+"Data breach monitoring: checks work email addresses with the chosen provider "
+"(XposedOrNot or Have I Been Pwned)"
+
+msgid "%1$s: error %2$s"
+msgstr "%1$s: error %2$s"
+
+msgid "%s: rate limit reached, the next run resumes where this one stopped"
+msgstr "%s: rate limit reached, the next run resumes where this one stopped"
+
+msgid ""
+"Work email addresses found in known data breaches, checked every day with "
+"the provider chosen in the plugin configuration (XposedOrNot or Have I Been "
+"Pwned), to which these addresses are sent."
+msgstr ""
+"Work email addresses found in known data breaches, checked every day with "
+"the provider chosen in the plugin configuration (XposedOrNot or Have I Been "
+"Pwned), to which these addresses are sent."
+
+msgid "%d more not shown: they appear once these are reviewed."
+msgstr "%d more not shown: they appear once these are reviewed."
+
+msgid "%d proposal(s) rejected: they will no longer be proposed."
+msgstr "%d proposal(s) rejected: they will no longer be proposed."
+
+msgid "%d proposed link(s) accepted."
+msgstr "%d proposed link(s) accepted."
+
+msgid "Accept the checked proposals"
+msgstr "Accept the checked proposals"
+
+msgid "Catalogue not read yet: use \"Update now\"."
+msgstr "Catalogue not read yet: use \"Update now\"."
+
+msgid ""
+"Catalogue read on %s (once a week, with \"Update now\" or the daily task)."
+msgstr ""
+"Catalogue read on %s (once a week, with \"Update now\" or the daily task)."
+
+msgid ""
+"For the names not linked yet, the endoflife.date catalogue (product names, "
+"aliases, CPE and package identifiers) gives a likely product. Nothing is "
+"applied until you accept it: check the proposals that are right, then accept "
+"them; reject the wrong ones so they are no longer proposed."
+msgstr ""
+"For the names not linked yet, the endoflife.date catalogue (product names, "
+"aliases, CPE and package identifiers) gives a likely product. Nothing is "
+"applied until you accept it: check the proposals that are right, then accept "
+"them; reject the wrong ones so they are no longer proposed."
+
+msgid "Name or alias of the product"
+msgstr "Name or alias of the product"
+
+msgid ""
+"No proposal: every name found in the catalogue is already linked or reviewed."
+msgstr ""
+"No proposal: every name found in the catalogue is already linked or reviewed."
+
+msgid "Package identifier (purl)"
+msgstr "Package identifier (purl)"
+
+msgid "Product catalogue not read (%s): the proposals use the previous one."
+msgstr "Product catalogue not read (%s): the proposals use the previous one."
+
+msgid ""
+"Product catalogue updated: links are proposed for the names not linked yet."
+msgstr ""
+"Product catalogue updated: links are proposed for the names not linked yet."
+
+msgid "Product for %s"
+msgstr "Product for %s"
+
+msgid "Proposed links, to review"
+msgstr "Proposed links, to review"
+
+msgid "Proposed product"
+msgstr "Proposed product"
+
+msgid "Reject the checked proposals"
+msgstr "Reject the checked proposals"
+
+msgid "Select the proposal for %s"
+msgstr "Select the proposal for %s"
+
+msgid "Select"
+msgstr "Select"
+
+msgid ""
+"GitHub cannot be reached from the GLPI server (no Internet access, proxy or "
+"firewall)"
+msgstr ""
+"GitHub cannot be reached from the GLPI server (no Internet access, proxy or "
+"firewall)"
+
+msgid ""
+"the GitHub request limit is reached, a new attempt will be made within an "
+"hour"
+msgstr ""
+"the GitHub request limit is reached, a new attempt will be made within an "
+"hour"
+
+msgid "GitHub did not answer within 3 seconds"
+msgstr "GitHub did not answer within 3 seconds"
+
+msgid "no release is published on GitHub yet"
+msgstr "no release is published on GitHub yet"
+
+msgid "the answer from GitHub could not be read"
+msgstr "the answer from GitHub could not be read"
+
+msgid "Latest release on GitHub"
+msgstr "Latest release on GitHub"
+
+#, php-format
+msgid "Update available: %s"
+msgstr "Update available: %s"
+
+msgid "Latest version unknown"
+msgstr "Latest version unknown"
+
+msgid "Release notes"
+msgstr "Release notes"
+
+msgid "Download the archive"
+msgstr "Download the archive"
+
+#, php-format
+msgid "Last check failed: %s."
+msgstr "Last check failed: %s."
+
+#, php-format
+msgid "Result of the last successful check (%s) shown."
+msgstr "Result of the last successful check (%s) shown."
+
+#, php-format
+msgid "Reason: %s."
+msgstr "Reason: %s."
+
+#, php-format
+msgid "Last successful check: %s."
+msgstr "Last successful check: %s."
+
+msgid "No successful check yet."
+msgstr "No successful check yet."
+
+msgid "See the releases on GitHub"
+msgstr "See the releases on GitHub"
+
+#, php-format
+msgid "Last checked: %s (checked again every 12 hours)."
+msgstr "Last checked: %s (checked again every 12 hours)."
+
+msgid ""
+"the check follows the GLPI automatic action \"checkupdate\", which is turned "
+"off (Setup > Automatic actions)"
+msgstr ""
+"the check follows the GLPI automatic action \"checkupdate\", which is turned "
+"off (Setup > Automatic actions)"
+
+msgid "Application flows (flow matrix)"
+msgstr "Application flows (flow matrix)"
+
+msgid "Application flows"
+msgstr "Application flows"
+
+msgid "Click a box to start the map again from it."
+msgstr "Click a box to start the map again from it."
+
+msgid ""
+"Dashed line: application flow from the flow matrix (the source depends on "
+"the destination)."
+msgstr ""
+"Dashed line: application flow from the flow matrix (the source depends on "
+"the destination)."
+
+msgid "Export the map (CSV)"
+msgstr "Export the map (CSV)"
+
+msgid "Export the map (PDF)"
+msgstr "Export the map (PDF)"
+
+msgid "Layer"
+msgstr "Layer"
+
+msgid "Layers shown"
+msgstr "Layers shown"
+
+msgid "Linked items"
+msgstr "Linked items"
+
+msgid "Open the full map"
+msgstr "Open the full map"
+
+msgid "Start the map from %s"
+msgstr "Start the map from %s"
+
+msgid "%d application flow"
+msgid_plural "%d application flows"
+msgstr[0] "%d application flow"
+msgstr[1] "%d application flows"
+
+msgid "All environments"
+msgstr "All environments"
+
+msgid "Application environment"
+msgstr "Application environment"
+
+msgid "Applications by environment"
+msgstr "Applications by environment"
+
+msgid "Applications of the environment: %s"
+msgstr "Applications of the environment: %s"
+
+msgid ""
+"No application in GLPI yet: declare them in Assets > Appliances, with their "
+"environment and their servers."
+msgstr ""
+"No application in GLPI yet: declare them in Assets > Appliances, with their "
+"environment and their servers."
+
+msgid "No server or instance linked to this application in GLPI."
+msgstr "No server or instance linked to this application in GLPI."
+
+msgid "Physical network"
+msgstr "Physical network"
+
+msgid "Servers and instances"
+msgstr "Servers and instances"
+
+msgid ""
+"Shows the information system layer by layer, from the network to the "
+"business processes: network equipment and cables, VLAN and IP networks, "
+"servers, workstations and virtual machines, installed software and "
+"applications with their environment (production, test, pre-production), then "
+"the processes of the business impact analysis. Choose an item to see what "
+"its failure affects, up to the processes and their RTO, or what a process "
+"depends on, down to the network."
+msgstr ""
+"Shows the information system layer by layer, from the network to the "
+"business processes: network equipment and cables, VLAN and IP networks, "
+"servers, workstations and virtual machines, installed software and "
+"applications with their environment (production, test, pre-production), then "
+"the processes of the business impact analysis. Choose an item to see what "
+"its failure affects, up to the processes and their RTO, or what a process "
+"depends on, down to the network."
+
+msgid "VLAN and IP networks"
+msgstr "VLAN and IP networks"
+
+msgid "What does this application run on?"
+msgstr "What does this application run on?"
+
+msgid "+ %d item not visible"
+msgid_plural "+ %d items not visible"
+msgstr[0] "+ %d item not visible"
+msgstr[1] "+ %d items not visible"
+
+msgid "IT system map"
+msgstr "IT system map"
+
+msgid ""
+"Nothing is drawn by hand: the map reads what GLPI and GRC already know "
+"(network connections, virtual machines, installed software, appliances, GLPI "
+"impact analysis, dependencies of the business processes). A missing link is "
+"completed in GLPI or on the process; two connected switches do not spread "
+"the impact, declare it in the GLPI impact analysis."
+msgstr ""
+"Nothing is drawn by hand: the map reads what GLPI and GRC already know "
+"(network connections, virtual machines, installed software, appliances, GLPI "
+"impact analysis, dependencies of the business processes). A missing link is "
+"completed in GLPI or on the process; two connected switches do not spread "
+"the impact, declare it in the GLPI impact analysis."
+
+msgid "ISO/IEC 27001, controls A.5.9 and A.5.30"
+msgstr "ISO/IEC 27001, controls A.5.9 and A.5.30"
+
+msgid "Servers, workstations and virtualisation"
+msgstr "Servers, workstations and virtualisation"
+
+msgid "Choose the item to map"
+msgstr "Choose the item to map"
+
+msgid "Starting item"
+msgstr "Starting item"
+
+msgid "What does its failure affect?"
+msgstr "What does its failure affect?"
+
+msgid "What does it depend on?"
+msgstr "What does it depend on?"
+
+msgid "Show the map"
+msgstr "Show the map"
+
+msgid "This item does not exist or you cannot see it."
+msgstr "This item does not exist or you cannot see it."
+
+msgid "Items affected by a failure of:"
+msgstr "Items affected by a failure of:"
+
+msgid "Items this one depends on:"
+msgstr "Items this one depends on:"
+
+msgid ""
+"The map is limited to %d items: start from a more precise item to see the "
+"rest."
+msgstr ""
+"The map is limited to %d items: start from a more precise item to see the "
+"rest."
+
+msgid "Business processes affected, most urgent first"
+msgstr "Business processes affected, most urgent first"
+
+msgid ""
+"No business process depends on this item according to what GLPI and GRC "
+"know. Link the assets to the processes in the business impact analysis to "
+"see the business impact."
+msgstr ""
+"No business process depends on this item according to what GLPI and GRC "
+"know. Link the assets to the processes in the business impact analysis to "
+"see the business impact."
+
+msgid "Distance"
+msgstr "Distance"
+
+msgid "Map by layer"
+msgstr "Map by layer"
+
+msgid "+ %d in the list"
+msgstr "+ %d in the list"
+
+msgid "Nothing in this layer."
+msgstr "Nothing in this layer."
+
+msgid "What does this process depend on?"
+msgstr "What does this process depend on?"
+
+msgid "No business process yet: describe them in the business impact analysis."
+msgstr ""
+"No business process yet: describe them in the business impact analysis."
+
+msgid "What does the failure of this equipment affect?"
+msgstr "What does the failure of this equipment affect?"
+
+msgid "No network equipment in the inventory."
+msgstr "No network equipment in the inventory."
+
+msgid "%d linked item"
+msgid_plural "%d linked items"
+msgstr[0] "%d linked item"
+msgstr[1] "%d linked items"
+
+msgid "%d step"
+msgid_plural "%d steps"
+msgstr[0] "%d step"
+msgstr[1] "%d steps"
+
+msgid ""
+"The password is encrypted with the GLPI key, never displayed again nor "
+"logged. Revision 1.1-rev2 works from Veeam 12.2 (1.1-rev1 from 12.1, 1.2 "
+"from 12.3, 1.3-rev2 for Veeam 13); an older revision stays accepted by a "
+"more recent server."
+msgstr ""
+"The password is encrypted with the GLPI key, never displayed again nor "
+"logged. Revision 1.1-rev2 works from Veeam 12.2 (1.1-rev1 from 12.1, 1.2 "
+"from 12.3, 1.3-rev2 for Veeam 13); an older revision stays accepted by a "
+"more recent server."
+
+msgid "Open the screen"
+msgstr "Open the screen"
+
+#, php-format
+msgid ""
+"Answer every question of the SoA scoping screen (menu %s): the answers "
+"suggest which controls apply."
+msgstr ""
+"Answer every question of the SoA scoping screen (menu %s): the answers "
+"suggest which controls apply."
+
+msgid "Risks and incidents"
+msgstr "Risks and incidents"
+
+#, php-format
+msgid "Results in the menu: %s"
+msgstr "Results in the menu: %s"
+
+msgid "%1$d open findings, %2$d of them critical or high."
+msgstr "%1$d open findings, %2$d of them critical or high."
+
+msgid ""
+"Brings the results of your network vulnerability scanner (Greenbone / "
+"OpenVAS) into the ISMS: each finding is matched to a GLPI computer, kept "
+"from one scan to the next and marked fixed when a later scan of the same "
+"host no longer reports it."
+msgstr ""
+"Brings the results of your network vulnerability scanner (Greenbone / "
+"OpenVAS) into the ISMS: each finding is matched to a GLPI computer, kept "
+"from one scan to the next and marked fixed when a later scan of the same "
+"host no longer reports it."
+
+msgid "Choose the XML report downloaded from Greenbone (OpenVAS)."
+msgstr "Choose the XML report downloaded from Greenbone (OpenVAS)."
+
+msgid ""
+"Creates a ticket linked to the computer, with the finding and its solution. "
+"Nothing is created without this click."
+msgstr ""
+"Creates a ticket linked to the computer, with the finding and its solution. "
+"Nothing is created without this click."
+
+msgid "Delete this import and the findings it was the last to see?"
+msgstr "Delete this import and the findings it was the last to see?"
+
+msgid "Detection quality %d%%"
+msgstr "Detection quality %d%%"
+
+msgid "Findings by severity"
+msgstr "Findings by severity"
+
+msgid "Fixed since the previous scan"
+msgstr "Fixed since the previous scan"
+
+msgid ""
+"Format not recognised: export the report from Greenbone in the XML format."
+msgstr ""
+"Format not recognised: export the report from Greenbone in the XML format."
+
+msgid "Formats read:"
+msgstr "Formats read:"
+
+msgid "Highest score"
+msgstr "Highest score"
+
+msgid "Host in the report"
+msgstr "Host in the report"
+
+msgid "Host matched to the computer."
+msgstr "Host matched to the computer."
+
+msgid "Hosts not matched to a computer"
+msgstr "Hosts not matched to a computer"
+
+msgid "ISO/IEC 27001, control A.8.8"
+msgstr "ISO/IEC 27001, control A.8.8"
+
+msgid "Import a scanner report"
+msgstr "Import a scanner report"
+
+msgid "Import history"
+msgstr "Import history"
+
+msgid ""
+"Import the XML report after each scan, match the hosts that were not "
+"recognised, then handle the critical and high findings first (ticket "
+"proposed on click only). Nothing is changed automatically, neither in GLPI "
+"nor on the scanner."
+msgstr ""
+"Import the XML report after each scan, match the hosts that were not "
+"recognised, then handle the critical and high findings first (ticket "
+"proposed on click only). Nothing is changed automatically, neither in GLPI "
+"nor on the scanner."
+
+msgid ""
+"In Greenbone (OpenVAS), open the finished report, choose Download and the "
+"XML format, then import the file here. Each finding is matched to the GLPI "
+"computer of the same name or IP address. Importing the same report again "
+"updates it without creating duplicates; a finding missing from a later scan "
+"of the same host is marked fixed."
+msgstr ""
+"In Greenbone (OpenVAS), open the finished report, choose Download and the "
+"XML format, then import the file here. Each finding is matched to the GLPI "
+"computer of the same name or IP address. Importing the same report again "
+"updates it without creating duplicates; a finding missing from a later scan "
+"of the same host is marked fixed."
+
+msgid "Last scan imported: %s"
+msgstr "Last scan imported: %s"
+
+msgid "Network scanner findings"
+msgstr "Network scanner findings"
+
+msgid ""
+"No computer you can see bears this name or this IP address, or several do. "
+"Check the computer in GLPI, or choose it here: the next imports will reuse "
+"this choice."
+msgstr ""
+"No computer you can see bears this name or this IP address, or several do. "
+"Check the computer in GLPI, or choose it here: the next imports will reuse "
+"this choice."
+
+msgid "No finding matches these filters."
+msgstr "No finding matches these filters."
+
+msgid "No open finding in the last network scans of this computer."
+msgstr "No open finding in the last network scans of this computer."
+
+msgid ""
+"No report imported yet. Import a Greenbone (OpenVAS) report to list the "
+"vulnerabilities found on the network."
+msgstr ""
+"No report imported yet. Import a Greenbone (OpenVAS) report to list the "
+"vulnerabilities found on the network."
+
+msgid "No report imported yet."
+msgstr "No report imported yet."
+
+msgid ""
+"Only the first %d findings are shown, the most severe first: use the filters."
+msgstr ""
+"Only the first %d findings are shown, the most severe first: use the filters."
+
+msgid "Open critical or high scanner findings"
+msgstr "Open critical or high scanner findings"
+
+msgid "Open findings"
+msgstr "Open findings"
+
+msgid "Open findings: %s"
+msgstr "Open findings: %s"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Report file"
+msgstr "Report file"
+
+msgid ""
+"Report imported: %1$d finding(s) on %2$d host(s), %3$d host(s) not matched "
+"to a computer, %4$d finding(s) fixed since the previous scan."
+msgstr ""
+"Report imported: %1$d finding(s) on %2$d host(s), %3$d host(s) not matched "
+"to a computer, %4$d finding(s) fixed since the previous scan."
+
+msgid "Scanned hosts not matched to a computer"
+msgstr "Scanned hosts not matched to a computer"
+
+msgid "The file could not be read as a scanner report."
+msgstr "The file could not be read as a scanner report."
+
+msgid ""
+"The file declares a DTD or entities: it is refused for security reasons."
+msgstr ""
+"The file declares a DTD or entities: it is refused for security reasons."
+
+msgid ""
+"The file holds more findings than the import keeps: only the first ones were "
+"kept."
+msgstr ""
+"The file holds more findings than the import keeps: only the first ones were "
+"kept."
+
+msgid ""
+"This report had already been imported: its findings were updated, without "
+"duplicates."
+msgstr ""
+"This report had already been imported: its findings were updated, without "
+"duplicates."
+
+msgid ""
+"Vulnerability found by %s, to fix on the computer linked to this ticket."
+msgstr ""
+"Vulnerability found by %s, to fix on the computer linked to this ticket."
+
+msgid "Vulnerability found by the scanner: %1$s on %2$s"
+msgstr "Vulnerability found by the scanner: %1$s on %2$s"
+
+msgid "Vulnerability scanner reports"
+msgstr "Vulnerability scanner reports"
+
+msgid ""
+"XML file, %d MB at most. The file itself is not kept: only the findings."
+msgstr ""
+"XML file, %d MB at most. The file itself is not kept: only the findings."
+
+#, php-format
+msgid "%1$d lines: the first %2$d are shown, gaps first."
+msgstr "%1$d lines: the first %2$d are shown, gaps first."
+
+#, php-format
+msgid "%d line(s) imported."
+msgstr "%d line(s) imported."
+
+#, php-format
+msgid "%d member(s) read from Bitwarden."
+msgstr "%d member(s) read from Bitwarden."
+
+msgid ""
+"A password of a shared or privileged account kept in the vault that has not "
+"been changed for longer is reported on the privileged accounts page and in "
+"the access reviews."
+msgstr ""
+"A password of a shared or privileged account kept in the vault that has not "
+"been changed for longer is reported on the privileged accounts page and in "
+"the access reviews."
+
+msgid ""
+"A self-hosted server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+msgstr ""
+"A self-hosted server on an internal address (private network) is refused by "
+"default: an administrator can allow internal addresses in the plugin "
+"configuration."
+
+msgid ""
+"Access refused by Bitwarden: the organization API is available on the Teams "
+"and Enterprise plans."
+msgstr ""
+"Access refused by Bitwarden: the organization API is available on the Teams "
+"and Enterprise plans."
+
+msgid "Address of the self-hosted server"
+msgstr "Address of the self-hosted server"
+
+msgid ""
+"Admin Console > Settings > Organization info > API key: view the key (owner "
+"only) and copy the client ID and the client secret here. The organization "
+"API exists on the Teams and Enterprise plans."
+msgstr ""
+"Admin Console > Settings > Organization info > API key: view the key (owner "
+"only) and copy the client ID and the client secret here. The organization "
+"API exists on the Teams and Enterprise plans."
+
+#, php-format
+msgid "Administrators: %1$d, without two-step login: %2$d"
+msgstr "Administrators: %1$d, without two-step login: %2$d"
+
+msgid "Bitwarden asks to slow down: try again in a few minutes."
+msgstr "Bitwarden asks to slow down: try again in a few minutes."
+
+msgid "Bitwarden cloud (European Union)"
+msgstr "Bitwarden cloud (European Union)"
+
+msgid "Bitwarden cloud (United States)"
+msgstr "Bitwarden cloud (United States)"
+
+msgid ""
+"Bitwarden could not be reached: check the network access or the GLPI proxy."
+msgstr ""
+"Bitwarden could not be reached: check the network access or the GLPI proxy."
+
+msgid "Bitwarden or Vaultwarden"
+msgstr "Bitwarden or Vaultwarden"
+
+msgid ""
+"Bitwarden or Vaultwarden: produce the file with the Bitwarden command line "
+"(bw list items and bw list org-members) and keep only these columns, without "
+"the passwords."
+msgstr ""
+"Bitwarden or Vaultwarden: produce the file with the Bitwarden command line "
+"(bw list items and bw list org-members) and keep only these columns, without "
+"the passwords."
+
+msgid ""
+"Bitwarden refused the client ID or the client secret of the organization API "
+"key."
+msgstr ""
+"Bitwarden refused the client ID or the client secret of the organization API "
+"key."
+
+msgid "Bitwarden returned an unexpected answer."
+msgstr "Bitwarden returned an unexpected answer."
+
+msgid "Bitwarden settings saved."
+msgstr "Bitwarden settings saved."
+
+msgid "Client ID"
+msgstr "Client ID"
+
+msgid "Collections"
+msgstr "Collections"
+
+msgid "Connection to Bitwarden (read only)"
+msgstr "Connection to Bitwarden (read only)"
+
+msgid "Connection to Bitwarden succeeded."
+msgstr "Connection to Bitwarden succeeded."
+
+msgid "Custom role"
+msgstr "Custom role"
+
+msgid "Date of the last change unknown"
+msgstr "Date of the last change unknown"
+
+msgid ""
+"Enabled administrator accounts read on the server management controllers "
+"(iLO, iDRAC, XClarity, IPMI). An account is found in the vault when an item "
+"has the same login name and cites the controller (name, host or IP address)."
+msgstr ""
+"Enabled administrator accounts read on the server management controllers "
+"(iLO, iDRAC, XClarity, IPMI). An account is found in the vault when an item "
+"has the same login name and cites the controller (name, host or IP address)."
+
+msgid ""
+"Enter the server, the client ID (organization.…) and the client secret of "
+"the organization API key first."
+msgstr ""
+"Enter the server, the client ID (organization.…) and the client secret of "
+"the organization API key first."
+
+msgid "Expected change delay (months)"
+msgstr "Expected change delay (months)"
+
+#, php-format
+msgid "Expected change delay: %d months"
+msgstr "Expected change delay: %d months"
+
+msgid ""
+"GLPI reads the members of your Bitwarden organization from the privileged "
+"accounts page, on request: email address, role, status, two-step login and "
+"accessible collections. Never an item, a password or a note."
+msgstr ""
+"GLPI reads the members of your Bitwarden organization from the privileged "
+"accounts page, on request: email address, role, status, two-step login and "
+"accessible collections. Never an item, a password or a note."
+
+msgid "How often must shared passwords be changed?"
+msgstr "How often must shared passwords be changed?"
+
+msgid "How to prepare Bitwarden:"
+msgstr "How to prepare Bitwarden:"
+
+msgid "ISO/IEC 27001, controls A.5.17 and A.8.2"
+msgstr "ISO/IEC 27001, controls A.5.17 and A.8.2"
+
+msgid ""
+"Import a CSV file with a header, one line per item or per member. A new "
+"import of the same source and the same kind replaces the previous one in the "
+"current entity."
+msgstr ""
+"Import a CSV file with a header, one line per item or per member. A new "
+"import of the same source and the same kind replaces the previous one in the "
+"current entity."
+
+msgid ""
+"Import the items and the members of the vault (or read the members from "
+"Bitwarden), then follow up the gaps: password not changed within the "
+"expected delay, access of a person who left, member unknown in GLPI, vault "
+"administrator without two-step login, server controller administrator "
+"account missing from the vault. Nothing is changed automatically. The gaps "
+"are also shown in the access review campaigns."
+msgstr ""
+"Import the items and the members of the vault (or read the members from "
+"Bitwarden), then follow up the gaps: password not changed within the "
+"expected delay, access of a person who left, member unknown in GLPI, vault "
+"administrator without two-step login, server controller administrator "
+"account missing from the vault. Nothing is changed automatically. The gaps "
+"are also shown in the access review campaigns."
+
+msgid "Import the vault metadata"
+msgstr "Import the vault metadata"
+
+msgid "Invited"
+msgstr "Invited"
+
+#, php-format
+msgid "Items still reachable by them: %d"
+msgstr "Items still reachable by them: %d"
+
+msgid ""
+"Items: name; optional id, collections, username, uri, passwordRevisionDate "
+"(or revisionDate, last_changed) and holders (email addresses separated by "
+"commas)."
+msgstr ""
+"Items: name; optional id, collections, username, uri, passwordRevisionDate "
+"(or revisionDate, last_changed) and holders (email addresses separated by "
+"commas)."
+
+msgid "Last change"
+msgstr "Last change"
+
+msgid "Login name"
+msgstr "Login name"
+
+msgid ""
+"Members are matched with GLPI accounts on the email address, the login, or "
+"the part of the address before the @. A person who left is a GLPI account "
+"disabled or deleted, or with a past departure date."
+msgstr ""
+"Members are matched with GLPI accounts on the email address, the login, or "
+"the part of the address before the @. A person who left is a GLPI account "
+"disabled or deleted, or with a past departure date."
+
+msgid "Members of the vault"
+msgstr "Members of the vault"
+
+msgid "Members to review"
+msgstr "Members to review"
+
+msgid "Members unknown in GLPI"
+msgstr "Members unknown in GLPI"
+
+msgid ""
+"Members: email; optional name, type or role (owner, admin, user, custom), "
+"status (active, invited, revoked), collections and twoFactorEnabled (yes/no)."
+msgstr ""
+"Members: email; optional name, type or role (owner, admin, user, custom), "
+"status (active, invited, revoked), collections and twoFactorEnabled (yes/no)."
+
+msgid "No administrator account missing from the vault."
+msgstr "No administrator account missing from the vault."
+
+msgid ""
+"No email column found: the file of the members needs a column such as email."
+msgstr ""
+"No email column found: the file of the members needs a column such as email."
+
+msgid "No item imported yet: import the items of the vault below."
+msgstr "No item imported yet: import the items of the vault below."
+
+msgid ""
+"No item name column found: the file needs a header with a column such as "
+"name."
+msgstr ""
+"No item name column found: the file needs a header with a column such as "
+"name."
+
+msgid ""
+"No member imported yet: import the members of the vault or read them from "
+"Bitwarden below."
+msgstr ""
+"No member imported yet: import the members of the vault or read them from "
+"Bitwarden below."
+
+msgid "No member with a gap."
+msgstr "No member with a gap."
+
+msgid "No shared account with a gap."
+msgstr "No shared account with a gap."
+
+#, php-format
+msgid "Not changed for more than %1$d months: %2$d"
+msgstr "Not changed for more than %1$d months: %2$d"
+
+msgid "Not changed within the expected delay"
+msgstr "Not changed within the expected delay"
+
+msgid "Not known"
+msgstr "Not known"
+
+msgid ""
+"Not saved: the client ID must start with organization. followed by an "
+"identifier, and the address of a self-hosted server must start with https:// "
+"(or http:// when internal addresses are allowed), without user name, "
+"password or parameters."
+msgstr ""
+"Not saved: the client ID must start with organization. followed by an "
+"identifier, and the address of a self-hosted server must start with https:// "
+"(or http:// when internal addresses are allowed), without user name, "
+"password or parameters."
+
+msgid ""
+"Nothing is changed in the vault nor in GLPI from this page: change the "
+"passwords and remove the accesses in the vault itself."
+msgstr ""
+"Nothing is changed in the vault nor in GLPI from this page: change the "
+"passwords and remove the accesses in the vault itself."
+
+msgid "Only for a self-hosted server: GLPI calls its /identity and /api paths."
+msgstr ""
+"Only for a self-hosted server: GLPI calls its /identity and /api paths."
+
+msgid ""
+"Only metadata is imported: names, collections, login names, addresses, dates "
+"and members. A file with a password, code, note or custom field column is "
+"refused as a whole. Nothing is ever written in the vault."
+msgstr ""
+"Only metadata is imported: names, collections, login names, addresses, dates "
+"and members. A file with a password, code, note or custom field column is "
+"refused as a whole. Nothing is ever written in the vault."
+
+msgid "Other password vault"
+msgstr "Other password vault"
+
+msgid "People who left with an access"
+msgstr "People who left with an access"
+
+#, php-format
+msgid "People who left with an access: %d"
+msgstr "People who left with an access: %d"
+
+msgid "Person who left"
+msgstr "Person who left"
+
+msgid "Privileged access management (PAM) solution"
+msgstr "Privileged access management (PAM) solution"
+
+msgid ""
+"Privileged access management (PAM) solution: export the accounts list or the "
+"safes members report without the passwords."
+msgstr ""
+"Privileged access management (PAM) solution: export the accounts list or the "
+"safes members report without the passwords."
+
+#, php-format
+msgid ""
+"Privileged accesses to review in the password vault: people who left, "
+"members unknown in GLPI, administrators without two-step login, passwords "
+"not changed for more than %d months. Remove the accesses and change the "
+"passwords in the vault itself."
+msgstr ""
+"Privileged accesses to review in the password vault: people who left, "
+"members unknown in GLPI, administrators without two-step login, passwords "
+"not changed for more than %d months. Remove the accesses and change the "
+"passwords in the vault itself."
+
+msgid "Privileged accounts and password vault"
+msgstr "Privileged accounts and password vault"
+
+msgid "Read now from Bitwarden"
+msgstr "Read now from Bitwarden"
+
+msgid "Read the members from Bitwarden"
+msgstr "Read the members from Bitwarden"
+
+msgid "Self-hosted Bitwarden server"
+msgstr "Self-hosted Bitwarden server"
+
+#, php-format
+msgid "Server controller accounts missing from the vault: %d"
+msgstr "Server controller accounts missing from the vault: %d"
+
+msgid "Server controller administrator accounts missing from the vault"
+msgstr "Server controller administrator accounts missing from the vault"
+
+msgid "Shared accounts in the vault"
+msgstr "Shared accounts in the vault"
+
+msgid "Shared accounts to review"
+msgstr "Shared accounts to review"
+
+msgid "Shared and privileged accounts in the vault"
+msgstr "Shared and privileged accounts in the vault"
+
+msgid "Shared passwords not changed within the expected delay"
+msgstr "Shared passwords not changed within the expected delay"
+
+msgid ""
+"Shows the shared and privileged accounts kept in your password vault "
+"(Bitwarden, Vaultwarden or a privileged access management solution) and who "
+"can reach them: when each password was last changed, the members of the "
+"vault and their role. Only metadata is read, never a password."
+msgstr ""
+"Shows the shared and privileged accounts kept in your password vault "
+"(Bitwarden, Vaultwarden or a privileged access management solution) and who "
+"can reach them: when each password was last changed, the members of the "
+"vault and their role. Only metadata is read, never a password."
+
+msgid "Still reachable by a person who left"
+msgstr "Still reachable by a person who left"
+
+msgid ""
+"The Bitwarden API was not found at this address: check the server address "
+"(Vaultwarden does not provide this API, import a CSV file instead)."
+msgstr ""
+"The Bitwarden API was not found at this address: check the server address "
+"(Vaultwarden does not provide this API, import a CSV file instead)."
+
+#, php-format
+msgid ""
+"The file was refused because the column \"%s\" may contain secrets. Remove "
+"the passwords, codes, notes and custom fields from the export, then import "
+"it again. Nothing was imported."
+msgstr ""
+"The file was refused because the column \"%s\" may contain secrets. Remove "
+"the passwords, codes, notes and custom fields from the export, then import "
+"it again. Nothing was imported."
+
+msgid ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged. "
+"GLPI only asks for a token and reads the list of the members."
+msgstr ""
+"The secret is encrypted with the GLPI key, never displayed again nor logged. "
+"GLPI only asks for a token and reads the list of the members."
+
+msgid ""
+"The server and the API key are entered in the plugin configuration, "
+"Connectors tab."
+msgstr ""
+"The server and the API key are entered in the plugin configuration, "
+"Connectors tab."
+
+msgid ""
+"The server is on an internal address: an administrator must allow internal "
+"addresses in the plugin configuration (Outgoing connections)."
+msgstr ""
+"The server is on an internal address: an administrator must allow internal "
+"addresses in the plugin configuration (Outgoing connections)."
+
+msgid "Two-step login"
+msgstr "Two-step login"
+
+msgid "Unknown in GLPI"
+msgstr "Unknown in GLPI"
+
+msgid "Vault administrator without two-step login"
+msgstr "Vault administrator without two-step login"
+
+#, php-format
+msgid "Vault administrators without two-step login: %d"
+msgstr "Vault administrators without two-step login: %d"
+
+msgid "Vault items (shared accounts)"
+msgstr "Vault items (shared accounts)"
+
+msgid "Vault members (who has access)"
+msgstr "Vault members (who has access)"
+
+msgid ""
+"Vaultwarden does not provide this API: import the CSV files of the members "
+"and of the items on the page instead."
+msgstr ""
+"Vaultwarden does not provide this API: import the CSV files of the members "
+"and of the items on the page instead."
+
+msgid "View all the privileged accounts"
+msgstr "View all the privileged accounts"
+
+msgid "Who has access"
+msgstr "Who has access"
+
+msgid ""
+"With the organization API key of Bitwarden (Teams and Enterprise plans), "
+"GLPI reads the members, their role, their two-step login and their "
+"collections when you click the button. The result replaces the Bitwarden "
+"members import of the current entity. The items are not exposed by this API: "
+"import them as a CSV file."
+msgstr ""
+"With the organization API key of Bitwarden (Teams and Enterprise plans), "
+"GLPI reads the members, their role, their two-step login and their "
+"collections when you click the button. The result replaces the Bitwarden "
+"members import of the current entity. The items are not exposed by this API: "
+"import them as a CSV file."
+
+#, php-format
+msgid "%d shared account in the vault"
+msgid_plural "%d shared accounts in the vault"
+msgstr[0] "%d shared account in the vault"
+msgstr[1] "%d shared accounts in the vault"
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
@@ -44658,12 +45839,3 @@ msgstr "version %s"
 #~ msgstr ""
 #~ "Sent to the person who submitted a version of a security policy and to "
 #~ "the policy owner when the version is approved or rejected."
-
-msgid "Reports to sort"
-msgstr "Reports to sort"
-
-msgid "Assessed risks, their treatment and their follow-up."
-msgstr "Assessed risks, their treatment and their follow-up."
-
-msgid "Risks raised by staff, to add to the register or to dismiss."
-msgstr "Risks raised by staff, to add to the register or to dismiss."
