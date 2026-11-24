@@ -77,6 +77,24 @@ final class PrivilegedVaultRulesTest extends TestCase
         self::assertSame('2025-06-01 08:00:00', $parsed['rows'][1]['date_changed']);
     }
 
+    public function testEntryNeverChangedUsesItsCreationDate(): void
+    {
+        // Export de `bw list items` : passwordRevisionDate vide tant que le mot de passe n'a
+        // jamais été changé ; la date du dernier changement est alors celle de la création.
+        $raw = "id,name,collections,username,uri,passwordRevisionDate,creationDate
+"
+            . "e1,Console,Applications,ops@example.test,https://console.example.test,,2026-11-23T22:55:45.530Z
+"
+            . "e2,Base,Applications,dba@example.test,,2025-02-01T09:00:00.000Z,2024-01-01T00:00:00.000Z
+";
+        $parsed = Rules::parseCsv(Rules::KIND_ENTRIES, $raw);
+
+        self::assertSame([], $parsed['errors']);
+        self::assertSame('2026-11-23 22:55:45', $parsed['rows'][0]['date_changed']);
+        // Une date de changement du mot de passe reste préférée à la date de création.
+        self::assertSame('2025-02-01 09:00:00', $parsed['rows'][1]['date_changed']);
+    }
+
     public function testMembersImportNeedsAnEmail(): void
     {
         self::assertSame(['missing_email'], Rules::parseCsv(Rules::KIND_MEMBERS, "name;role\nX;admin\n")['errors']);
