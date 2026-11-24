@@ -44,8 +44,9 @@ final class CartographyFeature implements MenuPagesProvider, PageHelpProvider
             'cartography' => [
                 'purpose'   => __(
                     'Shows the information system layer by layer, from the network to the business processes: '
-                        . 'network equipment and cables, servers, workstations and virtual machines, installed '
-                        . 'software and applications, then the processes of the business impact analysis. Choose '
+                        . 'network equipment and cables, VLAN and IP networks, servers, workstations and virtual '
+                        . 'machines, installed software and applications with their environment (production, '
+                        . 'test, pre-production), then the processes of the business impact analysis. Choose '
                         . 'an item to see what its failure affects, up to the processes and their RTO, or what a '
                         . 'process depends on, down to the network.',
                     'grcmanager'

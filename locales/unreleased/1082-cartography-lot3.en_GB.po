@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "All environments"
+msgstr "All environments"
+
+msgid "Application environment"
+msgstr "Application environment"
+
+msgid "Applications by environment"
+msgstr "Applications by environment"
+
+msgid "Applications of the environment: %s"
+msgstr "Applications of the environment: %s"
+
+msgid "No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers."
+msgstr "No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers."
+
+msgid "No server or instance linked to this application in GLPI."
+msgstr "No server or instance linked to this application in GLPI."
+
+msgid "Physical network"
+msgstr "Physical network"
+
+msgid "Servers and instances"
+msgstr "Servers and instances"
+
+msgid "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, VLAN and IP networks, servers, workstations and virtual machines, installed software and applications with their environment (production, test, pre-production), then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+msgstr "Shows the information system layer by layer, from the network to the business processes: network equipment and cables, VLAN and IP networks, servers, workstations and virtual machines, installed software and applications with their environment (production, test, pre-production), then the processes of the business impact analysis. Choose an item to see what its failure affects, up to the processes and their RTO, or what a process depends on, down to the network."
+
+msgid "VLAN and IP networks"
+msgstr "VLAN and IP networks"
+
+msgid "What does this application run on?"
+msgstr "What does this application run on?"
+
+msgid "+ %d item not visible"
+msgid_plural "+ %d items not visible"
+msgstr[0] "+ %d item not visible"
+msgstr[1] "+ %d items not visible"

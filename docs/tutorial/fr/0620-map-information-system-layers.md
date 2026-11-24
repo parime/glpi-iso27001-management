@@ -27,5 +27,13 @@ Pour aller plus loin :
 - cochez **Flux applicatifs (matrice des flux)** pour ajouter les flux entre applications et serveurs
   (traits pointillés) : le client dépend du serveur qu'il appelle ;
 - **Export (CSV)** et **Export (PDF)** donnent la carte à joindre au PCA/PRA ou au dossier d'audit ;
-- la même carte est dans l'onglet **Cartographie du SI** de chaque ordinateur, matériel réseau et
-  processus métier.
+- la même carte est dans l'onglet **Cartographie du SI** de chaque ordinateur, matériel réseau,
+  application et processus métier ;
+- la bande **VLAN et réseaux IP** montre le réseau logique, lu dans GLPI : VLAN des ports réseau,
+  réseaux IP des adresses, champ **Réseau** des matériels et des éléments d'une application. Un VLAN
+  ou un réseau IP peut aussi servir de point de départ (« Que touche la panne de ce VLAN ? ») ;
+- renseignez l'**environnement** de chaque application dans GLPI (Parc > Applicatifs : production,
+  recette, préproduction) avec ses serveurs et instances (onglet **Éléments**) : la carte les range
+  dans le tableau **Applications par environnement**, et le choix **Environnement des applications**
+  ne garde que les applications de cet environnement, par exemple pour l'impact d'une panne sur la
+  production seule.

@@ -32,8 +32,10 @@ use GlpiPlugin\Grcmanager\Services\Cartography\Layers;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\DockerSource;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\FlowSource;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\InventorySource;
+use GlpiPlugin\Grcmanager\Services\Cartography\Source\LogicalNetworkSource;
 use GlpiPlugin\Grcmanager\Services\Cartography\Source\RelationSource;
 use GlpiPlugin\Grcmanager\Services\Impact\ImpactGraph;
+use Dropdown;
 use Html;
 use NetworkEquipment;
 use Session;
@@ -100,7 +102,18 @@ class Cartography extends CommonGLPI
      */
     public static function tabItemtypes(): array
     {
-        return ['Computer', 'NetworkEquipment', BusinessProcess::class];
+        return ['Computer', 'NetworkEquipment', 'Appliance', BusinessProcess::class];
+    }
+
+    /**
+     * Sens par défaut : la panne d'un équipement se lit vers le haut ; un processus ou une application
+     * (lot 3 : ses serveurs et instances, jusqu'au réseau) vers le bas.
+     */
+    public static function defaultDirection(string $itemtype): string
+    {
+        return in_array($itemtype, [BusinessProcess::class, 'Appliance'], true)
+            ? DependencyWalker::DOWN
+            : DependencyWalker::UP;
     }
 
     public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
@@ -121,8 +134,7 @@ class Cartography extends CommonGLPI
         if (!$item instanceof CommonDBTM || !self::canView() || !$item->canViewItem()) {
             return false;
         }
-        // Une panne d'équipement se lit vers le haut, un processus vers le bas.
-        $direction = $item instanceof BusinessProcess ? DependencyWalker::DOWN : DependencyWalker::UP;
+        $direction = self::defaultDirection($item::class);
         TemplateRenderer::getInstance()->display('@grcmanager/_cartography_map.html.twig', [
             'map'       => self::map($item, $direction, ['flows' => true]),
             'max_nodes' => DependencyWalker::MAX_NODES,
@@ -139,7 +151,7 @@ class Cartography extends CommonGLPI
      */
     public static function sources(): array
     {
-        $sources = [InventorySource::class, RelationSource::class, DockerSource::class];
+        $sources = [InventorySource::class, LogicalNetworkSource::class, RelationSource::class, DockerSource::class];
         foreach (FeatureRegistry::implementing(CartographySourcesProvider::class) as $feature) {
             $sources = array_merge($sources, $feature::cartographySources());
         }
@@ -154,7 +166,10 @@ class Cartography extends CommonGLPI
      */
     public static function startItemtypes(): array
     {
-        $types = ['NetworkEquipment', 'Computer', 'Software', 'Appliance', 'DatabaseInstance', BusinessProcess::class];
+        $types = [
+            'NetworkEquipment', 'Vlan', 'IPNetwork', 'Network', 'Computer', 'Software', 'Appliance',
+            'DatabaseInstance', BusinessProcess::class,
+        ];
         if (DockerSource::available()) {
             $types[] = Layers::DOCKER_SERVICE;
         }
@@ -163,13 +178,16 @@ class Cartography extends CommonGLPI
     }
 
     /**
-     * @param array{flows?: bool, layers?: list<int>} $options flows : calque des flux inter-applicatifs ;
-     *     layers : couches affichées (toutes par défaut), le parcours les traverse toutes
+     * @param array{flows?: bool, layers?: list<int>, environment?: int} $options flows : calque des flux
+     *     inter-applicatifs ; layers : couches affichées (toutes par défaut), le parcours les traverse
+     *     toutes ; environment (lot 3) : seules les applications de cet environnement GLPI (production,
+     *     recette...) sont parcourues, 0 pour toutes
      * @return array<string, mixed>
      */
     public static function map(CommonDBTM $item, string $direction, array $options = []): array
     {
         $flows = (bool) ($options['flows'] ?? false);
+        $environment = max(0, (int) ($options['environment'] ?? 0));
         $shown = array_values(array_intersect(Layers::ALL, $options['layers'] ?? Layers::ALL));
         $shown = $shown === [] ? Layers::ALL : $shown;
         $sources = self::sources();
@@ -178,7 +196,8 @@ class Cartography extends CommonGLPI
         }
         $down = $direction === DependencyWalker::DOWN;
         $direction = $down ? DependencyWalker::DOWN : DependencyWalker::UP;
-        $next = static function (string $key) use ($sources, $down): array {
+        $start = ImpactGraph::key($item::class, (int) $item->getID());
+        $next = static function (string $key) use ($sources, $down, $environment, $start): array {
             [$itemtype, $itemsId] = ImpactGraph::split($key);
             $keys = [];
             foreach ($sources as $source) {
@@ -187,13 +206,21 @@ class Cartography extends CommonGLPI
                     $down ? $source::supporters($itemtype, $itemsId) : $source::dependents($itemtype, $itemsId)
                 );
             }
+            $keys = array_values(array_unique($keys));
+            if ($environment > 0) {
+                // Lot 3 : une application d'un autre environnement n'est ni montrée ni traversée.
+                $keys = array_values(array_filter(
+                    $keys,
+                    static fn (string $k): bool => $k === $start || !str_starts_with($k, 'Appliance:')
+                        || self::applianceEnvironment(ImpactGraph::split($k)[1]) === $environment
+                ));
+            }
 
-            return array_values(array_unique($keys));
+            return $keys;
         };
-        $start = ImpactGraph::key($item::class, (int) $item->getID());
         $walk = DependencyWalker::walk($start, $direction, $next);
         $startTypes = self::startItemtypes();
-        $state = ['direction' => $direction, 'flows' => $flows, 'layers' => $shown];
+        $state = ['direction' => $direction, 'flows' => $flows, 'layers' => $shown, 'environment' => $environment];
 
         $nodes = [];
         $rto = [];
@@ -271,6 +298,11 @@ class Cartography extends CommonGLPI
             'direction'   => $direction,
             'flows'       => $flows,
             'shown'       => $shown,
+            'environment' => $environment,
+            'environment_label' => $environment > 0
+                ? (string) Dropdown::getDropdownName('glpi_applianceenvironments', $environment)
+                : '',
+            'applications' => self::applicationsByEnvironment($walk['nodes'], $nodes),
             'count'       => count($walk['nodes']) - 1,
             'truncated'   => $walk['truncated'],
             'max_nodes'   => DependencyWalker::MAX_NODES,
@@ -291,9 +323,10 @@ class Cartography extends CommonGLPI
     }
 
     /**
-     * Adresse de la carte d'un élément, avec le sens, le calque des flux et les couches affichées.
+     * Adresse de la carte d'un élément, avec le sens, le calque des flux, les couches affichées et
+     * l'environnement choisi.
      *
-     * @param array{direction: string, flows: bool, layers: list<int>} $state
+     * @param array{direction: string, flows: bool, layers: list<int>, environment?: int} $state
      */
     public static function mapUrl(string $itemtype, int $itemsId, array $state): string
     {
@@ -303,6 +336,9 @@ class Cartography extends CommonGLPI
         }
         if (count($state['layers']) < count(Layers::ALL)) {
             $query['layers'] = $state['layers'];
+        }
+        if (($state['environment'] ?? 0) > 0) {
+            $query['environment'] = $state['environment'];
         }
 
         return self::getSearchURL() . '?' . http_build_query($query);
@@ -322,6 +358,7 @@ class Cartography extends CommonGLPI
             __('Type', 'grcmanager'),
             __('Distance', 'grcmanager'),
             'RTO',
+            __('Environment', 'grcmanager'),
         ]];
         foreach ($map['layers'] as $layer) {
             if (!$layer['shown']) {
@@ -334,6 +371,7 @@ class Cartography extends CommonGLPI
                     (string) $node['type'],
                     (string) $node['depth'],
                     (string) $node['rto_label'],
+                    (string) $node['environment'],
                 ];
             }
         }
@@ -361,7 +399,8 @@ class Cartography extends CommonGLPI
 
     /**
      * @return array{key: string, label: string, name: string, url: string, visible: bool, layer: int,
-     *     type: string, rto: int, rto_label: string, short: string, type_short: string, rto_short: string}
+     *     type: string, rto: int, rto_label: string, environment: string, short: string, type_short: string,
+     *     rto_short: string, environment_short: string}
      */
     public static function describe(string $key): array
     {
@@ -375,7 +414,8 @@ class Cartography extends CommonGLPI
             'layer'     => Layers::of($itemtype),
             'type'      => '',
             'rto'       => 0,
-            'rto_label' => '',
+            'rto_label'   => '',
+            'environment' => '',
         ];
         $item = is_a($itemtype, CommonDBTM::class, true) ? new $itemtype() : null;
         if ($item !== null && $item->can($itemsId, READ)) {
@@ -385,6 +425,8 @@ class Cartography extends CommonGLPI
                 ? (int) $item->fields['rto_hours']
                 : (int) (AssetClassification::getByItem($itemtype, $itemsId)['rto_hours'] ?? 0);
             $durations = BusinessProcess::getDurationOptions();
+            // Lot 3 : environnement GLPI de l'application (production, recette, préproduction...).
+            $environment = $item instanceof \Appliance ? (int) ($item->fields['applianceenvironments_id'] ?? 0) : 0;
             $node = [
                 'label'     => $type . ' ' . $name,
                 'name'      => $name,
@@ -393,6 +435,9 @@ class Cartography extends CommonGLPI
                 'type'      => $type,
                 'rto'       => $rto,
                 'rto_label' => $rto > 0 ? ($durations[$rto] ?? $rto . ' h') : '',
+                'environment' => $environment > 0
+                    ? (string) Dropdown::getDropdownName('glpi_applianceenvironments', $environment)
+                    : '',
             ] + $node;
         }
 
@@ -401,23 +446,107 @@ class Cartography extends CommonGLPI
             'short'      => LayeredLayout::shortLabel($node['name']),
             'type_short' => LayeredLayout::shortLabel($node['type']),
             'rto_short'  => LayeredLayout::shortLabel($node['rto_label'], 16),
+            'environment_short' => LayeredLayout::shortLabel($node['environment']),
         ];
     }
 
     /**
-     * Points de départ proposés quand aucun élément n'est choisi : processus métier (« de quoi
-     * dépend-il ? ») et matériels réseau (« que touche leur panne ? »), dans les entités actives.
+     * Environnement GLPI d'une application (0 : aucun), lu une fois par requête.
+     */
+    public static function applianceEnvironment(int $applianceId): int
+    {
+        global $DB;
+
+        static $cache = [];
+        if (!array_key_exists($applianceId, $cache)) {
+            $row = $DB->request([
+                'SELECT' => ['applianceenvironments_id'],
+                'FROM'   => 'glpi_appliances',
+                'WHERE'  => ['id' => $applianceId],
+            ])->current();
+            $cache[$applianceId] = (int) ($row['applianceenvironments_id'] ?? 0);
+        }
+
+        return $cache[$applianceId];
+    }
+
+    /**
+     * Lot 3 : applications de la carte rangées par environnement, avec les serveurs et instances qui
+     * les portent (onglet « Éléments » de l'application dans GLPI). Un élément que la personne ne peut
+     * pas voir est compté sans être nommé.
      *
-     * @return array{processes: list<array<string, mixed>>, network: list<array<string, mixed>>}
+     * @param array<string, int> $walked clés parcourues
+     * @param array<string, array<string, mixed>> $nodes cases décrites
+     * @return list<array{environment: string, applications: list<array<string, mixed>>}>
+     */
+    public static function applicationsByEnvironment(array $walked, array $nodes): array
+    {
+        global $DB;
+
+        $groups = [];
+        foreach (array_keys($walked) as $key) {
+            [$itemtype, $itemsId] = ImpactGraph::split($key);
+            if ($itemtype !== 'Appliance' || !$nodes[$key]['visible']) {
+                continue;
+            }
+            $servers = [];
+            $hidden = 0;
+            foreach (
+                $DB->request([
+                    'SELECT' => ['itemtype', 'items_id'],
+                    'FROM'   => 'glpi_appliances_items',
+                    'WHERE'  => ['appliances_id' => $itemsId],
+                    'LIMIT'  => DependencyWalker::MAX_NODES,
+                ]) as $row
+            ) {
+                if ((string) $row['itemtype'] === '' || (int) $row['items_id'] <= 0) {
+                    continue;
+                }
+                $server = self::describe(ImpactGraph::key((string) $row['itemtype'], (int) $row['items_id']));
+                if ($server['visible']) {
+                    $servers[] = $server;
+                } else {
+                    $hidden++;
+                }
+            }
+            $environment = (string) $nodes[$key]['environment'];
+            $groups[$environment][] = $nodes[$key] + ['servers' => $servers, 'hidden_servers' => $hidden];
+        }
+        // Les applications sans environnement en dernier.
+        uksort(
+            $groups,
+            static fn ($a, $b): int => [(string) $a === '', (string) $a] <=> [(string) $b === '', (string) $b]
+        );
+        $out = [];
+        foreach ($groups as $environment => $applications) {
+            $out[] = ['environment' => (string) $environment, 'applications' => $applications];
+        }
+
+        return $out;
+    }
+
+    /**
+     * Points de départ proposés quand aucun élément n'est choisi : processus métier (« de quoi
+     * dépend-il ? »), applications avec leur environnement (lot 3 : « sur quoi tourne-t-elle ? ») et
+     * matériels réseau (« que touche leur panne ? »), dans les entités actives.
+     *
+     * @return array{processes: list<array<string, mixed>>, applications: list<array<string, mixed>>,
+     *     network: list<array<string, mixed>>}
      */
     public static function entryPoints(int $limit = 30): array
     {
         $dbu = new DbUtils();
-        $out = ['processes' => [], 'network' => []];
+        $out = ['processes' => [], 'applications' => [], 'network' => []];
         if ((bool) BusinessProcess::canView()) {
             $where = $dbu->getEntitiesRestrictCriteria(BusinessProcess::getTable(), '', '', true);
             foreach ((new BusinessProcess())->find($where, ['name'], $limit) as $row) {
                 $out['processes'][] = self::describe(ImpactGraph::key(BusinessProcess::class, (int) $row['id']));
+            }
+        }
+        if ((bool) \Appliance::canView()) {
+            $where = ['is_deleted' => 0] + $dbu->getEntitiesRestrictCriteria(\Appliance::getTable(), '', '', true);
+            foreach ((new \Appliance())->find($where, ['name'], $limit) as $row) {
+                $out['applications'][] = self::describe(ImpactGraph::key('Appliance', (int) $row['id']));
             }
         }
         if ((bool) NetworkEquipment::canView()) {

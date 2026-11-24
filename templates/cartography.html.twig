@@ -22,7 +22,7 @@
    <form method="get" action="{{ action }}" class="card mb-3" aria-label="{{ __('Choose the item to map', 'grcmanager') }}">
       <div class="card-body">
          <div class="row g-3 align-items-end">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                {{ fields.dropdownItemsFromItemtypes('items_id', __('Starting item', 'grcmanager'), {
                   'itemtypes': itemtypes,
                   'itemtype_name': 'itemtype',
@@ -46,6 +46,15 @@
                   <label class="form-check-label" for="grc-map-down"><i class="ti ti-arrow-down me-1"></i>{{ __('What does it depend on?', 'grcmanager') }}</label>
                </div>
             </fieldset>
+            <div class="col-lg-3">
+               {# Issue #1082, lot 3 : seules les applications de cet environnement sont parcourues. #}
+               {{ fields.dropdownField('ApplianceEnvironment', 'environment', environment, __('Application environment', 'grcmanager'), {
+                  'display_emptychoice': true,
+                  'emptylabel': __('All environments', 'grcmanager'),
+                  'is_horizontal': false,
+                  'full_width': true,
+               }) }}
+            </div>
             <fieldset class="col-lg-10">
                <legend class="form-label">{{ __('Layers shown', 'grcmanager') }}</legend>
                {% for layer, label in layer_labels %}
@@ -74,7 +83,7 @@
       {% include '@grcmanager/_cartography_map.html.twig' with {'map': map, 'max_nodes': max_nodes} only %}
    {% elseif entry %}
       <div class="row g-3">
-         <div class="col-lg-6">
+         <div class="col-lg-4">
             <div class="card h-100">
                <div class="card-header"><h3 class="card-title"><i class="ti ti-building me-1"></i>{{ __('What does this process depend on?', 'grcmanager') }}</h3></div>
                {% if entry.processes is empty %}
@@ -91,7 +100,24 @@
                {% endif %}
             </div>
          </div>
-         <div class="col-lg-6">
+         <div class="col-lg-4">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-apps me-1"></i>{{ __('What does this application run on?', 'grcmanager') }}</h3></div>
+               {% if entry.applications is empty %}
+                  <div class="card-body text-muted">{{ __('No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for a in entry.applications %}
+                        <li class="list-group-item d-flex align-items-center">
+                           <a href="{{ action }}?itemtype=Appliance&amp;items_id={{ a.key|split(':')|last }}&amp;direction=down&amp;flows=1">{{ a.name }}</a>
+                           {% if a.environment %}<span class="badge bg-purple-subtle text-purple-emphasis ms-auto"><i class="ti ti-box-multiple me-1"></i>{{ a.environment }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+         <div class="col-lg-4">
             <div class="card h-100">
                <div class="card-header"><h3 class="card-title"><i class="ti ti-network me-1"></i>{{ __('What does the failure of this equipment affect?', 'grcmanager') }}</h3></div>
                {% if entry.network is empty %}

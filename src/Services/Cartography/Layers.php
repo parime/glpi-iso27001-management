@@ -23,6 +23,10 @@ namespace GlpiPlugin\Grcmanager\Services\Cartography;
  * Issue #1082 : couches de la cartographie du SI (urbanisation), du réseau au processus métier.
  * Un type d'élément appartient à une seule couche ; un type inconnu (matériel, actif personnalisé)
  * va dans la couche des matériels.
+ *
+ * Lot 3 : couche du réseau logique (VLAN, réseaux IP, réseaux GLPI) entre le réseau physique et les
+ * serveurs. Les numéros des couches restent ceux des lots 1 et 2 (adresses déjà partagées) : l'ordre
+ * de bas en haut est celui de ALL, et rank() le donne.
  */
 final class Layers
 {
@@ -30,9 +34,13 @@ final class Layers
     public const INFRASTRUCTURE = 2;
     public const APPLICATION = 3;
     public const BUSINESS = 4;
+    public const LOGICAL_NETWORK = 5;
 
     /** Du bas vers le haut. */
-    public const ALL = [self::NETWORK, self::INFRASTRUCTURE, self::APPLICATION, self::BUSINESS];
+    public const ALL = [self::NETWORK, self::LOGICAL_NETWORK, self::INFRASTRUCTURE, self::APPLICATION, self::BUSINESS];
+
+    /** Objets natifs de GLPI de la couche du réseau logique. */
+    public const LOGICAL_ITEMTYPES = ['Vlan', 'IPNetwork', 'Network'];
 
     public const DOCKER_SERVICE = 'GlpiPlugin\\Dockerinventory\\Service';
     public const BUSINESS_PROCESS = 'GlpiPlugin\\Grcmanager\\BusinessProcess';
@@ -40,6 +48,9 @@ final class Layers
     private const BY_ITEMTYPE = [
         'NetworkEquipment'     => self::NETWORK,
         'PassiveDCEquipment'   => self::NETWORK,
+        'Vlan'                 => self::LOGICAL_NETWORK,
+        'IPNetwork'            => self::LOGICAL_NETWORK,
+        'Network'              => self::LOGICAL_NETWORK,
         'Software'             => self::APPLICATION,
         'Appliance'            => self::APPLICATION,
         'DatabaseInstance'     => self::APPLICATION,
@@ -54,12 +65,31 @@ final class Layers
     }
 
     /**
+     * Rang d'une couche, de 0 (réseau physique) au processus métier.
+     */
+    public static function rank(int $layer): int
+    {
+        $rank = array_search($layer, self::ALL, true);
+
+        return $rank === false ? (int) array_search(self::INFRASTRUCTURE, self::ALL, true) : (int) $rank;
+    }
+
+    /**
+     * Rang de la couche d'un type d'élément.
+     */
+    public static function rankOf(string $itemtype): int
+    {
+        return self::rank(self::of($itemtype));
+    }
+
+    /**
      * @return array<int, string>
      */
     public static function labels(): array
     {
         return [
-            self::NETWORK        => __('Network', 'grcmanager'),
+            self::NETWORK         => __('Physical network', 'grcmanager'),
+            self::LOGICAL_NETWORK => __('VLAN and IP networks', 'grcmanager'),
             self::INFRASTRUCTURE => __('Servers, workstations and virtualisation', 'grcmanager'),
             self::APPLICATION    => __('Applications', 'grcmanager'),
             self::BUSINESS       => __('Business processes', 'grcmanager'),
@@ -72,7 +102,8 @@ final class Layers
     public static function icons(): array
     {
         return [
-            self::NETWORK        => 'ti-network',
+            self::NETWORK         => 'ti-network',
+            self::LOGICAL_NETWORK => 'ti-topology-star-3',
             self::INFRASTRUCTURE => 'ti-server',
             self::APPLICATION    => 'ti-apps',
             self::BUSINESS       => 'ti-building',
@@ -88,6 +119,6 @@ final class Layers
      */
     public static function direction(string $a, string $b): int
     {
-        return self::of($a) <=> self::of($b);
+        return self::rankOf($a) <=> self::rankOf($b);
     }
 }

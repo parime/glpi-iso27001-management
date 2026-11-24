@@ -15,7 +15,7 @@
 {# Issue #1082 : carte d'un élément (page Cartographie du SI et onglet des fiches). Schéma SVG dessiné ici,
    sans bibliothèque externe ; chaque case est un lien joignable au clavier (repartir de cette case, ou
    ouvrir sa fiche), et la liste par couche en est l'équivalent textuel. #}
-{% set layer_badges = {1: 'bg-azure-subtle text-azure-emphasis', 2: 'bg-indigo-subtle text-indigo-emphasis', 3: 'bg-teal-subtle text-teal-emphasis', 4: 'bg-orange-subtle text-orange-emphasis'} %}
+{% set layer_badges = {1: 'bg-azure-subtle text-azure-emphasis', 5: 'bg-cyan-subtle text-cyan-emphasis', 2: 'bg-indigo-subtle text-indigo-emphasis', 3: 'bg-teal-subtle text-teal-emphasis', 4: 'bg-orange-subtle text-orange-emphasis'} %}
 <style>
   .grcmanager-map-svg { width: 100%; height: auto; max-width: 1100px; }
   .grcmanager-map-band { fill: var(--tblr-bg-surface-secondary, #f6f8fb); stroke: var(--tblr-border-color, #dce1e7); }
@@ -54,6 +54,9 @@
       {% for l in map.layers %}
          <span class="badge {{ layer_badges[l.layer] }} me-1"><i class="ti {{ l.icon }} me-1"></i>{{ l.label }} : {{ l.nodes|length }}</span>
       {% endfor %}
+      {% if map.environment_label %}
+         <span class="badge bg-purple-subtle text-purple-emphasis me-1"><i class="ti ti-filter me-1"></i>{{ __('Applications of the environment: %s', 'grcmanager')|format(map.environment_label) }}</span>
+      {% endif %}
       {% if map.flows %}
          <span class="badge bg-teal-subtle text-teal-emphasis me-1"><i class="ti ti-arrows-exchange me-1"></i>{{ _n('%d application flow', '%d application flows', map.flow_list|length, 'grcmanager')|format(map.flow_list|length) }}</span>
       {% endif %}
@@ -111,11 +114,13 @@
             {% set classes = 'grcmanager-map-node' ~ (n.start ? ' is-start') ~ (n.visible ? '' : ' is-hidden') %}
             {% set href = n.recenter ?: n.url %}
             {% if href %}<a href="{{ href }}" class="{{ classes }}" aria-label="{{ n.recenter ? __('Start the map from %s', 'grcmanager')|format(n.label) : n.label }}{{ n.rto_label ? ', RTO ' ~ n.rto_label }}">{% else %}<g class="{{ classes }}">{% endif %}
-               <title>{{ n.label }}{{ n.rto_label ? ' (RTO ' ~ n.rto_label ~ ')' }}</title>
+               <title>{{ n.label }}{{ n.environment ? ' (' ~ n.environment ~ ')' }}{{ n.rto_label ? ' (RTO ' ~ n.rto_label ~ ')' }}</title>
                <rect x="{{ n.x }}" y="{{ n.y }}" width="{{ d.node_w }}" height="{{ d.node_h }}" rx="6"></rect>
                <text x="{{ n.x + 8 }}" y="{{ n.y + 18 }}">{{ n.short }}</text>
                {% if n.rto_label %}
                   <text class="grcmanager-map-rto" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">RTO {{ n.rto_short }}</text>
+               {% elseif n.environment %}
+                  <text class="grcmanager-map-type" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">{{ n.environment_short }}</text>
                {% elseif n.type %}
                   <text class="grcmanager-map-type" x="{{ n.x + 8 }}" y="{{ n.y + 36 }}">{{ n.type_short }}</text>
                {% endif %}
@@ -130,7 +135,7 @@
 
 <div class="row g-3 mb-3">
    {% for l in map.layers|filter(l => l.shown) %}
-      <div class="col-md-6 col-xl-3">
+      <div class="col-md-6 col-xl">
          <div class="card h-100">
             <div class="card-header"><h3 class="card-title"><span class="badge {{ layer_badges[l.layer] }} me-1"><i class="ti {{ l.icon }}"></i></span>{{ l.label }}</h3></div>
             {% if l.nodes is empty %}
@@ -141,6 +146,7 @@
                      <li class="list-group-item">
                         {% if n.url %}<a href="{{ n.url }}" class="{{ n.start ? 'fw-bold' }}">{{ n.name }}</a>{% else %}<span class="text-muted">{{ n.name }}</span>{% endif %}
                         {% if n.type %}<span class="text-muted small ms-1">{{ n.type }}</span>{% endif %}
+                        {% if n.environment %}<span class="badge bg-purple-subtle text-purple-emphasis ms-1"><i class="ti ti-box-multiple me-1"></i>{{ n.environment }}</span>{% endif %}
                         {% if n.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-1">RTO {{ n.rto_label }}</span>{% endif %}
                         {% if n.start %}<span class="badge bg-primary-subtle text-primary-emphasis ms-1">{{ __('Starting item', 'grcmanager') }}</span>{% endif %}
                         {% if n.recenter %}<a href="{{ n.recenter }}" class="ms-1" title="{{ __('Start the map from %s', 'grcmanager')|format(n.name) }}" aria-label="{{ __('Start the map from %s', 'grcmanager')|format(n.name) }}"><i class="ti ti-focus-centered"></i></a>{% endif %}
@@ -152,6 +158,31 @@
       </div>
    {% endfor %}
 </div>
+
+{% if map.applications is not empty %}
+   {# Issue #1082, lot 3 : applications par environnement, avec les serveurs et instances qui les portent. #}
+   <div class="card mb-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-box-multiple me-1"></i>{{ __('Applications by environment', 'grcmanager') }}</h3></div>
+      <table class="table table-vcenter card-table">
+         <thead><tr><th>{{ __('Environment', 'grcmanager') }}</th><th>{{ __('Application', 'grcmanager') }}</th><th>{{ __('Servers and instances', 'grcmanager') }}</th></tr></thead>
+         <tbody>
+         {% for g in map.applications %}
+            {% for a in g.applications %}
+               <tr>
+                  <td>{% if g.environment %}<span class="badge bg-purple-subtle text-purple-emphasis"><i class="ti ti-box-multiple me-1"></i>{{ g.environment }}</span>{% else %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ __('Not set', 'grcmanager') }}</span>{% endif %}</td>
+                  <td><a href="{{ a.url }}">{{ a.name }}</a></td>
+                  <td>
+                     {% for s in a.servers %}<a href="{{ s.url }}" class="me-2">{{ s.name }}</a>{% endfor %}
+                     {% if a.hidden_servers > 0 %}<span class="text-muted small">{{ _n('+ %d item not visible', '+ %d items not visible', a.hidden_servers, 'grcmanager')|format(a.hidden_servers) }}</span>{% endif %}
+                     {% if a.servers is empty and a.hidden_servers == 0 %}<span class="text-muted">{{ __('No server or instance linked to this application in GLPI.', 'grcmanager') }}</span>{% endif %}
+                  </td>
+               </tr>
+            {% endfor %}
+         {% endfor %}
+         </tbody>
+      </table>
+   </div>
+{% endif %}
 
 {% if map.flows and map.flow_list is not empty %}
    <div class="card mb-3">
