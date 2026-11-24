@@ -23,6 +23,7 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'applianceenvironments_id' => $ids['environment_production'],
     ]);
     $insertOnce('glpi_appliances_items', [
-        'appliances_id' => $ids['appliance_' . $suffix], 'itemtype' => 'Computer', 'items_id' => $ids['computer_' . $suffix],
+        'appliances_id' => $ids['appliance_' . $suffix], 'itemtype' => 'Computer',
+        'items_id'      => $ids['computer_' . $suffix],
     ]);
 }

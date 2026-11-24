@@ -513,7 +513,10 @@ class Cartography extends CommonGLPI
             $groups[$environment][] = $nodes[$key] + ['servers' => $servers, 'hidden_servers' => $hidden];
         }
         // Les applications sans environnement en dernier.
-        uksort($groups, static fn ($a, $b): int => [(string) $a === '', (string) $a] <=> [(string) $b === '', (string) $b]);
+        uksort(
+            $groups,
+            static fn ($a, $b): int => [(string) $a === '', (string) $a] <=> [(string) $b === '', (string) $b]
+        );
         $out = [];
         foreach ($groups as $environment => $applications) {
             $out[] = ['environment' => (string) $environment, 'applications' => $applications];

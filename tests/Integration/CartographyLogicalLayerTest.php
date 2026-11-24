@@ -47,7 +47,9 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
         $name = fn (string $label): string => 'PhpUnitDemo ' . $label . ' ' . $this->suffix;
         $this->ids['switch'] = (int) (new \NetworkEquipment())->add(['name' => $name('sw'), 'entities_id' => 0]);
         $this->ids['server'] = (int) (new \Computer())->add(['name' => $name('srv'), 'entities_id' => 0]);
-        $this->ids['vlan'] = (int) (new \Vlan())->add(['name' => $name('vlan'), 'tag' => 3210, 'entities_id' => 0]);
+        $this->ids['vlan'] = (int) (new \Vlan())->add([
+            'name' => $name('vlan'), 'tag' => 3210, 'entities_id' => 0,
+        ]);
         $this->ids['network'] = (int) (new \Network())->add(['name' => $name('net')]);
         $DB->update('glpi_computers', ['networks_id' => $this->ids['network']], ['id' => $this->ids['server']]);
 
@@ -60,7 +62,9 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
             return (int) $DB->insertId();
         };
         foreach (['NetworkEquipment' => $this->ids['switch'], 'Computer' => $this->ids['server']] as $type => $id) {
-            $DB->insert('glpi_networkports_vlans', ['networkports_id' => $port($type, $id), 'vlans_id' => $this->ids['vlan']]);
+            $DB->insert('glpi_networkports_vlans', [
+                'networkports_id' => $port($type, $id), 'vlans_id' => $this->ids['vlan'],
+            ]);
         }
 
         $DB->insert('glpi_ipnetworks', [
@@ -89,7 +93,8 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
             ]);
         }
         $DB->insert('glpi_appliances_items_relations', [
-            'appliances_items_id' => (int) $DB->insertId(), 'itemtype' => 'Network', 'items_id' => $this->ids['network'],
+            'appliances_items_id' => (int) $DB->insertId(), 'itemtype' => 'Network',
+            'items_id'            => $this->ids['network'],
         ]);
     }
 
@@ -105,8 +110,10 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
     public function testVlanIsCarriedByTheSwitchAndCarriesTheServer(): void
     {
         $vlan = 'Vlan:' . $this->ids['vlan'];
-        $this->assertSame(['NetworkEquipment:' . $this->ids['switch']], LogicalNetworkSource::supporters('Vlan', $this->ids['vlan']));
-        $this->assertSame(['Computer:' . $this->ids['server']], LogicalNetworkSource::dependents('Vlan', $this->ids['vlan']));
+        $vlanId = $this->ids['vlan'];
+        $switch = 'NetworkEquipment:' . $this->ids['switch'];
+        $this->assertSame([$switch], LogicalNetworkSource::supporters('Vlan', $vlanId));
+        $this->assertSame(['Computer:' . $this->ids['server']], LogicalNetworkSource::dependents('Vlan', $vlanId));
         $this->assertContains($vlan, LogicalNetworkSource::dependents('NetworkEquipment', $this->ids['switch']));
         $this->assertContains($vlan, LogicalNetworkSource::supporters('Computer', $this->ids['server']));
     }
@@ -117,9 +124,12 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
 
         $this->assertContains('IPNetwork:' . $this->ids['ipnetwork'], $supporters);
         $this->assertContains('Network:' . $this->ids['network'], $supporters);
-        $this->assertContains('Computer:' . $this->ids['server'], LogicalNetworkSource::dependents('IPNetwork', $this->ids['ipnetwork']));
-        $this->assertContains('Appliance:' . $this->ids['app_test'], LogicalNetworkSource::dependents('Network', $this->ids['network']));
-        $this->assertContains('Network:' . $this->ids['network'], LogicalNetworkSource::supporters('Appliance', $this->ids['app_test']));
+        $server = 'Computer:' . $this->ids['server'];
+        $app = 'Appliance:' . $this->ids['app_test'];
+        $network = 'Network:' . $this->ids['network'];
+        $this->assertContains($server, LogicalNetworkSource::dependents('IPNetwork', $this->ids['ipnetwork']));
+        $this->assertContains($app, LogicalNetworkSource::dependents('Network', $this->ids['network']));
+        $this->assertContains($network, LogicalNetworkSource::supporters('Appliance', $this->ids['app_test']));
     }
 
     public function testSwitchFailureReachesTheApplicationsThroughTheVlan(): void
@@ -134,7 +144,10 @@ final class CartographyLogicalLayerTest extends GrcmanagerIntegrationTestCase
         $this->assertContains('Computer:' . $this->ids['server'], $keys);
         $this->assertContains('Appliance:' . $this->ids['app_production'], $keys);
         $this->assertContains('Appliance:' . $this->ids['app_test'], $keys);
-        $logical = array_values(array_filter($map['layers'], static fn (array $l): bool => $l['layer'] === Layers::LOGICAL_NETWORK));
+        $logical = array_values(array_filter(
+            $map['layers'],
+            static fn (array $l): bool => $l['layer'] === Layers::LOGICAL_NETWORK
+        ));
         $this->assertSame(['Vlan:' . $this->ids['vlan']], array_column($logical[0]['nodes'], 'key'));
     }
 

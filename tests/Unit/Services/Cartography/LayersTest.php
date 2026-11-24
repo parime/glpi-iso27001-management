@@ -36,7 +36,10 @@ final class LayersTest extends TestCase
             [Layers::NETWORK, Layers::LOGICAL_NETWORK, Layers::INFRASTRUCTURE, Layers::APPLICATION, Layers::BUSINESS],
             Layers::ALL
         );
-        $this->assertSame([1, 2, 3, 4], [Layers::NETWORK, Layers::INFRASTRUCTURE, Layers::APPLICATION, Layers::BUSINESS]);
+        $this->assertSame(
+            [1, 2, 3, 4],
+            [Layers::NETWORK, Layers::INFRASTRUCTURE, Layers::APPLICATION, Layers::BUSINESS]
+        );
         $this->assertSame(0, Layers::rankOf('NetworkEquipment'));
         $this->assertSame(1, Layers::rankOf('Vlan'));
         $this->assertSame(1, Layers::rankOf('IPNetwork'));
@@ -70,6 +73,7 @@ final class LayersTest extends TestCase
         );
         $this->assertLessThan($layout['nodes']['Vlan:2']['y'], $layout['nodes']['Computer:3']['y']);
         $this->assertLessThan($layout['nodes']['NetworkEquipment:1']['y'], $layout['nodes']['Vlan:2']['y']);
-        $this->assertCount(count(Layers::ALL), DependencyWalker::byLayer([], static fn (string $k): int => Layers::NETWORK));
+        $byLayer = DependencyWalker::byLayer([], static fn (string $k): int => Layers::NETWORK);
+        $this->assertCount(count(Layers::ALL), $byLayer);
     }
 }
