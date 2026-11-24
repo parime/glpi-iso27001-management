@@ -39,14 +39,14 @@ final class CustomFrameworkCsvTest extends TestCase
     public function testSemicolonFileWithBomAndFrenchHeaders(): void
     {
         $csv = "\xEF\xBB\xBFCode;Thème;Intitulé;Description;Annexe A\r\n"
-            . "DEMO-01;Gouvernance;Politique approuvée;Revue annuelle;A.5.1, A.5.4\r\n"
+            . "DEMO-01;Thème démo;Politique approuvée;Revue annuelle;A.5.1, A.5.4\r\n"
             . "DEMO-02;Accès;Double authentification;;8.5\r\n";
         $parsed = CustomFrameworkCsv::parse($csv, $this->annexA());
 
         $this->assertSame([], $parsed['errors']);
         $this->assertCount(2, $parsed['rows']);
         $this->assertSame('DEMO-01', $parsed['rows'][0]['code']);
-        $this->assertSame('Gouvernance', $parsed['rows'][0]['theme']);
+        $this->assertSame('Thème démo', $parsed['rows'][0]['theme']);
         $this->assertSame(['A.5.1', 'A.5.4'], $parsed['rows'][0]['annex_a']);
         $this->assertSame(['A.8.5'], $parsed['rows'][1]['annex_a']);
         $this->assertSame(3, $parsed['rows'][1]['line']);

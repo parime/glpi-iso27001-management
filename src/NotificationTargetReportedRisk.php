@@ -31,6 +31,8 @@ use UserEmail;
  */
 class NotificationTargetReportedRisk extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     // Hors de la plage des cibles du cœur (voir NotificationTargetEvidence::TARGET_RESPONSIBLE).
     public const TARGET_AUTHOR = 1872;
 

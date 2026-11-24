@@ -30,6 +30,8 @@ use User;
  */
 class NotificationTargetPolicyVersion extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     /** Identifiants des cibles propres (hors plage des constantes de Notification). */
     public const APPROVERS_TARGET = 1220;
     public const REQUESTER_TARGET = 1221;

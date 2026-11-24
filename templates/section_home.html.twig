@@ -66,7 +66,10 @@
                   <a class="card card-link card-link-pop h-100 text-reset text-decoration-none grc-section-card" href="{{ card.url }}">
                      <div class="card-body d-flex align-items-center">
                         <span class="avatar bg-primary-subtle text-primary-emphasis me-3" aria-hidden="true"><i class="{{ card.icon ?: 'ti ti-file' }}"></i></span>
-                        <span class="fw-semibold">{{ card.title }}</span>
+                        <span>
+                           <span class="fw-semibold d-block">{{ card.title }}</span>
+                           {% if card.description %}<span class="text-secondary small d-block">{{ card.description }}</span>{% endif %}
+                        </span>
                         <i class="ti ti-chevron-right ms-auto text-muted" aria-hidden="true"></i>
                      </div>
                   </a>

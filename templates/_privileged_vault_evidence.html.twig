@@ -1,0 +1,25 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #859 : cadre de preuve des comptes à privilèges et du coffre-fort (mesures A.5.17 et A.8.2),
+   dans les entités de la personne. Reçoit « evidence » (PrivilegedVault::evidence()). #}
+<div id="grc-privileged-vault-evidence">
+   <span class="badge bg-secondary-subtle text-secondary-emphasis me-1"><i class="ti ti-key me-1"></i>{{ _n('%d shared account in the vault', '%d shared accounts in the vault', evidence.entries, 'grcmanager')|format(evidence.entries) }}</span>
+   <span class="badge {{ evidence.stale > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-clock-exclamation me-1"></i>{{ __('Not changed for more than %1$d months: %2$d', 'grcmanager')|format(evidence.rotation_months, evidence.stale) }}</span>
+   <span class="badge {{ evidence.departed > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-user-x me-1"></i>{{ __('People who left with an access: %d', 'grcmanager')|format(evidence.departed) }}</span>
+   <span class="badge {{ evidence.admin_no_2fa > 0 ? 'bg-danger-subtle text-danger-emphasis' : 'bg-success-subtle text-success-emphasis' }} me-1"><i class="ti ti-shield-x me-1"></i>{{ __('Vault administrators without two-step login: %d', 'grcmanager')|format(evidence.admin_no_2fa) }}</span>
+   {% if evidence.equipment_missing > 0 %}<span class="badge bg-warning-subtle text-warning-emphasis me-1"><i class="ti ti-server-cog me-1"></i>{{ __('Server controller accounts missing from the vault: %d', 'grcmanager')|format(evidence.equipment_missing) }}</span>{% endif %}
+   <span class="small text-muted me-2">{{ __('Computed on %s', 'grcmanager')|format(evidence.date) }}</span>
+   <a href="{{ evidence.url }}">{{ __('View the details', 'grcmanager') }}</a>
+</div>

@@ -301,7 +301,7 @@ class ContinuityPlan extends ContinuityPlanBase
     }
 
     // ------------------------------------------------------------------
-    // Réglages (Configuration > GRC Manager > Incidents et continuité)
+    // Réglages (Configuration > GRC Manager > Risques et incidents)
     // ------------------------------------------------------------------
 
     /**

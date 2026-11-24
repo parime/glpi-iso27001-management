@@ -19,6 +19,12 @@
 // « Journal des actions et remédiation ».
 use GlpiPlugin\Grcmanager\SecurityIncidentAction;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), ou export PDF, sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST' && !isset($_GET['pdf'])) {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 $item = new SecurityIncidentAction();
 
 if (isset($_GET['pdf'])) {

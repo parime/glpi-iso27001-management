@@ -1,22 +1,6 @@
 # Exceptions justifiées des contrôles de sécurité communs (parime/glpi-plugin-security).
 # Format : « <contrôle> <identifiant> : <justification> », une par ligne ; « # » : commentaire.
-# Charte commune : parime/glpi-plugin-template, CHARTE.md, section 9 (menus et réglages).
-
-# Issue #656 : outil métier complet. Le secteur « GRC & Conformité » regroupe les écrans d'usage,
-# chacun pour des publics différents ; tous les réglages restent dans la page de configuration du
-# plugin (front/config.php, ouverte depuis Configuration > Plugins).
-# Issue #1038 : 13 rubriques aux noms parlants (Tableau de bord, Mon espace, Risques, Analyses de
-# risques, Mesures de sécurité, Politiques et procédures, Audits et preuves, Amélioration continue,
-# Réglementations, Vie privée, Accès et comptes, Personnel et sensibilisation, Organisation du SMSI),
-# 7 sous-pages au plus chacune, plus « Sécurité technique » jusqu'à son départ dans Parc (#1039).
-menus-secteur-metier : plugin GRC conséquent : environ 11 rubriques aux noms parlants dans son secteur propre, décision du mainteneur du 22/11 (#1035)
-
-# Entrée Assistance > Incidents de sécurité (PluginGrcmanagerSecurityIncident, affichée seulement si
-# le module est activé) : c'est un objet ITIL (CommonITILObject : acteurs, tâches, gabarits, SLA,
-# règles, notifications), géré au quotidien par l'équipe de support et de sécurité, à côté des
-# tickets, problèmes et changements natifs ; GLPI range ses objets ITIL dans Assistance. Seule entrée
-# hors du secteur GRC, gardée volontairement (identifiant reconnu depuis glpi-plugin-security v1.7.1).
-menus-entree-native helpdesk > PluginGrcmanagerSecurityIncident : objet ITIL des incidents de sécurité, rangé dans Assistance à côté des tickets, problèmes et changements
-menus-entree-native assets > GlpiPlugin\Grcmanager\AssetSecurity : sécurité du parc rangée dans Parc à côté des matériels, décision du mainteneur du 22/11 (#1035)
-menus-entree-native helpdesk > GlpiPlugin\Grcmanager\CrisisContinuity : crise et continuité (PCA/PRA) rangées dans Assistance avec les incidents de sécurité, décision du mainteneur du 22/11 (#1035)
-menus-entree-native management > GlpiPlugin\Grcmanager\SupplierRisk : sécurité des fournisseurs (risques fournisseurs, questionnaires, registre DORA) rangée dans Gestion à côté des fournisseurs et des contrats, décision du mainteneur du 22/11 (#1035)
+# Issue #1098 : les exceptions sont rangées en fragments dans .glpi-security-exceptions.d/, un fichier
+# par sujet ou par issue d'origine (<issue>-<sujet>). Une nouvelle exception = un nouveau fichier (ou
+# une ligne dans le fragment de son sujet), jamais ce fichier-ci : deux branches ne se gênent plus.
+# Les contrôles communs lisent ce fichier puis chaque fragment (checks/exceptions-cat.sh).

@@ -32,7 +32,7 @@ if (is_readable(__DIR__ . '/vendor/autoload.php')) {
     \GlpiPlugin\Grcmanager\Compat\LegacyNamespace::register();
 }
 
-define('PLUGIN_GRCMANAGER_VERSION', '2.85.0');
+define('PLUGIN_GRCMANAGER_VERSION', '2.86.0');
 define('PLUGIN_GRCMANAGER_MIN_GLPI', '11.0.0');
 // GLPI 11 and 12 from a single code base (see src/Compat/).
 define('PLUGIN_GRCMANAGER_MAX_GLPI', '12.99.99');
@@ -260,7 +260,9 @@ function plugin_init_grcmanager(): void
         // Issue #842 : clé d'API d'Uptime Kuma (lecture de /metrics).
         \GlpiPlugin\Grcmanager\Services\Monitoring\UptimeKumaConfig::SECURED,
         // Issue #858 : jetons de lecture des alertes de sécurité du code (GitHub, GitLab).
-        \GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig::SECURED
+        \GlpiPlugin\Grcmanager\Services\CodeSecurity\CodeSecurityConfig::SECURED,
+        // Issue #859 : secret de la clé d'API d'organisation de Bitwarden (lecture des membres).
+        \GlpiPlugin\Grcmanager\Services\Access\PrivilegedVaultConfig::SECURED
     );
     // Issue #836 : onglet « Supervision Zabbix » sur les ordinateurs, les matériels réseau et les
     // processus métier (lecture seule).
@@ -287,6 +289,10 @@ function plugin_init_grcmanager(): void
     ]);
     // Issue #843, lot 2 : onglet « Comptes des contrôleurs de serveurs » des campagnes de revue des accès.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\AccessReviewBmcAccount::class, [
+        'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
+    ]);
+    // Issue #859 : onglet « Comptes à privilèges » des campagnes de revue des accès (coffre-fort).
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\PrivilegedVault::class, [
         'addtabon' => [\GlpiPlugin\Grcmanager\AccessReview::class],
     ]);
     // Issue #620 : onglet « Violation de données personnelles » de l'incident qualifié de violation.
@@ -325,6 +331,11 @@ function plugin_init_grcmanager(): void
     // Issue #177 : onglet « Impact d'une panne » sur les actifs.
     Plugin::registerClass(\GlpiPlugin\Grcmanager\ImpactAnalysis::class, [
         'addtabon' => \GlpiPlugin\Grcmanager\Risk::getLinkableItemtypes(),
+    ]);
+
+    // Issue #1082 : onglet « Cartographie du SI » sur les ordinateurs, matériels réseau et processus.
+    Plugin::registerClass(\GlpiPlugin\Grcmanager\Cartography::class, [
+        'addtabon' => \GlpiPlugin\Grcmanager\Cartography::tabItemtypes(),
     ]);
 
     // Issue #377 : onglet « Processus métier » sur les éléments dont un processus peut dépendre

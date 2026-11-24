@@ -15,6 +15,11 @@
 {# Issue #777 : registre des applications, mises en production et indicateurs du développement sécurisé. #}
 {% set i = indicators %}
 <div class="container-fluid" id="grc-secure-development">
+   {% if sbom_url %}
+      <div class="d-flex justify-content-end mb-2">
+         <a class="btn btn-sm btn-outline-secondary" href="{{ sbom_url }}" id="grc-sd-sbom-link"><i class="ti ti-packages me-1" aria-hidden="true"></i>{{ sbom_label }}</a>
+      </div>
+   {% endif %}
    <div class="row row-cards mb-3">
       <div class="col-sm-6 col-lg-3">
          <div class="card card-sm"><div class="card-body">
@@ -27,7 +32,7 @@
             <div class="text-muted">{{ __('Applications without separation of environments', 'grcmanager') }}</div>
             <div class="h1 mb-0 {{ i.without_separation > 0 ? 'text-danger' : 'text-success' }}" id="grc-sd-without-separation">{{ i.without_separation }}</div>
             {% if i.separation_unjustified > 0 %}<div class="small text-danger">{{ __('%d without justification', 'grcmanager')|format(i.separation_unjustified) }}</div>{% endif %}
-            {% if i.separation_incomplete > 0 %}<div class="small text-warning" id="grc-sd-separation-incomplete">{{ __('%d with access, data or configuration not separated', 'grcmanager')|format(i.separation_incomplete) }}</div>{% endif %}
+            {% if i.separation_incomplete > 0 %}<div class="small text-warning-emphasis" id="grc-sd-separation-incomplete">{{ __('%d with access, data or configuration not separated', 'grcmanager')|format(i.separation_incomplete) }}</div>{% endif %}
          </div></div>
       </div>
       <div class="col-sm-6 col-lg-3">

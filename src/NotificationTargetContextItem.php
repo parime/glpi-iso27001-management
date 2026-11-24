@@ -28,6 +28,8 @@ use Override;
  */
 class NotificationTargetContextItem extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     // Issue #771, lot 2 : interlocuteur interne habilité d'un contact officiel (personne et groupe).
     // Hors de la plage des cibles du cœur : sinon GLPI n'appelle jamais addSpecificTargets().
     public const TARGET_INTERNAL_USER = 1771;

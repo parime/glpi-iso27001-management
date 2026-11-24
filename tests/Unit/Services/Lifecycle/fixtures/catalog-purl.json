@@ -1,0 +1,182 @@
+{
+  "schema_version": "1.2.1",
+  "generated_at": "2026-11-23T00:08:38+00:00",
+  "total": 25,
+  "result": [
+    {
+      "identifier": "pkg:github/adonisjs/core",
+      "product": {
+        "name": "adonisjs",
+        "uri": "https://endoflife.date/api/v1/products/adonisjs"
+      }
+    },
+    {
+      "identifier": "pkg:npm/%40adonisjs/core",
+      "product": {
+        "name": "adonisjs",
+        "uri": "https://endoflife.date/api/v1/products/adonisjs"
+      }
+    },
+    {
+      "identifier": "pkg:docker/library/amazonlinux",
+      "product": {
+        "name": "amazon-linux",
+        "uri": "https://endoflife.date/api/v1/products/amazon-linux"
+      }
+    },
+    {
+      "identifier": "pkg:npm/%40angular/core",
+      "product": {
+        "name": "angular",
+        "uri": "https://endoflife.date/api/v1/products/angular"
+      }
+    },
+    {
+      "identifier": "pkg:github/angular/angular",
+      "product": {
+        "name": "angular",
+        "uri": "https://endoflife.date/api/v1/products/angular"
+      }
+    },
+    {
+      "identifier": "pkg:npm/angular",
+      "product": {
+        "name": "angularjs",
+        "uri": "https://endoflife.date/api/v1/products/angularjs"
+      }
+    },
+    {
+      "identifier": "pkg:github/angular/angular.js",
+      "product": {
+        "name": "angularjs",
+        "uri": "https://endoflife.date/api/v1/products/angularjs"
+      }
+    },
+    {
+      "identifier": "pkg:github/apache/httpd",
+      "product": {
+        "name": "apache-http-server",
+        "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+      }
+    },
+    {
+      "identifier": "pkg:rpm/fedora/httpd",
+      "product": {
+        "name": "apache-http-server",
+        "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+      }
+    },
+    {
+      "identifier": "pkg:rpm/redhat/httpd",
+      "product": {
+        "name": "apache-http-server",
+        "uri": "https://endoflife.date/api/v1/products/apache-http-server"
+      }
+    },
+    {
+      "identifier": "pkg:composer/drupal/core",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "pkg:docker/bitnami/drupal",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "pkg:docker/library/drupal",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "pkg:github/drupal/core",
+      "product": {
+        "name": "drupal",
+        "uri": "https://endoflife.date/api/v1/products/drupal"
+      }
+    },
+    {
+      "identifier": "pkg:apk/alpine/firefox",
+      "product": {
+        "name": "firefox",
+        "uri": "https://endoflife.date/api/v1/products/firefox"
+      }
+    },
+    {
+      "identifier": "pkg:deb/debian/firefox-esr",
+      "product": {
+        "name": "firefox",
+        "uri": "https://endoflife.date/api/v1/products/firefox"
+      }
+    },
+    {
+      "identifier": "pkg:generic/firefox",
+      "product": {
+        "name": "firefox",
+        "uri": "https://endoflife.date/api/v1/products/firefox"
+      }
+    },
+    {
+      "identifier": "pkg:github/ionic-team/ionic-framework",
+      "product": {
+        "name": "ionic",
+        "uri": "https://endoflife.date/api/v1/products/ionic"
+      }
+    },
+    {
+      "identifier": "pkg:npm/%40ionic/core",
+      "product": {
+        "name": "ionic",
+        "uri": "https://endoflife.date/api/v1/products/ionic"
+      }
+    },
+    {
+      "identifier": "pkg:oci/oraclelinux?repository_url=container-registry.oracle.com/ords/ocr/ba/os",
+      "product": {
+        "name": "oracle-linux",
+        "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+      }
+    },
+    {
+      "identifier": "pkg:oci/oraclelinux?repository_url=ghcr.io/oracle",
+      "product": {
+        "name": "oracle-linux",
+        "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+      }
+    },
+    {
+      "identifier": "pkg:docker/library/oraclelinux",
+      "product": {
+        "name": "oracle-linux",
+        "uri": "https://endoflife.date/api/v1/products/oracle-linux"
+      }
+    },
+    {
+      "identifier": "pkg:npm/vue",
+      "product": {
+        "name": "vue",
+        "uri": "https://endoflife.date/api/v1/products/vue"
+      }
+    },
+    {
+      "identifier": "pkg:github/vuejs/vue",
+      "product": {
+        "name": "vue",
+        "uri": "https://endoflife.date/api/v1/products/vue"
+      }
+    },
+    {
+      "identifier": "pkg:github/vuejs/core",
+      "product": {
+        "name": "vue",
+        "uri": "https://endoflife.date/api/v1/products/vue"
+      }
+    }
+  ]
+}

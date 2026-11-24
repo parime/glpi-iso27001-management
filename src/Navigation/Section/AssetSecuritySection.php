@@ -38,6 +38,7 @@ use GlpiPlugin\Grcmanager\NetworkFlow;
 use GlpiPlugin\Grcmanager\ParkVulnerability;
 use GlpiPlugin\Grcmanager\PatchCompliance;
 use GlpiPlugin\Grcmanager\PhysicalSecurity;
+use GlpiPlugin\Grcmanager\ScannerImport;
 use GlpiPlugin\Grcmanager\SecureDevelopment;
 use GlpiPlugin\Grcmanager\ServerManagement;
 use GlpiPlugin\Grcmanager\SoftwareLicenseCompliance;
@@ -143,6 +144,8 @@ final class AssetSecuritySection extends AbstractSection
                 'rights_of' => ParkVulnerability::class,
             ]),
             CanonicalProduct::class => $in('vulnerabilities'),
+            // Issue #543 : rapports de scanners de vulnérabilités importés (Greenbone / OpenVAS, A.8.8).
+            ScannerImport::class => $in('vulnerabilities'),
             // Les comptes exposés dans des fuites de données sont dans « Personnes et sensibilisation »
             // (PeopleSection, lot 1).
 

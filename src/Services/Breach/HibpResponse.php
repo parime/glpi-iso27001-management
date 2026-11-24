@@ -20,7 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Breach;
 
 /**
- * Réponse de l'API Have I Been Pwned : code HTTP, données décodées, délai demandé en cas de 429.
+ * Réponse d'un fournisseur de fuites (Have I Been Pwned, puis tout BreachProvider depuis l'issue #1055) :
+ * code HTTP, données décodées, délai demandé en cas de 429.
  */
 final class HibpResponse
 {

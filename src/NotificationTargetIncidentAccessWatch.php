@@ -27,6 +27,8 @@ use Override;
  */
 class NotificationTargetIncidentAccessWatch extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     public const TARGET_CISO_GROUP = 1831;
 
     #[Override]

@@ -23,14 +23,14 @@ final class EdrCsvImportTest extends TestCase
 
     public function testParseDetectsDelimiterAndEncoding(): void
     {
-        $latin1 = mb_convert_encoding("Nom;Gravité\nPoste;Élevée\n", 'Windows-1252', 'UTF-8');
+        $latin1 = mb_convert_encoding("Nom;Évaluation EDR\nPoste;Élevée\n", 'Windows-1252', 'UTF-8');
         $parsed = EdrCsvImport::parse("\xEF\xBB\xBF" . self::CSV);
         self::assertSame('Alert ID', $parsed['headers'][0]);
         self::assertCount(3, $parsed['rows']);
         self::assertSame('powershell -enc AAA', $parsed['rows'][0][6]);
 
         $parsedLatin = EdrCsvImport::parse($latin1);
-        self::assertSame(['Nom', 'Gravité'], $parsedLatin['headers']);
+        self::assertSame(['Nom', 'Évaluation EDR'], $parsedLatin['headers']);
         self::assertSame('Élevée', $parsedLatin['rows'][0][1]);
         self::assertSame("\t", EdrCsvImport::detectDelimiter("a\tb\tc"));
     }

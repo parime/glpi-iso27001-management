@@ -20,8 +20,10 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
+use GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig;
+use GlpiPlugin\Grcmanager\Services\Breach\XposedOrNotClient;
 
-/** Issue #183 : surveillance des fuites de données (Have I Been Pwned). */
+/** Issue #183 : surveillance des fuites de données ; #1055 : fournisseur XposedOrNot ou Have I Been Pwned. */
 final class BreachMonitoringBlock extends ConfigBlock
 {
     public static function tab(): string
@@ -47,9 +49,12 @@ final class BreachMonitoringBlock extends ConfigBlock
     public static function data(): array
     {
         return [
-            'breach_enabled' => \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::isEnabled(),
-            'breach_has_key' => \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::hasApiKey(),
-            'breach_domains' => implode(', ', \GlpiPlugin\Grcmanager\Services\Breach\BreachMonitorConfig::domains()),
+            'breach_enabled'     => BreachMonitorConfig::isEnabled(),
+            'breach_has_key'     => BreachMonitorConfig::hasApiKey(),
+            'breach_has_xon_key' => BreachMonitorConfig::hasXonApiKey(),
+            'breach_provider'    => BreachMonitorConfig::provider(),
+            'breach_domains'     => implode(', ', BreachMonitorConfig::domains()),
+            'breach_xon_limit'   => XposedOrNotClient::MAX_ACCOUNTS_PER_RUN,
         ];
     }
 }

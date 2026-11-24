@@ -33,7 +33,7 @@ use GlpiPlugin\Grcmanager\Compat\Http;
  * @phpstan-type HttpResult array{status: int, body: string, retry_after: int}
  * @phpstan-type Transport Closure(string, array<string, string>): HttpResult
  */
-final class HibpClient
+final class HibpClient implements BreachProvider
 {
     public const BASE_URL = 'https://haveibeenpwned.com/api/v3';
 
@@ -54,6 +54,26 @@ final class HibpClient
         $this->transport = $transport ?? static function (string $url, array $headers): array {
             return Http::request($url, $headers);
         };
+    }
+
+    public function name(): string
+    {
+        return 'Have I Been Pwned';
+    }
+
+    /**
+     * Offre sans recherche par domaine : /subscribeddomains répond 401 même avec une clé valide. La clé
+     * est alors éprouvée sur le compte de test publié par Have I Been Pwned (aucune adresse réelle).
+     */
+    public function testConnection(): HibpResponse
+    {
+        $subscribed = $this->subscribedDomains();
+        if ($subscribed->isOk()) {
+            return $subscribed;
+        }
+        $probe = $this->breachedAccount(self::TEST_ACCOUNT);
+
+        return $probe->isOk() ? new HibpResponse(200, []) : $probe;
     }
 
     /**

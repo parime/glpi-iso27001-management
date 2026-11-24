@@ -36,7 +36,7 @@ use GlpiPlugin\Grcmanager\Compat\Http;
  *
  * Uses GLPI core's HTTP client (via Compat\Http, the plugin's single outgoing HTTP gateway,
  * GLPI 11 and 12) rather than a raw HTTP
- * client: same choice, and same reasoning, as the sibling GithubVersionChecker::getLatestGithubVersion():
+ * client: same choice, and same reasoning, as the sibling PluginVersion::status():
  * reuses GLPI core's own proxy/timeout/error handling instead of reinventing it.
  *
  * Every outcome (`ok`/`not_found`/`error`) is persisted explicitly rather than left as a silent

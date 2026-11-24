@@ -29,6 +29,8 @@ use UserEmail;
  */
 class NotificationTargetEvidence extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     // Hors de la plage des cibles du cœur (1 = administrateur global) : sinon GLPI envoie à
     // l'administrateur et n'appelle jamais addSpecificTargets() (revue de sécurité 2.11.0).
     public const TARGET_RESPONSIBLE = 1140;

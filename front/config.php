@@ -139,8 +139,9 @@ if (isset($_POST['update_sensitive_config'])) {
     Html::back();
 }
 
-// Issue #183 : surveillance des fuites de données (Have I Been Pwned). Registre sensible : réglage
-// réservé à qui gère le plugin ET les registres sensibles. La clé n'est jamais renvoyée au navigateur.
+// Issue #183 : surveillance des fuites de données ; #1055 : fournisseur au choix (XposedOrNot, gratuit,
+// ou Have I Been Pwned). Registre sensible : réglage réservé à qui gère le plugin ET les registres
+// sensibles. Les clés ne sont jamais renvoyées au navigateur.
 if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])) {
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
     Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::SENSITIVE_RIGHT, UPDATE);
@@ -150,18 +151,18 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
             !empty($_POST['hibp_enabled']),
             (string) ($_POST['hibp_domains'] ?? ''),
             (string) ($_POST['hibp_api_key'] ?? ''),
-            !empty($_POST['hibp_clear_key'])
+            !empty($_POST['hibp_clear_key']),
+            (string) ($_POST['breach_provider'] ?? ''),
+            (string) ($_POST['xon_api_key'] ?? ''),
+            !empty($_POST['xon_clear_key'])
         );
     } else {
-        $client = new HibpClient(BreachMonitorConfig::apiKey());
-        $response = $client->subscribedDomains();
-        // Offre sans recherche par domaine : 401 même avec une clé valide. La clé est alors éprouvée
-        // sur un compte de test publié par Have I Been Pwned (aucune adresse réelle n'est envoyée).
-        $verified = $response->isOk() ? (array) $response->data : [];
-        if (!$response->isOk()) {
-            $response = $client->breachedAccount(HibpClient::TEST_ACCOUNT);
-        }
+        // Essai sans adresse réelle : compte de test publié par Have I Been Pwned, adresse d'exemple de
+        // la documentation de XposedOrNot, ou rapport du domaine vérifié sous la clé.
+        $client = BreachMonitorConfig::client();
+        $response = $client->testConnection();
         if ($response->isOk()) {
+            $verified = (array) $response->data;
             $lines = [];
             foreach (BreachMonitorConfig::domains() as $domain) {
                 $lines[] = in_array($domain, $verified, true)
@@ -169,12 +170,16 @@ if (isset($_POST['update_breach_config']) || isset($_POST['test_breach_config'])
                     : sprintf(__('%s: checked address by address', 'grcmanager'), $domain);
             }
             Session::addMessageAfterRedirect(htmlescape(
-                __('Have I Been Pwned key accepted.', 'grcmanager') . ' ' . implode(' ; ', $lines)
+                sprintf(__('%s: connection successful.', 'grcmanager'), $client->name()) . ' ' . implode(' ; ', $lines)
             ));
         } else {
             $message = $response->isUnauthorized()
-                ? __('Have I Been Pwned refused the API key.', 'grcmanager')
-                : sprintf(__('Have I Been Pwned could not be reached (code %d).', 'grcmanager'), $response->status);
+                ? sprintf(__('%s refused the API key.', 'grcmanager'), $client->name())
+                : sprintf(
+                    __('%1$s could not be reached (code %2$d).', 'grcmanager'),
+                    $client->name(),
+                    $response->status
+                );
             Session::addMessageAfterRedirect(htmlescape($message), false, ERROR);
         }
     }
@@ -344,20 +349,8 @@ if (isset($_POST['update_recyf_entities'])) {
     Html::back();
 }
 
-// Issue #375 : contact du DPO, repris sur l'export du registre des traitements (article 30).
-if (isset($_POST['update_dpo_contact'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-
-    $before = \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact();
-    \GlpiPlugin\Grcmanager\ProcessingActivity::saveDpoContact((string) ($_POST['dpo_contact'] ?? ''));
-    if ($before !== \GlpiPlugin\Grcmanager\ProcessingActivity::dpoContact()) {
-        \GlpiPlugin\Grcmanager\AuditLog::record('config_change', 'Config', 0, 0, 'success', [
-            'changes' => ['dpo_contact' => true],
-        ]);
-    }
-
-    Html::back();
-}
+// Issue #1054 : contact du DPO (#375) et groupe RSSI des audits (#140) : bloc « Rôles du SMSI »
+// (Config\Block\IsmsRolesBlock::handle()).
 
 // Issue #380 : groupe RSSI prévenu des tests d'efficacité en retard ou proches de l'échéance.
 if (isset($_POST['update_controltest_reminder'])) {
@@ -546,14 +539,6 @@ if (isset($_POST['update_http_config'])) {
             'changes' => ['http_allow_private_networks' => (int) $allow],
         ]);
     }
-
-    Html::back();
-}
-
-if (isset($_POST['update_audit_config'])) {
-    Session::checkRight(\GlpiPlugin\Grcmanager\Install\Installer::RIGHT_NAME, UPDATE);
-
-    \GlpiPlugin\Grcmanager\AuditTeam::setCisoGroupId((int) ($_POST['ciso_groups_id'] ?? 0));
 
     Html::back();
 }

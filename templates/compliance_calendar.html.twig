@@ -19,6 +19,7 @@
          <a class="btn btn-sm {{ mine ? 'btn-outline-secondary' : 'btn-secondary' }}" href="{{ url }}">{{ __('All deadlines', 'grcmanager') }}</a>
          <a class="btn btn-sm {{ mine ? 'btn-secondary' : 'btn-outline-secondary' }}" href="{{ url }}?mine=1">{{ __('My deadlines', 'grcmanager') }}</a>
       </div>
+      <a class="btn btn-sm btn-outline-secondary" href="{{ list_url }}"><i class="ti ti-list me-1" aria-hidden="true"></i>{{ list_label }}</a>
       {% if can_create %}
          <a class="btn btn-sm btn-primary" href="{{ form_url }}"><i class="ti ti-plus me-1"></i>{{ __('Add an event', 'grcmanager') }}</a>
       {% endif %}

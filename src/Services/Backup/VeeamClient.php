@@ -48,8 +48,19 @@ final class VeeamClient
 {
     public const DEFAULT_PORT = 9419;
 
-    /** Révisions de l'API proposées (en-tête x-api-version), de VBR 12 à VBR 13. */
-    public const API_VERSIONS = ['1.1-rev0', '1.1-rev1', '1.1-rev2', '1.2-rev0', '1.2-rev1', '1.3-rev0'];
+    /**
+     * Révisions de l'API proposées (en-tête x-api-version), de VBR 12 à VBR 13.
+     *
+     * Issue #1087, d'après la documentation officielle (table des révisions et build d'introduction,
+     * https://helpcenter.veeam.com/archive/backup/120/vbr_rest/versioning.html, page du 19/03/2025) :
+     * 1.1-rev0 = 12.0.0.1420, 1.1-rev1 = 12.1.0.2131, 1.1-rev2 = 12.2.0.334, 1.2-rev0 = 12.3.0.310,
+     * 1.2-rev1 = 12.3.1.1139 ; « l'API REST est rétrocompatible » (une révision plus ancienne reste
+     * acceptée par un serveur plus récent). 1.3-rev2 : révision de la documentation actuelle (VBR 13,
+     * https://helpcenter.veeam.com/docs/backup/vbr_rest/1.3-rev2/). 1.3-rev0 était déjà proposée ;
+     * 1.3-rev1 n'est pas ajoutée faute de source. Non vérifié contre un vrai serveur : à confirmer
+     * avec la VM du laboratoire (parime/glpi-test-lab#15).
+     */
+    public const API_VERSIONS = ['1.1-rev0', '1.1-rev1', '1.1-rev2', '1.2-rev0', '1.2-rev1', '1.3-rev0', '1.3-rev2'];
     public const DEFAULT_API_VERSION = '1.1-rev2';
 
     public const TOKEN_PATH = '/api/oauth2/token';

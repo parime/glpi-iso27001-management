@@ -30,6 +30,8 @@ use User;
  */
 class NotificationTargetSoaVersion extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     /** Identifiant de la cible « Approbateurs désignés » (hors plage des constantes de Notification). */
     public const APPROVERS_TARGET = 1120;
 

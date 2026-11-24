@@ -35,6 +35,8 @@ use Profile_User;
  */
 final class CertificationScheduleTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private string $today;
 
     protected function setUp(): void
@@ -199,7 +201,7 @@ final class CertificationScheduleTest extends GrcmanagerIntegrationTestCase
         $this->assertSame(0, $settings['owner'], 'compte inconnu refusé');
 
         $facts = $this->steps(CertificationReadiness::report())['internal_audit']['facts'];
-        $this->assertContains(sprintf(__('Coverage target: %d %%', 'grcmanager'), 75), $facts);
+        $this->assertContains(sprintf('Coverage target: %d %%', 75), $facts);
     }
 
     public function testLeadAndAlertDaysMoveTheDeadlinesAndTheAlert(): void

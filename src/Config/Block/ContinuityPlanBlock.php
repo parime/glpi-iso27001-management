@@ -36,7 +36,7 @@ final class ContinuityPlanBlock extends ConfigBlock
 
     public static function tab(): string
     {
-        return 'incidents';
+        return 'risks';
     }
 
     public static function order(): int

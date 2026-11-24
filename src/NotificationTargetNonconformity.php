@@ -33,6 +33,8 @@ use Override;
  */
 class NotificationTargetNonconformity extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     #[Override]
     public function getEvents()
     {

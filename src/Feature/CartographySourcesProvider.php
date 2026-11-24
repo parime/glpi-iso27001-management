@@ -17,30 +17,17 @@
 
 declare(strict_types=1);
 
-namespace GlpiPlugin\Grcmanager\Config\Tab;
+namespace GlpiPlugin\Grcmanager\Feature;
 
-use GlpiPlugin\Grcmanager\Config\ConfigTab;
-
-/** Onglet « Incidents et continuité » de la configuration du plugin (issue #1036). */
-final class IncidentsTab extends ConfigTab
+/**
+ * Issue #1082 : point d'extension de la cartographie du SI. Une fonctionnalité qui connaît d'autres
+ * liens (données réseau importées d'un laboratoire, flux applicatifs...) déclare ses sources ici,
+ * sans modifier GlpiPlugin\Grcmanager\Cartography.
+ */
+interface CartographySourcesProvider
 {
-    public static function key(): string
-    {
-        return 'incidents';
-    }
-
-    public static function label(): string
-    {
-        return __('Incidents and continuity', 'grcmanager');
-    }
-
-    public static function icon(): string
-    {
-        return 'ti-urgent';
-    }
-
-    public static function order(): int
-    {
-        return 60;
-    }
+    /**
+     * @return list<class-string<\GlpiPlugin\Grcmanager\Services\Cartography\EdgeSource>>
+     */
+    public static function cartographySources(): array;
 }

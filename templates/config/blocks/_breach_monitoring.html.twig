@@ -12,37 +12,82 @@
  # (at your option) any later version. See LICENSE for the full text.
  # -------------------------------------------------------------------------
  #}
-{# Issue #183 : surveillance des fuites de données (Have I Been Pwned). #}
+{# Issue #183 : surveillance des fuites de données ; #1055 : fournisseur XposedOrNot (gratuit) ou Have I Been Pwned. #}
+{% set ro = can_edit_sensitive ? '' : 'disabled' %}
 <div class="card mb-3" id="grc-breach-config">
   <div class="card-body">
-    <h4>{{ __('Data breach monitoring', 'grcmanager') }}</h4>
+    <h4 class="d-flex align-items-center gap-2">
+      <i class="ti ti-mail-exclamation" aria-hidden="true"></i>{{ __('Data breach monitoring', 'grcmanager') }}
+      {% if breach_enabled %}
+        <span class="badge bg-success-subtle text-success-emphasis"><i class="ti ti-player-play me-1" aria-hidden="true"></i>{{ __('Enabled', 'grcmanager') }}</span>
+      {% else %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-player-pause me-1" aria-hidden="true"></i>{{ __('Disabled', 'grcmanager') }}</span>
+      {% endif %}
+    </h4>
     <p class="text-muted">
-      {{ __('Every day, the work email addresses of active users are checked with Have I Been Pwned; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the key.', 'grcmanager') }}
+      {{ __('Every day, the work email addresses of active users are sent to the chosen provider to find known data breaches; each exposure is recorded in a sensitive register and the CISO group is notified. Personal addresses are never sent. A verified domain needs a single request; otherwise addresses are checked one by one, within the rate limit of the provider.', 'grcmanager') }}
     </p>
     <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php">
       <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
       <div class="form-check form-switch mb-2">
         <input type="hidden" name="hibp_enabled" value="0">
-        <input type="checkbox" class="form-check-input" id="grc-hibp-enabled" name="hibp_enabled" value="1" {{ breach_enabled ? 'checked' }} {{ can_edit_sensitive ? '' : 'disabled' }}>
+        <input type="checkbox" class="form-check-input" id="grc-hibp-enabled" name="hibp_enabled" value="1" {{ breach_enabled ? 'checked' }} {{ ro }}>
         <label class="form-check-label" for="grc-hibp-enabled">{{ __('Enable data breach monitoring', 'grcmanager') }}</label>
       </div>
       <label class="form-label" for="grc-hibp-domains">{{ __('Work email domains to monitor', 'grcmanager') }}</label>
-      <input type="text" class="form-control mb-1" id="grc-hibp-domains" name="hibp_domains" value="{{ breach_domains }}" placeholder="example.com, example.org" {{ can_edit_sensitive ? '' : 'disabled' }}>
-      <p class="text-muted small mb-2">{{ __('Only addresses on these domains are checked.', 'grcmanager') }}</p>
-      <label class="form-label" for="grc-hibp-key">{{ __('Have I Been Pwned API key', 'grcmanager') }}</label>
-      <input type="password" class="form-control mb-1" id="grc-hibp-key" name="hibp_api_key" value="" autocomplete="new-password" placeholder="{{ breach_has_key ? __('Key saved (leave empty to keep it)', 'grcmanager') : '' }}" {{ can_edit_sensitive ? '' : 'disabled' }}>
-      <p class="text-muted small mb-2">{{ __('Encrypted with the GLPI key and never displayed again.', 'grcmanager') }}</p>
-      {% if breach_has_key %}
-        <div class="form-check mb-2">
-          <input type="checkbox" class="form-check-input" id="grc-hibp-clear" name="hibp_clear_key" value="1" {{ can_edit_sensitive ? '' : 'disabled' }}>
-          <label class="form-check-label" for="grc-hibp-clear">{{ __('Delete the saved key', 'grcmanager') }}</label>
+      <input type="text" class="form-control mb-1" id="grc-hibp-domains" name="hibp_domains" value="{{ breach_domains }}" placeholder="example.com, example.org" {{ ro }}>
+      <p class="text-muted small mb-3">{{ __('Only addresses on these domains are checked.', 'grcmanager') }}</p>
+
+      <fieldset class="mb-2">
+        <legend class="form-label">{{ __('Breach data provider', 'grcmanager') }}</legend>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="grc-breach-provider-xon" name="breach_provider" value="xposedornot" {{ breach_provider == 'xposedornot' ? 'checked' }} {{ ro }}>
+          <label class="form-check-label" for="grc-breach-provider-xon">
+            XposedOrNot <span class="badge bg-success-subtle text-success-emphasis ms-1"><i class="ti ti-gift me-1" aria-hidden="true"></i>{{ __('Free, no key needed', 'grcmanager') }}</span>
+          </label>
         </div>
-      {% endif %}
+        <div class="form-check">
+          <input type="radio" class="form-check-input" id="grc-breach-provider-hibp" name="breach_provider" value="hibp" {{ breach_provider == 'hibp' ? 'checked' }} {{ ro }}>
+          <label class="form-check-label" for="grc-breach-provider-hibp">
+            Have I Been Pwned <span class="badge bg-warning-subtle text-warning-emphasis ms-1"><i class="ti ti-key me-1" aria-hidden="true"></i>{{ __('Paid API key', 'grcmanager') }}</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="border rounded p-2 mb-2">
+        <h5 class="mb-1"><i class="ti ti-world-search me-1" aria-hidden="true"></i>XposedOrNot</h5>
+        <p class="text-muted small mb-2">
+          {{ __('Free API: up to %d addresses per run (the provider allows 25 per hour and 100 per day); the next run resumes where the previous one stopped. To go faster, run the "breachmonitor" automatic action every hour.', 'grcmanager')|format(breach_xon_limit) }}
+          <a href="https://xposedornot.com/api_doc" target="_blank" rel="noopener noreferrer">{{ __('API documentation', 'grcmanager') }}</a>
+        </p>
+        <label class="form-label" for="grc-xon-key">{{ __('XposedOrNot domain API key (optional)', 'grcmanager') }}</label>
+        <input type="password" class="form-control mb-1" id="grc-xon-key" name="xon_api_key" value="" autocomplete="new-password" placeholder="{{ breach_has_xon_key ? __('Key saved (leave empty to keep it)', 'grcmanager') : '' }}" {{ ro }}>
+        <p class="text-muted small mb-1">{{ __('Free key given once your domain is verified on the XposedOrNot dashboard: the whole domain is then checked with a single request. Encrypted with the GLPI key and never displayed again.', 'grcmanager') }}</p>
+        {% if breach_has_xon_key %}
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="grc-xon-clear" name="xon_clear_key" value="1" {{ ro }}>
+            <label class="form-check-label" for="grc-xon-clear">{{ __('Delete the saved key', 'grcmanager') }}</label>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="border rounded p-2 mb-2">
+        <h5 class="mb-1"><i class="ti ti-shield-lock me-1" aria-hidden="true"></i>Have I Been Pwned</h5>
+        <label class="form-label" for="grc-hibp-key">{{ __('Have I Been Pwned API key', 'grcmanager') }}</label>
+        <input type="password" class="form-control mb-1" id="grc-hibp-key" name="hibp_api_key" value="" autocomplete="new-password" placeholder="{{ breach_has_key ? __('Key saved (leave empty to keep it)', 'grcmanager') : '' }}" {{ ro }}>
+        <p class="text-muted small mb-1">{{ __('Encrypted with the GLPI key and never displayed again.', 'grcmanager') }}</p>
+        {% if breach_has_key %}
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="grc-hibp-clear" name="hibp_clear_key" value="1" {{ ro }}>
+            <label class="form-check-label" for="grc-hibp-clear">{{ __('Delete the saved key', 'grcmanager') }}</label>
+          </div>
+        {% endif %}
+      </div>
       {% if can_edit_sensitive %}
         <div class="d-flex gap-2 mt-2">
           <button type="submit" name="update_breach_config" class="btn btn-primary">{{ __('Save') }}</button>
-          {% if breach_has_key %}
-            <button type="submit" name="test_breach_config" class="btn btn-outline-secondary">{{ __('Test the key', 'grcmanager') }}</button>
+          {% if breach_provider == 'xposedornot' or breach_has_key %}
+            <button type="submit" name="test_breach_config" class="btn btn-outline-secondary"><i class="ti ti-plug-connected me-1" aria-hidden="true"></i>{{ __('Test the connection', 'grcmanager') }}</button>
           {% endif %}
         </div>
       {% endif %}

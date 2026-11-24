@@ -20,6 +20,12 @@ use GlpiPlugin\Grcmanager\ProductSbom;
 use GlpiPlugin\Grcmanager\Services\Control\EvidenceUploadRules;
 use GlpiPlugin\Grcmanager\Services\Sbom\SbomParser;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #869 : import d'une nomenclature (SBOM) ou d'un document VEX, déclaration VEX saisie et
 // suppressions, depuis l'onglet « SBOM et VEX » d'une application (seul écran qui poste ici).
 // Droit : mise à jour du plugin, vérifiée avant toute lecture ; l'application doit être visible

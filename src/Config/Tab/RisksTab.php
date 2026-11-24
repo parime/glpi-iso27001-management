@@ -21,7 +21,11 @@ namespace GlpiPlugin\Grcmanager\Config\Tab;
 
 use GlpiPlugin\Grcmanager\Config\ConfigTab;
 
-/** Onglet « Risques » de la configuration du plugin (issue #1036). */
+/**
+ * Onglet « Risques et incidents » de la configuration du plugin (issue #1036). Issue #1114 : les
+ * réglages des incidents et de la continuité (ancien onglet « incidents ») y sont rangés, pour garder
+ * au plus sept onglets ; l'ancienne adresse config.php?tab=incidents ouvre cet onglet.
+ */
 final class RisksTab extends ConfigTab
 {
     public static function key(): string
@@ -31,7 +35,7 @@ final class RisksTab extends ConfigTab
 
     public static function label(): string
     {
-        return _n('Risk', 'Risks', 2, 'grcmanager');
+        return __('Risks and incidents', 'grcmanager');
     }
 
     public static function icon(): string

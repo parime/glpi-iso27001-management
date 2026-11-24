@@ -37,6 +37,11 @@ use GlpiPlugin\Grcmanager\Compat\Http;
  *
  * Modèle repris du plugin Inventaire Docker (LifecycleClient), sans en dépendre.
  *
+ * Issue #1056 : json() lit aussi les listes du catalogue de l'API v1 (« /products »,
+ * « /identifiers/cpe », « /identifiers/purl »), à côté de « /products/{product} », pour proposer
+ * des correspondances (EndOfLifeCatalog). Documentation : https://endoflife.date/docs/api/v1/ ;
+ * schéma OpenAPI : https://endoflife.date/docs/api/v1/openapi.yml (version 1.2.1 lue le 2026-11-23).
+ *
  * @phpstan-type Cycle array{cycle: string, codename: string, eol: string, latest: string}
  * @phpstan-type Transport callable(string): array{status: int, body: string, retry_after: int}
  */
@@ -100,6 +105,60 @@ final class EndOfLifeClient
     public static function isValidProduct(string $product): bool
     {
         return preg_match('/^[a-z0-9][a-z0-9.+_-]{0,63}$/', $product) === 1;
+    }
+
+    /**
+     * Issue #1056 : adresse d'une liste de l'API v1 (« products », « identifiers/cpe »), déduite du
+     * modèle : tout ce qui précède « products/{product} ». Null si le modèle n'a pas cette forme
+     * (miroir de l'ancienne API, sans catalogue).
+     */
+    public static function listUrl(string $template, string $path): ?string
+    {
+        $template = $template === '' ? self::configuredUrl() : $template;
+        $position = strpos($template, 'products/{product}');
+        if ($position === false || preg_match('#^[a-z]+(/[a-z]+)?$#', $path) !== 1) {
+            return null;
+        }
+
+        return substr($template, 0, $position) . $path;
+    }
+
+    /**
+     * Issue #1056 : la source sait-elle donner le catalogue (API v1 ou miroir de même forme) ?
+     */
+    public function hasCatalog(): bool
+    {
+        return self::listUrl($this->urlTemplate, 'products') !== null;
+    }
+
+    /**
+     * Issue #1056 : réponse décodée d'une liste de l'API v1 (catalogue des produits, identifiants).
+     *
+     * @return array<mixed>
+     * @throws EndOfLifeException
+     */
+    public function json(string $path): array
+    {
+        $url = self::listUrl($this->urlTemplate, $path);
+        if ($url === null) {
+            throw new EndOfLifeException(EndOfLifeException::NOT_FOUND);
+        }
+        $this->requests++;
+        try {
+            $response = ($this->transport)($url);
+        } catch (\Throwable) {
+            throw new EndOfLifeException(EndOfLifeException::UNREACHABLE);
+        }
+        $code = EndOfLifeException::codeForStatus((int) $response['status']);
+        if ($code !== null) {
+            throw new EndOfLifeException($code);
+        }
+        $data = json_decode($response['body'], true);
+        if (!is_array($data)) {
+            throw new EndOfLifeException(EndOfLifeException::UNEXPECTED);
+        }
+
+        return $data;
     }
 
     /**

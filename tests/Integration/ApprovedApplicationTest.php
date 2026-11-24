@@ -102,12 +102,12 @@ final class ApprovedApplicationTest extends GrcmanagerIntegrationTestCase
         $this->assertSame('', (string) $sheet['restrictions'], 'Restrictions gardées seulement si restreinte.');
 
         $this->assertNull(ApprovedApplication::saveFor($id, [
-            'status' => 'restricted', 'restrictions' => 'Liens limités à 30 jours', 'reviewed_today' => '1',
+            'status' => 'restricted', 'restrictions' => 'Liens limités, revue trimestrielle', 'reviewed_today' => '1',
             'allowed_uses' => 'Partage avec les partenaires', 'max_data_level' => 'low',
         ]));
         $sheet = ApprovedApplication::getForAppliance($id);
         $this->assertSame(Rules::STATUS_RESTRICTED, $sheet['status']);
-        $this->assertSame('Liens limités à 30 jours', $sheet['restrictions']);
+        $this->assertSame('Liens limités, revue trimestrielle', $sheet['restrictions']);
         $this->assertSame(date('Y-m-d'), $sheet['last_review_date'], 'Revue faite aujourd\'hui.');
 
         $this->assertTrue($appliance->delete(['id' => $id], true));

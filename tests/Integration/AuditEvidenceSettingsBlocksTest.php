@@ -42,6 +42,8 @@ use GlpiPlugin\Grcmanager\Services\Readiness\CertificationReadinessRules;
  */
 final class AuditEvidenceSettingsBlocksTest extends GrcmanagerIntegrationTestCase
 {
+    use ForcesEnglishLanguage;
+
     private const BUTTONS = [
         AuditProgrammeBlock::class         => 'update_audit_programme',
         CertificationReadinessBlock::class => 'update_readiness_settings',
@@ -100,7 +102,7 @@ final class AuditEvidenceSettingsBlocksTest extends GrcmanagerIntegrationTestCas
         $link = SettingsLink::data(CertificationReadinessBlock::ANCHOR);
         $this->assertStringEndsWith('/front/config.php?tab=controls#grc-readiness-settings', $link['url']);
         $this->assertStringContainsString('GRC Manager', $link['path']);
-        $this->assertStringContainsString(__('Controls, audits and evidence', 'grcmanager'), $link['path']);
+        $this->assertStringContainsString('Controls, audits and evidence', $link['path']);
     }
 
     public function testBlocksRenderTheirFormWithTheRightToUpdateOnly(): void

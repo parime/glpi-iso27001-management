@@ -34,6 +34,8 @@ use Override;
  */
 class NotificationTargetComplianceObligation extends NotificationTarget
 {
+    use \GlpiPlugin\Grcmanager\Traits\CoreNotificationTargetFormTrait;
+
     #[Override]
     public function getEvents()
     {

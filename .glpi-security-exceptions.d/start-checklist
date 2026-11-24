@@ -1,0 +1,1 @@
+config-lien src/Config/StartChecklist.php > front/soascoping.php : étape guidée de la liste de démarrage (première mise en service), bouton direct demandé par le mainteneur le 23/11 ; l'écran reste aussi dans son entrée de menu.

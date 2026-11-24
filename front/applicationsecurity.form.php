@@ -17,6 +17,12 @@
 
 use GlpiPlugin\Grcmanager\ApplicationSecurity;
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 // Issue #777 : enregistre la fiche « développement sécurisé » d'une application, depuis l'onglet
 // de l'application (seul écran qui poste ici). Le droit est vérifié avant toute lecture.
 Session::checkRight(ApplicationSecurity::$rightname, READ);

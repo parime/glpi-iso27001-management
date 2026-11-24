@@ -28,7 +28,7 @@ case $ROLE in
       page=$(body "$P/config.php?tab=$t")
       contains "configuration, onglet $t : affiche" 'id="grc-config-tabs"' oui "$page"
       contains "configuration, onglet $t : modifiable" 'name="update_' oui "$page"
-      expect "configuration, onglet $t : huit onglets dans la barre" 8 "$(grep -o 'role="tab"' <<< "$page" | wc -l | tr -d ' ')"
+      expect "configuration, onglet $t : sept onglets dans la barre" 7 "$(grep -o 'role="tab"' <<< "$page" | wc -l | tr -d ' ')"
     done
     page=$(body "$P/config.php?tab=risks")
     contains "configuration, onglet Risques : matrice des risques" 'id="grc-risk-matrix-config"' oui "$page"

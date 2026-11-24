@@ -41,7 +41,7 @@
    }) }}
    {% set source_html %}
       <i class="ti ti-file-text me-1"></i>{{ law }}, {{ __('ACN determination %s', 'grcmanager')|format(determination) }}, {{ reference }}
-      - <a href="{{ source_url }}" target="_blank" rel="noopener noreferrer">acn.gov.it<i class="ti ti-external-link ms-1"></i></a>
+      - <a href="{{ source_url }}" class="text-decoration-underline" target="_blank" rel="noopener noreferrer">acn.gov.it<i class="ti ti-external-link ms-1"></i></a>
    {% endset %}
    {{ fields.htmlField('', source_html, __('Official reference', 'grcmanager'), {'full_width': true}) }}
    {% if not in_scope %}

@@ -86,7 +86,7 @@
             {% endif %}
          {% elseif can_decide %}
             {% if unchecked is not empty %}
-               <p class="text-warning"><i class="ti ti-alert-triangle me-1"></i>{{ __('The checklist is not complete: the release can only be rejected.', 'grcmanager') }}</p>
+               <p class="text-warning-emphasis"><i class="ti ti-alert-triangle me-1"></i>{{ __('The checklist is not complete: the release can only be rejected.', 'grcmanager') }}</p>
             {% endif %}
             <form method="post" action="{{ action }}" class="row g-2">
                <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">

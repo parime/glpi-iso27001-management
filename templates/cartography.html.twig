@@ -1,0 +1,136 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1082 : cartographie du SI par couches, du switch au processus métier. Schéma SVG dessiné ici,
+   sans bibliothèque externe ; chaque case est un lien joignable au clavier, et la liste par couche
+   sous le schéma en est l'équivalent textuel. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+<div class="container-fluid">
+   <h2 class="mb-3"><i class="ti ti-stack-2 me-1"></i>{{ __('IT system map', 'grcmanager') }}</h2>
+
+   <form method="get" action="{{ action }}" class="card mb-3" aria-label="{{ __('Choose the item to map', 'grcmanager') }}">
+      <div class="card-body">
+         <div class="row g-3 align-items-end">
+            <div class="col-lg-5">
+               {{ fields.dropdownItemsFromItemtypes('items_id', __('Starting item', 'grcmanager'), {
+                  'itemtypes': itemtypes,
+                  'itemtype_name': 'itemtype',
+                  'items_id_name': 'items_id',
+                  'default_itemtype': itemtype,
+                  'default_items_id': items_id > 0 ? items_id : -1,
+                  'entity_restrict': -1,
+                  'checkright': true,
+                  'is_horizontal': false,
+                  'full_width': true,
+               }) }}
+            </div>
+            <fieldset class="col-lg-4">
+               <legend class="form-label">{{ __('Question', 'grcmanager') }}</legend>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="direction" id="grc-map-up" value="up" {{ direction == 'up' ? 'checked' }}>
+                  <label class="form-check-label" for="grc-map-up"><i class="ti ti-arrow-up me-1"></i>{{ __('What does its failure affect?', 'grcmanager') }}</label>
+               </div>
+               <div class="form-check">
+                  <input class="form-check-input" type="radio" name="direction" id="grc-map-down" value="down" {{ direction == 'down' ? 'checked' }}>
+                  <label class="form-check-label" for="grc-map-down"><i class="ti ti-arrow-down me-1"></i>{{ __('What does it depend on?', 'grcmanager') }}</label>
+               </div>
+            </fieldset>
+            <div class="col-lg-3">
+               {# Issue #1082, lot 3 : seules les applications de cet environnement sont parcourues. #}
+               {{ fields.dropdownField('ApplianceEnvironment', 'environment', environment, __('Application environment', 'grcmanager'), {
+                  'display_emptychoice': true,
+                  'emptylabel': __('All environments', 'grcmanager'),
+                  'is_horizontal': false,
+                  'full_width': true,
+               }) }}
+            </div>
+            <fieldset class="col-lg-10">
+               <legend class="form-label">{{ __('Layers shown', 'grcmanager') }}</legend>
+               {% for layer, label in layer_labels %}
+                  <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="checkbox" name="layers[]" id="grc-map-layer-{{ layer }}" value="{{ layer }}" {{ layer in layers ? 'checked' }}>
+                     <label class="form-check-label" for="grc-map-layer-{{ layer }}">{{ label }}</label>
+                  </div>
+               {% endfor %}
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="flows" id="grc-map-flows" value="1" {{ flows ? 'checked' }}>
+                  <label class="form-check-label" for="grc-map-flows"><i class="ti ti-arrows-exchange me-1"></i>{{ __('Application flows (flow matrix)', 'grcmanager') }}</label>
+               </div>
+            </fieldset>
+            <div class="col-lg-2">
+               <button type="submit" class="btn btn-primary w-100"><i class="ti ti-route me-1"></i>{{ __('Show the map', 'grcmanager') }}</button>
+            </div>
+         </div>
+      </div>
+   </form>
+
+   {% if not_found %}
+      <div class="alert alert-warning" role="alert"><i class="ti ti-alert-triangle me-1"></i>{{ __('This item does not exist or you cannot see it.', 'grcmanager') }}</div>
+   {% endif %}
+
+   {% if map %}
+      {% include '@grcmanager/_cartography_map.html.twig' with {'map': map, 'max_nodes': max_nodes} only %}
+   {% elseif entry %}
+      <div class="row g-3">
+         <div class="col-lg-4">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-building me-1"></i>{{ __('What does this process depend on?', 'grcmanager') }}</h3></div>
+               {% if entry.processes is empty %}
+                  <div class="card-body text-muted">{{ __('No business process yet: describe them in the business impact analysis.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for p in entry.processes %}
+                        <li class="list-group-item d-flex align-items-center">
+                           <a href="{{ action }}?itemtype={{ process_type|url_encode }}&amp;items_id={{ p.key|split(':')|last }}&amp;direction=down&amp;flows=1">{{ p.name }}</a>
+                           {% if p.rto_label %}<span class="badge bg-orange-subtle text-orange-emphasis ms-auto">RTO {{ p.rto_label }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-apps me-1"></i>{{ __('What does this application run on?', 'grcmanager') }}</h3></div>
+               {% if entry.applications is empty %}
+                  <div class="card-body text-muted">{{ __('No application in GLPI yet: declare them in Assets > Appliances, with their environment and their servers.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for a in entry.applications %}
+                        <li class="list-group-item d-flex align-items-center">
+                           <a href="{{ action }}?itemtype=Appliance&amp;items_id={{ a.key|split(':')|last }}&amp;direction=down&amp;flows=1">{{ a.name }}</a>
+                           {% if a.environment %}<span class="badge bg-purple-subtle text-purple-emphasis ms-auto"><i class="ti ti-box-multiple me-1"></i>{{ a.environment }}</span>{% endif %}
+                        </li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="card h-100">
+               <div class="card-header"><h3 class="card-title"><i class="ti ti-network me-1"></i>{{ __('What does the failure of this equipment affect?', 'grcmanager') }}</h3></div>
+               {% if entry.network is empty %}
+                  <div class="card-body text-muted">{{ __('No network equipment in the inventory.', 'grcmanager') }}</div>
+               {% else %}
+                  <ul class="list-group list-group-flush">
+                     {% for n in entry.network %}
+                        <li class="list-group-item"><a href="{{ action }}?itemtype=NetworkEquipment&amp;items_id={{ n.key|split(':')|last }}&amp;direction=up&amp;flows=1">{{ n.name }}</a></li>
+                     {% endfor %}
+                  </ul>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   {% endif %}
+</div>

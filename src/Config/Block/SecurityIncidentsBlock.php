@@ -28,12 +28,12 @@ final class SecurityIncidentsBlock extends ConfigBlock
 {
     public static function tab(): string
     {
-        return 'incidents';
+        return 'risks';
     }
 
     public static function order(): int
     {
-        return 10;
+        return 50;
     }
 
     public static function template(): string

@@ -24,6 +24,12 @@ use GlpiPlugin\Grcmanager\Services\Audit\ProgrammeRules;
  * justification d'un conflit d'indépendance, remise du rapport à la direction. Il faut pouvoir
  * modifier l'audit (droit et entité, check() du cœur).
  */
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 Session::checkRight(Audit::$rightname, UPDATE);
 
 $audit = new Audit();

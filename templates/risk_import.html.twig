@@ -73,7 +73,7 @@
                   <td class="text-nowrap"><span class="badge {{ step.class }}"><i class="{{ step.icon }} me-1"></i>{{ step.label }}</span></td>
                   <td class="small">
                     {% for change in step.changes %}
-                      <div{% if change.status and not step.create %} class="fw-bold text-warning"{% endif %}>
+                      <div{% if change.status and not step.create %} class="fw-bold text-warning-emphasis"{% endif %}>
                         {% if change.status and not step.create %}<i class="ti ti-alert-triangle me-1"></i>{% endif %}
                         <span class="text-secondary">{{ change.field }} :</span>
                         {% if step.create %}

@@ -23,11 +23,11 @@
             {% if summary.since %}
                <li>{{ _n('%1$d item changed since %2$s', '%1$d items changed since %2$s', summary.changed, 'grcmanager')|format(summary.changed, summary.since|formatted_date) }}</li>
             {% endif %}
-            <li class="{{ summary.overdue > 0 ? 'text-warning' : '' }}">
+            <li class="{{ summary.overdue > 0 ? 'text-warning-emphasis' : '' }}">
                {{ _n('%d item past its review date', '%d items past their review date', summary.overdue, 'grcmanager')|format(summary.overdue) }}
             </li>
             {% if show_climate %}
-               <li class="{{ summary.climate ? 'text-success' : 'text-warning' }}">
+               <li class="{{ summary.climate ? 'text-success' : 'text-warning-emphasis' }}">
                   <i class="ti {{ summary.climate ? 'ti-circle-check' : 'ti-alert-triangle' }} me-1"></i>
                   {{ summary.climate
                      ? __('Climate change question answered', 'grcmanager')

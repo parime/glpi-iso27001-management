@@ -47,7 +47,7 @@ final class MySpaceTest extends GrcmanagerIntegrationTestCase
         $owner = $this->createTestUser('Mon', 'Espace');
         $other = $this->createTestUser('Autre', 'Personne');
         $riskId = (int) (new \GlpiPlugin\Grcmanager\Risk())->add([
-            'title' => 'Risque 539 en retard', 'users_id' => $owner, 'review_date' => $this->day(-5),
+            'title' => 'Risque 539 dépassé', 'users_id' => $owner, 'review_date' => $this->day(-5),
         ]);
         (new \GlpiPlugin\Grcmanager\Risk())->add([
             'title' => 'Risque 539 lointain', 'users_id' => $owner, 'review_date' => $this->day(200),
@@ -76,14 +76,14 @@ final class MySpaceTest extends GrcmanagerIntegrationTestCase
 
         $items = MySpaceProvider::items($owner, date('Y-m-d'));
         $this->assertSame(
-            ['Risque 539 en retard', 'Non-conformité 539', 'Formation 539', 'Action 539', 'Politique 539'],
+            ['Risque 539 dépassé', 'Non-conformité 539', 'Formation 539', 'Action 539', 'Politique 539'],
             array_column($items, 'name'),
             'Échéance croissante ; revue lointaine, non-conformité close et éléments d\'autrui écartés.'
         );
         $this->assertSame(['overdue', 'overdue', 'soon', 'soon', 'soon'], array_column($items, 'urgency'));
         $this->assertSame(5, $items[0]['days_late']);
         $this->assertStringContainsString('risk.form.php?id=' . $riskId, $items[0]['url']);
-        $this->assertStringContainsString('Risque 539 en retard', $items[3]['detail'], 'Le risque traité.');
+        $this->assertStringContainsString('Risque 539 dépassé', $items[3]['detail'], 'Le risque traité.');
         $this->assertSame(['Risque 539 d\'un autre'], $this->names($other));
     }
 

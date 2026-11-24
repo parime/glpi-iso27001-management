@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace GlpiPlugin\Grcmanager\Config\Block;
 
+use GlpiPlugin\Grcmanager\AssetSecurity;
 use GlpiPlugin\Grcmanager\Config\ConfigBlock;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\MailDomainSecurity;
@@ -66,8 +67,8 @@ final class MailDnsConnectorBlock extends ConfigBlock
     {
         return [
             'mail_dns' => [
-                'server'   => MailDomainSecurity::dnsServer(),
-                'page_url' => MailDomainSecurity::getSearchURL(),
+                'server'    => MailDomainSecurity::dnsServer(),
+                'page_path' => AssetSecurity::menuPath(MailDomainSecurity::getTypeName(2)),
             ],
         ];
     }

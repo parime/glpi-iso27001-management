@@ -20,6 +20,12 @@
  * pouvoir modifier l'audit.
  */
 
+// Issue #1114 : point d'envoi des formulaires de l'onglet (POST), sans écran propre ; ouvert
+// directement, il répond « requête invalide » au lieu de renvoyer vers l'accueil.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    throw new \Glpi\Exception\Http\BadRequestHttpException();
+}
+
 Session::checkRight(\GlpiPlugin\Grcmanager\Audit::RIGHTNAME, UPDATE);
 
 $audit = new \GlpiPlugin\Grcmanager\Audit();

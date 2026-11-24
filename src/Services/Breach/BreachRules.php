@@ -60,7 +60,7 @@ final class BreachRules
 
     /**
      * Adresse surveillée : sur un domaine professionnel configuré. Les adresses personnelles ne sont
-     * jamais envoyées à Have I Been Pwned.
+     * jamais envoyées au fournisseur.
      *
      * @param list<string> $domains
      */

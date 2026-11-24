@@ -33,6 +33,12 @@ use GlpiPlugin\Grcmanager\Feature\MovedConfigAnchorsProvider;
  */
 final class ConfigTabs
 {
+    /**
+     * Issue #1114 : anciens onglets regroupés dans un autre (au plus sept onglets), et l'onglet qui
+     * les remplace : les liens config.php?tab=<ancienne clé> ouvrent le nouvel onglet.
+     */
+    private const FORMER_TABS = ['incidents' => 'risks'];
+
     /** @var list<class-string<ConfigTab>>|null */
     private static ?array $tabs = null;
 
@@ -120,6 +126,9 @@ final class ConfigTabs
     public static function current(mixed $requested): string
     {
         $visible = self::visibleTabs();
+        if (is_string($requested) && isset(self::FORMER_TABS[$requested])) {
+            $requested = self::FORMER_TABS[$requested];
+        }
         if (is_string($requested) && in_array($requested, $visible, true)) {
             return $requested;
         }
