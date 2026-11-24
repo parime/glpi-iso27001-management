@@ -22,7 +22,7 @@ namespace GlpiPlugin\Grcmanager\Traits;
 /**
  * Issue #1114 : une cible de notification du plugin n'a pas de fiche propre. Ses lignes sont celles
  * de la table commune glpi_notificationtargets, que GLPI modifie depuis l'onglet « Destinataires »
- * d'une notification et son formulaire front/notificationtarget.form.php. Sans cette adresse,
+ * d'une notification. Sans cette adresse,
  * GLPI calculait plugins/grcmanager/front/notificationtarget<x>.form.php, une page générique sans
  * objet (son fil d'Ariane menait à une page refusée).
  */
@@ -32,6 +32,10 @@ trait CoreNotificationTargetFormTrait
     {
         global $CFG_GLPI;
 
-        return ($full ? (string) ($CFG_GLPI['root_doc'] ?? '') : '') . '/front/notificationtarget.form.php';
+        // Liste des notifications du cœur, pas front/notificationtarget.form.php : ce formulaire
+        // appelle NotificationTarget::updateTargets($_POST) même ouvert sans envoi (avertissement
+        // « Undefined array key itemtype » relevé par le parcours des pages). Le formulaire de
+        // l'onglet « Destinataires » d'une notification envoie déjà vers celui du cœur.
+        return ($full ? (string) ($CFG_GLPI['root_doc'] ?? '') : '') . '/front/notification.php';
     }
 }

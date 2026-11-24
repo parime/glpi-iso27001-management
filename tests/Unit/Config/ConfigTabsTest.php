@@ -95,6 +95,6 @@ final class ConfigTabsTest extends TestCase
     public function testBlocksKeepTheirPlaceInsideATab(): void
     {
         $keys = array_map(static fn (string $block): string => $block::key(), ConfigTabs::blocksOf('risks'));
-        $this->assertSame(['RiskMatrix', 'RiskAppetite', 'KriAlert', 'ConsistencyRules'], $keys);
+        $this->assertSame(['RiskMatrix', 'RiskAppetite', 'KriAlert', 'ConsistencyRules', 'SecurityIncidents', 'ContinuityPlan'], $keys);
     }
 }
