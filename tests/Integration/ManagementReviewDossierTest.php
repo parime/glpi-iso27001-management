@@ -88,7 +88,9 @@ final class ManagementReviewDossierTest extends GrcmanagerIntegrationTestCase
             'due_date'                               => '2026-01-31',
         ]);
         $this->assertGreaterThan(0, $late);
-        $review = $this->createReview('Revue fictive 2026', '2026-11-25');
+        // Fin de période relative au jour : le constat créé par le test porte la date du jour.
+        $end = date('Y-m-d', strtotime('+1 day'));
+        $review = $this->createReview('Revue fictive 2026', $end);
         $this->assertSame('2025-11-20', $review->previousReviewDate());
 
         $finding = (int) (new Nonconformity())->add([
@@ -98,7 +100,7 @@ final class ManagementReviewDossierTest extends GrcmanagerIntegrationTestCase
         ]);
         $this->assertGreaterThan(0, $finding);
 
-        $data = ManagementReviewDossier::collect($review, '2025-11-20', '2026-11-25');
+        $data = ManagementReviewDossier::collect($review, '2025-11-20', $end);
         $sections = array_column($data['sections'], null, 'key');
         $this->assertSame(array_keys(ManagementReviewDossierRules::SECTIONS), array_keys($sections));
         foreach ($sections as $key => $section) {
@@ -113,13 +115,13 @@ final class ManagementReviewDossierTest extends GrcmanagerIntegrationTestCase
         $raised = array_column($sections['nonconformities']['data']['raised'], 'number', 'label');
         $this->assertGreaterThanOrEqual(1, $raised[Nonconformity::getFindingTypes()['nonconformity']]);
 
-        $dossierId = ManagementReviewDossier::generate($review, '2025-11-20', '2026-11-25');
+        $dossierId = ManagementReviewDossier::generate($review, '2025-11-20', $end);
         $this->assertGreaterThan(0, $dossierId);
         $row = $DB->request(['FROM' => ManagementReviewDossier::TABLE, 'WHERE' => ['id' => $dossierId]])->current();
         $documentsId = (int) $row['documents_id'];
         try {
             $this->assertSame('2025-11-20', $row['period_start']);
-            $this->assertSame('2026-11-25', $row['period_end']);
+            $this->assertSame($end, $row['period_end']);
             $document = new \Document();
             $this->assertTrue($document->getFromDB($documentsId));
             $this->assertSame('application/pdf', $document->fields['mime']);
@@ -143,7 +145,7 @@ final class ManagementReviewDossierTest extends GrcmanagerIntegrationTestCase
             $this->assertNotSame('', $history[0]['url']);
 
             // Période incohérente : rien n'est généré.
-            $this->assertSame(0, ManagementReviewDossier::generate($review, '2026-11-25', '2025-11-20'));
+            $this->assertSame(0, ManagementReviewDossier::generate($review, $end, '2025-11-20'));
         } finally {
             (new \Document())->delete(['id' => $documentsId], true);
         }
