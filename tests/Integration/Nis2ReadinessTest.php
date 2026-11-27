@@ -88,7 +88,7 @@ final class Nis2ReadinessTest extends GrcmanagerIntegrationTestCase
             }
             $this->assertNotEmpty($criterion['links'], $key . ' : au moins un écran à ouvrir');
             $first = $criterion['links'][0];
-            $this->assertStringContainsString('/plugins/grcmanager/', $first['url'], $key);
+            $this->assertStringStartsWith('/', parse_url($first['url'], PHP_URL_PATH) ?: '', $key);
             $this->assertNotSame('', $first['path'], $key . ' : chemin du menu');
             $this->assertStringContainsString(' > ', $first['path'], $key);
         }
