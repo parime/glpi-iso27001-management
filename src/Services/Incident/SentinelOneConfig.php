@@ -43,6 +43,11 @@ final class SentinelOneConfig
     public const ALERTS_SINCE_KEY = 'sentinelone_alerts_since';
     /** Bilan du dernier passage (JSON : date et résultat de chaque liste). */
     public const LAST_RUN_KEY = 'sentinelone_last_run';
+    /**
+     * Issue #1160 : criticité minimale des vulnérabilités applicatives importées ('' : toutes,
+     * sinon une valeur de SentinelOneParser::SEVERITY_LEVELS). Appliquée avant l'écriture en base.
+     */
+    public const MIN_SEVERITY_KEY = 'sentinelone_vuln_min_severity';
 
     /** Clés à déclarer en configuration sécurisée. */
     public const SECURED = [self::TOKEN_KEY];
@@ -91,6 +96,24 @@ final class SentinelOneConfig
     public static function entityId(): int
     {
         return max(0, (int) (self::values()[self::ENTITY_KEY] ?? 0));
+    }
+
+    /** Criticité minimale des vulnérabilités importées ('' : toutes, comportement par défaut). */
+    public static function minSeverity(): string
+    {
+        $value = (string) (self::values()[self::MIN_SEVERITY_KEY] ?? '');
+
+        return in_array($value, SentinelOneParser::SEVERITY_LEVELS, true) ? $value : '';
+    }
+
+    /** Enregistre la criticité minimale ; une valeur inconnue revient à « toutes ». */
+    public static function setMinSeverity(string $minSeverity): void
+    {
+        Config::setConfigurationValues(self::CONTEXT, [
+            self::MIN_SEVERITY_KEY => in_array($minSeverity, SentinelOneParser::SEVERITY_LEVELS, true)
+                ? $minSeverity
+                : '',
+        ]);
     }
 
     public static function client(): SentinelOneClient
@@ -180,7 +203,7 @@ final class SentinelOneConfig
     {
         return Config::getConfigurationValues(self::CONTEXT, [
             self::ENABLED_KEY, self::URL_KEY, self::TOKEN_KEY, self::ENTITY_KEY,
-            self::THREATS_SINCE_KEY, self::ALERTS_SINCE_KEY, self::LAST_RUN_KEY,
+            self::THREATS_SINCE_KEY, self::ALERTS_SINCE_KEY, self::LAST_RUN_KEY, self::MIN_SEVERITY_KEY,
         ]);
     }
 }

@@ -315,7 +315,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
         $seen = [];
         $new = 0;
-        $onItems = static function (array $items) use (&$seen, &$new, $DB): void {
+        $minSeverity = SentinelOneConfig::minSeverity();
+        $onItems = static function (array $items) use (&$seen, &$new, $DB, $minSeverity): void {
             foreach ($items as $item) {
                 $finding = SentinelOneParser::vulnerability($item);
                 if ($finding === null) {
@@ -325,6 +326,20 @@ class SentinelOneAlert extends SentinelOneAlertBase
                     $finding['cve'], $finding['endpoint_id'], $finding['endpoint_name'],
                     $finding['application'], $finding['version'],
                 ]));
+                if (!SentinelOneParser::meetsMinSeverity($finding, $minSeverity)) {
+                    // Issue #1160 : sous le seuil, rien n'est écrit. Une ligne déjà importée (seuil
+                    // relevé depuis) est gardée telle quelle tant que SentinelOne la signale :
+                    // relever le seuil n'efface rien.
+                    $kept = $DB->request([
+                        'SELECT' => ['id'],
+                        'FROM'   => self::VULNERABILITIES_TABLE,
+                        'WHERE'  => ['unicity' => $key],
+                    ])->current();
+                    if ($kept !== null) {
+                        $seen[] = (int) $kept['id'];
+                    }
+                    continue;
+                }
                 $computerId = self::computerOfAgent($finding['endpoint_id']);
                 if ($computerId === 0) {
                     $computerId = self::matchComputer($finding['endpoint_name'], '');
@@ -796,6 +811,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'url'          => SentinelOneConfig::rawUrl(),
             'has_token'    => SentinelOneConfig::hasToken(),
             'entities_id'  => SentinelOneConfig::entityId(),
+            'min_severity' => SentinelOneConfig::minSeverity(),
+            'min_severity_labels' => self::minSeverityLabels(),
             'last_run'     => SentinelOneConfig::lastRun(),
             'cron_url'     => $hasTask ? CronTask::getFormURLWithID($task->getID()) : '',
             'cron_active'  => $hasTask && (int) $task->fields['state'] !== CronTask::STATE_DISABLE,
@@ -814,6 +831,22 @@ class SentinelOneAlert extends SentinelOneAlertBase
             'threats'         => __('Threats', 'grcmanager'),
             'alerts'          => __('Alerts', 'grcmanager'),
             'vulnerabilities' => __('Application vulnerabilities', 'grcmanager'),
+        ];
+    }
+
+    /**
+     * Issue #1160 : choix de la criticité minimale des vulnérabilités importées.
+     *
+     * @return array<string, string>
+     */
+    public static function minSeverityLabels(): array
+    {
+        return [
+            ''         => __('All (no filter)', 'grcmanager'),
+            'low'      => __('Low and above', 'grcmanager'),
+            'medium'   => __('Medium and above', 'grcmanager'),
+            'high'     => __('High and critical', 'grcmanager'),
+            'critical' => __('Critical only', 'grcmanager'),
         ];
     }
 
