@@ -1,0 +1,228 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "NIS2 compliance path"
+msgstr "Percorso di conformità NIS2"
+
+msgid "Scope and registration"
+msgstr "Ambito e registrazione"
+
+msgid "Know whether you are an essential or important entity, and make yourself known to the authority."
+msgstr "Sapere se si è un soggetto essenziale o importante e farsi conoscere dall'autorità."
+
+msgid "Management approves the security measures, oversees them and is trained."
+msgstr "La direzione approva le misure di sicurezza, ne supervisa l'attuazione e si forma."
+
+msgid "Cybersecurity risk-management measures"
+msgstr "Misure di gestione dei rischi di cibersicurezza"
+
+msgid "The measures listed by the directive: risks, continuity, suppliers, checks, access, MFA."
+msgstr "Le misure elencate dalla direttiva: rischi, continuità, fornitori, verifiche, accessi, MFA."
+
+msgid "Incident reporting"
+msgstr "Notifica degli incidenti"
+
+msgid "Handle incidents and notify significant ones within 24 hours, 72 hours and one month."
+msgstr "Gestire gli incidenti e notificare quelli significativi entro 24 ore, 72 ore e un mese."
+
+msgid "Day-to-day compliance"
+msgstr "Conformità quotidiana"
+
+msgid "Measures not covered yet, missing evidence and recurring actions to carry out."
+msgstr "Misure non ancora coperte, evidenze mancanti e azioni ricorrenti da svolgere."
+
+msgid "Set your NIS2 entity category"
+msgstr "Definire la categoria di soggetto NIS2"
+
+msgid "Record for each GLPI entity concerned whether it is an essential or an important entity: the ReCyF measures that apply depend on it."
+msgstr "Indicare per ogni entità GLPI interessata se è un soggetto essenziale o importante: ne dipendono le misure ReCyF applicabili."
+
+msgid "Register with the competent authority"
+msgstr "Registrarsi presso l'autorità competente"
+
+msgid "Provide your information to the national authority (in France, on the NIS2 services of the ANSSI), then record the authority or the CSIRT as an official contact and check its details every year."
+msgstr "Trasmettere le proprie informazioni all'autorità nazionale (in Francia, sui servizi NIS2 dell'ANSSI), poi registrare l'autorità o il CSIRT come contatto ufficiale e verificarne i recapiti ogni anno."
+
+msgid "Have management approve and oversee the measures"
+msgstr "Far approvare e supervisionare le misure dalla direzione"
+
+msgid "Have the security policies approved by management, keep their review up to date, and name who is accountable for each security activity."
+msgstr "Far approvare le politiche di sicurezza dalla direzione, mantenerne aggiornato il riesame e indicare chi è responsabile di ogni attività di sicurezza."
+
+msgid "Train management and staff"
+msgstr "Formare la direzione e il personale"
+
+msgid "Deliver cybersecurity training, including to the members of management, and basic cyber hygiene awareness to staff."
+msgstr "Erogare formazione sulla cibersicurezza, anche ai membri della direzione, e sensibilizzare il personale all'igiene informatica di base."
+
+msgid "Analyse and treat the risks"
+msgstr "Analizzare e trattare i rischi"
+
+msgid "Keep a risk register with owners and review dates, choose a treatment for each significant risk and follow its actions."
+msgstr "Tenere un registro dei rischi con responsabili e date di riesame, scegliere un trattamento per ogni rischio significativo e seguirne le azioni."
+
+msgid "Prepare business continuity and crisis management"
+msgstr "Preparare la continuità operativa e la gestione delle crisi"
+
+msgid "Have continuity and recovery plans, backups whose restoration is tested, and run at least one crisis or continuity exercise a year."
+msgstr "Disporre di piani di continuità e ripristino, di backup il cui ripristino è testato, e svolgere almeno un'esercitazione di crisi o continuità all'anno."
+
+msgid "Secure the supply chain"
+msgstr "Proteggere la catena di approvvigionamento"
+
+msgid "List the suppliers that matter for your security and evaluate each of them at least once a year."
+msgstr "Elencare i fornitori rilevanti per la sicurezza e valutarli ciascuno almeno una volta all'anno."
+
+msgid "Assess the effectiveness of the measures"
+msgstr "Valutare l'efficacia delle misure"
+
+msgid "Carry out audits of your measures and treat the nonconformities they find until they are closed."
+msgstr "Svolgere audit delle misure e trattare le non conformità rilevate fino alla chiusura."
+
+msgid "Review the access rights"
+msgstr "Riesaminare i diritti di accesso"
+
+msgid "Run an access review campaign at least once a year and close it once every account has been reviewed."
+msgstr "Condurre una campagna di riesame degli accessi almeno una volta all'anno e chiuderla quando ogni account è stato riesaminato."
+
+msgid "Use multi-factor authentication"
+msgstr "Usare l'autenticazione a più fattori"
+
+msgid "Import the multi-factor authentication status of the accounts and protect every account, administrators first."
+msgstr "Importare lo stato dell'autenticazione a più fattori degli account e proteggere ogni account, prima gli amministratori."
+
+msgid "Notify significant incidents on time"
+msgstr "Notificare in tempo gli incidenti significativi"
+
+msgid "Mark the security incidents subject to NIS2, send the early warning within 24 hours, the notification within 72 hours and the final report within one month, and record the CSIRT to warn."
+msgstr "Contrassegnare gli incidenti di sicurezza soggetti a NIS2, inviare il preallarme entro 24 ore, la notifica entro 72 ore e la relazione finale entro un mese, e registrare il CSIRT da avvisare."
+
+msgid "Cover the ReCyF measures"
+msgstr "Coprire le misure ReCyF"
+
+msgid "For each ReCyF measure that applies to your category, say whether it applies and set its implementation status, an owner and a due date."
+msgstr "Per ogni misura ReCyF della propria categoria, indicare se si applica e registrarne lo stato di attuazione, un responsabile e una scadenza."
+
+msgid "Attach the evidence of the ReCyF measures"
+msgstr "Allegare le evidenze delle misure ReCyF"
+
+msgid "Attach at least one document to each measure marked as implemented, so that you can show it to the authority."
+msgstr "Allegare almeno un documento a ogni misura indicata come attuata, per poterla mostrare all'autorità."
+
+msgid "Carry out the recurring actions"
+msgstr "Svolgere le azioni ricorrenti"
+
+msgid "Enable the periodic reviews of access rights and privileged accounts, the backup restore test and the continuity test, and treat their tickets on time."
+msgstr "Attivare i riesami periodici dei diritti di accesso e degli account privilegiati, il test di ripristino dei backup e il test di continuità, e trattarne i ticket in tempo."
+
+msgid "No entity has a NIS2 category yet."
+msgstr "Nessuna entità ha ancora una categoria NIS2."
+
+msgid "Set the category"
+msgstr "Impostare la categoria"
+
+msgid "NIS2 services of the ANSSI"
+msgstr "Servizi NIS2 dell'ANSSI"
+
+msgid "Authorities and CSIRT recorded as official contacts: %d"
+msgstr "Autorità e CSIRT registrati come contatti ufficiali: %d"
+
+msgid "Checked in the last 12 months: %d"
+msgstr "Verificati negli ultimi 12 mesi: %d"
+
+msgid "Suppliers followed in the supplier risks: %d"
+msgstr "Fornitori seguiti nei rischi fornitori: %d"
+
+msgid "Suppliers evaluated in the last 12 months: %d"
+msgstr "Fornitori valutati negli ultimi 12 mesi: %d"
+
+msgid "Access review campaigns: %d"
+msgstr "Campagne di riesame degli accessi: %d"
+
+msgid "Closed in the last 12 months: %d"
+msgstr "Chiuse negli ultimi 12 mesi: %d"
+
+msgid "No account imported yet."
+msgstr "Nessun account ancora importato."
+
+msgid "Open incidents subject to NIS2: %d"
+msgstr "Incidenti aperti soggetti a NIS2: %d"
+
+msgid "NIS2 notifications overdue: %d"
+msgstr "Notifiche NIS2 in ritardo: %d"
+
+msgid "NIS2 notifications due soon: %d"
+msgstr "Notifiche NIS2 in scadenza: %d"
+
+msgid "No CSIRT or authority recorded as an official contact."
+msgstr "Nessun CSIRT o autorità registrato come contatto ufficiale."
+
+msgid "Applicable measures implemented: %1$d of %2$d"
+msgstr "Misure applicabili attuate: %1$d su %2$d"
+
+msgid "Measures not covered yet: %d"
+msgstr "Misure non ancora coperte: %d"
+
+msgid "Measures past their due date: %d"
+msgstr "Misure con scadenza superata: %d"
+
+msgid "Measures without an owner: %d"
+msgstr "Misure senza responsabile: %d"
+
+msgid "Implemented measures without any document attached: %d"
+msgstr "Misure attuate senza alcun documento allegato: %d"
+
+msgid "%s: not enabled"
+msgstr "%s: non attivata"
+
+msgid "%s: overdue"
+msgstr "%s: in ritardo"
+
+msgid "%s: up to date"
+msgstr "%s: aggiornata"
+
+msgid "This page guides you through the NIS2 obligations, criterion by criterion: for each one, it cites the article of the directive, shows where you stand according to the data already entered, and gives the screen to open to complete it, with its place in the menu."
+msgstr "Questa pagina guida negli obblighi NIS2, criterio per criterio: per ciascuno cita l'articolo della direttiva, mostra la situazione in base ai dati già inseriti e indica la schermata da aprire per completarlo, con la sua posizione nel menu."
+
+msgid "Follow the criteria in order, starting with the one marked as the next step. Click its button to open the screen concerned, complete it, then come back: the page is computed again each time. Nothing is changed automatically. In France, enable the ReCyF of the ANSSI to follow its measures, the missing evidence and the recurring actions."
+msgstr "Seguire i criteri in ordine, iniziando da quello indicato come prossimo passo. Fare clic sul suo pulsante per aprire la schermata interessata, completarla e tornare: la pagina viene ricalcolata ogni volta. Nulla viene modificato automaticamente. In Francia, attivare il ReCyF dell'ANSSI per seguirne le misure, le evidenze mancanti e le azioni ricorrenti."
+
+msgid "Directive (EU) 2022/2555 (NIS2), articles 3, 20, 21, 23 and 32; ReCyF of the ANSSI"
+msgstr "Direttiva (UE) 2022/2555 (NIS2), articoli 3, 20, 21, 23 e 32; ReCyF dell'ANSSI"
+
+msgid "NIS2 compliance score"
+msgstr "Punteggio di conformità NIS2"
+
+msgid "A criterion met counts fully, a criterion partly met counts half. Criteria outside your rights are not counted."
+msgstr "Un criterio soddisfatto conta per intero, uno soddisfatto in parte conta la metà. I criteri fuori dai propri diritti non sono conteggiati."
+
+msgid "Directive (EU) 2022/2555 on EUR-Lex"
+msgstr "Direttiva (UE) 2022/2555 su EUR-Lex"
+
+msgid "Every criterion is met."
+msgstr "Tutti i criteri sono soddisfatti."
+
+msgid "No criterion can be evaluated with your rights."
+msgstr "Nessun criterio può essere valutato con i propri diritti."
+
+msgid "The ReCyF of the ANSSI (NIS2 France) is not enabled: its measures, the missing evidence and the entity category are not followed here. Enable it in the frameworks of the plugin configuration if you are concerned."
+msgstr "Il ReCyF dell'ANSSI (NIS2 Francia) non è attivato: le sue misure, le evidenze mancanti e la categoria di soggetto non sono seguite qui. Attivarlo nei framework della configurazione del plugin se si è interessati."
+
+msgid "Directive (EU) 2022/2555"
+msgstr "Direttiva (UE) 2022/2555"
+
+msgid "NIS2, art. %s"
+msgstr "NIS2, art. %s"
+
+msgid "Your profile cannot read the data of this criterion: ask an administrator of the management system."
+msgstr "Il proprio profilo non può leggere i dati di questo criterio: rivolgersi a un amministratore del sistema di gestione."
+
+msgid "Menu:"
+msgstr "Menu:"
+
+msgid "Audits planned or carried out: %d"
+msgstr "Audit pianificati o svolti: %d"
+
+msgid "Audits completed in the last 12 months: %d"
+msgstr "Audit completati negli ultimi 12 mesi: %d"
