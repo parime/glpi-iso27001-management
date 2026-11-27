@@ -377,7 +377,11 @@ class Nis2Readiness extends CommonGLPI
      */
     private static function evaluate(string $today, array $criteria): array
     {
-        $iso = CertificationReadiness::stepEvaluations($today);
+        $isoSteps = [];
+        foreach ($criteria as $key) {
+            $isoSteps = array_merge($isoSteps, Rules::CRITERIA[$key]['iso']);
+        }
+        $iso = CertificationReadiness::stepEvaluations($today, array_values(array_unique($isoSteps)));
         $since = date('Y-m-d', (int) strtotime($today . ' -' . Base::RECENT_MONTHS . ' months'));
         $recyf = in_array('recyf_coverage', $criteria, true) ? self::recyfFigures() : null;
         $authorities = self::authorityContacts($today);
@@ -449,8 +453,16 @@ class Nis2Readiness extends CommonGLPI
         ];
     }
 
-    /** Titre d'une page dans le menu : son entrée de menu, sinon son nom. */
+    /** @var array<string, string> titres de menu déjà lus dans la requête */
+    private static array $menuTitles = [];
+
+    /** Titre d'une page dans le menu : son entrée de menu, sinon son nom (lu une fois par requête). */
     private static function menuTitle(string $page): string
+    {
+        return self::$menuTitles[$page] ??= self::readMenuTitle($page);
+    }
+
+    private static function readMenuTitle(string $page): string
     {
         if (class_exists($page)) {
             $menu = method_exists($page, 'getMenuContent') ? $page::getMenuContent() : null;
