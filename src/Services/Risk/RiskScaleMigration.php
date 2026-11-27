@@ -34,7 +34,7 @@ final class RiskScaleMigration
      * @param array<string, mixed> $row champs du risque (probability, impact, risk_level, computed_score,
      *     et, si $withResidual, residual_probability, residual_impact, residual_level)
      * @param array{probability: array<string, string>, impact: array<string, string>} $mapping
-     * @return array<string, string|float>
+     * @return array<string, string|float|null>
      */
     public static function convertRow(
         array $row,
@@ -58,14 +58,23 @@ final class RiskScaleMigration
             $new['residual_level'] = $residualProbability !== '' && $residualImpact !== ''
                 ? $scoring->level($residualProbability, $residualImpact)
                 : '';
+            // Issue #1163 : score résiduel recalculé quand la colonne existe (vide : non évalué).
+            if (array_key_exists('residual_score', $row)) {
+                $new['residual_score'] = $residualProbability !== '' && $residualImpact !== ''
+                    ? $scoring->score($residualProbability, $residualImpact)
+                    : null;
+            }
         }
 
         $changes = [];
         foreach ($new as $field => $value) {
             $old = $row[$field] ?? '';
-            $differs = $field === 'computed_score'
-                ? abs((float) $old - (float) $value) > 0.001
-                : (string) $old !== (string) $value;
+            $differs = match (true) {
+                $field === 'residual_score' => ($old === '') !== ($value === null)
+                    || ($value !== null && abs((float) $old - (float) $value) > 0.001),
+                $field === 'computed_score' => abs((float) $old - (float) $value) > 0.001,
+                default                     => (string) $old !== (string) $value,
+            };
             if ($differs) {
                 $changes[$field] = $value;
             }

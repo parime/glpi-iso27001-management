@@ -34,7 +34,8 @@ final class RiskScaleTest extends TestCase
     public function testDefaultSizeIsFourAndUnknownSizesFallBackToIt(): void
     {
         self::assertSame(4, RiskScale::DEFAULT_SIZE);
-        self::assertSame(4, RiskScale::normalizeSize(3));
+        self::assertSame(4, RiskScale::normalizeSize(2));
+        self::assertSame(4, RiskScale::normalizeSize(36));
         self::assertSame(4, RiskScale::normalizeSize(0));
         self::assertSame(5, RiskScale::normalizeSize(5));
     }
