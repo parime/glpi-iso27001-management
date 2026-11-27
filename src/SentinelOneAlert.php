@@ -162,8 +162,7 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
         $seen = [];
         $new = 0;
-        $minSeverity = SentinelOneConfig::minSeverity();
-        $onItems = static function (array $items) use (&$seen, &$new, $DB, $minSeverity): void {
+        $onItems = static function (array $items) use (&$seen, &$new, $DB): void {
             foreach ($items as $item) {
                 $agent = SentinelOneParser::agent($item);
                 if ($agent === null) {
@@ -316,7 +315,8 @@ class SentinelOneAlert extends SentinelOneAlertBase
 
         $seen = [];
         $new = 0;
-        $onItems = static function (array $items) use (&$seen, &$new, $DB): void {
+        $minSeverity = SentinelOneConfig::minSeverity();
+        $onItems = static function (array $items) use (&$seen, &$new, $DB, $minSeverity): void {
             foreach ($items as $item) {
                 $finding = SentinelOneParser::vulnerability($item);
                 if ($finding === null) {
