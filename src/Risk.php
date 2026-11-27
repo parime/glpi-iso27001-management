@@ -700,6 +700,10 @@ class Risk extends RiskBase
             'residual_impacts'    => ['' => __('To be assessed', 'grcmanager')] + self::getImpacts(),
             'residual_badge'      => (string) ($this->fields['residual_level'] ?? '') !== ''
                 ? self::riskLevelBadge((string) $this->fields['residual_level']) : '',
+            // Issue #1163 : badges du comparatif des scores, inclus par le gabarit (échappés, sans |raw).
+            'risk_level_badge_data' => self::riskLevelBadgeData($this->fields['risk_level'] ?? null),
+            'residual_badge_data' => (string) ($this->fields['residual_level'] ?? '') !== ''
+                ? self::riskLevelBadgeData((string) $this->fields['residual_level']) : null,
             'appetite_on_residual' => (string) ($this->fields['residual_level'] ?? '') !== '',
             'scores'              => $isNew ? null : self::scoreComparison($this->fields),
             'appetite_url'        => RiskAppetite::getSearchURL(),

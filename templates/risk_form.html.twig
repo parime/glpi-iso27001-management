@@ -50,13 +50,13 @@
                <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Initial score', 'grcmanager') }}">
                   <i class="ti ti-target me-1" aria-hidden="true"></i>{{ __('Initial score', 'grcmanager') }} <strong data-grc-score="initial">{{ scores.initial }}</strong> / {{ scores.max }}
                </span>
-               {{ risk_level_badge|raw }}
+               {{ include('@grcmanager/_badge.html.twig', risk_level_badge_data, with_context = false) }}
                <i class="ti ti-arrow-right text-muted" aria-hidden="true"></i>
                {% if scores.residual is not null %}
                   <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Residual score', 'grcmanager') }}">
                      <i class="ti ti-shield-check me-1" aria-hidden="true"></i>{{ __('Residual score', 'grcmanager') }} <strong data-grc-score="residual">{{ scores.residual }}</strong> / {{ scores.max }}
                   </span>
-                  {{ residual_badge|raw }}
+                  {% if residual_badge_data %}{{ include('@grcmanager/_badge.html.twig', residual_badge_data, with_context = false) }}{% endif %}
                {% else %}
                   <span class="badge bg-warning-subtle text-warning-emphasis" data-grc-score="residual">
                      <i class="ti ti-hourglass me-1" aria-hidden="true"></i>{{ __('Residual score', 'grcmanager') }} - {{ __('To be assessed', 'grcmanager') }}
