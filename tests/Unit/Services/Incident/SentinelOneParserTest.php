@@ -118,7 +118,7 @@ final class SentinelOneParserTest extends TestCase
             [SentinelOneParser::class, 'vulnerability'],
             $this->items('application-management/risks')
         )));
-        self::assertCount(5, $vulnerabilities);
+        self::assertCount(7, $vulnerabilities);
         self::assertSame('CVE-2025-29927', $vulnerabilities[0]['cve']);
         self::assertSame(9.1, $vulnerabilities[0]['score']);
         self::assertSame('Next.js', $vulnerabilities[0]['application']);
@@ -150,5 +150,33 @@ final class SentinelOneParserTest extends TestCase
         self::assertCount(1, $page['items']);
         self::assertSame('abc', $page['next_cursor']);
         self::assertSame(7, $page['total']);
+    }
+
+    /** Issue #1160 : seuil de criticité minimale des vulnérabilités importées. */
+    public function testMinimumSeverityUsesTheSeverityThenTheCvssScore(): void
+    {
+        $finding = static fn (string $severity, ?float $score): array => ['severity' => $severity, 'score' => $score];
+
+        // Criticité de SentinelOne (insensible à la casse).
+        self::assertSame(3, SentinelOneParser::severityRank($finding('CRITICAL', 1.0)));
+        self::assertSame(0, SentinelOneParser::severityRank($finding('low', 9.8)));
+        self::assertSame(-1, SentinelOneParser::severityRank($finding('NONE', null)));
+        // Sans criticité reconnue : échelle qualitative CVSS.
+        self::assertSame(2, SentinelOneParser::severityRank($finding('', 7.0)));
+        self::assertSame(1, SentinelOneParser::severityRank($finding('unknown', 6.9)));
+        self::assertSame(0, SentinelOneParser::severityRank($finding('', 0.1)));
+        self::assertSame(-1, SentinelOneParser::severityRank($finding('', 0.0)));
+        self::assertNull(SentinelOneParser::severityRank($finding('', null)));
+
+        // Sans seuil (ou seuil inconnu), tout passe.
+        self::assertTrue(SentinelOneParser::meetsMinSeverity($finding('LOW', 2.0), ''));
+        self::assertTrue(SentinelOneParser::meetsMinSeverity($finding('NONE', 0.0), 'bogus'));
+        // Avec un seuil « élevée » : élevée et critique seulement.
+        self::assertTrue(SentinelOneParser::meetsMinSeverity($finding('HIGH', 7.5), 'high'));
+        self::assertTrue(SentinelOneParser::meetsMinSeverity($finding('CRITICAL', 9.8), 'high'));
+        self::assertFalse(SentinelOneParser::meetsMinSeverity($finding('MEDIUM', 5.3), 'high'));
+        self::assertFalse(SentinelOneParser::meetsMinSeverity($finding('', 6.5), 'high'));
+        // Criticité inconnue : gardée.
+        self::assertTrue(SentinelOneParser::meetsMinSeverity($finding('', null), 'critical'));
     }
 }
