@@ -28,6 +28,12 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * « sans objet » et l'absence de réponse sont exclues du calcul, comme une pondération nulle
  * (question informative). Le score est la somme pondérée des points sur la somme des pondérations
  * retenues, en pourcentage ; il éclaire l'évaluation sans jamais modifier le niveau de risque.
+ *
+ * Issue #1159 : chaque question a aussi un type de réponse. « Oui / Non » (par défaut, celui de
+ * toutes les questions existantes) garde la réponse attendue ci-dessus. « Échelle de conformité »
+ * propose Conforme, Partiellement conforme, Non conforme et Non applicable, rangées dans les mêmes
+ * codes (yes, partial, no, na) : Conforme = 1 point, Partiellement conforme = 0,5, Non conforme = 0,
+ * Non applicable exclu du calcul ; la réponse attendue est toujours « Conforme ».
  */
 final class WeightedQuestionnaire
 {
@@ -39,6 +45,12 @@ final class WeightedQuestionnaire
     public const ANSWERS = [self::ANSWER_YES, self::ANSWER_PARTIAL, self::ANSWER_NO, self::ANSWER_NA];
 
     public const EXPECTED_ANSWERS = [self::ANSWER_YES, self::ANSWER_NO];
+
+    /** Issue #1159 : types de réponse d'une question. */
+    public const TYPE_YES_NO = 'yes_no';
+    public const TYPE_COMPLIANCE = 'compliance';
+
+    public const ANSWER_TYPES = [self::TYPE_YES_NO, self::TYPE_COMPLIANCE];
 
     public const DOMAIN_SECURITY = 'security';
     public const DOMAIN_PRIVACY = 'privacy';
@@ -74,6 +86,23 @@ final class WeightedQuestionnaire
     public static function normalizeExpected(mixed $expected): string
     {
         return is_string($expected) && in_array($expected, self::EXPECTED_ANSWERS, true) ? $expected : self::ANSWER_YES;
+    }
+
+    public static function normalizeAnswerType(mixed $type): string
+    {
+        return is_string($type) && in_array($type, self::ANSWER_TYPES, true) ? $type : self::TYPE_YES_NO;
+    }
+
+    /**
+     * Réponse attendue effective d'une question : « oui » (Conforme) pour l'échelle de conformité.
+     *
+     * @param array{expected_answer?: mixed, answer_type?: mixed} $row
+     */
+    public static function expectedFor(array $row): string
+    {
+        return self::normalizeAnswerType($row['answer_type'] ?? '') === self::TYPE_COMPLIANCE
+            ? self::ANSWER_YES
+            : self::normalizeExpected($row['expected_answer'] ?? '');
     }
 
     public static function normalizeWeight(mixed $weight): int
@@ -132,7 +161,7 @@ final class WeightedQuestionnaire
     /**
      * Score pondéré en %, null si aucune question notée n'a reçu de réponse comptée.
      *
-     * @param iterable<array{answer?: mixed, expected_answer?: mixed, weight?: mixed}> $rows
+     * @param iterable<array{answer?: mixed, expected_answer?: mixed, answer_type?: mixed, weight?: mixed}> $rows
      */
     public static function score(iterable $rows): ?int
     {
@@ -140,7 +169,7 @@ final class WeightedQuestionnaire
         $weights = 0;
         foreach ($rows as $row) {
             $weight = self::normalizeWeight($row['weight'] ?? self::DEFAULT_WEIGHT);
-            $earned = self::points((string) ($row['answer'] ?? ''), (string) ($row['expected_answer'] ?? ''));
+            $earned = self::points((string) ($row['answer'] ?? ''), self::expectedFor($row));
             if ($weight === 0 || $earned === null) {
                 continue;
             }
@@ -156,8 +185,8 @@ final class WeightedQuestionnaire
      * conforme ou partielle), pièces justificatives manquantes (exigées pour une réponse autre que
      * « sans objet ») et score.
      *
-     * @param list<array{answer?: mixed, expected_answer?: mixed, weight?: mixed, requires_evidence?: mixed,
-     *     documents_id?: mixed}> $rows
+     * @param list<array{answer?: mixed, expected_answer?: mixed, answer_type?: mixed, weight?: mixed,
+     *     requires_evidence?: mixed, documents_id?: mixed}> $rows
      * @return array{total: int, answered: int, not_applicable: int, gaps: int, missing_evidence: int,
      *     score: ?int, level: ?string, complete: bool}
      */
@@ -177,7 +206,7 @@ final class WeightedQuestionnaire
                 $notApplicable++;
                 continue;
             }
-            $earned = self::points($answer, (string) ($row['expected_answer'] ?? ''));
+            $earned = self::points($answer, self::expectedFor($row));
             if ($earned !== null && $earned < 1.0) {
                 $gaps++;
             }
@@ -219,20 +248,26 @@ final class WeightedQuestionnaire
      * exigées, textes) : l'issue #865 la reporte dans le fichier exporté pour reconnaître au retour
      * un fichier fait sur une autre version du modèle.
      *
-     * @param list<array{code?: mixed, question?: mixed, expected_answer?: mixed, weight?: mixed,
-     *     requires_evidence?: mixed}> $questions
+     * @param list<array{code?: mixed, question?: mixed, expected_answer?: mixed, answer_type?: mixed,
+     *     weight?: mixed, requires_evidence?: mixed}> $questions
      */
     public static function fingerprint(array $questions): string
     {
         $parts = [];
         foreach ($questions as $question) {
-            $parts[] = implode("\x1F", [
+            $part = [
                 (string) ($question['code'] ?? ''),
                 self::normalizeExpected($question['expected_answer'] ?? ''),
                 (string) self::normalizeWeight($question['weight'] ?? self::DEFAULT_WEIGHT),
                 empty($question['requires_evidence']) ? '0' : '1',
                 (string) ($question['question'] ?? ''),
-            ]);
+            ];
+            // Issue #1159 : le type n'entre dans l'empreinte que pour l'échelle, pour que les
+            // fichiers et liens des questions Oui / Non déjà envoyés restent reconnus.
+            if (self::normalizeAnswerType($question['answer_type'] ?? '') === self::TYPE_COMPLIANCE) {
+                $part[] = self::TYPE_COMPLIANCE;
+            }
+            $parts[] = implode("\x1F", $part);
         }
 
         return substr(hash('sha256', implode("\x1E", $parts)), 0, 16);

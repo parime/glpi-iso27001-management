@@ -40,6 +40,10 @@ use Migration;
  * les douze questions fixes de l'issue #127 sous un modèle « Questionnaire historique » et les
  * questionnaires déjà remplis en évaluations terminées, sans rien effacer (colonnes d'origine
  * conservées sur les risques fournisseurs).
+ *
+ * Issue #1159 : type de réponse (answer_type) sur les questions et leurs copies : « yes_no » (par
+ * défaut) ou « compliance » (échelle Conforme / Partiellement conforme / Non conforme / Non
+ * applicable).
  */
 final class SupplierQuestionnaireTables implements FeatureTables
 {
@@ -115,6 +119,7 @@ final class SupplierQuestionnaireTables implements FeatureTables
                 `question` text,
                 `guidance` text COMMENT 'Aide pour repondre, reponse attendue detaillee',
                 `expected_answer` varchar(8) NOT NULL DEFAULT 'yes' COMMENT 'yes ou no : la reponse conforme',
+                `answer_type` varchar(16) NOT NULL DEFAULT 'yes_no',
                 `weight` int NOT NULL DEFAULT 1 COMMENT '0 a 10, 0 = question informative non notee',
                 `requires_evidence` tinyint NOT NULL DEFAULT 0,
                 `position` int NOT NULL DEFAULT 0,
@@ -170,6 +175,7 @@ final class SupplierQuestionnaireTables implements FeatureTables
                 `question` text COMMENT 'Copie de la question a la creation de l evaluation',
                 `guidance` text,
                 `expected_answer` varchar(8) NOT NULL DEFAULT 'yes',
+                `answer_type` varchar(16) NOT NULL DEFAULT 'yes_no',
                 `weight` int NOT NULL DEFAULT 1,
                 `requires_evidence` tinyint NOT NULL DEFAULT 0,
                 `position` int NOT NULL DEFAULT 0,
@@ -190,10 +196,22 @@ final class SupplierQuestionnaireTables implements FeatureTables
     }
 
     /**
-     * Mise à jour : reprise des questionnaires fixes de l'issue #127 (migrateLegacy()).
+     * Mise à jour : type de réponse des questions (issue #1159 : « Oui / Non » pour toutes les
+     * questions et réponses existantes, rien d'autre ne change), puis reprise des questionnaires
+     * fixes de l'issue #127 (migrateLegacy()).
      */
     public static function migrate(Migration $migration): void
     {
+        global $DB;
+
+        foreach ([self::QUESTIONS, self::ANSWERS] as $table) {
+            if ($DB->tableExists($table) && !$DB->fieldExists($table, 'answer_type')) {
+                $migration->addField($table, 'answer_type', "varchar(16) NOT NULL DEFAULT 'yes_no'", [
+                    'after' => 'expected_answer',
+                ]);
+                $migration->migrationOneTable($table);
+            }
+        }
         self::migrateLegacy();
     }
 
@@ -281,6 +299,7 @@ final class SupplierQuestionnaireTables implements FeatureTables
                     'question'          => (string) $question['question'],
                     'guidance'          => (string) ($question['guidance'] ?? ''),
                     'expected_answer'   => (string) $question['expected_answer'],
+                    'answer_type'       => (string) ($question['answer_type'] ?? 'yes_no'),
                     'weight'            => (int) $question['weight'],
                     'requires_evidence' => (int) $question['requires_evidence'],
                     'position'              => (int) $question['position'],
