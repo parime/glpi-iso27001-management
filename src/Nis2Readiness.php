@@ -536,7 +536,8 @@ class Nis2Readiness extends CommonGLPI
             $facts[] = __('No entity has a NIS2 category yet.', 'grcmanager');
         }
         $settings = SettingsLink::data(RecyfBlock::anchors()[0]);
-        $links = [self::link(RegulationSection::RECYF, RecyfRequirement::getSearchURL())];
+        // La catégorie se règle dans la configuration : ce bouton d'abord, pour qui peut la modifier.
+        $links = [];
         if (Config::canUpdate()) {
             $links[] = [
                 'label' => __('Set the category', 'grcmanager'),
@@ -545,6 +546,7 @@ class Nis2Readiness extends CommonGLPI
                 'path'  => $settings['path'],
             ];
         }
+        $links[] = self::link(RegulationSection::RECYF, RecyfRequirement::getSearchURL());
 
         return [
             'status' => Rules::category(count($registers)),
@@ -655,9 +657,7 @@ class Nis2Readiness extends CommonGLPI
         $risks = self::countOf(SupplierRisk::class, ['NOT' => ['status' => 'closed']]);
         $table = SupplierQuestionnaireTables::EVALUATIONS;
         $evaluated = (int) ($DB->request([
-            'COUNT'  => 'c',
-            'SELECT' => [SupplierQuestionnaireTables::RISK_FK],
-            'DISTINCT' => true,
+            'SELECT' => ['COUNT DISTINCT' => SupplierQuestionnaireTables::RISK_FK . ' AS c'],
             'FROM'   => $table,
             'WHERE'  => array_merge(
                 ['status' => 'completed', 'date_completed' => ['>=', $since]],

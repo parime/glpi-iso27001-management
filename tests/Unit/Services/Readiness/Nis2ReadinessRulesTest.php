@@ -37,7 +37,8 @@ final class Nis2ReadinessRulesTest extends TestCase
             self::assertNotFalse($position, $key);
             self::assertGreaterThanOrEqual($previous, $position, $key . ' : critères rangés par groupe');
             $previous = $position;
-            self::assertMatchesRegularExpression('/^\d+(\(\d+\))?(\([a-j]\))?(, \d+(\(\d+\))?(\([a-j]\))?)*$/', $criterion['articles'], $key);
+            $article = '\d+(\(\d+\))?(\([a-j]\))?';
+            self::assertMatchesRegularExpression('/^' . $article . '(, ' . $article . ')*$/', $criterion['articles'], $key);
             foreach ($criterion['iso'] as $step) {
                 self::assertArrayHasKey($step, Base::STEPS, $key . ' : étape ISO 27001 connue');
             }
