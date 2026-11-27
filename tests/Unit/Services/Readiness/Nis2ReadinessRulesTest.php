@@ -106,6 +106,10 @@ final class Nis2ReadinessRulesTest extends TestCase
         self::assertSame(Base::STATUS_PARTIAL, R::recyfEvidence(3, 1));
         self::assertSame(Base::STATUS_DONE, R::recyfEvidence(3, 0));
 
+        self::assertSame(Base::STATUS_TODO, R::audit(0, 0));
+        self::assertSame(Base::STATUS_PARTIAL, R::audit(0, 2), 'audit planifié, rien de terminé');
+        self::assertSame(Base::STATUS_DONE, R::audit(1, 2));
+
         self::assertSame(Base::STATUS_TODO, R::recurring(4, 0, 0));
         self::assertSame(Base::STATUS_PARTIAL, R::recurring(4, 2, 0));
         self::assertSame(Base::STATUS_PARTIAL, R::recurring(4, 4, 1), 'revue en retard');

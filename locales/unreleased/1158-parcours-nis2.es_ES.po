@@ -220,3 +220,9 @@ msgstr "Su perfil no puede leer los datos de este criterio: pida ayuda a un admi
 
 msgid "Menu:"
 msgstr "Menú:"
+
+msgid "Audits planned or carried out: %d"
+msgstr "Auditorías planificadas o realizadas: %d"
+
+msgid "Audits completed in the last 12 months: %d"
+msgstr "Auditorías terminadas en los últimos 12 meses: %d"

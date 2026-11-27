@@ -407,10 +407,7 @@ class Nis2Readiness extends CommonGLPI
                     self::link(BackupCoverage::class, BackupCoverage::getSearchURL()),
                 ]),
                 'supply_chain'   => self::supplyChainCriterion($since),
-                'effectiveness'  => self::isoCriterion($iso, ['internal_audit', 'nonconformities'], [
-                    self::link(Audit::class, Audit::getSearchURL()),
-                    self::link(Nonconformity::class, Nonconformity::getSearchURL()),
-                ]),
+                'effectiveness'  => self::effectivenessCriterion($iso, $since),
                 'access'         => self::accessCriterion($since),
                 'mfa'            => self::mfaCriterion(),
                 'incidents'      => self::incidentsCriterion($authorities),
@@ -684,6 +681,38 @@ class Nis2Readiness extends CommonGLPI
                 sprintf(__('Suppliers evaluated in the last 12 months: %d', 'grcmanager'), $evaluated),
             ],
             'links'  => array_values(array_filter([self::link(SupplierRisk::class, SupplierRisk::getSearchURL())])),
+        ];
+    }
+
+    /**
+     * Audits terminés dans l'année, et non-conformités reprises de la préparation ISO 27001.
+     *
+     * @param array<string, array{status: string, facts: list<string>, links: list<array<string, string>>}> $iso
+     * @return array{status: string, facts: list<string>, links: list<array<string, string>>}
+     */
+    private static function effectivenessCriterion(array $iso, string $since): array
+    {
+        $links = [
+            self::link(Audit::class, Audit::getSearchURL()),
+            self::link(Nonconformity::class, Nonconformity::getSearchURL()),
+        ];
+        $criterion = self::isoCriterion($iso, ['nonconformities'], $links);
+        if (!Audit::canView()) {
+            return $criterion;
+        }
+        $audits = self::countOf(Audit::class, ['NOT' => ['status' => 'cancelled']]);
+        $recent = self::countOf(Audit::class, ['status' => 'completed', 'actual_date' => ['>=', $since]]);
+        $status = Rules::audit($recent, $audits);
+
+        return [
+            'status' => $criterion['status'] === Base::STATUS_LOCKED
+                ? $status
+                : Rules::combine([$status, $criterion['status']]),
+            'facts'  => array_merge([
+                sprintf(__('Audits planned or carried out: %d', 'grcmanager'), $audits),
+                sprintf(__('Audits completed in the last 12 months: %d', 'grcmanager'), $recent),
+            ], $criterion['facts']),
+            'links'  => array_values(array_filter($links)),
         ];
     }
 

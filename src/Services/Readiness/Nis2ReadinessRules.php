@@ -61,7 +61,7 @@ final class Nis2ReadinessRules
         'continuity'     => ['group' => 'measures', 'articles' => '21(2)(c)', 'iso' => ['exercises'], 'recyf' => false],
         'supply_chain'   => ['group' => 'measures', 'articles' => '21(2)(d)', 'iso' => [], 'recyf' => false],
         'effectiveness'  => [
-            'group' => 'measures', 'articles' => '21(2)(f)', 'iso' => ['internal_audit', 'nonconformities'],
+            'group' => 'measures', 'articles' => '21(2)(f)', 'iso' => ['nonconformities'],
             'recyf' => false,
         ],
         'access'         => ['group' => 'measures', 'articles' => '21(2)(i)', 'iso' => [], 'recyf' => false],
@@ -192,6 +192,20 @@ final class Nis2ReadinessRules
             $withoutEvidence === 0     => Base::STATUS_DONE,
             $withoutEvidence < $done   => Base::STATUS_PARTIAL,
             default                    => Base::STATUS_TODO,
+        };
+    }
+
+    /**
+     * Audit de l'efficacité des mesures : un audit terminé depuis moins de 12 mois, ou au moins un
+     * audit planifié. La couverture du programme d'audit (Annexe A de l'ISO 27001) reste suivie par
+     * la préparation ISO 27001 : elle ne mesure pas NIS2 et coûte cher à calculer.
+     */
+    public static function audit(int $recentCompleted, int $audits): string
+    {
+        return match (true) {
+            $recentCompleted > 0 => Base::STATUS_DONE,
+            $audits > 0          => Base::STATUS_PARTIAL,
+            default              => Base::STATUS_TODO,
         };
     }
 
