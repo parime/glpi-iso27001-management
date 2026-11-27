@@ -92,7 +92,7 @@ class Nis2Readiness extends CommonGLPI
     /** Sous-page de la rubrique « Pilotage » (Nis2ReadinessFeature), absente sans NIS2. */
     public static function getMenuContent()
     {
-        if (!self::canView()) {
+        if (!self::isFrameworkEnabled() || !self::canView()) {
             return false;
         }
 
