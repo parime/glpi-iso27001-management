@@ -420,6 +420,21 @@ class CertificationReadiness extends CommonGLPI
     }
 
     /**
+     * Issue #1158 : état, faits et liens de chaque étape, sans le plan ni le score. Le parcours NIS2
+     * (Nis2Readiness) reprend ces étapes pour ses critères communs avec l'ISO 27001 (gouvernance,
+     * risques, formation, exercices, audit, non-conformités) : un seul moteur de calcul.
+     *
+     * @return array<string, array{status: string, facts: list<string>, links: list<array{label: string,
+     *     url: string, icon: string}>}>
+     */
+    public static function stepEvaluations(?string $today = null): array
+    {
+        $today ??= substr((string) (Session::getCurrentTime() ?? date('Y-m-d H:i:s')), 0, 10);
+
+        return self::evaluate($today, self::getSettings());
+    }
+
+    /**
      * Statut de chaque étape, faits affichés et liens vers les écrans à compléter.
      *
      * @param array{coverage_target: int, training_target: int} $settings seuils réglables
