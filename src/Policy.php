@@ -73,6 +73,17 @@ class Policy extends PolicyBase
         return 'glpi_plugin_grcmanager_policies';
     }
 
+    /**
+     * Issue #1165 : la bibliothèque des politiques est commune à toutes les entités. Les colonnes
+     * `entities_id` (0) et `is_recursive` (1) n'existent que pour l'onglet natif « Base de
+     * connaissances », qui filtre toujours sur elles (voir Install/PolicyKnowbaseScopeTables) :
+     * elles ne rendent pas la politique cloisonnée par entité (recherche, droits, formulaire).
+     */
+    public function isEntityAssign()
+    {
+        return false;
+    }
+
     /** Issue #1038 : entrée de la rubrique « Politiques et procédures » (src/Navigation/Section/). */
     public static function getMenuContent()
     {
@@ -337,6 +348,8 @@ class Policy extends PolicyBase
     {
         // Issue #775, lot 2 : la revue tracée ne se saisit jamais à la main.
         unset($input['last_review_date'], $input['users_id_lastreviewer'], $input[self::REVIEW_MARKER]);
+        // Issue #1165 : valeurs fixes (racine, récursive), jamais saisies.
+        unset($input['entities_id'], $input['is_recursive']);
 
         return $this->validateStatus($input);
     }
@@ -350,6 +363,7 @@ class Policy extends PolicyBase
         $this->reviewRecorded = false;
         $recordReview = !empty($input[self::REVIEW_MARKER]);
         unset($input['last_review_date'], $input['users_id_lastreviewer'], $input[self::REVIEW_MARKER]);
+        unset($input['entities_id'], $input['is_recursive']);
         $input = $this->validateStatus($input);
         if ($input === false || !$recordReview) {
             return $input;
