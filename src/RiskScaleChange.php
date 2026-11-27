@@ -54,15 +54,37 @@ final class RiskScaleChange
      */
     public static function sizeLabels(): array
     {
-        return [
-            4 => __('4 x 4: four levels of probability and of impact', 'grcmanager'),
-            5 => __('5 x 5: five levels of probability and of impact', 'grcmanager'),
-        ];
+        // Issue #1163 : chaque axe a de 3 à 5 niveaux, indépendamment ; formes rangées par nombre
+        // de niveaux de probabilité puis d'impact.
+        $labels = [];
+        foreach ([3, 4, 5] as $probability) {
+            foreach ([3, 4, 5] as $impact) {
+                $size = RiskScale::shape($probability, $impact);
+                $labels[$size] = match ($size) {
+                    4       => __('4 x 4: four levels of probability and of impact', 'grcmanager'),
+                    5       => __('5 x 5: five levels of probability and of impact', 'grcmanager'),
+                    default => sprintf(
+                        __('%1$d x %2$d: %1$d levels of probability, %2$d levels of impact', 'grcmanager'),
+                        $probability,
+                        $impact
+                    ),
+                };
+            }
+        }
+
+        return $labels;
     }
 
+    /**
+     * Nom court d'une forme : niveaux de probabilité x niveaux d'impact.
+     */
     public static function sizeName(int $size): string
     {
-        return sprintf(__('%1$d x %1$d', 'grcmanager'), RiskScale::normalizeSize($size));
+        return sprintf(
+            __('%1$d x %2$d', 'grcmanager'),
+            RiskScale::probabilityLevels($size),
+            RiskScale::impactLevels($size)
+        );
     }
 
     public static function scoring(int $size): RiskScoringService
@@ -217,6 +239,9 @@ final class RiskScaleChange
         $fields = ['id', 'probability', 'impact', 'risk_level', 'computed_score'];
         if ($withResidual) {
             array_push($fields, 'residual_probability', 'residual_impact', 'residual_level');
+            if ($DB->fieldExists($table, 'residual_score')) {
+                $fields[] = 'residual_score';
+            }
         }
         $rows = [];
         foreach ($DB->request(['SELECT' => $fields, 'FROM' => $table, 'ORDER' => 'id']) as $row) {

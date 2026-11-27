@@ -25,6 +25,7 @@ use GlpiPlugin\Grcmanager\Install\AdAttackPathTables as Tables;
 use GlpiPlugin\Grcmanager\Services\Access\AdAuditRules;
 use GlpiPlugin\Grcmanager\Services\Access\AttackPathReport as Report;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 use Html;
 use Session;
 
@@ -324,6 +325,8 @@ final class AdAttackPath
             return $linked;
         }
         $size = RiskMatrixConfig::size();
+        $probabilities = RiskScale::probabilityKeys($size);
+        $impacts = RiskScale::impactKeys($size);
         $paths = (int) $import['path_count'];
         $riskId = (new Risk())->add([
             'entities_id' => (int) $import['entities_id'],
@@ -345,8 +348,10 @@ final class AdAttackPath
                 (int) $import['shortest_path']
             ),
             'category'    => 'technical',
-            'probability' => $paths >= 10 || (int) $import['shortest_path'] <= 1 ? $size : max(1, $size - 1),
-            'impact'      => $size,
+            // Issue #1163 : valeurs de l'échelle configurée (plus haute, ou juste en dessous).
+            'probability' => $probabilities[$paths >= 10 || (int) $import['shortest_path'] <= 1
+                ? count($probabilities) - 1 : count($probabilities) - 2],
+            'impact'      => $impacts[count($impacts) - 1],
             'users_id'    => (int) Session::getLoginUserID(),
         ]);
         if ($riskId === false || (int) $riskId <= 0) {

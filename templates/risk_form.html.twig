@@ -43,6 +43,30 @@
       {% if residual_badge %}
          {{ fields.htmlField('', residual_badge, __('Residual risk level', 'grcmanager')) }}
       {% endif %}
+      {# Issue #1163 : score avant et après traitement, côte à côte (clause 6.1.3, risque résiduel). #}
+      {% if scores %}
+         {% set score_compare %}
+            <div class="d-flex flex-wrap align-items-center gap-2" data-grc-score-compare>
+               <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Initial score', 'grcmanager') }}">
+                  <i class="ti ti-target me-1" aria-hidden="true"></i>{{ __('Initial score', 'grcmanager') }} <strong data-grc-score="initial">{{ scores.initial }}</strong> / {{ scores.max }}
+               </span>
+               {{ include('@grcmanager/_badge.html.twig', risk_level_badge_data, with_context = false) }}
+               <i class="ti ti-arrow-right text-muted" aria-hidden="true"></i>
+               {% if scores.residual is not null %}
+                  <span class="badge bg-secondary-subtle text-secondary-emphasis" title="{{ __('Residual score', 'grcmanager') }}">
+                     <i class="ti ti-shield-check me-1" aria-hidden="true"></i>{{ __('Residual score', 'grcmanager') }} <strong data-grc-score="residual">{{ scores.residual }}</strong> / {{ scores.max }}
+                  </span>
+                  {% if residual_badge_data %}{{ include('@grcmanager/_badge.html.twig', residual_badge_data, with_context = false) }}{% endif %}
+               {% else %}
+                  <span class="badge bg-warning-subtle text-warning-emphasis" data-grc-score="residual">
+                     <i class="ti ti-hourglass me-1" aria-hidden="true"></i>{{ __('Residual score', 'grcmanager') }} - {{ __('To be assessed', 'grcmanager') }}
+                  </span>
+               {% endif %}
+            </div>
+            <div class="form-hint">{{ __('Score = probability rank x impact rank, before the treatment (initial) and after it (residual).', 'grcmanager') }}</div>
+         {% endset %}
+         {{ fields.htmlField('', score_compare, __('Score before and after treatment', 'grcmanager')) }}
+      {% endif %}
       {# Issue #378 : position par rapport à l'appétence de la catégorie. #}
       {% if appetite_position == 'above_tolerance' or appetite_position == 'above_appetite' %}
          {% set appetite_html %}

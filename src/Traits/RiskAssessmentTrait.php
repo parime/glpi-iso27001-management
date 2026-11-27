@@ -303,6 +303,19 @@ trait RiskAssessmentTrait
      */
     public static function riskLevelBadge(?string $value): string
     {
+        $badge = self::riskLevelBadgeData($value);
+
+        return Badge::html($badge['class'], $badge['icon'], $badge['label']);
+    }
+
+    /**
+     * Données du badge de niveau (classe, icône, libellé), pour un gabarit qui inclut
+     * `@grcmanager/_badge.html.twig` lui-même : le libellé y est échappé par Twig, sans `|raw`.
+     *
+     * @return array{class: string, icon: ?string, label: string}
+     */
+    public static function riskLevelBadgeData(?string $value): array
+    {
         $levels = [
             'low'      => ['bg-green-lt', __('Low', 'grcmanager')],
             'medium'   => ['bg-yellow-lt', __('Medium', 'grcmanager')],
@@ -311,9 +324,12 @@ trait RiskAssessmentTrait
         ];
 
         [$class, $label] = $levels[$value] ?? ['bg-secondary-lt', (string) $value];
-        $icon = in_array($value, ['high', 'critical'], true) ? 'ti-alert-triangle' : null;
 
-        return Badge::html($class, $icon, $label);
+        return [
+            'class' => $class,
+            'icon'  => in_array($value, ['high', 'critical'], true) ? 'ti-alert-triangle' : null,
+            'label' => $label,
+        ];
     }
 
     private static function statusBadge(?string $value): string

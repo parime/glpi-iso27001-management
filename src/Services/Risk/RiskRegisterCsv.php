@@ -370,7 +370,11 @@ final class RiskRegisterCsv
         }
         foreach (self::synonyms($axis, $size) as $key => $synonyms) {
             if ($slug === (string) $key || in_array($slug, $synonyms, true)) {
-                return (string) $key;
+                // Issue #1163 : sur un axe à trois niveaux, « certain » ou « critique » vont au plus
+                // haut niveau de l'axe.
+                return $axis === 'probability' || $axis === 'impact'
+                    ? RiskScale::fold($axis, (string) $key, $size)
+                    : (string) $key;
             }
         }
         if ($axis !== 'probability' && $axis !== 'impact') {
@@ -385,15 +389,34 @@ final class RiskRegisterCsv
                 return null;
             }
 
-            return $keys[self::scaleToLevel($number, $scale, $size) - 1];
+            return $keys[self::scaleToLevel($number, $scale, count($keys)) - 1];
         }
-        foreach ($size === 5 ? self::GENERIC_LEVELS_5 : self::GENERIC_LEVELS as $level => $synonyms) {
+        foreach (self::genericLevels(count($keys)) as $level => $synonyms) {
             if (in_array($slug, $synonyms, true)) {
                 return $keys[$level - 1];
             }
         }
 
         return null;
+    }
+
+    /**
+     * Échelle commune d'un axe de $levels niveaux (issue #1163 : à trois niveaux, « très élevé » et
+     * « critique » rejoignent « élevé »).
+     *
+     * @return array<int, list<string>>
+     */
+    private static function genericLevels(int $levels): array
+    {
+        return match ($levels) {
+            5       => self::GENERIC_LEVELS_5,
+            3       => [
+                1 => self::GENERIC_LEVELS[1],
+                2 => self::GENERIC_LEVELS[2],
+                3 => array_merge(self::GENERIC_LEVELS[3], self::GENERIC_LEVELS[4]),
+            ],
+            default => self::GENERIC_LEVELS,
+        };
     }
 
     /**
@@ -422,7 +445,7 @@ final class RiskRegisterCsv
         if ($axis !== 'probability') {
             return $synonyms;
         }
-        if (RiskScale::normalizeSize($size) === 5) {
+        if (RiskScale::probabilityLevels($size) === 5) {
             return ['very_rare' => self::VERY_RARE_SYNONYMS] + $synonyms;
         }
         $synonyms['rare'] = array_merge($synonyms['rare'], self::VERY_RARE_SYNONYMS);

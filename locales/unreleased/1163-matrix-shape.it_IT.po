@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Initial score"
+msgstr "Punteggio iniziale"
+
+msgid "Residual score"
+msgstr "Punteggio residuo"
+
+msgid "Score before and after treatment"
+msgstr "Punteggio prima e dopo il trattamento"
+
+msgid "%1$d x %2$d"
+msgstr "%1$d x %2$d"
+
+msgid "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
+msgstr "%1$d x %2$d: %1$d livelli di probabilità, %2$d livelli di impatto"
+
+msgid "Probability and impact can each have from 3 to 5 levels, independently, for example 3 levels of probability and 5 levels of impact. The colours of the new grid are proposed from the score (probability rank x impact rank) and can be adjusted afterwards."
+msgstr "Probabilità e impatto possono avere ciascuno da 3 a 5 livelli, in modo indipendente, ad esempio 3 livelli di probabilità e 5 livelli di impatto. I colori della nuova matrice sono proposti in base al punteggio (rango della probabilità x rango dell'impatto) e possono essere modificati in seguito."
+
+msgid "Score = probability rank x impact rank, before the treatment (initial) and after it (residual)."
+msgstr "Punteggio = rango della probabilità x rango dell'impatto, prima del trattamento (iniziale) e dopo (residuo)."
+
+msgid "The plugin matrix has %1$d levels of probability and %2$d levels of impact: a score on another scale is converted (the lowest and highest scores match)."
+msgstr "La matrice del plugin ha %1$d livelli di probabilità e %2$d livelli di impatto: un voto su un'altra scala viene convertito (il voto più basso e quello più alto si corrispondono)."
