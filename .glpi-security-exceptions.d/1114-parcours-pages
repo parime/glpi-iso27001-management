@@ -70,3 +70,4 @@ crawl axe:aria-prohibited-attr front/securityincident.form.php : barre d'outils 
 crawl axe:color-contrast front/supplierevaluation.form.php : couleurs de la palette par défaut « auror » de GLPI pour les classes standard de Tabler (sous-titre de section du formulaire du cœur) ; choix de couleurs propres au plugin suivi dans #1149
 crawl axe:link-in-text-block front/contextitem.form.php : page de refus du cœur GLPI (lien de retour sans soulignement) atteinte par les liens masqués id=-1 de l'en-tête de navigation des fiches (glpi-plugin-security#50)
 crawl axe:color-contrast front/adsecurityaudit.php : couleurs de la palette par défaut « auror » de GLPI pour les classes standard de Tabler ; choix de couleurs propres au plugin suivi dans #1149
+crawl perf front/ismsrequirement.php : page de calcul (indicateurs agrégés sur tout le SMSI), au-delà de 3 s seulement quand les deux comptes du parcours chargent le même conteneur en parallèle ; optimisation suivie dans #1149
