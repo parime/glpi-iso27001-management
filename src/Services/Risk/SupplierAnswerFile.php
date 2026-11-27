@@ -36,6 +36,10 @@ namespace GlpiPlugin\Grcmanager\Services\Risk;
  * Les cellules exportées qui commencent par = + - @ ou une tabulation sont préfixées d'une
  * apostrophe pour qu'un tableur ne les exécute pas comme des formules ; l'apostrophe est retirée à
  * l'import.
+ *
+ * Issue #1159 : une question en échelle de conformité est exportée avec les libellés de l'échelle
+ * (réponse attendue « Conforme », réponses possibles Conforme / Partiellement conforme / Non
+ * conforme / Non applicable) ; au retour, ces libellés et les mots usuels de l'échelle sont reconnus.
  */
 final class SupplierAnswerFile
 {
@@ -69,12 +73,17 @@ final class SupplierAnswerFile
 
     /** Mots reconnus pour chaque réponse (minuscules, sans accent), en plus des libellés traduits. */
     public const ANSWER_WORDS = [
-        WeightedQuestionnaire::ANSWER_YES     => ['yes', 'y', 'oui', 'o', 'si', 'ja', 'sim', 'tak', 'true', '1'],
+        WeightedQuestionnaire::ANSWER_YES     => [
+            'yes', 'y', 'oui', 'o', 'si', 'ja', 'sim', 'tak', 'true', '1', 'compliant', 'conforme', 'konform',
+        ],
         WeightedQuestionnaire::ANSWER_PARTIAL => [
             'partial', 'partially', 'partiel', 'partielle', 'partiellement', 'parcial', 'teilweise', 'parziale',
-            'czesciowo',
+            'czesciowo', 'partially compliant', 'partiellement conforme', 'partly compliant',
         ],
-        WeightedQuestionnaire::ANSWER_NO      => ['no', 'n', 'non', 'nein', 'nao', 'nie', 'false', '0'],
+        WeightedQuestionnaire::ANSWER_NO      => [
+            'no', 'n', 'non', 'nein', 'nao', 'nie', 'false', '0', 'non-compliant', 'non compliant', 'not compliant',
+            'non conforme', 'non-conforme', 'nicht konform',
+        ],
         WeightedQuestionnaire::ANSWER_NA      => [
             'na', 'n/a', 'n.a.', 'not applicable', 'sans objet', 'non applicable', 'non concerne', 'no aplica',
             'nicht zutreffend', 'non applicabile', 'nao aplicavel', 'nie dotyczy',
@@ -87,9 +96,15 @@ final class SupplierAnswerFile
      * @param list<array<string, mixed>> $answers lignes de réponse de l'évaluation
      * @param list<string>               $header  libellés traduits des dix colonnes
      * @param array<string, string>      $labels  réponse => libellé traduit
+     * @param array<string, string>      $scaleLabels réponse => libellé traduit de l'échelle de conformité
      */
-    public static function build(int $evaluationId, array $answers, array $header, array $labels): string
-    {
+    public static function build(
+        int $evaluationId,
+        array $answers,
+        array $header,
+        array $labels,
+        array $scaleLabels = []
+    ): string {
         $stream = fopen('php://memory', 'r+');
         if ($stream === false) {
             return '';
@@ -101,18 +116,19 @@ final class SupplierAnswerFile
         $fingerprint = WeightedQuestionnaire::fingerprint($answers);
         $write([self::MARKER, self::FORMAT_VERSION, (string) $evaluationId, $fingerprint]);
         $write(array_slice(array_pad($header, self::COLUMN_COUNT, ''), 0, self::COLUMN_COUNT));
-        $allowed = implode(' / ', $labels);
         foreach ($answers as $row) {
             $answer = (string) ($row['answer'] ?? '');
+            $rowLabels = self::labelsFor($row, $labels, $scaleLabels);
+            $expected = WeightedQuestionnaire::expectedFor($row);
             $write([
                 (string) ($row['code'] ?? ''),
                 (string) ($row['section'] ?? ''),
                 (string) ($row['question'] ?? ''),
                 (string) ($row['guidance'] ?? ''),
-                $labels[(string) ($row['expected_answer'] ?? '')] ?? (string) ($row['expected_answer'] ?? ''),
+                $rowLabels[$expected] ?? $expected,
                 empty($row['requires_evidence']) ? '' : ($labels[WeightedQuestionnaire::ANSWER_YES] ?? 'yes'),
-                $allowed,
-                $answer === '' ? '' : ($labels[$answer] ?? $answer),
+                implode(' / ', $rowLabels),
+                $answer === '' ? '' : ($rowLabels[$answer] ?? $answer),
                 (string) ($row['answer_comment'] ?? ''),
                 '',
             ]);
@@ -122,6 +138,22 @@ final class SupplierAnswerFile
         fclose($stream);
 
         return $content;
+    }
+
+    /**
+     * Libellés des réponses d'une ligne selon son type (échelle de conformité ou Oui / Non).
+     *
+     * @param array<string, mixed>  $row
+     * @param array<string, string> $labels
+     * @param array<string, string> $scaleLabels
+     * @return array<string, string>
+     */
+    public static function labelsFor(array $row, array $labels, array $scaleLabels): array
+    {
+        $isScale = WeightedQuestionnaire::normalizeAnswerType($row['answer_type'] ?? '')
+            === WeightedQuestionnaire::TYPE_COMPLIANCE;
+
+        return $isScale && $scaleLabels !== [] ? $scaleLabels : $labels;
     }
 
     /**
@@ -139,13 +171,19 @@ final class SupplierAnswerFile
      *
      * @param list<array<string, mixed>> $answers lignes de réponse actuelles de l'évaluation
      * @param array<string, string>      $labels  réponse => libellé traduit
+     * @param array<string, string>      $scaleLabels réponse => libellé traduit de l'échelle de conformité
      * @return array{error: ?string, changes: list<array{id: int, code: string, question: string,
      *     line: int, old_answer: string, answer: ?string, old_comment: string, comment: ?string,
-     *     evidence: string}>, warnings: list<array{line: int, warning: string, value: string}>,
-     *     evidence: array<string, list<int>>}
+     *     evidence: string, answer_type: string}>, warnings: list<array{line: int, warning: string,
+     *     value: string}>, evidence: array<string, list<int>>}
      */
-    public static function parse(string $content, int $evaluationId, array $answers, array $labels): array
-    {
+    public static function parse(
+        string $content,
+        int $evaluationId,
+        array $answers,
+        array $labels,
+        array $scaleLabels = []
+    ): array {
         $result = ['error' => null, 'changes' => [], 'warnings' => [], 'evidence' => []];
         if (strlen($content) > self::MAX_BYTES) {
             return ['error' => self::ERROR_TOO_LARGE] + $result;
@@ -210,7 +248,10 @@ final class SupplierAnswerFile
             $seen[$code] = true;
             $row = $byCode[$code];
             $rawAnswer = self::unprotect($cells[self::COLUMN_ANSWER] ?? '');
-            $answer = $rawAnswer === '' ? null : self::matchAnswer($rawAnswer, $labels);
+            $answer = $rawAnswer === '' ? null : (
+                self::matchAnswer($rawAnswer, self::labelsFor($row, $labels, $scaleLabels))
+                ?? self::matchAnswer($rawAnswer, $labels)
+            );
             if ($rawAnswer !== '' && $answer === null) {
                 $result['warnings'][] = [
                     'line'    => $lineNumber,
@@ -246,6 +287,7 @@ final class SupplierAnswerFile
                 'old_comment' => $oldComment,
                 'comment'     => $comment,
                 'evidence'    => $evidence,
+                'answer_type' => WeightedQuestionnaire::normalizeAnswerType($row['answer_type'] ?? ''),
             ];
         }
         foreach ($byCode as $code => $row) {

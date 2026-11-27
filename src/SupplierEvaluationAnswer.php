@@ -28,7 +28,8 @@ use Session;
 
 /**
  * Issue #864 : réponses d'une évaluation fournisseur, une ligne par question copiée du modèle :
- * réponse (oui, partiel, non, sans objet), commentaire et pièce justificative.
+ * réponse (oui, partiel, non, sans objet ; ou, pour l'échelle de conformité de l'issue #1159,
+ * conforme, partiellement conforme, non conforme, non applicable), commentaire et pièce justificative.
  *
  * La pièce est un Document GLPI joint au risque fournisseur (onglet Documents) et réservé à ses
  * lecteurs (RestrictedDocument) : contrôles habituels des preuves (types autorisés par GLPI, taille
@@ -64,6 +65,7 @@ final class SupplierEvaluationAnswer
                 'question'            => (string) $question['question'],
                 'guidance'            => (string) ($question['guidance'] ?? ''),
                 'expected_answer'     => (string) $question['expected_answer'],
+                'answer_type'         => Rules::normalizeAnswerType($question['answer_type'] ?? ''),
                 'weight'              => (int) $question['weight'],
                 'requires_evidence'   => (int) $question['requires_evidence'],
                 'position'            => (int) $question['position'],
@@ -246,7 +248,11 @@ final class SupplierEvaluationAnswer
         $sections = [];
         foreach ($rows as $row) {
             $row['missing_evidence'] = Rules::evidenceMissing($row);
-            $row['points'] = Rules::points((string) $row['answer'], (string) $row['expected_answer']);
+            $row['points'] = Rules::points((string) $row['answer'], Rules::expectedFor($row));
+            // Issue #1159 : réponses proposées et réponse attendue selon le type de la question.
+            $row['choices'] = SupplierQuestionnaireQuestion::choicesFor($row['answer_type'] ?? '');
+            $row['expected_label'] = $row['choices'][Rules::expectedFor($row)] ?? (string) $row['expected_answer'];
+            $row['is_scale'] = Rules::normalizeAnswerType($row['answer_type'] ?? '') === Rules::TYPE_COMPLIANCE;
             $sections[(string) $row['section']][] = $row;
         }
         $risk = $evaluation->getRisk();
@@ -257,8 +263,6 @@ final class SupplierEvaluationAnswer
             'sections'      => $sections,
             'summary'       => Rules::summary($rows),
             'levels'        => SupplierEvaluation::getLevels(),
-            'choices'       => SupplierAssessment::getAnswerLabels(),
-            'expected'      => SupplierQuestionnaireQuestion::expectedLabels(),
             'documents'     => self::documents($rows),
             'can_edit'      => $canEdit,
             'can_upload'    => $canEdit && $risk !== null && $risk->canAddItem('Document') && Document::canCreate(),

@@ -64,7 +64,7 @@
                         <label class="form-label" for="grc-answer-{{ question.id }}">{{ __('Answer', 'grcmanager') }}</label>
                         <select class="form-select" id="grc-answer-{{ question.id }}" name="answer[{{ question.id }}]">
                            <option value="">-</option>
-                           {% for value, label in labels %}
+                           {% for value, label in question.labels %}
                               <option value="{{ value }}" {{ question.answer == value ? 'selected' }}>{{ label }}</option>
                            {% endfor %}
                         </select>

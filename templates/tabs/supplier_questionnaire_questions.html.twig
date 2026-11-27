@@ -23,6 +23,8 @@
    <div class="card-body">
       <p class="text-muted small">
          <i class="ti ti-info-circle me-1"></i>{{ __('Group the questions by section. The expected answer is the compliant one ("No" for a question such as "Have you suffered a data breach in the last 12 months?"). The weight, from 0 to %d, gives the importance of the question in the score; 0 makes it a question for information only. Tick "Evidence required" when the supplier must provide a document. Changing the questions creates a new version of the template; evaluations already started keep their questions.', 'grcmanager')|format(max_weight) }}
+         {{ __('Answer type: "Yes / No", or the compliance scale (Compliant, Partially compliant, Non-compliant, Not applicable). On the scale, the expected answer is always "Compliant".', 'grcmanager') }}
+         {{ __('Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-compliant = 0; "Not applicable" is left out of the score.', 'grcmanager') }}
       </p>
       <datalist id="grc-question-sections">
          {% for section in sections %}{% if section %}<option value="{{ section }}"></option>{% endif %}{% endfor %}
@@ -37,6 +39,7 @@
                   <th>{{ __('Code', 'grcmanager') }}</th>
                   <th>{{ __('Section', 'grcmanager') }}</th>
                   <th class="w-50">{{ __('Question and help', 'grcmanager') }}</th>
+                  <th>{{ __('Answer type', 'grcmanager') }}</th>
                   <th>{{ __('Expected answer', 'grcmanager') }}</th>
                   <th>{{ __('Weight', 'grcmanager') }}</th>
                   <th>{{ __('Evidence required', 'grcmanager') }}</th>
@@ -55,6 +58,11 @@
                         <textarea class="form-control form-control-sm" name="questions[{{ q.id }}][guidance]" rows="1" placeholder="{{ __('Help for the answer (optional)', 'grcmanager') }}" aria-label="{{ __('Help for the answer (optional)', 'grcmanager') }}">{{ q.guidance }}</textarea>
                      </td>
                      <td>
+                        <select class="form-select form-select-sm grc-answer-type" name="questions[{{ q.id }}][answer_type]" aria-label="{{ __('Answer type', 'grcmanager') }}">
+                           {% for value, label in types %}<option value="{{ value }}" {{ q.answer_type == value ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
+                        </select>
+                     </td>
+                     <td>
                         <select class="form-select form-select-sm" name="questions[{{ q.id }}][expected_answer]" aria-label="{{ __('Expected answer', 'grcmanager') }}">
                            {% for value, label in expected %}<option value="{{ value }}" {{ q.expected_answer == value ? 'selected' : '' }}>{{ label }}</option>{% endfor %}
                         </select>
@@ -66,7 +74,8 @@
                   {% else %}
                      <td>{{ q.section ?: '-' }}</td>
                      <td>{{ q.question }}{% if q.guidance %}<div class="form-hint">{{ q.guidance|nl2br }}</div>{% endif %}</td>
-                     <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ expected[q.expected_answer] ?? q.expected_answer }}</span></td>
+                     <td><span class="badge {{ q.answer_type == scale_type ? 'bg-teal-subtle text-teal-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }}"><i class="ti {{ q.answer_type == scale_type ? 'ti-chart-bar' : 'ti-toggle-left' }} me-1"></i>{{ types[q.answer_type] ?? q.answer_type }}</span></td>
+                     <td><span class="badge bg-blue-subtle text-blue-emphasis">{{ q.answer_type == scale_type ? __('Compliant', 'grcmanager') : (expected[q.expected_answer] ?? q.expected_answer) }}</span></td>
                      <td>{{ q.weight }}</td>
                      <td>{% if q.requires_evidence %}<span class="badge bg-purple-subtle text-purple-emphasis"><i class="ti ti-paperclip me-1"></i>{{ __('Yes', 'grcmanager') }}</span>{% else %}-{% endif %}</td>
                      <td>{{ q.position }}</td>
@@ -81,6 +90,11 @@
                      <td>
                         <textarea class="form-control form-control-sm mb-1" name="new_questions[{{ i }}][question]" rows="2" placeholder="{{ __('New question (left empty: not added)', 'grcmanager') }}" aria-label="{{ __('Question', 'grcmanager') }}"></textarea>
                         <textarea class="form-control form-control-sm" name="new_questions[{{ i }}][guidance]" rows="1" placeholder="{{ __('Help for the answer (optional)', 'grcmanager') }}" aria-label="{{ __('Help for the answer (optional)', 'grcmanager') }}"></textarea>
+                     </td>
+                     <td>
+                        <select class="form-select form-select-sm grc-answer-type" name="new_questions[{{ i }}][answer_type]" aria-label="{{ __('Answer type', 'grcmanager') }}">
+                           {% for value, label in types %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+                        </select>
                      </td>
                      <td>
                         <select class="form-select form-select-sm" name="new_questions[{{ i }}][expected_answer]" aria-label="{{ __('Expected answer', 'grcmanager') }}">
