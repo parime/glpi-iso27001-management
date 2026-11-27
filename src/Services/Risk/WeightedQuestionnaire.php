@@ -255,13 +255,19 @@ final class WeightedQuestionnaire
     {
         $parts = [];
         foreach ($questions as $question) {
-            $parts[] = implode("\x1F", [
+            $part = [
                 (string) ($question['code'] ?? ''),
                 self::normalizeExpected($question['expected_answer'] ?? ''),
                 (string) self::normalizeWeight($question['weight'] ?? self::DEFAULT_WEIGHT),
                 empty($question['requires_evidence']) ? '0' : '1',
                 (string) ($question['question'] ?? ''),
-            ]);
+            ];
+            // Issue #1159 : le type n'entre dans l'empreinte que pour l'échelle, pour que les
+            // fichiers et liens des questions Oui / Non déjà envoyés restent reconnus.
+            if (self::normalizeAnswerType($question['answer_type'] ?? '') === self::TYPE_COMPLIANCE) {
+                $part[] = self::TYPE_COMPLIANCE;
+            }
+            $parts[] = implode("\x1F", $part);
         }
 
         return substr(hash('sha256', implode("\x1E", $parts)), 0, 16);
