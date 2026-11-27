@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 09:01+0000\n"
+"POT-Creation-Date: 2026-11-27 08:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,7 +139,7 @@ msgid "Export PDF"
 msgstr ""
 
 #: front/audit.php:51 front/auditcoverage.php:33
-#: src/CertificationReadiness.php:971 templates/audit_checklist_tab.html.twig
+#: src/CertificationReadiness.php:1021 templates/audit_checklist_tab.html.twig
 #: templates/audit_coverage.html.twig templates/audit_programme.html.twig
 msgid "Audit programme coverage"
 msgstr ""
@@ -152,7 +152,7 @@ msgstr ""
 #: front/networkflow.report.php:31 front/processingactivity.export.php:64
 #: front/risk.report.php:73 src/AccessReview.php:854 src/AcnRequirement.php:805
 #: src/Audit.php:650 src/CertificationFinding.php:423
-#: src/CertificationReadiness.php:1509 src/CertificationResponse.php:433
+#: src/CertificationReadiness.php:1559 src/CertificationResponse.php:433
 #: src/CompetenceMatrix.php:899 src/ConsistencyCheck.php:1535
 #: src/ContextItem.php:904 src/ControlTest.php:994 src/CrisisExercise.php:677
 #: src/CrisisScenario.php:942 src/Dpia.php:443 src/EbiosStudy.php:313
@@ -4500,7 +4500,7 @@ msgstr ""
 msgid "Audit criteria defined"
 msgstr ""
 
-#: src/AuditProgramme.php:720
+#: src/AuditProgramme.php:720 templates/nis2_readiness.html.twig
 msgid "Criteria"
 msgstr ""
 
@@ -5497,6 +5497,7 @@ msgid "Document"
 msgstr ""
 
 #: src/CertificationReadiness.php:81 templates/control_blockers.html.twig
+#: templates/nis2_readiness.html.twig
 msgid "Certification readiness"
 msgstr ""
 
@@ -5706,286 +5707,286 @@ msgstr ""
 msgid "Declared requirements: %1$d of %2$d compliant"
 msgstr ""
 
-#: src/CertificationReadiness.php:436
+#: src/CertificationReadiness.php:474
 msgid "See the items to fix"
 msgstr ""
 
-#: src/CertificationReadiness.php:578
+#: src/CertificationReadiness.php:628
 #, php-format
 msgid "Declared status of requirement 4.3: %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:581
+#: src/CertificationReadiness.php:631
 #, php-format
 msgid "Documents attached: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:584
+#: src/CertificationReadiness.php:634
 msgid "Open requirement 4.3 (scope)"
 msgstr ""
 
-#: src/CertificationReadiness.php:601
+#: src/CertificationReadiness.php:651
 #, php-format
 msgid "Issues: %1$d, interested parties: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:606 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:656 templates/_context_summary.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 msgid "Climate change question answered"
 msgstr ""
 
-#: src/CertificationReadiness.php:607 templates/_context_summary.html.twig
+#: src/CertificationReadiness.php:657 templates/_context_summary.html.twig
 msgid "Climate change question not answered yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:610
+#: src/CertificationReadiness.php:660
 #: templates/_approved_application_evidence.html.twig
 #, php-format
 msgid "Reviews overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:646
+#: src/CertificationReadiness.php:696
 #, php-format
 msgid "Approved policies: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:647
+#: src/CertificationReadiness.php:697
 #, php-format
 msgid "Drafts: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:648
+#: src/CertificationReadiness.php:698
 #, php-format
 msgid "Approved policies whose review is overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:667
+#: src/CertificationReadiness.php:717
 #, php-format
 msgid "Activities in the matrix: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:670
+#: src/CertificationReadiness.php:720
 #, php-format
 msgid ""
 "Activities with a serious alert (no one accountable, several accountable, "
 "roles that should be separated): %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:702
+#: src/CertificationReadiness.php:752
 #, php-format
 msgid "Open risks: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:703
+#: src/CertificationReadiness.php:753
 #, php-format
 msgid "Without an owner: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:704
+#: src/CertificationReadiness.php:754
 #, php-format
 msgid "Review overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:732
+#: src/CertificationReadiness.php:782
 #, php-format
 msgid "High risks without a treatment decision: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:733
+#: src/CertificationReadiness.php:783
 #, php-format
 msgid "Accepted risks without approval: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:734
+#: src/CertificationReadiness.php:784
 #, php-format
 msgid "Treatment actions overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:758
+#: src/CertificationReadiness.php:808
 #, php-format
 msgid "Version %s approved, still up to date"
 msgstr ""
 
-#: src/CertificationReadiness.php:762 src/ConsistencyCheck.php:1017
+#: src/CertificationReadiness.php:812 src/ConsistencyCheck.php:1017
 #, php-format
 msgid "Changed since version %s was approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:765 src/ConsistencyCheck.php:1015
+#: src/CertificationReadiness.php:815 src/ConsistencyCheck.php:1015
 #: templates/soa_approval.html.twig
 msgid "Never approved"
 msgstr ""
 
-#: src/CertificationReadiness.php:768
+#: src/CertificationReadiness.php:818
 msgid "An approval request is pending"
 msgstr ""
 
-#: src/CertificationReadiness.php:772 src/ConsistencyCheck.php:1010
+#: src/CertificationReadiness.php:822 src/ConsistencyCheck.php:1010
 #: src/ConsistencyCheck.php:1012 src/ControlBlocker.php:105
 #: src/ManagementReviewDossier.php:125 templates/dashboard_perimeters.html.twig
 #: templates/soa_scoping.html.twig
 msgid "Statement of Applicability"
 msgstr ""
 
-#: src/CertificationReadiness.php:825
+#: src/CertificationReadiness.php:875
 #, php-format
 msgid "Objectives: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:826
+#: src/CertificationReadiness.php:876
 #, php-format
 msgid "With at least one measurement: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:844
+#: src/CertificationReadiness.php:894
 #, php-format
 msgid "ISMS functions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:845
+#: src/CertificationReadiness.php:895
 #, php-format
 msgid "Functions without required competences: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:848
+#: src/CertificationReadiness.php:898
 #, php-format
 msgid "Functions that nobody holds: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:852
+#: src/CertificationReadiness.php:902
 #, php-format
 msgid "Competence gaps: %1$d, of which %2$d without a planned training"
 msgstr ""
 
-#: src/CertificationReadiness.php:857
+#: src/CertificationReadiness.php:907
 #, php-format
 msgid "Archived competence files: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:887
+#: src/CertificationReadiness.php:937
 #, php-format
 msgid "Trainings and sessions: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:889
+#: src/CertificationReadiness.php:939
 #, php-format
 msgid "Delivered in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:896
+#: src/CertificationReadiness.php:946
 #, php-format
 msgid "Participants who completed their training: %1$d %% (target: %2$d %%)"
 msgstr ""
 
-#: src/CertificationReadiness.php:928
+#: src/CertificationReadiness.php:978
 #, php-format
 msgid "Exercises in the last %1$d months: %2$d"
 msgstr ""
 
-#: src/CertificationReadiness.php:932
+#: src/CertificationReadiness.php:982
 #, php-format
 msgid "With a validated review: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:958
+#: src/CertificationReadiness.php:1008
 #, php-format
 msgid "Last internal audit completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:959
+#: src/CertificationReadiness.php:1009
 msgid "No internal audit completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:961
+#: src/CertificationReadiness.php:1011
 #, php-format
 msgid ""
 "Audit programme coverage: %1$d %% (%2$d of %3$d requirements and controls)"
 msgstr ""
 
-#: src/CertificationReadiness.php:966
+#: src/CertificationReadiness.php:1016
 #, php-format
 msgid "Coverage target: %d %%"
 msgstr ""
 
-#: src/CertificationReadiness.php:1009
+#: src/CertificationReadiness.php:1059
 msgid "Open the last management review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1019
+#: src/CertificationReadiness.php:1069
 #, php-format
 msgid "Last management review completed on %s"
 msgstr ""
 
-#: src/CertificationReadiness.php:1020
+#: src/CertificationReadiness.php:1070
 msgid "No management review completed yet"
 msgstr ""
 
-#: src/CertificationReadiness.php:1022
+#: src/CertificationReadiness.php:1072
 msgid "Input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1023
+#: src/CertificationReadiness.php:1073
 msgid "No input file prepared for the last review"
 msgstr ""
 
-#: src/CertificationReadiness.php:1053
+#: src/CertificationReadiness.php:1103
 #, php-format
 msgid "Open nonconformities: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1054 templates/_gap_stock_evidence.html.twig
+#: src/CertificationReadiness.php:1104 templates/_gap_stock_evidence.html.twig
 #, php-format
 msgid "Overdue: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1055
+#: src/CertificationReadiness.php:1105
 #, php-format
 msgid "Closed without a corrective action: %d"
 msgstr ""
 
-#: src/CertificationReadiness.php:1064
+#: src/CertificationReadiness.php:1114
 #, php-format
 msgid ""
 "Findings of previous certification audits not lifted: %1$d (including %2$d "
 "nonconformities)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1080
+#: src/CertificationReadiness.php:1130
 #, php-format
 msgid ""
 "To send to the certification body: %1$d action plans and %2$d evidence "
 "(overdue: %3$d)"
 msgstr ""
 
-#: src/CertificationReadiness.php:1229
+#: src/CertificationReadiness.php:1279
 #, php-format
 msgid ""
 "\"%1$s\" is advised after \"%2$s\", which relies on it: check the advised "
 "deadlines."
 msgstr ""
 
-#: src/CertificationReadiness.php:1247 src/Objective.php:82
+#: src/CertificationReadiness.php:1297 src/Objective.php:82
 #: src/Objective.php:272
 msgid "On track"
 msgstr ""
 
-#: src/CertificationReadiness.php:1252
+#: src/CertificationReadiness.php:1302
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "At risk of being late"
 msgstr ""
 
-#: src/CertificationReadiness.php:1257
+#: src/CertificationReadiness.php:1307
 #: templates/certification_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Advised deadline passed"
 msgstr ""
 
-#: src/CertificationReadiness.php:1442
+#: src/CertificationReadiness.php:1492
 msgid "Advised deadline for the certification"
 msgstr ""
 
-#: src/CertificationReadiness.php:1448
+#: src/CertificationReadiness.php:1498
 #: src/NotificationTargetReadinessAlert.php:94
 #: templates/certification_readiness.html.twig
 #: templates/config/blocks/_certification_readiness.html.twig
@@ -5993,7 +5994,7 @@ msgstr ""
 msgid "Target date of the certification audit"
 msgstr ""
 
-#: src/CertificationReadiness.php:1507
+#: src/CertificationReadiness.php:1557
 msgid "Certification readiness report"
 msgstr ""
 
@@ -8442,7 +8443,7 @@ msgstr ""
 msgid "Recover"
 msgstr ""
 
-#: src/Control.php:568 src/CustomFramework.php:353
+#: src/Control.php:568 src/CustomFramework.php:353 src/Nis2Readiness.php:124
 msgid "Governance"
 msgstr ""
 
@@ -12206,6 +12207,29 @@ msgstr ""
 msgid "MFA coverage"
 msgstr ""
 
+#: src/Feature/Nis2ReadinessFeature.php:47
+msgid ""
+"This page guides you through the NIS2 obligations, criterion by criterion: "
+"for each one, it cites the article of the directive, shows where you stand "
+"according to the data already entered, and gives the screen to open to "
+"complete it, with its place in the menu."
+msgstr ""
+
+#: src/Feature/Nis2ReadinessFeature.php:54
+msgid ""
+"Follow the criteria in order, starting with the one marked as the next step. "
+"Click its button to open the screen concerned, complete it, then come back: "
+"the page is computed again each time. Nothing is changed automatically. In "
+"France, enable the ReCyF of the ANSSI to follow its measures, the missing "
+"evidence and the recurring actions."
+msgstr ""
+
+#: src/Feature/Nis2ReadinessFeature.php:61
+msgid ""
+"Directive (EU) 2022/2555 (NIS2), articles 3, 20, 21, 23 and 32; ReCyF of the "
+"ANSSI"
+msgstr ""
+
 #: src/Feature/PolicyCoverageFeature.php:33
 msgid ""
 "Shows, for each applicable control of the Statement of Applicability, the "
@@ -14694,6 +14718,312 @@ msgstr ""
 
 #: src/NetworkFlow.php:866
 msgid "No filter rule in the pfSense backup."
+msgstr ""
+
+#: src/Nis2Readiness.php:67
+msgid "NIS2 compliance path"
+msgstr ""
+
+#: src/Nis2Readiness.php:115
+msgid "Scope and registration"
+msgstr ""
+
+#: src/Nis2Readiness.php:117
+msgid ""
+"Know whether you are an essential or important entity, and make yourself "
+"known to the authority."
+msgstr ""
+
+#: src/Nis2Readiness.php:126
+msgid ""
+"Management approves the security measures, oversees them and is trained."
+msgstr ""
+
+#: src/Nis2Readiness.php:132
+msgid "Cybersecurity risk-management measures"
+msgstr ""
+
+#: src/Nis2Readiness.php:134
+msgid ""
+"The measures listed by the directive: risks, continuity, suppliers, checks, "
+"access, MFA."
+msgstr ""
+
+#: src/Nis2Readiness.php:141
+msgid "Incident reporting"
+msgstr ""
+
+#: src/Nis2Readiness.php:143
+msgid ""
+"Handle incidents and notify significant ones within 24 hours, 72 hours and "
+"one month."
+msgstr ""
+
+#: src/Nis2Readiness.php:150
+msgid "Day-to-day compliance"
+msgstr ""
+
+#: src/Nis2Readiness.php:152
+msgid ""
+"Measures not covered yet, missing evidence and recurring actions to carry "
+"out."
+msgstr ""
+
+#: src/Nis2Readiness.php:169
+msgid "Set your NIS2 entity category"
+msgstr ""
+
+#: src/Nis2Readiness.php:171
+msgid ""
+"Record for each GLPI entity concerned whether it is an essential or an "
+"important entity: the ReCyF measures that apply depend on it."
+msgstr ""
+
+#: src/Nis2Readiness.php:178
+msgid "Register with the competent authority"
+msgstr ""
+
+#: src/Nis2Readiness.php:180
+msgid ""
+"Provide your information to the national authority (in France, on the NIS2 "
+"services of the ANSSI), then record the authority or the CSIRT as an "
+"official contact and check its details every year."
+msgstr ""
+
+#: src/Nis2Readiness.php:188
+msgid "Have management approve and oversee the measures"
+msgstr ""
+
+#: src/Nis2Readiness.php:190
+msgid ""
+"Have the security policies approved by management, keep their review up to "
+"date, and name who is accountable for each security activity."
+msgstr ""
+
+#: src/Nis2Readiness.php:197
+msgid "Train management and staff"
+msgstr ""
+
+#: src/Nis2Readiness.php:199
+msgid ""
+"Deliver cybersecurity training, including to the members of management, and "
+"basic cyber hygiene awareness to staff."
+msgstr ""
+
+#: src/Nis2Readiness.php:206
+msgid "Analyse and treat the risks"
+msgstr ""
+
+#: src/Nis2Readiness.php:208
+msgid ""
+"Keep a risk register with owners and review dates, choose a treatment for "
+"each significant risk and follow its actions."
+msgstr ""
+
+#: src/Nis2Readiness.php:215
+msgid "Prepare business continuity and crisis management"
+msgstr ""
+
+#: src/Nis2Readiness.php:217
+msgid ""
+"Have continuity and recovery plans, backups whose restoration is tested, and "
+"run at least one crisis or continuity exercise a year."
+msgstr ""
+
+#: src/Nis2Readiness.php:224
+msgid "Secure the supply chain"
+msgstr ""
+
+#: src/Nis2Readiness.php:226
+msgid ""
+"List the suppliers that matter for your security and evaluate each of them "
+"at least once a year."
+msgstr ""
+
+#: src/Nis2Readiness.php:233
+msgid "Assess the effectiveness of the measures"
+msgstr ""
+
+#: src/Nis2Readiness.php:235
+msgid ""
+"Carry out audits of your measures and treat the nonconformities they find "
+"until they are closed."
+msgstr ""
+
+#: src/Nis2Readiness.php:242
+msgid "Review the access rights"
+msgstr ""
+
+#: src/Nis2Readiness.php:244
+msgid ""
+"Run an access review campaign at least once a year and close it once every "
+"account has been reviewed."
+msgstr ""
+
+#: src/Nis2Readiness.php:251
+msgid "Use multi-factor authentication"
+msgstr ""
+
+#: src/Nis2Readiness.php:253
+msgid ""
+"Import the multi-factor authentication status of the accounts and protect "
+"every account, administrators first."
+msgstr ""
+
+#: src/Nis2Readiness.php:260
+msgid "Notify significant incidents on time"
+msgstr ""
+
+#: src/Nis2Readiness.php:262
+msgid ""
+"Mark the security incidents subject to NIS2, send the early warning within "
+"24 hours, the notification within 72 hours and the final report within one "
+"month, and record the CSIRT to warn."
+msgstr ""
+
+#: src/Nis2Readiness.php:270
+msgid "Cover the ReCyF measures"
+msgstr ""
+
+#: src/Nis2Readiness.php:272
+msgid ""
+"For each ReCyF measure that applies to your category, say whether it applies "
+"and set its implementation status, an owner and a due date."
+msgstr ""
+
+#: src/Nis2Readiness.php:279
+msgid "Attach the evidence of the ReCyF measures"
+msgstr ""
+
+#: src/Nis2Readiness.php:281
+msgid ""
+"Attach at least one document to each measure marked as implemented, so that "
+"you can show it to the authority."
+msgstr ""
+
+#: src/Nis2Readiness.php:288
+msgid "Carry out the recurring actions"
+msgstr ""
+
+#: src/Nis2Readiness.php:290
+msgid ""
+"Enable the periodic reviews of access rights and privileged accounts, the "
+"backup restore test and the continuity test, and treat their tickets on time."
+msgstr ""
+
+#: src/Nis2Readiness.php:545
+msgid "No entity has a NIS2 category yet."
+msgstr ""
+
+#: src/Nis2Readiness.php:552
+msgid "Set the category"
+msgstr ""
+
+#: src/Nis2Readiness.php:604
+msgid "NIS2 services of the ANSSI"
+msgstr ""
+
+#: src/Nis2Readiness.php:615
+#, php-format
+msgid "Authorities and CSIRT recorded as official contacts: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:618
+#, php-format
+msgid "Checked in the last 12 months: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:680
+#, php-format
+msgid "Suppliers followed in the supplier risks: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:681
+#, php-format
+msgid "Suppliers evaluated in the last 12 months: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:712
+#, php-format
+msgid "Audits planned or carried out: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:713
+#, php-format
+msgid "Audits completed in the last 12 months: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:733
+#, php-format
+msgid "Access review campaigns: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:734
+#, php-format
+msgid "Closed in the last 12 months: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:755
+msgid "No account imported yet."
+msgstr ""
+
+#: src/Nis2Readiness.php:782
+#, php-format
+msgid "Open incidents subject to NIS2: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:783
+#, php-format
+msgid "NIS2 notifications overdue: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:784
+#, php-format
+msgid "NIS2 notifications due soon: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:787
+msgid "No CSIRT or authority recorded as an official contact."
+msgstr ""
+
+#: src/Nis2Readiness.php:861
+#, php-format
+msgid "Applicable measures implemented: %1$d of %2$d"
+msgstr ""
+
+#: src/Nis2Readiness.php:866
+#, php-format
+msgid "Measures not covered yet: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:869
+#, php-format
+msgid "Measures past their due date: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:870
+#, php-format
+msgid "Measures without an owner: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:892
+#, php-format
+msgid "Implemented measures without any document attached: %d"
+msgstr ""
+
+#: src/Nis2Readiness.php:917
+#, php-format
+msgid "%s: not enabled"
+msgstr ""
+
+#: src/Nis2Readiness.php:923
+#, php-format
+msgid "%s: overdue"
+msgstr ""
+
+#: src/Nis2Readiness.php:925
+#, php-format
+msgid "%s: up to date"
 msgstr ""
 
 #: src/Nonconformity.php:99
@@ -24706,6 +25036,7 @@ msgid "When to contact"
 msgstr ""
 
 #: templates/_page_help.html.twig templates/certification_readiness.html.twig
+#: templates/nis2_readiness.html.twig
 msgid "What is expected"
 msgstr ""
 
@@ -28099,6 +28430,7 @@ msgid "Date entered in the settings of this page."
 msgstr ""
 
 #: templates/certification_readiness.html.twig
+#: templates/nis2_readiness.html.twig
 msgid ""
 "Each state is computed from the data already entered in the plugin, each "
 "time you open this page. Nothing is changed automatically."
@@ -28144,7 +28476,7 @@ msgid "Next certification audit planned:"
 msgstr ""
 
 #: templates/certification_readiness.html.twig
-#: templates/ebios_study_form.html.twig
+#: templates/ebios_study_form.html.twig templates/nis2_readiness.html.twig
 #: templates/pdf/certification_readiness_report.html.twig
 msgid "Next step"
 msgstr ""
@@ -37408,6 +37740,54 @@ msgstr ""
 #: templates/tabs/access_review_lines.html.twig
 #: templates/tabs/control_access_reviews.html.twig
 msgid "PDF report"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid ""
+"A criterion met counts fully, a criterion partly met counts half. Criteria "
+"outside your rights are not counted."
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "Directive (EU) 2022/2555"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "Directive (EU) 2022/2555 on EUR-Lex"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "Every criterion is met."
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "Menu:"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "NIS2 compliance score"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+#, php-format
+msgid "NIS2, art. %s"
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid "No criterion can be evaluated with your rights."
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid ""
+"The ReCyF of the ANSSI (NIS2 France) is not enabled: its measures, the "
+"missing evidence and the entity category are not followed here. Enable it in "
+"the frameworks of the plugin configuration if you are concerned."
+msgstr ""
+
+#: templates/nis2_readiness.html.twig
+msgid ""
+"Your profile cannot read the data of this criterion: ask an administrator of "
+"the management system."
 msgstr ""
 
 #: templates/nonconformity_form.html.twig

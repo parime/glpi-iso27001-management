@@ -420,15 +420,53 @@ class CertificationReadiness extends CommonGLPI
     }
 
     /**
-     * Statut de chaque étape, faits affichés et liens vers les écrans à compléter.
+     * Issue #1158 : règles des contrôles de cohérence lues par chaque étape (les autres étapes n'en
+     * lisent aucune) : le parcours NIS2 ne lance que celles des étapes qu'il reprend.
+     */
+    private const STEP_CONSISTENCY_RULES = [
+        'policy'          => ['policy_review_overdue'],
+        'risk_assessment' => ['risk_without_owner', 'risk_review_overdue'],
+        'risk_treatment'  => ['risk_without_decision', 'risk_accepted_without_approval', 'treatment_action_overdue'],
+        'nonconformities' => ['nonconformity_overdue', 'nonconformity_closed_without_action'],
+    ];
+
+    /**
+     * Issue #1158 : état, faits et liens des étapes $steps (toutes par défaut), sans le plan ni le
+     * score. Le parcours NIS2 (Nis2Readiness) reprend ces étapes pour ses critères communs avec
+     * l'ISO 27001 (gouvernance, risques, formation, exercices, audit, non-conformités) : un seul
+     * moteur de calcul, et seules les étapes demandées sont calculées.
      *
-     * @param array{coverage_target: int, training_target: int} $settings seuils réglables
+     * @param list<string>|null $steps
      * @return array<string, array{status: string, facts: list<string>, links: list<array{label: string,
      *     url: string, icon: string}>}>
      */
-    private static function evaluate(string $today, array $settings): array
+    public static function stepEvaluations(?string $today = null, ?array $steps = null): array
     {
-        $consistency = ConsistencyCheck::canView() ? ConsistencyCheck::run($today) : [];
+        $today ??= substr((string) (Session::getCurrentTime() ?? date('Y-m-d H:i:s')), 0, 10);
+
+        return self::evaluate($today, self::getSettings(), $steps);
+    }
+
+    /**
+     * Statut de chaque étape, faits affichés et liens vers les écrans à compléter.
+     *
+     * @param array{coverage_target: int, training_target: int} $settings seuils réglables
+     * @param list<string>|null $steps étapes à calculer (toutes par défaut)
+     * @return array<string, array{status: string, facts: list<string>, links: list<array{label: string,
+     *     url: string, icon: string}>}>
+     */
+    private static function evaluate(string $today, array $settings, ?array $steps = null): array
+    {
+        $only = null;
+        if ($steps !== null) {
+            $only = [];
+            foreach ($steps as $step) {
+                $only = array_merge($only, self::STEP_CONSISTENCY_RULES[$step] ?? []);
+            }
+        }
+        $consistency = ConsistencyCheck::canView() && $only !== []
+            ? ConsistencyCheck::run($today, $only)
+            : [];
         $gaps = static fn (string $rule): int => !empty($consistency[$rule]['evaluated'])
             ? count($consistency[$rule]['gaps'])
             : 0;
@@ -439,22 +477,34 @@ class CertificationReadiness extends CommonGLPI
         ];
         $since = date('Y-m-d', (int) strtotime($today . ' -' . Rules::RECENT_MONTHS . ' months'));
 
-        return [
-            'scope'             => self::scopeStep(),
-            'context'           => self::contextStep(),
-            'policy'            => self::policyStep($gaps, $fix),
-            'roles'             => self::rolesStep(),
-            'risk_assessment'   => self::riskAssessmentStep($gaps, $fix),
-            'risk_treatment'    => self::riskTreatmentStep($gaps, $fix),
-            'soa'               => self::soaStep(),
-            'objectives'        => self::objectivesStep(),
-            'competence'        => self::competenceStep(),
-            'awareness'         => self::awarenessStep($since, $today, $settings['training_target']),
-            'exercises'         => self::exercisesStep($since),
-            'internal_audit'    => self::internalAuditStep($today, $settings['coverage_target']),
-            'management_review' => self::managementReviewStep($today),
-            'nonconformities'   => self::nonconformitiesStep($gaps, $fix),
+        $all = [
+            'scope'             => static fn (): array => self::scopeStep(),
+            'context'           => static fn (): array => self::contextStep(),
+            'policy'            => static fn (): array => self::policyStep($gaps, $fix),
+            'roles'             => static fn (): array => self::rolesStep(),
+            'risk_assessment'   => static fn (): array => self::riskAssessmentStep($gaps, $fix),
+            'risk_treatment'    => static fn (): array => self::riskTreatmentStep($gaps, $fix),
+            'soa'               => static fn (): array => self::soaStep(),
+            'objectives'        => static fn (): array => self::objectivesStep(),
+            'competence'        => static fn (): array => self::competenceStep(),
+            'awareness'         => static fn (): array => self::awarenessStep(
+                $since,
+                $today,
+                $settings['training_target']
+            ),
+            'exercises'         => static fn (): array => self::exercisesStep($since),
+            'internal_audit'    => static fn (): array => self::internalAuditStep($today, $settings['coverage_target']),
+            'management_review' => static fn (): array => self::managementReviewStep($today),
+            'nonconformities'   => static fn (): array => self::nonconformitiesStep($gaps, $fix),
         ];
+        $result = [];
+        foreach ($all as $key => $compute) {
+            if ($steps === null || in_array($key, $steps, true)) {
+                $result[$key] = $compute();
+            }
+        }
+
+        return $result;
     }
 
     /**

@@ -2656,6 +2656,33 @@ mot de passe.
 6. Les mêmes écarts apparaissent dans l'onglet **Comptes à privilèges** de chaque campagne de revue
    des accès, et en preuve sur les mesures A.5.17 et A.8.2.
 
+### Étape 93 : Suivre sa mise en conformité NIS2
+
+La page **GRC & Conformité > Tableau de bord > Parcours de mise en conformité NIS2** reprend, pour
+la directive (UE) 2022/2555, le principe de la préparation à la certification ISO 27001 : une liste
+de critères, chacun avec l'article de la directive concerné, son état calculé à partir des données
+déjà saisies et le bouton qui ouvre l'écran à compléter (avec son chemin dans le menu). Elle
+n'apparaît que si le référentiel **NIS2** est activé dans **Configuration > Plugins > GRC Manager**,
+onglet **Référentiels**.
+
+1. En France, activez aussi le **ReCyF** (NIS2 France) et réglez, dans le bloc **ReCyF** de la
+   configuration, la catégorie de chaque entité concernée : **entité essentielle** ou **entité
+   importante**.
+2. Ouvrez la page et commencez par le critère marqué **Prochaine étape**. Le premier groupe vous
+   demande d'inscrire l'autorité ou le CSIRT comme **contact officiel** une fois votre inscription
+   faite auprès de l'ANSSI.
+3. Les groupes **Gouvernance** et **Mesures de gestion des risques** reprennent les étapes communes
+   avec l'ISO 27001 (politiques approuvées, rôles, risques, formation, exercices, audit,
+   non-conformités) et y ajoutent les fournisseurs, la revue des accès et la couverture MFA.
+4. Le groupe **Notification des incidents** signale les incidents soumis à NIS2 dont l'alerte de
+   24 h, la notification de 72 h ou le rapport final d'un mois est en retard.
+5. Le groupe **Conformité au quotidien** liste les mesures du ReCyF non couvertes, celles mises en
+   œuvre sans document joint, et les actions récurrentes : revue des droits, revue des comptes à
+   privilèges, test de restauration des sauvegardes et test du plan de continuité (à activer dans
+   **Revues périodiques**).
+
+La page est recalculée à chaque ouverture et ne modifie rien.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -5167,3 +5194,29 @@ solution) with the GLPI accounts. Only **metadata** is read: never a password.
    changes nothing.
 6. The same gaps appear in the **Privileged accounts** tab of each access review campaign, and as
    evidence on controls A.5.17 and A.8.2.
+
+### Step 93: Follow your NIS2 compliance
+
+The page **GRC & Compliance > Dashboard > NIS2 compliance path** applies to Directive (EU)
+2022/2555 the principle of the ISO 27001 certification readiness: a list of criteria, each with the
+article of the directive concerned, its state computed from the data already entered and the button
+that opens the screen to complete (with its place in the menu). It only appears when the **NIS2**
+framework is enabled in **Setup > Plugins > GRC Manager**, **Frameworks** tab.
+
+1. In France, also enable the **ReCyF** (NIS2 France) and set, in the **ReCyF** block of the
+   configuration, the category of each entity concerned: **essential entity** or **important
+   entity**.
+2. Open the page and start with the criterion marked **Next step**. The first group asks you to
+   record the authority or the CSIRT as an **official contact** once you have registered with the
+   national authority.
+3. The **Governance** and **Cybersecurity risk-management measures** groups reuse the steps shared
+   with ISO 27001 (approved policies, roles, risks, training, exercises, audit, nonconformities) and
+   add suppliers, the access review and the MFA coverage.
+4. The **Incident reporting** group flags the incidents subject to NIS2 whose 24-hour early warning,
+   72-hour notification or one-month final report is overdue.
+5. The **Day-to-day compliance** group lists the ReCyF measures not covered yet, those implemented
+   without any document attached, and the recurring actions: access rights review, privileged
+   accounts review, backup restore test and continuity plan test (to enable in **Periodic
+   reviews**).
+
+The page is computed again each time it is opened and changes nothing.
