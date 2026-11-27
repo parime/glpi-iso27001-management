@@ -119,7 +119,7 @@ final class SupplierQuestionnaireTables implements FeatureTables
                 `question` text,
                 `guidance` text COMMENT 'Aide pour repondre, reponse attendue detaillee',
                 `expected_answer` varchar(8) NOT NULL DEFAULT 'yes' COMMENT 'yes ou no : la reponse conforme',
-                `answer_type` varchar(16) NOT NULL DEFAULT 'yes_no' COMMENT 'yes_no ou compliance (issue 1159)',
+                `answer_type` varchar(16) NOT NULL DEFAULT 'yes_no',
                 `weight` int NOT NULL DEFAULT 1 COMMENT '0 a 10, 0 = question informative non notee',
                 `requires_evidence` tinyint NOT NULL DEFAULT 0,
                 `position` int NOT NULL DEFAULT 0,
