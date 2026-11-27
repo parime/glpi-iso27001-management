@@ -239,6 +239,64 @@ final class SentinelOneParser
     }
 
     /**
+     * Issue #1160 : niveaux de criticité des vulnérabilités applicatives, du plus faible au plus
+     * grave. Champ « severity » des objets de GET /web/api/v2.1/application-management/risks
+     * (chaîne en majuscules : CRITICAL, HIGH, MEDIUM, LOW), d'après la référence de la Management
+     * API v2.1 publiée dans chaque console (https://<console>/api-doc/, Application Management >
+     * Risks ; accès réservé aux clients). Sans criticité reconnue, le niveau se déduit du score
+     * CVSS (« baseScore ») selon l'échelle qualitative du FIRST :
+     * https://www.first.org/cvss/v3.1/specification-document#qualitative-severity-rating-scale
+     */
+    public const SEVERITY_LEVELS = ['low', 'medium', 'high', 'critical'];
+
+    /**
+     * Rang de criticité d'une vulnérabilité (index de SEVERITY_LEVELS), -1 pour « aucune »
+     * (NONE ou score 0), null si ni la criticité ni le score ne sont connus.
+     *
+     * @param array{severity: string, score: float|null} $finding
+     */
+    public static function severityRank(array $finding): ?int
+    {
+        $severity = strtolower(trim($finding['severity']));
+        $rank = array_search($severity, self::SEVERITY_LEVELS, true);
+        if (is_int($rank)) {
+            return $rank;
+        }
+        if ($severity === 'none') {
+            return -1;
+        }
+        $score = $finding['score'];
+        if ($score === null) {
+            return null;
+        }
+
+        return match (true) {
+            $score >= 9.0 => 3,
+            $score >= 7.0 => 2,
+            $score >= 4.0 => 1,
+            $score > 0.0  => 0,
+            default       => -1,
+        };
+    }
+
+    /**
+     * Seuil de criticité minimale (réglage du connecteur) : '' garde tout. Une vulnérabilité dont
+     * la criticité est inconnue est gardée : on n'écarte que ce que l'on sait sous le seuil.
+     *
+     * @param array{severity: string, score: float|null} $finding
+     */
+    public static function meetsMinSeverity(array $finding, string $minSeverity): bool
+    {
+        $min = array_search($minSeverity, self::SEVERITY_LEVELS, true);
+        if (!is_int($min)) {
+            return true;
+        }
+        $rank = self::severityRank($finding);
+
+        return $rank === null || $rank >= $min;
+    }
+
+    /**
      * Ligne et en-têtes au format de l'import CSV (SecurityIncidentEdrImport::import()) : les
      * champs de EdrCsvImport::FIELDS, dans cet ordre, la correspondance étant l'identité.
      *

@@ -295,9 +295,9 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         \Config::setConfigurationValues(SentinelOneConfig::CONTEXT, [SentinelOneConfig::TOKEN_KEY => 'stored']);
 
         $steps = SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
-        // Six lignes lues, dont une sans CVE valide, ignorée.
-        self::assertSame(6, $steps['vulnerabilities']['items']);
-        self::assertSame(5, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
+        // Huit lignes lues, dont une sans CVE valide, ignorée ; sans seuil, tout est gardé.
+        self::assertSame(8, $steps['vulnerabilities']['items']);
+        self::assertSame(7, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
 
         $vulnerabilities = SentinelOneEvidenceProvider::fetchVulnerabilities([]);
         self::assertNotNull($vulnerabilities);
@@ -314,5 +314,46 @@ final class SentinelOneConnectorTest extends GrcmanagerIntegrationTestCase
         self::assertSame(4, $coverage['agents']);
         self::assertSame(3, $coverage['active']);
         self::assertGreaterThanOrEqual(1, $coverage['covered']);
+    }
+
+    /**
+     * Issue #1160 : la criticité minimale écarte les vulnérabilités avant l'enregistrement, et la
+     * relever n'efface pas celles déjà importées.
+     */
+    public function testMinimumSeveritySkipsLowVulnerabilitiesWithoutDeletingImportedOnes(): void
+    {
+        $cves = static fn (): array => array_column(iterator_to_array($GLOBALS['DB']->request([
+            'SELECT' => ['cve_id'],
+            'FROM'   => SentinelOneAlert::VULNERABILITIES_TABLE,
+        ]), false), 'cve_id');
+
+        self::assertSame('', SentinelOneConfig::minSeverity());
+        SentinelOneConfig::setMinSeverity('bogus');
+        self::assertSame('', SentinelOneConfig::minSeverity());
+
+        try {
+            // Seuil « élevée » dès la première lecture : moyennes et faibles jamais écrites.
+            SentinelOneConfig::setMinSeverity('high');
+            self::assertSame('high', SentinelOneConfig::minSeverity());
+            $steps = SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
+            self::assertSame(8, $steps['vulnerabilities']['items']);
+            self::assertTrue($steps['vulnerabilities']['complete']);
+            self::assertSame(5, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
+            self::assertNotContains('CVE-2000-90001', $cves());
+            self::assertNotContains('CVE-2000-90002', $cves());
+
+            // Seuil abaissé : les autres arrivent à la lecture suivante.
+            SentinelOneConfig::setMinSeverity('');
+            SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
+            self::assertSame(7, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
+
+            // Seuil relevé à « critique » : rien de déjà importé n'est effacé.
+            SentinelOneConfig::setMinSeverity('critical');
+            SentinelOneAlert::synchronize($this->client(MockSentinelOne::VIEWER_TOKEN));
+            self::assertSame(7, countElementsInTable(SentinelOneAlert::VULNERABILITIES_TABLE));
+            self::assertContains('CVE-2000-90002', $cves());
+        } finally {
+            SentinelOneConfig::setMinSeverity('');
+        }
     }
 }

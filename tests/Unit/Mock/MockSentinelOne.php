@@ -240,6 +240,9 @@ final class MockSentinelOne
             $vuln('CVE-2024-38063', '1900000000000000002', 'LAPTOP-7F3K2', 'Windows TCP/IP', '10.0.22631', 9.8, 'CRITICAL'),
             $vuln('CVE-2023-4863', '1900000000000000001', 'PC-COMPTA-01', 'Google Chrome', '116.0.5845.96', 8.8, 'HIGH'),
             $vuln('CVE-2023-4863', '1900000000000000004', 'MAC-INCONNU-42', 'Google Chrome', '116.0.5845.96', 8.8, 'HIGH'),
+            // Issue #1160 : criticités moyenne et faible, pour le seuil de criticité minimale.
+            $vuln('CVE-2000-90001', '1900000000000000003', 'SRV-WEB-01.entreprise-fictive.local', 'Outil fictif A', '1.0', 5.3, 'MEDIUM'),
+            $vuln('CVE-2000-90002', '1900000000000000001', 'PC-COMPTA-01', 'Outil fictif B', '2.0', 3.1, 'LOW'),
             $vuln('not-a-cve', '1900000000000000001', 'PC-COMPTA-01', 'Exemple', '1.0', 1.0, 'LOW'),
         ];
     }
