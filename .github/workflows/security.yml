@@ -25,10 +25,10 @@ concurrency:
 
 jobs:
   security:
-    uses: parime/glpi-plugin-security/.github/workflows/plugin-security.yml@fix/50-cibles-reelles-coeur
+    uses: parime/glpi-plugin-security/.github/workflows/plugin-security.yml@main
     with:
       plugin-key: grcmanager
-      security-ref: fix/50-cibles-reelles-coeur
+      security-ref: main
       # Contrôles lourds (vrai GLPI : onglets et notifications, intégration en français, mise à
       # jour, parcours des pages) seulement si la PR touche autre chose que la documentation ; tout
       # tourne sur les push (main, dev) et les publications. Même liste que le job detect de ci.yml.
