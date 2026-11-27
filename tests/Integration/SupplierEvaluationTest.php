@@ -235,12 +235,13 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
             ['question' => 'Is MFA required?', 'weight' => 1],
         ]);
         $questions = SupplierQuestionnaireQuestion::getQuestions($template->getID());
-        $this->assertSame(['compliance', 'compliance', 'compliance', 'yes_no'], array_column($questions, 'answer_type'));
-        $this->assertSame('yes', $questions[0]['expected_answer'], 'l'échelle attend toujours « Conforme »');
+        $types = ['compliance', 'compliance', 'compliance', 'yes_no'];
+        $this->assertSame($types, array_column($questions, 'answer_type'));
+        $this->assertSame('yes', $questions[0]['expected_answer'], 'échelle : réponse attendue « Conforme »');
 
         $evaluation = $this->evaluation($this->risk(), $template);
         $answers = SupplierEvaluationAnswer::getAnswers($evaluation->getID());
-        $this->assertSame(['compliance', 'compliance', 'compliance', 'yes_no'], array_column($answers, 'answer_type'));
+        $this->assertSame($types, array_column($answers, 'answer_type'));
         $ids = $this->answerIds($evaluation);
         SupplierEvaluationAnswer::saveAnswers($evaluation, [
             $ids['Q01'] => 'yes',
