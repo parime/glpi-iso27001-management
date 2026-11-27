@@ -200,6 +200,7 @@ if (
         $wasEnabled = SentinelOneConfig::isEnabled();
         $hadToken = SentinelOneConfig::hasToken();
         $previousUrl = SentinelOneConfig::rawUrl();
+        $previousMinSeverity = SentinelOneConfig::minSeverity();
         $accepted = SentinelOneConfig::save(
             !empty($_POST['sentinelone_enabled']),
             (string) ($_POST['sentinelone_url'] ?? ''),
@@ -207,6 +208,7 @@ if (
             !empty($_POST['sentinelone_clear_token']),
             (int) ($_POST['sentinelone_entities_id'] ?? 0)
         );
+        SentinelOneConfig::setMinSeverity((string) ($_POST['sentinelone_vuln_min_severity'] ?? ''));
         if (!$accepted) {
             Session::addMessageAfterRedirect(htmlescape(__(
                 'The console address was not saved: it must start with https:// and contain no user name or password.',
@@ -220,6 +222,9 @@ if (
                 ? (int) SentinelOneConfig::isEnabled()
                 : null,
             'sentinelone_url'     => $previousUrl !== SentinelOneConfig::rawUrl() ? SentinelOneConfig::rawUrl() : null,
+            'sentinelone_vuln_min_severity' => $previousMinSeverity !== SentinelOneConfig::minSeverity()
+                ? SentinelOneConfig::minSeverity()
+                : null,
             // Jeton : seulement le fait qu'il ait changé, jamais sa valeur.
             'sentinelone_token'   => trim((string) ($_POST['sentinelone_api_token'] ?? '')) !== ''
                 || ($hadToken && !SentinelOneConfig::hasToken()) ? 'changed' : null,

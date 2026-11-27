@@ -1,0 +1,18 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Yes / No"
+msgstr "Yes / No"
+
+msgid "Compliance scale"
+msgstr "Compliance scale"
+
+msgid "Answer type"
+msgstr "Answer type"
+
+msgid "Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially compliant, Non-compliant, Not applicable). On the scale, the expected answer is always \"Compliant\"."
+msgstr "Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially compliant, Non-compliant, Not applicable). On the scale, the expected answer is always \"Compliant\"."
+
+msgid "Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-compliant = 0; \"Not applicable\" is left out of the score."
+msgstr "Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-compliant = 0; \"Not applicable\" is left out of the score."

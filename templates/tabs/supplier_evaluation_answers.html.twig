@@ -37,6 +37,7 @@
    <div class="card-body">
       <p class="text-muted small">
          <i class="ti ti-info-circle me-1"></i>{{ __('For each question, choose the answer given by the supplier and add a comment if needed. The expected answer earns 1 point, "partial" half a point, the other answer 0, multiplied by the weight of the question. A question marked "Evidence required" waits for a document (certificate, report, policy...): it is checked like any evidence (types allowed by GLPI, maximum size %d MiB) and added to the Documents tab of the supplier risk.', 'grcmanager')|format(max_size) }}
+         {{ __('Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-compliant = 0; "Not applicable" is left out of the score.', 'grcmanager') }}
       </p>
       {% if sections is empty %}
          <div class="alert alert-info mb-0"><i class="ti ti-info-circle me-2"></i>{{ __('This evaluation has no question: its template had none when it was created.', 'grcmanager') }}</div>
@@ -62,7 +63,10 @@
                      <td>
                         <div><span class="text-muted me-1">{{ row.code }}</span>{{ row.question }}</div>
                         <div class="d-flex flex-wrap gap-1 mt-1">
-                           <span class="badge bg-blue-subtle text-blue-emphasis" title="{{ __('Expected answer', 'grcmanager') }}"><i class="ti ti-target me-1"></i>{{ __('Expected: %s', 'grcmanager')|format(expected[row.expected_answer] ?? row.expected_answer) }}</span>
+                           <span class="badge bg-blue-subtle text-blue-emphasis" title="{{ __('Expected answer', 'grcmanager') }}"><i class="ti ti-target me-1"></i>{{ __('Expected: %s', 'grcmanager')|format(row.expected_label) }}</span>
+                           {% if row.is_scale %}
+                              <span class="badge bg-teal-subtle text-teal-emphasis grc-compliance-scale"><i class="ti ti-chart-bar me-1"></i>{{ __('Compliance scale', 'grcmanager') }}</span>
+                           {% endif %}
                            {% if row.weight == 0 %}
                               <span class="badge bg-secondary-subtle text-secondary-emphasis"><i class="ti ti-info-circle me-1"></i>{{ __('For information, not scored', 'grcmanager') }}</span>
                            {% else %}
@@ -79,7 +83,7 @@
                      </td>
                      <td class="text-nowrap">
                         <div class="btn-group btn-group-sm" role="group">
-                           {% for value, choice in choices %}
+                           {% for value, choice in row.choices %}
                               <input type="radio" class="btn-check" name="answers[{{ row.id }}]" id="a-{{ row.id }}-{{ value }}" value="{{ value }}"
                                  {{ row.answer == value ? 'checked' : '' }} {{ can_edit ? '' : 'disabled' }}>
                               <label class="btn btn-outline-secondary" for="a-{{ row.id }}-{{ value }}">{{ choice }}</label>

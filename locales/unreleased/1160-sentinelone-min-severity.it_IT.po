@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "All (no filter)"
+msgstr "Tutte (nessun filtro)"
+
+msgid "Low and above"
+msgstr "Bassa e superiore"
+
+msgid "Medium and above"
+msgstr "Media e superiore"
+
+msgid "High and critical"
+msgstr "Alta e critica"
+
+msgid "Critical only"
+msgstr "Solo critica"
+
+msgid "Minimum severity of the imported vulnerabilities"
+msgstr "Criticità minima delle vulnerabilità importate"
+
+msgid "Vulnerabilities below this severity are skipped before being saved, which keeps the database light on a large fleet. The severity given by SentinelOne is used, otherwise the CVSS score; a vulnerability without either is kept."
+msgstr "Le vulnerabilità al di sotto di questa criticità vengono scartate prima del salvataggio, alleggerendo il database su un parco esteso. Si usa la criticità indicata da SentinelOne, altrimenti il punteggio CVSS; una vulnerabilità senza nessuno dei due viene mantenuta."
+
+msgid "Raising the threshold deletes nothing: the vulnerabilities already imported below it stay listed until SentinelOne stops reporting them. Lowering it imports the others at the next reading."
+msgstr "Alzare la soglia non cancella nulla: le vulnerabilità già importate al di sotto restano elencate finché SentinelOne non smette di segnalarle. Abbassarla importa le altre alla lettura successiva."

@@ -171,6 +171,7 @@ final class SupplierPortalRules
                 'old_comment' => $oldComment,
                 'comment'     => $comment,
                 'evidence'    => $evidence,
+                'answer_type' => WeightedQuestionnaire::normalizeAnswerType($row['answer_type'] ?? ''),
             ];
         }
 
