@@ -58,8 +58,8 @@
                {% for change in changes %}
                   <tr>
                      <td><span class="text-muted me-1">{{ change.code }}</span>{{ change.question }}</td>
-                     <td>{% if change.old_answer %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ (change.answer_type == scale_type ? scale_labels : labels)[change.old_answer] ?? change.old_answer }}</span>{% else %}<span class="text-muted">-</span>{% endif %}</td>
-                     <td>{% if change.answer is not null %}<span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-arrow-right me-1"></i>{{ (change.answer_type == scale_type ? scale_labels : labels)[change.answer] ?? change.answer }}</span>{% else %}<span class="text-muted small">{{ __('unchanged', 'grcmanager') }}</span>{% endif %}</td>
+                     <td>{% if change.old_answer %}<span class="badge bg-secondary-subtle text-secondary-emphasis">{{ change.answer_type == scale_type ? (scale_labels[change.old_answer] ?? change.old_answer) : (labels[change.old_answer] ?? change.old_answer) }}</span>{% else %}<span class="text-muted">-</span>{% endif %}</td>
+                     <td>{% if change.answer is not null %}<span class="badge bg-green-subtle text-green-emphasis"><i class="ti ti-arrow-right me-1"></i>{{ change.answer_type == scale_type ? (scale_labels[change.answer] ?? change.answer) : (labels[change.answer] ?? change.answer) }}</span>{% else %}<span class="text-muted small">{{ __('unchanged', 'grcmanager') }}</span>{% endif %}</td>
                      <td class="small">{% if change.comment is not null %}{{ change.comment|nl2br }}{% else %}<span class="text-muted">{{ __('unchanged', 'grcmanager') }}</span>{% endif %}</td>
                      <td class="small">{% if change.evidence %}<i class="ti ti-paperclip me-1"></i>{{ change.evidence }}{% else %}<span class="text-muted">-</span>{% endif %}</td>
                   </tr>
