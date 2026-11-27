@@ -993,8 +993,10 @@ foreach (['A' => $a, 'B' => $b] as $suffix => $entity) {
         'name' => 'Activite securite ' . $suffix, 'entities_id' => $entity,
     ]);
     // Issue #145 : politique (globale) avec un document de preuve daté de l'entité.
+    // Issue #1165 : entities_id fixé à la racine par le plugin, jamais saisi (sinon la relance
+    // du jeu de données ne retrouve pas la politique).
     $ids['policy_' . $suffix] = $add(new \GlpiPlugin\Grcmanager\Policy(), [
-        'title' => 'Politique securite ' . $suffix, 'entities_id' => $entity,
+        'title' => 'Politique securite ' . $suffix,
     ]);
     $ids['document_' . $suffix] = $add(new Document(), [
         'name' => 'Preuve securite ' . $suffix, 'entities_id' => $entity,
