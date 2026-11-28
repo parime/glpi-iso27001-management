@@ -59,12 +59,14 @@
       {% endif %}
     </form>
 
-    {# Issue #706 : taille de la matrice (4x4 par défaut, 5x5 au choix). Le changement passe par un
-       écran de correspondance (front/riskscale.php) : simple lien GET ici, rien n'est écrit. #}
+    {# Issue #706 : taille de la matrice (4x4 par défaut). Issue #1163 : de 3 à 5 niveaux sur chaque
+       axe, indépendamment (3 x 5 par exemple). Le changement passe par un écran de correspondance
+       (front/riskscale.php) : simple lien GET ici, rien n'est écrit. #}
     <hr>
-    <h4>{{ __('Matrix size', 'grcmanager') }}</h4>
+    <h4><i class="ti ti-grid-dots me-1"></i>{{ __('Matrix size', 'grcmanager') }}</h4>
     <p class="text-muted">
       {{ __('Current size: %s.', 'grcmanager')|format(risk_scale_sizes[risk_scale_size]|default(risk_scale_size)) }}
+      {{ __('Probability and impact can each have from 3 to 5 levels, independently, for example 3 levels of probability and 5 levels of impact. The colours of the new grid are proposed from the score (probability rank x impact rank) and can be adjusted afterwards.', 'grcmanager') }}
       {{ __('Changing the size converts the probability and impact of every existing risk: you first choose how the current values correspond to the new ones, and see the effect before applying it.', 'grcmanager') }}
     </p>
     {% if can_edit_config and can_edit_sensitive %}

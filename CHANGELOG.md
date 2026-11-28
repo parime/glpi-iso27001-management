@@ -7,6 +7,62 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), et ce p
 
 ## [Unreleased]
 
+## [2.88.0] - 2026-11-28
+
+### Added
+
+- **Échelle de conformité dans les questionnaires fournisseurs** (issue #1159, mesures A.5.19 à
+  A.5.22). Chaque question d'un modèle a un type de réponse : « Oui / Non » (par défaut, celui de
+  toutes les questions existantes, reprises sans changement) ou « Échelle de conformité » (Conforme,
+  Partiellement conforme, Non conforme, Non applicable). La note compte Conforme pour 1 point,
+  Partiellement conforme pour 0,5, Non conforme pour 0, multipliés par la pondération ; Non
+  applicable est exclu du calcul. L'échelle s'affiche dans l'évaluation, sur la page du lien
+  sécurisé, dans le fichier CSV exporté (dont les libellés sont reconnus au réimport) et dans
+  l'aperçu avant enregistrement.
+
+- Connecteur SentinelOne : réglage « Criticité minimale des vulnérabilités importées » (Configuration > Plugins > GRC Manager > Connecteurs). Les vulnérabilités applicatives sous le seuil sont écartées avant l'enregistrement, ce qui allège la base sur un grand parc ; par défaut tout est importé, comme avant. La criticité fournie par SentinelOne est utilisée, sinon le score CVSS ; relever le seuil n'efface pas les vulnérabilités déjà importées (#1160).
+
+- **Matrice des risques de 3 à 5 niveaux sur chaque axe, indépendamment** (issue #1163, clause 6.1.2).
+  Configuration > Plugins > GRC Manager, onglet Risques, bloc « Taille de la matrice » : en plus de
+  4 x 4 et 5 x 5, on choisit 3 x 3, 3 x 5 (3 niveaux de probabilité, 5 d'impact), 5 x 3, 3 x 4,
+  4 x 3, 4 x 5 ou 5 x 4. Le changement passe par l'écran de correspondance existant (aperçu de
+  l'effet sur les risques, historique de chaque risque converti). Les couleurs de la nouvelle grille
+  sont proposées d'après le score (seuils au quart, à la moitié et aux trois quarts du score
+  maximal) et restent modifiables ; les libellés des niveaux se renomment comme avant (par exemple
+  Faible, Moyen, Élevé pour la probabilité). Une matrice 4 x 4 ou 5 x 5 existante ne change pas.
+  La carte des risques, l'import CSV, EBIOS RM et l'AIPD suivent la forme choisie.
+- **Score avant et après traitement** (issue #1163, clause 6.1.3, risque résiduel). La fiche du
+  risque montre côte à côte le score initial et le score résiduel (sur le score maximal de la
+  matrice), avec leurs niveaux ; la liste des risques propose deux colonnes « Score initial » et
+  « Score résiduel ». Le score résiduel est calculé et enregistré avec le niveau résiduel ; les
+  risques déjà évalués sont remplis à la mise à jour.
+
+- **Alertes Wazuh transformées en incidents de sécurité** (issue #1185, mesures A.5.24 à A.5.26).
+  Assistance > Incidents de sécurité, onglet Import des alertes EDR : quand le plugin GLPI Wazuh est
+  actif, le cadre « Alertes Wazuh à revoir » liste les alertes des 30 derniers jours sur les
+  ordinateurs visibles, regroupées par règle et ordinateur (alertes répétées), avec le niveau de la
+  règle, l'agent, les horodatages et un lien vers les alertes dans le plugin Wazuh, filtrables par
+  niveau minimal. Les groupes cochés deviennent des incidents de sécurité (origine SIEM, gravité
+  tirée du niveau, ordinateur rattaché, techniques MITRE ATT&CK de la règle) ; une alerte n'est
+  importée qu'une fois et ses répétitions s'ajoutent à l'incident tant qu'il reste ouvert. Droit de
+  créer un incident, lecture seule des tables du plugin Wazuh.
+- **Ordinateurs avec des vulnérabilités critiques non traitées, d'après Wazuh** (issue #1185, mesure
+  A.8.8). Parc > Sécurité du parc, cadre « Détectées par Wazuh seulement » : ordinateurs touchés par
+  chaque vulnérabilité (nommés avec le droit de lecture des ordinateurs) et, en tête, les ordinateurs
+  avec une vulnérabilité critique (CVSS de 9 ou plus) toujours signalée par Wazuh et sans dérogation
+  validée en cours. Même indicateur en carte du tableau de bord et en source de KRI.
+
+### Fixed
+
+- Le risque créé depuis l'analyse des chemins d'attaque Active Directory reçoit de nouveau une
+  probabilité et un impact de l'échelle configurée (au lieu des valeurs par défaut).
+
+- **Ouverture d'une politique ou d'une procédure d'exploitation** (issue #1165). Avec un profil qui
+  ne voit pas toutes les entités, la fiche plantait sur une erreur SQL (« Unknown column
+  glpi_plugin_grcmanager_policies.entities_id ») : l'onglet natif « Base de connaissances » de GLPI
+  11 et 12 filtre toujours sur l'entité de l'objet lié. La bibliothèque reçoit les colonnes attendues
+  avec des valeurs fixes (entité racine, récursive) et reste commune à toutes les entités.
+
 ## [2.87.0] - 2026-11-27
 
 ### Added

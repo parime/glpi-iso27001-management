@@ -2683,6 +2683,50 @@ onglet **Référentiels**.
 
 La page est recalculée à chaque ouverture et ne modifie rien.
 
+### Étape 94 : Noter un fournisseur sur une échelle de conformité
+
+Une question d'un modèle de questionnaire fournisseur peut attendre plus qu'un « Oui » ou un
+« Non » : l'**échelle de conformité** propose **Conforme**, **Partiellement conforme**, **Non
+conforme** et **Non applicable**.
+
+1. Ouvrez le modèle (bouton **Modèles de questionnaire** de la liste des risques fournisseurs),
+   onglet **Questions**, et choisissez **Échelle de conformité** dans la colonne **Type de
+   réponse** de chaque question concernée. La réponse attendue est alors toujours **Conforme**.
+2. Les questions existantes restent en **Oui / Non** : rien ne change pour les questionnaires et
+   les évaluations déjà faits.
+3. Dans l'évaluation, sur la page du lien sécurisé et dans le fichier exporté, la question propose
+   les quatre réponses de l'échelle. La note compte **Conforme** pour 1 point, **Partiellement
+   conforme** pour 0,5 et **Non conforme** pour 0, multipliés par la pondération ; **Non
+   applicable** n'entre pas dans la note.
+
+### Étape 95 : Transformer les alertes Wazuh en incidents et suivre les vulnérabilités critiques (mesures A.8.8, A.5.24 à A.5.26)
+
+Quand le plugin GLPI Wazuh est installé et actif, GRC lit ses alertes et ses vulnérabilités, sans
+jamais rien y modifier. Sans ce plugin, rien de ce qui suit n'apparaît.
+
+1. Ouvrez Assistance > Incidents de sécurité, onglet **Import des alertes EDR** (droit de créer un
+   incident). Le cadre **Alertes Wazuh à revoir** liste les alertes des 30 derniers jours sur les
+   ordinateurs que vous voyez. Les alertes répétées (même règle sur le même ordinateur) forment un
+   seul groupe, avec leur nombre, le niveau de la règle, l'agent, la dernière alerte et un lien vers
+   les alertes de l'ordinateur dans le plugin Wazuh.
+2. Le filtre **Niveau minimal de la règle** montre par défaut les niveaux 7 et plus ; choisissez
+   **Niveau 12 et plus** pour ne garder que les plus graves, ou **Tous les niveaux**.
+3. Cochez les groupes qui méritent un incident, puis **Créer les incidents des groupes choisis**.
+   Chaque groupe devient un incident de sécurité (origine SIEM) avec l'ordinateur, la gravité tirée
+   du niveau de la règle (12 et plus : critique, 7 à 11 : majeure), les horodatages, les techniques
+   MITRE ATT&CK de la règle et le lien vers les alertes. Une alerte n'est jamais importée deux fois.
+4. Quand la même alerte revient alors que l'incident est encore ouvert, le groupe porte le badge
+   **Déjà dans un incident : nouvelles répétitions** ; l'importer ajoute une tâche à cet incident au
+   lieu d'en ouvrir un nouveau. Une fois l'incident résolu ou clos, une nouvelle répétition ouvre un
+   nouvel incident.
+5. Dans Parc > Sécurité du parc, le cadre **Détectées par Wazuh seulement** nomme les ordinateurs
+   touchés par chaque vulnérabilité et indique en tête les **ordinateurs avec des vulnérabilités
+   critiques non traitées** : CVSS de 9 ou plus, toujours signalées par Wazuh et sans dérogation
+   validée en cours. Une dérogation acceptée retire la CVE du décompte.
+6. Le même indicateur existe en carte du tableau de bord (« Ordinateurs avec des vulnérabilités
+   critiques non traitées (Wazuh) ») et en source d'indicateur de risque (KRI), pour fixer un seuil
+   d'alerte.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -5220,3 +5264,45 @@ framework is enabled in **Setup > Plugins > GRC Manager**, **Frameworks** tab.
    reviews**).
 
 The page is computed again each time it is opened and changes nothing.
+
+### Step 94: Score a supplier on a compliance scale
+
+A question of a supplier questionnaire template can expect more than "Yes" or "No": the
+**compliance scale** offers **Compliant**, **Partially compliant**, **Non-compliant** and **Not
+applicable**.
+
+1. Open the template (**Questionnaire templates** button of the supplier risk list), **Questions**
+   tab, and choose **Compliance scale** in the **Answer type** column of each question concerned.
+   The expected answer is then always **Compliant**.
+2. Existing questions stay **Yes / No**: nothing changes for the questionnaires and evaluations
+   already done.
+3. In the evaluation, on the secure link page and in the exported file, the question offers the
+   four answers of the scale. The score counts **Compliant** as 1 point, **Partially compliant** as
+   0.5 and **Non-compliant** as 0, multiplied by the weight; **Not applicable** is left out of the
+   score.
+
+### Step 95: Turn Wazuh alerts into incidents and follow critical vulnerabilities (controls A.8.8, A.5.24 to A.5.26)
+
+When the GLPI Wazuh plugin is installed and active, GRC reads its alerts and vulnerabilities, without
+ever changing anything in it. Without that plugin, none of the following appears.
+
+1. Open Assistance > Security incidents, **EDR alerts import** tab (right to create an incident).
+   The **Wazuh alerts to review** box lists the alerts of the last 30 days on the computers you can
+   see. Repeated alerts (same rule on the same computer) form a single group, with their number, the
+   rule level, the agent, the last alert and a link to the alerts of the computer in the Wazuh
+   plugin.
+2. The **Minimum rule level** filter shows levels 7 and above by default; choose **Level 12 and
+   above** to keep only the most serious ones, or **All levels**.
+3. Tick the groups that deserve an incident, then **Create the incidents of the selected groups**.
+   Each group becomes a security incident (SIEM origin) with the computer, a severity taken from the
+   rule level (12 and above: critical, 7 to 11: major), the timestamps, the MITRE ATT&CK techniques
+   of the rule and the link to the alerts. An alert is never imported twice.
+4. When the same alert comes back while the incident is still open, the group shows the badge
+   **Already in an incident: new repetitions**; importing it adds a task to that incident instead of
+   opening a new one. Once the incident is solved or closed, a new repetition opens a new incident.
+5. In Assets > Asset security, the **Detected by Wazuh only** box names the computers affected by
+   each vulnerability and shows first the **computers with untreated critical vulnerabilities**:
+   CVSS 9 or more, still reported by Wazuh and without an approved, current waiver. An accepted
+   waiver removes the CVE from the count.
+6. The same indicator is available as a dashboard card ("Computers with untreated critical
+   vulnerabilities (Wazuh)") and as a key risk indicator (KRI) source, to set an alert threshold.

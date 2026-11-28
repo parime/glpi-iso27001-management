@@ -74,12 +74,28 @@ final class RiskMatrixDefaults
     ];
 
     /**
-     * Grille par défaut d'une taille de matrice (4 pour toute valeur inconnue).
+     * Grille par défaut d'une taille de matrice (4 pour toute valeur inconnue). Issue #1163 : les
+     * autres formes (3x3, 3x5, 5x3...) suivent la même construction, produit des rangs comparé aux
+     * seuils de la forme (RiskScale::thresholds()).
      *
      * @return array<string, array<string, string>>
      */
     public static function forSize(int $size): array
     {
-        return $size === 5 ? self::MATRIX_5 : self::MATRIX;
+        $size = RiskScale::normalizeSize($size);
+        if ($size === 5) {
+            return self::MATRIX_5;
+        }
+        if ($size === 4) {
+            return self::MATRIX;
+        }
+        $matrix = [];
+        foreach (RiskScale::probabilityKeys($size) as $p => $probability) {
+            foreach (RiskScale::impactKeys($size) as $i => $impact) {
+                $matrix[$probability][$impact] = RiskScale::levelFromScore(($p + 1) * ($i + 1), $size);
+            }
+        }
+
+        return $matrix;
     }
 }

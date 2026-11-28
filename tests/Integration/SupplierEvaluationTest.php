@@ -221,6 +221,40 @@ final class SupplierEvaluationTest extends GrcmanagerIntegrationTestCase
         $this->assertSame($level, $risk->fields['risk_level'], 'niveau de risque inchangé');
     }
 
+    /**
+     * Issue #1159 : échelle de conformité par question, copiée dans l'évaluation, notée 1 / 0,5 / 0,
+     * « Non applicable » exclu ; les questions Oui / Non gardent leur type par défaut.
+     */
+    public function testAComplianceScaleQuestionIsCopiedAndScored(): void
+    {
+        $template = $this->template([
+            ['question' => 'Is a security policy approved?', 'answer_type' => 'compliance', 'expected_answer' => 'no',
+                'weight' => 2],
+            ['question' => 'Are backups tested?', 'answer_type' => 'compliance', 'weight' => 2],
+            ['question' => 'Is there a data centre in the EU?', 'answer_type' => 'compliance', 'weight' => 5],
+            ['question' => 'Is MFA required?', 'weight' => 1],
+        ]);
+        $questions = SupplierQuestionnaireQuestion::getQuestions($template->getID());
+        $types = ['compliance', 'compliance', 'compliance', 'yes_no'];
+        $this->assertSame($types, array_column($questions, 'answer_type'));
+        $this->assertSame('yes', $questions[0]['expected_answer'], 'échelle : réponse attendue « Conforme »');
+
+        $evaluation = $this->evaluation($this->risk(), $template);
+        $answers = SupplierEvaluationAnswer::getAnswers($evaluation->getID());
+        $this->assertSame($types, array_column($answers, 'answer_type'));
+        $ids = $this->answerIds($evaluation);
+        SupplierEvaluationAnswer::saveAnswers($evaluation, [
+            $ids['Q01'] => 'yes',
+            $ids['Q02'] => 'partial',
+            $ids['Q03'] => 'na',
+            $ids['Q04'] => 'no',
+        ], []);
+        $evaluation->getFromDB($evaluation->getID());
+
+        // (2 x 1 + 2 x 0,5 + 1 x 0) / 5 = 60 %, la question non applicable (poids 5) ne compte pas.
+        $this->assertSame(60, (int) $evaluation->fields['score']);
+    }
+
     public function testCompletingFreezesTheAnswersAndFeedsTheScoreOfTheRisk(): void
     {
         $risk = $this->risk();

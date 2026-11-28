@@ -623,6 +623,8 @@ class SupplierEvaluationLink extends CommonGLPI
                 'question'          => (string) $row['question'],
                 'guidance'          => (string) ($row['guidance'] ?? ''),
                 'requires_evidence' => !empty($row['requires_evidence']),
+                // Issue #1159 : Oui / Non ou échelle de conformité, selon la question.
+                'labels'            => SupplierQuestionnaireQuestion::choicesFor($row['answer_type'] ?? ''),
                 'answer'            => (string) ($values[$id]['answer'] ?? ''),
                 'comment'           => (string) ($values[$id]['comment'] ?? ''),
             ];

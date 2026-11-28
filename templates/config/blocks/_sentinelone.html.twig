@@ -66,6 +66,19 @@
           'input_class': 'col-12',
         }) }}
       </div>
+      {# Issue #1160 : criticité minimale des vulnérabilités applicatives, appliquée avant l'enregistrement. #}
+      <div class="mt-2" style="max-width: 32rem">
+        <label class="form-label" for="grc-s1-min-severity"><i class="ti ti-filter me-1"></i>{{ __('Minimum severity of the imported vulnerabilities', 'grcmanager') }}</label>
+        <select class="form-select" id="grc-s1-min-severity" name="sentinelone_vuln_min_severity" {{ can_edit_config ? '' : 'disabled' }}>
+          {% for value, label in s1.min_severity_labels %}
+            <option value="{{ value }}" {{ value == s1.min_severity ? 'selected' }}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        <div class="form-hint">
+          {{ __('Vulnerabilities below this severity are skipped before being saved, which keeps the database light on a large fleet. The severity given by SentinelOne is used, otherwise the CVSS score; a vulnerability without either is kept.', 'grcmanager') }}
+          {{ __('Raising the threshold deletes nothing: the vulnerabilities already imported below it stay listed until SentinelOne stops reporting them. Lowering it imports the others at the next reading.', 'grcmanager') }}
+        </div>
+      </div>
       {% if can_edit_config %}
         <div class="d-flex flex-wrap gap-2 mt-2">
           <button type="submit" name="update_sentinelone_config" class="btn btn-primary">{{ __('Save') }}</button>

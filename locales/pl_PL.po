@@ -41653,3 +41653,231 @@ msgstr "Audyty zaplanowane lub przeprowadzone: %d"
 
 msgid "Audits completed in the last 12 months: %d"
 msgstr "Audyty zakończone w ostatnich 12 miesiącach: %d"
+
+msgid "Yes / No"
+msgstr "Tak / Nie"
+
+msgid "Compliance scale"
+msgstr "Skala zgodności"
+
+msgid "Answer type"
+msgstr "Typ odpowiedzi"
+
+msgid ""
+"Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially "
+"compliant, Non-compliant, Not applicable). On the scale, the expected answer "
+"is always \"Compliant\"."
+msgstr ""
+"Typ odpowiedzi: „Tak / Nie” albo skala zgodności (Zgodne, Częściowo zgodne, "
+"Niezgodne, Nie dotyczy). Na skali oczekiwaną odpowiedzią jest zawsze "
+"„Zgodne”."
+
+msgid ""
+"Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-"
+"compliant = 0; \"Not applicable\" is left out of the score."
+msgstr ""
+"Skala zgodności: Zgodne = 1 punkt, Częściowo zgodne = 0,5, Niezgodne = 0; "
+"„Nie dotyczy” nie wlicza się do wyniku."
+
+msgid "All (no filter)"
+msgstr "Wszystkie (bez filtra)"
+
+msgid "Low and above"
+msgstr "Niska i wyższa"
+
+msgid "Medium and above"
+msgstr "Średnia i wyższa"
+
+msgid "High and critical"
+msgstr "Wysoka i krytyczna"
+
+msgid "Critical only"
+msgstr "Tylko krytyczna"
+
+msgid "Minimum severity of the imported vulnerabilities"
+msgstr "Minimalna krytyczność importowanych podatności"
+
+msgid ""
+"Vulnerabilities below this severity are skipped before being saved, which "
+"keeps the database light on a large fleet. The severity given by SentinelOne "
+"is used, otherwise the CVSS score; a vulnerability without either is kept."
+msgstr ""
+"Podatności poniżej tej krytyczności są pomijane przed zapisem, co odciąża "
+"bazę przy dużym parku. Używana jest krytyczność podana przez SentinelOne, a "
+"w jej braku wynik CVSS; podatność bez żadnego z nich jest zachowywana."
+
+msgid ""
+"Raising the threshold deletes nothing: the vulnerabilities already imported "
+"below it stay listed until SentinelOne stops reporting them. Lowering it "
+"imports the others at the next reading."
+msgstr ""
+"Podniesienie progu niczego nie usuwa: już zaimportowane podatności poniżej "
+"progu pozostają na liście, dopóki SentinelOne ich zgłasza. Obniżenie progu "
+"importuje pozostałe przy następnym odczycie."
+
+msgid "Initial score"
+msgstr "Wynik początkowy"
+
+msgid "Residual score"
+msgstr "Wynik rezydualny"
+
+msgid "Score before and after treatment"
+msgstr "Wynik przed i po postępowaniu z ryzykiem"
+
+msgid "%1$d x %2$d"
+msgstr "%1$d x %2$d"
+
+msgid "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
+msgstr "%1$d x %2$d: %1$d poziomy prawdopodobieństwa, %2$d poziomy wpływu"
+
+msgid ""
+"Probability and impact can each have from 3 to 5 levels, independently, for "
+"example 3 levels of probability and 5 levels of impact. The colours of the "
+"new grid are proposed from the score (probability rank x impact rank) and "
+"can be adjusted afterwards."
+msgstr ""
+"Prawdopodobieństwo i wpływ mogą mieć niezależnie od 3 do 5 poziomów, na "
+"przykład 3 poziomy prawdopodobieństwa i 5 poziomów wpływu. Kolory nowej "
+"macierzy są proponowane na podstawie wyniku (ranga prawdopodobieństwa x "
+"ranga wpływu) i można je później dostosować."
+
+msgid ""
+"Score = probability rank x impact rank, before the treatment (initial) and "
+"after it (residual)."
+msgstr ""
+"Wynik = ranga prawdopodobieństwa x ranga wpływu, przed postępowaniem z "
+"ryzykiem (początkowy) i po nim (rezydualny)."
+
+msgid ""
+"The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
+"a score on another scale is converted (the lowest and highest scores match)."
+msgstr ""
+"Macierz wtyczki ma %1$d poziomy prawdopodobieństwa i %2$d poziomy wpływu: "
+"ocena w innej skali jest przeliczana (najniższa i najwyższa ocena sobie "
+"odpowiadają)."
+
+msgid "All levels"
+msgstr "Wszystkie poziomy"
+
+msgid "Level 7 and above"
+msgstr "Poziom 7 i wyższy"
+
+msgid "Level 12 and above"
+msgstr "Poziom 12 i wyższy"
+
+msgid "Wazuh rule %s"
+msgstr "Reguła Wazuh %s"
+
+msgid "Wazuh alert"
+msgstr "Alert Wazuh"
+
+msgid "Wazuh: %1$s (%2$s)"
+msgstr "Wazuh: %1$s (%2$s)"
+
+msgid ""
+"%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored."
+msgstr ""
+"Utworzone incydenty: %1$d, uzupełnione incydenty: %2$d, pominięte grupy: "
+"%3$d."
+
+msgid "Computers with untreated critical vulnerabilities (Wazuh)"
+msgstr "Komputery z nieobsłużonymi krytycznymi podatnościami (Wazuh)"
+
+msgid ""
+"Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin)."
+msgstr ""
+"Utworzono na podstawie alertów Wazuh wybranych w GRC (odczytanych z wtyczki "
+"Wazuh): %d."
+
+msgid "Rule:"
+msgstr "Reguła:"
+
+msgid "Rule level:"
+msgstr "Poziom reguły:"
+
+msgid "Agent:"
+msgstr "Agent:"
+
+msgid "Computer:"
+msgstr "Komputer:"
+
+msgid "First alert:"
+msgstr "Pierwszy alert:"
+
+msgid "Last alert:"
+msgstr "Ostatni alert:"
+
+msgid "Alerts:"
+msgstr "Alerty:"
+
+msgid "the %d most recent are listed."
+msgstr "wymieniono %d najnowszych."
+
+msgid "level %s"
+msgstr "poziom %s"
+
+msgid "See the alerts of this computer in the Wazuh plugin"
+msgstr "Zobacz alerty tego komputera we wtyczce Wazuh"
+
+msgid "Wazuh alerts to review"
+msgstr "Alerty Wazuh do sprawdzenia"
+
+msgid "Minimum rule level"
+msgstr "Minimalny poziom reguły"
+
+msgid "No new Wazuh alert at this level in the last %d days."
+msgstr "Brak nowych alertów Wazuh na tym poziomie w ciągu ostatnich %d dni."
+
+msgid ""
+"Alerts of the last %d days on the computers you can see, read from the Wazuh "
+"plugin. Repeated alerts (same rule on the same computer) are grouped. Tick "
+"the groups that deserve a security incident: each one becomes an incident "
+"with its computer, rule level, agent, dates and MITRE ATT&CK techniques; new "
+"repetitions are added to the incident while it stays open. Nothing is "
+"changed in Wazuh."
+msgstr ""
+"Alerty z ostatnich %d dni na komputerach, które widzisz, odczytane z wtyczki "
+"Wazuh. Powtarzające się alerty (ta sama reguła na tym samym komputerze) są "
+"grupowane. Zaznacz grupy, które zasługują na incydent bezpieczeństwa: każda "
+"staje się incydentem z komputerem, poziomem reguły, agentem, datami i "
+"technikami MITRE ATT&CK. Nowe powtórzenia są dodawane do incydentu, dopóki "
+"pozostaje otwarty. W Wazuh nic nie jest zmieniane."
+
+msgid "%1$d groups: the %2$d highest levels are shown."
+msgstr "Grupy: %1$d; wyświetlono %2$d o najwyższym poziomie."
+
+msgid "Last alert"
+msgstr "Ostatni alert"
+
+msgid "Agent"
+msgstr "Agent"
+
+msgid "Already in an incident: new repetitions"
+msgstr "Już w incydencie: nowe powtórzenia"
+
+msgid "since %s"
+msgstr "od %s"
+
+msgid "Alerts in Wazuh"
+msgstr "Alerty w Wazuh"
+
+msgid "Create the incidents of the selected groups"
+msgstr "Utwórz incydenty z zaznaczonych grup"
+
+msgid ""
+"No computer with an untreated critical vulnerability according to Wazuh."
+msgstr ""
+"Według Wazuh żaden komputer nie ma nieobsłużonej krytycznej podatności."
+
+msgid "Computers with untreated critical vulnerabilities"
+msgstr "Komputery z nieobsłużonymi krytycznymi podatnościami"
+
+msgid ""
+"Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not "
+"covered by an approved, current waiver."
+msgstr ""
+"Krytyczne podatności (CVSS 9 lub więcej) nadal zgłaszane przez Wazuh i "
+"nieobjęte zatwierdzonym, obowiązującym odstępstwem."
+
+msgid "%1$d computers: the %2$d most exposed are shown."
+msgstr "Komputery: %1$d; wyświetlono %2$d najbardziej narażonych."

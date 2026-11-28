@@ -286,6 +286,29 @@
       <div class="card-header">
          <h3 class="card-title"><i class="ti ti-heartbeat me-2"></i>{{ __('Detected by Wazuh only', 'grcmanager') }}</h3>
       </div>
+      {# Issue #1185 : ordinateurs avec une vulnérabilité critique non traitée (toutes les CVE vues par
+         Wazuh, y compris celles de la veille ci-dessus). #}
+      <div class="card-body border-bottom" id="grc-wazuh-critical">
+         {% if wazuh.critical_total == 0 %}
+            <span class="text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('No computer with an untreated critical vulnerability according to Wazuh.', 'grcmanager') }}</span>
+         {% else %}
+            <div class="mb-2">
+               <span class="badge bg-red text-white me-2">{{ wazuh.critical_total }}</span>
+               <strong>{{ __('Computers with untreated critical vulnerabilities', 'grcmanager') }}</strong>
+            </div>
+            <p class="text-muted small mb-2">{{ __('Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not covered by an approved, current waiver.', 'grcmanager') }}</p>
+            {% if wazuh.critical is not empty and wazuh.critical_total > wazuh.critical|length %}<p class="small">{{ __('%1$d computers: the %2$d most exposed are shown.', 'grcmanager')|format(wazuh.critical_total, wazuh.critical|length) }}</p>{% endif %}
+            <ul class="list-unstyled mb-0">
+               {% for computer in wazuh.critical %}
+                  <li class="mb-1">
+                     <a href="{{ computer.url }}"><i class="ti ti-device-desktop me-1"></i>{{ computer.name }}</a>
+                     {% for cve in computer.cves|slice(0, 5) %}<span class="badge bg-red-lt ms-1">{{ cve }}</span>{% endfor %}
+                     {% if computer.cves|length > 5 %}<span class="text-muted small ms-1">{{ __('and %d more', 'grcmanager')|format(computer.cves|length - 5) }}</span>{% endif %}
+                  </li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      </div>
       {% if wazuh.only is empty %}
          <div class="card-body text-muted"><i class="ti ti-circle-check me-1 text-green"></i>{{ __('Wazuh reports no vulnerability beyond those listed above.', 'grcmanager') }}</div>
       {% else %}
@@ -314,7 +337,17 @@
                         <a href="https://nvd.nist.gov/vuln/detail/{{ row.cve_id }}" target="_blank" rel="noopener">{{ row.cve_id }}</a>
                      </td>
                      <td>{% for p in row.packages %}<span class="badge bg-azure-lt me-1">{{ p }}</span>{% endfor %}</td>
-                     <td class="text-end"><strong>{{ row.machines }}</strong></td>
+                     <td class="text-end">
+                        <strong>{{ row.machines }}</strong>
+                        {# Issue #1185 : ordinateurs touchés, les premiers nommés. #}
+                        {% set touched = wazuh.computers[row.cve_id] ?? [] %}
+                        {% if touched is not empty %}
+                           <div class="small">
+                              {% for computer in touched %}<a href="{{ computer.url }}" class="d-block">{{ computer.name }}</a>{% endfor %}
+                              {% if row.machines > touched|length %}<span class="text-muted">{{ __('and %d more', 'grcmanager')|format(row.machines - touched|length) }}</span>{% endif %}
+                           </div>
+                        {% endif %}
+                     </td>
                      <td><span class="badge {{ cvss_class }}">{{ row.score is null ? (row.severity ?: __('n/a', 'grcmanager')) : row.score|number_format(1, ',') }}</span></td>
                      <td class="text-nowrap">{{ row.epss is null ? '-' : (row.epss * 100)|number_format(1, ',') ~ ' %' }}</td>
                      <td class="text-nowrap">

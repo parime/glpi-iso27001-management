@@ -33,15 +33,24 @@ final class RiskScale
 {
     public const DEFAULT_SIZE = 4;
 
-    /** @var list<int> */
-    public const SIZES = [4, 5];
+    /**
+     * Issue #1163 : formes de matrice. Une matrice carrée garde son code historique (3, 4 ou 5) ;
+     * une matrice rectangulaire est codée 10 x niveaux de probabilité + niveaux d'impact (35 : trois
+     * niveaux de probabilité, cinq d'impact). La colonne `scale_size` et les signatures `int $size`
+     * restent valables : une installation en 4x4 ou en 5x5 ne voit aucun changement.
+     *
+     * @var list<int>
+     */
+    public const SIZES = [3, 4, 5, 34, 35, 43, 45, 53, 54];
 
     /**
-     * Clés de probabilité, de la plus faible à la plus forte (le poids est le rang, à partir de 1).
+     * Clés de probabilité par nombre de niveaux, de la plus faible à la plus forte (le poids est le
+     * rang, à partir de 1).
      *
      * @var array<int, list<string>>
      */
     public const PROBABILITIES = [
+        3 => ['rare', 'possible', 'probable'],
         4 => ['rare', 'possible', 'probable', 'certain'],
         5 => ['very_rare', 'rare', 'possible', 'probable', 'certain'],
     ];
@@ -52,6 +61,7 @@ final class RiskScale
      * @var array<int, list<string>>
      */
     public const IMPACTS = [
+        3 => ['low', 'medium', 'high'],
         4 => ['low', 'medium', 'high', 'critical'],
         5 => ['negligible', 'low', 'medium', 'high', 'critical'],
     ];
@@ -79,7 +89,38 @@ final class RiskScale
 
     public static function normalizeSize(int $size): int
     {
+        // Une forme carrée écrite en deux chiffres (44) reprend son code historique (4).
+        if ($size >= 10 && intdiv($size, 10) === $size % 10) {
+            $size %= 10;
+        }
+
         return in_array($size, self::SIZES, true) ? $size : self::DEFAULT_SIZE;
+    }
+
+    /**
+     * Code d'une forme à partir du nombre de niveaux de chaque axe (taille par défaut hors de 3 à 5).
+     */
+    public static function shape(int $probabilityLevels, int $impactLevels): int
+    {
+        return self::normalizeSize(
+            $probabilityLevels === $impactLevels ? $probabilityLevels : 10 * $probabilityLevels + $impactLevels
+        );
+    }
+
+    /** Nombre de niveaux de probabilité d'une forme. */
+    public static function probabilityLevels(int $size): int
+    {
+        $size = self::normalizeSize($size);
+
+        return $size >= 10 ? intdiv($size, 10) : $size;
+    }
+
+    /** Nombre de niveaux d'impact d'une forme. */
+    public static function impactLevels(int $size): int
+    {
+        $size = self::normalizeSize($size);
+
+        return $size >= 10 ? $size % 10 : $size;
     }
 
     /**
@@ -87,7 +128,7 @@ final class RiskScale
      */
     public static function probabilityKeys(int $size): array
     {
-        return self::PROBABILITIES[self::normalizeSize($size)];
+        return self::PROBABILITIES[self::probabilityLevels($size)];
     }
 
     /**
@@ -95,7 +136,26 @@ final class RiskScale
      */
     public static function impactKeys(int $size): array
     {
-        return self::IMPACTS[self::normalizeSize($size)];
+        return self::IMPACTS[self::impactLevels($size)];
+    }
+
+    /**
+     * Issue #1163 : clé connue (toutes tailles) ramenée à l'échelle de la forme. Inchangée si elle en
+     * fait partie, sinon la valeur que lui donne la correspondance proposée depuis l'échelle à cinq
+     * niveaux, qui contient toutes les clés (l'ordre de l'axe est respecté).
+     */
+    public static function fold(string $axis, string $key, int $size): string
+    {
+        $axis = $axis === 'probability' ? 'probability' : 'impact';
+        $keys = $axis === 'probability' ? self::probabilityKeys($size) : self::impactKeys($size);
+        if (in_array($key, $keys, true)) {
+            return $key;
+        }
+        static $mappings = [];
+        $size = self::normalizeSize($size);
+        $mappings[$size] ??= self::proposedMapping(5, $size);
+
+        return $mappings[$size][$axis][$key] ?? $key;
     }
 
     /**
@@ -111,7 +171,7 @@ final class RiskScale
 
     public static function levelFromScore(float $score, int $size): string
     {
-        $thresholds = self::SCORE_THRESHOLDS[self::normalizeSize($size)];
+        $thresholds = self::thresholds($size);
 
         return match (true) {
             $score >= $thresholds['critical'] => 'critical',
@@ -119,6 +179,28 @@ final class RiskScale
             $score >= $thresholds['medium']   => 'medium',
             default                           => 'low',
         };
+    }
+
+    /**
+     * Seuils de score des niveaux medium, high et critical. Issue #1163 : une forme sans seuils
+     * historiques les place au quart, à la moitié et aux trois quarts du score maximal, arrondis au
+     * supérieur (en 4x4, ce sont exactement les seuils historiques 4, 8 et 12).
+     *
+     * @return array{medium: int, high: int, critical: int}
+     */
+    public static function thresholds(int $size): array
+    {
+        $size = self::normalizeSize($size);
+        if (isset(self::SCORE_THRESHOLDS[$size])) {
+            return self::SCORE_THRESHOLDS[$size];
+        }
+        $max = self::probabilityLevels($size) * self::impactLevels($size);
+
+        return [
+            'medium'   => (int) ceil($max / 4),
+            'high'     => (int) ceil($max / 2),
+            'critical' => (int) ceil($max * 3 / 4),
+        ];
     }
 
     /**

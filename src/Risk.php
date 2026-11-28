@@ -32,6 +32,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\ReviewReminderService;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
+use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
@@ -223,7 +224,7 @@ class Risk extends RiskBase
      */
     private function computeResidualLevel(array $input): array
     {
-        unset($input['residual_level']);
+        unset($input['residual_level'], $input['residual_score']);
         if (!array_key_exists('residual_probability', $input) && !array_key_exists('residual_impact', $input)) {
             return $input;
         }
@@ -236,8 +237,50 @@ class Risk extends RiskBase
         $input['residual_level'] = $probability !== '' && $impact !== ''
             ? RiskMatrixConfig::scoring()->level($probability, $impact)
             : '';
+        // Issue #1163 : score résiduel, à comparer au score initial ; vide tant que non évalué.
+        $input['residual_score'] = $probability !== '' && $impact !== ''
+            ? RiskMatrixConfig::scoring()->score($probability, $impact)
+            : null;
 
         return $input;
+    }
+
+    /**
+     * Issue #1163 : score enregistré (décimal en base) affiché sans décimales inutiles (« 12 »).
+     */
+    public static function formatScore(mixed $value): string
+    {
+        $score = (float) $value;
+
+        return abs($score - round($score)) < 0.001
+            ? (string) (int) round($score)
+            : number_format($score, 2, '.', '');
+    }
+
+    /**
+     * Issue #1163 : score initial et score résiduel côte à côte, avec le score maximal de la matrice
+     * configurée ; résiduel null tant qu'il n'est pas évalué.
+     *
+     * @param array<string, mixed> $fields
+     * @return array{initial: string, residual: string|null, max: int}
+     */
+    public static function scoreComparison(array $fields): array
+    {
+        $residual = $fields['residual_score'] ?? null;
+        if (($residual === null || $residual === '') && (string) ($fields['residual_level'] ?? '') !== '') {
+            // Risque évalué avant l'ajout de la colonne et jamais réenregistré depuis.
+            $residual = RiskMatrixConfig::scoring()->score(
+                (string) $fields['residual_probability'],
+                (string) $fields['residual_impact']
+            );
+        }
+        $size = RiskMatrixConfig::size();
+
+        return [
+            'initial'  => self::formatScore($fields['computed_score'] ?? 0),
+            'residual' => $residual === null || $residual === '' ? null : self::formatScore($residual),
+            'max'      => RiskScale::probabilityLevels($size) * RiskScale::impactLevels($size),
+        ];
     }
 
     /**
@@ -466,6 +509,24 @@ class Risk extends RiskBase
             ];
         }
 
+        // Issue #1163 : score avant et après traitement, deux colonnes côte à côte dans la liste.
+        $tab[] = [
+            'id'            => 17,
+            'table'         => $this->getTable(),
+            'field'         => 'computed_score',
+            'name'          => __('Initial score', 'grcmanager'),
+            'datatype'      => 'specific',
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'            => 18,
+            'table'         => $this->getTable(),
+            'field'         => 'residual_score',
+            'name'          => __('Residual score', 'grcmanager'),
+            'datatype'      => 'specific',
+            'massiveaction' => false,
+        ];
+
         // Issue #602 : référence du risque dans le registre tenu en tableur (clé de l'import CSV).
         $tab[] = [
             'id'       => 16,
@@ -509,6 +570,15 @@ class Risk extends RiskBase
             $values = [$field => $values];
         }
 
+        // Issue #1163 : scores initial et résiduel, entiers (rang x rang) ; résiduel vide tant
+        // qu'il n'est pas évalué.
+        if ($field === 'computed_score' || $field === 'residual_score') {
+            $value = $values[$field] ?? null;
+
+            return $value === null || $value === ''
+                ? htmlescape(__('To be assessed', 'grcmanager'))
+                : htmlescape(self::formatScore($value));
+        }
         // Issue #378 : risque résiduel, vide tant qu'il n'est pas évalué.
         $residual = self::RESIDUAL_FIELDS;
         if (isset($residual[$field])) {
@@ -630,7 +700,12 @@ class Risk extends RiskBase
             'residual_impacts'    => ['' => __('To be assessed', 'grcmanager')] + self::getImpacts(),
             'residual_badge'      => (string) ($this->fields['residual_level'] ?? '') !== ''
                 ? self::riskLevelBadge((string) $this->fields['residual_level']) : '',
+            // Issue #1163 : badges du comparatif des scores, inclus par le gabarit (échappés, sans |raw).
+            'risk_level_badge_data' => self::riskLevelBadgeData($this->fields['risk_level'] ?? null),
+            'residual_badge_data' => (string) ($this->fields['residual_level'] ?? '') !== ''
+                ? self::riskLevelBadgeData((string) $this->fields['residual_level']) : null,
             'appetite_on_residual' => (string) ($this->fields['residual_level'] ?? '') !== '',
+            'scores'              => $isNew ? null : self::scoreComparison($this->fields),
             'appetite_url'        => RiskAppetite::getSearchURL(),
             'accepted_by'         => (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
                 ? getUserName((int) $this->fields['users_id_acceptance']) : '',

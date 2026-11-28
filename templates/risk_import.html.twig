@@ -162,7 +162,11 @@
                 <option value="{{ scale }}"{% if scale == matrix_size %} selected{% endif %}>{{ __('From 1 to %d', 'grcmanager')|format(scale) }}</option>
               {% endfor %}
             </select>
-            <div class="form-hint">{{ __('The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match).', 'grcmanager')|format(matrix_size) }}</div>
+            {% if matrix_impact_levels|default(matrix_size) == matrix_size %}
+              <div class="form-hint">{{ __('The plugin matrix has %d levels: a score on another scale is converted (the lowest and highest scores match).', 'grcmanager')|format(matrix_size) }}</div>
+            {% else %}
+              <div class="form-hint">{{ __('The plugin matrix has %1$d levels of probability and %2$d levels of impact: a score on another scale is converted (the lowest and highest scores match).', 'grcmanager')|format(matrix_size, matrix_impact_levels) }}</div>
+            {% endif %}
           </div>
         </div>
         <div class="d-flex gap-2 mt-3">

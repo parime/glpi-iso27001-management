@@ -146,6 +146,11 @@
 </div>
 {% endif %}
 
+{# Issue #1185 : alertes Wazuh à revoir (plugin Wazuh actif seulement). #}
+{% if wazuh is defined and wazuh %}
+  {{ include('@grcmanager/_wazuh_alert_review.html.twig') }}
+{% endif %}
+
 <div class="card">
   <div class="card-header">
     <h3 class="card-title"><i class="ti ti-file-import me-2"></i>{{ __('Import an EDR / XDR export', 'grcmanager') }}</h3>

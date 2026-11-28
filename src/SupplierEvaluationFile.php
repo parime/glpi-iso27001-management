@@ -135,7 +135,13 @@ class SupplierEvaluationFile extends CommonGLPI
     public static function export(SupplierEvaluation $evaluation): string
     {
         $answers = SupplierEvaluationAnswer::getAnswers($evaluation->getID());
-        $content = AnswerFile::build($evaluation->getID(), $answers, self::header(), self::answerLabels());
+        $content = AnswerFile::build(
+            $evaluation->getID(),
+            $answers,
+            self::header(),
+            self::answerLabels(),
+            SupplierQuestionnaireQuestion::complianceLabels()
+        );
         Log::history($evaluation->getID(), SupplierEvaluation::class, [
             0,
             '',
@@ -158,7 +164,8 @@ class SupplierEvaluationFile extends CommonGLPI
             $content,
             $evaluation->getID(),
             SupplierEvaluationAnswer::getAnswers($evaluation->getID()),
-            self::answerLabels()
+            self::answerLabels(),
+            SupplierQuestionnaireQuestion::complianceLabels()
         );
     }
 
@@ -369,6 +376,8 @@ class SupplierEvaluationFile extends CommonGLPI
             'warnings'        => array_map([self::class, 'warningMessage'], $parsed['warnings']),
             'evidence_names'  => array_keys($parsed['evidence']),
             'labels'          => self::answerLabels(),
+            'scale_labels'    => SupplierQuestionnaireQuestion::complianceLabels(),
+            'scale_type'      => Rules::TYPE_COMPLIANCE,
             'can_upload'      => $risk !== null && $risk->canAddItem('Document') && Document::canCreate(),
             'action'          => self::getActionURL(),
         ];

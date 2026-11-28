@@ -217,7 +217,13 @@ TemplateRenderer::getInstance()->display('@grcmanager/risk_import.html.twig', [
     'max_rows'     => RiskRegisterCsv::MAX_ROWS,
     'scales'       => RiskRegisterCsv::SCALES,
     // Issue #706 : taille de la matrice (4 ou 5 niveaux par axe), échelle proposée par défaut.
-    'matrix_size'  => \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size(),
+    // Issue #1163 : nombre de niveaux de chaque axe (3 à 5, indépendants).
+    'matrix_size'  => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::probabilityLevels(
+        \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size()
+    ),
+    'matrix_impact_levels' => \GlpiPlugin\Grcmanager\Services\Risk\RiskScale::impactLevels(
+        \GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig::size()
+    ),
     'probabilities' => implode(', ', Risk::getProbabilities()),
     'impacts'       => implode(', ', Risk::getImpacts()),
     'treatments'    => implode(', ', array_filter(Risk::getTreatments())),
