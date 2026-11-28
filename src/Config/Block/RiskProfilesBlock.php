@@ -23,7 +23,6 @@ use GlpiPlugin\Grcmanager\Config\ConfigBlock;
 use GlpiPlugin\Grcmanager\Config\MovedSettings;
 use GlpiPlugin\Grcmanager\Install\Installer;
 use GlpiPlugin\Grcmanager\RiskProfiles;
-use Profile;
 use Session;
 
 /**
@@ -65,7 +64,6 @@ final class RiskProfilesBlock extends ConfigBlock
                 'name'       => $definition['name'],
                 'purpose'    => $definition['purpose'],
                 'rights'     => RiskProfiles::rightsSummary($key),
-                'url'        => $id > 0 && Profile::canView() ? Profile::getFormURLWithID($id) : '',
                 'exists'     => $id > 0,
                 'can_create' => $id === 0 && RiskProfiles::canCreate($key),
             ];

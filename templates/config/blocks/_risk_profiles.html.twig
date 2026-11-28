@@ -31,7 +31,7 @@
         <tbody>
           {% for profile in risk_profiles %}
             <tr>
-              <td class="fw-bold">{% if profile.url %}<a href="{{ profile.url }}">{{ profile.name }}</a>{% else %}{{ profile.name }}{% endif %}</td>
+              <td class="fw-bold">{{ profile.name }}</td>
               <td>{{ profile.purpose }}</td>
               <td><ul class="mb-0 ps-3">{% for right in profile.rights %}<li>{{ right }}</li>{% endfor %}</ul></td>
               <td class="text-nowrap">
