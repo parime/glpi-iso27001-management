@@ -39,6 +39,8 @@
       'add_field_html': hints.hint(__('After the treatment. Leave "To be assessed" until the treatment is defined: the initial risk is then compared to the appetite.', 'grcmanager')),
    }) }}
    {{ fields.dropdownArrayField('residual_impact', item.fields['residual_impact']|default(''), residual_impacts, __('Residual impact', 'grcmanager')) }}
+   {# Issue #1182 : risque cible et efficacité du traitement. #}
+   {{ include('@grcmanager/_risk_target_fields.html.twig') }}
    {% if not is_new %}
       {% if residual_badge %}
          {{ fields.htmlField('', residual_badge, __('Residual risk level', 'grcmanager')) }}
@@ -110,6 +112,8 @@
    {{ fields.dropdownArrayField('treatment', item.fields['treatment'], treatments, __('Treatment', 'grcmanager'), plan_relevant ? {
       'add_field_html': hints.hint(__('A treatment plan (one or more concrete actions) is expected for this choice, see further down this record.', 'grcmanager')),
    } : {}) }}
+   {# Issue #1182 : acceptation signée (séparation des tâches, expiration, renouvellement). #}
+   {{ include('@grcmanager/_risk_acceptance_fields.html.twig') }}
    {{ fields.dropdownArrayField('status', item.fields['status'] ?: 'identified', statuses, __('Status', 'grcmanager')) }}
    {{ fields.dateField('review_date', item.fields['review_date'], __('Review date', 'grcmanager')) }}
    {{ fields.textareaField('description', item.fields['description'], __('Description', 'grcmanager'), {'full_width': true}) }}

@@ -96,7 +96,11 @@ final class ConfigTabsTest extends TestCase
     {
         $keys = array_map(static fn (string $block): string => $block::key(), ConfigTabs::blocksOf('risks'));
         $this->assertSame(
-            ['RiskMatrix', 'RiskAppetite', 'KriAlert', 'ConsistencyRules', 'SecurityIncidents', 'ContinuityPlan'],
+            [
+                'RiskMatrix', 'RiskAppetite', 'KriAlert', 'ConsistencyRules', 'SecurityIncidents', 'ContinuityPlan',
+                // Issue #1182 : profils prêts à attribuer.
+                'RiskProfiles',
+            ],
             $keys
         );
     }

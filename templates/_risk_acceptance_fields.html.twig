@@ -1,0 +1,54 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1182 : acceptation signée du risque (séparation des tâches, date d'expiration, renouvellement),
+   incluse par risk_form.html.twig (dans le formulaire du risque). La signature est posée côté serveur
+   (Risk::applyAppetite()) : jamais par le propriétaire du risque, même en forçant le formulaire. #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% if not is_new and item.fields['treatment'] == 'accept' %}
+   {% set acceptance_html %}<div data-grc-acceptance="{{ acceptance_signed ? 'signed' : 'unsigned' }}">
+      {% if acceptance_signed %}
+         <div>
+            {% if acceptance_badge %}<span class="badge {{ acceptance_badge.class }}" id="grc-risk-acceptance-state"><i class="ti {{ acceptance_badge.icon }} me-1"></i>{{ acceptance_badge.label }}</span>{% endif %}
+            <span class="ms-1">{{ __('Signed by %1$s on %2$s', 'grcmanager')|format(acceptance_signed_by, acceptance_signed_on|formatted_datetime) }}</span>
+            {% if acceptance_expiry %}<span class="ms-1 text-secondary">{{ __('valid until %s', 'grcmanager')|format(acceptance_expiry) }}</span>{% endif %}
+         </div>
+         {% if acceptance_renew %}
+            <div class="text-warning-emphasis small mt-1"><i class="ti ti-alert-triangle me-1"></i>{{ __('This acceptance must be renewed: review the risk, then sign it again.', 'grcmanager') }}</div>
+         {% endif %}
+      {% else %}
+         <span class="badge bg-secondary-lt" id="grc-risk-acceptance-state"><i class="ti ti-signature-off me-1"></i>{{ __('Acceptance not signed', 'grcmanager') }}</span>
+      {% endif %}
+      <div class="form-hint">{{ __('The acceptance is signed by a person other than the owner of the risk (segregation of duties), and is valid until its expiry date.', 'grcmanager') }}</div>
+      {% if can_sign_acceptance %}
+         {% if is_risk_owner %}
+            <div class="text-secondary small mt-2" id="grc-risk-acceptance-owner"><i class="ti ti-user-x me-1"></i>{{ __('You are the owner of this risk: you cannot sign its acceptance.', 'grcmanager') }}</div>
+         {% else %}
+            <div class="row g-2 align-items-end mt-1">
+               <div class="col-md-6">
+                  <label class="form-label" for="grc-acceptance-expiry">{{ __('Acceptance valid until', 'grcmanager') }}</label>
+                  <input type="date" id="grc-acceptance-expiry" name="acceptance_expiry" class="form-control" value="{{ acceptance_default }}">
+               </div>
+               <div class="col-md-6">
+                  <label class="form-check mb-2">
+                     <input type="checkbox" class="form-check-input" name="sign_acceptance" value="1" id="grc-sign-acceptance">
+                     <span class="form-check-label">{{ acceptance_signed ? __('Renew the acceptance (sign again)', 'grcmanager') : __('Sign the acceptance', 'grcmanager') }}</span>
+                  </label>
+               </div>
+            </div>
+         {% endif %}
+      {% endif %}
+   </div>{% endset %}
+   {{ fields.htmlField('', acceptance_html, __('Acceptance of the risk', 'grcmanager'), {'full_width': true}) }}
+{% endif %}
