@@ -42002,7 +42002,7 @@ msgstr ""
 "Wazuh. Gli avvisi ripetuti (stessa regola sullo stesso computer) sono "
 "raggruppati. Selezioni i gruppi che meritano un incidente di sicurezza: "
 "ciascuno diventa un incidente con il suo computer, il livello della regola, "
-"l'agente, le date e le tecniche MITRE ATT&CK; le nuove ripetizioni vengono "
+"l'agente, le date e le tecniche MITRE ATT&CK. Le nuove ripetizioni vengono "
 "aggiunte all'incidente finché resta aperto. Nulla viene modificato in Wazuh."
 
 msgid "%1$d groups: the %2$d highest levels are shown."

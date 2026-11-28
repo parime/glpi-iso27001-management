@@ -42063,7 +42063,7 @@ msgstr ""
 "el plugin Wazuh. Las alertas repetidas (misma regla en el mismo ordenador) "
 "se agrupan. Marque los grupos que merecen un incidente de seguridad: cada "
 "uno se convierte en un incidente con su ordenador, el nivel de la regla, el "
-"agente, las fechas y las técnicas MITRE ATT&CK; las nuevas repeticiones se "
+"agente, las fechas y las técnicas MITRE ATT&CK. Las nuevas repeticiones se "
 "añaden al incidente mientras siga abierto. No se modifica nada en Wazuh."
 
 msgid "%1$d groups: the %2$d highest levels are shown."

@@ -41840,7 +41840,7 @@ msgstr ""
 "Wazuh. Powtarzające się alerty (ta sama reguła na tym samym komputerze) są "
 "grupowane. Zaznacz grupy, które zasługują na incydent bezpieczeństwa: każda "
 "staje się incydentem z komputerem, poziomem reguły, agentem, datami i "
-"technikami MITRE ATT&CK; nowe powtórzenia są dodawane do incydentu, dopóki "
+"technikami MITRE ATT&CK. Nowe powtórzenia są dodawane do incydentu, dopóki "
 "pozostaje otwarty. W Wazuh nic nie jest zmieniane."
 
 msgid "%1$d groups: the %2$d highest levels are shown."
