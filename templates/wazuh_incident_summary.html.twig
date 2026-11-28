@@ -1,0 +1,33 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1185 : description d'un incident créé à partir d'alertes Wazuh (ou de la tâche qui ajoute
+   leurs répétitions à l'incident ouvert du même groupe). Données lues dans le plugin Wazuh,
+   échappées par Twig. #}
+<p>{{ __('Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin).', 'grcmanager')|format(count) }}</p>
+<ul>
+  <li>{{ __('Rule:', 'grcmanager') }} {{ description ?: '-' }}{% if rule_id %} ({{ rule_id }}){% endif %}</li>
+  <li>{{ __('Rule level:', 'grcmanager') }} {{ level ?? '?' }}</li>
+  <li>{{ __('Agent:', 'grcmanager') }} {{ agent ?: '-' }}</li>
+  <li>{{ __('Computer:', 'grcmanager') }} {{ computer }}</li>
+  <li>{{ __('First alert:', 'grcmanager') }} {{ first }}</li>
+  <li>{{ __('Last alert:', 'grcmanager') }} {{ last }}</li>
+</ul>
+<p>{{ __('Alerts:', 'grcmanager') }}{% if count > alerts|length %} {{ __('the %d most recent are listed.', 'grcmanager')|format(alerts|length) }}{% endif %}</p>
+<ul>
+  {% for alert in alerts %}
+    <li>{{ alert.date }} - {{ __('level %s', 'grcmanager')|format(alert.level ?? '?') }} - {{ alert.key }}</li>
+  {% endfor %}
+</ul>
+<p><a href="{{ alerts_url }}">{{ __('See the alerts of this computer in the Wazuh plugin', 'grcmanager') }}</a></p>

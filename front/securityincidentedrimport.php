@@ -19,6 +19,8 @@ use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\SecurityIncidentEdrImport;
 use GlpiPlugin\Grcmanager\SentinelOneAlert;
 use GlpiPlugin\Grcmanager\Services\Incident\EdrCsvImport;
+use GlpiPlugin\Grcmanager\Services\Incident\WazuhAlertGrouping;
+use GlpiPlugin\Grcmanager\WazuhAlertImport;
 
 // Issue #370 : import d'un export CSV d'EDR / XDR (fichier, correspondance des colonnes, résultat).
 Session::checkRight(PluginGrcmanagerSecurityIncident::$rightname, CREATE);
@@ -61,6 +63,30 @@ if (isset($_POST['s1_import']) || isset($_POST['s1_ignore'])) {
         Session::addMessageAfterRedirect(htmlescape(sprintf(__('%d alert(s) set aside.', 'grcmanager'), $count)));
     }
     Html::redirect(SecurityIncidentEdrImport::getImportURL() . '#grc-sentinelone-review');
+}
+
+// Issue #1185 : groupes d'alertes Wazuh choisis -> incidents de sécurité. Même droit que la page (créer
+// un incident) ; ordinateurs visibles et lisibles seulement, clés relues sur le serveur. Rien n'est
+// écrit dans les tables du plugin Wazuh.
+if (isset($_POST['wazuh_import'])) {
+    $keys = array_values(array_filter(array_map('strval', (array) ($_POST['wazuh_groups'] ?? []))));
+    if ($keys === []) {
+        Session::addMessageAfterRedirect(htmlescape(__('Select at least one alert.', 'grcmanager')), false, WARNING);
+    } else {
+        $result = WazuhAlertImport::importSelected($keys);
+        Session::addMessageAfterRedirect(htmlescape(sprintf(
+            __('%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored.', 'grcmanager'),
+            count($result['created']),
+            count($result['updated']),
+            $result['skipped']
+        )));
+        if (count($result['created']) + count($result['updated']) === 1) {
+            Html::redirect(PluginGrcmanagerSecurityIncident::getFormURLWithID(
+                $result['created'][0] ?? $result['updated'][0]
+            ));
+        }
+    }
+    Html::redirect(SecurityIncidentEdrImport::getImportURL() . '#grc-wazuh-review');
 }
 
 $tmpKey = 'grcmanager_edr_import';
@@ -169,5 +195,7 @@ if (isset($_POST['import']) && $valid) {
 TemplateRenderer::getInstance()->display('@grcmanager/edr_import.html.twig', $params + [
     'step'        => $step,
     'sentinelone' => $step === 'upload' ? SentinelOneAlert::reviewData() : null,
+    'wazuh'       => $step === 'upload'
+        ? WazuhAlertImport::reviewData(WazuhAlertGrouping::level($_GET['wazuh_level'] ?? null)) : null,
 ]);
 Html::footer();

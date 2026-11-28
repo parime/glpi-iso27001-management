@@ -1,0 +1,105 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "All levels"
+msgstr "Alle Stufen"
+
+msgid "Level 7 and above"
+msgstr "Stufe 7 und höher"
+
+msgid "Level 12 and above"
+msgstr "Stufe 12 und höher"
+
+msgid "Wazuh rule %s"
+msgstr "Wazuh-Regel %s"
+
+msgid "Wazuh alert"
+msgstr "Wazuh-Warnung"
+
+msgid "Wazuh: %1$s (%2$s)"
+msgstr "Wazuh: %1$s (%2$s)"
+
+msgid "%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored."
+msgstr "%1$d Vorfall/Vorfälle erstellt, %2$d Vorfall/Vorfälle ergänzt, %3$d Gruppe(n) ignoriert."
+
+msgid "Computers with untreated critical vulnerabilities (Wazuh)"
+msgstr "Computer mit unbehandelten kritischen Schwachstellen (Wazuh)"
+
+msgid "Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin)."
+msgstr "Erstellt aus %d in GRC ausgewählten Wazuh-Warnung(en) (aus dem Wazuh-Plugin gelesen)."
+
+msgid "Rule:"
+msgstr "Regel:"
+
+msgid "Rule level:"
+msgstr "Regelstufe:"
+
+msgid "Agent:"
+msgstr "Agent:"
+
+msgid "Computer:"
+msgstr "Computer:"
+
+msgid "First alert:"
+msgstr "Erste Warnung:"
+
+msgid "Last alert:"
+msgstr "Letzte Warnung:"
+
+msgid "Alerts:"
+msgstr "Warnungen:"
+
+msgid "the %d most recent are listed."
+msgstr "die %d neuesten sind aufgeführt."
+
+msgid "level %s"
+msgstr "Stufe %s"
+
+msgid "See the alerts of this computer in the Wazuh plugin"
+msgstr "Die Warnungen dieses Computers im Wazuh-Plugin anzeigen"
+
+msgid "Wazuh alerts to review"
+msgstr "Zu prüfende Wazuh-Warnungen"
+
+msgid "Minimum rule level"
+msgstr "Mindeststufe der Regel"
+
+msgid "No new Wazuh alert at this level in the last %d days."
+msgstr "Keine neue Wazuh-Warnung auf dieser Stufe in den letzten %d Tagen."
+
+msgid "Alerts of the last %d days on the computers you can see, read from the Wazuh plugin. Repeated alerts (same rule on the same computer) are grouped. Tick the groups that deserve a security incident: each one becomes an incident with its computer, rule level, agent, dates and MITRE ATT&CK techniques; new repetitions are added to the incident while it stays open. Nothing is changed in Wazuh."
+msgstr "Warnungen der letzten %d Tage auf den Computern, die Sie sehen können, aus dem Wazuh-Plugin gelesen. Wiederholte Warnungen (gleiche Regel auf demselben Computer) werden gruppiert. Kreuzen Sie die Gruppen an, die einen Sicherheitsvorfall verdienen: Jede wird zu einem Vorfall mit ihrem Computer, der Regelstufe, dem Agenten, den Daten und den MITRE ATT&CK-Techniken; neue Wiederholungen werden dem Vorfall hinzugefügt, solange er offen bleibt. In Wazuh wird nichts geändert."
+
+msgid "%1$d groups: the %2$d highest levels are shown."
+msgstr "%1$d Gruppen: Die %2$d mit der höchsten Stufe werden angezeigt."
+
+msgid "Last alert"
+msgstr "Letzte Warnung"
+
+msgid "Agent"
+msgstr "Agent"
+
+msgid "Already in an incident: new repetitions"
+msgstr "Bereits in einem Vorfall: neue Wiederholungen"
+
+msgid "since %s"
+msgstr "seit %s"
+
+msgid "Alerts in Wazuh"
+msgstr "Warnungen in Wazuh"
+
+msgid "Create the incidents of the selected groups"
+msgstr "Vorfälle für die ausgewählten Gruppen erstellen"
+
+msgid "No computer with an untreated critical vulnerability according to Wazuh."
+msgstr "Laut Wazuh kein Computer mit einer unbehandelten kritischen Schwachstelle."
+
+msgid "Computers with untreated critical vulnerabilities"
+msgstr "Computer mit unbehandelten kritischen Schwachstellen"
+
+msgid "Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not covered by an approved, current waiver."
+msgstr "Kritische Schwachstellen (CVSS 9 oder höher), die Wazuh weiterhin meldet und die nicht durch eine genehmigte, laufende Ausnahmegenehmigung abgedeckt sind."
+
+msgid "%1$d computers: the %2$d most exposed are shown."
+msgstr "%1$d Computer: Die %2$d am stärksten gefährdeten werden angezeigt."

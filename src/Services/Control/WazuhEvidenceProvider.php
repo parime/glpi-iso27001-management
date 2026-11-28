@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace GlpiPlugin\Grcmanager\Services\Control;
 
 use Computer;
+use GlpiPlugin\Grcmanager\ParkRemediation;
+use GlpiPlugin\Grcmanager\ParkVulnerability;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilityRules;
 use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
 
@@ -29,6 +31,10 @@ use GlpiPlugin\Grcmanager\Services\Cve\ParkVulnerabilitySync;
  */
 final class WazuhEvidenceProvider
 {
+    /** Issue #1185 : ordinateurs nommés au plus par CVE, et ordinateurs critiques listés. */
+    public const MAX_COMPUTERS_PER_CVE = 5;
+    public const MAX_CRITICAL_SHOWN = 50;
+
     /** Table des agents utilisable, ou null si le plugin Wazuh n'est pas exploitable. */
     public static function agentTable(): ?string
     {
@@ -148,12 +154,68 @@ final class WazuhEvidenceProvider
      * avec la veille NVD (voir WazuhEvidence::aggregateVulnerabilities()), enrichies des signaux KEV et
      * EPSS déjà connus du plugin. Null si le plugin Wazuh ou sa table manque.
      *
+     * Issue #1185 : `computers` donne les ordinateurs touchés par chaque CVE de `only` (nom et
+     * lien, les premiers seulement) et `critical` les ordinateurs avec une vulnérabilité critique non
+     * traitée (voir untreatedCritical()).
+     *
      * @param array<string, true> $knownCves CVE déjà listées par la veille
      * @return array{also: array<string, int>, only: list<array{cve_id: string, packages: list<string>,
      *     machines: int, score: float|null, severity: string, is_kev: bool, epss: float|null,
-     *     priority: bool}>}|null
+     *     priority: bool}>, computers: array<string, list<array{name: string, url: string}>>,
+     *     critical: list<array{name: string, url: string, cves: list<string>}>, critical_total: int}|null
      */
     public static function fetchVulnerabilities(array $knownCves): ?array
+    {
+        try {
+            $findings = self::readFindings(array_keys(self::visibleComputerIds()));
+            if ($findings === null) {
+                return null;
+            }
+            $result = WazuhEvidence::aggregateVulnerabilities($findings, $knownCves);
+            $critical = WazuhEvidence::untreatedCritical($findings, self::waivedCves($findings));
+            // Noms des ordinateurs seulement avec la lecture native des ordinateurs : sinon, les
+            // nombres restent, sans nom ni lien.
+            $canSeeComputers = (bool) Computer::canView();
+            $shown = $canSeeComputers ? array_slice($critical, 0, self::MAX_CRITICAL_SHOWN, true) : [];
+            $wanted = array_keys($shown);
+            foreach ($canSeeComputers ? $result['computers'] : [] as $ids) {
+                $wanted = array_merge($wanted, array_slice($ids, 0, self::MAX_COMPUTERS_PER_CVE));
+            }
+            $names = self::computerNames($wanted);
+            $link = static fn (int $id): array => [
+                'name' => $names[$id] ?? (string) $id,
+                'url'  => Computer::getFormURLWithID($id),
+            ];
+            $computers = [];
+            foreach ($canSeeComputers ? $result['computers'] : [] as $cve => $ids) {
+                $computers[$cve] = array_map($link, array_slice($ids, 0, self::MAX_COMPUTERS_PER_CVE));
+            }
+            $criticalRows = [];
+            foreach ($shown as $id => $cves) {
+                $criticalRows[] = $link($id) + ['cves' => $cves];
+            }
+
+            return [
+                'also'           => $result['also'],
+                'only'           => self::withExploitSignals($result['only']),
+                'computers'      => $computers,
+                'critical'       => $criticalRows,
+                'critical_total' => count($critical),
+            ];
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Issue #1185 : lignes de vulnérabilités Wazuh toujours signalées sur les ordinateurs donnés.
+     * Null si le plugin Wazuh ou sa table manque.
+     *
+     * @param list<int> $computerIds
+     * @return list<array{cve: string, computers_id: int, score: float|null, severity: string,
+     *     package: string, version: string}>|null
+     */
+    private static function readFindings(array $computerIds): ?array
     {
         global $DB;
 
@@ -169,35 +231,156 @@ final class WazuhEvidenceProvider
         if ($table === null) {
             return null;
         }
+        $findings = [];
+        if ($computerIds === []) {
+            return $findings;
+        }
+        foreach (
+            $DB->request([
+                'SELECT' => ['name', 'computers_id', 'v_severity', 'v_score', 'p_name', 'p_version'],
+                'FROM'   => $table,
+                'WHERE'  => [
+                    'is_deleted'     => 0,
+                    'is_discontinue' => 0,
+                    'computers_id'   => $computerIds,
+                ],
+            ]) as $row
+        ) {
+            $findings[] = [
+                'cve'          => (string) $row['name'],
+                'computers_id' => (int) $row['computers_id'],
+                'score'        => $row['v_score'] !== null && (float) $row['v_score'] > 0
+                    ? (float) $row['v_score'] : null,
+                'severity'     => (string) ($row['v_severity'] ?? ''),
+                'package'      => (string) ($row['p_name'] ?? ''),
+                'version'      => (string) ($row['p_version'] ?? ''),
+            ];
+        }
+
+        return $findings;
+    }
+
+    /**
+     * CVE critiques des lignes données couvertes par une dérogation validée en cours (voir
+     * ParkRemediation::waiversByCve()).
+     *
+     * @param list<array{cve: string, computers_id: int, score: float|null, severity: string}> $findings
+     * @return array<string, true>
+     */
+    private static function waivedCves(array $findings): array
+    {
+        global $DB;
+
+        $cves = [];
+        foreach ($findings as $finding) {
+            if (WazuhEvidence::isCritical($finding['score'], $finding['severity'])) {
+                $cves[strtoupper(trim($finding['cve']))] = true;
+            }
+        }
+        if ($cves === [] || !$DB->tableExists(ParkRemediation::WAIVER_CVES_TABLE)) {
+            return [];
+        }
+        $today = date('Y-m-d');
+        $waived = [];
+        foreach (ParkRemediation::waiversByCve(array_keys($cves)) as $cve => $waiver) {
+            if ($waiver['date_end'] >= $today) {
+                $waived[$cve] = true;
+            }
+        }
+
+        return $waived;
+    }
+
+    /**
+     * Noms des ordinateurs donnés, par id.
+     *
+     * @param list<int> $ids
+     * @return array<int, string>
+     */
+    private static function computerNames(array $ids): array
+    {
+        global $DB;
+
+        $ids = array_values(array_unique(array_filter($ids, static fn (int $id): bool => $id > 0)));
+        if ($ids === []) {
+            return [];
+        }
+        $names = [];
+        $request = ['SELECT' => ['id', 'name'], 'FROM' => Computer::getTable(), 'WHERE' => ['id' => $ids]];
+        foreach ($DB->request($request) as $row) {
+            $names[(int) $row['id']] = (string) $row['name'];
+        }
+
+        return $names;
+    }
+
+    /**
+     * Issue #1185 : nombre d'ordinateurs avec une vulnérabilité critique non traitée, sur un périmètre
+     * d'entités (source de KRI, sans session) ; null si le plugin Wazuh ou sa table manque.
+     *
+     * @param list<int> $perimeter
+     */
+    public static function untreatedCriticalComputers(array $perimeter): ?float
+    {
+        global $DB;
+
         try {
-            $visible = self::visibleComputerIds();
-            $findings = [];
-            if ($visible !== []) {
+            $ids = [];
+            if ($perimeter !== []) {
                 foreach (
                     $DB->request([
-                        'SELECT' => ['name', 'computers_id', 'v_severity', 'v_score', 'p_name', 'p_version'],
-                        'FROM'   => $table,
-                        'WHERE'  => [
-                            'is_deleted'     => 0,
-                            'is_discontinue' => 0,
-                            'computers_id'   => array_keys($visible),
-                        ],
+                        'SELECT' => ['id'],
+                        'FROM'   => Computer::getTable(),
+                        'WHERE'  => ['is_deleted' => 0, 'is_template' => 0, 'entities_id' => $perimeter],
                     ]) as $row
                 ) {
-                    $findings[] = [
-                        'cve'          => (string) $row['name'],
-                        'computers_id' => (int) $row['computers_id'],
-                        'score'        => $row['v_score'] !== null && (float) $row['v_score'] > 0
-                            ? (float) $row['v_score'] : null,
-                        'severity'     => (string) ($row['v_severity'] ?? ''),
-                        'package'      => (string) ($row['p_name'] ?? ''),
-                        'version'      => (string) ($row['p_version'] ?? ''),
-                    ];
+                    $ids[] = (int) $row['id'];
                 }
             }
-            $result = WazuhEvidence::aggregateVulnerabilities($findings, $knownCves);
+            $findings = self::readFindings($ids);
 
-            return ['also' => $result['also'], 'only' => self::withExploitSignals($result['only'])];
+            return $findings === null
+                ? null
+                : (float) count(WazuhEvidence::untreatedCritical($findings, self::waivedCves($findings)));
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Issue #1185 : carte du tableau de bord (WazuhVulnerabilityFeature). Un tableau de bord est
+     * partagé : sans le droit sur les vulnérabilités du parc et la lecture des ordinateurs, la carte
+     * garde sa forme mais n'affiche rien.
+     *
+     * @param array<string, mixed> $params
+     * @return array{number: int, url: string, label: string, icon: string}
+     */
+    public static function criticalComputersCard(array $params = []): array
+    {
+        $allowed = ParkVulnerability::canView() && Computer::canView();
+        $count = $allowed ? self::untreatedCriticalVisible() : null;
+
+        return [
+            'number' => $count ?? 0,
+            'url'    => $allowed ? ParkVulnerability::getSearchURL() . '#grc-wazuh-critical' : '',
+            'label'  => (string) ($params['label']
+                ?? __('Computers with untreated critical vulnerabilities (Wazuh)', 'grcmanager')),
+            'icon'   => 'ti ti-heartbeat',
+        ];
+    }
+
+    /**
+     * Issue #1185 : même nombre pour les ordinateurs visibles de l'utilisateur (carte du tableau de
+     * bord) ; null si le plugin Wazuh ou sa table manque.
+     */
+    public static function untreatedCriticalVisible(): ?int
+    {
+        try {
+            $findings = self::readFindings(array_keys(self::visibleComputerIds()));
+
+            return $findings === null
+                ? null
+                : count(WazuhEvidence::untreatedCritical($findings, self::waivedCves($findings)));
         } catch (\Throwable $e) {
             return null;
         }
@@ -302,6 +485,81 @@ final class WazuhEvidenceProvider
         }
 
         return $alerts;
+    }
+
+    /**
+     * Issue #1185 : alertes Wazuh des ordinateurs donnés (déjà filtrés sur les entités et droits de
+     * l'utilisateur) depuis $since, les plus récentes d'abord, pour la revue des alertes. Les lignes
+     * de regroupement du plugin Wazuh (sans horodatage) sont écartées. Null si le plugin Wazuh, sa
+     * table des alertes ou l'une des colonnes lues manque.
+     *
+     * @param list<int> $computerIds
+     * @return list<array{id: int, key: string, computers_id: int, agent: string, date: string,
+     *     level: int|null, description: string, rule_id: string, techniques: list<string>}>|null
+     */
+    public static function fetchReviewAlerts(array $computerIds, string $since): ?array
+    {
+        global $DB;
+
+        if (self::agentTable() === null) {
+            return null;
+        }
+        $table = WazuhEvidence::resolveTable(
+            WazuhEvidence::ALERT_TABLES,
+            array_merge(WazuhEvidence::ALERT_COLUMNS, WazuhEvidence::ALERT_REVIEW_COLUMNS),
+            static fn (string $name): bool => $DB->tableExists($name),
+            static fn (string $name, string $column): bool => $DB->fieldExists($name, $column)
+        );
+        if ($table === null) {
+            return null;
+        }
+        if ($computerIds === []) {
+            return [];
+        }
+        $alerts = [];
+        try {
+            foreach (
+                $DB->request([
+                    'SELECT' => ['id', 'key', 'computers_id', 'a_name', 'rule', 'source_timestamp'],
+                    'FROM'   => $table,
+                    'WHERE'  => [
+                        'is_deleted'   => 0,
+                        'computers_id' => $computerIds,
+                        ['source_timestamp' => ['>=', $since]],
+                    ],
+                    'ORDER'  => ['source_timestamp DESC', 'id DESC'],
+                    'LIMIT'  => WazuhEvidence::MAX_REVIEW_ALERTS,
+                ]) as $row
+            ) {
+                $json = $row['rule'] !== null ? (string) $row['rule'] : null;
+                $rule = WazuhEvidence::parseRule($json);
+                $alerts[] = [
+                    'id'           => (int) $row['id'],
+                    'key'          => (string) $row['key'],
+                    'computers_id' => (int) $row['computers_id'],
+                    'agent'        => (string) ($row['a_name'] ?? ''),
+                    'date'         => (string) $row['source_timestamp'],
+                    'level'        => $rule['level'],
+                    'description'  => $rule['description'],
+                    'rule_id'      => $rule['id'],
+                    'techniques'   => WazuhEvidence::ruleTechniques($json),
+                ];
+            }
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        return $alerts;
+    }
+
+    /**
+     * Issue #1185 : lien vers les alertes Wazuh d'un ordinateur (onglet du plugin Wazuh sur la fiche
+     * de l'ordinateur ; le plugin n'a pas de page propre par alerte).
+     */
+    public static function alertsTabUrl(int $computerId): string
+    {
+        return Computer::getFormURLWithID($computerId) . '&forcetab='
+            . rawurlencode('GlpiPlugin\\Wazuh\\ComputerAlertsTab$1');
     }
 
     /** Liste des agents dans le plugin Wazuh, si sa classe expose une recherche. */
