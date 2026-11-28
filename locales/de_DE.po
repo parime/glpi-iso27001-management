@@ -42241,3 +42241,107 @@ msgstr "Geplante oder durchgeführte Audits: %d"
 
 msgid "Audits completed in the last 12 months: %d"
 msgstr "In den letzten 12 Monaten abgeschlossene Audits: %d"
+
+msgid "Yes / No"
+msgstr "Ja / Nein"
+
+msgid "Compliance scale"
+msgstr "Konformitätsskala"
+
+msgid "Answer type"
+msgstr "Antworttyp"
+
+msgid ""
+"Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially "
+"compliant, Non-compliant, Not applicable). On the scale, the expected answer "
+"is always \"Compliant\"."
+msgstr ""
+"Antworttyp: „Ja / Nein“ oder die Konformitätsskala (Konform, Teilweise "
+"konform, Nicht konform, Nicht zutreffend). Auf der Skala ist die erwartete "
+"Antwort immer „Konform“."
+
+msgid ""
+"Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-"
+"compliant = 0; \"Not applicable\" is left out of the score."
+msgstr ""
+"Konformitätsskala: Konform = 1 Punkt, Teilweise konform = 0,5, Nicht konform "
+"= 0; „Nicht zutreffend“ zählt nicht zur Bewertung."
+
+msgid "All (no filter)"
+msgstr "Alle (kein Filter)"
+
+msgid "Low and above"
+msgstr "Niedrig und höher"
+
+msgid "Medium and above"
+msgstr "Mittel und höher"
+
+msgid "High and critical"
+msgstr "Hoch und kritisch"
+
+msgid "Critical only"
+msgstr "Nur kritisch"
+
+msgid "Minimum severity of the imported vulnerabilities"
+msgstr "Mindestschweregrad der importierten Schwachstellen"
+
+msgid ""
+"Vulnerabilities below this severity are skipped before being saved, which "
+"keeps the database light on a large fleet. The severity given by SentinelOne "
+"is used, otherwise the CVSS score; a vulnerability without either is kept."
+msgstr ""
+"Schwachstellen unterhalb dieses Schweregrads werden vor dem Speichern "
+"übersprungen, damit die Datenbank bei einem großen Bestand schlank bleibt. "
+"Verwendet wird der von SentinelOne gelieferte Schweregrad, sonst der CVSS-"
+"Wert; eine Schwachstelle ohne beides wird behalten."
+
+msgid ""
+"Raising the threshold deletes nothing: the vulnerabilities already imported "
+"below it stay listed until SentinelOne stops reporting them. Lowering it "
+"imports the others at the next reading."
+msgstr ""
+"Das Anheben des Schwellenwerts löscht nichts: Bereits importierte "
+"Schwachstellen darunter bleiben aufgeführt, bis SentinelOne sie nicht mehr "
+"meldet. Ein Absenken importiert die übrigen beim nächsten Abruf."
+
+msgid "Initial score"
+msgstr "Anfangswert"
+
+msgid "Residual score"
+msgstr "Restwert"
+
+msgid "Score before and after treatment"
+msgstr "Wert vor und nach der Behandlung"
+
+msgid "%1$d x %2$d"
+msgstr "%1$d x %2$d"
+
+msgid "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
+msgstr "%1$d x %2$d: %1$d Wahrscheinlichkeitsstufen, %2$d Auswirkungsstufen"
+
+msgid ""
+"Probability and impact can each have from 3 to 5 levels, independently, for "
+"example 3 levels of probability and 5 levels of impact. The colours of the "
+"new grid are proposed from the score (probability rank x impact rank) and "
+"can be adjusted afterwards."
+msgstr ""
+"Wahrscheinlichkeit und Auswirkung können jeweils unabhängig voneinander 3 "
+"bis 5 Stufen haben, zum Beispiel 3 Wahrscheinlichkeitsstufen und 5 "
+"Auswirkungsstufen. Die Farben der neuen Matrix werden anhand des Werts (Rang "
+"der Wahrscheinlichkeit x Rang der Auswirkung) vorgeschlagen und können "
+"danach angepasst werden."
+
+msgid ""
+"Score = probability rank x impact rank, before the treatment (initial) and "
+"after it (residual)."
+msgstr ""
+"Wert = Rang der Wahrscheinlichkeit x Rang der Auswirkung, vor der Behandlung "
+"(Anfangswert) und danach (Restwert)."
+
+msgid ""
+"The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
+"a score on another scale is converted (the lowest and highest scores match)."
+msgstr ""
+"Die Matrix des Plugins hat %1$d Wahrscheinlichkeitsstufen und %2$d "
+"Auswirkungsstufen: Eine Bewertung auf einer anderen Skala wird umgerechnet "
+"(niedrigste und höchste Bewertung entsprechen sich)."

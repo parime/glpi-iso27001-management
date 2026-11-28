@@ -45178,6 +45178,107 @@ msgstr "Audits planned or carried out: %d"
 msgid "Audits completed in the last 12 months: %d"
 msgstr "Audits completed in the last 12 months: %d"
 
+msgid "Yes / No"
+msgstr "Yes / No"
+
+msgid "Compliance scale"
+msgstr "Compliance scale"
+
+msgid "Answer type"
+msgstr "Answer type"
+
+msgid ""
+"Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially "
+"compliant, Non-compliant, Not applicable). On the scale, the expected answer "
+"is always \"Compliant\"."
+msgstr ""
+"Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially "
+"compliant, Non-compliant, Not applicable). On the scale, the expected answer "
+"is always \"Compliant\"."
+
+msgid ""
+"Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-"
+"compliant = 0; \"Not applicable\" is left out of the score."
+msgstr ""
+"Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-"
+"compliant = 0; \"Not applicable\" is left out of the score."
+
+msgid "All (no filter)"
+msgstr "All (no filter)"
+
+msgid "Low and above"
+msgstr "Low and above"
+
+msgid "Medium and above"
+msgstr "Medium and above"
+
+msgid "High and critical"
+msgstr "High and critical"
+
+msgid "Critical only"
+msgstr "Critical only"
+
+msgid "Minimum severity of the imported vulnerabilities"
+msgstr "Minimum severity of the imported vulnerabilities"
+
+msgid ""
+"Vulnerabilities below this severity are skipped before being saved, which "
+"keeps the database light on a large fleet. The severity given by SentinelOne "
+"is used, otherwise the CVSS score; a vulnerability without either is kept."
+msgstr ""
+"Vulnerabilities below this severity are skipped before being saved, which "
+"keeps the database light on a large fleet. The severity given by SentinelOne "
+"is used, otherwise the CVSS score; a vulnerability without either is kept."
+
+msgid ""
+"Raising the threshold deletes nothing: the vulnerabilities already imported "
+"below it stay listed until SentinelOne stops reporting them. Lowering it "
+"imports the others at the next reading."
+msgstr ""
+"Raising the threshold deletes nothing: the vulnerabilities already imported "
+"below it stay listed until SentinelOne stops reporting them. Lowering it "
+"imports the others at the next reading."
+
+msgid "Initial score"
+msgstr "Initial score"
+
+msgid "Residual score"
+msgstr "Residual score"
+
+msgid "Score before and after treatment"
+msgstr "Score before and after treatment"
+
+msgid "%1$d x %2$d"
+msgstr "%1$d x %2$d"
+
+msgid "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
+msgstr "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
+
+msgid ""
+"Probability and impact can each have from 3 to 5 levels, independently, for "
+"example 3 levels of probability and 5 levels of impact. The colours of the "
+"new grid are proposed from the score (probability rank x impact rank) and "
+"can be adjusted afterwards."
+msgstr ""
+"Probability and impact can each have from 3 to 5 levels, independently, for "
+"example 3 levels of probability and 5 levels of impact. The colours of the "
+"new grid are proposed from the score (probability rank x impact rank) and "
+"can be adjusted afterwards."
+
+msgid ""
+"Score = probability rank x impact rank, before the treatment (initial) and "
+"after it (residual)."
+msgstr ""
+"Score = probability rank x impact rank, before the treatment (initial) and "
+"after it (residual)."
+
+msgid ""
+"The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
+"a score on another scale is converted (the lowest and highest scores match)."
+msgstr ""
+"The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
+"a score on another scale is converted (the lowest and highest scores match)."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 

@@ -2683,6 +2683,22 @@ onglet **Référentiels**.
 
 La page est recalculée à chaque ouverture et ne modifie rien.
 
+### Étape 94 : Noter un fournisseur sur une échelle de conformité
+
+Une question d'un modèle de questionnaire fournisseur peut attendre plus qu'un « Oui » ou un
+« Non » : l'**échelle de conformité** propose **Conforme**, **Partiellement conforme**, **Non
+conforme** et **Non applicable**.
+
+1. Ouvrez le modèle (bouton **Modèles de questionnaire** de la liste des risques fournisseurs),
+   onglet **Questions**, et choisissez **Échelle de conformité** dans la colonne **Type de
+   réponse** de chaque question concernée. La réponse attendue est alors toujours **Conforme**.
+2. Les questions existantes restent en **Oui / Non** : rien ne change pour les questionnaires et
+   les évaluations déjà faits.
+3. Dans l'évaluation, sur la page du lien sécurisé et dans le fichier exporté, la question propose
+   les quatre réponses de l'échelle. La note compte **Conforme** pour 1 point, **Partiellement
+   conforme** pour 0,5 et **Non conforme** pour 0, multipliés par la pondération ; **Non
+   applicable** n'entre pas dans la note.
+
 ## 🇬🇧 English
 
 **Tutorial: Using GLPI GRC Manager**
@@ -5220,3 +5236,19 @@ framework is enabled in **Setup > Plugins > GRC Manager**, **Frameworks** tab.
    reviews**).
 
 The page is computed again each time it is opened and changes nothing.
+
+### Step 94: Score a supplier on a compliance scale
+
+A question of a supplier questionnaire template can expect more than "Yes" or "No": the
+**compliance scale** offers **Compliant**, **Partially compliant**, **Non-compliant** and **Not
+applicable**.
+
+1. Open the template (**Questionnaire templates** button of the supplier risk list), **Questions**
+   tab, and choose **Compliance scale** in the **Answer type** column of each question concerned.
+   The expected answer is then always **Compliant**.
+2. Existing questions stay **Yes / No**: nothing changes for the questionnaires and evaluations
+   already done.
+3. In the evaluation, on the secure link page and in the exported file, the question offers the
+   four answers of the scale. The score counts **Compliant** as 1 point, **Partially compliant** as
+   0.5 and **Non-compliant** as 0, multiplied by the weight; **Not applicable** is left out of the
+   score.
