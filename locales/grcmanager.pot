@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-28 05:55+0000\n"
+"POT-Creation-Date: 2026-11-28 15:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -439,15 +439,15 @@ msgstr ""
 
 #: front/configcompliance.php:42 front/configcompliance.php:55
 #: front/phishingimport.php:76 front/scannerimport.php:44
-#: front/scannerimport.php:56 front/securityincidentedrimport.php:78
+#: front/scannerimport.php:56 front/securityincidentedrimport.php:104
 #: src/ConfigurationCompliance.php:179 src/ScannerImport.php:128
 msgid "The file is too large."
 msgstr ""
 
 #: front/configcompliance.php:43 front/phishingimport.php:71
 #: front/phishingimport.php:98 front/scannerimport.php:45
-#: front/securityincidentedrimport.php:74
-#: front/securityincidentedrimport.php:93 front/supplierevaluationfile.php:91
+#: front/securityincidentedrimport.php:100
+#: front/securityincidentedrimport.php:119 front/supplierevaluationfile.php:91
 #: front/supplierevaluationfile.php:105 front/supplierevaluationfile.php:145
 #: src/ConfigurationCompliance.php:191 src/ControlTest.php:653
 msgid "The file could not be received."
@@ -493,7 +493,8 @@ msgstr ""
 msgid "Clause"
 msgstr ""
 
-#: front/consistencycheck.export.php:49 templates/ad_security_audit.html.twig
+#: front/consistencycheck.export.php:49 templates/_wazuh_alert_review.html.twig
+#: templates/ad_security_audit.html.twig
 #: templates/config/blocks/_consistency_rules.html.twig
 #: templates/configuration_compliance.html.twig
 #: templates/configuration_compliance_report.html.twig
@@ -1571,20 +1572,27 @@ msgid_plural "%d CVE references added."
 msgstr[0] ""
 msgstr[1] ""
 
-#: front/securityincidentedrimport.php:48
+#: front/securityincidentedrimport.php:50
+#: front/securityincidentedrimport.php:74
 msgid "Select at least one alert."
 msgstr ""
 
-#: front/securityincidentedrimport.php:52
+#: front/securityincidentedrimport.php:54
 #, php-format
 msgid ""
 "%1$d incident(s) created, %2$d alert(s) ignored (already imported or not "
 "allowed)."
 msgstr ""
 
-#: front/securityincidentedrimport.php:61
+#: front/securityincidentedrimport.php:63
 #, php-format
 msgid "%d alert(s) set aside."
+msgstr ""
+
+#: front/securityincidentedrimport.php:78
+#, php-format
+msgid ""
+"%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored."
 msgstr ""
 
 #: front/securityincidentevidence.form.php:33
@@ -12793,6 +12801,12 @@ msgstr ""
 msgid "%1$d monitor(s), %2$d down, %3$d certificate(s) to renew."
 msgstr ""
 
+#: src/Feature/WazuhVulnerabilityFeature.php:42
+#: src/Feature/WazuhVulnerabilityFeature.php:53
+#: src/Services/Control/WazuhEvidenceProvider.php:367
+msgid "Computers with untreated critical vulnerabilities (Wazuh)"
+msgstr ""
+
 #: src/Feature/ZabbixMonitoringFeature.php:40
 msgid ""
 "Reads your Zabbix monitoring server, in read only: hosts, problems and "
@@ -21312,7 +21326,8 @@ msgstr ""
 msgid "Threats"
 msgstr ""
 
-#: src/SentinelOneAlert.php:832 templates/pdf/responsibility_matrix.html.twig
+#: src/SentinelOneAlert.php:832 templates/_wazuh_alert_review.html.twig
+#: templates/pdf/responsibility_matrix.html.twig
 #: templates/responsibility_matrix.html.twig
 msgid "Alerts"
 msgstr ""
@@ -23655,6 +23670,32 @@ msgstr ""
 msgid "Re-assess the waiver \"%s\""
 msgstr ""
 
+#: src/WazuhAlertImport.php:106
+msgid "All levels"
+msgstr ""
+
+#: src/WazuhAlertImport.php:107
+msgid "Level 7 and above"
+msgstr ""
+
+#: src/WazuhAlertImport.php:108
+msgid "Level 12 and above"
+msgstr ""
+
+#: src/WazuhAlertImport.php:363
+#, php-format
+msgid "Wazuh rule %s"
+msgstr ""
+
+#: src/WazuhAlertImport.php:364
+msgid "Wazuh alert"
+msgstr ""
+
+#: src/WazuhAlertImport.php:367
+#, php-format
+msgid "Wazuh: %1$s (%2$s)"
+msgstr ""
+
 #: src/ZabbixMonitoring.php:140
 msgid "Average"
 msgstr ""
@@ -23813,7 +23854,7 @@ msgstr ""
 msgid "Change since the previous report"
 msgstr ""
 
-#: templates/_ad_attack_paths.html.twig
+#: templates/_ad_attack_paths.html.twig templates/_wazuh_alert_review.html.twig
 #: templates/configuration_compliance.html.twig templates/edr_import.html.twig
 #: templates/scanner_import.html.twig
 msgid "Computer"
@@ -25520,6 +25561,80 @@ msgstr ""
 msgid "TLS certificates read: %d"
 msgstr ""
 
+#: templates/_wazuh_alert_review.html.twig
+#, php-format
+msgid "%1$d groups: the %2$d highest levels are shown."
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Agent"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Alerts in Wazuh"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+#, php-format
+msgid ""
+"Alerts of the last %d days on the computers you can see, read from the Wazuh "
+"plugin. Repeated alerts (same rule on the same computer) are grouped. Tick "
+"the groups that deserve a security incident: each one becomes an incident "
+"with its computer, rule level, agent, dates and MITRE ATT&CK techniques; new "
+"repetitions are added to the incident while it stays open. Nothing is "
+"changed in Wazuh."
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Already in an incident: new repetitions"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Create the incidents of the selected groups"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+#: templates/approved_application_page.html.twig templates/audit_log.html.twig
+#: templates/consistency_check.html.twig
+#: templates/personnel_compliance_list.html.twig
+#: templates/scanner_import.html.twig
+msgid "Filter"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Last alert"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+#: templates/mail_domain_security.html.twig
+#: templates/park_vulnerabilities.html.twig templates/pdf/dpia_report.html.twig
+#: templates/pdf/risk_register_report.html.twig templates/risk_form.html.twig
+#: templates/tabs/dpia.html.twig
+msgid "Level"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Minimum rule level"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+#, php-format
+msgid "No new Wazuh alert at this level in the last %d days."
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig templates/edr_import.html.twig
+msgid "Select all"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+msgid "Wazuh alerts to review"
+msgstr ""
+
+#: templates/_wazuh_alert_review.html.twig
+#, php-format
+msgid "since %s"
+msgstr ""
+
 #: templates/_zabbix_monitoring_evidence.html.twig
 #, php-format
 msgid "Assets with a saturation: %d"
@@ -26493,13 +26608,6 @@ msgstr ""
 
 #: templates/approved_application_page.html.twig
 msgid "Comparison with the software inventory"
-msgstr ""
-
-#: templates/approved_application_page.html.twig templates/audit_log.html.twig
-#: templates/consistency_check.html.twig
-#: templates/personnel_compliance_list.html.twig
-#: templates/scanner_import.html.twig
-msgid "Filter"
 msgstr ""
 
 #: templates/approved_application_page.html.twig
@@ -35538,10 +35646,6 @@ msgid "Preview"
 msgstr ""
 
 #: templates/edr_import.html.twig
-msgid "Select all"
-msgstr ""
-
-#: templates/edr_import.html.twig
 msgid "SentinelOne alerts to review"
 msgstr ""
 
@@ -36737,13 +36841,6 @@ msgstr ""
 msgid ""
 "Leave empty when the mail service is hosted (Microsoft 365, Google "
 "Workspace): the provider renews it."
-msgstr ""
-
-#: templates/mail_domain_security.html.twig
-#: templates/park_vulnerabilities.html.twig templates/pdf/dpia_report.html.twig
-#: templates/pdf/risk_register_report.html.twig templates/risk_form.html.twig
-#: templates/tabs/dpia.html.twig
-msgid "Level"
 msgstr ""
 
 #: templates/mail_domain_security.html.twig
@@ -38464,6 +38561,11 @@ msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
 #, php-format
+msgid "%1$d computers: the %2$d most exposed are shown."
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+#, php-format
 msgid "%1$d services: the %2$d most exposed are shown."
 msgstr ""
 
@@ -38534,11 +38636,21 @@ msgid "Computers where %s is installed"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
+msgid "Computers with untreated critical vulnerabilities"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
 msgid "Container images (Harbor)"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
 msgid "Create the software update ticket"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid ""
+"Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not "
+"covered by an approved, current waiver."
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
@@ -38602,6 +38714,11 @@ msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
 msgid "NVD queries are disabled: no version is checked."
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+msgid ""
+"No computer with an untreated critical vulnerability according to Wazuh."
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
@@ -38756,6 +38873,12 @@ msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
 msgid "Within the deadline"
+msgstr ""
+
+#: templates/park_vulnerabilities.html.twig
+#: templates/software_license_compliance.html.twig
+#, php-format
+msgid "and %d more"
 msgstr ""
 
 #: templates/park_vulnerabilities.html.twig
@@ -44378,11 +44501,6 @@ msgstr ""
 msgid "Shared with the sub-entities"
 msgstr ""
 
-#: templates/software_license_compliance.html.twig
-#, php-format
-msgid "and %d more"
-msgstr ""
-
 #: templates/software_watch.html.twig
 msgid "Accept the proposal"
 msgstr ""
@@ -47211,6 +47329,54 @@ msgstr ""
 #: templates/waiver_ticket.html.twig
 #, php-format
 msgid "The waiver \"%1$s\" ended on %2$s."
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Agent:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Alerts:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Computer:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+#, php-format
+msgid ""
+"Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin)."
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "First alert:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Last alert:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Rule level:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "Rule:"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+msgid "See the alerts of this computer in the Wazuh plugin"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+#, php-format
+msgid "level %s"
+msgstr ""
+
+#: templates/wazuh_incident_summary.html.twig
+#, php-format
+msgid "the %d most recent are listed."
 msgstr ""
 
 #: templates/zabbix_item_tab.html.twig

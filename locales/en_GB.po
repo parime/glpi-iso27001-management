@@ -45279,6 +45279,130 @@ msgstr ""
 "The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
 "a score on another scale is converted (the lowest and highest scores match)."
 
+msgid "All levels"
+msgstr "All levels"
+
+msgid "Level 7 and above"
+msgstr "Level 7 and above"
+
+msgid "Level 12 and above"
+msgstr "Level 12 and above"
+
+msgid "Wazuh rule %s"
+msgstr "Wazuh rule %s"
+
+msgid "Wazuh alert"
+msgstr "Wazuh alert"
+
+msgid "Wazuh: %1$s (%2$s)"
+msgstr "Wazuh: %1$s (%2$s)"
+
+msgid ""
+"%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored."
+msgstr ""
+"%1$d incident(s) created, %2$d incident(s) completed, %3$d group(s) ignored."
+
+msgid "Computers with untreated critical vulnerabilities (Wazuh)"
+msgstr "Computers with untreated critical vulnerabilities (Wazuh)"
+
+msgid ""
+"Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin)."
+msgstr ""
+"Created from %d Wazuh alert(s) selected in GRC (read from the Wazuh plugin)."
+
+msgid "Rule:"
+msgstr "Rule:"
+
+msgid "Rule level:"
+msgstr "Rule level:"
+
+msgid "Agent:"
+msgstr "Agent:"
+
+msgid "Computer:"
+msgstr "Computer:"
+
+msgid "First alert:"
+msgstr "First alert:"
+
+msgid "Last alert:"
+msgstr "Last alert:"
+
+msgid "Alerts:"
+msgstr "Alerts:"
+
+msgid "the %d most recent are listed."
+msgstr "the %d most recent are listed."
+
+msgid "level %s"
+msgstr "level %s"
+
+msgid "See the alerts of this computer in the Wazuh plugin"
+msgstr "See the alerts of this computer in the Wazuh plugin"
+
+msgid "Wazuh alerts to review"
+msgstr "Wazuh alerts to review"
+
+msgid "Minimum rule level"
+msgstr "Minimum rule level"
+
+msgid "No new Wazuh alert at this level in the last %d days."
+msgstr "No new Wazuh alert at this level in the last %d days."
+
+msgid ""
+"Alerts of the last %d days on the computers you can see, read from the Wazuh "
+"plugin. Repeated alerts (same rule on the same computer) are grouped. Tick "
+"the groups that deserve a security incident: each one becomes an incident "
+"with its computer, rule level, agent, dates and MITRE ATT&CK techniques; new "
+"repetitions are added to the incident while it stays open. Nothing is "
+"changed in Wazuh."
+msgstr ""
+"Alerts of the last %d days on the computers you can see, read from the Wazuh "
+"plugin. Repeated alerts (same rule on the same computer) are grouped. Tick "
+"the groups that deserve a security incident: each one becomes an incident "
+"with its computer, rule level, agent, dates and MITRE ATT&CK techniques; new "
+"repetitions are added to the incident while it stays open. Nothing is "
+"changed in Wazuh."
+
+msgid "%1$d groups: the %2$d highest levels are shown."
+msgstr "%1$d groups: the %2$d highest levels are shown."
+
+msgid "Last alert"
+msgstr "Last alert"
+
+msgid "Agent"
+msgstr "Agent"
+
+msgid "Already in an incident: new repetitions"
+msgstr "Already in an incident: new repetitions"
+
+msgid "since %s"
+msgstr "since %s"
+
+msgid "Alerts in Wazuh"
+msgstr "Alerts in Wazuh"
+
+msgid "Create the incidents of the selected groups"
+msgstr "Create the incidents of the selected groups"
+
+msgid ""
+"No computer with an untreated critical vulnerability according to Wazuh."
+msgstr ""
+"No computer with an untreated critical vulnerability according to Wazuh."
+
+msgid "Computers with untreated critical vulnerabilities"
+msgstr "Computers with untreated critical vulnerabilities"
+
+msgid ""
+"Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not "
+"covered by an approved, current waiver."
+msgstr ""
+"Critical vulnerabilities (CVSS 9 or more) still reported by Wazuh and not "
+"covered by an approved, current waiver."
+
+msgid "%1$d computers: the %2$d most exposed are shown."
+msgstr "%1$d computers: the %2$d most exposed are shown."
+
 #~ msgid "Participant: %s"
 #~ msgstr "Participant: %s"
 
