@@ -53,6 +53,18 @@ final class WazuhEvidence
     public const ALERT_DAYS = 30;
     public const MAX_ALERTS = 10;
 
+    /**
+     * Issue #1185 : colonnes en plus lues pour la revue des alertes (identifiant Wazuh de l'alerte,
+     * nom de l'agent). Sans elles, la revue se tait comme le reste du pont.
+     */
+    public const ALERT_REVIEW_COLUMNS = ['id', 'key', 'a_name'];
+    /** Fenêtre et nombre d'alertes lues au plus pour la revue. */
+    public const REVIEW_DAYS = 30;
+    public const MAX_REVIEW_ALERTS = 2000;
+
+    /** Issue #1185 : score CVSS à partir duquel une vulnérabilité est critique. */
+    public const CRITICAL_SCORE = 9.0;
+
     /** Statut Wazuh d'un agent qui remonte des données. */
     public const ACTIVE_STATUS = 'active';
 
@@ -105,8 +117,10 @@ final class WazuhEvidence
      * @param list<array{cve: string, computers_id: int, score: float|null, severity: string,
      *     package: string, version: string}> $findings
      * @param array<string, true> $knownCves
+     * Issue #1185 : `computers` donne, pour chaque CVE de `only`, les ordinateurs touchés (ids triés).
+     *
      * @return array{also: array<string, int>, only: list<array{cve_id: string, packages: list<string>,
-     *     machines: int, score: float|null, severity: string}>}
+     *     machines: int, score: float|null, severity: string}>, computers: array<string, list<int>>}
      */
     public static function aggregateVulnerabilities(array $findings, array $knownCves): array
     {
@@ -136,18 +150,105 @@ final class WazuhEvidence
         }
 
         $also = [];
+        $computers = [];
         foreach ($machines as $cve => $ids) {
             if (isset($knownCves[$cve])) {
                 $also[$cve] = count($ids);
             } else {
                 $only[$cve]['machines'] = count($ids);
+                $list = array_keys($ids);
+                sort($list);
+                $computers[$cve] = $list;
             }
         }
         $only = array_values($only);
         usort($only, static fn (array $a, array $b): int => [$b['score'] ?? -1.0, $a['cve_id']]
             <=> [$a['score'] ?? -1.0, $b['cve_id']]);
 
-        return ['also' => $also, 'only' => $only];
+        return ['also' => $also, 'only' => $only, 'computers' => $computers];
+    }
+
+    /**
+     * Issue #1185 : vulnérabilité critique (score CVSS de 9 ou plus ; sans score, sévérité Wazuh
+     * « Critical »).
+     */
+    public static function isCritical(?float $score, string $severity): bool
+    {
+        if ($score !== null) {
+            return $score >= self::CRITICAL_SCORE;
+        }
+
+        return strtolower(trim($severity)) === 'critical';
+    }
+
+    /**
+     * Issue #1185 : ordinateurs avec au moins une vulnérabilité critique non traitée, c'est-à-dire
+     * toujours signalée par Wazuh (les lignes corrigées ne sont pas transmises) et non couverte par
+     * une dérogation validée en cours (`$waivedCves`). CVE critiques par ordinateur, triées ;
+     * ordinateurs triés par nombre de CVE décroissant puis par id.
+     *
+     * @param list<array{cve: string, computers_id: int, score: float|null, severity: string}> $findings
+     * @param array<string, true> $waivedCves
+     * @return array<int, list<string>>
+     */
+    public static function untreatedCritical(array $findings, array $waivedCves): array
+    {
+        $byComputer = [];
+        foreach ($findings as $finding) {
+            $cve = strtoupper(trim($finding['cve']));
+            if (
+                preg_match('/^CVE-\d{4}-\d{4,}$/', $cve) !== 1
+                || $finding['computers_id'] <= 0
+                || isset($waivedCves[$cve])
+                || !self::isCritical($finding['score'], $finding['severity'])
+            ) {
+                continue;
+            }
+            $byComputer[$finding['computers_id']][$cve] = true;
+        }
+        $result = [];
+        foreach ($byComputer as $computerId => $cves) {
+            $list = array_keys($cves);
+            sort($list);
+            $result[$computerId] = $list;
+        }
+        uksort($result, static fn (int $a, int $b): int => [count($result[$b]), $a] <=> [count($result[$a]), $b]);
+
+        return $result;
+    }
+
+    /**
+     * Issue #1185 : techniques MITRE ATT&CK d'une règle Wazuh (`mitre.id`), au format T1234 ou
+     * T1234.001 ; tout autre contenu est ignoré.
+     *
+     * @return list<string>
+     */
+    public static function ruleTechniques(?string $json): array
+    {
+        $rule = json_decode((string) $json, true);
+        $ids = is_array($rule) && is_array($rule['mitre'] ?? null) ? ($rule['mitre']['id'] ?? []) : [];
+        $techniques = [];
+        foreach (is_array($ids) ? $ids : [$ids] as $id) {
+            $id = is_scalar($id) ? strtoupper(trim((string) $id)) : '';
+            if (preg_match('/^T\d{4}(\.\d{3})?$/', $id) === 1 && !in_array($id, $techniques, true)) {
+                $techniques[] = $id;
+            }
+        }
+
+        return $techniques;
+    }
+
+    /**
+     * Issue #1185 : gravité de l'incident de sécurité proposé pour un niveau de règle Wazuh, sur les
+     * mêmes paliers qu'alertSeverity() : 12 et plus critique, 7 à 11 majeure, en dessous mineure.
+     */
+    public static function incidentSeverity(?int $level): string
+    {
+        return match (self::alertSeverity($level)) {
+            'high'   => 'critical',
+            'medium' => 'major',
+            default  => 'minor',
+        };
     }
 
     /**
