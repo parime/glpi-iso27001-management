@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-27 08:05+0000\n"
+"POT-Creation-Date: 2026-11-28 05:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Compliance calendar"
 msgstr ""
 
-#: front/config.php:91 front/config.php:428
+#: front/config.php:91 front/config.php:433
 msgid "The level labels have been saved."
 msgstr ""
 
@@ -388,52 +388,52 @@ msgstr ""
 msgid "%1$s could not be reached (code %2$d)."
 msgstr ""
 
-#: front/config.php:212
+#: front/config.php:214
 msgid ""
 "The console address was not saved: it must start with https:// and contain "
 "no user name or password."
 msgstr ""
 
-#: front/config.php:234 src/SentinelOneAlert.php:551
+#: front/config.php:239 src/SentinelOneAlert.php:566
 msgid "Enter the console address and the API token first."
 msgstr ""
 
-#: front/config.php:243
+#: front/config.php:248
 msgid ""
 "Connection accepted, but the token sees no agent and no threat: check that "
 "its user has the Viewer role on the right accounts or sites."
 msgstr ""
 
-#: front/config.php:249
+#: front/config.php:254
 #, php-format
 msgid ""
 "Connection to SentinelOne succeeded: %1$d agent(s) and %2$s threat(s) "
 "visible."
 msgstr ""
 
-#: front/config.php:264
+#: front/config.php:269
 msgid ""
 "Reading SentinelOne now and reviewing its alerts is done in Assistance > "
 "Security incidents > EDR alerts import."
 msgstr ""
 
-#: front/config.php:314
+#: front/config.php:319
 #, php-format
 msgid "Classification saved; %d requirement record(s) created."
 msgstr ""
 
-#: front/config.php:344
+#: front/config.php:349
 #, php-format
 msgid "Classification saved; %d measure record(s) created."
 msgstr ""
 
-#: front/config.php:591 front/softwarewatch.php:76
+#: front/config.php:596 front/softwarewatch.php:76
 #: src/Navigation/Section/AssetSecuritySection.php:153
 #: templates/software_watch.html.twig
 msgid "Software to watch"
 msgstr ""
 
-#: front/config.php:655 templates/supplier_security_watch.html.twig
+#: front/config.php:660 templates/supplier_security_watch.html.twig
 msgid "Configuration"
 msgstr ""
 
@@ -1148,7 +1148,7 @@ msgstr ""
 #: front/policyacknowledgement.export.php:49 src/ContinuityPlan.php:1204
 #: src/NotificationTargetPolicy.php:133
 #: src/NotificationTargetPolicyVersion.php:140
-#: src/NotificationTargetSoaVersion.php:105 src/Policy.php:176
+#: src/NotificationTargetSoaVersion.php:105 src/Policy.php:187
 #: templates/config/blocks/_custom_framework_import.html.twig
 #: templates/continuity_plan_form.html.twig
 #: templates/custom_framework_form.html.twig
@@ -2357,7 +2357,7 @@ msgstr ""
 #: src/ScannerImport.php:118 src/ServerHealth.php:103
 #: src/SupplierSecurityTab.php:177 src/Traits/RiskAssessmentTrait.php:123
 #: src/Traits/RiskAssessmentTrait.php:139
-#: src/Traits/RiskAssessmentTrait.php:310 templates/backup_coverage.html.twig
+#: src/Traits/RiskAssessmentTrait.php:323 templates/backup_coverage.html.twig
 #: templates/continuity_plan_form.html.twig
 #: templates/crisis_scenario_register.html.twig
 #: templates/log_coverage.html.twig templates/park_vulnerabilities.html.twig
@@ -2701,8 +2701,8 @@ msgstr ""
 #: src/NotificationTargetPolicy.php:134
 #: src/NotificationTargetRiskIndicator.php:150 src/Objective.php:168
 #: src/PersonnelCompliance.php:757 src/PhysicalSecurityAssessment.php:436
-#: src/Policy.php:184 src/ProcessingActivity.php:551
-#: src/ProcessingActivity.php:984 src/Risk.php:410 src/RiskIndicator.php:817
+#: src/Policy.php:195 src/ProcessingActivity.php:551
+#: src/ProcessingActivity.php:984 src/Risk.php:453 src/RiskIndicator.php:817
 #: src/RiskRegisterImport.php:614 src/SupplierRisk.php:252
 #: templates/_personnel_compliance.html.twig
 #: templates/access_review_form.html.twig
@@ -3265,54 +3265,54 @@ msgstr ""
 msgid "Last update"
 msgstr ""
 
-#: src/AdAttackPath.php:74 src/AdSecurityAudit.php:231 src/ControlTest.php:652
+#: src/AdAttackPath.php:75 src/AdSecurityAudit.php:231 src/ControlTest.php:652
 #: src/CustomFramework.php:316 src/ProductSbom.php:224
 #: src/RiskRegisterImport.php:497 src/ServerManagement.php:340
-#: src/SupplierEvaluationFile.php:315
+#: src/SupplierEvaluationFile.php:322
 msgid "The file is empty."
 msgstr ""
 
-#: src/AdAttackPath.php:75 src/AdSecurityAudit.php:232
+#: src/AdAttackPath.php:76 src/AdSecurityAudit.php:232
 msgid "The file is too large (20 MB at most)."
 msgstr ""
 
-#: src/AdAttackPath.php:77
+#: src/AdAttackPath.php:78
 msgid ""
 "This file is not a graph exported from BloodHound CE or Adalanche (JSON with "
 "nodes and edges)."
 msgstr ""
 
-#: src/AdAttackPath.php:81
+#: src/AdAttackPath.php:82
 msgid ""
 "The graph contains no Domain Admins group: export the paths that lead to "
 "this group."
 msgstr ""
 
-#: src/AdAttackPath.php:85
+#: src/AdAttackPath.php:86
 msgid ""
 "The export gives no domain name: fill in the domain field of the import form."
 msgstr ""
 
-#: src/AdAttackPath.php:88 src/AdSecurityAudit.php:260
+#: src/AdAttackPath.php:89 src/AdSecurityAudit.php:260
 msgid "This report has already been imported."
 msgstr ""
 
-#: src/AdAttackPath.php:89 src/AdSecurityAudit.php:261
+#: src/AdAttackPath.php:90 src/AdSecurityAudit.php:261
 msgid "You do not have the right to import a report."
 msgstr ""
 
-#: src/AdAttackPath.php:90 src/AdSecurityAudit.php:262
+#: src/AdAttackPath.php:91 src/AdSecurityAudit.php:262
 #: src/BackupCoverage.php:255 src/LogCoverage.php:212 src/MfaCoverage.php:195
 #: src/PrivilegedVault.php:212 src/ProductSbom.php:253 src/ShareAccess.php:293
 msgid "The file could not be read."
 msgstr ""
 
-#: src/AdAttackPath.php:331
+#: src/AdAttackPath.php:334
 #, php-format
 msgid "Attack paths to Domain Admins: %s"
 msgstr ""
 
-#: src/AdAttackPath.php:336
+#: src/AdAttackPath.php:339
 #, php-format
 msgid ""
 "%1$s: %2$d account has a path to the Domain Admins group (shortest path: "
@@ -3391,7 +3391,7 @@ msgstr ""
 #: src/ScannerImport.php:119 src/ShareAccess.php:268
 #: src/SupplierSecurityTab.php:176 src/Traits/RiskAssessmentTrait.php:122
 #: src/Traits/RiskAssessmentTrait.php:138
-#: src/Traits/RiskAssessmentTrait.php:309 src/ZabbixMonitoring.php:141
+#: src/Traits/RiskAssessmentTrait.php:322 src/ZabbixMonitoring.php:141
 #: templates/park_vulnerabilities.html.twig templates/risk_heatmap.html.twig
 msgid "High"
 msgstr ""
@@ -3403,7 +3403,7 @@ msgstr ""
 #: src/ScannerImport.php:120 src/ShareAccess.php:267
 #: src/SupplierSecurityTab.php:175 src/Traits/RiskAssessmentTrait.php:121
 #: src/Traits/RiskAssessmentTrait.php:137
-#: src/Traits/RiskAssessmentTrait.php:308 templates/risk_heatmap.html.twig
+#: src/Traits/RiskAssessmentTrait.php:321 templates/risk_heatmap.html.twig
 msgid "Medium"
 msgstr ""
 
@@ -3414,7 +3414,7 @@ msgstr ""
 #: src/ScannerImport.php:121 src/ShareAccess.php:266
 #: src/SupplierSecurityTab.php:174 src/Traits/RiskAssessmentTrait.php:120
 #: src/Traits/RiskAssessmentTrait.php:136
-#: src/Traits/RiskAssessmentTrait.php:307 templates/risk_heatmap.html.twig
+#: src/Traits/RiskAssessmentTrait.php:320 templates/risk_heatmap.html.twig
 msgid "Low"
 msgstr ""
 
@@ -3562,7 +3562,7 @@ msgstr ""
 
 #: src/ApplicationSecurity.php:110 src/DoraRegister.php:234
 #: src/DoraRegister.php:278 src/SupplierAssessment.php:91
-#: src/SupplierQuestionnaireQuestion.php:157
+#: src/SupplierQuestionnaireQuestion.php:164
 #: templates/application_security_tab.html.twig
 #: templates/dora/register.html.twig
 #: templates/pdf/management_review_dossier.html.twig
@@ -3574,7 +3574,7 @@ msgstr ""
 
 #: src/ApplicationSecurity.php:111 src/DoraRegister.php:234
 #: src/DoraRegister.php:279 src/SupplierAssessment.php:93
-#: src/SupplierQuestionnaireQuestion.php:158
+#: src/SupplierQuestionnaireQuestion.php:165
 #: templates/application_security_tab.html.twig
 #: templates/pdf/management_review_dossier.html.twig
 #: templates/pdf/training_session_report.html.twig
@@ -3624,8 +3624,8 @@ msgid "Under evaluation"
 msgstr ""
 
 #: src/ApprovedApplication.php:140 src/ContinuityPlan.php:199
-#: src/ContinuityPlanVersion.php:75 src/EbiosStudy.php:91 src/Policy.php:114
-#: src/Policy.php:313 src/PolicyCoverage.php:152 src/PolicyVersion.php:117
+#: src/ContinuityPlanVersion.php:75 src/EbiosStudy.php:91 src/Policy.php:125
+#: src/Policy.php:324 src/PolicyCoverage.php:152 src/PolicyVersion.php:117
 #: src/SoaVersion.php:92 templates/pdf/dpia_report.html.twig
 #: templates/policy_approval_tab.html.twig templates/tabs/dpia.html.twig
 msgid "Approved"
@@ -3770,7 +3770,7 @@ msgstr ""
 msgid "Exposure to the Internet"
 msgstr ""
 
-#: src/AssetClassification.php:218 src/Risk.php:904
+#: src/AssetClassification.php:218 src/Risk.php:979
 #: src/ZabbixMonitoring.php:137 templates/asset_classification_tab.html.twig
 #: templates/share_access_detail.html.twig
 #: templates/share_access_macros.html.twig
@@ -3831,9 +3831,11 @@ msgstr ""
 #: src/ComplianceObligation.php:344 src/ControlTestSample.php:125
 #: src/CustomRequirement.php:60 src/IsmsRequirement.php:155
 #: src/PersonnelCompliance.php:296 src/PhysicalSecurity.php:97
+#: src/SupplierQuestionnaireQuestion.php:191
 #: templates/_network_flow_badges.html.twig
 #: templates/compliance_audit.html.twig
 #: templates/network_flow_summary.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
 msgid "Compliant"
 msgstr ""
 
@@ -3889,7 +3891,7 @@ msgstr ""
 #: src/NotificationTargetReportedRisk.php:113 src/NotificationTargetRisk.php:95
 #: src/NotificationTargetSupplierRisk.php:117
 #: src/NotificationTargetTraining.php:127 src/Objective.php:159
-#: src/Policy.php:167 src/PolicyCoverage.php:683 src/Risk.php:352
+#: src/Policy.php:178 src/PolicyCoverage.php:683 src/Risk.php:395
 #: src/RiskRegisterImport.php:602 src/SupplierRisk.php:179 src/Training.php:546
 #: templates/audit_checklist_tab.html.twig
 #: templates/audit_findings_tab.html.twig templates/audit_form.html.twig
@@ -6692,12 +6694,13 @@ msgstr ""
 
 #: src/ComplianceObligation.php:109 src/ComplianceObligation.php:345
 #: src/CustomRequirement.php:62 src/PhysicalSecurity.php:100
+#: src/SupplierQuestionnaireQuestion.php:192
 msgid "Partially compliant"
 msgstr ""
 
 #: src/ComplianceObligation.php:110 src/ComplianceObligation.php:346
 #: src/ControlTestSample.php:128 src/CustomRequirement.php:64
-#: src/PhysicalSecurity.php:103
+#: src/PhysicalSecurity.php:103 src/SupplierQuestionnaireQuestion.php:193
 msgid "Non-compliant"
 msgstr ""
 
@@ -6723,8 +6726,8 @@ msgstr ""
 
 #: src/ComplianceObligation.php:232 src/ContextItem.php:866
 #: src/ContextItem.php:942 src/NetworkFlow.php:286 src/Objective.php:200
-#: src/Policy.php:208 src/ProcessingActivity.php:572
-#: src/ProcessingActivity.php:987 src/Risk.php:401 src/RiskIndicator.php:844
+#: src/Policy.php:219 src/ProcessingActivity.php:572
+#: src/ProcessingActivity.php:987 src/Risk.php:444 src/RiskIndicator.php:844
 #: src/RiskRegisterImport.php:611 src/RiskRegisterImport.php:612
 #: src/SupplierRisk.php:243 templates/compliance_obligation_form.html.twig
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
@@ -6745,7 +6748,7 @@ msgstr ""
 #: src/ContextItem.php:946 src/ManagementReview.php:369
 #: src/NotificationTargetComplianceObligation.php:96
 #: src/NotificationTargetContextItem.php:143 src/NotificationTargetRisk.php:98
-#: src/NotificationTargetSupplierRisk.php:121 src/Risk.php:418
+#: src/NotificationTargetSupplierRisk.php:121 src/Risk.php:461
 #: src/RiskRegisterImport.php:613 src/SupplierRisk.php:260
 #: templates/compliance_obligation_form.html.twig
 #: templates/context_item_form.html.twig templates/context_linked_tab.html.twig
@@ -7864,9 +7867,9 @@ msgstr ""
 msgid "Hosting provider"
 msgstr ""
 
-#: src/ContextItem.php:203 src/Risk.php:517 src/Risk.php:629 src/Risk.php:630
-#: templates/_risk_trajectory_register.html.twig
-#: templates/risk_trajectory_tab.html.twig
+#: src/ContextItem.php:203 src/Risk.php:579 src/Risk.php:587 src/Risk.php:699
+#: src/Risk.php:700 templates/_risk_trajectory_register.html.twig
+#: templates/risk_form.html.twig templates/risk_trajectory_tab.html.twig
 #: templates/tabs/supplier_security.html.twig
 msgid "To be assessed"
 msgstr ""
@@ -7908,7 +7911,7 @@ msgstr ""
 #: src/NotificationTargetRisk.php:96
 #: src/NotificationTargetRiskIndicator.php:158
 #: src/NotificationTargetSupplierRisk.php:119 src/Playbook.php:214
-#: src/Policy.php:237 src/Risk.php:361 src/RiskIndicator.php:841
+#: src/Policy.php:248 src/Risk.php:404 src/RiskIndicator.php:841
 #: src/RiskRegisterImport.php:604 src/SupplierRisk.php:203
 #: templates/ad_security_audit.html.twig templates/context_item_form.html.twig
 #: templates/pdf/context_report.html.twig
@@ -8071,7 +8074,7 @@ msgctxt "plan type"
 msgid "DRP"
 msgstr ""
 
-#: src/ContinuityPlan.php:191 src/Policy.php:113 src/Policy.php:312
+#: src/ContinuityPlan.php:191 src/Policy.php:124 src/Policy.php:323
 #: src/ProcessingActivity.php:131 templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/pdf/crisis_exercise_report.html.twig
@@ -8222,13 +8225,13 @@ msgstr ""
 msgid "An element outside the entity of the plan was not linked."
 msgstr ""
 
-#: src/ContinuityPlan.php:1212 src/Policy.php:192
+#: src/ContinuityPlan.php:1212 src/Policy.php:203
 #: templates/acn_requirement_form.html.twig templates/policy_form.html.twig
 msgid "Approval date"
 msgstr ""
 
 #: src/ContinuityPlan.php:1216 src/NotificationTargetPolicy.php:135
-#: src/Policy.php:200 src/PolicyCoverage.php:688
+#: src/Policy.php:211 src/PolicyCoverage.php:688
 #: templates/approved_application_page.html.twig
 #: templates/continuity_plan_register.html.twig
 #: templates/operating_procedure_register.html.twig
@@ -8332,7 +8335,8 @@ msgstr ""
 #: src/Control.php:141 src/Control.php:1352 src/ControlTestSample.php:131
 #: src/CustomRequirement.php:66 src/PersonnelCompliance.php:300
 #: src/PersonnelCompliance.php:312 src/PhysicalSecurity.php:106
-#: src/SecurityIncidentPlaybookTask.php:70 templates/acn_register.html.twig
+#: src/SecurityIncidentPlaybookTask.php:70
+#: src/SupplierQuestionnaireQuestion.php:194 templates/acn_register.html.twig
 #: templates/itil_regulatory_section.html.twig
 #: templates/pdf/postmortem_report.html.twig
 #: templates/policy_coverage_control_tab.html.twig
@@ -11391,7 +11395,7 @@ msgid_plural "EBIOS RM studies"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/EbiosStudy.php:92 src/Policy.php:115 src/Policy.php:314
+#: src/EbiosStudy.php:92 src/Policy.php:126 src/Policy.php:325
 #: templates/operating_procedure_register.html.twig
 #: templates/pdf/operating_procedures_report.html.twig
 #: templates/policy_approval_tab.html.twig
@@ -13141,11 +13145,11 @@ msgstr ""
 msgid "%1$s lost profile %2$s (entity %3$s)"
 msgstr ""
 
-#: src/Install/SupplierQuestionnaireTables.php:321
+#: src/Install/SupplierQuestionnaireTables.php:340
 msgid "Historical questionnaire"
 msgstr ""
 
-#: src/Install/SupplierQuestionnaireTables.php:327
+#: src/Install/SupplierQuestionnaireTables.php:346
 msgid ""
 "The twelve questions of the former security questionnaire, kept with the "
 "answers already given."
@@ -15038,7 +15042,7 @@ msgstr ""
 
 #: src/Nonconformity.php:146 src/Nonconformity.php:666
 #: src/Traits/RiskAssessmentTrait.php:164
-#: src/Traits/RiskAssessmentTrait.php:323
+#: src/Traits/RiskAssessmentTrait.php:339
 msgid "In treatment"
 msgstr ""
 
@@ -15067,7 +15071,7 @@ msgid "Closure verification date"
 msgstr ""
 
 #: src/Nonconformity.php:451 src/NotificationTargetAuditEvidenceRequest.php:157
-#: src/Objective.php:209 src/Policy.php:217 src/RiskRegisterImport.php:603
+#: src/Objective.php:209 src/Policy.php:228 src/RiskRegisterImport.php:603
 #: src/Training.php:595 templates/_crisis_review.html.twig
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/nonconformity_form.html.twig templates/objective_form.html.twig
@@ -15685,7 +15689,7 @@ msgid "Risk no. %d"
 msgstr ""
 
 #: src/NotificationTargetRisk.php:97 src/NotificationTargetSupplierRisk.php:120
-#: src/Risk.php:385 src/SupplierRisk.php:227
+#: src/Risk.php:428 src/SupplierRisk.php:227
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/ebios_study_report.html.twig
 #: templates/pdf/risk_register_report.html.twig
@@ -18558,55 +18562,55 @@ msgstr[1] ""
 msgid "The step name is required."
 msgstr ""
 
-#: src/Policy.php:84
+#: src/Policy.php:95
 msgid "Security policy"
 msgid_plural "Security policies"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Policy.php:245 templates/policy_form.html.twig
+#: src/Policy.php:256 templates/policy_form.html.twig
 msgid "Procedure domain"
 msgstr ""
 
-#: src/Policy.php:376
+#: src/Policy.php:390
 msgid "A review can only be recorded on an approved operating procedure."
 msgstr ""
 
-#: src/Policy.php:414
+#: src/Policy.php:428
 msgid "An approval date is required to mark a policy as approved."
 msgstr ""
 
-#: src/Policy.php:470
+#: src/Policy.php:484
 msgid ""
 "With the approval workflow, a policy becomes \"Approved\" only once its "
 "designated approvers have approved it: use the \"Approval\" tab."
 msgstr ""
 
-#: src/Policy.php:487
+#: src/Policy.php:501
 msgid ""
 "This version is awaiting approval: its content is frozen. Withdraw the "
 "request to modify it."
 msgstr ""
 
-#: src/Policy.php:491
+#: src/Policy.php:505
 msgid ""
 "This version has been approved: its content is frozen. Prepare a new version "
 "from the \"Approval\" tab to modify it."
 msgstr ""
 
-#: src/Policy.php:517
+#: src/Policy.php:531
 #, php-format
 msgid "Review recorded. Next review: %s."
 msgstr ""
 
-#: src/Policy.php:527
+#: src/Policy.php:541
 #, php-format
 msgid ""
 "New version %1$s: an acknowledgement campaign has been launched for %2$d "
 "person(s)."
 msgstr ""
 
-#: src/Policy.php:639
+#: src/Policy.php:653
 #, php-format
 msgid "%d policy(ies) awaiting review, %d notification(s) raised."
 msgstr ""
@@ -19734,7 +19738,7 @@ msgstr[1] ""
 msgid "ISMS responsibility matrix - %s"
 msgstr ""
 
-#: src/Risk.php:113 templates/_causal_graph.html.twig
+#: src/Risk.php:114 templates/_causal_graph.html.twig
 #: templates/_risk_trajectory_register.html.twig
 #: templates/pdf/dpia_report.html.twig templates/risk_appetite.html.twig
 #: templates/tabs/business_process_risks.html.twig
@@ -19744,23 +19748,23 @@ msgid_plural "Risks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Risk.php:151
+#: src/Risk.php:152
 msgid "You cannot create a risk in this entity."
 msgstr ""
 
-#: src/Risk.php:197
+#: src/Risk.php:198
 msgid ""
 "A treatment plan (at least one action) is required to close a risk being "
 "mitigated or transferred."
 msgstr ""
 
-#: src/Risk.php:280
+#: src/Risk.php:323
 msgid ""
 "This risk exceeds the appetite of its category: accepting it requires a "
 "justification."
 msgstr ""
 
-#: src/Risk.php:305
+#: src/Risk.php:348
 #, php-format
 msgid ""
 "This risk exceeds the tolerance of its category: only a member of the "
@@ -19768,7 +19772,7 @@ msgid ""
 "to sign the acceptance."
 msgstr ""
 
-#: src/Risk.php:369 src/RiskRegisterImport.php:605 src/RiskScaleChange.php:106
+#: src/Risk.php:412 src/RiskRegisterImport.php:605 src/RiskScaleChange.php:128
 #: src/SupplierRisk.php:211 templates/config/blocks/_risk_matrix.html.twig
 #: templates/pdf/risk_register_report.html.twig templates/risk_form.html.twig
 #: templates/risk_heatmap.html.twig templates/risk_scale_change.html.twig
@@ -19776,7 +19780,7 @@ msgstr ""
 msgid "Probability"
 msgstr ""
 
-#: src/Risk.php:377 src/RiskRegisterImport.php:606 src/RiskScaleChange.php:106
+#: src/Risk.php:420 src/RiskRegisterImport.php:606 src/RiskScaleChange.php:128
 #: src/SecurityIncidentTechnique.php:67 src/SupplierRisk.php:219
 #: templates/config/blocks/_risk_matrix.html.twig
 #: templates/itil_analysis_section.html.twig
@@ -19787,7 +19791,7 @@ msgstr ""
 msgid "Impact"
 msgstr ""
 
-#: src/Risk.php:393 src/RiskRegisterImport.php:609 src/SupplierRisk.php:235
+#: src/Risk.php:436 src/RiskRegisterImport.php:609 src/SupplierRisk.php:235
 #: templates/pdf/business_continuity_report.html.twig
 #: templates/pdf/risk_register_report.html.twig
 #: templates/risk_appetite.html.twig templates/risk_form.html.twig
@@ -19796,44 +19800,52 @@ msgstr ""
 msgid "Treatment"
 msgstr ""
 
-#: src/Risk.php:440
+#: src/Risk.php:483
 msgid "Formally accepted by"
 msgstr ""
 
-#: src/Risk.php:448
+#: src/Risk.php:491
 msgid "Formal acceptance date"
 msgstr ""
 
-#: src/Risk.php:454 src/RiskRegisterImport.php:607
+#: src/Risk.php:497 src/RiskRegisterImport.php:607
 #: templates/risk_form.html.twig
 msgid "Residual probability"
 msgstr ""
 
-#: src/Risk.php:455 src/RiskRegisterImport.php:608
+#: src/Risk.php:498 src/RiskRegisterImport.php:608
 #: templates/risk_form.html.twig
 msgid "Residual impact"
 msgstr ""
 
-#: src/Risk.php:456 templates/risk_form.html.twig
+#: src/Risk.php:499 templates/risk_form.html.twig
 #: templates/risk_scale_change.html.twig
 msgid "Residual risk level"
 msgstr ""
 
-#: src/Risk.php:474 templates/risk_form.html.twig
+#: src/Risk.php:517 templates/risk_form.html.twig
+msgid "Initial score"
+msgstr ""
+
+#: src/Risk.php:525 templates/risk_form.html.twig
+msgid "Residual score"
+msgstr ""
+
+#: src/Risk.php:535 templates/risk_form.html.twig
 msgid "External reference"
 msgstr ""
 
-#: src/Risk.php:732
+#: src/Risk.php:807
 #, php-format
 msgid "(C: %1$s, I: %2$s, A: %3$s)"
 msgstr ""
 
-#: src/Risk.php:849
+#: src/Risk.php:924
 #, php-format
 msgid "%1$s #%2$d (deleted)"
 msgstr ""
 
-#: src/Risk.php:1188
+#: src/Risk.php:1263
 #, php-format
 msgid "%d risk(s) awaiting review, %d notification(s) raised."
 msgstr ""
@@ -20581,20 +20593,25 @@ msgstr ""
 msgid "Linked assets (CMDB)"
 msgstr ""
 
-#: src/RiskScaleChange.php:58
+#: src/RiskScaleChange.php:64
 msgid "4 x 4: four levels of probability and of impact"
 msgstr ""
 
-#: src/RiskScaleChange.php:59
+#: src/RiskScaleChange.php:65
 msgid "5 x 5: five levels of probability and of impact"
 msgstr ""
 
-#: src/RiskScaleChange.php:65
+#: src/RiskScaleChange.php:67
 #, php-format
-msgid "%1$d x %1$d"
+msgid "%1$d x %2$d: %1$d levels of probability, %2$d levels of impact"
 msgstr ""
 
-#: src/RiskScaleChange.php:150
+#: src/RiskScaleChange.php:84
+#, php-format
+msgid "%1$d x %2$d"
+msgstr ""
+
+#: src/RiskScaleChange.php:172
 #, php-format
 msgid ""
 "Risk matrix changed from %1$s to %2$s: values converted with the "
@@ -21231,85 +21248,105 @@ msgid ""
 "only)"
 msgstr ""
 
-#: src/SentinelOneAlert.php:564
+#: src/SentinelOneAlert.php:579
 #, php-format
 msgid ""
 "SentinelOne read: %1$d new alert(s) to review, %2$d agent(s), %3$d "
 "application vulnerabilities."
 msgstr ""
 
-#: src/SentinelOneAlert.php:728
+#: src/SentinelOneAlert.php:743
 msgid ""
 "SentinelOne refused the API token (401): check that it is valid and has not "
 "expired."
 msgstr ""
 
-#: src/SentinelOneAlert.php:733
+#: src/SentinelOneAlert.php:748
 msgid ""
 "The API token is not allowed to read this information (403): give it the "
 "Viewer role on the accounts or sites to read, or check the licence."
 msgstr ""
 
-#: src/SentinelOneAlert.php:738
+#: src/SentinelOneAlert.php:753
 msgid ""
 "This information is not available on this console (404): it may not be "
 "included in the licence."
 msgstr ""
 
-#: src/SentinelOneAlert.php:743
+#: src/SentinelOneAlert.php:758
 msgid ""
 "SentinelOne limits the number of requests (429): the next run resumes where "
 "this one stopped."
 msgstr ""
 
-#: src/SentinelOneAlert.php:748
+#: src/SentinelOneAlert.php:763
 msgid ""
 "The SentinelOne console could not be reached: check its address, the GLPI "
 "proxy and, for an internal address, the setting that allows them."
 msgstr ""
 
-#: src/SentinelOneAlert.php:753
+#: src/SentinelOneAlert.php:768
 msgid ""
 "The console address is an internal address, refused by default: an "
 "administrator can allow internal addresses in this configuration page."
 msgstr ""
 
-#: src/SentinelOneAlert.php:758
+#: src/SentinelOneAlert.php:773
 msgid ""
 "The SentinelOne console sent an unexpected answer: check the console address."
 msgstr ""
 
-#: src/SentinelOneAlert.php:762
+#: src/SentinelOneAlert.php:777
 msgid "Not read during this run: an earlier step stopped it."
 msgstr ""
 
-#: src/SentinelOneAlert.php:764
+#: src/SentinelOneAlert.php:779
 msgid "The SentinelOne console returned an error."
 msgstr ""
 
-#: src/SentinelOneAlert.php:813 templates/edr_import.html.twig
+#: src/SentinelOneAlert.php:830 templates/edr_import.html.twig
 msgid "Agents"
 msgstr ""
 
-#: src/SentinelOneAlert.php:814
+#: src/SentinelOneAlert.php:831
 msgid "Threats"
 msgstr ""
 
-#: src/SentinelOneAlert.php:815 templates/pdf/responsibility_matrix.html.twig
+#: src/SentinelOneAlert.php:832 templates/pdf/responsibility_matrix.html.twig
 #: templates/responsibility_matrix.html.twig
 msgid "Alerts"
 msgstr ""
 
-#: src/SentinelOneAlert.php:816
+#: src/SentinelOneAlert.php:833
 msgid "Application vulnerabilities"
 msgstr ""
 
-#: src/SentinelOneAlert.php:828 templates/pdf/ebios_study_report.html.twig
+#: src/SentinelOneAlert.php:845
+msgid "All (no filter)"
+msgstr ""
+
+#: src/SentinelOneAlert.php:846
+msgid "Low and above"
+msgstr ""
+
+#: src/SentinelOneAlert.php:847
+msgid "Medium and above"
+msgstr ""
+
+#: src/SentinelOneAlert.php:848
+msgid "High and critical"
+msgstr ""
+
+#: src/SentinelOneAlert.php:849
+msgid "Critical only"
+msgstr ""
+
+#: src/SentinelOneAlert.php:861 templates/pdf/ebios_study_report.html.twig
 #: templates/tabs/ebios_workshop3.html.twig
 msgid "Threat"
 msgstr ""
 
-#: src/SentinelOneAlert.php:829 templates/_code_security_macros.html.twig
+#: src/SentinelOneAlert.php:862 templates/_code_security_macros.html.twig
 #: templates/supplier_security_watch.html.twig
 msgid "Alert"
 msgstr ""
@@ -22587,7 +22624,7 @@ msgid "Matches the SoA"
 msgstr ""
 
 #: src/SoaScoping.php:175 src/Traits/RiskAssessmentTrait.php:165
-#: src/Traits/RiskAssessmentTrait.php:324
+#: src/Traits/RiskAssessmentTrait.php:340
 #: templates/audit_evidence_requests_tab.html.twig
 #: templates/auditor_space.html.twig
 msgid "Accepted"
@@ -22947,27 +22984,27 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
-#: src/SupplierEvaluationAnswer.php:149
+#: src/SupplierEvaluationAnswer.php:151
 #, php-format
 msgid "%d answer updated"
 msgid_plural "%d answers updated"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/SupplierEvaluationAnswer.php:181
+#: src/SupplierEvaluationAnswer.php:183
 msgid "This question cannot receive a document."
 msgstr ""
 
-#: src/SupplierEvaluationAnswer.php:184
+#: src/SupplierEvaluationAnswer.php:186
 msgid "You are not allowed to add a document to this supplier risk."
 msgstr ""
 
-#: src/SupplierEvaluationAnswer.php:191
+#: src/SupplierEvaluationAnswer.php:193
 #, php-format
 msgid "Evidence for question %1$s of the evaluation \"%2$s\""
 msgstr ""
 
-#: src/SupplierEvaluationAnswer.php:208
+#: src/SupplierEvaluationAnswer.php:210
 #, php-format
 msgid "Evidence added to question %s"
 msgstr ""
@@ -23010,79 +23047,79 @@ msgstr ""
 msgid "Evidence file name"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:143
+#: src/SupplierEvaluationFile.php:149
 #, php-format
 msgid "Questionnaire file exported for the supplier: %1$s (fingerprint %2$s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:264
+#: src/SupplierEvaluationFile.php:271
 #, php-format
 msgid "Questionnaire file returned by the supplier for the evaluation \"%s\""
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:276
+#: src/SupplierEvaluationFile.php:283
 #, php-format
 msgid ""
 "Supplier file imported: %1$s (SHA-256 %2$s), %3$d answer(s), %4$d document(s)"
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:292 src/SupplierEvaluationLink.php:344
+#: src/SupplierEvaluationFile.php:299 src/SupplierEvaluationLink.php:344
 #, php-format
 msgid "The file is too large (at most %d MB)."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:296
+#: src/SupplierEvaluationFile.php:303
 msgid ""
 "The file is not a CSV text file: save the spreadsheet as CSV before "
 "importing it."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:300
+#: src/SupplierEvaluationFile.php:307
 msgid ""
 "This file is not a questionnaire exported from this plugin: its first line "
 "was changed or removed."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:304
+#: src/SupplierEvaluationFile.php:311
 msgid ""
 "This file was exported for another evaluation: import it in the evaluation "
 "it comes from."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:308
+#: src/SupplierEvaluationFile.php:315
 msgid ""
 "The questions of this file do not match those of the evaluation: export the "
 "questionnaire again."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:312
+#: src/SupplierEvaluationFile.php:319
 msgid ""
 "The header line or some columns are missing: keep the columns of the "
 "exported file."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:326
+#: src/SupplierEvaluationFile.php:333
 #, php-format
 msgid "Line %1$d: unknown question code \"%2$s\", line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:331
+#: src/SupplierEvaluationFile.php:338
 #, php-format
 msgid "Line %1$d: question %2$s appears twice, only the first line is kept."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:336
+#: src/SupplierEvaluationFile.php:343
 #, php-format
 msgid "Line %1$d: answer \"%2$s\" is not in the list, line ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:341
+#: src/SupplierEvaluationFile.php:348
 #, php-format
 msgid ""
 "Line %1$d: at most %2$d questions per file, the following lines were ignored."
 msgstr ""
 
-#: src/SupplierEvaluationFile.php:346
+#: src/SupplierEvaluationFile.php:353
 #, php-format
 msgid "Question %s is missing from the file: its answer does not change."
 msgstr ""
@@ -23128,6 +23165,15 @@ msgstr ""
 #: src/SupplierEvaluationLink.php:581
 #, php-format
 msgid "Supplier answers received by secure link discarded (draft %d)"
+msgstr ""
+
+#: src/SupplierQuestionnaireQuestion.php:177
+msgid "Yes / No"
+msgstr ""
+
+#: src/SupplierQuestionnaireQuestion.php:178
+#: templates/tabs/supplier_evaluation_answers.html.twig
+msgid "Compliance scale"
 msgstr ""
 
 #: src/SupplierQuestionnaireTemplate.php:52
@@ -23366,12 +23412,12 @@ msgid "Avoid"
 msgstr ""
 
 #: src/Traits/RiskAssessmentTrait.php:163
-#: src/Traits/RiskAssessmentTrait.php:322
+#: src/Traits/RiskAssessmentTrait.php:338
 msgid "Identified"
 msgstr ""
 
 #: src/Traits/RiskAssessmentTrait.php:166
-#: src/Traits/RiskAssessmentTrait.php:325
+#: src/Traits/RiskAssessmentTrait.php:341
 msgctxt "masculine"
 msgid "Closed"
 msgstr ""
@@ -31093,6 +31139,14 @@ msgstr ""
 
 #: templates/config/blocks/_risk_matrix.html.twig
 msgid ""
+"Probability and impact can each have from 3 to 5 levels, independently, for "
+"example 3 levels of probability and 5 levels of impact. The colours of the "
+"new grid are proposed from the score (probability rank x impact rank) and "
+"can be adjusted afterwards."
+msgstr ""
+
+#: templates/config/blocks/_risk_matrix.html.twig
+msgid ""
 "Rename the levels of probability and impact to match your method, for "
 "example the wording of your risk management policy. Leave a field empty to "
 "keep the default label, translated into the language of each user; a label "
@@ -31214,11 +31268,22 @@ msgid "Last read: %s"
 msgstr ""
 
 #: templates/config/blocks/_sentinelone.html.twig
+msgid "Minimum severity of the imported vulnerabilities"
+msgstr ""
+
+#: templates/config/blocks/_sentinelone.html.twig
 msgid "No error"
 msgstr ""
 
 #: templates/config/blocks/_sentinelone.html.twig
 msgid "Open the automatic action"
+msgstr ""
+
+#: templates/config/blocks/_sentinelone.html.twig
+msgid ""
+"Raising the threshold deletes nothing: the vulnerabilities already imported "
+"below it stay listed until SentinelOne stops reporting them. Lowering it "
+"imports the others at the next reading."
 msgstr ""
 
 #: templates/config/blocks/_sentinelone.html.twig
@@ -31245,6 +31310,13 @@ msgstr ""
 msgid ""
 "Turns on the automatic action that reads SentinelOne every hour. Off by "
 "default."
+msgstr ""
+
+#: templates/config/blocks/_sentinelone.html.twig
+msgid ""
+"Vulnerabilities below this severity are skipped before being saved, which "
+"keeps the database light on a large fleet. The severity given by SentinelOne "
+"is used, otherwise the CVSS score; a vulnerability without either is kept."
 msgstr ""
 
 #: templates/config/blocks/_sentinelone.html.twig
@@ -42782,6 +42854,16 @@ msgid "Risk appetite"
 msgstr ""
 
 #: templates/risk_form.html.twig
+msgid ""
+"Score = probability rank x impact rank, before the treatment (initial) and "
+"after it (residual)."
+msgstr ""
+
+#: templates/risk_form.html.twig
+msgid "Score before and after treatment"
+msgstr ""
+
+#: templates/risk_form.html.twig
 #, php-format
 msgid ""
 "The %1$d most recent alerts of the last %2$d days, read from the Wazuh "
@@ -42915,6 +42997,13 @@ msgstr ""
 msgid ""
 "Semicolon or comma separator, UTF-8 encoding (a file saved by Excel is also "
 "accepted). %d risks at most. French column names and values are accepted too."
+msgstr ""
+
+#: templates/risk_import.html.twig
+#, php-format
+msgid ""
+"The plugin matrix has %1$d levels of probability and %2$d levels of impact: "
+"a score on another scale is converted (the lowest and highest scores match)."
 msgstr ""
 
 #: templates/risk_import.html.twig
@@ -46273,6 +46362,13 @@ msgid ""
 msgstr ""
 
 #: templates/tabs/supplier_evaluation_answers.html.twig
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid ""
+"Compliance scale: Compliant = 1 point, Partially compliant = 0.5, Non-"
+"compliant = 0; \"Not applicable\" is left out of the score."
+msgstr ""
+
+#: templates/tabs/supplier_evaluation_answers.html.twig
 msgid "Detach"
 msgstr ""
 
@@ -46530,6 +46626,17 @@ msgstr ""
 #: templates/tabs/supplier_questionnaire.html.twig
 #, php-format
 msgid "Template: %1$s (version %2$d)"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid "Answer type"
+msgstr ""
+
+#: templates/tabs/supplier_questionnaire_questions.html.twig
+msgid ""
+"Answer type: \"Yes / No\", or the compliance scale (Compliant, Partially "
+"compliant, Non-compliant, Not applicable). On the scale, the expected answer "
+"is always \"Compliant\"."
 msgstr ""
 
 #: templates/tabs/supplier_questionnaire_questions.html.twig
