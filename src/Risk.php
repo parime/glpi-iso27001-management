@@ -24,6 +24,7 @@ use Dropdown;
 use Entity;
 use Glpi\Application\View\TemplateRenderer;
 use GlpiPlugin\Grcmanager\Compat\Base\RiskBase;
+use Html;
 use GlpiPlugin\Grcmanager\Services\Classification\ClassificationLevels;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidence;
 use GlpiPlugin\Grcmanager\Services\Control\WazuhEvidenceProvider;
@@ -33,6 +34,7 @@ use GlpiPlugin\Grcmanager\Services\Risk\RiskAppetiteRules;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskItemLinkNormalizer;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskMatrixConfig;
 use GlpiPlugin\Grcmanager\Services\Risk\RiskScale;
+use GlpiPlugin\Grcmanager\Services\Risk\TreatmentEffectivenessRules;
 use GlpiPlugin\Grcmanager\Services\Risk\TreatmentPlanRules;
 use GlpiPlugin\Grcmanager\Traits\RiskAssessmentTrait;
 use Log;
@@ -184,6 +186,20 @@ class Risk extends RiskBase
      */
     private function validateTreatmentPlanAndComputeRiskLevel(array $input)
     {
+        // Issue #1182 : une revue enregistrée ne change que la date de la prochaine revue ; rien
+        // d'autre n'est recalculé ni signé.
+        if (self::isReviewDateOnly($input)) {
+            $input['review_date'] = TreatmentEffectivenessRules::normalizeExpiry(
+                $input['review_date'] ?? null,
+                '0000-00-00'
+            );
+
+            return $input['review_date'] === null ? false : $input;
+        }
+        // Issue #1182 : risque cible, un niveau connu ou vide (non défini).
+        if (array_key_exists('target_level', $input)) {
+            $input['target_level'] = TreatmentEffectivenessRules::normalizeTarget($input['target_level']);
+        }
         $status    = (string) ($input['status'] ?? ($this->fields['status'] ?? 'identified'));
         $treatment = (string) ($input['treatment'] ?? ($this->fields['treatment'] ?? ''));
         $riskId    = (int) ($this->fields['id'] ?? 0);
@@ -213,6 +229,19 @@ class Risk extends RiskBase
         $input = $this->computeResidualLevel($input);
 
         return $this->applyAppetite($input);
+    }
+
+    /**
+     * Issue #1182 : mise à jour qui ne porte que sur la date de revue (revue enregistrée depuis
+     * l'onglet « Revues »).
+     *
+     * @param array<string, mixed> $input
+     */
+    private static function isReviewDateOnly(array $input): bool
+    {
+        $keys = array_diff(array_keys($input), ['id', '_no_message', '_no_history']);
+
+        return array_values($keys) === ['review_date'];
     }
 
     /**
@@ -302,18 +331,41 @@ class Risk extends RiskBase
      * modifier le registre) la signe : son identifiant et la date sont conservés. Rien ne change
      * tant que la catégorie n'a pas d'appétence (RiskAppetite).
      *
+     * Issue #1182 : toute acceptation peut aussi être signée (ou renouvelée) à la demande, case
+     * « sign_acceptance » du formulaire. Une signature n'est jamais celle du propriétaire du risque
+     * (séparation des tâches, contrôlée ici, côté serveur) et vaut jusqu'à une date d'expiration
+     * (saisie, sinon dans DEFAULT_VALIDITY_MONTHS mois) ; la signer de nouveau la renouvelle. La
+     * signature et son expiration ne viennent jamais de la requête.
+     *
      * @param array<string, mixed> $input
      * @return array<string, mixed>|false
      */
     private function applyAppetite(array $input)
     {
-        unset($input['users_id_acceptance'], $input['date_acceptance'], $input['is_direction_acceptance']);
+        $requested   = !empty($input['sign_acceptance']);
+        $expiryInput = $input['acceptance_expiry'] ?? null;
+        unset(
+            $input['users_id_acceptance'],
+            $input['date_acceptance'],
+            $input['is_direction_acceptance'],
+            $input['date_acceptance_expiry'],
+            $input['sign_acceptance'],
+            $input['acceptance_expiry']
+        );
         $category  = (string) ($input['category'] ?? ($this->fields['category'] ?? ''));
         $level     = self::appetiteLevel($input + $this->fields);
         $treatment = (string) ($input['treatment'] ?? ($this->fields['treatment'] ?? ''));
         $position  = RiskAppetite::positionFor($category, $level);
-        $alreadySigned = (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
-            && ($this->fields['treatment'] ?? '') === 'accept';
+        $owner     = (int) ($input['users_id'] ?? ($this->fields['users_id'] ?? 0));
+        $signedBy  = (int) ($this->fields['users_id_acceptance'] ?? 0);
+        // Issue #1182 : une signature du propriétaire du risque (devenu propriétaire après coup, ou
+        // signée avant ce contrôle) ne vaut pas acceptation.
+        $alreadySigned = $signedBy > 0
+            && ($this->fields['treatment'] ?? '') === 'accept'
+            && TreatmentEffectivenessRules::isSegregationRespected($signedBy, $owner);
+        $signer   = (int) Session::getLoginUserID();
+        $decision = RiskAppetiteRules::ACCEPT_NONE;
+        $resign   = false;
 
         if (RiskAppetiteRules::isFormalAcceptance($position, $treatment)) {
             $justification = trim((string) ($input['justification'] ?? ($this->fields['justification'] ?? '')));
@@ -329,7 +381,6 @@ class Risk extends RiskBase
 
                 return false;
             }
-            $signer = (int) Session::getLoginUserID();
             $directionId = RiskAppetite::getDirectionGroupId();
             $signedByDirection = (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1;
             $decision = RiskAppetiteRules::acceptance(
@@ -338,10 +389,11 @@ class Risk extends RiskBase
                 $directionId > 0,
                 RiskAppetite::isDirection($signer)
             );
-            // Une acceptation déjà signée reste valable ; seule la direction peut la reprendre à son compte.
-            $resign = !$alreadySigned
+            // Une acceptation déjà signée reste valable ; seule la direction peut la reprendre à son
+            // compte. Issue #1182 : un renouvellement demandé signe de nouveau.
+            $resign = !$alreadySigned || $requested
                 || ($decision === RiskAppetiteRules::ACCEPT_DIRECTION && !$signedByDirection);
-            if ($decision === RiskAppetiteRules::ACCEPT_REFUSED && !$alreadySigned) {
+            if ($decision === RiskAppetiteRules::ACCEPT_REFUSED && (!$alreadySigned || $requested)) {
                 Session::addMessageAfterRedirect(
                     sprintf(
                         __(
@@ -360,20 +412,48 @@ class Risk extends RiskBase
 
                 return false;
             }
-            if ($resign) {
-                $input['users_id_acceptance']     = $signer;
-                $input['date_acceptance']         = Session::getCurrentTime() ?? date('Y-m-d H:i:s');
-                $input['is_direction_acceptance'] = (int) ($decision === RiskAppetiteRules::ACCEPT_DIRECTION);
-                AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'success', [
-                    'category' => $category, 'level' => $level, 'position' => $position,
-                    'direction' => $decision === RiskAppetiteRules::ACCEPT_DIRECTION,
+        } elseif ($treatment === 'accept' && $requested) {
+            // Issue #1182 : acceptation dans l'appétence signée à la demande.
+            $decision = RiskAppetiteRules::ACCEPT_SIGN;
+            $resign = true;
+        }
+
+        if ($resign) {
+            // Issue #1182 : séparation des tâches, jamais le propriétaire du risque.
+            if (!TreatmentEffectivenessRules::isSegregationRespected($signer, $owner)) {
+                Session::addMessageAfterRedirect(
+                    __(
+                        'The owner of a risk cannot sign its acceptance (segregation of duties). Ask the risk '
+                            . 'manager, the risk committee or management to sign it.',
+                        'grcmanager'
+                    ),
+                    false,
+                    ERROR
+                );
+                AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'denied', [
+                    'category' => $category, 'level' => $level, 'position' => $position, 'reason' => 'segregation',
                 ]);
+
+                return false;
             }
-        } elseif ($treatment !== 'accept' && (int) ($this->fields['users_id_acceptance'] ?? 0) > 0) {
-            // Décision changée : la signature d'acceptation ne vaut plus.
+            $now = (string) (Session::getCurrentTime() ?? date('Y-m-d H:i:s'));
+            $today = substr($now, 0, 10);
+            $input['users_id_acceptance']     = $signer;
+            $input['date_acceptance']         = $now;
+            $input['is_direction_acceptance'] = (int) ($decision === RiskAppetiteRules::ACCEPT_DIRECTION);
+            $input['date_acceptance_expiry']  = TreatmentEffectivenessRules::normalizeExpiry($expiryInput, $today)
+                ?? TreatmentEffectivenessRules::defaultExpiry($today);
+            AuditLog::record('risk_acceptance', self::class, (int) ($this->fields['id'] ?? 0), 0, 'success', [
+                'category' => $category, 'level' => $level, 'position' => $position,
+                'direction' => $decision === RiskAppetiteRules::ACCEPT_DIRECTION,
+                'renewal'   => $signedBy > 0, 'expiry' => $input['date_acceptance_expiry'],
+            ]);
+        } elseif ($signedBy > 0 && ($treatment !== 'accept' || !$alreadySigned)) {
+            // Décision changée, ou signataire devenu propriétaire du risque : la signature ne vaut plus.
             $input['users_id_acceptance']     = 0;
             $input['date_acceptance']         = null;
             $input['is_direction_acceptance'] = 0;
+            $input['date_acceptance_expiry']  = null;
         }
 
         return $input;
@@ -527,6 +607,24 @@ class Risk extends RiskBase
             'massiveaction' => false,
         ];
 
+        // Issue #1182 : risque cible du traitement et fin de validité de l'acceptation signée.
+        $tab[] = [
+            'id'            => 19,
+            'table'         => $this->getTable(),
+            'field'         => 'target_level',
+            'name'          => __('Target risk level', 'grcmanager'),
+            'datatype'      => 'specific',
+            'massiveaction' => false,
+        ];
+        $tab[] = [
+            'id'            => 20,
+            'table'         => $this->getTable(),
+            'field'         => 'date_acceptance_expiry',
+            'name'          => __('Acceptance valid until', 'grcmanager'),
+            'datatype'      => 'date',
+            'massiveaction' => false,
+        ];
+
         // Issue #602 : référence du risque dans le registre tenu en tableur (clé de l'import CSV).
         $tab[] = [
             'id'       => 16,
@@ -579,6 +677,13 @@ class Risk extends RiskBase
                 ? htmlescape(__('To be assessed', 'grcmanager'))
                 : htmlescape(self::formatScore($value));
         }
+        // Issue #1182 : risque cible, vide tant qu'il n'est pas défini.
+        if ($field === 'target_level') {
+            $value = (string) ($values[$field] ?? '');
+
+            return $value === '' ? htmlescape(__('Not defined', 'grcmanager'))
+                : (string) self::commonValueToDisplay('risk_level', $value);
+        }
         // Issue #378 : risque résiduel, vide tant qu'il n'est pas évalué.
         $residual = self::RESIDUAL_FIELDS;
         if (isset($residual[$field])) {
@@ -618,7 +723,7 @@ class Risk extends RiskBase
         $options['name']    = $name;
         $options['value']   = $values[$field] ?? '';
 
-        $residual = self::RESIDUAL_FIELDS;
+        $residual = self::RESIDUAL_FIELDS + ['target_level' => 'risk_level'];
         $common = self::commonValueToSelect($residual[$field] ?? $field, $name, $options);
         if ($common !== null) {
             return $common;
@@ -637,6 +742,8 @@ class Risk extends RiskBase
         $this->addDefaultFormTab($tabs)
             // Issue #377 : processus métier menacés par ce risque (droit de la continuité requis).
             ->addStandardTab(BusinessProcessRisk::class, $tabs, $options)
+            // Issue #1182 : revues datées, avec l'instantané de la cotation et sa courbe.
+            ->addStandardTab(RiskReview::class, $tabs, $options)
             // Registre sensible : modifications historisées.
             ->addStandardTab(Log::class, $tabs, $options);
 
@@ -720,7 +827,7 @@ class Risk extends RiskBase
                 (int) ($this->fields['is_direction_acceptance'] ?? 0) === 1
             ),
             'indicators'          => $isNew ? [] : RiskIndicator::forRisk((int) $ID),
-        ]);
+        ] + $this->effectivenessFormData($isNew));
 
         // Issue #31 : le plan de traitement est un vrai enfant (ajout, statut, suppression par
         // ligne) qui poste vers front/risktreatmentaction.form.php, donc hors du formulaire du risque.
@@ -760,6 +867,39 @@ class Risk extends RiskBase
         }
 
         return true;
+    }
+
+    /**
+     * Issue #1182 : variables du gabarit pour le risque cible, l'efficacité du traitement et
+     * l'acceptation signée (expiration, renouvellement, séparation des tâches).
+     *
+     * @return array<string, mixed>
+     */
+    private function effectivenessFormData(bool $isNew): array
+    {
+        $today = date('Y-m-d');
+        $state = $isNew ? null : RiskEffectiveness::forRisk($this->fields)['state'];
+        $acceptance = $isNew ? TreatmentEffectivenessRules::ACCEPTANCE_NONE
+            : RiskEffectiveness::acceptanceState($this->fields, $today);
+        $expiry = (string) ($this->fields['date_acceptance_expiry'] ?? '');
+
+        return [
+            'target_levels'         => ['' => __('Not defined', 'grcmanager')] + self::getRiskLevels(),
+            'effectiveness'         => $state === null || $state === TreatmentEffectivenessRules::NO_TARGET
+                ? null : RiskEffectiveness::stateStyle($state),
+            'effectiveness_alert'   => $state !== null && TreatmentEffectivenessRules::isAlert($state),
+            'acceptance_badge'      => RiskEffectiveness::acceptanceStyle($acceptance),
+            'acceptance_renew'      => TreatmentEffectivenessRules::needsRenewal($acceptance),
+            'acceptance_expiry'     => $expiry !== '' ? Html::convDate($expiry) : '',
+            'acceptance_default'    => TreatmentEffectivenessRules::defaultExpiry($today),
+            'acceptance_signed'     => $acceptance !== TreatmentEffectivenessRules::ACCEPTANCE_NONE,
+            'acceptance_signed_by'  => (int) ($this->fields['users_id_acceptance'] ?? 0) > 0
+                ? getUserName((int) $this->fields['users_id_acceptance']) : '',
+            'acceptance_signed_on'  => (string) ($this->fields['date_acceptance'] ?? ''),
+            'is_risk_owner'         => !$isNew && (int) ($this->fields['users_id'] ?? 0) > 0
+                && (int) ($this->fields['users_id'] ?? 0) === (int) Session::getLoginUserID(),
+            'can_sign_acceptance'   => !$isNew && Session::haveRight(self::$rightname, UPDATE),
+        ];
     }
 
     /**
@@ -1186,6 +1326,8 @@ class Risk extends RiskBase
         );
         // Issue #377 : le risque n'est plus lié à aucun processus métier.
         $DB->delete(BusinessProcessRisk::getTable(), ['plugin_grcmanager_risks_id' => $this->fields['id']]);
+        // Issue #1182 : ni ses revues.
+        RiskReview::forgetRisk((int) $this->fields['id']);
         // Issue #608 : ni cité par le contexte de l'organisation.
         ContextItem::forgetLinkedItem($this);
     }

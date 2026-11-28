@@ -1,0 +1,55 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1182 : profils prêts à attribuer pour la gestion des risques. Création d'un clic (POST vers
+   front/config.php, jeton CSRF), réservée à qui peut créer des profils et a lui-même ces droits. #}
+<div class="card mb-3" id="grc-risk-profiles-config">
+  <div class="card-body">
+    <h4><i class="ti ti-users-group me-1"></i>{{ __('Ready-made risk management profiles', 'grcmanager') }}</h4>
+    <p class="text-muted">{{ __('Create the GLPI profiles below in one click, then assign them to people from their user record (Administration > Users, Authorizations tab). Each profile only gets what its role needs; none of them gives access to the assets. Segregation of duties does not depend on the profile: the owner of a risk can never sign its acceptance.', 'grcmanager') }}</p>
+    <div class="table-responsive">
+      <table class="table table-sm table-vcenter" id="grc-risk-profiles">
+        <thead>
+          <tr>
+            <th>{{ __('Profile') }}</th>
+            <th>{{ __('Role', 'grcmanager') }}</th>
+            <th>{{ __('Rights given', 'grcmanager') }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for profile in risk_profiles %}
+            <tr>
+              <td class="fw-bold">{{ profile.name }}</td>
+              <td>{{ profile.purpose }}</td>
+              <td><ul class="mb-0 ps-3">{% for right in profile.rights %}<li>{{ right }}</li>{% endfor %}</ul></td>
+              <td class="text-nowrap">
+                {% if profile.exists %}
+                  <span class="badge bg-green-lt"><i class="ti ti-check me-1"></i>{{ __('Created', 'grcmanager') }}</span>
+                {% elseif profile.can_create %}
+                  <form method="post" action="{{ config('root_doc') }}/plugins/grcmanager/front/config.php" class="d-inline">
+                    <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token }}">
+                    <button type="submit" name="create_risk_profile" value="{{ profile.key }}" class="btn btn-sm btn-primary"><i class="ti ti-plus me-1"></i>{{ __('Create the profile', 'grcmanager') }}</button>
+                  </form>
+                {% else %}
+                  <span class="text-secondary small">{{ __('Not created yet', 'grcmanager') }}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

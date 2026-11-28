@@ -1,0 +1,183 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Risk review"
+msgid_plural "Risk reviews"
+msgstr[0] "Riesame del rischio"
+msgstr[1] "Riesami del rischio"
+
+msgid "Risk reviews"
+msgstr "Riesami del rischio"
+
+msgid "Acceptance expired"
+msgstr "Accettazione scaduta"
+
+msgid "Acceptance not signed"
+msgstr "Accettazione non firmata"
+
+msgid "Acceptance of the risk"
+msgstr "Accettazione del rischio"
+
+msgid "Acceptance to renew soon"
+msgstr "Accettazione da rinnovare presto"
+
+msgid "Acceptance valid until"
+msgstr "Accettazione valida fino al"
+
+msgid "Acceptance valid"
+msgstr "Accettazione valida"
+
+msgid "Acceptance without expiry date"
+msgstr "Accettazione senza data di scadenza"
+
+msgid "Carries out treatment actions and updates their status."
+msgstr "Esegue le azioni di trattamento e ne aggiorna lo stato."
+
+msgid "Choose the target risk level that the treatment must reach."
+msgstr "Scegliete il livello di rischio obiettivo che il trattamento deve raggiungere."
+
+msgid "Create the GLPI profiles below in one click, then assign them to people from their user record (Administration > Users, Authorizations tab). Each profile only gets what its role needs; none of them gives access to the assets. Segregation of duties does not depend on the profile: the owner of a risk can never sign its acceptance."
+msgstr "Create con un clic i profili GLPI qui sotto, poi assegnateli alle persone dalla loro scheda utente (Amministrazione > Utenti, scheda Autorizzazioni). Ogni profilo riceve solo ciò di cui il suo ruolo ha bisogno; nessuno dà accesso agli asset. La separazione dei compiti non dipende dal profilo: il proprietario di un rischio non può mai firmarne l'accettazione."
+
+msgid "Create the profile"
+msgstr "Crea il profilo"
+
+msgid "Each review keeps a snapshot of the assessment of the risk on that day (levels and scores before and after treatment, target, treatment, progress of the plan) with the finding of the reviewer. The curve shows how the risk evolves from one review to the next: evidence that the treatment is effective (ISO/IEC 27001, clauses 6.1.3, 8.3 and 9.1). A recorded review is never modified."
+msgstr "Ogni riesame conserva un'istantanea della valutazione del rischio in quel giorno (livelli e punteggi prima e dopo il trattamento, obiettivo, trattamento, avanzamento del piano) con la constatazione di chi lo riesamina. La curva mostra l'evoluzione del rischio da un riesame all'altro: la prova che il trattamento è efficace (ISO/IEC 27001, punti 6.1.3, 8.3 e 9.1). Un riesame registrato non viene mai modificato."
+
+msgid "Effectiveness of the treatment"
+msgstr "Efficacia del trattamento"
+
+msgid "Every action of the treatment plan is completed but the residual risk is still above the target: the treatment was not effective enough. Add actions, or record a decision."
+msgstr "Tutte le azioni del piano di trattamento sono completate ma il rischio residuo resta sopra l'obiettivo: il trattamento non è stato abbastanza efficace. Aggiungete azioni o registrate una decisione."
+
+msgid "Every action of the treatment plan is completed: assess the residual probability and impact to check that the target is reached."
+msgstr "Tutte le azioni del piano di trattamento sono completate: valutate la probabilità e l'impatto residui per verificare che l'obiettivo sia raggiunto."
+
+msgid "Finding of the review"
+msgstr "Constatazione del riesame"
+
+msgid "GRC - Internal audit"
+msgstr "GRC - Audit interno"
+
+msgid "GRC - Risk committee"
+msgstr "GRC - Comitato rischi"
+
+msgid "GRC - Risk manager"
+msgstr "GRC - Risk manager"
+
+msgid "GRC - Risk owner"
+msgstr "GRC - Proprietario del rischio"
+
+msgid "GRC - Treatment action owner"
+msgstr "GRC - Responsabile del trattamento"
+
+msgid "Initial risk level"
+msgstr "Livello di rischio iniziale"
+
+msgid "Initial risk"
+msgstr "Rischio iniziale"
+
+msgid "Keeps the risk register: creates, assesses, reviews and closes risks, sets the appetite and signs acceptances of risks they do not own."
+msgstr "Tiene il registro dei rischi: crea, valuta, riesamina e chiude i rischi, fissa la propensione e firma l'accettazione dei rischi di cui non è proprietario."
+
+msgid "Level that the treatment must reach. Once every action of the treatment plan is completed, an alert is raised if the residual risk is still above it."
+msgstr "Livello che il trattamento deve raggiungere. Una volta completate tutte le azioni del piano di trattamento, viene segnalato un avviso se il rischio residuo resta al di sopra."
+
+msgid "Next review date"
+msgstr "Data del prossimo riesame"
+
+msgid "No review recorded yet."
+msgstr "Nessun riesame registrato per ora."
+
+msgid "No right on assets, assistance or administration"
+msgstr "Nessun diritto su asset, assistenza o amministrazione"
+
+msgid "No treatment plan"
+msgstr "Nessun piano di trattamento"
+
+msgid "Not created yet"
+msgstr "Non ancora creato"
+
+msgid "Plan completed, residual risk to assess"
+msgstr "Piano completato, rischio residuo da valutare"
+
+msgid "Plan completed, target not reached"
+msgstr "Piano completato, obiettivo non raggiunto"
+
+msgid "Profile created. Assign it to people from their user record."
+msgstr "Profilo creato. Assegnatelo alle persone dalla loro scheda utente."
+
+msgid "Reads the risk register, its reviews and the ISMS to audit them. Read only, without any access to the assets."
+msgstr "Legge il registro dei rischi, i suoi riesami e l'SGSI per verificarli. Sola lettura, senza alcun accesso agli asset."
+
+msgid "Ready-made risk management profiles"
+msgstr "Profili di gestione dei rischi pronti da assegnare"
+
+msgid "Renew the acceptance (sign again)"
+msgstr "Rinnova l'accettazione (firma di nuovo)"
+
+msgid "Review recorded."
+msgstr "Riesame registrato."
+
+msgid "Reviews the register and signs or renews the acceptance of residual risks owned by others."
+msgstr "Riesamina il registro e firma o rinnova l'accettazione dei rischi residui di cui altri sono proprietari."
+
+msgid "Rights given"
+msgstr "Diritti assegnati"
+
+msgid "Risk acceptances to renew"
+msgstr "Accettazioni del rischio da rinnovare"
+
+msgid "Sign the acceptance"
+msgstr "Firma l'accettazione"
+
+msgid "Signed by %1$s on %2$s"
+msgstr "Firmata da %1$s il %2$s"
+
+msgid "Target reached"
+msgstr "Obiettivo raggiunto"
+
+msgid "Target risk level"
+msgstr "Livello di rischio obiettivo"
+
+msgid "The acceptance is signed by a person other than the owner of the risk (segregation of duties), and is valid until its expiry date."
+msgstr "L'accettazione è firmata da una persona diversa dal proprietario del rischio (separazione dei compiti) ed è valida fino alla sua data di scadenza."
+
+msgid "The current assessment of the risk is saved with the review. Assess the residual risk on the form first if it has changed."
+msgstr "La valutazione attuale del rischio viene salvata con il riesame. Valutate prima il rischio residuo nella scheda se è cambiato."
+
+msgid "The owner of a risk cannot sign its acceptance (segregation of duties). Ask the risk manager, the risk committee or management to sign it."
+msgstr "Il proprietario di un rischio non può firmarne l'accettazione (separazione dei compiti). Chiedete al risk manager, al comitato rischi o alla direzione di firmarla."
+
+msgid "The profile was not created: you need at least the rights it gives."
+msgstr "Il profilo non è stato creato: servono almeno i diritti che assegna."
+
+msgid "The target is checked for a risk to mitigate or to transfer once its treatment plan is completed."
+msgstr "L'obiettivo viene verificato per un rischio da ridurre o da trasferire, una volta completato il suo piano di trattamento."
+
+msgid "The target will be checked once every action of the plan is completed."
+msgstr "L'obiettivo sarà verificato una volta completate tutte le azioni del piano."
+
+msgid "The treatment plan is completed and the residual risk is at or below the target."
+msgstr "Il piano di trattamento è completato e il rischio residuo è al livello dell'obiettivo o al di sotto."
+
+msgid "This acceptance must be renewed: review the risk, then sign it again."
+msgstr "Questa accettazione deve essere rinnovata: riesaminate il rischio, poi firmatela di nuovo."
+
+msgid "Treatment plan in progress"
+msgstr "Piano di trattamento in corso"
+
+msgid "Treatment plans completed without reaching the target"
+msgstr "Piani di trattamento completati senza raggiungere l'obiettivo"
+
+msgid "Treats the risks entrusted to them: updates the assessment, the treatment plan and records reviews. Never signs the acceptance of their own risks."
+msgstr "Tratta i rischi che gli sono affidati: aggiorna la valutazione e il piano di trattamento e registra i riesami. Non firma mai l'accettazione dei propri rischi."
+
+msgid "You are the owner of this risk: you cannot sign its acceptance."
+msgstr "Siete il proprietario di questo rischio: non potete firmarne l'accettazione."
+
+msgid "You cannot review this risk."
+msgstr "Non potete riesaminare questo rischio."

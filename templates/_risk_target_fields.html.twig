@@ -1,0 +1,28 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1182 : risque cible du traitement et efficacité constatée une fois le plan terminé, inclus par
+   risk_form.html.twig (dans le formulaire du risque). #}
+{% import 'components/form/fields_macros.html.twig' as fields %}
+{% import '@grcmanager/_hint.html.twig' as hints %}
+{{ fields.dropdownArrayField('target_level', item.fields['target_level']|default(''), target_levels, __('Target risk level', 'grcmanager'), {
+   'add_field_html': hints.hint(__('Level that the treatment must reach. Once every action of the treatment plan is completed, an alert is raised if the residual risk is still above it.', 'grcmanager')),
+}) }}
+{% if effectiveness %}
+   {% set effectiveness_html %}
+      <span class="badge {{ effectiveness.class }}" id="grc-risk-effectiveness"><i class="ti {{ effectiveness.icon }} me-1"></i>{{ effectiveness.label }}</span>
+      <div class="form-hint {{ effectiveness_alert ? 'text-danger' : '' }}">{{ effectiveness.help }}</div>
+   {% endset %}
+   {{ fields.htmlField('', effectiveness_html, __('Effectiveness of the treatment', 'grcmanager')) }}
+{% endif %}

@@ -1,0 +1,103 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1182 : onglet « Revues » d'un risque (6.1.3, 8.3 et 9.1). Chaque revue garde un instantané de
+   la cotation ; la courbe montre l'évolution des niveaux initial et résiduel, avec le risque cible. Le
+   formulaire poste vers front/riskreview.form.php (droit de modifier le risque). #}
+<div class="card" id="grc-risk-reviews">
+   <div class="card-header">
+      <h3 class="card-title"><i class="ti ti-calendar-stats me-2"></i>{{ __('Risk reviews', 'grcmanager') }}</h3>
+   </div>
+   <div class="card-body">
+      <div class="alert alert-info mb-3">
+         <h4 class="alert-title"><i class="ti ti-help-circle me-1"></i>{{ __('What is this tab for?', 'grcmanager') }}</h4>
+         <div class="text-secondary">{{ __('Each review keeps a snapshot of the assessment of the risk on that day (levels and scores before and after treatment, target, treatment, progress of the plan) with the finding of the reviewer. The curve shows how the risk evolves from one review to the next: evidence that the treatment is effective (ISO/IEC 27001, clauses 6.1.3, 8.3 and 9.1). A recorded review is never modified.', 'grcmanager') }}</div>
+      </div>
+
+      <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
+         <div><span class="text-secondary small d-block">{{ __('Effectiveness of the treatment', 'grcmanager') }}</span>
+            <span class="badge {{ effectiveness.class }}" id="grc-risk-effectiveness-state"><i class="ti {{ effectiveness.icon }} me-1"></i>{{ effectiveness.label }}</span>
+         </div>
+      </div>
+      <p class="{{ alert ? 'text-danger' : 'text-secondary' }} small">{{ effectiveness.help }}</p>
+
+      {% if can_record %}
+         <form method="post" action="{{ action }}" class="mb-3" id="grc-risk-review-form">
+            <input type="hidden" name="plugin_grcmanager_risks_id" value="{{ risk_id }}">
+            <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
+            <div class="row g-2 align-items-end">
+               <div class="col-md-7">
+                  <label class="form-label" for="grc-review-comment">{{ __('Finding of the review', 'grcmanager') }}</label>
+                  <textarea id="grc-review-comment" name="comment" rows="2" class="form-control" maxlength="10000"></textarea>
+               </div>
+               <div class="col-md-3">
+                  <label class="form-label" for="grc-review-next">{{ __('Next review date', 'grcmanager') }}</label>
+                  <input type="date" id="grc-review-next" name="next_review_date" class="form-control" value="{{ review_date }}">
+               </div>
+               <div class="col-md-2">
+                  <button type="submit" name="add" value="1" class="btn btn-primary w-100"><i class="ti ti-camera me-1"></i>{{ __('Record the review', 'grcmanager') }}</button>
+               </div>
+            </div>
+            <small class="form-hint d-block mt-1">{{ __('The current assessment of the risk is saved with the review. Assess the residual risk on the form first if it has changed.', 'grcmanager') }}</small>
+         </form>
+      {% endif %}
+
+      {% if reviews is empty %}
+         <p class="text-secondary mb-0"><i class="ti ti-info-circle me-1"></i>{{ __('No review recorded yet.', 'grcmanager') }}</p>
+      {% else %}
+         {% if chart %}
+            {% include '@grcmanager/_risk_review_chart.html.twig' with {chart_id: 'grc-risk-review-chart', chart: chart, height: 260} only %}
+         {% endif %}
+         <div class="table-responsive mt-3">
+            <table class="table table-sm table-vcenter card-table" id="grc-risk-review-list">
+               <thead>
+                  <tr>
+                     <th>{{ __('Date') }}</th>
+                     <th>{{ __('Reviewer', 'grcmanager') }}</th>
+                     <th>{{ __('Initial risk', 'grcmanager') }}</th>
+                     <th>{{ __('Residual risk', 'grcmanager') }}</th>
+                     <th>{{ __('Target risk level', 'grcmanager') }}</th>
+                     <th>{{ __('Treatment', 'grcmanager') }}</th>
+                     <th>{{ __('Actions completed', 'grcmanager') }}</th>
+                     <th>{{ __('Effectiveness of the treatment', 'grcmanager') }}</th>
+                     <th>{{ __('Finding of the review', 'grcmanager') }}</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for review in reviews %}
+                     <tr>
+                        <td class="text-nowrap">{{ review.date }}</td>
+                        <td>{{ review.user }}</td>
+                        <td class="text-nowrap">{% if review.initial_level %}{% include '@grcmanager/_badge.html.twig' with review.initial_level only %}{% endif %} <span class="text-secondary small">{{ __('score %s', 'grcmanager')|format(review.initial_score) }}</span></td>
+                        <td class="text-nowrap">
+                           {% if review.residual_level %}
+                              {% include '@grcmanager/_badge.html.twig' with review.residual_level only %}
+                              {% if review.residual_score is not null %}<span class="text-secondary small">{{ __('score %s', 'grcmanager')|format(review.residual_score) }}</span>{% endif %}
+                           {% else %}
+                              <span class="text-secondary">{{ __('To be assessed', 'grcmanager') }}</span>
+                           {% endif %}
+                        </td>
+                        <td class="text-nowrap">{% if review.target_level %}{% include '@grcmanager/_badge.html.twig' with review.target_level only %}{% else %}<span class="text-secondary">-</span>{% endif %}</td>
+                        <td>{{ review.treatment }}</td>
+                        <td class="text-nowrap">{{ review.actions }}</td>
+                        <td>{% if review.effectiveness %}<span class="badge {{ review.effectiveness.class }}"><i class="ti {{ review.effectiveness.icon }} me-1"></i>{{ review.effectiveness.label }}</span>{% endif %}</td>
+                        <td>{{ review.comment|nl2br }}</td>
+                     </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      {% endif %}
+   </div>
+</div>

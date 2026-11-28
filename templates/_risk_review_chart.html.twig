@@ -1,0 +1,58 @@
+{#
+ # -------------------------------------------------------------------------
+ # GLPI GRC Manager plugin for GLPI
+ # Copyright (C) 2026 Vincent GUILLOTTE
+ # https://github.com/parime/glpi-grc-manager
+ # -------------------------------------------------------------------------
+ # LICENSE
+ #
+ # This program is free software: you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+ # the Free Software Foundation, either version 3 of the License, or
+ # (at your option) any later version. See LICENSE for the full text.
+ # -------------------------------------------------------------------------
+ #}
+{# Issue #1182 : courbe des revues d'un risque (niveau initial et niveau résiduel à chaque revue, risque
+   cible en ligne horizontale), avec echarts fourni par GLPI, comme la trajectoire projetée (#871).
+   Variables : chart_id, chart (voir RiskReview::displayTabContentForItem()), height. #}
+<div id="{{ chart_id }}" class="grc-risk-review-chart" style="height: {{ height|default(260) }}px;"
+     data-chart="{{ chart|json_encode }}"></div>
+<script>
+   (function () {
+      const node = document.getElementById('{{ chart_id }}');
+      if (!node) {
+         return;
+      }
+      const draw = function () {
+         const data = JSON.parse(node.dataset.chart);
+         window.echarts.init(node).setOption({
+            grid: {left: 80, right: 30, top: 30, bottom: 60},
+            legend: {bottom: 0, data: [data.initial_label, data.residual_label]},
+            tooltip: {trigger: 'axis'},
+            xAxis: {type: 'time'},
+            yAxis: {type: 'category', data: data.levels, boundaryGap: false},
+            series: [
+               {
+                  name: data.initial_label, type: 'line', symbolSize: 7,
+                  lineStyle: {type: 'dashed', width: 2}, itemStyle: {color: '#206bc4'}, data: data.initial,
+                  markLine: data.target === null ? undefined : {symbol: 'none', silent: true,
+                     data: [{yAxis: data.target, lineStyle: {color: '#2fb344', type: 'dotted', width: 2},
+                        label: {formatter: data.target_label, position: 'insideEndTop'}}]}
+               },
+               {
+                  name: data.residual_label, type: 'line', symbolSize: 7,
+                  lineStyle: {width: 3}, itemStyle: {color: '#d63939'}, data: data.residual
+               }
+            ]
+         });
+      };
+      if (typeof window.echarts === 'undefined') {
+         const script = document.createElement('script');
+         script.src = '{{ config('root_doc') }}/lib/echarts.min.js';
+         script.onload = draw;
+         document.head.appendChild(script);
+      } else {
+         draw();
+      }
+   })();
+</script>
